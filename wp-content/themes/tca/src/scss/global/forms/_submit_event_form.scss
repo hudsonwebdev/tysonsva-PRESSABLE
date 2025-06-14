@@ -1,0 +1,55 @@
+.form-page{
+
+     
+        
+        .gform_wrapper{ 
+
+            max-width:1024px !important;
+        @media(min-width:$breakpoint-large){
+            margin:0 auto;
+        }
+
+            label,legend{
+                color:$steel-blue;
+                font-size:1.14rem;
+            }
+            input,textarea{
+                border:1px solid $steel-blue !important;
+            }
+
+            input[type="file"]{
+                border:none;
+            }
+
+
+
+            #gform_submit_button_2{
+                
+                background-color:$white;
+                border:1px solid $steel-blue; 
+                border-radius:0;
+                color:$steel-blue; 
+                    &::before{
+                        position:absolute;
+                        background-color:$steel-blue;
+                        background-repeat:no-repeat;
+                        border-left:1px solid $steel-blue;
+                
+                }
+                &::after{
+                    transform-origin: 5px 13px;
+                    content:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M5.94485 0.665675L0.185033 0.665675L6.90617 7.38681L0.185033 14.1079L5.9446 14.1082L12.666 7.38681L5.94485 0.665675Z" fill="%23FFFFFF"/></svg>')
+                }
+
+                &:hover{
+                    background-color:$steel-blue;
+                    color:$white;
+                }
+
+            }
+
+
+
+        }
+
+}

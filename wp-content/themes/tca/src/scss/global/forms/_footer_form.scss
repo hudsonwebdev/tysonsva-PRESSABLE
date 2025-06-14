@@ -1,0 +1,53 @@
+.footer-form-wrap{
+    .gform_wrapper{
+       color:$white;
+       label,legend{
+            color:$white;
+            font-size:1.14rem;
+        }
+        input[type="email"],
+        input[type="text"]{
+            background:transparent !important;
+            border:1px solid $white !important;
+            color:$white !important;
+
+        }
+
+        input[type="checkbox"]{
+            background:$white !important;
+            border:1px solid $white !important;
+           
+        }
+
+        input[type="submit"]{
+            background:transparent ;
+            border:1px solid $white;
+            color:$white ;
+            font-size:14px;
+            &:hover{
+                background: $white;
+                color:$steel-blue ;
+              }
+        }
+        
+        .validation_message,
+        .gform_submission_error{
+            color:$white !important;
+            
+        }
+
+        .gform-icon{
+            color:$white !important;
+            border:$white 1px solid !important;
+        }
+        
+        .gform_validation_errors,
+        .gform_validation_errors:focus{
+            border:$white 1px solid !important;
+        }
+
+        
+    }
+     
+}
+

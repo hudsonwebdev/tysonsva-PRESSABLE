@@ -1,0 +1,19 @@
+@import "main";
+
+.wp-block {
+    max-width: 100%;
+}
+
+/* Block in edit mode (higher z-index) */
+.editor-styles-wrapper .block-editor-block-list__layout .is-selected {
+    position: relative; /* Make sure the element is positioned */
+    z-index: 9999; /* Ensure it's above the preview block */
+}
+
+/* Block in preview mode (lower z-index) */
+.editor-styles-wrapper .block-editor-block-list__layout .wp-block {
+    position: relative; /* Ensure positioning is available for z-index */
+    z-index: 1; /* Set a lower z-index for blocks in preview mode */
+}
+
+

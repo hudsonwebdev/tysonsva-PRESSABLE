@@ -1,0 +1,52 @@
+.grid-header{
+
+  
+    padding-bottom: clamp(30px,5%,40px);
+
+&.showunderline{
+    
+    border-bottom:6px solid $light-blue;
+    margin-bottom:clamp(30px,5%,50px);
+}
+
+h2{
+    margin:0;
+}
+
+
+    @media(min-width:$breakpoint-large){
+        display:flex;
+        justify-content: space-between;
+    }
+ 
+
+    .left-header{
+        text-align: left;
+        width:100%;
+    }
+    .right-header{
+        
+        text-align: left;
+        margin-top:15px;
+        @media(min-width:$breakpoint-large){
+            text-align: right;
+            margin-top:50px;
+            display:flex;
+            vertical-align: middle;
+            flex-direction:column;
+            justify-content: center;
+            margin-top:0;
+        }
+    }
+    .section-title{
+        color: $steel-blue;
+    }
+
+}
+
+.grid-content{
+
+    display:block;
+}
+
+

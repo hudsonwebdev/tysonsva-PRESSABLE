@@ -1,0 +1,23 @@
+#searchform{
+    width:100%;
+    margin:0 auto;
+    .custom-form{
+        display:flex;
+       
+        width:100%;
+        border:none;
+        .searchbox{
+            width:95%;
+        }
+        input[type="text"]{
+            width:100% !important;
+        }
+        button{
+            width:40px;
+            background-color:transparent;
+            border:none;
+            cursor:pointer;
+        }
+    }
+
+}

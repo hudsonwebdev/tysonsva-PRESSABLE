@@ -1,0 +1,304 @@
+/*
+
+All font reference
+silkablac
+silkabold
+silkaextra_light
+silkalight
+silkamedium
+silkaregular
+silkasemibold
+silkathin
+
+silkablack_italic
+silkabold_italic
+silkaextra_light_italic
+silkalight_italic
+silkamedium_italic
+'silkaregular_italic
+silkasemibold_italic
+silkathin_italic
+*/
+
+/*
+  Silka Font Weight Mapping:
+
+  100  - Silka Thin
+  200  - Silka Extra Light
+  300  - Silka Light
+  400  - Silka Regular
+  500  - Silka Medium
+  600  - Silka Semi-Bold
+  700  - Silka Bold
+  800  - Silka Extra Bold
+  900  - Silka Black
+*/
+
+
+
+
+$fontThin :  'silkathin', 'Arial', 'Helvetica', sans-serif;
+$fontRegular :  'silkaregular', 'Arial', 'Helvetica', sans-serif;
+$fontMedium :  'silkamedium', 'Arial', 'Helvetica', sans-serif;
+$fontSemiBold:  'silkasemibold', 'Arial', 'Helvetica', sans-serif;
+$fontBold :  'silkabold', 'Arial', 'Helvetica', sans-serif;
+$fontBlack :  'silkablack', 'Arial', 'Helvetica', sans-serif;
+
+
+html{
+  font-size: 20px;
+}
+
+
+body{
+ font-family: $fontRegular;
+ color:$dark-purple;
+
+}
+
+
+h1,h2,h3,h4{
+  font-family:$fontBold;
+  color:$steel-blue;
+}
+
+
+@mixin shareTitle(){
+
+    font-family: $fontSemiBold;
+    font-size: 30px;
+    line-height: 120%;
+
+  
+}
+
+
+
+strong{
+  font-weight:bold;
+  font-family: $fontSemiBold;
+}
+
+@mixin bannerTitle(){
+color: $white;
+font-family: $fontBold;
+font-size: clamp(34px,10vw,113px);
+line-height: 107.965%;
+letter-spacing: -2.26px;
+}
+
+
+@mixin superSmallText(){
+font-size: 12px;
+line-height:183.333%;
+letter-spacing: -0.24px;
+}
+
+@mixin smallText(){
+
+  font-family: $fontRegular;
+ font-size: 14px;
+line-height: 214.286%;
+  
+}
+
+
+
+@mixin smallLinks(){
+
+  font-family: $fontSemiBold;
+  font-size: 14px;
+  line-height: 285.714%;
+  
+}
+
+@mixin formPageTitle(){
+  font-family: $fontBold;
+  line-height: 83.784%;
+  letter-spacing: -3.7px;
+  font-size:clamp(34px,14vw,105px);
+}
+
+@mixin hugeText(){
+  font-family: $fontBold;
+  line-height: 83.784%;
+  letter-spacing: -3.7px;
+  font-size:clamp(83px,14vw,185px);
+}
+
+@mixin largeParagraph(){
+  font-family:$fontSemiBold;
+  font-size: clamp(28px,4vw,40px);
+  line-height:  147.727%;
+  
+}
+@mixin mediumTitle(){
+font-family:$fontBold;
+font-size: clamp(50px,4vw,75px);
+line-height: 83.333%;
+letter-spacing: -1.5px;
+}
+
+
+
+@mixin sectionPostTitle(){
+  font-family: $fontBold;
+  font-size: clamp(26px,4vw,52px);
+  line-height: 134.615%;
+  letter-spacing: -1.04px;
+}
+
+@mixin eventTitle(){
+font-family:$fontBold;
+font-size: 45px;
+line-height:  133.333%;
+letter-spacing: -0.9px;
+}
+
+@mixin cardHeaderInfo(){
+  font-family:$fontSemiBold;
+  font-size: 12px;
+  @media(min-width:$breakpoint-small){
+    font-size: 14px;
+  }
+}
+
+
+@mixin cardTitles(){
+  font-family:$fontSemiBold;
+  font-size:clamp(22px,4vw,26px);
+  line-height: 125%;
+}
+@mixin cardTitlesSmall(){
+  font-family:$fontSemiBold;
+  font-size: 25px;
+  line-height: 34px; /* 136% */
+  letter-spacing: -0.5px;
+}
+
+@mixin largeMenuTitles(){
+  font-family:$fontSemiBold;
+  font-size: 36px;
+  line-height: 40px; /* 111.111% */
+}
+
+
+@mixin eventListTitle(){
+  font-family:$fontSemiBold;
+  font-size: 36px;
+  line-height: 40px; /* 111.111% */
+}
+
+
+
+@mixin subMenuTitles{
+  font-family:$fontSemiBold;
+  font-size: 20px;
+  line-height: 150%;
+}
+
+
+
+@mixin lightFont(){
+  font-family:$fontRegular;
+  font-size: 19px;
+  line-height: 40px; /* 210.526% */
+}
+
+
+@mixin featuredEventNavLabel(){
+  font-family:$fontMedium;
+  font-size: 19px;
+  font-style: normal;
+  line-height: 31.948px; /* 168.148% */
+}
+
+
+@mixin columnTitle(){
+  color: #FFF;
+  font-family: $fontSemiBold;
+  font-size: clamp(28px,3vw,40px);
+line-height:120%;
+}
+
+
+
+.lead{
+  color:$steel-blue;
+  font-size: clamp(24px,2vw,28px);
+  font-weight: 400;
+  line-height: 42px; /* 150% */
+  font-family: $fontRegular;
+}
+
+
+.large-lead{
+  color:$steel-blue;
+  @include largeParagraph();
+}
+
+
+
+.small-text{
+  @include smallText();
+}
+
+.medium-text{
+  font-size:clamp(18px,5vw,41px);
+}
+
+.medium-large-text{
+  font-size:clamp(30px,2vw,61px);
+}
+
+.small-title{
+  font-size:clamp(24px,2vw,28px);
+  font-family: $fontRegular;
+}
+
+.medium-title{
+  font-size:clamp(34px,2vw,52px);
+  font-family: $fontBold;
+}
+
+.large-title{
+  font-size:clamp(34px,6vw,74px);
+  font-family: $fontBold;
+}
+
+.large-text{
+  font-size:clamp(34px,4vw,113px);
+}
+
+
+@mixin sectionTitle(){
+  font-family: $fontBold;
+  font-size: 66px;
+  line-height: normal;
+  letter-spacing: -1.32px;
+}
+
+.section-title{
+  @include sectionTitle();
+
+  &.title-size-small{
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -0.72px;
+  }
+
+  &.title-size-medium{
+    font-size: clamp(34px,4vw,66px);
+    letter-spacing: -1.32px;
+  }
+
+  &.title-size-large{
+
+    font-size:clamp(58px,8vw,122px);
+    font-style: normal;
+    letter-spacing: -2.44px;
+  }
+
+
+}
+

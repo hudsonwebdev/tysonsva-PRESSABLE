@@ -1,0 +1,108 @@
+article.post{
+    position: relative;
+.single-header-background{
+    position:absolute;
+    width:100%;
+    height:40vh;
+    min-height:520px;
+    overflow:hidden;
+    background-color: $steel-blue;
+    z-index:0;
+    .inner{
+        position:relative;
+        
+        svg{
+            position:absolute;
+            right:-20%;
+            top:0;
+            width:70%;
+        }
+    }
+}
+
+    .entry-header{
+        position:relative;
+        z-index:1;
+
+        .card-header{ 
+            display: flex;
+            color:$white;
+            border-bottom:1px solid $white;
+            position: relative;
+            z-index:0;
+            margin:8% 0 44px 0;
+            font-size:.7rem;
+            .card-type{
+
+                border-left:1px solid $white;
+                text-transform: uppercase;
+                font-family: $fontSemiBold;
+                padding:0 15px 5px 15px
+
+            }
+            .card-date{
+                border-left:1px solid $white;
+                text-transform: uppercase;
+                padding:0 15px 5px 15px;
+                font-family: $fontSemiBold;
+            }
+         
+
+        }
+
+
+        .entry-title{
+            color:$white;
+            margin-bottom:77px;
+            @include sectionPostTitle();
+        }
+
+        .featured-image-wrap{
+
+            max-width:1124px;
+            margin:0 auto;
+
+            .single-featured-image{
+                width:100%;
+                padding-bottom: 60.37%;
+                position:relative;
+                
+                
+                .post-thumbnail{
+                        
+                        picture,img{
+                            position:absolute;
+                            width:100%;
+                            height:100%;
+                            object-fit:cover;
+                        }
+                }
+            }
+
+            .single-featured-caption{
+                font-size:14px;
+                padding:15px;
+                @media(min-width:$breakpoint-medium){
+                    width:50%;
+                }
+            }
+        }
+    }
+
+
+    .entry-content{
+        padding:80px 0;
+        color: $dark-purple;
+        font-family: $fontRegular;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 32px;
+
+        .share{
+            .share-title{
+                color:$steel-blue;
+            }
+        }
+    }
+}

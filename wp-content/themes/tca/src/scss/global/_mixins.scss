@@ -1,0 +1,115 @@
+@mixin animate($what,$speed,$style,$delay){
+	-webkit-transition: $what $speed $style;
+    -moz-transition: $what $speed $style;
+    -o-transition: $what $speed $style;
+    transition: $what $speed $style;
+    transition-delay: $delay;
+}
+
+@mixin centerIt(){
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+}
+
+
+@mixin verticalPadSmall(){
+  padding:clamp(10px,5%,40px) 0;
+}
+
+
+@mixin makeButton(){
+    white-space:nowrap;
+    display:inline-block;
+    border-radius:0;
+    background-color:transparent;
+    border:1px solid $white;
+    position:relative;
+    padding:0 60px 0 20px;
+    height:38px;
+    width: auto;
+    line-height:38px;
+    flex-grow:0;
+    text-transform: uppercase;
+    @include animate(all,.5s,ease-in-out,0);
+    overflow:hidden;
+    font-family: $fontSemiBold;
+    font-size:16px;
+    @media(min-width:$breakpoint-small){
+      font-size:18px;
+    }
+    
+    border:1px solid $steel-blue;
+    z-index: 0;
+    &::before{
+        position:absolute;
+        right:0;
+        top:0;
+        content:'';
+        background-color:$steel-blue;
+        background-repeat:no-repeat;
+        background-position:center center;
+        width:38px;
+        height:38px;
+        padding:0;
+        z-index:1;
+        border-left:1px solid $white;
+        @include animate(all,.5s,ease-in-out,0);
+        z-index: -1;
+    }
+    &::after{
+        position:absolute;
+        right:0;
+        top:0px;
+        text-align: center;
+        content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M5.94485 0.665675L0.185033 0.665675L6.90617 7.38681L0.185033 14.1079L5.9446 14.1082L12.666 7.38681L5.94485 0.665675Z" fill="white"/></svg>');
+        svg{
+          border:1px solid red;
+        }
+        width:38px;
+        height:38px;
+        @include animate(all,.5s,ease-in-out,0);
+       
+        z-index:1;
+        transform-origin: center center;
+    }
+
+    &:hover{
+         &::after{
+            transform: rotate(-45deg);
+         }
+         &::before{
+          width:100%;
+          border-left:transparent;
+         
+       }
+         text-decoration:none;
+         background-color:$steel-blue;
+         color:$white;
+         cursor:pointer;
+    }
+
+    
+}
+
+@mixin ticketsButton(){
+  font-family: $fontSemiBold;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 27.475px; /* 171.721% */
+  letter-spacing: 0.16px;
+}
+
+
+@mixin skewedRectangle(){
+
+
+ 
+}
+
+
+@mixin coverImage(){
+  
+}

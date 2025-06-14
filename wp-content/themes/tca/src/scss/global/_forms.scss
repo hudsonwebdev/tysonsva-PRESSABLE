@@ -1,0 +1,82 @@
+@import "forms/footer_form";
+@import "forms/submit_event_form";
+@import "forms/tysons_teammates";
+@import "forms/search_form";
+
+
+.tca-input{
+    width: auto; /* Adjust width as needed */
+    height: 40px; /* Set height to 40px */
+    padding: 0 50px 0 15px; /* Add 5px padding on left and right */
+    font-size: 16px; /* Set font size (optional) */
+    text-align: left;
+    border: 1px solid $steel-blue; /* Light border */
+    border-radius: 0px; /* Rounded corners */
+    background-color: #fff; /* White background */
+    appearance: none; /* Remove default dropdown arrow */
+    -webkit-appearance: none; /* Safari */
+    -moz-appearance: none; /* Firefox */
+    
+ 
+  }
+
+  .tca-select{
+    width: auto; /* Adjust width as needed */
+    height: 40px; /* Set height to 40px */
+    padding: 0 50px 0 15px; /* Add 5px padding on left and right */
+    font-size: 16px; /* Set font size (optional) */
+    text-align: left;
+    border: 1px solid $steel-blue; /* Light border */
+    border-radius: 0px; /* Rounded corners */
+    background-color: #fff; /* White background */
+    appearance: none; /* Remove default dropdown arrow */
+    -webkit-appearance: none; /* Safari */
+    -moz-appearance: none; /* Firefox */
+    cursor: pointer; /* Change cursor on hover */
+    position: relative; /* For positioning the custom arrow */
+    background-image:url('data:image/svg+xml, <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.7615 3.5265L7.7615 0.514512L4.28564 4.02921L0.809786 0.514512L0.809655 3.52637L4.28564 7.0412L7.7615 3.5265Z" fill="%230072DA"/></svg>');
+    background-repeat: no-repeat;
+    background-size: 15px 12px;;
+    background-position: 90% 13px;
+ 
+  }
+.dl-form{
+  .gform-body{
+
+    label{
+      color:$steel-blue;
+      font-size:16px;
+      font-family: $fontSemiBold !important;
+    }
+    input{
+      border:1px solid $steel-blue !important;
+      border-radius: 0;
+      height:40px !important;
+    }
+  }
+}
+
+#gform_submit_button_1,
+#gform_submit_button_2,
+#gform_submit_button_3,
+#gform_submit_button_4,
+#gform_submit_button_5,
+#gform_submit_button_6,
+#gform_submit_button_7,
+#gform_submit_button_8{
+  
+    border:1px solid $steel-blue;
+    color:$steel-blue;
+    background:$white;
+    border-radius:0 ;
+    font-size:18px ;
+    font-family: $fontSemiBold ;
+    text-transform: uppercase ;
+    &:hover{
+      background: $steel-blue;
+      color:$white;
+    }
+            
+ }
+
+ 

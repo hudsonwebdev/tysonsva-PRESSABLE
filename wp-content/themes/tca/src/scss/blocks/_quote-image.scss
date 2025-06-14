@@ -1,0 +1,133 @@
+.quote-image{
+
+    .image-text-wrap{
+
+        @media(min-width:$breakpoint-large){
+            height:40vh;
+           
+        }
+        &:after{
+            content:'';
+            display:block;
+            clear:both;
+            
+        }
+        
+
+     
+            .image-side{
+                width:100%;
+                @media(min-width:$breakpoint-large){
+                    position:absolute;
+                    left:0;
+                    right:auto;
+                    top:40%;
+                    width:40%;
+                    z-index:5;
+                }
+            }
+            .quote-side{
+                
+                width:100%;
+                @media(min-width:$breakpoint-large){
+                    position:absolute;
+                    width:70%;
+                    right:0;
+                    left:auto;
+                    
+                }
+
+                
+                
+                .inner{
+                 
+                    color:$white;
+                    background-color:$steel-blue;
+                    background-image:url('../../img/image_quote_backer.png');
+                    background-size:cover;
+                    overflow:hidden;
+                    font-size: 28px;
+                    font-style: normal;
+                    line-height: 42px; /* 150% */
+                    
+                    @media(min-width:$breakpoint-large){
+                    padding:80px 80px 80px 280px;
+                    }
+                    
+                    .attribute{
+                        display:flex;
+                        .line{
+                            width:40%;
+                            &:before{
+                                content:'';
+                                display:block;
+                                background:$sky-blue;
+                                width:100%;
+                                height:1px;
+                                margin:15px 15px 0 0;
+                            }
+                        }
+                        .at{
+                            padding-left:18px;
+                        }
+
+                    }
+
+                    .quote-text{
+                        position:relative;
+                        z-index:3;
+                        width:100%;
+                        &:before{
+                            color: var(--Sky-Blue, #9ADCF7);
+                            content:'"';
+                            font-size: 160px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 120px; /* 75% */
+                            display:inline;
+                            float:left;
+                            margin-left:-60px;
+                        }
+                    }
+                    
+                }
+            }
+        
+
+        &.image-position-right{
+            .image-side{
+
+                @media(min-width:$breakpoint-large){
+                right:0;
+                left:auto;
+                order:2;
+                padding:0 0 0 55px;
+
+                .caption{
+                    float:right;
+                }
+            }
+            }
+            .quote-side{
+                left:0;
+                right:auto;
+                .inner{
+                    padding:50px 50px 50px 80px;
+                    @media(min-width:$breakpoint-large){
+                        padding:80px 200px 80px 130px;
+                    }
+
+                    .attribute{
+                        font-size: 20px;
+                        line-height: 28px; /* 140% */
+                    }
+                }
+            }
+        }
+
+    }
+
+    
+
+
+}

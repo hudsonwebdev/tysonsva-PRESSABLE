@@ -1,0 +1,33 @@
+@import "news_card";
+@import "single_news";
+
+.news-page{
+    padding-bottom:200px;
+    position:relative;
+   
+    .filter-bar{
+        .filter-toggle{
+            margin:45px 0 5px 0;
+        }
+        .post-filter{
+           
+            top:110px;
+        }
+    }
+
+
+
+
+
+
+}
+
+.news-container{
+
+    display: flex;
+    flex-wrap: wrap;
+    margin:0 -15px;
+
+
+
+}

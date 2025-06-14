@@ -1,0 +1,37 @@
+.tysons-teammates{
+
+
+    .gform_wrapper{
+        background-color:$steel-blue;
+        background-image:url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8" standalone="no"%3F><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" height="100%" viewBox="0 0 1314 1315" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g transform="matrix(1,0,0,1,594.177,-0.642578)"><path d="M215.774,0.643L0.123,216.294L503.409,216.294L503.409,719.58L719.06,503.948L719.06,0.643L215.774,0.643Z" style="fill:rgb(53,85,239);fill-rule:nonzero;"/></g><g transform="matrix(1,0,0,1,274.859,214.992)"><path d="M-274.859,595.454L-274.859,1099.22L320.123,503.912L320.123,0.15L-274.859,595.454Z" style="fill:rgb(53,86,241);fill-rule:nonzero;"/></g></svg>');
+        background-size:100%;
+        background-position:center 15%;
+        background-repeat:no-repeat;
+        padding:10%;
+        
+        h1,h2,h3,h4,h5,h6,p,label,li,legend,.gfield_description{
+            color:$white;
+        }   
+        @media(min-width:$breakpoint-large){
+            
+            .gform_heading{
+                width:80%;
+            }
+
+            #gform_3{
+                width:80%;
+            }
+        }
+
+        input{
+            background:transparent;
+            border:1px solid $white;
+
+        }
+
+     
+
+        
+
+    }
+}

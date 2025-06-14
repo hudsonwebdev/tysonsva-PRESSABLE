@@ -1,0 +1,56 @@
+.image-banner{
+
+    position:relative;
+  
+
+    .chevron{
+        position:absolute;
+        top:-20px;
+        right:-20px;
+        z-index:5;
+        width:clamp(150px,25%,400px);
+        svg{
+            width:100%;
+        }
+    }
+
+    .image-wrap{
+ 
+            position: relative;
+            width: 100%;
+            height:clamp(490px,40vh,704px);
+            @media(min-width:$breakpoint-medium){
+                min-height:704px;
+            }
+            img{
+                position: absolute;
+                width:100%;
+                height: 100%;
+                object-fit: cover;
+            }
+   
+    }
+
+    .text-overlay{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        .inner{
+            position:relative;
+            color:$white;
+            display: flex;
+            flex-direction:column;
+            height:100%;
+            justify-content: flex-start;
+            padding-top:10%;
+            padding-left: 5%;
+
+            h1.banner-title{
+                @include bannerTitle();
+            }
+        }
+    }
+
+}

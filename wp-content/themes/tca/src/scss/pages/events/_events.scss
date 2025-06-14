@@ -1,0 +1,28 @@
+
+@import "events_list_view";
+@import "events_grid_view";
+@import "events_featured_slides";
+@import "events_filters";
+@import "single_event";
+
+.event-list{
+ 
+
+.event-page-header{
+  display:flex;
+  justify-content:space-between;
+  .event-list-title{
+    @include eventListTitle();
+    color:$steel-blue;
+    margin:0;
+  }
+  .event-button{
+    .tca-button{
+      background-color:$green;
+      color:$white;
+    }
+  }
+
+}
+
+}

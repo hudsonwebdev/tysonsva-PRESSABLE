@@ -1,0 +1,42 @@
+/*COULD ADD STRAIGHT CSS HERE */
+
+
+.logo-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.logo-list .logo {
+	width:  16.6667%;
+	display: flex;
+	justify-content: center;
+	align-items: center
+}
+
+.logo-list.col-2 .logo {
+	width:  50%;
+}
+
+.logo-list.col-3 .logo {
+	width:  33.3333%;
+}
+
+.logo-list.col-4 .logo {
+	width:  25%;
+}
+
+.logo-list.col-5 .logo {
+	width:  20%;
+}
+
+.logo-list.col-6 .logo {
+	width:  16.6667%;
+}
+
+
+.logo-list .logo  img {
+	overflow: hidden;
+	margin:  55px;
+}
+

@@ -1,0 +1,278 @@
+.custom-acf-block-neighborhood-map{
+
+	padding:0;
+
+
+	.neighborhood-map-wrap{
+
+		position: relative;
+
+
+		.neighborhood-map{
+
+			position:relative;
+
+			z-index:0;
+
+			height:90vh;
+
+
+		}
+
+			.neighborhood-cards{
+
+				box-sizing: border-box;
+
+				position:absolute;
+
+				top: 15px;
+
+				left:15px;
+
+		
+
+				right:15px;
+
+				z-index:1;
+
+				background:$color3;
+
+				
+				@include media-breakpoint-up(md) { 
+
+					display:block;
+
+					top:30px;
+
+					left: 30px;
+
+					width:33.333333%;
+
+				}
+
+				.close-cards{
+
+					
+					position:absolute;
+
+					right:15px;
+
+					top:10px;
+
+					color:$white;
+
+					z-index: 1000;
+
+					cursor:pointer;
+
+					@include media-breakpoint-up(md) { 
+
+						display:none;
+
+					}
+
+				}
+
+
+
+				.carousel-item{
+
+					padding:15px;
+
+					text-align:center;
+
+					color:$white;
+
+				
+					.image-wrap{
+
+						
+
+						position: relative;
+
+						overflow:hidden;
+
+						width:50%;
+
+						display: inline-block;
+
+						margin:30px auto 0 auto;
+
+						
+
+						@include media-breakpoint-up(md) { 
+
+							margin-top:0;
+
+							width:100%;
+
+
+
+						}
+
+
+						.spacer{
+
+							padding-bottom:50%;
+
+							width:100%;
+
+						}
+
+						img{
+
+						  position: absolute;
+						  top: 50%;
+						  left: 50%;
+						  transform: translate(-50%, -50%);
+
+						}
+
+					}
+
+					h2{
+
+
+						font-size:$goal25;
+
+						white-space:nowrap;
+
+						margin:0 0 10px 0;
+
+
+						@include media-breakpoint-up(xl) { 
+
+							font-size:$goal31;
+
+						}
+
+						
+	
+
+					}
+
+					p{
+
+						padding:0 10px;
+
+						font-size:$goal25;
+
+						@include media-breakpoint-up(md) { 
+
+							font-size:$goal16;
+
+						}
+
+					}
+
+
+				}
+
+				
+
+				#neighborhood-carousel{
+
+				
+
+					
+
+					.neighborhood-text{
+
+						padding:15px 30px;
+
+						
+					}
+
+
+
+
+					.slick-arrow{
+
+						  cursor: pointer;
+
+						  position: absolute;
+
+						  top: 70%;
+
+						  transform: translateY(-50%);
+
+						  z-index:1000;
+
+						  color:$white;
+
+						  font-size:1rem;
+
+						}
+
+						.slick-prev{
+
+							left:15px;
+
+						}
+
+						.slick-next{
+
+							right:15px;
+
+						}
+
+			
+					.slick-dots {
+
+						display: flex;
+
+						justify-content: center;
+
+						position: absolute;
+
+						bottom:5px;
+
+						left: 50%;
+
+						transform: translate(-50%, 0);
+
+
+						margin: 0;
+						padding: 1rem 0;
+						
+						list-style-type: none;
+						
+							li {
+								margin: 0 0.25rem;
+							}
+						
+							button {
+								display: block;
+								width: 10px;
+								height: 10px;
+								padding: 0;
+								
+								border: none;
+								border-radius: 100%;
+								background-color: $white;
+								opacity:.5;
+								
+								text-indent: -9999px;
+							}
+						
+							li.slick-active button {
+								opacity:1;
+							}
+						
+					}
+
+
+
+				}
+
+				
+			}
+
+
+
+	}
+	
+}
+
+
+

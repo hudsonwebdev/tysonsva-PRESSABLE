@@ -1,0 +1,171 @@
+.datahub-grid{
+
+ 
+    margin:0 -15px;
+    .datahub-card{
+        
+        width:50%;
+        display:flex;
+        flex-direction:column;
+
+        .datahub-card-header{
+            width:100%;
+            
+            display:table;
+            padding:0 15px;
+            .label{
+                
+                color: $white;;
+                font-family: $fontMedium;
+                font-size: 16px;
+                text-transform:uppercase;
+                padding:0 15px 10px 15px;
+                display:table-cell;
+                width:auto;
+                white-space: nowrap;
+            }
+
+            .lablecolor{
+                background-color:$steel-blue;
+                width:100%;
+                display:table-cell;
+            }
+
+
+        }
+
+        
+
+        .inner{
+                background-color:$steel-blue;
+                color:$white;
+                position:relative;
+                padding:0 30px 30px 30px;
+                margin:0 15px 15px 15px;
+           
+                color:$white;
+                height:100%;
+                display:flex;
+                flex-direction:column;
+                height:100%;
+                justify-content: space-between;
+
+            
+            
+            h3{
+                font-family: $fontBold;
+                font-size: clamp(44px,4vw,84px);
+                line-height: 142.857%;
+                letter-spacing: -1.68px;
+                color:$white;
+                margin:15% 0 0 0;
+            }
+            hr{
+                height:1px;
+                background-color:$dark-purple;
+            
+            }
+            p.small-text{
+                color: $white;
+                font-family: $fontMedium;
+                font-size: 14px;
+                line-height:normal;
+                font-style: normal;
+                margin:0 0 15px 0;
+                @media(min-width:$breakpoint-small){
+                    font-size:28px;
+                    line-height:142.857%;
+                }
+                
+            }
+
+            .source{
+              
+                
+                font-style: normal;
+                font-family: $fontMedium;
+                
+                margin-bottom:0;
+                font-size:12px;
+                @media(min-width:$breakpoint-small){
+                    font-size:17px;
+                    line-height: 235.294%;
+                    
+                }
+            }
+        }
+
+
+    }
+
+    
+
+    &.column-count-1{
+        .datahub-card{
+            width:50%;
+            @media(min-width:$breakpoint-large){
+                width:100%;
+            }
+            
+        }
+    }
+    &.column-count-2{
+        .datahub-card{
+            width:50%;
+            @media(min-width:$breakpoint-large){
+                width:50%;
+            }
+           
+        }
+    }
+
+    &.column-count-3{
+        .datahub-card{
+            width:100%;
+            @media(min-width:$breakpoint-large){
+                width:33.33333%;
+            }
+           
+        }
+
+    }
+
+    &.column-count-4{
+        .datahub-card{
+            width:50%;
+            @media(min-width:$breakpoint-medium){
+                width:50%;
+            }
+            @media(min-width:$breakpoint-large){
+                width:25%;
+            }
+        }
+
+    }
+
+    &.column-count-5{
+        .datahub-card{
+            width:100%;
+            @media(min-width:$breakpoint-medium){
+                width:50%;
+            }
+            @media(min-width:$breakpoint-large){
+                width:20%;
+            }
+        }
+
+    }
+
+    &.column-count-6{
+        .datahub-card{
+            width:100%;
+            @media(min-width:$breakpoint-medium){
+                width:33.333333%;
+            }
+            @media(min-width:$breakpoint-large){
+                width:16.66666666%;
+            }
+        }
+
+    }
+}

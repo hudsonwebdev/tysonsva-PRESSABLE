@@ -1,0 +1,127 @@
+
+    .header-wrap{
+      
+
+    width:100%;
+    z-index:1000;
+    background: $white;
+    position:relative;  
+    z-index: 5000;
+    
+  
+ 
+    @media (min-width: $breakpoint-large) {
+        position:fixed;
+    }
+
+     @include animate(all,1s,ease-in-out,0);
+    .header-container{
+        z-index:1000;
+        .site-header{
+
+            @media (min-width: #{$breakpoint-large + 1px}) {
+                display:flex;
+                justify-content:space-between;
+
+                .mobile-toggle{
+                    display:none;
+                }
+            }
+
+            .mobile-header{
+                @media (max-width: $breakpoint-large) {
+                
+                z-index:100;
+                width:100%;
+                left:0;
+                top:0;
+                background:$white;
+                padding:15px;
+                
+                }
+                .site-branding{
+                    width:138px;
+                    display:flex;
+                    padding:15px 0;
+                    flex-direction:column;
+                    justify-content: center;
+                    float:left;
+                    height:100%;
+                    svg{
+                        fill:$steel-blue;
+                        @include animate(all,1s,ease-in-out,0);
+                    }
+                }
+
+                .mobile-toggle{
+                    float:right;
+                    margin:15px 0;
+                    background:none;
+                    border:none;
+                    width:40px;
+                    height:40px;
+                    padding:0;
+                    cursor:pointer;
+                    div{
+                       
+                        span{
+                            display:block;
+                            height:5px;
+                            width:100%;
+                            background:$steel-blue;
+                            margin:5px 0;
+                            @include animate(all,.5s,ease-in-out,0);
+
+                        }
+                    }
+
+                   
+                    
+                }
+                &:after{
+                    content:'';
+                    display:block;
+                    clear:both;
+                    width:100%;
+                }
+
+            }
+
+            
+
+
+
+
+        }
+    }
+}
+@media (min-width: $breakpoint-large) {
+.header-wrap.scrolled{
+    background:$dark-purple;
+    color:$white;
+    a{
+        color:$white;
+    }
+
+    .top-level.active > a{
+        color:$dark-purple;
+       
+    }
+
+    .contact-link a{
+        color:$white;
+        border:1px solid $white;
+    }
+
+    .header-container{
+    .site-header{
+        .site-branding{
+                    
+                    svg{
+                        fill:$white;
+                    }
+                }
+            }
+        }
+    }
+}

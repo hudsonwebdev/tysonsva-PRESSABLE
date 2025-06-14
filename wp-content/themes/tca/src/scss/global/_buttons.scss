@@ -1,0 +1,62 @@
+.tca-button{
+
+   @include makeButton();
+  
+ 
+}
+
+.tca-button.white{
+    border:1px solid $white;
+    color:$white;
+    
+    &::after{
+        content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M5.94485 0.665675L0.185033 0.665675L6.90617 7.38681L0.185033 14.1079L5.9446 14.1082L12.666 7.38681L5.94485 0.665675Z" fill="%230072DA"/></svg>');
+     
+     }
+     &::before{
+      background:$white;
+   }
+
+   &:hover{
+    background-color:$white;
+    color:$steel-blue;
+   }
+  
+
+}
+
+.tca-button.dark{
+    border:1px solid $white;
+    color:$white;
+    background-color:$dark-purple;
+    &::after{
+        content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M5.94485 0.665675L0.185033 0.665675L6.90617 7.38681L0.185033 14.1079L5.9446 14.1082L12.666 7.38681L5.94485 0.665675Z" fill="%230072DA"/></svg>');
+     
+     }
+     &::before{
+      background:$white;
+   }
+
+   &:hover{
+    background-color:$white;
+    color:$steel-blue;
+   }
+}
+
+.tca-button.green{
+   border:1px solid $white;
+   color:$white;
+   background-color:$green;
+   &::after{
+       content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M5.94485 0.665675L0.185033 0.665675L6.90617 7.38681L0.185033 14.1079L5.9446 14.1082L12.666 7.38681L5.94485 0.665675Z" fill="%23ffffff"/></svg>');
+    
+    }
+    &::before{
+      background-color:$steel-blue;
+  }
+
+  &:hover{
+   background-color:$steel-blue;
+   color:$white;
+  }
+}

@@ -1,0 +1,59 @@
+.page-template-template-form{
+    background: linear-gradient(180deg, #FFF -82.98%, #C5EAFA -3.25%, #FFF 68.31%);
+     .form-backer{
+            position:absolute;
+            top:0;
+            left:0;
+            z-index:0;
+        }
+    .form-page{
+        position:relative;
+        overflow:hidden;
+        padding:10% 0;
+        
+       
+        .form-section{
+            position: relative;
+            z-index:1;
+            h1{
+                color:$steel-blue;
+                @include formPageTitle();
+                
+                font-weight: 700;
+                line-height: 122px; /* 116.19% */
+                letter-spacing: -2.1px;
+            }
+
+            .form-layout{
+
+
+                @media(min-width:$breakpoint-medium){
+
+                    display:flex;
+
+                    .guidelines{
+                        width:25%;
+                        padding-right:10%;
+                        h2{
+                            color:$steel-blue;
+                            font-size: 30px;
+                            font-style: normal;
+                            font-weight: 600;
+                            line-height: 36px; /* 120% */
+                        }
+                    }
+
+                    .form-side{
+                        width:100%;
+                        
+                        .gform_wrapper{
+                            margin:0 auto;
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+}

@@ -1,0 +1,125 @@
+.cta-blocks{
+    
+    display: flex;
+    flex-wrap:wrap;
+    margin:0 -15px;
+    align-items: stretch;
+    .cta-block{
+        
+        padding:15px;
+        display:flex;
+        flex-direction:column;
+        justify-content: flex-end;
+        align-items: stretch;
+        z-index:1;
+        width:100%;
+        .chev-up{
+            width:164px;
+            height:165px;
+            position: absolute;
+            top:-15px;
+            right:-15px;
+            z-index:2;
+            
+            svg{
+                @include animate(all,.5s,ease-in-out,0);
+                fill:$steel-blue;
+                width:164px;
+                height:165px;
+            }
+        }
+
+        @media(min-width:$breakpoint-medium){
+            width:50%;
+        }
+        .inner{
+            padding:75px 25px 25px 25px;
+            @media(min-width:$breakpoint-medium){
+            padding:160px 50px 50px 50px;
+            }
+            position:relative;
+            background:$dark-purple;
+            cursor:pointer;
+            height:100%;
+            display:flex;
+            flex-direction: column;
+            align-items: stretch;
+            background: linear-gradient(108deg, rgba(0, 114, 218, 0.00) 11.48%, rgba(23, 48, 132, 0.45) 91.37%), linear-gradient(67deg, rgba(56, 93, 255, 0.35) 16.28%, rgba(197, 234, 250, 0.35) 96.54%);
+                box-shadow: 0px 4px 25px 0px rgba(33, 13, 86, 0.25);
+            .blue-curtain{
+                width:10px;
+                height:100%;
+                background:$steel-blue;
+                left:0;
+                top:0;
+                position:absolute;
+                @include animate(all,.5s,ease-in-out,0);
+            }
+
+            .tint{
+               background: linear-gradient(to bottom, rgba(105, 130, 238, 0.35), rgba(56, 93, 255, 0.35));
+
+                width:100%;
+                height:100%;
+                left:0;
+                top:0;
+                position:absolute;
+                z-index:1;
+
+                
+            }
+
+            .background-image{
+                left:0;
+                top:0;
+                position:absolute;
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                z-index:0;
+            }
+
+            .text-area{
+                position: relative;
+                z-index:3;
+                .big-text{
+                    color:$white;
+                    font-family: $fontBold;
+                    font-size: clamp(48px,6vw,96px);
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: -1.92px;
+                    margin:0;
+                    @media(min-width:$breakpoint-medium){
+                        width:70%;
+                    }
+                }
+
+                .small-text{
+                    color:$white;
+                    font-family: $fontMedium;
+                    
+                    font-size: clamp(22px,2vw,44px);
+                    font-style: normal;
+                    line-height:  normal;
+                    letter-spacing: -0.88px;
+                    margin:0 0 30px 0;
+                    @media(min-width:$breakpoint-medium){
+                        width:70%;
+                        margin:0 0 50px 0;
+                    }
+                }
+            }
+
+            &:hover{
+                .blue-curtain{
+                    width:100%;
+                    opacity:.5;
+                }
+
+                
+            }
+            
+        }
+    }
+}

@@ -1,0 +1,193 @@
+.featured-slides{
+
+    position:relative;
+    margin-bottom:30px;
+   
+    height:70vh;
+    @media(min-width:$breakpoint-medium){
+    min-height:800px;
+    max-height: 820px;
+    }
+
+    .featured-slide-trigger{
+        cursor:pointer;
+    }
+
+    
+        .featured-slide{
+
+            position:absolute;
+            width:100%;
+            height:100%;
+            opacity:0;
+            @include animate(all,.5s,ease-in-out,0);
+            &.active{
+                opacity:1;
+            }
+            
+            
+
+            .featured-image{
+                position:relative;
+                padding-bottom:75%;
+                @media(min-width:$breakpoint-medium){
+                    position:absolute;
+                    padding:0;
+                    width:100%;
+                    height:100%;
+                }
+            }
+            .featured-image picture,
+            .featured-image img{
+               
+                position:absolute;
+                z-index:1;
+                width:100%;
+                height:100%;
+                object-fit: cover;
+                
+               
+            }
+
+            .event-info{
+               
+                bottom:0;
+                left:0;
+                z-index:5;
+                background:$steel-blue;
+                padding: 15px;
+                max-width:100%;
+                @media(min-width:$breakpoint-medium){
+                    position: absolute;
+                    width:400px;
+                }
+                
+                color:$white;
+                .inner{
+                    position:relative;
+                    .event-nav{
+                        margin:0;
+                        padding:10px;
+                        z-index:6;
+                        display:flex;
+                        border-bottom:1px solid $white;
+                        margin-bottom:15px;
+                        li{
+                            list-style:none;
+                            color:$white;
+                            &.title{
+                               
+                                padding:5px 5px 5px 0;
+                                @include featuredEventNavLabel();
+                            }
+                            
+                           a{
+                                
+                                color:$white;
+                                width:36px;
+                                height:36px;
+                                line-height:36px;
+                                border:1px solid $white;
+                                margin:5px;
+                                text-align: center;
+                                font-weight: bold;
+                                display:block;
+
+                                &.active{
+                                    background:$white;
+                                    color:$steel-blue;
+                                }
+                            }
+                        }
+                    }
+                    .tca-card-info{
+                        background-color:$steel-blue;
+                        z-index:5;
+                    
+                        @include animate(background-color,.5s,ease-in-out,0);
+            
+                        .inner{
+                            position:relative; 
+                     
+            
+            
+            
+                        .card-header{ 
+                            display: flex;
+                            color:$white;
+                            border-bottom:none;
+                            position: relative;
+                            z-index:0;
+                            margin:0;
+                            font-size:14px;
+                            @include cardHeaderInfo();
+                            .card-type{
+            
+                                border-left:1px solid $white;
+                                text-transform: uppercase;
+                                padding:0 15px 15px 15px;
+            
+                            }
+                            .card-date{
+                                border-left:1px solid $white;
+                                text-transform: uppercase;
+                                padding:0 0 15px 15px;
+                            }
+                           
+            
+                        }
+                                        
+                        .card-title{
+                                background:$white;
+                                padding:15px;
+                                display:flex;
+                                flex-direction: column;
+                                justify-content: flex-start;
+                                position:relative;
+                                overflow:hidden;
+                                min-height:160px;
+                                
+                                h4{
+                                    margin:0;
+                                    color:$steel-blue;
+                                    
+                                    @include cardTitles();
+                                    a{
+                                        text-decoration:none;
+                                    }
+                                }
+                                .location-info{
+                                    margin:15px 0;
+                                    
+                                    .pin{
+                                        
+                                        padding:0 10px 10px 0;
+                                        svg{
+                                            fill:$steel-blue;
+                                        }
+                                    }
+            
+                                }
+            
+            
+                                .tcaeventlogo{
+                                    position:absolute;
+                                    right:15px;
+                                    bottom:15px;
+                                }
+                                
+                            }
+                        }
+            
+                    }
+            
+            
+                    }
+
+                }
+            }
+        
+        }
+
+
+ 

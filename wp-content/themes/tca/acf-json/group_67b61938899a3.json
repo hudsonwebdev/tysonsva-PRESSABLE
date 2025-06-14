@@ -1,0 +1,127 @@
+{
+    "key": "group_67b61938899a3",
+    "title": "Block: Multi Section Wrap",
+    "fields": [
+        {
+            "key": "field_67b61938bf65e",
+            "label": "Page Slant",
+            "name": "page_slant",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": [
+                "none",
+                "Blue Slant On Left",
+                "Blue and White Slants Centered"
+            ],
+            "default_value": 0,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "allow_custom": 0,
+            "search_placeholder": ""
+        },
+        {
+            "key": "field_67b619798a358",
+            "label": "Background Color",
+            "name": "background_color",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "transparent": "Transparent",
+                "white": "White",
+                "page-background": "Page Background",
+                "blue": "Blue",
+                "light-blue": "Light Blue",
+                "light-light-blue": "Light Light Blue",
+                "dark-purple": "Dark Purple",
+                "purple": "Purple",
+                "gray": "Gray",
+                "sky-blue": "Sky Blue",
+                "green": "Green",
+                "gradient-1": "Gradient One",
+                "gradient-2": "Gradient Two",
+                "gradient-3": "Gradient Three",
+                "gradient-4": "Gradient Four",
+                "gradient-5": "Gradient Five"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 1,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "allow_custom": 0,
+            "search_placeholder": ""
+        },
+        {
+            "key": "field_67b61b23d440a",
+            "label": "Parallax Speed",
+            "name": "parallax_speed",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": -2000,
+            "max": 2000,
+            "allow_in_bindings": 0,
+            "step": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "tca\/multi-section-wrap"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": "",
+    "modified": 1742739258
+}

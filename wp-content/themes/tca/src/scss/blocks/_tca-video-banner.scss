@@ -1,0 +1,111 @@
+.video-banner{
+
+  
+    position:relative;
+        z-index:0;
+    
+    .tca-video-wrap{
+        position:relative;
+        z-index:0;
+        overflow:hidden;
+        height:60vh;
+        min-height:700px;
+        max-height:868px;
+        @media (min-width: $breakpoint-medium) {
+            min-height:868px;
+        }
+        
+
+        
+        .overlay{
+            position: absolute;
+            z-index:4;
+            height:100%;
+            top:0;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left:clamp(15px,15%,111px);
+
+            .inner{
+                @media (min-width: $breakpoint-medium) {
+                display:table;
+                
+                }
+
+                .left{
+                    
+                    
+
+                    @media (min-width: $breakpoint-medium) {
+                        display:table-cell;
+                        
+                    }
+                    h1{
+                        color:$white;
+                        @include  hugeText();
+                    }
+
+                }
+                
+                .right{
+
+                    
+                    @media (min-width: $breakpoint-medium) {
+                    display:table-cell;
+                    vertical-align: bottom;
+                    position:relative;
+                    }
+                    
+                    
+                    p{
+                       
+                        color:$white;
+                        font-size:clamp(20px,4vw,32px);
+                        font-family: $fontMedium;
+                        line-height: 125%;
+                        letter-spacing: -0.64px;
+                        max-width:200px;
+                        padding-top:10px;
+                        @media (min-width: $breakpoint-medium) {
+                            position:absolute;
+                            bottom:clamp(-25%,-15%,-5%);
+                            left:-25px;
+                            max-width:300px;
+                            }
+                    }
+                    
+                    
+                }
+            }
+            
+
+        }
+
+ 
+
+        .video-tint{
+            position: absolute;
+            width:100%;
+            height:100%;
+            z-index:3;
+            left:0;
+            top:0;
+            background: rgb(58,107,254);
+            background: linear-gradient(65deg, rgba(58,107,254,0.2) 0%, rgba(0,106,255,0.55) 100%);
+        }
+        .tca-video-background{
+            position:absolute;
+            width:100%;
+            height:100%;
+            min-height:500px;
+            object-fit:cover;
+            z-index:0;
+            top:0;
+
+            
+        }
+    }
+   
+
+}
