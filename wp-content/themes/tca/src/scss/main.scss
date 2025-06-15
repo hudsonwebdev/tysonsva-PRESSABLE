@@ -53,6 +53,11 @@
 @import "pages/not_found";
 @import "pages/resources";
 
+@import "wp-events-manager-style/event-listing-page";
+@import "wp-events-manager-style/event-single-page";
+
+
+
 @import "global/_block_specific_defined.scss";
 
 * { box-sizing: border-box; }

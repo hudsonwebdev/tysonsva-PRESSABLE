@@ -44,15 +44,15 @@ case "Upcoming Events":
 
 
     $args = array(
-        'post_type' => 'tysons-event',
+        'post_type' => 'event_listing',
         'posts_per_page' => $total_posts, // Number of events per page
         'paged' => get_query_var('paged', 1), // Pagination support
         'orderby'        => 'meta_value', // Order by the custom field value
         'order'          => 'ASC', // Ascending order (upcoming first)
         'meta_type'      => 'DATE', // Make sure the field is treated as a date
-        'meta_query'     => array(
+       'meta_query'     => array(
             array(
-                'key'     => 'start_date', // Start date field
+                'key'     => '_event_start_date', // Start date field
                 'value'   => date('Y-m-d'), // Current date
                 'compare' => '>=', // Only future events
                 'type'    => 'DATE',
@@ -158,7 +158,6 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
                     foreach($stick_to_top as $pid){
 
-                   
                         if($feature_first_post && $count==0){
                             $columns = 2;
                         }else{
@@ -180,6 +179,8 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                     while ($post_query->have_posts()) : $post_query->the_post();
     
                         $pid = get_the_ID();
+
+
     
                         if($feature_first_post && $count==0){
                             $columns = 2;
@@ -188,7 +189,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                         }    
     
                        
-                        draw_event_card($pid,$columns);
+                       draw_event_card($pid,$columns);
                           
                         $count++;
                     endwhile;

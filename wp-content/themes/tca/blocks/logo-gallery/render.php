@@ -5,9 +5,8 @@ $section_header = get_field('section_header');
 include __DIR__ .'/../../inc/common_block_variables.php';
 
 $logos = get_field('logos');
-$logoCols = get_field('logo_columns');
-$logoSpc = get_field('logo_spacing');
-
+$logoSpc = get_field('logo_spacing')?get_field('logo_spacing'):'10';
+$logoSize = get_field('logo_size')?get_field('logo_size'):'150';
 openSection(
     $wrap_size,
     $container_size,
@@ -25,14 +24,14 @@ openSection(
 drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_underline,$section_intro,$section_button,$section_button_style); 
 
 if( $logos ): ?>
-    <div class="logo-list col-<?= $logoCols; ?> spc-<?= $logoSpc; ?>">
+    <div class="logo-list" >
     <?php  foreach( $logos as $row ):
     $image = $row['logo'];
     $link = $row['logo_link'];
     $alt_text = $image['title'] ?? '';
 
     if( $image ):
-      $img_tag = '<img src="' . esc_url($image['sizes']['medium']) . '" alt="' . esc_attr($alt_text) . '" style="margin: '. $logoSpc .'px">';
+      $img_tag = '<img src="' . esc_url($image['sizes']['medium']) . '" alt="' . esc_attr($alt_text) . '" style="padding:'. $logoSpc .'px;width:' . $logoSize . 'px">';
 
       if( $link && isset($link['url']) ):
         echo '<div class="logo"><a href="' . esc_url($link['url']) . '"';

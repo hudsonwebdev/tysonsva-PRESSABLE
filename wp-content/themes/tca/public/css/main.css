@@ -16652,6 +16652,9 @@ hr.bluehr {
   font-size: 24px;
   font-weight: 600;
 }
+.event-page .event-header .event-info .inner .location-info .address a {
+  color: #ffffff;
+}
 .event-page .event-header .event-info .inner .location-info .street {
   font-size: 18px;
 }
@@ -17224,6 +17227,14 @@ article.post .entry-content .share .share-title {
 }
 #download-resource .uk-modal-dialog .gform_required_legend {
   display: none;
+}
+
+.tca-events-list {
+  padding: 100px 0;
+}
+
+.wpem-single-event-wrapper {
+  border: none !important;
 }
 
 .home-growing .section-title span {

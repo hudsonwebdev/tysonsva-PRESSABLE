@@ -21,9 +21,9 @@
             "selected": 0
         },
         {
-            "key": "field_6840a1ed211aa",
-            "label": "Logo Columns",
-            "name": "logo_columns",
+            "key": "field_684ecbc1cdc9a",
+            "label": "Logo Size",
+            "name": "logo_size",
             "aria-label": "",
             "type": "number",
             "instructions": "",
@@ -34,14 +34,14 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": 3,
-            "min": 2,
-            "max": 6,
+            "default_value": "",
+            "min": 100,
+            "max": 200,
             "allow_in_bindings": 0,
             "placeholder": "",
-            "step": 1,
+            "step": 10,
             "prepend": "",
-            "append": "columns"
+            "append": ""
         },
         {
             "key": "field_6840a1a0211a9",
@@ -254,5 +254,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1749066452
+    "modified": 1749998110
 }

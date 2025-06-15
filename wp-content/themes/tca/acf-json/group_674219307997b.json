@@ -74,14 +74,16 @@
             "ajax": 0,
             "placeholder": "",
             "allow_custom": 0,
-            "search_placeholder": ""
+            "search_placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_67eeed5d0fbdf",
             "label": "Stick to Top",
             "name": "stick_to_top",
             "aria-label": "",
-            "type": "post_object",
+            "type": "relationship",
             "instructions": "Make these posts appear at the top",
             "required": 0,
             "conditional_logic": [
@@ -99,23 +101,27 @@
                 "id": ""
             },
             "post_type": [
-                "tysons-event"
+                "post",
+                "resource",
+                "event_listing"
             ],
             "post_status": "",
             "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
             "return_format": "id",
-            "multiple": 1,
-            "save_custom": 0,
-            "save_post_status": "publish",
             "acfe_bidirectional": {
                 "acfe_bidirectional_enabled": "0"
             },
-            "allow_null": 0,
+            "min": "",
+            "max": "",
             "allow_in_bindings": 0,
+            "elements": "",
             "bidirectional": 0,
-            "ui": 1,
-            "bidirectional_target": [],
-            "save_post_type": ""
+            "bidirectional_target": []
         },
         {
             "key": "field_67be42ee62a16",
@@ -451,5 +457,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1743711751
+    "modified": 1750003688
 }
