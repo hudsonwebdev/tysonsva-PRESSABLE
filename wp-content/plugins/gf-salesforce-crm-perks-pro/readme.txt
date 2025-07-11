@@ -184,11 +184,15 @@ Yes, as you connect your normal salesforce account similarly, you can connect yo
 == Changelog ==
 
 
+= 1.5.1 =
+* fixed "subscription paid event" issue.
+
 = 1.5.0 =
-* fixed "500 error with invalid data" issue.
+* fixed "comma issue with custom value".
 
 = 1.4.9 =
 * fixed "multiple file links issue with Notes".
+* fixed "500 error with invalid data" issue.
 
 = 1.4.8 =
 * fixed "post_image field" issue.

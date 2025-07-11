@@ -2,7 +2,7 @@
 
 function get_post_event_categories_as_classes( $post_id ) {
     // Get the event categories for the post (from custom taxonomy 'event_categories')
-    $event_categories = get_the_terms( $post_id, 'event-category' );
+    $event_categories = get_the_terms( $post_id, 'event-categories' );
     
     if ( $event_categories && ! is_wp_error( $event_categories ) ) {
         // Initialize an array to hold the formatted category names

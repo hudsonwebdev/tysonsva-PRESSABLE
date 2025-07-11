@@ -434,10 +434,924 @@ function _instanceof(left, right) {
 
 // UNUSED EXPORTS: default
 
+;// CONCATENATED MODULE: ./src/js/dearviewer/utils/query.js
+// Query - Lightweight DOM manipulation library
+// Private WeakMap to store elements data
+function _array_like_to_array(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+    for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
+    return arr2;
+}
+function _array_with_holes(arr) {
+    if (Array.isArray(arr)) return arr;
+}
+function _array_without_holes(arr) {
+    if (Array.isArray(arr)) return _array_like_to_array(arr);
+}
+function _instanceof(left, right) {
+    if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) {
+        return !!right[Symbol.hasInstance](left);
+    } else {
+        return left instanceof right;
+    }
+}
+function _iterable_to_array(iter) {
+    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+function _iterable_to_array_limit(arr, i) {
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+    if (_i == null) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _s, _e;
+    try {
+        for(_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true){
+            _arr.push(_s.value);
+            if (i && _arr.length === i) break;
+        }
+    } catch (err) {
+        _d = true;
+        _e = err;
+    } finally{
+        try {
+            if (!_n && _i["return"] != null) _i["return"]();
+        } finally{
+            if (_d) throw _e;
+        }
+    }
+    return _arr;
+}
+function _non_iterable_rest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _non_iterable_spread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _sliced_to_array(arr, i) {
+    return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();
+}
+function _to_consumable_array(arr) {
+    return _array_without_holes(arr) || _iterable_to_array(arr) || _unsupported_iterable_to_array(arr) || _non_iterable_spread();
+}
+function _type_of(obj) {
+    "@swc/helpers - typeof";
+    return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj;
+}
+function _unsupported_iterable_to_array(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _array_like_to_array(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(n);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
+}
+var privateElements = new WeakMap();
+// Private WeakMap to store object data for elements
+var privateData = new WeakMap();
+function Query(selector) {
+    var props = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+    if (_instanceof(selector, Query)) {
+        return selector;
+    }
+    if (!_instanceof(this, Query)) {
+        return new Query(selector, props);
+    }
+    // Initialize private elements array
+    privateElements.set(this, []);
+    this.length = 0;
+    if (!selector) {
+        return this;
+    }
+    var elements = [];
+    if (typeof selector === 'string') {
+        if (selector.trim().startsWith('<') && selector.trim().endsWith('>')) {
+            // Create element from HTML string using document fragment
+            var fragment = document.createRange().createContextualFragment(selector.trim());
+            // Get elements from the fragment
+            elements = Array.from(fragment.children);
+            // Create a true copy of each element to ensure they're detached
+            elements = elements.map(function(el) {
+                return el.cloneNode(true);
+            });
+        } else {
+            // Query selector
+            var nodeList = document.querySelectorAll(selector);
+            elements = Array.from(nodeList);
+        }
+    } else if (selector.nodeType || selector === window || selector === document) {
+        // Single element
+        elements = [
+            selector
+        ];
+    } else if (selector.length !== undefined) {
+        // Array-like object
+        elements = Array.from(selector);
+    }
+    // Store elements privately and update indexed access
+    this._setElements(elements, props);
+    return this;
+}
+// Internal getter for elements (private to Query)
+Query.prototype._getElements = function() {
+    return privateElements.get(this) || [];
+};
+// Internal method to update elements and indexed access
+Query.prototype._setElements = function(elements, props) {
+    var _this = this;
+    privateElements.set(this, elements);
+    this.length = elements.length;
+    // Clear existing indexed properties
+    Object.keys(this).forEach(function(key) {
+        if (!isNaN(key)) {
+            delete _this[key];
+        }
+    });
+    // Set up new indexed access
+    elements.forEach(function(el, index) {
+        if (props.hasOwnProperty('class')) {
+            var _el_classList;
+            (_el_classList = el.classList).add.apply(_el_classList, _to_consumable_array(props.class.trim().split(' ')));
+        }
+        if (props.hasOwnProperty('id')) {
+            el.id = props.id;
+        }
+        if (props.hasOwnProperty('title')) {
+            el.title = props.title;
+        }
+        if (props.hasOwnProperty('html')) {
+            el.innerHTML = props.html;
+        }
+        _this[index] = el;
+    });
+    return this;
+};
+// Event handling methods
+Query.prototype.on = function(eventName, selectorOrHandler, handlerOrUndefined) {
+    // Determine if this is element.on(eventName, callback) or element.on(eventName, selector, callback)
+    var handler, selector;
+    if (typeof selectorOrHandler === 'string' && typeof handlerOrUndefined === 'function') {
+        // Format: on(eventName, selector, callback)
+        selector = selectorOrHandler;
+        handler = handlerOrUndefined;
+    } else {
+        // Format: on(eventName, callback)
+        handler = selectorOrHandler;
+        selector = null;
+    }
+    this._getElements().forEach(function(el) {
+        if (selector) {
+            var wrappedHandler = function(e) {
+                if (!e.target) return;
+                var targetEl = e.target.closest(selector);
+                if (targetEl) {
+                    e.originalEvent = e;
+                    handler.call(targetEl, e);
+                }
+            };
+            el.addEventListener(eventName, wrappedHandler);
+            // Store reference for off method
+            if (!el._queryHandlers) el._queryHandlers = {};
+            if (!el._queryHandlers[eventName]) el._queryHandlers[eventName] = [];
+            el._queryHandlers[eventName].push({
+                original: handler,
+                wrapped: wrappedHandler,
+                selector: selector
+            });
+        } else {
+            var wrappedHandler1 = function(e) {
+                e.originalEvent = e;
+                handler.call(el, e);
+            };
+            el.addEventListener(eventName, wrappedHandler1);
+            // Store reference for off method
+            if (!el._queryHandlers) el._queryHandlers = {};
+            if (!el._queryHandlers[eventName]) el._queryHandlers[eventName] = [];
+            el._queryHandlers[eventName].push({
+                original: handler,
+                wrapped: wrappedHandler1
+            });
+        }
+    });
+    return this;
+};
+Query.prototype.off = function() {
+    this._getElements().forEach(function(el) {
+        if (!el._queryHandlers) return;
+        // Remove all events
+        Object.keys(el._queryHandlers).forEach(function(event) {
+            el._queryHandlers[event].forEach(function(handler) {
+                el.removeEventListener(event, handler.wrapped);
+            });
+        });
+        el._queryHandlers = {};
+    });
+    return this;
+};
+Query.prototype.trigger = function(eventName) {
+    this._getElements().forEach(function(el) {
+        if (typeof eventName === 'string' && typeof el[eventName] === 'function') {
+            el[eventName]();
+        } else {
+            var event = new Event(eventName, {
+                bubbles: true
+            });
+            el.dispatchEvent(event);
+        }
+    });
+    return this;
+};
+/**
+ * Normalize an event object across older browsers.
+ * @param {Event|undefined} evt
+ * @returns {Event}
+ */ // Query.fixEvent = function (evt) {
+//     const e = evt || window.event;
+//
+//     // target normalization
+//     if (!e.target) {
+//       e.target = e.srcElement || document;
+//     }
+//     // text node -> element
+//     if (e.target.nodeType === 3) {
+//       e.target = e.target.parentNode;
+//     }
+//
+//     // preventDefault / stopPropagation
+//     if (!e.preventDefault) {
+//       e.preventDefault = function() { this.returnValue = false; };
+//     }
+//     if (!e.stopPropagation) {
+//       e.stopPropagation = function() { this.cancelBubble = true; };
+//     }
+//
+//     // pageX/Y (IE < 9)
+//     if (e.pageX == null && e.clientX != null) {
+//       const doc = document.documentElement;
+//       const body = document.body;
+//       e.pageX = e.clientX +
+//         (doc.scrollLeft || body.scrollLeft || 0) -
+//         (doc.clientLeft || body.clientLeft || 0);
+//       e.pageY = e.clientY +
+//         (doc.scrollTop  || body.scrollTop  || 0) -
+//         (doc.clientTop  || body.clientTop  || 0);
+//     }
+//
+//     // which for mouse buttons (IE)
+//     if (e.which == null && e.button != null) {
+//       e.which = (e.button & 1 ? 1 :
+//                  (e.button & 2 ? 3 :
+//                  (e.button & 4 ? 2 : 0)));
+//     }
+//
+//     return e;
+// };
+// DOM manipulation methods
+Query.prototype.addClass = function(className) {
+    if (!className) return this;
+    this._getElements().forEach(function(el) {
+        if (el.classList) {
+            var _el_classList;
+            (_el_classList = el.classList).add.apply(_el_classList, _to_consumable_array(className.trim().split(' ')));
+        }
+    });
+    return this;
+};
+Query.prototype.removeClass = function(className) {
+    if (!className) return this;
+    this._getElements().forEach(function(el) {
+        if (el.classList) {
+            var _el_classList;
+            (_el_classList = el.classList).remove.apply(_el_classList, _to_consumable_array(className.trim().split(' ')));
+        }
+    });
+    return this;
+};
+Query.prototype.hasClass = function(className) {
+    return this._getElements().some(function(el) {
+        return el.classList && el.classList.contains(className);
+    });
+};
+Query.prototype.toggleClass = function(className, force) {
+    this._getElements().forEach(function(el) {
+        if (force === undefined) {
+            // Toggle class based on current presence
+            el.classList.toggle(className);
+        } else if (force) {
+            // Force add class
+            el.classList.add(className);
+        } else {
+            // Force remove class
+            el.classList.remove(className);
+        }
+    });
+    return this;
+};
+Query.prototype.css = function(content) {
+    // Properties that should have 'px' appended when numeric values are provided
+    var pxProperties = [
+        'width',
+        'height',
+        'min-width',
+        'min-height',
+        'max-width',
+        'max-height',
+        'margin',
+        'marginTop',
+        'marginRight',
+        'marginBottom',
+        'marginLeft',
+        'padding',
+        'paddingTop',
+        'paddingRight',
+        'paddingBottom',
+        'paddingLeft',
+        'top',
+        'right',
+        'bottom',
+        'left',
+        'border-width',
+        'border-top-width',
+        'border-right-width',
+        'border-bottom-width',
+        'border-left-width',
+        'fontSize',
+        'lineHeight'
+    ];
+    this._getElements().forEach(function(el) {
+        Object.keys(content).forEach(function(key) {
+            var value = content[key];
+            // If the value is a number (or numeric string) and the property should have px unit
+            if (value !== null && value !== undefined && value !== '' && !isNaN(parseFloat(value)) && isFinite(value) && pxProperties.includes(key)) {
+                // Don't add px if it's 0 or already has a unit
+                if (value !== 0 && value !== '0' && typeof value === 'number') {
+                    value = value + 'px';
+                }
+            }
+            el.style[key] = value;
+        });
+    });
+    return this;
+};
+Query.prototype.prepend = function(content) {
+    if (!content) return this;
+    this._getElements().forEach(function(el) {
+        if (typeof content === 'string') {
+            el.insertAdjacentHTML('afterbegin', content);
+        } else if (_instanceof(content, Query)) {
+            content._getElements().forEach(function(child) {
+                el.insertBefore(child, el.firstChild);
+            });
+        } else if (content.nodeType) {
+            el.insertBefore(content, el.firstChild);
+        }
+    });
+    return this;
+};
+Query.prototype.append = function(content) {
+    if (!content) return this;
+    this._getElements().forEach(function(el) {
+        if (typeof content === 'string') {
+            el.insertAdjacentHTML('beforeend', content);
+        } else if (_instanceof(content, Query)) {
+            content._getElements().forEach(function(child) {
+                if (!el.contains(child)) {
+                    el.appendChild(child);
+                }
+            });
+        } else if (content.nodeType) {
+            // Check if the node is already a child of this element
+            if (!el.contains(content)) {
+                el.appendChild(content);
+            }
+        }
+    });
+    return this;
+};
+Query.prototype.appendTo = function(target) {
+    var targetEl = _instanceof(target, Query) ? target._getElements()[0] : typeof target === 'string' ? document.querySelector(target) : target;
+    if (targetEl) {
+        this._getElements().forEach(function(el) {
+            // Check if the node is already a child of the target element
+            if (!targetEl.contains(el)) {
+                targetEl.appendChild(el);
+            }
+        });
+    }
+    return this;
+};
+Query.prototype.after = function(content) {
+    this._getElements().forEach(function(el) {
+        if (typeof content === 'string') {
+            el.insertAdjacentHTML('afterend', content);
+        } else if (_instanceof(content, Query)) {
+            content._getElements().forEach(function(child) {
+                el.parentNode.insertBefore(child, el.nextSibling);
+            });
+        } else if (content.nodeType) {
+            el.parentNode.insertBefore(content, el.nextSibling);
+        }
+    });
+    return this;
+};
+Query.prototype.html = function(content) {
+    if (content === undefined) {
+        return this._getElements()[0] ? this._getElements()[0].innerHTML : '';
+    }
+    this._getElements().forEach(function(el) {
+        el.innerHTML = content;
+    });
+    return this;
+};
+Query.prototype.text = function(content) {
+    if (content === undefined) {
+        return this._getElements()[0] ? this._getElements()[0].textContent : '';
+    }
+    this._getElements().forEach(function(el) {
+        el.textContent = content;
+    });
+    return this;
+};
+Query.prototype.find = function(selector) {
+    var found = [];
+    this._getElements().forEach(function(el) {
+        var _found;
+        var elements = el.querySelectorAll(selector);
+        (_found = found).push.apply(_found, _to_consumable_array(Array.from(elements)));
+    });
+    return new Query(found);
+};
+Query.prototype.children = function(selector) {
+    var children = [];
+    this._getElements().forEach(function(el) {
+        Array.from(el.children).forEach(function(child) {
+            if (!selector || child.matches(selector)) {
+                children.push(child);
+            }
+        });
+    });
+    return new Query(children);
+};
+Query.prototype.is = function(selector) {
+    return this._getElements().some(function(el) {
+        return el.matches(selector);
+    });
+};
+Query.prototype.closest = function(selector) {
+    var found = [];
+    this._getElements().forEach(function(el) {
+        var closest = el.closest(selector);
+        if (closest && !found.includes(closest)) {
+            found.push(closest);
+        }
+    });
+    return new Query(found);
+};
+Query.prototype.contains = function(element) {
+    var targetEl = _instanceof(element, Query) ? element._getElements()[0] : element;
+    return this._getElements().some(function(el) {
+        return el.contains(targetEl);
+    });
+};
+Query.prototype.siblings = function(selector) {
+    var siblings = [];
+    this._getElements().forEach(function(el) {
+        var _siblings;
+        var _siblings1 = Array.from(el.parentElement.children).filter(function(child) {
+            return child !== el;
+        });
+        if (selector) {
+            _siblings1 = _siblings1.filter(function(sibling) {
+                return sibling.matches(selector);
+            });
+        }
+        (_siblings = siblings).push.apply(_siblings, _to_consumable_array(_siblings1));
+    });
+    return new Query(siblings);
+};
+Query.prototype.parent = function(selector) {
+    // Get all parent elements
+    var parents = this._getElements().map(function(el) {
+        return el.parentElement;
+    }).filter(function(parent) {
+        return parent !== null;
+    }); // Filter out null parents
+    // If a selector is provided, filter parents matching that selector
+    if (selector) {
+        parents = parents.filter(function(parent) {
+            return parent.matches(selector);
+        });
+    }
+    return new Query(parents);
+};
+Query.prototype.each = function(callback) {
+    this._getElements().forEach(function(el, index) {
+        callback.call(el, index, el);
+    });
+    return this;
+};
+Query.prototype.map = function(callback) {
+    this._getElements().map(function(el, index) {
+        return callback.call(el, index, el);
+    });
+    return this;
+};
+Query.prototype.get = function() {
+    return this._getElements();
+};
+Query.prototype.attr = function(name, value) {
+    if (arguments.length === 1) {
+        // Getter: return attribute value of first element
+        return this._getElements()[0] ? this._getElements()[0].getAttribute(name) : undefined;
+    }
+    if (value === void 0) {
+        this._getElements().forEach(function(el) {
+            el.removeAttribute(name);
+        });
+        return this;
+    }
+    // Setter: set attribute on all elements
+    this._getElements().forEach(function(el) {
+        el.setAttribute(name, value);
+    });
+    return this;
+};
+Query.prototype.removeAttr = function(name) {
+    this._getElements().forEach(function(el) {
+        el.removeAttribute(name);
+    });
+    return this;
+};
+Query.prototype.data = function(key, value) {
+    if (value === undefined) {
+        var el = this._getElements()[0];
+        if (!el) return undefined;
+        // First check internal storage for object values
+        var elementData = privateData.get(el) || {};
+        if (elementData[key] !== undefined) {
+            return elementData[key];
+        }
+        // If not in internal storage, check the dataset
+        var camelKey = key.replace(/-([a-z])/g, function(_, letter) {
+            return letter.toUpperCase();
+        });
+        return el.dataset[camelKey];
+    }
+    this._getElements().forEach(function(el) {
+        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+            el.setAttribute("data-".concat(key), value);
+        } else if (value === null) {
+            // Remove the data attribute if value is null
+            el.removeAttribute("data-".concat(key));
+            // Also remove from internal storage if exists
+            var elementData = privateData.get(el);
+            if (elementData && elementData[key] !== undefined) {
+                delete elementData[key];
+                privateData.set(el, elementData);
+            }
+        } else if ((typeof value === "undefined" ? "undefined" : _type_of(value)) === 'object') {
+            // For objects, store internally
+            var elementData1 = privateData.get(el) || {};
+            elementData1[key] = value;
+            privateData.set(el, elementData1);
+        }
+    });
+    return this;
+};
+//
+// // Helper function to get document dimensions
+// Query.getDocumentHeight = function() {
+//     return Math.max(
+//         document.body.scrollHeight,
+//         document.documentElement.scrollHeight,
+//         document.body.offsetHeight,
+//         document.documentElement.offsetHeight,
+//         document.documentElement.clientHeight
+//     );
+// };
+//
+// Query.getDocumentWidth = function() {
+//     return Math.max(
+//         document.body.scrollWidth,
+//         document.documentElement.scrollWidth,
+//         document.body.offsetWidth,
+//         document.documentElement.offsetWidth,
+//         document.documentElement.clientWidth
+//     );
+// };
+Query.prototype.height = function(value) {
+    if (value === undefined) {
+        // Getter - return height
+        if (this._getElements().length === 0) return 0;
+        var el = this._getElements()[0];
+        // Special handling for window element
+        if (el === window) {
+            return window.innerHeight;
+        // } else if (el.nodeType === 9) { // Document node
+        //     return Query.getDocumentHeight();
+        } else {
+            return el.offsetHeight;
+        }
+    }
+    // Setter - set height
+    this._getElements().forEach(function(el) {
+        // Don't try to set height style on window or document
+        // if (el === window) {
+        //     // Cannot directly set window height
+        //     console.warn('Cannot set height on window element');
+        // } else if (el.nodeType === 9) {
+        //     // Cannot directly set document height
+        //     console.warn('Cannot set height on document element');
+        // } else {
+        el.style.height = typeof value === 'number' ? value + 'px' : value;
+    // }
+    });
+    return this;
+};
+// Query.prototype.outerHeight = function(includeMargin) {
+//     if (this._getElements().length === 0) return 0;
+//
+//     const el = this._getElements()[0];
+//
+//     // Handle window element
+//     if (el === window) {
+//         return window.outerHeight;
+//     }
+//
+//     // Handle document element
+//     if (el.nodeType === 9) {
+//         return Query.getDocumentHeight();
+//     }
+//
+//     // Regular DOM element
+//     let height = el.offsetHeight;
+//
+//     // Add margins if requested
+//     if (includeMargin === true) {
+//         const style = getComputedStyle(el);
+//         height += parseInt(style.marginTop, 10) + parseInt(style.marginBottom, 10);
+//     }
+//
+//     return height;
+// }
+Query.prototype.width = function(value) {
+    if (value === undefined) {
+        // Getter - return width
+        if (this._getElements().length === 0) return 0;
+        var el = this._getElements()[0];
+        // Special handling for window element
+        if (el === window) {
+            return window.innerWidth;
+        // } else if (el.nodeType === 9) { // Document node
+        //     return Query.getDocumentWidth();
+        } else {
+            return el.offsetWidth;
+        }
+    }
+    // Setter - set width
+    this._getElements().forEach(function(el) {
+        // Don't try to set width style on window or document
+        // if (el === window) {
+        //     // Cannot directly set window width
+        //     console.warn('Cannot set width on window element');
+        // } else if (el.nodeType === 9) {
+        //     // Cannot directly set document width
+        //     console.warn('Cannot set width on document element');
+        // } else {
+        el.style.width = typeof value === 'number' ? value + 'px' : value;
+    // }
+    });
+    return this;
+};
+Query.prototype.remove = function() {
+    this._getElements().forEach(function(el) {
+        if (el.parentNode) {
+            el.parentNode.removeChild(el);
+        }
+    });
+    // Clear the elements array since they're no longer in the DOM
+    this._setElements([]);
+    return this;
+};
+//
+// Query.prototype.focus = function () {
+//     this._getElements().forEach(el => {
+//         el.focus();
+//     });
+//     return this;
+// }
+Query.prototype.val = function(value) {
+    if (value === undefined) {
+        return this._getElements()[0] ? this._getElements()[0].value : '';
+    }
+    this._getElements().forEach(function(el) {
+        el.value = value;
+    });
+    return this;
+};
+// Query.prototype.select = function () {
+//     this._getElements().forEach(el => {
+//         el.select();
+//     });
+//     return this;
+// }
+//
+// Query.prototype.fadeIn = function (duration = 300) {
+//     this._getElements().forEach(el => {
+//         // Set initial opacity and display
+//         el.style.opacity = 0;
+//         el.style.display = 'block';
+//
+//         // Get start timestamp
+//         let start = null;
+//
+//         // Define animation function
+//         const animate = (timestamp) => {
+//             if (!start) start = timestamp;
+//             // Calculate progress
+//             const progress = timestamp - start;
+//             // Calculate opacity based on progress
+//             const opacity = Math.min(progress / duration, 1);
+//             // Set opacity
+//             el.style.opacity = opacity;
+//
+//             // Continue animation if not completed
+//             if (progress < duration) {
+//                 window.requestAnimationFrame(animate);
+//             }
+//         };
+//
+//         // Start animation
+//         window.requestAnimationFrame(animate);
+//     });
+//     return this;
+// }
+//
+// Query.prototype.fadeOut = function (duration = 300) {
+//     this._getElements().forEach(el => {
+//         // Set initial opacity
+//         el.style.opacity = 1;
+//
+//         // Get start timestamp
+//         let start = null;
+//
+//         // Define animation function
+//         const animate = (timestamp) => {
+//             if (!start) start = timestamp;
+//             // Calculate progress
+//             const progress = timestamp - start;
+//             // Calculate opacity based on progress (decreasing)
+//             const opacity = Math.max(1 - (progress / duration), 0);
+//             // Set opacity
+//             el.style.opacity = opacity;
+//
+//             // Continue animation if not completed
+//             if (progress < duration) {
+//                 window.requestAnimationFrame(animate);
+//             } else {
+//                 // Hide element completely when animation is done
+//                 el.style.display = 'none';
+//             }
+//         };
+//
+//         // Start animation
+//         window.requestAnimationFrame(animate);
+//     });
+//     return this;
+// }
+Query.prototype.hide = function() {
+    this._getElements().forEach(function(el) {
+        el.style.display = 'none';
+    });
+    return this;
+};
+Query.prototype.show = function() {
+    this._getElements().forEach(function(el) {
+        el.style.display = 'block';
+    });
+    return this;
+};
+Query.prototype.ready = function(callback) {
+    document.addEventListener('DOMContentLoaded', callback);
+};
+Query.prototype.scrollTop = function(value) {
+    if (value === undefined) {
+        return this._getElements()[0] ? this._getElements()[0].scrollTop : 0;
+    }
+    this._getElements().forEach(function(el) {
+        el.scrollTop = value;
+    });
+    return this;
+};
+Query.prototype.change = function(handler) {
+    this._getElements().forEach(function(el) {
+        el.addEventListener('change', handler);
+    });
+    return this;
+};
+Query.prototype.click = function() {
+    this._getElements().forEach(function(el) {
+        if (typeof el.click === 'function') {
+            el.click();
+        }
+    });
+    return this;
+};
+/**
+ *
+ * @param {boolean} deepMerge Not utilized here/ Just for compatibility with jQuery
+ * @param {Object} out
+ * @param  {...Object} arguments_
+ * @returns {Object}
+ */ Query.extend = function(deepMerge, out) {
+    for(var _len = arguments.length, arguments_ = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++){
+        arguments_[_key - 2] = arguments[_key];
+    }
+    if (!out) {
+        return {};
+    }
+    var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
+    try {
+        for(var _iterator = arguments_[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+            var obj = _step.value;
+            if (!obj) {
+                continue;
+            }
+            var _iteratorNormalCompletion1 = true, _didIteratorError1 = false, _iteratorError1 = undefined;
+            try {
+                for(var _iterator1 = Object.entries(obj)[Symbol.iterator](), _step1; !(_iteratorNormalCompletion1 = (_step1 = _iterator1.next()).done); _iteratorNormalCompletion1 = true){
+                    var _step_value = _sliced_to_array(_step1.value, 2), key = _step_value[0], value = _step_value[1];
+                    // Special handling for Query instances - preserve them as-is
+                    if (_instanceof(value, Query)) {
+                        out[key] = value;
+                    } else {
+                        switch(Object.prototype.toString.call(value)){
+                            case '[object Object]':
+                                // Only create nested object if current value is also an object
+                                if (Object.prototype.toString.call(out[key]) === '[object Object]') {
+                                    out[key] = Query.extend(out[key], value);
+                                } else {
+                                    out[key] = Query.extend({}, value);
+                                }
+                                break;
+                            case '[object Array]':
+                                out[key] = Query.extend(new Array(value.length), value);
+                                break;
+                            default:
+                                out[key] = value;
+                        }
+                    }
+                }
+            } catch (err) {
+                _didIteratorError1 = true;
+                _iteratorError1 = err;
+            } finally{
+                try {
+                    if (!_iteratorNormalCompletion1 && _iterator1.return != null) {
+                        _iterator1.return();
+                    }
+                } finally{
+                    if (_didIteratorError1) {
+                        throw _iteratorError1;
+                    }
+                }
+            }
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally{
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+                _iterator.return();
+            }
+        } finally{
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
+    return out;
+};
+//
+// // Add fn property to Query, similar to jQuery.fn which points to prototype
+// Query.fn = Query.prototype;
+//
+// // Add extend method to Query.fn (prototype) to match jQuery.fn.extend functionality
+// Query.fn.extend = function(obj) {
+//     for (const [prop, value] of Object.entries(obj)) {
+//         Query.prototype[prop] = value;
+//     }
+//     return this;
+// };
+
+/* harmony default export */ var query = (Query);
+
 ;// CONCATENATED MODULE: ./src/js/dearviewer/defaults.js
+
 /* globals jQuery */ var defaults_DEARVIEWER = {
-    jQuery: jQuery,
-    version: '2.3.65',
+    jQuery: null,
+    version: '2.3.75',
     autoDetectLocation: true,
     _isHashTriggered: false,
     slug: undefined,
@@ -541,6 +1455,13 @@ function _instanceof(left, right) {
         RIDGE: "ridge"
     }
 };
+defaults_DEARVIEWER.fakejQuery = false;
+if (typeof jQuery === "undefined") {
+    defaults_DEARVIEWER.fakejQuery = true;
+    defaults_DEARVIEWER.jQuery = query;
+} else {
+    defaults_DEARVIEWER.jQuery = jQuery;
+}
 //_defaults that can be referenced but should not be changed
 defaults_DEARVIEWER._defaults = {
     // When viewer is set to flipbook
@@ -774,41 +1695,41 @@ defaults_DEARVIEWER.executeCallback = function() {};
 
 
 ;// CONCATENATED MODULE: ./src/js/dearviewer/utils/utils.js
-/* globals requirejs, jQuery*/ function _array_like_to_array(arr, len) {
+/* globals requirejs, jQuery*/ function utils_array_like_to_array(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
     for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
     return arr2;
 }
-function _array_without_holes(arr) {
-    if (Array.isArray(arr)) return _array_like_to_array(arr);
+function utils_array_without_holes(arr) {
+    if (Array.isArray(arr)) return utils_array_like_to_array(arr);
 }
-function _instanceof(left, right) {
+function utils_instanceof(left, right) {
     if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) {
         return !!right[Symbol.hasInstance](left);
     } else {
         return left instanceof right;
     }
 }
-function _iterable_to_array(iter) {
+function utils_iterable_to_array(iter) {
     if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
-function _non_iterable_spread() {
+function utils_non_iterable_spread() {
     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-function _to_consumable_array(arr) {
-    return _array_without_holes(arr) || _iterable_to_array(arr) || _unsupported_iterable_to_array(arr) || _non_iterable_spread();
+function utils_to_consumable_array(arr) {
+    return utils_array_without_holes(arr) || utils_iterable_to_array(arr) || utils_unsupported_iterable_to_array(arr) || utils_non_iterable_spread();
 }
-function _type_of(obj) {
+function utils_type_of(obj) {
     "@swc/helpers - typeof";
     return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj;
 }
-function _unsupported_iterable_to_array(o, minLen) {
+function utils_unsupported_iterable_to_array(o, minLen) {
     if (!o) return;
-    if (typeof o === "string") return _array_like_to_array(o, minLen);
+    if (typeof o === "string") return utils_array_like_to_array(o, minLen);
     var n = Object.prototype.toString.call(o).slice(8, -1);
     if (n === "Object" && o.constructor) n = o.constructor.name;
     if (n === "Map" || n === "Set") return Array.from(n);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return utils_array_like_to_array(o, minLen);
 }
 
 var DV = defaults_DEARVIEWER;
@@ -1109,7 +2030,7 @@ var utils = DV.utils = {
             args[_key] = arguments[_key];
         }
         var _console;
-        if (DV.defaults.enableDebugLog === true && window.console) (_console = console).log.apply(_console, _to_consumable_array(args));
+        if (DV.defaults.enableDebugLog === true && window.console) (_console = console).log.apply(_console, utils_to_consumable_array(args));
     },
     color: {
         getBrightness: function getBrightness(hex) {
@@ -1421,7 +2342,7 @@ utils.getOptions = function(element) {
     //GetOption Variable
     var optionVar = element.data("df-option") || element.data("option");
     var options = void 0;
-    if ((typeof optionVar === "undefined" ? "undefined" : _type_of(optionVar)) === "object") {
+    if ((typeof optionVar === "undefined" ? "undefined" : utils_type_of(optionVar)) === "object") {
         options = optionVar;
     } else {
         options = optionVar == null || optionVar === "" || window[optionVar] == null ? {} : window[optionVar];
@@ -1499,7 +2420,7 @@ utils.sanitizeOptions = function(options) {
         options.loadMoreCount = utils.parseInt(options.loadMoreCount);
         if (isNaN(options.loadMoreCount) || options.loadMoreCount === 0) options.loadMoreCount = -1;
     }
-    if (options.source != null && (Array === options.source.constructor || Array.isArray(options.source) || _instanceof(options.source, Array))) {
+    if (options.source != null && (Array === options.source.constructor || Array.isArray(options.source) || utils_instanceof(options.source, Array))) {
         for(var _correct = 0; _correct < options.source.length; _correct++){
             options.source[_correct] = utils.httpsCorrection(options.source[_correct]);
         }
@@ -1785,7 +2706,9 @@ defaults_DEARVIEWER.parseNormalElements = function() {
                 } else {
                     var app1 = element1.data("df-app");
                     if (app1 == null) {
-                        element1.dearviewer();
+                        new defaults_DEARVIEWER.Application({
+                            element: element1
+                        });
                     } else {
                         app1.softInit();
                     }
@@ -1809,7 +2732,9 @@ defaults_DEARVIEWER.parseNormalElements = function() {
                 element.removeClass("df-lazy");
             }
         } else {
-            element.dearviewer();
+            new defaults_DEARVIEWER.Application({
+                element: element
+            });
         }
     }
 };
@@ -1931,6 +2856,7 @@ function _create_class(Constructor, protoProps, staticProps) {
     return Constructor;
 }
 
+var base_viewer_jQuery = defaults_DEARVIEWER.jQuery;
 var base_viewer_DV = defaults_DEARVIEWER;
 var base_viewer_utils = defaults_DEARVIEWER.utils;
 var BaseViewer = /*#__PURE__*/ function() {
@@ -1941,11 +2867,11 @@ var BaseViewer = /*#__PURE__*/ function() {
         this.app = appContext;
         this.parentElement = this.app.viewerContainer;
         var viewerClass = "df-viewer " + (options.viewerClass || "");
-        this.element = jQuery('<div>', {
+        this.element = base_viewer_jQuery('<div>', {
             class: viewerClass
         });
         this.parentElement.append(this.element);
-        this.wrapper = jQuery('<div>', {
+        this.wrapper = base_viewer_jQuery('<div>', {
             class: 'df-viewer-wrapper'
         });
         this.element.append(this.wrapper);
@@ -2474,7 +3400,7 @@ var BaseViewer = /*#__PURE__*/ function() {
                 var page = this.getPageByNumber(pageNumber);
                 if (page === undefined) return undefined;
                 if (page.annotationElement === undefined) {
-                    page.annotationElement = jQuery("<div class='df-link-content'>");
+                    page.annotationElement = base_viewer_jQuery("<div class='df-link-content'>");
                     page.contentLayer.append(page.annotationElement);
                 }
                 if (clean === true) {
@@ -2490,7 +3416,7 @@ var BaseViewer = /*#__PURE__*/ function() {
                 var page = this.getPageByNumber(pageNumber);
                 if (page === undefined) return undefined;
                 if (page.textElement === undefined) {
-                    page.textElement = jQuery("<div class='df-text-content'>");
+                    page.textElement = base_viewer_jQuery("<div class='df-text-content'>");
                     page.contentLayer.append(page.textElement);
                 }
                 if (clean === true) {
@@ -2669,6 +3595,7 @@ function _create_super(Derived) {
 
 var page_DV = (/* unused pure expression or super */ null && (DEARVIEWER));
 var page_utils = defaults_DEARVIEWER.utils;
+var page_jQuery = defaults_DEARVIEWER.jQuery;
 var Page = /*#__PURE__*/ function() {
     "use strict";
     function Page() {
@@ -2679,7 +3606,7 @@ var Page = /*#__PURE__*/ function() {
         this.texture = "blank";
         this.textureSrc = "blank";
         this.pageNumber = undefined;
-        this.contentLayer = jQuery('<div>', {
+        this.contentLayer = page_jQuery('<div>', {
             class: "df-page-content"
         });
     }
@@ -2784,7 +3711,7 @@ var Page2D = /*#__PURE__*/ function(Page) {
         {
             key: "init",
             value: function init() {
-                var element = this.element = jQuery('<div>', {
+                var element = this.element = page_jQuery('<div>', {
                     class: 'df-page'
                 });
                 element[0].appendChild(this.contentLayer[0]);
@@ -2819,10 +3746,10 @@ var Page2D = /*#__PURE__*/ function(Page) {
                 }
                 if (page.canvasMode === null && texture && texture.nodeName === "CANVAS") page.canvasMode = true;
                 if (page.canvasMode === true) {
-                    page.element.find(">canvas").remove();
+                    page.element.find("canvas").remove();
                     if (texture !== page.textureLoadFallback) {
                         page.textureSrc = texture;
-                        page.element.append(jQuery(texture));
+                        page.element.append(page_jQuery(texture));
                     // page.element.width(texture.width).height(texture.height);
                     }
                     page.updateTextureLoadStatus(true);
@@ -3543,6 +4470,7 @@ function flipbook_create_super(Derived) {
 
 
 
+var flipbook_jQuery = defaults_DEARVIEWER.jQuery;
 var flipbook_utils = defaults_DEARVIEWER.utils;
 var BaseFlipBookViewer = /*#__PURE__*/ function(BaseViewer) {
     "use strict";
@@ -4440,7 +5368,7 @@ var ZoomViewer = /*#__PURE__*/ function(BaseViewer) {
                 this.rightPage.element.addClass('df-page-front');
                 this.wrapper.append(this.leftPage.element);
                 this.wrapper.append(this.rightPage.element);
-                this.bookShadow = jQuery('<div>', {
+                this.bookShadow = flipbook_jQuery('<div>', {
                     class: 'df-book-shadow'
                 });
                 this.wrapper.append(this.bookShadow);
@@ -4798,6 +5726,7 @@ function flipbook_2d_create_super(Derived) {
 
 
 
+var flipbook_2d_jQuery = defaults_DEARVIEWER.jQuery;
 var flipbook_2d_DV = defaults_DEARVIEWER;
 var flipbook_2d_utils = flipbook_2d_DV.utils;
 var BookSheet2D = /*#__PURE__*/ function(BookSheet) {
@@ -4816,20 +5745,20 @@ var BookSheet2D = /*#__PURE__*/ function(BookSheet) {
             key: "init",
             value: function init() {
                 var sheet = this, div = '<div>';
-                var element = sheet.element = jQuery(div, {
+                var element = sheet.element = flipbook_2d_jQuery(div, {
                     class: 'df-sheet'
                 });
                 var frontPage = sheet.frontPage = new Page2D();
                 frontPage.element.addClass('df-page-front');
                 var backPage = sheet.backPage = new Page2D();
                 backPage.element.addClass('df-page-back');
-                var wrapper = sheet.wrapper = jQuery(div, {
+                var wrapper = sheet.wrapper = flipbook_2d_jQuery(div, {
                     class: "df-sheet-wrapper"
                 });
-                var foldInnerShadow = sheet.foldInnerShadow = jQuery(div, {
+                var foldInnerShadow = sheet.foldInnerShadow = flipbook_2d_jQuery(div, {
                     class: "df-sheet-fold-inner-shadow"
                 });
-                var foldOuterShadow = sheet.foldOuterShadow = jQuery(div, {
+                var foldOuterShadow = sheet.foldOuterShadow = flipbook_2d_jQuery(div, {
                     class: "df-sheet-fold-outer-shadow"
                 });
                 this.parentElement.append(element);
@@ -5079,7 +6008,7 @@ var FlipBook2D = /*#__PURE__*/ function(BaseFlipBookViewer) {
         options.viewerClass = (_options_viewerClass = options.viewerClass) !== null && _options_viewerClass !== void 0 ? _options_viewerClass : "df-flipbook-2d";
         options.skipViewerLoaded = true;
         _this = _super.call(this, options, appContext);
-        _this.bookShadow = jQuery('<div>', {
+        _this.bookShadow = flipbook_2d_jQuery('<div>', {
             class: 'df-book-shadow'
         });
         _this.wrapper.append(_this.bookShadow);
@@ -6173,10 +7102,10 @@ MOCKUP.init = function() {
             var stage = mockup_assert_this_initialized(_this);
             //currently canvas is compulsory
             stage.canvas = parameters.canvas || document.createElement('canvas');
-            stage.canvas = jQuery(_this.canvas);
+            stage.canvas = _this.canvas;
             stage.camera = new THREE.PerspectiveCamera(20, stage.width / stage.height, 4, 50000);
             stage.renderer = new THREE.WebGLRenderer({
-                canvas: stage.canvas[0],
+                canvas: stage.canvas,
                 antialias: true,
                 alpha: true
             });
@@ -6538,6 +7467,7 @@ function flipbook_3d_create_super(Derived) {
 
 
 
+var flipbook_3d_jQuery = defaults_DEARVIEWER.jQuery;
 var flipbook_3d_DV = defaults_DEARVIEWER;
 var flipbook_3d_utils = flipbook_3d_DV.utils;
 var BookSheet3D = /*#__PURE__*/ function(BookSheet) {
@@ -7143,7 +8073,7 @@ var FlipBook3D = /*#__PURE__*/ function(BaseFlipBookViewer) {
                 var stage = viewer.stage = new MOCKUP.Stage({
                     pixelRatio: viewer.app.options.pixelRatio
                 });
-                var canvas = stage.canvas = jQuery(stage.renderer.domElement).addClass("df-3dcanvas");
+                var canvas = stage.canvas = flipbook_3d_jQuery(stage.renderer.domElement).addClass("df-3dcanvas");
                 canvas.appendTo(this.element);
                 stage.camera.position.set(0, 0, 600);
                 stage.camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -7164,7 +8094,7 @@ var FlipBook3D = /*#__PURE__*/ function(BaseFlipBookViewer) {
                 stage.ground.position.z = this.has3DCover ? -6 : -4;
                 stage.selectiveRendering = true;
                 var cssRenderer = stage.cssRenderer = new THREE.CSS3DRenderer();
-                jQuery(cssRenderer.domElement).css({
+                flipbook_3d_jQuery(cssRenderer.domElement).css({
                     position: "absolute",
                     top: 0,
                     pointerEvents: "none"
@@ -7278,7 +8208,7 @@ var FlipBook3D = /*#__PURE__*/ function(BaseFlipBookViewer) {
                     viewer.stage.cssRenderer = null;
                     viewer.stage.orbitControl = flipbook_3d_utils.disposeObject(viewer.stage.orbitControl);
                     viewer.stage.renderer = flipbook_3d_utils.disposeObject(viewer.stage.renderer);
-                    jQuery(viewer.stage.canvas).remove();
+                    flipbook_3d_jQuery(viewer.stage.canvas).remove();
                     viewer.stage.canvas = null;
                     viewer.stage = flipbook_3d_utils.disposeObject(viewer.stage);
                 }
@@ -8191,6 +9121,7 @@ function provider_create_super(Derived) {
     };
 }
 
+var provider_jQuery = defaults_DEARVIEWER.jQuery;
 var provider_utils = defaults_DEARVIEWER.utils;
 /**
  * @typedef {Object} PDFDocument
@@ -8720,7 +9651,7 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
             tmp.href = app.options.pdfjsWorkerSrc + provider.cacheBustParameters;
             if (tmp.hostname !== window.location.hostname && defaults_DEARVIEWER['loadCorsPdfjsWorker'] === true) {
                 app.updateInfo(app.options.text.loading + " PDF Worker CORS ...");
-                jQuery.ajax({
+                provider_jQuery.ajax({
                     url: app.options.pdfjsWorkerSrc + provider.cacheBustParameters,
                     cache: true,
                     success: function success(data) {
@@ -9284,6 +10215,7 @@ function image_provider_create_super(Derived) {
 }
 
 
+var image_provider_jQuery = defaults_DEARVIEWER.jQuery;
 var image_provider_utils = defaults_DEARVIEWER.utils;
 var ImagePage = /*#__PURE__*/ function() {
     "use strict";
@@ -9329,8 +10261,11 @@ var ImageDocument = /*#__PURE__*/ function() {
                 var provider = this;
                 return new Promise(function(resolve, reject) {
                     try {
-                        jQuery("<img/>").attr("src", provider.source[pageNumber - 1]).prop("crossOrigin", "Anonymous").on('load', function() {
-                            jQuery(this).off();
+                        var img = image_provider_jQuery("<img/>");
+                        img.attr("src", provider.source[pageNumber - 1]);
+                        img[0].crossOrigin = "Anonymous";
+                        img.on('load', function() {
+                            image_provider_jQuery(this).off();
                             var page = new ImagePage({
                                 src: this.src
                             });
@@ -9626,7 +10561,7 @@ var UI = /*#__PURE__*/ function() {
                             searchContainer.toggleClass("df-sidemenu-visible");
                             if (el.hasClass("df-active")) {
                                 el.siblings(".df-active").trigger("click");
-                                app.searchBox.focus();
+                                app.searchBox[0].focus();
                             }
                             ui.update();
                             if (app.options.sideMenuOverlay === false) app.resizeRequestStart();
@@ -9673,8 +10608,10 @@ var UI = /*#__PURE__*/ function() {
                     // jQuery(this).toggleClass(buttonClass + " " + uiClass + "-widthfit ");
                     });
                 }
-                ui.shareBox = new DV_Share(app.container, app.options);
                 this.share = controls.share = controls_utils.createBtn('share', icons['share'], text.share).on("click", function() {
+                    if (ui.shareBox == null) {
+                        ui.shareBox = new DV_Share(app.container, app.options);
+                    }
                     if (ui.shareBox.isOpen === true) ui.shareBox.close();
                     else {
                         ui.shareBox.update(app.getURLHash());
@@ -9934,7 +10871,7 @@ var DV_Share = /*#__PURE__*/ function() {
                 });
                 dfShare.box.appendTo(dfShare.wrapper).html('<span class="df-share-title">' + options.text.share + '</span>');
                 dfShare.urlInput = controls_jQuery('<textarea name="df-share-url" class="df-share-url">').on("click", function() {
-                    controls_jQuery(this).select();
+                    this.select();
                 });
                 dfShare.box.append(dfShare.urlInput);
                 for(var shareKey in options.share)_loop(shareKey);
@@ -9944,7 +10881,7 @@ var DV_Share = /*#__PURE__*/ function() {
         {
             key: "show",
             value: function show() {
-                this.wrapper.fadeIn(300);
+                this.wrapper.show();
                 this.urlInput.val(this.shareUrl);
                 this.urlInput.trigger("click");
                 this.isOpen = true;
@@ -9965,7 +10902,7 @@ var DV_Share = /*#__PURE__*/ function() {
         {
             key: "close",
             value: function close() {
-                this.wrapper.fadeOut(300);
+                this.wrapper.hide();
                 this.isOpen = false;
             }
         },
@@ -10006,7 +10943,7 @@ var DVLightBox = /*#__PURE__*/ function() {
             value: function show(callback) {
                 if (this.lightboxWrapper.parent().length === 0) controls_jQuery("body").append(this.lightboxWrapper);
                 controls_jQuery("html,body").addClass("df-lightbox-open");
-                this.lightboxWrapper.fadeIn(this.duration);
+                this.lightboxWrapper.show();
                 if (typeof callback === "function") callback();
                 return this;
             }
@@ -10014,7 +10951,7 @@ var DVLightBox = /*#__PURE__*/ function() {
         {
             key: "close",
             value: function close(callback) {
-                this.lightboxWrapper.fadeOut(this.duration);
+                this.lightboxWrapper.hide();
                 Array.prototype.forEach.call(defaults_DEARVIEWER.utils.getSharePrefixes(), function(prefix) {
                     if (window.location.hash.indexOf("#" + prefix) === 0) history.replaceState(undefined, undefined, "#_");
                 //window.location.hash = "#_";
@@ -10023,7 +10960,7 @@ var DVLightBox = /*#__PURE__*/ function() {
                 controls_jQuery("html,body").removeClass("df-lightbox-open");
                 //cleanup any classes to remove old CSS classes
                 this.element.attr("class", "df-app").attr("style", "");
-                this.lightboxWrapper.attr("class", "df-lightbox-wrapper").attr("style", "");
+                this.lightboxWrapper.attr("class", "df-lightbox-wrapper").attr("style", "display:none");
                 this.backGround.attr("style", "");
                 return this;
             }
@@ -10352,7 +11289,7 @@ var ThumbList = /*#__PURE__*/ function() {
                         container: app.thumblist.container,
                         elements: app.thumblist.container.children
                     });
-                    if (controls_jQuery.inArray(visible)) visible.unshift(app.activeThumb);
+                    if (visible.indexOf(app.activeThumb) === -1) visible.unshift(app.activeThumb);
                     for(var count = 0; count < visible.length; count++){
                         var thumb1 = app.thumblist.container.children[visible[count] - 1];
                         if (thumb1 !== void 0 && thumb1.classList.contains("df-thumb-loaded") === false && thumb1.classList.contains("df-thumb-requested") === false) {
@@ -10409,12 +11346,13 @@ defaults_DEARVIEWER.openLightBox = function openLightBox(app) {
         defaults_DEARVIEWER.activeLightBox.app = controls_utils.disposeObject(defaults_DEARVIEWER.activeLightBox.app);
         if (defaults_DEARVIEWER.activeLightBox.app === null) {
             defaults_DEARVIEWER.activeLightBox.show(function() {
-                defaults_DEARVIEWER.activeLightBox.app = controls_jQuery(defaults_DEARVIEWER.activeLightBox.element).dearviewer({
+                defaults_DEARVIEWER.activeLightBox.app = new defaults_DEARVIEWER.Application({
                     transparent: false,
                     isLightBox: true,
                     // hashNavigationEnabled: true,
                     height: "100%",
-                    dataElement: app
+                    dataElement: app,
+                    element: defaults_DEARVIEWER.activeLightBox.element
                 });
                 if (defaults_DEARVIEWER._isHashTriggered !== true) {
                     history.pushState(null, null, "#");
@@ -10439,18 +11377,18 @@ defaults_DEARVIEWER.checkBrowserURLforDefaults = function() {
         defaults_DEARVIEWER.defaults.is3D = is3D === "true";
     }
 };
-defaults_DEARVIEWER.checkBrowserURLforPDF = function() {
-    var openFlipbook = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : false;
-    if (controls_utils.isIEUnsupported) return;
-    var pdf = new URL(location.href).searchParams.get('pdf-source');
-    if (pdf) {
-        pdf = decodeURI(pdf);
-        if (openFlipbook) {
-            defaults_DEARVIEWER.openURL(pdf);
-        }
-    }
-    return pdf;
-};
+//Unsafe can lead to XSS vulnerability
+// DEARVIEWER.checkBrowserURLforPDF = function (openFlipbook = false) {
+//   if (utils.isIEUnsupported) return;
+//   let pdf = (new URL(location.href)).searchParams.get('pdf-source');
+//   if (pdf) {
+//     pdf = decodeURI(pdf);
+//     if (openFlipbook) {
+//       DEARVIEWER.openURL(pdf);
+//     }
+//   }
+//   return pdf;
+// };
 //Exists if there is need for open file and other lightbox present in the same page. They cannot share same settings.
 //also is needed just be a dummy elemet for lightbox dataElement
 function createFileInput() {
@@ -11620,20 +12558,22 @@ defaults_DEARVIEWER.Application = function(options) {
     }
     return app;
 };
-//region jQuery Extension and Triggers
-//jQuery Extension
-app_jQuery.fn.extend({
-    dearviewer_options: function dearviewer_options(options) {
-        if (options == null) options = {};
-        options.element = app_jQuery(this);
-        return new defaults_DEARVIEWER.prepareOptions(options);
-    },
-    dearviewer: function dearviewer(options) {
-        if (options == null) options = {};
-        options.element = app_jQuery(this);
-        return new defaults_DEARVIEWER.Application(options);
-    }
-});
+if (window.jQuery !== void 0 && defaults_DEARVIEWER.fakejQuery == false) {
+    //region jQuery Extension and Triggers
+    //jQuery Extension
+    app_jQuery.fn.extend({
+        dearviewer_options: function dearviewer_options(options) {
+            if (options == null) options = {};
+            options.element = app_jQuery(this);
+            return new defaults_DEARVIEWER.prepareOptions(options);
+        },
+        dearviewer: function dearviewer(options) {
+            if (options == null) options = {};
+            options.element = app_jQuery(this);
+            return new defaults_DEARVIEWER.Application(options);
+        }
+    });
+}
 
 
 ;// CONCATENATED MODULE: ./src/js/dflip.js
@@ -11847,7 +12787,8 @@ dflip_jQuery(document).ready(function() {
     dflip_DEARFLIP.parseFallBack();
     utils.detectHash();
     dflip_DEARFLIP.parseNormalElements();
-    dflip_DEARFLIP.checkBrowserURLforPDF(true);
+    //Unsafe can lead to XSS vulnerability
+    // DEARFLIP.checkBrowserURLforPDF(true);
     dflip_DEARFLIP.executeCallback("afterDearFlipInit");
 });
 utils.finalizeOptions = function(options) {

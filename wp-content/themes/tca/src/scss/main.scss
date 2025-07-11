@@ -45,6 +45,7 @@
 @import "blocks/flipbook-form";
 @import "blocks/color-columns";
 @import "blocks/card-grid";
+@import "blocks/no-image-banner";
 
 @import "pages/events/events";
 @import "pages/news/news";
@@ -53,12 +54,14 @@
 @import "pages/not_found";
 @import "pages/resources";
 
-@import "wp-events-manager-style/event-listing-page";
-@import "wp-events-manager-style/event-single-page";
-
-
-
 @import "global/_block_specific_defined.scss";
+
+@import "events-manager-plugin/plugin_override.scss";
+@import "events-manager-plugin/card.scss";
+@import "events-manager-plugin/list_wraps.scss";
+
+@import "events-manager-plugin/single_event.scss";
+
 
 * { box-sizing: border-box; }
 

@@ -1,9 +1,8 @@
 *** Yoast SEO premium Changelog ***
 
 
-2025-06-10 - version 25.3
-* add -  Improves the placement of the AI Optimize introduction popover in the Classic editor.
-* update -  Disables the code editor switch button in Classic editor when the Yoast AI Optimize notification is visible.
-* update -  Disables the code editor switch button in Classic editor when the Yoast AI Optimize notification is visible.
-* update -  Bumps the minimum required version of Yoast SEO to 25.3.
+2025-07-01 - version 25.4
+* add -  Improves handling the AI Optimize suggestions containing split paragraphs for _paragraph length_ assessment in Classic editor.
+* fix -  Fixes a bug where the AI Optimize Introduction notification would display behind the WordPress admin menu in some screen resolutions.
+* update -  Bumps the minimum required version of Yoast SEO to 25.4.
 

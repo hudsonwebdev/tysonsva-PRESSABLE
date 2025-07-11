@@ -506,8 +506,8 @@ get_header();
 							</a>
 						</div>
 						<div class="item ">
-							<a href="https://www.google.com/maps/d/edit?mid=1WzbZl7wkY_7lH880K_4h9MALvkMWMVM&usp=sharing" target="_blank">
-							<img src="/wp-content/uploads/2025/02/path_map-2.jpg" alt="Get Around Guide Map">
+							<a href="https://www.google.com/maps/d/u/0/viewer?mid=1gQ-XUuJcQPXd3Iod_wjEDXLde-ZWItw&ll=38.92568506615096%2C-77.23923946219018&z=13" target="_blank">
+							<img src="/wp-content/uploads/2025/06/exp_tys_map.png" alt="Get Around Guide Map">
 							</a>
 						</div>
 					</div>

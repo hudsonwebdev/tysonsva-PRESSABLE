@@ -1,0 +1,51 @@
+.em.em-list.em-grid>div.em-item{
+    max-width:none;
+    display:flex;
+    flex-direction:column;
+}
+
+.em button.em-clickable{
+padding:0 !important;
+    
+}
+.em-event-add-to-calendar{
+background-blend-mode: multiply;
+}
+.em .em-icon.em-icon-calendar{
+    background-image:none !important;
+    display:none;
+}
+.em button.input.em-tooltip-ddm{
+background-blend-mode: multiply !important;
+}
+
+.em .em-pagination{
+    margin-bottom:30px;
+}
+
+.em .em-pagination .page-numbers{
+        border:1px solid $steel-blue !important;
+        color:$steel-blue !important;
+        font-size:1rem !important;
+        width:40px !important;
+        height:40px !important;
+        line-height:40px !important;
+        padding:0 !important;
+        margin:5px !important;
+        font-family: $fontBold !important;
+    }
+
+.em .em-pagination .page-numbers.current{
+        border:1px solid $steel-blue !important;
+        color:$white !important;
+        font-size:1rem !important;
+        width:40px !important;
+        height:40px !important;
+        line-height:40px !important;
+        padding:0 !important;
+        margin:5px !important;
+        font-family: $fontBold !important;
+        text-decoration:none !important;
+        background-color: $purple !important;
+        
+    }

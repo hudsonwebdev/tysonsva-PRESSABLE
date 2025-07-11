@@ -3,32 +3,36 @@
 
 function get_date_display($eid){
 
-    $start_date = get_field('start_date',$eid)?get_field('start_date',$eid):'';
+    if(get_field('date_display',$eid)){
 
-    $end_date = get_field('end_date',$eid)?get_field('end_date',$eid):'';
+        $date_display = get_field('date_display',$eid);
 
-    if( get_field('date_display',$eid)){
-
-        $date_display =  get_field('date_display',$eid);
-
-    }elseif($start_date  == $end_date){
-
-        $date_display =  date('M d',strtotime($start_date));
 
     }else{
 
-        $date_display =   date('M d',strtotime($start_date));
-        if($end_date){
-            $date_display .=  " - " .  date('M d',strtotime($end_date));
+        $event = em_get_event($eid, 'post_id');
+
+        $event_date = get_post_meta($eid, '_event_start_date', true); 
+        $event_end_date = get_post_meta($eid, '_event_end_date', true); 
+
+        $datestring = strtotime($event_date);
+        $datestringend = strtotime($event_end_date);
+
+        $event_date = date('M d, Y', $datestring);
+        $event_end_date = date('M d, Y', $datestringend);
+
+        $date_display =  $event_date;
+
+        if($event_end_date != $event_date){ 
+            $date_display .= " - " . $event_end_date;
         } 
 
     }
 
+
     return $date_display;
 
 }
-
-
 
 
 

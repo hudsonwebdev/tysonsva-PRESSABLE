@@ -1,14 +1,9 @@
 .featured-slides{
 
     position:relative;
+    height: 720px;
     margin-bottom:30px;
-   
-    height:70vh;
-    @media(min-width:$breakpoint-medium){
-    min-height:800px;
-    max-height: 820px;
-    }
-
+  
     .featured-slide-trigger{
         cursor:pointer;
     }
@@ -17,6 +12,7 @@
         .featured-slide{
 
             position:absolute;
+            
             width:100%;
             height:100%;
             opacity:0;

@@ -34,7 +34,14 @@
         &.even-color{
             background-color:$page-background;
         }
+
+      
 }
+
+  .additional-info{
+            background:$light-light-blue;
+            padding:50px 0;
+        }
 
 #download-resource .uk-modal-dialog{
     background-color:$steel-blue;

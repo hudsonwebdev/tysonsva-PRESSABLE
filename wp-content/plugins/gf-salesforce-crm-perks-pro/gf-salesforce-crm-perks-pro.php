@@ -2,7 +2,7 @@
 /**
 * Plugin Name: WP Gravity Forms Salesforce Pro
 * Description: Integrates Gravity Forms with Salesforce allowing form submissions to be automatically sent to your Salesforce account 
-* Version: 1.5.0
+* Version: 1.5.1
 * Requires at least: 4.7
 * Author URI: https://www.crmperks.com
 * Plugin URI: https://www.crmperks.com/plugins/gravity-forms-plugins/gravity-forms-salesforce-plugin/
@@ -24,7 +24,7 @@ class vxg_salesforce {
   public  $crm_name = 'salesforce';
   public  $id = 'vxg_salesforce';
   public  $domain = 'vxg-sales';
-  public  $version = "1.5.0";
+  public  $version = "1.5.1";
   public  $update_id = '30001';
   public  $min_gravityforms_version = '1.3.9';
   public $type = 'vxg_salesforce_pro';
@@ -121,6 +121,7 @@ require_once(self::$path . "includes/plugin-pages.php");
   */
   public function setup_main(){
 
+      
   include_once(self::$path. "includes/edit-form.php");
  
         //handling post submission.  gform_after_submission runs after gform_replace_merge_tags
@@ -672,7 +673,7 @@ return $result;
   }
   if($value && is_array($value)){
  // $value=implode(", ",$value);
-  }
+  } 
   return $value;        
   }
   /**
@@ -1397,7 +1398,7 @@ public function update_entry($form,$lead_id){ //with after hook update_entry($fo
         if($this->do_actions()){
      do_action('vx_addons_save_entry',$entry_id,$entry,'gf',$form);   
         }
-      $this->push($entry,$form,'paid',false);
+      $this->push($entry,$form,$event,false);
    //  }     
   }
 
@@ -1853,7 +1854,7 @@ public function process_tags($entry,$form,$value,$crm_field_id='',$custom=''){
    foreach($matches[0] as $m){
        $m=trim($m,'{}');
        $val_cust=$this->verify_field_val($entry,$form,$m,$crm_field_id,$custom);
-       if(is_array($val_cust)){ $val_cust=trim(implode(' ',$val_cust)); }   
+       if(is_array($val_cust)){ $val_cust=trim(implode(', ',$val_cust)); }   
     $vals['{'.$m.'}']=$val_cust;  
    }
    

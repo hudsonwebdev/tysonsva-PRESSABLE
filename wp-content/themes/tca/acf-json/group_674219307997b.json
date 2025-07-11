@@ -83,7 +83,7 @@
             "label": "Stick to Top",
             "name": "stick_to_top",
             "aria-label": "",
-            "type": "relationship",
+            "type": "post_object",
             "instructions": "Make these posts appear at the top",
             "required": 0,
             "conditional_logic": [
@@ -101,27 +101,25 @@
                 "id": ""
             },
             "post_type": [
-                "post",
+                "page",
                 "resource",
-                "event_listing"
+                "event"
             ],
             "post_status": "",
             "taxonomy": "",
-            "filters": [
-                "search",
-                "post_type",
-                "taxonomy"
-            ],
             "return_format": "id",
+            "multiple": 1,
+            "save_custom": 0,
+            "save_post_status": "publish",
             "acfe_bidirectional": {
                 "acfe_bidirectional_enabled": "0"
             },
-            "min": "",
-            "max": "",
+            "allow_null": 0,
             "allow_in_bindings": 0,
-            "elements": "",
             "bidirectional": 0,
-            "bidirectional_target": []
+            "ui": 1,
+            "bidirectional_target": [],
+            "save_post_type": ""
         },
         {
             "key": "field_67be42ee62a16",
@@ -457,5 +455,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1750003688
+    "modified": 1751984416
 }

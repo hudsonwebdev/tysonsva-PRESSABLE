@@ -6,7 +6,7 @@ function display_event_featured($eid,$number_of_events, $eventCount) {
 
     
   
-    $title = get_the_title();
+    $title = get_the_title($eid);
 
     
     $img_id = get_post_thumbnail_id($eid);
@@ -49,6 +49,14 @@ function display_event_featured($eid,$number_of_events, $eventCount) {
 
 function draw_event_card($eid,$columns=1) {
 
+
+    $post_type = get_post_type($eid);
+
+    if($post_type=="tysons-event"){
+        $post_type_display = "Event";
+    }else{
+        $post_type_display = $post_type;
+    }
 
     $img_id = get_post_thumbnail_id($eid);
 
@@ -111,7 +119,7 @@ function draw_event_card($eid,$columns=1) {
 
                         <?php if($medium_portrait && $columns == 1){ ?>
                             
-                                <img <?php awesome_acf_responsive_image($medium_portrait ['ID'],'medium','440px',$title); ?> />
+                                <img <?php awesome_acf_responsive_image($medium_portrait ['ID'],'large','440px',$title); ?> />
                         
                         <?php }elseif($img_id>0){ ?>
 
@@ -130,13 +138,18 @@ function draw_event_card($eid,$columns=1) {
                         <div class="tca-card-info">
                             <div class="inner">
                                 <div class="card-header">
-                                    <div class="card-type">Event</div>
-                                    <div class="card-date"><?php echo get_date_display($eid); ?></div>
+
+                                    <div class="card-type"><?php echo $post_type_display; ?></div>
+
+                                    <?php if($post_type=="event"){ ?>
+                                            
+                                        <div class="card-date"> <?php echo get_date_display($eid); ?></div>
+                                  
+                                  <?php } ?>
                                     
                                 </div>
                                 <div class="card-title">
-                               
-                                
+                            
                                     <h4><a href="<?php echo $url; ?>" target="<?php echo $target; ?>"><?php echo max_title_length( $title ); ?></a></h4>
                                     <?php printVenu($eid,false); ?>
                                     
@@ -165,9 +178,19 @@ function draw_event_card($eid,$columns=1) {
 function printVenu($eid,$showAddress=true,$additional_location_info=""){
      
 
+$event_id = $eid; // Replace with your actual event ID
+$event = new EM_Event($event_id, 'post_id'); // Ensure it loads by post ID
+
+
+
+
      $venue = get_field('location',$eid); 
     
-     if($venue ){  ?>
+     if ($event && !empty($event->location_id)) {  
+        
+        $location = new EM_Location($event->location_id);
+        
+        ?>
 
         <div class="location-info uk-flex">
             <div class="pin">
@@ -177,28 +200,17 @@ function printVenu($eid,$showAddress=true,$additional_location_info=""){
             </div>
             <div class="address">
 
-            <?php  $venueTitle = $venue->post_title; ?>
+            <?php  $venueTitle = esc_html($location->location_name); ?>
 
                 <div class="location-title"><?php echo $venueTitle; ?></div>
 
 
                 <?php if($showAddress){ ?>
-                    <?php $venueAddress =  get_field('address',$venue->ID); ?>
+                    <?php $venueAddress =  esc_html($location->location_address); ?>
                     <div class="street"><?php echo $venueAddress; ?></div>
 
                 <?php } ?>
 
-                <?php if($additional_location_info>''){ ?>
-                  
-                    <div class="additional-location-info"><?php echo $additional_location_info; ?></div>
-
-                <?php } ?>
-
-                
-                
-            
-        
-            
             </div>
         </div>
 

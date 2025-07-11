@@ -86,17 +86,25 @@ get_header();
                 </div>
             </div>
 
-            <?php if(get_field('additional_resource_info')){ 
-                echo get_field('additional_resource_info');
-
-            } ?>
+           
         </div>
     </div>
+
 </div>
 
 </section>
+<section>
+    <div class="additional-info">
+        <div class="uk-container">
+            <?php 
+            if(get_field('additional_resource_info')){ 
+                echo get_field('additional_resource_info');
 
-
+            } 
+            ?>
+        <div>
+     <div>
+<section>
 
 			
 		<?php endwhile; ?>

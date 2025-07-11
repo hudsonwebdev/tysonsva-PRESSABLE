@@ -29,6 +29,7 @@ function drawMegaMenu(){ ?>
                 $cta_image = get_sub_field('cta_image');
                 $cta_link = get_sub_field('cta_link');
                 $cta_post = get_sub_field('cta_post');
+               
            ?>
 
            <?php 
@@ -101,8 +102,6 @@ function drawMegaMenu(){ ?>
 
                         <?php if(get_sub_field('cta_text_override')){ ?>
                             <div class="excerpt"><?php echo get_sub_field('cta_text_override'); ?></div>
-                        <?php }else{ ?>
-                            <div class="excerpt"><?php echo get_the_excerpt($cta_post->ID); ?></div>
                         <?php } ?>
                         
                         
