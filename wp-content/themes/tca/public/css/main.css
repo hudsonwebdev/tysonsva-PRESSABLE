@@ -17155,15 +17155,6 @@ article.post .entry-content .share .share-title {
   padding: 0 !important;
 }
 
-.em-event-add-to-calendar {
-  background-blend-mode: multiply;
-}
-
-.em .em-icon.em-icon-calendar {
-  background-image: none !important;
-  display: none;
-}
-
 .em button.input.em-tooltip-ddm {
   background-blend-mode: multiply !important;
 }
@@ -17371,11 +17362,18 @@ article.post .entry-content .share .share-title {
   opacity: 1;
 }
 
-.em-event-add-to-calendar {
-  color: #ffffff;
+.em-event-add-to-calendar.em-tooltip-ddm.em-clickable.input {
+  background: #E4F2F8 !important;
+  padding: 15px !important;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-family: "silkabold", "Arial", "Helvetica", sans-serif;
+  color: #385DFF;
 }
-.em-event-add-to-calendar span {
-  color: #ffffff;
+
+.em button.input.em-tooltip-ddm[aria-expanded=true] {
+  background-image: none !important;
+  background: #ffffff !important;
 }
 
 * {

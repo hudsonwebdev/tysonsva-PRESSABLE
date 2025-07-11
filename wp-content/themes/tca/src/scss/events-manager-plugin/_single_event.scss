@@ -1,6 +1,17 @@
-.em-event-add-to-calendar{
-    color:$white;
-    span{
-        color:$white;
-    }
+.em-event-add-to-calendar.em-tooltip-ddm.em-clickable.input{
+   
+    background:$light-light-blue !important;
+    padding:15px !important;
+    border-radius:5px;
+    text-transform:uppercase;
+    font-family: $fontBold;
+    color:$steel-blue;
+
+ 
+}
+
+.em button.input.em-tooltip-ddm[aria-expanded=true]{
+    background-image:none !important;
+    background:$white !important;
+    
 }

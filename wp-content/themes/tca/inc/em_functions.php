@@ -135,6 +135,18 @@ switch($result){
 			
 	break;
 
+    case '#_ADDITIONALCARDINFOTYSONS':
+
+			if(get_field('additional_card_info',$EM_Event->ID)){
+                $replace = '<div class="additional-card-info">';
+				$replace .= get_field('additional_card_info',$EM_Event->ID);
+                $replace .= '</div>';
+			}else{
+                $replace = "";
+            }
+			
+	break;
+
 
 
 
@@ -145,3 +157,5 @@ switch($result){
 
 
 }
+
+

@@ -1,37 +1,51 @@
 <?php
 
-
-function get_date_display($eid){
-
-    if(get_field('date_display',$eid)){
-
-        $date_display = get_field('date_display',$eid);
-
-
-    }else{
-
+function get_date_display($eid) {
+    if (get_field('date_display', $eid)) {
+        $date_display = get_field('date_display', $eid);
+    } else {
         $event = em_get_event($eid, 'post_id');
 
-        $event_date = get_post_meta($eid, '_event_start_date', true); 
+        $event_start_date = get_post_meta($eid, '_event_start_date', true); 
         $event_end_date = get_post_meta($eid, '_event_end_date', true); 
 
-        $datestring = strtotime($event_date);
+        $datestring = strtotime($event_start_date);
         $datestringend = strtotime($event_end_date);
 
-        $event_date = date('M d, Y', $datestring);
+        $event_start_date = date('M d, Y', $datestring);
         $event_end_date = date('M d, Y', $datestringend);
 
-        $date_display =  $event_date;
+        $date_display = $event_start_date;
 
-        if($event_end_date != $event_date){ 
+        if ($event_end_date != $event_start_date) { 
             $date_display .= " - " . $event_end_date;
         } 
 
+        $event_start_time = trim(get_post_meta($eid, '_event_start_time', true)); 
+        $event_end_time = trim(get_post_meta($eid, '_event_end_time', true)); 
+
+        // Format start time
+        if ($event_start_time) {
+            $time = DateTime::createFromFormat('H:i:s', $event_start_time);
+            if ($time !== false) {
+                $date_display .= " " . $time->format('g:i A');
+            } else {
+                $date_display .= " invalid start time";
+            }
+        }
+
+        // Format end time if it's different from start time
+        if ($event_end_time && $event_end_time != $event_start_time) {
+            $end_time = DateTime::createFromFormat('H:i:s', $event_end_time);
+            if ($end_time !== false) {
+                $date_display .= " - " . $end_time->format('g:i A');
+            } else {
+                $date_display .= " invalid end time";
+            }
+        }
     }
 
-
     return $date_display;
-
 }
 
 

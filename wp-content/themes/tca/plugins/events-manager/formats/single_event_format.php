@@ -12,7 +12,9 @@
 				<div class="inner">
 					<div class="card-header">
 						<div class="card-type">Event</div>
-						<div class="card-date">#_EVENTDATES</div>
+						<div class="card-date">
+							#_EVENTDATES #_EVENTTIMES
+						</div>
 					</div>
 					<br>       
 					<div class="card-title">
@@ -38,13 +40,16 @@
 						
 						</div>
 					</div>
-					{/has_location_venue}			
+					{/has_location_venue}		
+					
+					
+					#_ADDITIONALCARDINFOTYSONS
 
 					
 					#_TICKETLINKTYSONS  #_LEARNMORETYSONS 
 
 					
-					<br><br><br>
+					
 					#_EVENTADDTOCALENDARTYSONS 
 				</div>
 			</div>	
