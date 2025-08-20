@@ -1,21 +1,37 @@
 .flipbook-form{
 
 
-padding:10%;
 .flipbook-form-wrap{
-   
-   
+    @media(min-width:$breakpoint-medium){
     display:flex;
+    }
     width:100%;
     .thumbside{
-        width:25%;
         padding:15px;
+        ._df_thumb,
         .df-popup-thumb{
-            width:100%
+            width:100%;
+            max-width:100%;
         }
+        @media(min-width:$breakpoint-medium){
+            width:30% !important;
+            min-width:30% !important;
+        }
+        
+        
+
     }
     .textside{
-        padding:0 30px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        @media(min-width:$breakpoint-medium){
+            width:70% !important;
+            padding:0 0 0 80px;
+        }
+        button{
+            margin:15px 0;
+        }
       
     }
 }

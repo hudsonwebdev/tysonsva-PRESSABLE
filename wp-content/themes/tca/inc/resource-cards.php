@@ -1,77 +1,59 @@
 <?php
 
-function draw_resource_card_grid($pid,$columns=1) {
+function draw_resource_card($rid,$count) { ?>
 
-$img_id = get_post_thumbnail_id($pid);
+   <?php
 
-$title = get_the_title($pid);
+            $url = get_field('url',$rid);
+       
+            $resource_cover_image = get_field('resource_cover_image',$rid);
 
-$url = get_the_permalink($pid);
-$target = "_self";
+            if($resource_cover_image){
+                 
+                 $image_id = $resource_cover_image['id'];
 
+            }else{
 
+                $image_id = get_post_thumbnail_id($rid);
 
-?>
-<div class="flex-item  columns-<?php echo $columns; ?>">
+            }
+           
+      
+            $resource_type = get_field('resource_type',$rid);
 
-    <div class="event-card ">
+            if ($resource_type == 2) {
+                $link = $url;
+                $target= "_blank";
+            }else{ 
+                $link = get_the_permalink($rid);
+                $target = "_self";
+            }
 
-        <div class="outerblue">
-            <div class="outer-card-chevron"><?php drawSVG('outer-chevron-up-card'); ?></div>
-        </div> 
-        <div class="inner-wrap">
+    ?>
+    <div class="flex-item ">
+        <div class="inner">
+        <div class="resource-card">
+            <div class="outerblue">
+                    <div class="outer-card-chevron"><?php drawSVG('outer-chevron-up-card'); ?></div>
+            </div> 
+            <div class="inner-wrap">
 
-            <div class="chev-up"><?php drawSVG('chevron-up-card'); ?></div>
-
-            <div class="innerblue"></div>
-
-                <div class="single-stack">
-
-                    <div class="card-image">
-
-                    <?php if($img_id>0){ ?>
-
-                        <?php if($columns == 2){ ?>
-                            <img <?php awesome_acf_responsive_image($img_id,'featured-image','1378px',$title); ?> />
-                        <?php }else{ ?>
-                            <img <?php awesome_acf_responsive_image($img_id,'large','768px',$title); ?> />
-                        <?php } ?>
-
-
-                        <?php } ?>
+      
+        
+        
+                <a href="<?php echo $link; ?>" target="<?php echo $target; ?>">
+                    <div class="cover-image">
+                        <img <?php awesome_acf_responsive_image($image_id,'large','768px',get_the_title($rid)); ?>  />
                     </div>
-                    
-                    
-                    
-                    <div class="tca-card-info">
-                        <div class="inner">
-                        <div class="card-header">
-                                <div class="card-type">Resource</div>
-                                <div class="card-date"></div>
-                            </div>
-                            <div class="card-title">
-                                <h4><a href="<?php echo $url; ?>" target="<?php echo $target; ?>"><?php echo max_title_length( $title ); ?></a></h4>
-                               
-                    
-                                
-                            </div>
-
-                            
-                        </div>
-                    </div>
-
-                </div>
-
-         </div>
+                </a>
+            </div>
+        </div>
     </div>
     </div>
-<?php
-}
+   
+<?php }
 
-
-
-
-function draw_resource_card($rid,$count) {
+function draw_resource_list($rid,$count) {
 
     if($count%2==0){
         $bgclass = "even-color";

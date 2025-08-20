@@ -216,6 +216,7 @@ function toggleEventView(viewtarget){
 
 $(".event-card, .news-card, .cta-block").click(function (e) {
   e.preventDefault();
+
   var newsurl = $(this).find("a").attr("href");
   var target = $(this).find("a").attr("target");
   if(target=="_blank"){

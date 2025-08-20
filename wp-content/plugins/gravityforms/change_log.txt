@@ -1,3 +1,32 @@
+### 2.9.15 | 2025-08-07
+- Added the [gform_enable_download_nocache_headers](https://docs.gravityforms.com/gform_enable_download_nocache_headers/) filter to allow developers to enable or disable the no-cache headers for file downloads. Credit: The GravityKit Team.
+- Added the [gform_email_field_rejectable_values](https://docs.gravityforms.com/gform_email_field_rejectable_values/) filter, which can be used to provide an array of values or partial values that the email field should reject during validation.
+- Added security enhancements.
+- Fixed the time field value not being saved and PHP notices on submission if a form contains administrative time field with dynamic population enabled.
+- Fixed a PHP fatal error that can occur in some hosting environments when the form is saved via Ajax in the form editor.
+- Updated the message displayed when the user has exceeded the license verification rate limit to be more informative.
+- Updated messages in the form editor and form settings page to provide more information about the upcoming deprecation of Ready Classes in version 3.1.0.
+- Updated the UI of dialogs and flyouts.
+- Updated background processor error handler priority to increase chances of fatal errors being logged.
+- Removed notifications from form templates.
+- API: Added inline documentation for the Theme Framework CSS API.
+- API: Fixed an issue with the JS gform.product.getPaymentAmount() method that returns the wrong payment amount in certain situations.
+
+### 2.9.14 | 2025-07-24
+- Added the constant [GF_ENABLE_NOTIFICATION_EMAIL_HEADER](https://docs.gravityforms.com/gf_enable_notification_email_header) and filter [gform_notification_email_header](https://docs.gravityforms.com/gform_notification_email_header) to allow enabling and setting of `X-Gravity-Forms-Source` email header.
+- Added alt attribute to the checked indicator image in the consent field for improved accessibility.
+- Fixed an issue where the "Subscription Created" notification is not sent in some situations.
+- Fixed setting of default value for email confirmation input when field has conditional logic enabled.
+- Fixed an issue where the "Select All" choice for Multiple Choice fields is rendered incorrectly.
+- Fixed an issue where forms can't be saved in the form editor when third-party add-ons introduce invalid JSON syntax to the form object.
+- AF: Fixed an issue where the save success message can be displayed when the edit feed page is redirected to from another add-on.
+- API: Updated `GF_Field::get_value_entry_detail()` to display an inline error message on the entry detail page when the field uses an array-based value and the add-on that includes the field is inactive or hasn't defined it's own `get_value_entry_detail` method.
+- API: Fixed a display issue with checkbox type setting choice labels.
+
+### 2.9.13 | 2025-07-11
+- Updated the image choice file upload UI to account for file upload component updates.
+- Updated the help page to be more accessible.
+
 ### 2.9.12 | 2025-07-10
 - Added merge tags on the "Send To: Enter Email" notification setting. Credit: The GravityKit Team.
 - Updated the legacy Akismet spam check during form submission to run via the [`gform_entry_is_spam`](https://docs.gravityforms.com/gform_entry_is_spam/) filter in preparation for version 1.1.0 of the Akismet add-on.

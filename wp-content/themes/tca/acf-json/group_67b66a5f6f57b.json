@@ -3,12 +3,30 @@
     "title": "Block: Flipbook and Form",
     "fields": [
         {
+            "key": "field_6872ecae8a934",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_67b66a5f77350",
             "label": "Flipbook Shortcode",
             "name": "flipbook_shortcode",
             "aria-label": "",
             "type": "text",
-            "instructions": "",
+            "instructions": "You need to go to the dFlip Books settings to find the shortcode.  Make sure you use the shortcode that includes the \"thumb\" setting.  This is found on the edit screen for the flipbook.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -24,9 +42,9 @@
             "append": ""
         },
         {
-            "key": "field_67b6790539b47",
-            "label": "Form Intro",
-            "name": "form_intro",
+            "key": "field_6872f4783939e",
+            "label": "Description",
+            "name": "description",
             "aria-label": "",
             "type": "wysiwyg",
             "instructions": "",
@@ -45,11 +63,11 @@
             "delay": 0
         },
         {
-            "key": "field_67b66a8e77351",
-            "label": "Gravity Form ID",
-            "name": "gravity_form_id",
+            "key": "field_6872f513a90ea",
+            "label": "Align Description",
+            "name": "align_description",
             "aria-label": "",
-            "type": "number",
+            "type": "radio",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -58,14 +76,77 @@
                 "class": "",
                 "id": ""
             },
+            "choices": {
+                "flex-start": "Top",
+                "center": "Middle",
+                "flex-end": "Bottom"
+            },
             "default_value": "",
-            "min": "",
-            "max": "",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
             "allow_in_bindings": 0,
+            "layout": "horizontal",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_6872f0ce1c9e6",
+            "label": "Access Forms",
+            "name": "access_forms",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "None": "None",
+                "Download": "Download",
+                "Mail": "Mail",
+                "Download & Mail": "Download & Mail"
+            },
+            "default_value": "",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_6872f18f40cd6",
+            "label": "Form Button Color",
+            "name": "form_button_color",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "white": "white",
+                "blue": "blue"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
             "placeholder": "",
-            "step": "",
-            "prepend": "",
-            "append": ""
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_67b66c2a5ad4b",
@@ -88,6 +169,96 @@
             "mime_types": "",
             "allow_in_bindings": 0,
             "library": "all"
+        },
+        {
+            "key": "field_6872ecb88a935",
+            "label": "Container",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6872ecc78a937",
+            "label": "Container Settings",
+            "name": "container_settings",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "group_67694de9a7420"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0,
+            "acfe_seamless_style": 0,
+            "acfe_clone_modal": 0,
+            "acfe_clone_modal_close": 0,
+            "acfe_clone_modal_button": "",
+            "acfe_clone_modal_size": "large"
+        },
+        {
+            "key": "field_6872ecc08a936",
+            "label": "Header",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6872ecfc8a938",
+            "label": "Section Header",
+            "name": "section_header",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "group_6799322d74e27"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0,
+            "acfe_seamless_style": 0,
+            "acfe_clone_modal": 0,
+            "acfe_clone_modal_close": 0,
+            "acfe_clone_modal_button": "",
+            "acfe_clone_modal_size": "large"
         }
     ],
     "location": [
@@ -115,5 +286,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1740011809
+    "modified": 1752364567
 }

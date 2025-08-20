@@ -193,6 +193,22 @@ function cmplz_plugin_admin_scripts() {
 		}
 	}
 
+	/**
+	 * Register polyfill for React JSX runtime for version lower than 6.6.
+	 *
+	 * @TODO: Remove this once the minimum required version of WordPress is 6.6.
+	 */
+	global $wp_version;
+
+	if ( version_compare( $wp_version, '6.6', '<' ) && ! wp_script_is( 'react-jsx-runtime', 'registered' ) ) {
+		wp_enqueue_script(
+			'react-jsx-runtime',
+			plugins_url( 'assets/js/react-jsx-runtime.js', __FILE__ ),
+			[ 'react'], // it is a polyfill for react JSX runtime, it depends on react
+            CMPLZ_VERSION,
+		);
+	}
+
 	// check if the necessary files are found
 	if ( $jsFilename !== '' && $assetFilename !== '' ) {
 		$assetFilePath     = $buildDirPath . '/' . $assetFilename;
@@ -745,7 +761,7 @@ function cmplz_rest_api_fields_set( WP_REST_Request $request): array {
 
 	$fields = $request->get_param('fields');
 	$finish = (bool) $request->get_param('finish');
-    $config_fields = COMPLIANZ::$config->fields;;
+    $config_fields = COMPLIANZ::$config->fields;
     $config_ids = array_column($config_fields, 'id');
 	foreach ( $fields as $index => $field ) {
 		$config_field_index = in_array( $field['id'], $config_ids, true );

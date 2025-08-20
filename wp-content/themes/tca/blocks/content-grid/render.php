@@ -16,7 +16,7 @@ $total_posts = intval($total_posts - count($stick_to_top));
 
 $column_count_desktop = get_field('column_count_desktop')?get_field('column_count_desktop'):3;
 
-
+$containerClass = "";
 
 openSection(
     $wrap_size,
@@ -69,11 +69,19 @@ break;
 case "Latest News":
 
     $args = array(
-        'post_type'      => 'post',       // Get posts (not pages, etc.)
-        'posts_per_page' => $total_posts,            // Number of posts to retrieve
-        'orderby'        => 'date',       // Order by post date
-        'order'          => 'DESC',       // Show the latest first
-    );
+    'post_type'      => 'post',
+    'posts_per_page' => $total_posts,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+    'tax_query'      => array(
+        array(
+            'taxonomy' => 'category',     // Taxonomy name
+            'field'    => 'slug',         // Could also be 'term_id' or 'name'
+            'terms'    => 'featured',     // Term to filter by
+        ),
+    ),
+);
+
 
     $containerClass = "news-container";
 
@@ -87,9 +95,80 @@ case "Mixed Content":
     $post_query = get_field('post_picker');
     
 break;
-case "Resource List":
+
+case "Type And Category":
 
     $containerClass = "event-container grid-view";
+
+
+$post_types = get_field('post_type'); // Array like ['post', 'event', 'resource']
+
+
+$selected_terms = get_field('tags_and_categories'); // Could be array of term IDs or objects
+
+$tax_query = [];
+
+if (!empty($selected_terms)) {
+    foreach ($selected_terms as $term_item) {
+        // Handle term ID or term object
+        if (is_object($term_item) && isset($term_item->taxonomy)) {
+            $taxonomy = $term_item->taxonomy;
+            $term_id  = $term_item->term_id;
+        } elseif (is_numeric($term_item)) {
+            // Load term by ID
+            $term = get_term($term_item);
+            if (is_wp_error($term) || !$term) {
+                continue;
+            }
+            $taxonomy = $term->taxonomy;
+            $term_id  = $term->term_id;
+        } else {
+            continue;
+        }
+
+        $tax_query[] = [
+            'taxonomy' => $taxonomy,
+            'field'    => 'term_id',
+            'terms'    => $term_id,
+        ];
+    }
+
+    if (count($tax_query) > 1) {
+        $tax_query = [
+            'relation' => 'OR',
+            ...$tax_query
+        ];
+    }
+}
+
+$args = [
+    'post_type'      => $post_types ?: ['post'], // fallback if empty
+    'posts_per_page' => $total_posts,
+    'orderby' => 'date',
+    'order' => 'DESC'
+];
+
+if (!empty($tax_query)) {
+    $args['tax_query'] = $tax_query;
+}
+
+
+
+    
+break;
+
+
+case "Resource List":
+    case "Resource Grid":   
+
+    $containerClass = "resource-container list-view";
+
+    $post_query = get_field('resource_picker');
+    
+break;
+case "Resource List":
+
+    $containerClass = "resource-container grid-view";
 
     $post_query = get_field('resource_picker');
     
@@ -101,13 +180,7 @@ case "Bio List":
     $post_query = get_field('bio_picker');
     
     break;
-    case "Venue List":
-
-    $containerClass = "post-container";
-
-    $post_query = get_field('venue_picker');
     
-    break;
 }
 
 $containerClass .= " column-count-" . $column_count_desktop;
@@ -221,29 +294,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
             break;
 
-            case "Venue List":
-
-    
-
-            if(!empty($post_query)){
-
-              
-                $count = 0;
-                foreach($post_query as $post){
-
-                    
-
-                    draw_venue_card($post->ID);
-
-                    $count++;
-                
-                }
-
-            }
-
-            break;
-
-
+            
 
             case "Mixed Content":
 
@@ -264,6 +315,8 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
                    drawByPostType($post->ID,$columns,$count);
 
+        
+
                     $count++;
                 
                 }
@@ -272,10 +325,34 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
             break;
 
+            case "Type And Category":
+
+    
+            $query = new WP_Query($args);
+
+
+            if ($query->have_posts()) {
+
+                $count = 0;
+                $columns  = 1;
+                while ($query->have_posts()) {
+
+                    $query->the_post();
+
+                    drawByPostType(get_the_ID(),$columns,$count);
+
+                    $count++;
+
+                }
+            } 
+
+
+            break;
+
 
 
             case "Resource List":
-
+             
             
 
             if(!empty($post_query)){
@@ -285,19 +362,39 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                 $count = 0;
                 foreach($post_query as $post){
 
-                    if($feature_first_post && $count==0){
-                        $columns = 2;
-                    }else{
-                        $columns = 1;
-                    }    
-
-                   drawByPostType($post->ID,$columns,$count);
+    
+                   draw_resource_list($post->ID,$count);
 
                     $count++;
                 
                 }
 
             }
+
+            break;
+
+
+            case "Resource Grid":
+
+        
+
+            if(!empty($post_query)){
+
+     
+
+                $count = 0;
+                foreach($post_query as $post){
+
+  
+                   draw_resource_card($post->ID,$count);
+
+                    $count++;
+                
+                }
+
+            }
+
+            break;
 
         }
       

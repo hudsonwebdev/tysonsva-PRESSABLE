@@ -43,6 +43,8 @@ switch($result){
         ob_start();
 		$rand_id = rand();
 		?>
+        <br><br>
+        <div>
 		<button type="button" class="em-event-add-to-calendar em-tooltip-ddm em-clickable input" data-button-width="match" data-tooltip-class="em-add-to-calendar-tooltip" data-content="em-event-add-to-colendar-content-<?php echo $rand_id; ?>"><span class="em-icon em-icon-calendar"></span> <?php esc_html_e('Add To Calendar', 'events-manager'); ?></button>
 		<div class="em-tooltip-ddm-content em-event-add-to-calendar-content" id="em-event-add-to-colendar-content-<?php echo $rand_id; ?>">
 			<a class="em-a2c-download" href="<?php echo esc_url($EM_Event->get_ical_url()); ?>" target="_blank"><?php echo sprintf(esc_html__('Download %s', 'events-manager'), 'ICS'); ?></a>
@@ -51,6 +53,7 @@ switch($result){
 			<a class="em-a2c-office" href="<?php echo esc_url($EM_Event->output('#_EVENTOFFICE365URL')); ?>" target="_blank">Office 365</a>
 			<a class="em-a2c-outlook" href="<?php echo esc_url($EM_Event->output('#_EVENTOUTLOOKLIVEURL')); ?>" target="_blank">Outlook Live</a>
 		</div>
+    </div>
 		<?php
 		$replace = ob_get_clean();
 
@@ -60,9 +63,9 @@ switch($result){
 
     case '#_EVENTLINKTYSONS':
 
-        if(get_field('external_url',$EM_Event->ID)){
+        if(get_post_meta($EM_Event->ID,'External URL',true)){
 
-			$event_link = get_field('external_url',$EM_Event->ID);
+            $event_link = get_post_meta($EM_Event->ID,'External URL',true);
 
 		}else{
 
@@ -77,9 +80,9 @@ switch($result){
 
     case '#_LEARNMORETYSONS':
 
-        if(get_field('external_url',$EM_Event->ID)){
+        if(get_post_meta($EM_Event->ID,'External URL',true)){
 
-			$external_ur = get_field('external_url',$EM_Event->ID);
+			$external_url = get_post_meta($EM_Event->ID,'External URL',true);
             ob_start(); ?>
             <a href="<?php echo $external_url; ?>" class="learn-more" target="_blank"> <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                             <path d="M6.63356 4.13525H1.93701V17.0632H14.8588V12.3605" stroke="white" stroke-width="3" stroke-miterlimit="10"/>
@@ -100,7 +103,7 @@ switch($result){
 
     case '#_EVENTTARGETTYSONS':  
 
-        if(get_field('external_url',$EM_Event->ID)){
+        if(get_post_meta($EM_Event->ID,'External URL',true)){
 
 			$event_target = "_blank";
 
@@ -116,9 +119,9 @@ switch($result){
 
     case '#_TICKETLINKTYSONS': 
 
-     if(get_field('ticket_link',$EM_Event->ID)){
+     if(get_post_meta($EM_Event->ID,'Ticket Link',true)){
 
-        $ticket_link = get_field('ticket_link',$EM_Event->ID);
+        $ticket_link = get_post_meta($EM_Event->ID,'Ticket Link',true);
 
         $replace =  '<a href="' . $ticket_link . '" class="get-tickets"  target="_blank">Get Tickets</a>';
      }else{
@@ -127,8 +130,8 @@ switch($result){
     break;               
 
     case '#_EVENTDATESTYSONS':
-			if(get_field('date_display',$EM_Event->ID)){
-				$replace = get_field('date_display',$EM_Event->ID);
+			if(get_post_meta($EM_Event->ID,'Date Display',true)){
+				$replace = get_post_meta($EM_Event->ID,'Date Display',true);
 			}else{
 				$replace = $EM_Event->output_dates();
 			}
@@ -137,9 +140,9 @@ switch($result){
 
     case '#_ADDITIONALCARDINFOTYSONS':
 
-			if(get_field('additional_card_info',$EM_Event->ID)){
+			if(get_post_meta($EM_Event->ID,'Card Info',true)){
                 $replace = '<div class="additional-card-info">';
-				$replace .= get_field('additional_card_info',$EM_Event->ID);
+				$replace .= get_post_meta($EM_Event->ID,'Card Info',true);
                 $replace .= '</div>';
 			}else{
                 $replace = "";

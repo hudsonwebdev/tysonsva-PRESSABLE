@@ -205,9 +205,9 @@
                         "id": ""
                     },
                     "post_type": [
-                        "tysons-event",
                         "post",
-                        "page"
+                        "page",
+                        "event"
                     ],
                     "post_status": "",
                     "taxonomy": "",
@@ -322,5 +322,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1748539307
+    "modified": 1752256709
 }

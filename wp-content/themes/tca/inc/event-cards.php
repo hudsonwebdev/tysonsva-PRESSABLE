@@ -52,16 +52,17 @@ function draw_event_card($eid,$columns=1) {
 
     $post_type = get_post_type($eid);
 
-    if($post_type=="tysons-event"){
-        $post_type_display = "Event";
+    if(get_field('card_type_label',$eid)){
+        $post_type_display = get_field('card_type_label',$eid);
     }else{
         $post_type_display = $post_type;
     }
 
     $img_id = get_post_thumbnail_id($eid);
 
-    if(get_field('short_title',$eid)>""){
-        $title = get_field('short_title',$eid);
+     if(get_post_meta($eid,'Short Title',true)){
+
+        $title = get_post_meta($eid,'Short Title',true);
 
     }else{
         $title = get_the_title($eid);
@@ -74,11 +75,12 @@ function draw_event_card($eid,$columns=1) {
 
     $category_class_array = get_post_event_categories_as_classes( $eid );
 
-    if(get_field('external_url',$eid)>""){
+     if(get_post_meta($eid,'External URL',true)){
 
-       
 
-        $url = get_field('external_url',$eid );
+        $url = get_post_meta($eid,'External URL',true);
+
+
 
 
         // Check if 'tysonsva.org' is in the URL
@@ -152,12 +154,23 @@ function draw_event_card($eid,$columns=1) {
                             
                                     <h4><a href="<?php echo $url; ?>" target="<?php echo $target; ?>"><?php echo max_title_length( $title ); ?></a></h4>
                                     <?php printVenu($eid,false); ?>
-                                    
+                                    <?php if(has_excerpt($eid)){ ?>
+                                    <div class="card-excerpt"><?php echo get_the_excerpt($eid);  ?></div>
+                                    <?php } ?>
 
                                     <?php if(in_array('tca-event',$category_class_array)){ ?>
                                     <div  class="tcaeventlogo"><img src="<?php echo get_template_directory_uri(); ?>/img/tcalogoevents.png" alt="TCA Event" width="100"/></div>
                                     <?php } ?>
 
+                                    
+                                    <?php $card_info = get_post_meta($eid,'Card Info',true); ?>
+                                    <?php if($card_info>""){ ?>
+                                        <div class="add-card-info">
+                                        <?php echo $card_info; ?>
+                                        </div>
+
+                                    <?php } ?>
+                                    
                                     
                                     
                                 </div>
@@ -184,7 +197,6 @@ $event = new EM_Event($event_id, 'post_id'); // Ensure it loads by post ID
 
 
 
-     $venue = get_field('location',$eid); 
     
      if ($event && !empty($event->location_id)) {  
         

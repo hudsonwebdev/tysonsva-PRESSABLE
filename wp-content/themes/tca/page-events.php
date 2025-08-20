@@ -4,25 +4,7 @@
 get_header();
 
 
-$featured_args = array(
-    'post_type'      => 'event',  // Custom post type
-    'posts_per_page' => -1,       // Get all posts
-    'meta_query'     => array(
-        array(
-            'key'     => 'featured',      // ACF field name
-            'value'   => '1',             // '1' means the field is checked (true)
-            'compare' => '=',             // Exact match
-        ),
-    ),
-    'meta_key'       => '_event_start_date', // Meta key to sort by
-    'orderby'        => 'meta_value',        // Sort by custom field value
-    'order'          => 'ASC',               // Change to 'DESC' if needed
-);
 
-
-// The query to fetch the events
-$featured_query = new WP_Query($featured_args);
-$number_of_events = $featured_query->found_posts;
 ?>
 
 	<main id="primary" class="site-main">
@@ -31,28 +13,39 @@ $number_of_events = $featured_query->found_posts;
         <div class="uk-container">
 
 			
-    <div class="featured-slides">
+    <?php
+     $featured_events = get_field('featured_events');
+    if($featured_events){ ?>
+
+
+     <div class="featured-slides">
 
     <?php
 
          $eventCount = 0;
 
-        if ($featured_query->have_posts()) :
+        
 
-            while ($featured_query->have_posts()) : $featured_query->the_post();
+         $number_of_events = count($featured_events);
 
-            $eid = get_the_ID();
+        foreach( $featured_events as $event){
+
+
+            $eid = $event->ID;
 
             display_event_featured($eid,$number_of_events, $eventCount);
 
             $eventCount++;
 
-            endwhile; ?>
+        } ?>
 
-        <?php endif; ?>  
+        </div>
+
+  <?php  }?>
+
+      
         
-    </div>
-        
+    
 <div class="event-page-header">
        <h2 class="event-list-title">All Events</h2>
        

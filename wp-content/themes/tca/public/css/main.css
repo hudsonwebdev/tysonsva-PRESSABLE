@@ -13363,6 +13363,12 @@ hr.wp-block-separator {
     width: 66.66666%;
   }
 }
+@media (min-width: 1200px) {
+  .column-count-4 .flex-item {
+    width: 25%;
+  }
+}
+
 a {
   color: #385DFF;
 }
@@ -14048,7 +14054,8 @@ hr.bluehr {
 }
 @media (min-width: 1200px) {
   .menu-cta {
-    min-width: 520px;
+    min-width: 500px;
+    max-width: 500px;
     margin: 0;
   }
 }
@@ -14351,7 +14358,8 @@ hr.bluehr {
 }
 @media (min-width: 1200px) {
   .menu-cta {
-    min-width: 520px;
+    min-width: 500px;
+    max-width: 500px;
     margin: 0;
   }
 }
@@ -14562,6 +14570,7 @@ hr.bluehr {
 @media (min-width: 1200px) and (min-width: 990px) {
   .menu-section .sub-menu-area .section-row .image-only {
     width: 100%;
+    max-width: 500px;
   }
   .menu-section .sub-menu-area .section-row .image-only a {
     width: 100%;
@@ -14771,8 +14780,10 @@ hr.bluehr {
   }
 }
 .tysons-teammates .gform_wrapper input {
-  background: transparent;
   border: 1px solid #ffffff;
+}
+.tysons-teammates .gform_wrapper .gform_confirmation_message {
+  color: #ffffff;
 }
 
 #searchform {
@@ -14839,7 +14850,6 @@ hr.bluehr {
 .dl-form .gform-body input {
   border: 1px solid #385DFF !important;
   border-radius: 0;
-  height: 40px !important;
 }
 
 #gform_submit_button_1,
@@ -14868,6 +14878,47 @@ hr.bluehr {
 #gform_submit_button_8:hover {
   background: #385DFF;
   color: #ffffff;
+}
+
+.resource-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+.resource-container .resource-card {
+  padding: 5px;
+  position: relative;
+}
+.resource-container .resource-card .cover-image {
+  width: 100%;
+  padding: 15px;
+  position: relative;
+}
+.resource-container .resource-card .cover-image img {
+  filter: grayscale(60%);
+  transition: filter 0.5s ease;
+}
+.resource-container .resource-card .outerblue {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  transition: all 0.5s ease-in-out;
+  transition-delay: 0;
+  opacity: 4;
+  pointer-events: none;
+}
+.resource-container .resource-card .outerblue .outer-card-chevron {
+  width: 300px;
+  height: 300px;
+  fill: #9ADCF7;
+}
+.resource-container .resource-card:hover .outerblue {
+  top: 5px;
+  right: 5px;
+  opacity: 1;
+}
+.resource-container .resource-card:hover img {
+  filter: grayscale(0%);
 }
 
 .video-banner {
@@ -15719,22 +15770,41 @@ hr.bluehr {
      object-fit: cover;
 }
 
-.flipbook-form {
-  padding: 10%;
-}
 .flipbook-form .flipbook-form-wrap {
-  display: flex;
   width: 100%;
+}
+@media (min-width: 768px) {
+  .flipbook-form .flipbook-form-wrap {
+    display: flex;
+  }
 }
 .flipbook-form .flipbook-form-wrap .thumbside {
-  width: 25%;
   padding: 15px;
 }
+.flipbook-form .flipbook-form-wrap .thumbside ._df_thumb,
 .flipbook-form .flipbook-form-wrap .thumbside .df-popup-thumb {
   width: 100%;
+  max-width: 100%;
+}
+@media (min-width: 768px) {
+  .flipbook-form .flipbook-form-wrap .thumbside {
+    width: 30% !important;
+    min-width: 30% !important;
+  }
 }
 .flipbook-form .flipbook-form-wrap .textside {
-  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media (min-width: 768px) {
+  .flipbook-form .flipbook-form-wrap .textside {
+    width: 70% !important;
+    padding: 0 0 0 80px;
+  }
+}
+.flipbook-form .flipbook-form-wrap .textside button {
+  margin: 15px 0;
 }
 
 .color-columns .tca-column {
@@ -16506,6 +16576,7 @@ hr.bluehr {
 .event-page .event-header .event-info .inner .learn-more span {
   display: inline-block;
   margin-left: 10px;
+  border-bottom: 2px solid transparent;
 }
 .event-page .event-header .event-info .inner .learn-more:hover span {
   border-bottom: 2px solid #B8D5EF;
@@ -17189,6 +17260,10 @@ article.post .entry-content .share .share-title {
   background-color: #260D66 !important;
 }
 
+.em-search-section-location {
+  display: none;
+}
+
 .event-card {
   position: relative;
   display: flex;
@@ -17262,7 +17337,6 @@ article.post .entry-content .share .share-title {
   padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   height: 100%;
 }
 .event-card .inner-wrap .single-stack .tca-card-info .inner .card-header {
@@ -17296,17 +17370,9 @@ article.post .entry-content .share .share-title {
 .event-card .inner-wrap .single-stack .tca-card-info .inner .card-title {
   background: #ffffff;
   padding: 15px 15px 65px 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   position: relative;
   overflow: hidden;
-  height: auto;
-}
-@media (min-width: 1200px) {
-  .event-card .inner-wrap .single-stack .tca-card-info .inner .card-title {
-    min-height: 200px;
-  }
+  flex-grow: 1;
 }
 .event-card .inner-wrap .single-stack .tca-card-info .inner .card-title h4 {
   margin: 0;
@@ -17328,12 +17394,17 @@ article.post .entry-content .share .share-title {
     font-size: 0.8rem;
   }
   .event-card .inner-wrap .single-stack .tca-card-info .inner .card-title .location-info .pin {
-    padding: 0 10px 10px 0;
-    width: 40px;
+    padding: 0 5px 5px 0;
+    width: 25px;
   }
   .event-card .inner-wrap .single-stack .tca-card-info .inner .card-title .location-info .pin svg {
     fill: #385DFF;
   }
+}
+.event-card .inner-wrap .single-stack .tca-card-info .inner .card-title .add-card-info,
+.event-card .inner-wrap .single-stack .tca-card-info .inner .card-title .card-excerpt {
+  font-size: 0.8rem;
+  margin: 10px 0;
 }
 .event-card .inner-wrap .single-stack .tca-card-info .inner .card-title .tcaeventlogo {
   position: absolute;

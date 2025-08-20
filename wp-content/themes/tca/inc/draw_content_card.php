@@ -1,4 +1,3 @@
-
 <?php 
 
 function draw_content_card($image,$content,$columns=1) {
@@ -40,13 +39,13 @@ function draw_content_card($image,$content,$columns=1) {
 
                        </div>
                        
-                       
+                  
                        
                        <div class="tca-card-info">
                            <div class="inner">
                                
                                <div class="card-content">
-                              
+                            
                                   <?php echo $content; ?>
 
                                </div>

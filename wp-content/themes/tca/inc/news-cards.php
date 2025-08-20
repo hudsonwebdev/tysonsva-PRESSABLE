@@ -88,7 +88,6 @@ if(get_field('source_url',$pid)){
 function draw_news_card_grid($pid,$columns=1) {
 
 
-
 $img_id = get_post_thumbnail_id($pid);
 
 $title = get_the_title($pid);
@@ -153,7 +152,7 @@ if(get_field('source_url',$pid)>""){
                         <div class="inner">
                         <div class="card-header">
                                 <div class="card-type"><?php get_first_category($pid); ?></div>
-                                <div class="card-date"></div>
+                                <div class="card-date"><?php echo get_the_date('M j, Y',$pid); ?></div>
                             </div>
                             <div class="card-title">
                                 <h4><a href="<?php echo $url; ?>" target="<?php echo $target; ?>"><?php echo max_title_length( $title ); ?></a></h4>

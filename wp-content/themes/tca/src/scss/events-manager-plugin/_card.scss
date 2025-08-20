@@ -86,7 +86,6 @@
                 padding:10px;
                 display:flex;
                 flex-direction:column;
-                justify-content: flex-end;
                 height:100%;
 
             .card-header{ 
@@ -120,16 +119,10 @@
             .card-title{
                     background:$white;
                     padding:15px 15px 65px 15px;
-                    display:flex;
-                    flex-direction: column;
-                    justify-content: center;
+                   
                     position:relative;
                     overflow:hidden;
-                    height:auto;
-                    @media(min-width:$breakpoint-large){
-                        min-height:200px;
-                    }
-                    
+                    flex-grow: 1;
                     h4{
                         margin:0;
                         color:$steel-blue;
@@ -148,8 +141,8 @@
                         font-size:.8rem;
                         .pin{
                             
-                            padding:0 10px 10px 0;
-                            width:40px;
+                            padding:0 5px 5px 0;
+                            width:25px;
                             svg{
                                 fill:$steel-blue;
                             }
@@ -159,6 +152,12 @@
 
                 }
 
+                    .add-card-info,
+                    .card-excerpt{
+                        font-size:.8rem;
+                        margin:10px 0;
+                        
+                    }
               
 
                     .tcaeventlogo{
@@ -168,6 +167,8 @@
                         width:80px;
                         
                     }
+
+
                     
                 }
             }

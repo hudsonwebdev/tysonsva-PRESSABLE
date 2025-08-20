@@ -53,7 +53,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "50",
+                "width": "100",
                 "class": "",
                 "id": ""
             },
@@ -63,7 +63,8 @@
                 "Mixed Content": "Mixed Content",
                 "Bio List": "Bio List",
                 "Resource List": "Resource List",
-                "Venue List": "Venue List"
+                "Resource Grid": "Resource Grid",
+                "Type And Category": "Type And Category"
             },
             "default_value": false,
             "return_format": "value",
@@ -73,10 +74,92 @@
             "ui": 0,
             "ajax": 0,
             "placeholder": "",
-            "allow_custom": 0,
-            "search_placeholder": "",
             "create_options": 0,
-            "save_options": 0
+            "save_options": 0,
+            "allow_custom": 0,
+            "search_placeholder": ""
+        },
+        {
+            "key": "field_68879536ebc81",
+            "label": "Post Type",
+            "name": "post_type",
+            "aria-label": "",
+            "type": "checkbox",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_679abab5db308",
+                        "operator": "==",
+                        "value": "Type And Category"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Post": "Post",
+                "Event": "Event",
+                "Resource": "Resource"
+            },
+            "default_value": [],
+            "return_format": "value",
+            "allow_custom": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "toggle": 0,
+            "save_custom": 0,
+            "custom_choice_button_text": "Add new choice"
+        },
+        {
+            "key": "field_68879572ebc82",
+            "label": "Tags & Categories",
+            "name": "tags_and_categories",
+            "aria-label": "",
+            "type": "acfe_taxonomy_terms",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_679abab5db308",
+                        "operator": "==",
+                        "value": "Type And Category"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": [
+                "category",
+                "event-categories"
+            ],
+            "allow_terms": "",
+            "allow_level": "",
+            "field_type": "checkbox",
+            "default_value": [],
+            "return_format": "id",
+            "layout": "horizontal",
+            "toggle": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "allow_in_bindings": 0,
+            "choices": [],
+            "ui": 0,
+            "multiple": 0,
+            "allow_null": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "search_placeholder": "",
+            "allow_custom": 0,
+            "other_choice": 0
         },
         {
             "key": "field_67eeed5d0fbdf",
@@ -267,6 +350,13 @@
                         "operator": "==",
                         "value": "Resource List"
                     }
+                ],
+                [
+                    {
+                        "field": "field_679abab5db308",
+                        "operator": "==",
+                        "value": "Resource Grid"
+                    }
                 ]
             ],
             "wrapper": {
@@ -455,5 +545,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1751984416
+    "modified": 1753722027
 }

@@ -22,6 +22,8 @@ openSection(
 
  
 $image_side = get_field('image_side');
+$image_link = get_field('image_link')?get_field('image_link'):'';
+$new_window = get_field('new_window')?'_blank':'_self';
 $image_width = get_field('image_width')?get_field('image_width'):'50';
 $text_side = get_field('text_side');
 $image_position =  get_field('image_position')? get_field('image_position'):'left';
@@ -38,11 +40,19 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
         <?php if($image_side){ ?>
 
             <div class="image-side ">
+                <?php if($image_link > '' ){ ?>
+                    <a href="<?php echo $image_link; ?>" target="<?php echo $new_window; ?>">
+                <?php } ?>
                 <div class="image-wrap <?php if($image_is_logo){ echo 'is-logo'; } ?>">
+
+         
                     <img <?php awesome_acf_responsive_image($image_side['id'],'large','1024px',$image_side['alt']); ?>  />
                 </div>
                 <?php if( $image_side['caption'] >''){ ?>
                     <div class="caption"><?php echo $image_side['caption']; ?></div>
+                <?php } ?>
+                <?php if($image_link > '' ){ ?>
+                    </a>
                 <?php } ?>
             </div>
         <?php } ?>

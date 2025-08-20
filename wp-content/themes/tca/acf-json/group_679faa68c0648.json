@@ -70,6 +70,45 @@
             "preview_size": "medium"
         },
         {
+            "key": "field_689e0b45eae82",
+            "label": "Image Link",
+            "name": "image_link",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "79",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_689e0cdb6f0f7",
+            "label": "New Window?",
+            "name": "new_window",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_67a8eb0d0e942",
             "label": "Image Width",
             "name": "image_width",
@@ -99,7 +138,9 @@
             "ajax": 0,
             "placeholder": "",
             "allow_custom": 0,
-            "search_placeholder": ""
+            "search_placeholder": "",
+            "create_options": 0,
+            "save_options": 0
         },
         {
             "key": "field_679faacd654a5",
@@ -158,7 +199,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "33.33333",
+                "width": "25",
                 "class": "",
                 "id": ""
             },
@@ -281,5 +322,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1740149551
+    "modified": 1755188686
 }

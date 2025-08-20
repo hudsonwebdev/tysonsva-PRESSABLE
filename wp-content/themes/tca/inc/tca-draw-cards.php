@@ -115,9 +115,7 @@ function drawByPostType($pid,$columns,$count){
             draw_event_card($pid,$columns);
         break;
 
-        case "resource":
-            draw_resource_card_grid($pid,$columns);
-        break;
+        
 
     }
 

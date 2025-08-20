@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.3.9' );
+	define( '_S_VERSION', '1.4.9' );
 }
 
 /**
@@ -263,7 +263,9 @@ add_filter('wpseo_breadcrumb_links', 'remove_home_from_yoast_breadcrumb');
 
 
 
-
+add_filter( 'wpseo_metabox_prio', function() {
+    return 'low';
+} );
 
 function custom_search_form( $form ) {
 	$form = '<form role="search" method="get" id="searchform" class="searchform" action="' . home_url( '/' ) . '" >
@@ -300,3 +302,180 @@ function disable_category_archives() {
 add_action('template_redirect', 'disable_category_archives');
 
 
+
+
+
+add_action( 'template_redirect', function () {
+    if ( is_404() ) {
+        $requested_url = $_SERVER['REQUEST_URI'];
+        if ( preg_match( '#^/events/[^/]+/?$#', $requested_url ) ) {
+            wp_redirect( home_url( '/events' ), 301 );
+            exit;
+        }
+    }
+});
+
+
+
+add_action( 'template_redirect', 'my_custom_post_type_redirect' );
+
+function my_custom_post_type_redirect() {
+    if ( is_singular( 'location' ) ) { // Check if it's a single post of the old CPT
+   
+        wp_redirect( site_url(), 301 ); // Perform a 301 permanent redirect
+        exit;
+    }
+}
+
+ add_post_type_support( 'page', 'excerpt' );
+
+/*
+ add_filter( 'yoast_seo_development_mode', '__return_true' );
+
+ add_filter( 'wpseo_schema_graph', 'change_type_to_events', 10, 2 );
+
+
+function change_type_to_events( $data, $context ) {
+
+ if (!function_exists('em_get_event') || !function_exists('em_get_location')) {
+		return $data;
+ }
+  if (!is_singular('event')){
+	return $data;
+  } 
+
+
+  global $post;
+  echo $post->ID;
+  $event = em_get_event($post->ID);
+  print_r(get_class_methods($event));
+  print_r($event);
+  
+ $location = $event->get_location();
+ print_r($location);
+  if (!$event) return;
+
+  $start_raw = $event->start();
+  $end_raw = $event->end();
+
+  $start = $start_raw instanceof DateTimeInterface
+    ? $start_raw->format(DATE_ATOM)
+    : (string)$start_raw;
+
+  $end = $end_raw instanceof DateTimeInterface
+    ? $end_raw->format(DATE_ATOM)
+    : (string)$end_raw;
+
+  $is_past = strtotime($end) < time();
+
+  $event_title = get_the_title();
+  $event_url = get_permalink();
+  $excerpt = get_the_excerpt();
+  $featured_image = get_the_post_thumbnail_url($post->ID, 'full');
+
+  $location_post = em_get_location($event->location_id);
+  
+
+  $location_name = $event->location_name;
+  $address = null;
+
+  if ($location_post && is_object($location_post)) {
+    $location_name = $location_post->location_name;
+
+    $street = $location_post->location_address;
+    $city = $location_post->location_town;
+    $state = $location_post->location_state;
+    $zip = $location_post->location_postcode;
+    $country = $location_post->location_country;
+
+    if ($street || $city || $state || $zip) {
+      $address = [
+        "@type" => "PostalAddress",
+        "streetAddress" => $street ?: '',
+        "addressLocality" => $city ?: '',
+        "addressRegion" => $state ?: '',
+        "postalCode" => $zip ?: '',
+        "addressCountry" => $country
+      ];
+    }
+  }
+
+  $data = [
+    "@context" => "https://schema.org",
+    "@type" => "Event",
+    "name" => $event_title,
+    "startDate" => $start,
+    "endDate" => $end,
+    "url" => $event_url,
+  ];
+
+  if (!$is_past) {
+    $data["eventStatus"] = "https://schema.org/EventScheduled";
+  }
+
+  if (!empty($excerpt)) {
+    $data["description"] = wp_strip_all_tags($excerpt);
+  }
+
+  if (!empty($featured_image)) {
+    $data["image"] = $featured_image;
+  }
+
+  if ($location_post && is_object($location_post)) {
+    $location = [
+      "@type" => "Place",
+      "name" => $location_name,
+    ];
+    if ($address) {
+      $location["address"] = $address;
+    }
+    $data["location"] = $location;
+  }
+
+
+    return $data;
+}
+
+*/
+
+
+
+function update_acf_post_object_field_choices($title, $post, $field, $post_id) {
+
+  $post_type = get_post_type($post->ID);
+
+  $event_start_date = get_post_meta($post->ID, '_event_start_date', true); 
+
+  if($post_type == "event" || $post_type == "event-recurring"){
+    $title .= ' [' . $event_start_date .  ']';
+  }
+	
+	
+        return $title;	
+}
+
+add_filter( 'acf/fields/post_object/result', 'update_acf_post_object_field_choices', 10, 4 );
+
+
+add_action( 'init', function() {
+    register_taxonomy_for_object_type( 'category', 'resource' );
+}, 50 );
+
+
+
+function dequeue_events_manager_css_on_home() {
+    if (is_front_page()) {
+        wp_dequeue_style('events-manager'); // Replace with correct handle
+        wp_deregister_style('events-manager');
+    }
+}
+add_action('wp_enqueue_scripts', 'dequeue_events_manager_css_on_home', 100);
+
+/*
+add_action('wp_print_styles', function () {
+    global $wp_styles;
+    echo '<!-- ';
+    print_r($wp_styles->queue);
+    echo ' -->';
+});
+*/

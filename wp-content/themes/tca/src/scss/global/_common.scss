@@ -28,6 +28,32 @@
 
 }
 
+
+
+.column-count-4{
+
+
+@media(min-width:$breakpoint-large){
+
+        
+    .flex-item{
+        width:25%;
+    }
+
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+
 a{
     color:$steel-blue;
 }
@@ -228,8 +254,6 @@ a{
       height:100%;
   }
 }
-
-
 
 
 

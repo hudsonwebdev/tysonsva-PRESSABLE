@@ -48,7 +48,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
           
                 <div class="image-wrap">
                     <img <?php awesome_acf_responsive_image($banner_image['id'],'full','2000px',$banner_image['alt']); ?>  />
-                    <div class="image-tint">test</div>
+                    <div class="image-tint"></div>
                 </div>
                 
        
