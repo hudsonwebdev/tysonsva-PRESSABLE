@@ -55,7 +55,13 @@ function draw_event_card($eid,$columns=1) {
     if(get_field('card_type_label',$eid)){
         $post_type_display = get_field('card_type_label',$eid);
     }else{
-        $post_type_display = $post_type;
+
+        if($post_type=="event-recurring"){
+            $post_type_display = "Recurring Event";
+        }else{
+            $post_type_display = $post_type;
+        }
+        
     }
 
     $img_id = get_post_thumbnail_id($eid);
@@ -143,7 +149,7 @@ function draw_event_card($eid,$columns=1) {
 
                                     <div class="card-type"><?php echo $post_type_display; ?></div>
 
-                                    <?php if($post_type=="event"){ ?>
+                                    <?php if($post_type=="event" || $post_type=="event-recurring"){ ?>
                                             
                                         <div class="card-date"> <?php echo get_date_display($eid); ?></div>
                                   

@@ -1,11 +1,6 @@
 <?php
 
-if ( is_admin() && ! empty( $block['data'] ) && ! empty( $block['data']['image'] ) ) {
 
-       echo $block['data']['image']; 
-
-       return;
-}
 
 if(!empty($container_settings)){
     $container_size = isset($container_settings['container_size'])?$container_settings['container_size']:'standard';

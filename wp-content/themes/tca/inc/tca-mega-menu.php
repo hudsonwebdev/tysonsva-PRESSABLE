@@ -78,8 +78,10 @@ function drawMegaMenu(){ ?>
            <?php if($cta_post){ ?>
                 <div class="menu-cta">
                     <div class="image">
-                        <a href="<?php echo get_the_permalink($cta_post->ID); ?>"><?php echo get_the_post_thumbnail($cta_post->ID,'medium'); ?></a>
-                    </div>
+                    <a href="<?php echo get_the_permalink($cta_post->ID); ?>">
+                        <img src="<?php echo get_the_post_thumbnail_url($cta_post->ID, 'medium'); ?>" alt="<?php echo get_the_title($cta_post->ID); ?>" loading="lazy">
+                    </a>
+                </div>
                     <div class="text">
 
                     <?php 
@@ -111,7 +113,7 @@ function drawMegaMenu(){ ?>
             
            <?php }else{ ?>
             <div class="image-only">
-                <a href="<?php echo $cta_link; ?>"><img class="menu-image" <?php awesome_acf_responsive_image($cta_image['id'],'thumb-640','640px',$cta_image['alt']); ?>   /></a>
+                <a href="<?php echo $cta_link; ?>"><img class="menu-image" <?php awesome_acf_responsive_image($cta_image['id'],'thumb-640','640px',$cta_image['alt']); ?> loading="lazy"  /></a>
             </div>
            <?php } ?>
            

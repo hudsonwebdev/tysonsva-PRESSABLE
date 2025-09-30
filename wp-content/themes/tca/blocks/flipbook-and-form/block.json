@@ -13,13 +13,12 @@
     "anchor": true,
     "jsx":true
   },
-   "example": {
-       "attributes": {
-         "mode": "preview",
-         "data": {
-           "image": "<img src='/wp-content/themes/tca/blocks/flipbook-and-form/preview.jpg' style='display: block; margin: 0 auto; width: 100%; max-width: 500px; height: auto;'>",
-           "text" : "This is some default text"
-         }
-       }
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "preview_image_help": true
+      }
+    }
   }
 }

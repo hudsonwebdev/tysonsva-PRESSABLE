@@ -51,14 +51,7 @@
                    @include animate(all,.5s,ease-in-out,0);
                 }
             }
-            a:hover{
-                    text-decoration:none;
-                    &:after{
-                        width:100%;
-                        animation-timing-function: ease-out;
-                         animation: drawLine 0.6s ease-in-out forwards;
-                    }
-            }
+            
         }
 
         li.top-level.active > a{
@@ -68,6 +61,16 @@
                     transform:rotate(180deg);
                 }
             }
+        }
+
+
+        li.top-level > a:hover{
+                text-decoration:none;
+                &:after{
+                    width:100%;
+                    animation-timing-function: ease-out;
+                        animation: drawLine 0.6s ease-in-out forwards;
+                }
         }
        
         
@@ -87,7 +90,7 @@
             @include animate(opacity,.5s,ease-in-out,0);
             h2,a{
                 color:$white;
-                
+                text-decoration:none;
             }
             h2{
                 @include largeMenuTitles();
@@ -149,6 +152,9 @@
                                 padding:0;
                                 @include lightFont();
                                 text-transform:unset !important;
+                                &:hover{
+                                    color:$sky-blue;
+                                }
                             }
                         }
                         li:first-child{
@@ -156,6 +162,7 @@
                                
                                 @include subMenuTitles();
                                 white-space:nowrap;
+                                
                             }
                             
                         }

@@ -1,5 +1,5 @@
 <?php
-
+if ( render_block_preview_if_applicable( $block ) ) return;
 $container_settings = get_field('container_settings');
 $section_header = get_field('section_header');
 include __DIR__ .'/../../inc/common_block_variables.php';
@@ -29,7 +29,7 @@ if (!empty($navLinks)): ?>
   <ul class="nav-bar" style="background-color: <?php echo $bgColor; ?>;justify-content:<?php echo $justify; ?>;">
     <?php 
     $current_url = home_url(add_query_arg([], $GLOBALS['wp']->request));
-    $current_url = trailingslashit(esc_url_raw($current_url)); 
+    $current_url = esc_url_raw($current_url); 
 
     foreach ($navLinks as $item): 
       $linkType = $item['link_type'];
@@ -37,7 +37,7 @@ if (!empty($navLinks)): ?>
       $jumpLink = $item['jump_section_idname'];
 
       if ($linkType == 1 && $link && isset($link['url'])):
-        $url = esc_url_raw(trailingslashit($link['url']));
+        $url = esc_url_raw($link['url']);
         $title = $link['title'] ?? '';
         $target = $link['target'] ?? '_self';
         $is_current = $url === $current_url;

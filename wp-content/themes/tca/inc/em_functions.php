@@ -59,6 +59,17 @@ switch($result){
 
     break;
 
+    case '#_EVENTISOSTART':
+        $start = $EM_Event->start; // This is a UNIX timestamp
+        $replace = date('c', $start); // ISO 8601 format
+        break;
+
+    case '#_EVENTISOEND':
+        $end = $EM_Event->end; // This is a UNIX timestamp
+        $replace = date('c', $end); // ISO 8601 format
+        break;
+
+
 
 
     case '#_EVENTLINKTYSONS':

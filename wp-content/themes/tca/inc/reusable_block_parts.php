@@ -15,7 +15,38 @@ function openSection(
     ){ 
 
 
+?>
+<style>
+<?php if(get_field('gradient_tint')){ ?>
+    .image-tint{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        z-index:1;
+        <?php echo get_field('gradient_tint'); ?>
+    }
+<?php }
 
+
+    if(get_field('additional_css')){ 
+
+     
+        echo get_field('additional_css'); 
+ 
+
+    }
+
+?>
+
+</style>
+
+
+
+   <?php
+ 
+    
 
 
 if($container_type=="div"){ ?>
@@ -103,3 +134,39 @@ if($section_title>"" || $section_button>"") { ?>
 <?php } ?>
   
 <?php }
+
+
+
+function render_block_preview_if_applicable( $block ) {
+    if ( isset( $block['data']['preview_image_help'] ) && $block['data']['preview_image_help'] ) {
+
+        // Get current block directory path
+        $block_dir_path = dirname( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 1 )[0]['file'] );
+
+        // Get current block directory URL
+        $theme_dir_path = get_template_directory();
+        $theme_dir_url  = get_template_directory_uri();
+        $relative_path  = str_replace( $theme_dir_path, '', $block_dir_path );
+        $block_dir_url  = $theme_dir_url . $relative_path;
+
+        // Look for preview.png or preview.jpg
+        $preview_image = '';
+        if ( file_exists( $block_dir_path . '/preview.png' ) ) {
+            $preview_image = $block_dir_url . '/preview.png';
+        } elseif ( file_exists( $block_dir_path . '/preview.jpg' ) ) {
+            $preview_image = $block_dir_url . '/preview.jpg';
+        }
+
+        // Output image if found
+        if ( $preview_image ) {
+            echo '<img src="' . esc_url( $preview_image ) . '" alt="Block Preview" style="width:100%; height:auto;" />';
+        } else {
+            echo '<div style="padding:1em; background:#eee;">Preview image not found.</div>';
+        }
+
+        // Stop further rendering
+        return true;
+    }
+
+    return false;
+}

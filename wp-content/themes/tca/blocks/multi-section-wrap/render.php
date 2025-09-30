@@ -1,5 +1,5 @@
 <?php
-// Support custom "anchor" values.
+if ( render_block_preview_if_applicable( $block ) ) return;
 $anchor = '';
 if ( ! empty( $block['anchor'] ) ) {
     $anchor = 'id="' . esc_attr( $block['anchor'] ) . '" ';

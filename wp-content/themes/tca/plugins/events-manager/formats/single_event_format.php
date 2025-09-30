@@ -93,4 +93,41 @@
 		</div>
 	</div>
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "#_EVENTNAME",
+  "startDate": "#_EVENTISOSTART",
+  "endDate": "#_EVENTISOEND",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": "#_LOCATIONNAME",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "#_LOCATIONADDRESS",
+      "addressLocality": "#_LOCATIONTOWN",
+      "postalCode": "#_LOCATIONPOSTCODE",
+      "addressRegion": "#_LOCATIONREGION",
+      "addressCountry": "#_LOCATIONCOUNTRY"
+    }
+  },
+  "image": [
+    "#_EVENTIMAGEURL"
+  ],
+  "description": "#_EVENTEXCERPT",
+  "organizer": {
+    "@type": "Organization",
+    "name": "Tysons",
+    "url": ""
+  }
+}
+</script>
+
+
+
+
 </main>

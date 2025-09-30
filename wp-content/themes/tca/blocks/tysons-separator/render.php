@@ -1,4 +1,5 @@
 <?php 
+if ( render_block_preview_if_applicable( $block ) ) return;
 $separator_height = get_field('separator_height')?get_field('separator_height'):7;
 $separator_color = get_field('separator_color')?get_field('separator_color'):'#B8D5EF';
 

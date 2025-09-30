@@ -2,7 +2,7 @@
     "key": "taxonomy_6775d0484cf4d",
     "title": "Event Categories",
     "menu_order": 0,
-    "active": true,
+    "active": false,
     "taxonomy": "event-category",
     "object_type": [
         "tysons-event"
@@ -71,5 +71,5 @@
     "meta_box": "default",
     "meta_box_cb": "",
     "meta_box_sanitize_cb": "",
-    "modified": 1735774415
+    "modified": 1758220908
 }

@@ -1,3 +1,8 @@
+<?php
+
+if ( render_block_preview_if_applicable( $block ) ) return;
+?>
+
 <div class="no-image-banner page-header">
 <div class="uk-container">
     <div class="inner">

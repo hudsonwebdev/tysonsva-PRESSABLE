@@ -1,5 +1,5 @@
 <?php
-
+if ( render_block_preview_if_applicable( $block ) ) return;
 $container_settings = get_field('container_settings');
 $section_header = get_field('section_header');
 include __DIR__ .'/../../inc/common_block_variables.php';
@@ -19,6 +19,7 @@ openSection(
     );
  
 $block_image = get_field('block_image');
+$display_style = get_field('display_style')?get_field('display_style'):1;
 
 $image_height = get_field('image_height')?get_field('image_height'):60;
 
@@ -30,8 +31,12 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
         <?php if($block_image){ ?>
 
-          
+          <?php if($display_style == 1){ ?>
                 <div class="image-wrap" style="height:<?php echo $image_height; ?>vh;">
+          <?php }else{ ?>
+                <div class="norestraint">
+         <?php }?>
+                
                     <img <?php awesome_acf_responsive_image($block_image['id'],'full','2000px',$block_image['alt']); ?> />
                 </div>
 

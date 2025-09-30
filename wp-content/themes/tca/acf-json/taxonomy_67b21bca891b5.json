@@ -2,7 +2,7 @@
     "key": "taxonomy_67b21bca891b5",
     "title": "Venue Categories",
     "menu_order": 0,
-    "active": true,
+    "active": false,
     "taxonomy": "venue-category",
     "object_type": [
         "venue"
@@ -71,5 +71,5 @@
     "meta_box": "default",
     "meta_box_cb": "",
     "meta_box_sanitize_cb": "",
-    "modified": 1739727416
+    "modified": 1758220911
 }

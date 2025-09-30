@@ -1,8 +1,9 @@
 <?php
-
+if ( render_block_preview_if_applicable( $block ) ) return;
 $container_settings = get_field('container_settings');
 $section_header = get_field('section_header');
 include __DIR__ .'/../../inc/common_block_variables.php';
+
 
 $feature_first_post = get_field('feature_first_post')?get_field('feature_first_post'):false;
 $content_selection = get_field('content_selection')?get_field('content_selection'):'Upcoming Events';
@@ -106,51 +107,6 @@ $post_types = get_field('post_type'); // Array like ['post', 'event', 'resource'
 
 $selected_terms = get_field('tags_and_categories'); // Could be array of term IDs or objects
 
-$tax_query = [];
-
-if (!empty($selected_terms)) {
-    foreach ($selected_terms as $term_item) {
-        // Handle term ID or term object
-        if (is_object($term_item) && isset($term_item->taxonomy)) {
-            $taxonomy = $term_item->taxonomy;
-            $term_id  = $term_item->term_id;
-        } elseif (is_numeric($term_item)) {
-            // Load term by ID
-            $term = get_term($term_item);
-            if (is_wp_error($term) || !$term) {
-                continue;
-            }
-            $taxonomy = $term->taxonomy;
-            $term_id  = $term->term_id;
-        } else {
-            continue;
-        }
-
-        $tax_query[] = [
-            'taxonomy' => $taxonomy,
-            'field'    => 'term_id',
-            'terms'    => $term_id,
-        ];
-    }
-
-    if (count($tax_query) > 1) {
-        $tax_query = [
-            'relation' => 'OR',
-            ...$tax_query
-        ];
-    }
-}
-
-$args = [
-    'post_type'      => $post_types ?: ['post'], // fallback if empty
-    'posts_per_page' => $total_posts,
-    'orderby' => 'date',
-    'order' => 'DESC'
-];
-
-if (!empty($tax_query)) {
-    $args['tax_query'] = $tax_query;
-}
 
 
 
@@ -177,7 +133,18 @@ case "Bio List":
 
     $containerClass = "bio-container";
 
+
+
     $post_query = get_field('bio_picker');
+    
+    break;
+case "Profile List":
+
+    $containerClass = "bio-container";
+
+
+
+    $post_query = get_field('profile_picker');
     
     break;
     
@@ -284,7 +251,30 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
             
 
-                    draw_bio_card($post->ID);
+                    draw_bio_card($post->ID,1);
+
+                    $count++;
+                
+                }
+
+            }
+
+            break;
+
+
+            case "Profile List":
+
+    
+
+            if(!empty($post_query)){
+
+              
+                $count = 0;
+                foreach($post_query as $post){
+
+            
+
+                    draw_bio_card($post->ID,2);
 
                     $count++;
                 
@@ -327,11 +317,13 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
             case "Type And Category":
 
-    
-            $query = new WP_Query($args);
+                $term_ids = get_field('tags_and_categories');
+              
+                $future_only = get_field('only_include_future_events')?get_field('only_include_future_events'):false;
 
+                $query = get_content_by_term_ids($term_ids, $post_types,$future_only);
 
-            if ($query->have_posts()) {
+                 if ($query->have_posts()) {
 
                 $count = 0;
                 $columns  = 1;
@@ -346,7 +338,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                 }
             } 
 
-
+    
             break;
 
 

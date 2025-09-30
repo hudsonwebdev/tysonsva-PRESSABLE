@@ -29,8 +29,6 @@
 @import "global/forms";
 @import "global/resources";
 
-
-@import "blocks/tca-video-banner";
 @import "blocks/theme-container";
 @import "blocks/content-grid";
 @import "blocks/datahub-grid";
@@ -46,6 +44,11 @@
 @import "blocks/color-columns";
 @import "blocks/card-grid";
 @import "blocks/no-image-banner";
+@import "blocks/navigation-bar";
+@import "blocks/logo-gallery";
+@import "blocks/flex-deco-columns-style";
+@import "blocks/flickr";
+
 
 @import "pages/events/events";
 @import "pages/news/news";
@@ -74,4 +77,8 @@
 .post-password-form{
     padding:30px;
     text-align: center;
+}
+
+em {
+  color: inherit;
 }

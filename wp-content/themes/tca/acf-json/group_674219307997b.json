@@ -21,29 +21,6 @@
             "selected": 0
         },
         {
-            "key": "field_67a80a2b71767",
-            "label": "Column Count Desktop",
-            "name": "column_count_desktop",
-            "aria-label": "",
-            "type": "number",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": 3,
-            "min": 1,
-            "max": 4,
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "step": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
             "key": "field_679abab5db308",
             "label": "Content Selection",
             "name": "content_selection",
@@ -62,6 +39,7 @@
                 "Latest News": "Latest News",
                 "Mixed Content": "Mixed Content",
                 "Bio List": "Bio List",
+                "Profile List": "Profile List",
                 "Resource List": "Resource List",
                 "Resource Grid": "Resource Grid",
                 "Type And Category": "Type And Category"
@@ -78,6 +56,74 @@
             "save_options": 0,
             "allow_custom": 0,
             "search_placeholder": ""
+        },
+        {
+            "key": "field_67a80a2b71767",
+            "label": "Column Count Desktop",
+            "name": "column_count_desktop",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 3,
+            "min": 3,
+            "max": 4,
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "step": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_679d11dcb108a",
+            "label": "Total Posts",
+            "name": "total_posts",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "choose -1 for all",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_679abab5db308",
+                        "operator": "==",
+                        "value": "Upcoming Events"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_679abab5db308",
+                        "operator": "==",
+                        "value": "Latest News"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_679abab5db308",
+                        "operator": "==",
+                        "value": "Type And Category"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 6,
+            "min": -1,
+            "max": 24,
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "step": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_68879536ebc81",
@@ -97,7 +143,7 @@
                 ]
             ],
             "wrapper": {
-                "width": "50",
+                "width": "100",
                 "class": "",
                 "id": ""
             },
@@ -162,6 +208,35 @@
             "other_choice": 0
         },
         {
+            "key": "field_68cd5f0b2e968",
+            "label": "Only Include Future Events",
+            "name": "only_include_future_events",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_679abab5db308",
+                        "operator": "==",
+                        "value": "Type And Category"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_67eeed5d0fbdf",
             "label": "Stick to Top",
             "name": "stick_to_top",
@@ -186,7 +261,8 @@
             "post_type": [
                 "page",
                 "resource",
-                "event"
+                "event",
+                "event-recurring"
             ],
             "post_status": "",
             "taxonomy": "",
@@ -228,6 +304,49 @@
             },
             "post_type": [
                 "bio"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "object",
+            "acfe_bidirectional": {
+                "acfe_bidirectional_enabled": "0"
+            },
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_68ac861de9e12",
+            "label": "Profile Picker",
+            "name": "profile_picker",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_679abab5db308",
+                        "operator": "==",
+                        "value": "Profile List"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "profile"
             ],
             "post_status": "",
             "taxonomy": "",
@@ -386,50 +505,6 @@
             "bidirectional_target": []
         },
         {
-            "key": "field_679d11dcb108a",
-            "label": "Total Posts",
-            "name": "total_posts",
-            "aria-label": "",
-            "type": "number",
-            "instructions": "choose -1 for all",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "25",
-                "class": "",
-                "id": ""
-            },
-            "default_value": 6,
-            "min": -1,
-            "max": 24,
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "step": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_678934fd006f5",
-            "label": "Feature First Post",
-            "name": "feature_first_post",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "25",
-                "class": "",
-                "id": ""
-            },
-            "message": "Make the first post in the grid double width",
-            "default_value": 0,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
             "key": "field_679aba737c831",
             "label": "Section Header",
             "name": "",
@@ -518,6 +593,27 @@
             "acfe_clone_modal_close": 0,
             "acfe_clone_modal_button": "",
             "acfe_clone_modal_size": "large"
+        },
+        {
+            "key": "field_68cd5f522e969",
+            "label": "",
+            "name": "",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -545,5 +641,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1753722027
+    "modified": 1758305200
 }

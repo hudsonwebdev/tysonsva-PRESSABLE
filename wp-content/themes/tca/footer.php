@@ -29,11 +29,14 @@
 
 		<div class="footer-content">
 
+		<?php $suppress_footer_form = get_field('suppress_footer_form')?get_field('suppress_footer_form'):false; ?>
+			<?php if(!$suppress_footer_form){ ?>
 			<div class="footer-form-wrap">
 				<h2 class="form-title">Get the Scoop</h2>
 				<p>Sign Up for the Tysons Newsletter:</p>
 				<?php gravity_form( 1, false, false); ?>
 			</div>
+			<?php } ?>
 			<hr class="mobile-line">
 			<a href="<?php echo site_url(); ?>" class="mobile-logo"><?php drawSVG('tcalogo'); ?></a>
 			

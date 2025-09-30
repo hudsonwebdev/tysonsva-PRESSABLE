@@ -21,6 +21,83 @@
             "selected": 0
         },
         {
+            "key": "field_68ab5f8225354",
+            "label": "Hide Decorative Chevron",
+            "name": "hide_decorative_chevron",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_68ab5bfe71cb6",
+            "label": "Image or Video",
+            "name": "image_or_video",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Image": "Image",
+                "Video": "Video"
+            },
+            "default_value": "Image",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_68ab5c2e37178",
+            "label": "Video",
+            "name": "video",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68ab5bfe71cb6",
+                        "operator": "==",
+                        "value": "Video"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "uploader": "",
+            "return_format": "array",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "library": "all"
+        },
+        {
             "key": "field_679fd7ebcb9ac",
             "label": "Banner Image",
             "name": "banner_image",
@@ -28,7 +105,15 @@
             "type": "image",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68ab5bfe71cb6",
+                        "operator": "==",
+                        "value": "Image"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -86,7 +171,7 @@
             },
             "default_value": "",
             "min": "",
-            "max": 200,
+            "max": 100,
             "allow_in_bindings": 0,
             "step": "",
             "prepend": "",
@@ -162,6 +247,28 @@
             "toolbar": "full",
             "media_upload": 1,
             "delay": 0
+        },
+        {
+            "key": "field_68ab63c87173e",
+            "label": "Additional CSS",
+            "name": "additional_css",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Use this in conjunction with the classname set in the advanced block settings on the right sidebar.  IF you don't know what this is you should not be editing this.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "acfe_textarea_code": 0,
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
         },
         {
             "key": "field_679fdb447988c",
@@ -279,5 +386,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1751289545
+    "modified": 1756067412
 }

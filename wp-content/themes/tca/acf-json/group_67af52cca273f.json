@@ -49,6 +49,32 @@
             "preview_size": "medium"
         },
         {
+            "key": "field_68ab8cf7d3703",
+            "label": "Display Style",
+            "name": "display_style",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Background image will make a box which will apply the image as background cover for the box. Full Image will use the image natural dimensions stretched to the container",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "1": "Background Cover",
+                "2": "Full Image"
+            },
+            "default_value": "",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
             "key": "field_67af5d27d6d15",
             "label": "Image Height",
             "name": "image_height",
@@ -56,7 +82,15 @@
             "type": "range",
             "instructions": "This is representing the percentage of the vertical height of the page.  Generally between 30 and 50 is good.",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68ab8cf7d3703",
+                        "operator": "!=",
+                        "value": "2"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -186,5 +220,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1739548693
+    "modified": 1756074068
 }

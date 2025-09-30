@@ -50,3 +50,29 @@ h2{
 }
 
 
+.uk-modal-dialog{
+    max-height:85vh !important;
+
+}
+
+.bio-modal{
+    
+    margin:auto;
+
+    
+    .uk-modal-close{
+        background:none;
+        border:none;
+        position:absolute;
+        top:15px;
+        right:15px;
+        cursor:pointer;
+
+    }
+
+
+
+}
+
+
+

@@ -1,5 +1,5 @@
 <?php
-
+if ( render_block_preview_if_applicable( $block ) ) return;
 $container_settings = get_field('container_settings');
 $section_header = get_field('section_header');
 include __DIR__ .'/../../inc/common_block_variables.php';

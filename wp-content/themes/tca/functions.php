@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.4.9' );
+	define( '_S_VERSION', '1.5.3' );
 }
 
 /**
@@ -302,7 +302,7 @@ function disable_category_archives() {
 add_action('template_redirect', 'disable_category_archives');
 
 
-
+ add_post_type_support( 'page', 'excerpt' );
 
 
 add_action( 'template_redirect', function () {
@@ -327,116 +327,15 @@ function my_custom_post_type_redirect() {
     }
 }
 
- add_post_type_support( 'page', 'excerpt' );
-
-/*
- add_filter( 'yoast_seo_development_mode', '__return_true' );
-
- add_filter( 'wpseo_schema_graph', 'change_type_to_events', 10, 2 );
 
 
-function change_type_to_events( $data, $context ) {
-
- if (!function_exists('em_get_event') || !function_exists('em_get_location')) {
-		return $data;
- }
-  if (!is_singular('event')){
-	return $data;
-  } 
-
-
-  global $post;
-  echo $post->ID;
-  $event = em_get_event($post->ID);
-  print_r(get_class_methods($event));
-  print_r($event);
-  
- $location = $event->get_location();
- print_r($location);
-  if (!$event) return;
-
-  $start_raw = $event->start();
-  $end_raw = $event->end();
-
-  $start = $start_raw instanceof DateTimeInterface
-    ? $start_raw->format(DATE_ATOM)
-    : (string)$start_raw;
-
-  $end = $end_raw instanceof DateTimeInterface
-    ? $end_raw->format(DATE_ATOM)
-    : (string)$end_raw;
-
-  $is_past = strtotime($end) < time();
-
-  $event_title = get_the_title();
-  $event_url = get_permalink();
-  $excerpt = get_the_excerpt();
-  $featured_image = get_the_post_thumbnail_url($post->ID, 'full');
-
-  $location_post = em_get_location($event->location_id);
-  
-
-  $location_name = $event->location_name;
-  $address = null;
-
-  if ($location_post && is_object($location_post)) {
-    $location_name = $location_post->location_name;
-
-    $street = $location_post->location_address;
-    $city = $location_post->location_town;
-    $state = $location_post->location_state;
-    $zip = $location_post->location_postcode;
-    $country = $location_post->location_country;
-
-    if ($street || $city || $state || $zip) {
-      $address = [
-        "@type" => "PostalAddress",
-        "streetAddress" => $street ?: '',
-        "addressLocality" => $city ?: '',
-        "addressRegion" => $state ?: '',
-        "postalCode" => $zip ?: '',
-        "addressCountry" => $country
-      ];
+ add_filter( 'wpseo_json_ld_output', 'disable_yoast_schema_on_events', 10, 2 );
+function disable_yoast_schema_on_events( $data, $context ) {
+    if ( is_singular( 'event' ) ) { // Replace 'event' with your actual post type if different
+        return []; // Disable Yoast schema output for this post type
     }
-  }
-
-  $data = [
-    "@context" => "https://schema.org",
-    "@type" => "Event",
-    "name" => $event_title,
-    "startDate" => $start,
-    "endDate" => $end,
-    "url" => $event_url,
-  ];
-
-  if (!$is_past) {
-    $data["eventStatus"] = "https://schema.org/EventScheduled";
-  }
-
-  if (!empty($excerpt)) {
-    $data["description"] = wp_strip_all_tags($excerpt);
-  }
-
-  if (!empty($featured_image)) {
-    $data["image"] = $featured_image;
-  }
-
-  if ($location_post && is_object($location_post)) {
-    $location = [
-      "@type" => "Place",
-      "name" => $location_name,
-    ];
-    if ($address) {
-      $location["address"] = $address;
-    }
-    $data["location"] = $location;
-  }
-
-
     return $data;
 }
-
-*/
 
 
 
@@ -463,19 +362,32 @@ add_action( 'init', function() {
 
 
 
-function dequeue_events_manager_css_on_home() {
-    if (is_front_page()) {
-        wp_dequeue_style('events-manager'); // Replace with correct handle
-        wp_deregister_style('events-manager');
+function remove_events_plugin_assets_from_homepage() {
+    if (is_front_page()) {  // Check if it's the homepage
+        // Dequeue the Event Plugin's CSS
+        wp_dequeue_style('events-manager');
+		wp_dequeue_style('dflip-style');
+		
+        
+        // Dequeue the Event Plugin's JS
+        wp_dequeue_script('events-manager');
+		wp_dequeue_script('chart-js');
+		wp_dequeue_script('dflip-script');
+		
+		
     }
 }
-add_action('wp_enqueue_scripts', 'dequeue_events_manager_css_on_home', 100);
+add_action('wp_enqueue_scripts', 'remove_events_plugin_assets_from_homepage', 20);
 
 /*
-add_action('wp_print_styles', function () {
-    global $wp_styles;
-    echo '<!-- ';
-    print_r($wp_styles->queue);
-    echo ' -->';
-});
+function debug_event_plugin_assets() {
+    global $wp_scripts, $wp_styles;
+    
+    echo '<pre>';
+    print_r($wp_scripts->queue);  // List all scripts in the queue
+    print_r($wp_styles->queue);   // List all styles in the queue
+    echo '</pre>';
+}
+add_action('wp_footer', 'debug_event_plugin_assets');
+
 */
