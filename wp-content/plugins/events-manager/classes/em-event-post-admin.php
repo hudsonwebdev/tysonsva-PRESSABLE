@@ -14,8 +14,11 @@ class EM_Event_Post_Admin{
 			foreach ( Archetypes::get_cpts(['location', 'repeating']) as $archetype ) {
 				add_action('add_meta_boxes_'.$archetype, array('EM_Event_Post_Admin','meta_boxes'), 10, 1);
 			}
+			add_filter( 'hidden_meta_boxes', [ static::class, 'unhide_recurrences_metabox' ], 10, 2 );
 			//Notices
 			add_action('admin_notices',array('EM_Event_Post_Admin','admin_notices'));
+			// Add body class for event editor styling
+			add_filter('admin_body_class', array('EM_Event_Post_Admin','admin_body_class'));
 		}
 		//Save/Edit actions
 		add_filter('wp_insert_post_data',array('EM_Event_Post_Admin','wp_insert_post_data'),100,2); //validate post meta before saving is done
@@ -33,6 +36,14 @@ class EM_Event_Post_Admin{
 		if( empty($EM_Event) && !empty($post) && Archetypes::is_event($post) ){
 			$EM_Event = em_get_event($post->ID, 'post_id');
 		}
+	}
+
+	public static function admin_body_class($classes){
+		global $post;
+		if( !empty($post) && Archetypes::is_event($post) ){
+			$classes .= ' em-event-editor';
+		}
+		return $classes;
 	}
 
 	public static function admin_notices(){
@@ -133,20 +144,20 @@ class EM_Event_Post_Admin{
 			if( !empty($_REQUEST['_emnonce']) && wp_verify_nonce($_REQUEST['_emnonce'], 'edit_event') ){
 				//this is only run if we know form data was submitted, hence the nonce
 				$get_meta = $EM_Event->get_post_meta();
-				$validate_meta = $EM_Event->validate_meta(); //Handle Errors by making post draft
 				do_action('em_event_save_pre', $EM_Event); //technically, the event is saved... but the meta isn't. wp doesn't give an pre-intervention action for this (or does it?)
 				//if we execute a location save here, we will screw up the current save_post $wp_filter pointer executed in do_action()
         	    //therefore, we save the current pointer position (priority) and set it back after saving the location further down
         	    global $wp_filter, $wp_current_filter;
-        	    $wp_filter_priority = key($wp_filter['save_post']);
-        	    $tag = end($wp_current_filter);
-	           //save the event meta, whether validated or not and which includes saving a location
+				$wp_filter_priority = key($wp_filter['save_post']->callbacks);
+				$tag = end($wp_current_filter);
+				//save the event meta, whether validated or not and which includes saving a location
 				$save_meta = $EM_Event->save_meta();
+				$validate_meta = $EM_Event->validate_meta(); // Handle Errors by making post draft, but only after we save the event. It should be a saved event but with a 'draft' status
         		//reset save_post pointer in $wp_filter to its original position
-        		reset( $wp_filter[$tag] );
+        		reset( $wp_filter[$tag]->callbacks );
         		do{
-        		   if( key($wp_filter[$tag]) == $wp_filter_priority ) break;
-        		}while ( next($wp_filter[$tag]) !== false );
+        		   if( key($wp_filter[$tag]->callbacks) == $wp_filter_priority ) break;
+        		}while ( next($wp_filter[$tag]->callbacks) !== false );
         		//save categories in case of default category
         		if( em_get_option('dbem_categories_enabled') ) $EM_Event->get_categories()->save();
 				//continue whether all went well or not
@@ -287,6 +298,17 @@ class EM_Event_Post_Admin{
 		}
 	}
 
+	public static function unhide_recurrences_metabox( $hidden, $screen ) {
+		// Replace 'your_metabox_id' with the actual ID you used in add_meta_box()
+		if ( Archetypes::is_event( $screen->post_type ) ) {
+			$key = array_search( 'em-event-recurring', $hidden );
+			if ( false !== $key ) {
+				unset( $hidden[ $key ] );
+			}
+		}
+		return $hidden;
+	}
+
 	public static function meta_boxes( $post ){
 		global $EM_Event;
 		//since this is the first point when the admin area loads event stuff, we load our EM_Event here
@@ -298,7 +320,7 @@ class EM_Event_Post_Admin{
 			add_meta_box('em-event-anonymous', __('Anonymous Submitter Info','events-manager'), array('EM_Event_Post_Admin','meta_box_anonymous'), $screens, 'side','high');
 		}
 		add_meta_box('em-event-when', __('When','events-manager'), array('EM_Event_Post_Admin','meta_box_date'), $screens, 'side','high');
-		if ( em_get_option('dbem_recurrence_enabled') && ( !$EM_Event->event_id || $EM_Event->is_recurring() ) ) {
+		if ( em_get_option('dbem_recurrence_enabled') || ( !$EM_Event->event_id || $EM_Event->is_recurring() ) ) {
 			add_meta_box('em-event-recurring', __('Recurrences','events-manager'), array('EM_Event_Recurring_Post_Admin','meta_box_recurrence'), $screens, 'normal','high');
 		}
 		if(em_get_option('dbem_locations_enabled', true)){
@@ -465,7 +487,7 @@ class EM_Event_Recurring_Post_Admin{
 		if ( Archetypes::is_repeating( get_post_type($post_id) ) ) {
 			global $EM_Notices, $wpdb;
 			$EM_Event = em_get_event($post_id,'post_id');
-			$EM_Event->set_status(null);
+			$EM_Event->set_status(-1);
 			//only trash other events if this isn't a draft-never-published event
 			if( !empty($EM_Event->event_id) ){
     			//now trash recurrences
@@ -491,7 +513,7 @@ class EM_Event_Recurring_Post_Admin{
     			$events_array = EM_Events::get( array('recurring_event'=>$EM_Event->event_id, 'scope'=>'all', 'status'=>'everything' ) );
     			foreach($events_array as $event){
     				/* @var $event EM_Event */
-    				if( $EM_Event->event_id == $event->get_recurrence_set()->event_id ){
+    				if( $EM_Event->event_id == $event->get_recurrence_set()->event_id && $event->post_id ){
     					wp_untrash_post($event->post_id);
     				}
     			}
@@ -501,8 +523,9 @@ class EM_Event_Recurring_Post_Admin{
 
 	public static function untrashed_post($post_id){
 		if ( Archetypes::is_repeating( get_post_type($post_id) ) ) {
-			global $EM_Notices,$EM_Event;
-			$EM_Event->set_status(1);
+			global $EM_Notices;
+			$EM_Event = new EM_Event($post_id, 'post_id'); //get a refreshed $EM_Event because otherwise statuses don't get updated by WP
+			$EM_Event->set_status( $EM_Event->get_status() );
 			$EM_Notices->remove_all(); //no validation/notices needed
 		}
 	}

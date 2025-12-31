@@ -14,10 +14,11 @@
 					<div class="card-header">
 						<div class="card-type">Event</div>
 						<div class="card-date">
-							#_EVENTDATES #_EVENTTIMES
+							#_EVENTDATES 
 						</div>
 					</div>
-					<br>       
+					<br>      
+					#_EVENTDATESTYSONS
 					<div class="card-title">
 						<h1>#_EVENTNAME</h1>
 					</div>

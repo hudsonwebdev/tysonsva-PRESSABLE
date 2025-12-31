@@ -54,7 +54,7 @@ eventually be removed/refactored */
 .metaslider.wrap div.error {
     clear: both
 }
-.metaslider .left input[type=text],
+.metaslider .left input[type=text]:not(.tox-input-wrapper input),
 .metaslider .left textarea {
     border: 1px solid #8c8f94;
     border-radius: 4px;
@@ -693,13 +693,13 @@ eventually be removed/refactored */
     width: 125px;
 }
 
-.metaslider .tabs-content .row input {
+.metaslider .tabs-content .row input:not(.tox-input-wrapper input) {
     margin-right: 5px;
     margin-bottom: 0px;
     margin-left: 0px;
 }
 
-.metaslider .tabs-content .row input[type="text"] {
+.metaslider .tabs-content .row input[type="text"]:not(.tox-input-wrapper input) {
     width: 100%;
 }
 
@@ -1067,6 +1067,62 @@ input[type="radio"] {
     color: #000;
     display: inline-block;
     padding: 10px 20px;
+}
+.tox-tinymce-aux .colorpicker {
+    width: 183px !important;
+}
+.tox-tinymce-aux .wp-picker-container {
+    display: flex;
+    flex-direction: column;
+
+    > .wp-color-result {
+        order: 0;
+        width: 32px;
+    }
+    > .wp-picker-input-wrap {
+        order: 2;
+    }
+    > .wp-picker-holder {
+        order: 1;
+    }
+    .wp-color-result.button {
+        margin-bottom: 0;
+    }
+    .wp-picker-input-wrap {
+        display: block;
+        margin-top: 6px;
+
+        input {
+            border: 1px solid;
+        }
+        .screen-reader-text {
+            display: none !important;
+        }
+    }
+    .wp-picker-input-wrap,
+    .wp-picker-holder {
+        z-index: 9999;
+    }
+    .wp-color-result-text, 
+    .wp-picker-clear {
+        display: none;
+    }
+    .wp-picker-holder {
+
+        .iris-picker  {
+            position: relative;
+            min-height: 225px;
+
+            .iris-picker-inner,
+            .iris-palette-container {
+                position: absolute;
+            }
+        }
+    }
+}
+.tox .tox-number-input input {
+    margin: 0 !important;
+    min-height: 28px;
 }
 
  /* Spin an svg */

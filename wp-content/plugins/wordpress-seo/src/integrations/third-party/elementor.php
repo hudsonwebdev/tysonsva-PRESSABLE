@@ -166,6 +166,8 @@ class Elementor implements Integration_Interface {
 		}
 
 		\add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'init' ] );
+		\add_action( 'elementor/editor/footer', [ $this, 'start_output_buffering' ], 0 );
+		\add_action( 'elementor/editor/footer', [ $this, 'inject_yoast_tab' ], 999 );
 	}
 
 	/**
@@ -177,6 +179,44 @@ class Elementor implements Integration_Interface {
 		$this->asset_manager->register_assets();
 		$this->enqueue();
 		$this->render_hidden_fields();
+	}
+
+	/**
+	 * Start capturing buffer.
+	 *
+	 * @return void
+	 */
+	public function start_output_buffering() {
+		\ob_start();
+	}
+
+	/**
+	 * Injects the Yoast SEO tab into the Elements panel of the Elementor editor.
+	 *
+	 * @return void
+	 */
+	public function inject_yoast_tab() {
+		$output = \ob_get_clean();
+
+		// If the buffer is empty or the call failed, bail out.
+		if ( empty( $output ) ) {
+			return;
+		}
+
+		$search  = '/(<(div|button) class="elementor-component-tab elementor-panel-navigation-tab" data-tab="global">.*<\/(div|button)>)/m';
+		$replace = '${1}<${2} class="elementor-component-tab elementor-panel-navigation-tab" data-tab="yoast-seo-tab">Yoast SEO</${2}>';
+
+		$modified_output = \preg_replace( $search, $replace, $output );
+
+		// Check if preg_replace failed. If so, fallback to original output.
+		if ( $modified_output === null ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Reason: Already escaped output.
+			echo $output;
+			return;
+		}
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Reason: Already escaped output.
+		echo $modified_output;
 	}
 
 	// Below is mostly copied from `class-metabox.php`. That constructor has side-effects we do not need.
@@ -370,7 +410,9 @@ class Elementor implements Integration_Interface {
 
 		$this->asset_manager->enqueue_style( 'admin-global' );
 		$this->asset_manager->enqueue_style( 'metabox-css' );
-		$this->asset_manager->enqueue_style( 'scoring' );
+		if ( $this->readability_analysis->is_enabled() ) {
+			$this->asset_manager->enqueue_style( 'scoring' );
+		}
 		$this->asset_manager->enqueue_style( 'monorepo' );
 		$this->asset_manager->enqueue_style( 'admin-css' );
 		$this->asset_manager->enqueue_style( 'ai-generator' );
@@ -438,7 +480,6 @@ class Elementor implements Integration_Interface {
 		$script_data = \array_merge_recursive( $site_information->get_legacy_site_information(), $script_data );
 
 		$this->asset_manager->localize_script( 'elementor', 'wpseoScriptData', $script_data );
-		$this->asset_manager->enqueue_user_language_script();
 	}
 
 	/**

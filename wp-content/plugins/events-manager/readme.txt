@@ -4,16 +4,16 @@ Donate link: https://wp-events-plugin.com
 Tags: events, calendar, tickets, bookings, appointments
 Text Domain: events-manager
 Requires at least: 6.1
-Tested up to: 6.8
-Stable tag: 7.1.7
+Tested up to: 6.9
+Stable tag: 7.2.3
 Requires PHP: 7.0
 License: GPLv2
 
-Fully featured events calendar, booking registration (RSVP), recurring events, locations management, Google Maps
+Events calendar with bookings, scheduling, appointments, event registration, tickets, recurring events, and venue management.
 
 == Description ==
 
-Events Manager is a full-featured event calendar, bookings and registration management plugin for WordPress based on the principles of flexibility, reliability and powerful features!
+Events Manager is a full-featured event calendar, bookings, appointments, scheduling, and registration management plugin for WordPress ideal for everything from simple meetups to full-scale event planning. Built with flexibility, reliability and powerful features in mind.
 
 * [Demo](https://eventsmanager.site)
 * [Documentation](http://wp-events-plugin.com/documentation/)
@@ -24,6 +24,10 @@ Events Manager is a full-featured event calendar, bookings and registration mana
 * Beautiful calendars, search pages, lists, grids and booking forms to enhance your site events.
 * Easy event registration (single day with start/end times)
 * Recurring and long (multi-day) event registration
+ * Build complex recurrence patterns with exclusion/blackout dates
+* **NEW** Multiple timeslots within the day for events with advanced creation options
+ * Overlapping timeslots
+ * Buffer between timeslots
 * Bookings Management (including approval/rejections, export CVS, and more!)
 * Multiple Tickets
 * Fully-featured graph and statistics including bar/line/pie with comparison and stacking
@@ -83,6 +87,7 @@ We have a premium [Pro add-on for Events Manager](http://eventsmanagerpro.com/go
 * Printable Invoices and Tickets
 * Send PDF tickets/invoices by email automatically
 * Check In/Out
+* Move bookings to other dates/times
 * QR Scanning
  * Manage bookings on your phone
  * Check In/Out users
@@ -143,6 +148,17 @@ For those upgrading from version 4 to 5, please [read these instructions](http:/
 
 == Frequently Asked Questions ==
 
+= What can I use Events Manager for? =
+Events Manager is built to handle a wide range of use cases, including:
+
+- Managing events, meetups, workshops and webinars
+- Scheduling appointments and recurring events
+- Planning and promoting conferences or festivals
+- Handling event registration, RSVP, ticketing and ticket sales
+- Accepting bookings with optional payments
+- Managing venues and multiple event locations
+- Creating a public event calendar for your website visitors
+
 See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page for helps with Events Manager - Calendar, Bookings, Tickets, and more!
 
 == Screenshots ==
@@ -167,6 +183,99 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page for helps wit
 18. Grid view for displaying your upcoming events at a glance
 
 == Changelog ==
+= 7.2.3  =
+* Fixed multi-timerange and timeslot settings not being reflected in the event submission UI in some setups
+* Fixed incorrect default timerange UI data when adding an extra timerange to an event
+* FAQ update
+* Fixed booking cut-off time reverting to 12AM upon save for single events
+* Fixed styling issues for timeslot/range editor where trash icon may not appear on front-end for multiple time-ranges
+* Fixed repeating event ticket descriptions not showing on booking form if not overridden
+* Fixed saving a repeated event ticket being set to price 0 rather than repeating event parent ticket price
+* Fixed adding exclusion recurrence set not working when creating new event
+* Changed template approach for recurrence sets so recurrence set template is within a template element
+* Fixed validation errors in recurring events creating an extra blank recurrence set in UI after save attempt
+* Fixed timerange validation errors not saving elements of an event such as recurrence set data, timeranges etc. requiring re-setup during submission
+* Fixed event booking cut-off times not being properly saved for recurring events
+* Fixed recurring/repeating event booking cut-off relative dates (by day) not being properly saved
+* Fixed quick-action recurring/repeated links showing up for trashed posts
+* Fixed event status inconsistencies whilst trashing and untrashing repeated events
+* Fixed trashed event_status in EM_Event objects always reverting to 0 when loaded from DB
+* Fixed inability to unmark an event as all-day once clicked/saved for first time
+* Fixed calendar month formatting option not reflected in calendar
+* Fixed booking form for timeslots showing the time picker if the event is closed to bookings
+* Fixed repeating events template showing in the events list
+* Fixed vulnerabilities CVE-2025-12407 and CVE-2025-12408 reported by thinnawarth mathuros via WordFence Security
+* Fixed medium XSS vulnerability CVE-2025-12976 reported by Muhammad Yudha – DJ via WordFence Security
+* Changed post_id and blog_id to protected properties with magic get/set, allowing post-less recurrences to reference parent post and blog IDs
+* Fixed recurrences not correctly referencing categories and category properties such as colors
+* Made improvements to spacing on mobile and general booking form views for better use of screen real estate
+* Fixed calendar not showing timeslot events with correct time
+* Fixed inconsistent results when showing events split by timeslot
+* Added default option for showing calendars with or without splitting by timeslot
+* Updated intl‑tel‑input to v25.12.5
+* Fixed submission and UI issues with the phone field
+* Fixed allowable HTML in ticket names not outputting in ticket summaries
+* Added booking and ticket counting of reserved vs. pending spaces, fixing inconsistent counts with custom pending status
+* Added #_UNAVAILABLESPACES and #_RESERVEDSPACES placeholders
+* Changed #_BOOKEDSPACES so reserved pending spaces are excluded
+* Added shared functions EM_Ticket::get_status_spaces() and EM_Bookings::get_status_count()
+* Fixed ticket required checkbox getting unchecked upon second save when editing an event
+* Fixed fatal error when supplying comma-separated list of views in event list or calendar shortcode
+* Fixed fatal error when supplying comma-separated list of views in event list or calendar shortcode (duplicate fix)
+* Fixed Google Map JS warnings
+* Upgraded Google Maps to async loading and Advanced Markers
+* Modified map balloon formats to exclude location name, now automatically included in balloon title
+* Updated how map info balloons are styled
+* Fixed privacy consent not being forced as required
+* Fixed “convert to recurrence” link not working outside the event editor
+* Updated readme.txt WordPress version
+* Updated readme.txt WordPress version (correction)
+* Fixed using event="x" in shortcode or PHP functions producing empty results in custom archetypes
+* Added support for iCal and RSS feeds for custom archetypes
+* Added support for taxonomy event lists to include all archetypes or specific ones via placeholders such as #_CATEGORYNEXTEVENTS{archetype}
+* Fixed interference with other scheduled post CPTs
+* Removed jQuery UI Touch Punch 0.2.3 from JS libraries
+* Fixed calendar month picker showing Jan 2025 when navigating from Dec 2025 when format is set to M Y instead of F Y
+* Fixed possible PHP warnings in em-event-post.php and em-location-post.php
+* Fixed PHP error associated with #_BOOKINGBUTTON
+
+= 7.2.2.1 =
+* Fixed blank admin pages for some server setups (possibly PHP version)
+
+= 7.2.2 =
+* Fixed PHP notice in booking actions
+* Fixed critical PHP error in rare cases when booking table settings are saved incorrectly
+* Fixed timezone picker displaying default timezone after saving a single non-recurring event in event editor
+* Fixed fatal error when creating new repeating events due to missing default time range
+* Fixed recurring events not saving properly due to new time range selectors not being editable
+* Fixed redraw issue with showing a hidden recurrences meta box and marked recurrences meta box as required to display in screen options
+* Fixed JS error in time range picker when changing regular event to recurring
+* Forced recurrence meta box to appear in editor regardless of screen options
+* Fixed PHP error in some PHP versions due to accessing `$wp_filter` as an array
+* Fixed potential duplicate/multiple time range slots shown on new recurrence set creations
+* Fixed timeslot queries in `em_get_event()` overwriting the global `$EM_Event` object with timeslot event version
+* Fixed time range editor not allowing multiple time ranges when in a newly added recurrence set (before saving)
+* Fixed time range timeslot events not being correctly saved in repeating and recurring events
+* Fixed `EM_Event::get_recurrence_days()` not returning an array and causing fatal errors in some setups
+* Fixed recurrences not allowing "last of" monthly patterns which refer to "first"
+* Fixed recurring or repeating events not properly saving initial timerange sets
+* Added `set_status()` methods to Timeranges, Timerange, and Timeslot objects
+* Fixed recurrence sets not saving event status to timeslots
+* Optimized `has_timeslot()` checks to avoid regenerating timeslot objects early before saving
+* Fixed timeslots saving without `timerange_id`
+* Fixed timeslots not getting deleted with an event
+* Fixed duplication or saving issues when event is a draft resulting in unsaved timerange data
+* Fixed duplicating single recurrences not working
+
+= 7.2.1 =
+* Fixed calendars not showing events due to timeslot update in 7.2
+
+= 7.2 =
+* MAJOR - Added multiple time range and dynamic timeslot support for single and recurring events
+* Event IDs can now be comprised of format `123:123` where the `:123` represents a timeslot ID
+* `EM_Event->event_id` now supplies the full event UID, whereas `EM_Event->get_event_id()` supplies just the numeric event ID
+* Fixed default option for em_get_option() not being used when defaulting to get_option()
+
 = 7.1.7 =
 * Fixed PHP `_load_text_domain` warning since 7.1
 * Fixed PHP fatal error when viewing events page with certain settings combinations (e.g., title rewriting disabled or subsite events shown on the mainsite in MS global mode)
@@ -198,7 +307,7 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page for helps wit
 * Fixed JS validation preventing dashes being used in new custom archetypes
 
 = 7.1 =
-* Rewritten custom posts architecture to introduce Archetypes; create multiple event CPTs running off Events Manager infrastructure with individually customizable settings (formats, enabled/disabled features, etc.)
+* MAJOR - Rewritten custom posts architecture to introduce Archetypes; create multiple event CPTs running off Events Manager infrastructure with individually customizable settings (formats, enabled/disabled features, etc.)
 * Added functionality to rename labels and CPTs of main event CPT and locations
 * Changed event_type single 'event' type to 'single' to avoid confusion with CPTs
 * Added fix and warning for when location Google coordinates aren’t originally saved and location editor is reopened, prompting user to re-save with updated coordinates

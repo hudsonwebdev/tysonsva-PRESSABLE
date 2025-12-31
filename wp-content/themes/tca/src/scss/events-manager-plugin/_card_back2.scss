@@ -1,0 +1,260 @@
+.event-card{
+        position:relative;
+        display:flex;
+        flex-direction: column;
+        height:100% !important;
+
+        
+       &.tca-event{
+            .inner-wrap{
+                .single-stack{
+                        .tca-card-info{
+                            background-color:$purple;
+                        }
+
+                        .location-info{
+                            max-width:70%;
+                        }
+
+                    }
+                }
+        }
+
+
+
+        .outerblue{
+            position:absolute;
+            top:15px;
+            right:15px;
+            @include animate(all,.5s,ease-in-out,0);
+            opacity:4;
+            .outer-card-chevron{
+                width:300px;
+                height:300px;
+                fill:$sky-blue;
+            }
+        }
+
+
+        .inner-wrap{
+
+            position:relative;
+            overflow:hidden;
+            height:100%;
+            background-color:$gray;
+           
+   
+
+
+        .card-chevron{
+                width:100px;
+                height:100px;
+                fill:$white;
+                position:absolute;
+                top:30px;
+                right:30px;
+                opacity:0;
+                z-index:3;
+                @include animate(all,.5s,ease-in-out,0);
+            }
+          
+        .single-stack{
+
+          
+
+        position:relative;
+        display:flex;
+        flex-direction: column;
+        height:100%;
+        .card-image{
+            width:100%;
+            padding-bottom:70%;
+            position:relative;
+
+            .date-top{
+                position:absolute;
+                top:0px;
+                left:0;
+                background:$white;
+                padding:5px;
+                z-index:100;
+                text-align: center;
+                color:$steel-blue;
+                padding:20px;
+                .month{
+                    text-transform: uppercase;
+                    font-family: $fontBold;
+                    margin:0;
+                    line-height:1.4rem;
+                    font-size:1rem;
+
+                }
+                .day{
+                    font-size:2rem;
+                    margin:0;
+                    line-height:1.3rem;
+                    font-family: $fontBold;
+                }
+            }
+
+        }
+
+        .tca-card-info{
+            background-color:$steel-blue;
+            z-index:5;
+            flex-grow:1;
+            width:100%;
+            padding:10px; 
+            overflow:hidden;
+            @include animate(background-color,.5s,ease-in-out,0);
+            @media(min-width:$breakpoint-large){
+                min-height:30%;
+            }
+
+            .inner{
+                position:relative; 
+                padding:10px;
+                display:flex;
+                flex-direction:column;
+                height:100%;
+
+            .card-header{ 
+                display: flex;
+                color:$white;
+                border-bottom:none;
+                position: relative;
+                z-index:0;
+                margin:0;
+                font-size:14px;
+                
+                @include cardHeaderInfo();
+                .card-type{
+
+                    
+                    text-transform: uppercase;
+                    padding:0 15px 15px 0px;
+                    font-size:.9rem;
+
+                }
+                .card-date{
+                    
+                    text-transform: uppercase;
+                    padding:0 15px 15px 15px;
+                    font-size:.9rem;
+                }
+               
+
+            }
+                            
+            .card-title{
+                    
+                    
+                    
+                    position:relative;
+                    overflow:hidden;
+                    flex-grow: 1;
+                    h4{
+                        margin:15px 0;
+                        color:$white;
+                        @include cardTitles();
+                        a{
+                            text-decoration:none;
+                            color:$white !important;
+                        }
+                    }
+                    .location-info{
+                        display:none;
+                        color:$white;
+                    }
+                    @media(min-width:$breakpoint-large){
+                    .location-info{
+                        display:flex;
+                        margin:15px 0 0 0;
+                        font-size:.8rem;
+                        .pin{
+                            
+                            padding:0 5px 5px 0;
+                            width:25px;
+                            svg{
+                                fill:$white;
+                            }
+                        }
+
+                    }
+
+                }
+
+                    .add-card-info,
+                    .card-excerpt{
+                        font-size:.8rem;
+                        margin:10px 0;
+                        
+                    }
+              
+
+                    .tcaeventlogo{
+                        position:absolute;
+                        bottom:15px;
+                        right:15px;
+                        width:80px;
+                        
+                    }
+
+
+                    
+                }
+            }
+
+        }
+
+
+        }
+
+
+
+    }   
+
+    &:hover{
+
+        .outerblue{
+            top:-10px; 
+            right:-10px;
+            opacity:1;
+        }
+
+            .single-stack{
+
+                .tca-card-info{
+                    background-color:transparent;
+                }
+                
+            }
+
+            
+
+
+         text-decoration:none;  
+
+        
+
+
+            .innerblue{
+                height:100%;
+                width:100%;
+               
+            }
+
+            .card-chevron{
+                    top:15px;
+                    right:15px;
+                    opacity: 1;
+                }
+
+
+
+
+        }
+
+
+         
+}

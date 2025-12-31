@@ -1,10 +1,10 @@
 
     <div uk-slider="autoplay: true">
-        <div class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m uk-light">
+        <div class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m uk-light uk-grid uk-grid-small">
             <?php foreach ($photos as $photo):
                 $photo_url = "https://live.staticflickr.com/{$photo->server}/{$photo->id}_{$photo->secret}_b.jpg"; // Get the URL for the large image
                 ?>
-                <div>
+                <div class="flickr-photo">
                     <img src="<?php echo esc_url($photo_url); ?>" alt="<?php echo esc_attr($photo->title); ?>" width="400" height="600" />
                 </div>
             <?php endforeach; ?>

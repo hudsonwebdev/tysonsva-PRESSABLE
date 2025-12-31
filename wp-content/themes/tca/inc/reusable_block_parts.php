@@ -47,7 +47,9 @@ function openSection(
    <?php
  
     
-
+if($container_size != "full-page"){
+$container_size = "uk-container " . $container_size;
+}
 
 if($container_type=="div"){ ?>
 
@@ -62,13 +64,13 @@ if($container_type=="div"){ ?>
     
     <?php if( $wrap_size == "full-page-wrap"){ ?>
 
-      
+    
         <div class="content-wrap top-pad-<?php echo $vertical_pad_top; ?> botton-pad-<?php echo $vertical_pad_bottom; ?> " style="position:relative;background-color:<?php echo $background_color; ?>">
-        <div class="uk-container <?php echo $container_size; ?>">
+        <div class="<?php echo $container_size; ?>">
 
     <?php }else{ ?>
 
-        <div class="uk-container <?php echo $container_size; ?>">
+        <div class="<?php echo $container_size; ?>">
       
         <div class="content-wrap  top-pad-<?php echo $vertical_pad_top; ?> botton-pad-<?php echo $vertical_pad_bottom; ?>" style="position:relative;%;background-color:<?php echo $background_color; ?>">
         <?php } ?>
@@ -86,10 +88,15 @@ function closeSection($wrap_size,$container_size,$container_type,$graphic){ ?>
             
         </div>
     </div>
+    <?php
+    if($container_size != "full-page"){
+        $container_size = "uk-container " . $container_size;
+    }
+    ?>
 
     <?php if($graphic>0){ ?>
 
-        <div class="uk-container deco-wrap <?php echo $container_size; ?>" >
+        <div class="deco-wrap <?php echo $container_size; ?>" >
             <div class="section-decoration"><?php drawSVG('section-graphic-' . $graphic); ?></div>
         </div>
     

@@ -24,7 +24,10 @@ $block_image = get_field('block_image');
 
 
 drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_underline,$section_intro,$section_button,$section_button_style);
+?>
+<div class="flickr-album">
 
+<?php
 
 
 // Fetch the Flickr album URL from the block's attributes
@@ -76,8 +79,9 @@ else:
 endif;
 
 
-
-
+?>
+</div>
+<?php
 closeSection($wrap_size,$container_size,$container_type,$overlapping_graphic);
 
 

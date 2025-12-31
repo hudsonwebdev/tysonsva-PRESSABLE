@@ -6,7 +6,7 @@ $columns = 1;
 
 $img_id = get_post_thumbnail_id($pid);
 
-$title = get_the_title();
+$title = get_the_title($pid);
 
 
 if(get_field('source_url',$pid)){
@@ -53,7 +53,7 @@ if(get_field('source_url',$pid)){
 
                             <div class="excerpt">
                                 
-                            <?php echo get_the_excerpt(); ?>
+                            <?php echo get_the_excerpt($pid); ?>
                             
                         
                             </div>
@@ -97,6 +97,7 @@ $medium_portrait = get_field('medium_portrait',$pid);
 $additional_card_info = get_field('additional_card_info',$pid);
 
 $category_class_array = get_post_event_categories_as_classes( $pid );
+
 
 if(get_field('source_url',$pid)>""){
 
@@ -169,6 +170,6 @@ if(get_field('source_url',$pid)>""){
 
          </div>
     </div>
-    </div>
+  </div>
 <?php
 }

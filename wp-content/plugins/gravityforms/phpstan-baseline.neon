@@ -661,11 +661,6 @@ parameters:
 			path: includes/fields/class-gf-field-fileupload.php
 
 		-
-			message: "#^Function wp_create_nonce invoked with 2 parameters, 0\\-1 required\\.$#"
-			count: 1
-			path: includes/fields/class-gf-field-fileupload.php
-
-		-
 			message: "#^Variable \\$rules_messages in empty\\(\\) always exists and is not falsy\\.$#"
 			count: 1
 			path: includes/fields/class-gf-field-fileupload.php
@@ -870,16 +865,6 @@ parameters:
 			message: "#^Variable \\$status might not be defined\\.$#"
 			count: 3
 			path: includes/legacy/forms_model_legacy.php
-
-		-
-			message: "#^Method Gravity_Forms\\\\Gravity_Forms\\\\Libraries\\\\Dom_Parser\\:\\:is_amp_regex\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
-			path: includes/libraries/class-dom-parser.php
-
-		-
-			message: "#^Undefined variable\\: \\$content$#"
-			count: 2
-			path: includes/libraries/class-dom-parser.php
 
 		-
 			message: "#^is_wp_error\\(Gravity_Forms\\\\Gravity_Forms\\\\External_API\\\\GF_API_Response\\) will always evaluate to false\\.$#"
@@ -1305,3 +1290,8 @@ parameters:
 			message: "#^Variable \\$before_widget might not be defined\\.$#"
 			count: 1
 			path: widget.php
+
+		-
+			message: "#^Action callback returns array|WP_Error|false but should not return anything\\.$#"
+			count: 1
+			path: includes/async/class-gf-background-process.php

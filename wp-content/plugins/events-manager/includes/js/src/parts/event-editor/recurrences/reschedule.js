@@ -55,8 +55,13 @@ document.addEventListener('em_event_editor_recurrences', function( e ) {
 					el.selectize?.disable();
 				}
 			});
+			// undo the timepicker, by replacing the stored template
+			let timeRangeEditor = recurrenceSet.querySelector('.em-recurrence-timeranges');
+			if ( timeRangeEditor ) {
+				timeRangeEditor.querySelector('.recurrence-timeranges-editor').innerHTML = timeRangeEditor.querySelector('.recurrence-timeranges-undo').innerHTML;
+			}
 			// disable other rechedulable items
-			recurrenceSet.querySelectorAll('.reschedulable [name]:not(.selectized)').forEach( input => { input.disabled = true; } );
+			recurrenceSet.querySelectorAll('.reschedulable [name]:not(.selectized), .reschedulable button').forEach( input => { input.disabled = true; } );
 			// disable the nonces to reschedule this button type
 			recurrenceSet.querySelector( 'input[type="hidden"][data-nonce]' ).disabled = true;
 			// re-enable the reschedule buttons and set flag to false
@@ -155,7 +160,8 @@ document.addEventListener('em_event_editor_recurrences', function( e ) {
 	recurrenceSets.querySelectorAll('.em-add-recurrence-set[data-type="exclude"]').forEach( function( addButton ) {
 		addButton.addEventListener('click', function (e) {
 			if ( recurrenceExcludeSets.querySelectorAll('[data-rescheduled]').length > 0 || !recurrenceSets.dataset.event_id ) {
-				addButton.closest('.em-recurrence-type-exclude')?.dispatchEvent( new CustomEvent('addRecurrence', { bubbles: true }) );
+				let event = new CustomEvent('addRecurrence', { bubbles: true, detail: { type : 'exclude' } });
+				recurrenceSets.dispatchEvent( event );
 			} else {
 				openModal( recurrenceExcludeModal );
 			}

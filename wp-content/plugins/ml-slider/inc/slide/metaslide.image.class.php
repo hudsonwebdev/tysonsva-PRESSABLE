@@ -734,25 +734,8 @@ class MetaImageSlide extends MetaSlide
         );
 
         // Remove unsafe html but let users that rely on this to override
-        if (apply_filters('metaslider_filter_unsafe_html', true, $slide, $this->slider->ID, $this->settings) && $slide['caption']) {
-            try {
-                if (!class_exists('HTMLPurifier')) {
-                    require_once(METASLIDER_PATH . 'lib/htmlpurifier/library/HTMLPurifier.auto.php');
-                }
-                $config = HTMLPurifier_Config::createDefault();
-                // How to filter:
-                // add_filter('metaslider_html_purifier_config', function($config) {
-                //     $config->set('HTML.Allowed', 'a[href|target]');
-                //     $config->set('Attr.AllowedFrameTargets', array('_blank'));
-                //     return $config;
-                // });
-                $config = apply_filters('metaslider_html_purifier_config', $config, $slide, $this->slider->ID, $this->settings);
-                $purifier = new HTMLPurifier($config);
-                $slide['caption'] = $purifier->purify($slide['caption']);
-            } catch (Exception $e) {
-                // If something goes wrong then escape
-                $slide['caption'] = htmlspecialchars(do_shortcode($caption), ENT_NOQUOTES, 'UTF-8');
-            }
+        if ( apply_filters( 'metaslider_filter_unsafe_html', true, $slide, $this->slider->ID, $this->settings ) && ! empty( $slide['caption'] ) ) {
+            $slide['caption'] = metaslider_filter_unsafe_html( $slide['caption'], $slide, $this->slider->ID, $this->settings );
         }
 
         // fix slide URLs
@@ -876,8 +859,25 @@ class MetaImageSlide extends MetaSlide
                 'style' => "display: none; width: 100%;",
                 'class' => "slide-{$this->slide->ID} ms-image {$mobile_class}",
                 'aria-roledescription' => "slide",
-                'data-date' => $this->slide->post_date
+                'data-date' => $this->slide->post_date,
+                'data-slide-type' => $this->identifier
             ), $slide, $this->slider->ID);
+
+        // @since 3.102 - Repeat slide is enabled from here due can't trigger 
+        // through add_filter('metaslider_flex_slider_list_item_attributes' ...) 
+        // to modify attributes when also using custom thumbnail
+        $is_repeated = class_exists( 'MetaSliderPro' ) && metaslider_option_is_enabled( 
+            get_post_meta( $this->slide->ID, '_meta_slider_slide_is_repeated', true ) 
+        );
+
+        if ( $is_repeated ) {
+            // Check the number of slides
+            $repeat_every = (int) get_post_meta( $this->slide->ID, '_meta_slider_slide_repeat_every', true );
+
+            if ( $repeat_every > 0 ) {
+                $attributes['data-slide-repeat'] = $repeat_every;
+            }
+        }
 
         $li = "<li";
 

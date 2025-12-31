@@ -13,6 +13,14 @@ jQuery(document).ready( function($){
 	}
 	$('#em-wrapper').addClass('em');
 
+	// Add keyboard accessibility for em-icon button spans
+	$(document).on('keydown', 'span.em-icon[role="button"]', function(e){
+		if( e.key === 'Enter' || e.keyCode === 13 ){
+			e.preventDefault();
+			$(this).trigger('click');
+		}
+	});
+
 	/* Time Entry - legacy @deprecated */
 	$('#start-time').each(function(i, el){
 		$(el).addClass('em-time-input em-time-start').next('#end-time').addClass('em-time-input em-time-end').parent().addClass('em-time-range');
@@ -327,6 +335,20 @@ jQuery(document).ready( function($){
 			});
 		}
 	}
+
+	// Add click handler for recurrence conversion links
+	document.querySelectorAll( '.em-convert-recurrence-link' ).forEach( link => {
+		link.addEventListener( 'click', function ( e ) {
+			if ( !confirm( EM.convert_recurring_warning ) ) {
+				e.preventDefault();
+				return false;
+			}
+			let nonce = this.getAttribute( 'data-nonce' );
+			if ( nonce ) {
+				this.href = this.href.replace( 'nonce=x', 'nonce=' + nonce );
+			}
+		} );
+	} );
 
 	// trigger selectize loader
 	em_setup_ui_elements(document);

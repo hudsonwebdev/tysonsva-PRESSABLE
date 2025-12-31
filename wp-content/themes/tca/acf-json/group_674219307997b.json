@@ -58,6 +58,32 @@
             "search_placeholder": ""
         },
         {
+            "key": "field_68fb72a1c8f11",
+            "label": "Display Type",
+            "name": "display_type",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Grid": "Grid",
+                "Slider": "Slider"
+            },
+            "default_value": "Grid",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "horizontal",
+            "save_other_choice": 0
+        },
+        {
             "key": "field_67a80a2b71767",
             "label": "Column Count Desktop",
             "name": "column_count_desktop",
@@ -65,14 +91,22 @@
             "type": "number",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68fb72a1c8f11",
+                        "operator": "==",
+                        "value": "Grid"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "50",
                 "class": "",
                 "id": ""
             },
             "default_value": 3,
-            "min": 3,
+            "min": 1,
             "max": 4,
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -179,7 +213,7 @@
                 ]
             ],
             "wrapper": {
-                "width": "50",
+                "width": "100",
                 "class": "",
                 "id": ""
             },
@@ -208,40 +242,11 @@
             "other_choice": 0
         },
         {
-            "key": "field_68cd5f0b2e968",
-            "label": "Only Include Future Events",
-            "name": "only_include_future_events",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_679abab5db308",
-                        "operator": "==",
-                        "value": "Type And Category"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
             "key": "field_67eeed5d0fbdf",
             "label": "Stick to Top",
             "name": "stick_to_top",
             "aria-label": "",
-            "type": "post_object",
+            "type": "relationship",
             "instructions": "Make these posts appear at the top",
             "required": 0,
             "conditional_logic": [
@@ -251,6 +256,13 @@
                         "operator": "==",
                         "value": "Upcoming Events"
                     }
+                ],
+                [
+                    {
+                        "field": "field_679abab5db308",
+                        "operator": "==",
+                        "value": "Latest News"
+                    }
                 ]
             ],
             "wrapper": {
@@ -258,27 +270,24 @@
                 "class": "",
                 "id": ""
             },
-            "post_type": [
-                "page",
-                "resource",
-                "event",
-                "event-recurring"
-            ],
+            "post_type": "",
             "post_status": "",
             "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
             "return_format": "id",
-            "multiple": 1,
-            "save_custom": 0,
-            "save_post_status": "publish",
             "acfe_bidirectional": {
                 "acfe_bidirectional_enabled": "0"
             },
-            "allow_null": 0,
+            "min": "",
+            "max": "",
             "allow_in_bindings": 0,
+            "elements": "",
             "bidirectional": 0,
-            "ui": 1,
-            "bidirectional_target": [],
-            "save_post_type": ""
+            "bidirectional_target": []
         },
         {
             "key": "field_67be42ee62a16",
@@ -389,9 +398,10 @@
                 "id": ""
             },
             "post_type": [
-                "tysons-event",
                 "post",
-                "resource"
+                "resource",
+                "event-recurring",
+                "event"
             ],
             "post_status": "",
             "taxonomy": "",
@@ -593,27 +603,6 @@
             "acfe_clone_modal_close": 0,
             "acfe_clone_modal_button": "",
             "acfe_clone_modal_size": "large"
-        },
-        {
-            "key": "field_68cd5f522e969",
-            "label": "",
-            "name": "",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
         }
     ],
     "location": [
@@ -634,6 +623,7 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
+    "display_title": "",
     "acfe_display_title": "",
     "acfe_autosync": [
         "json"
@@ -641,5 +631,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1758305200
+    "modified": 1761316595
 }

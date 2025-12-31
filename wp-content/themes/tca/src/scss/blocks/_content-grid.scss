@@ -75,4 +75,40 @@ h2{
 }
 
 
+/* Base dotnav style */
+.uk-dotnav > * > * {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #385DFF;   /* blue border */
+  background: transparent;     /* transparent center */
+  border-radius: 50%;          /* make them circular */
+  transition: all 0.3s ease;   /* smooth hover/active transition */
+}
+
+/* Hover effect (optional) */
+.uk-dotnav > * > *:hover {
+  background: rgba(56, 93, 255, 0.2); /* subtle blue fill on hover */
+}
+
+/* Active dot */
+.uk-dotnav > .uk-active > * {
+  background: #385DFF;  /* solid blue fill for active */
+  border-color: #385DFF;
+}
+
+
+.uk-dotnav{
+
+    text-align: center;
+    margin:15px 0;
+    justify-content:center;
+}
+
+.prev-arrow,
+.next-arrow{
+    width:50px;
+    height:50px;
+    padding:15px;
+}
+
 

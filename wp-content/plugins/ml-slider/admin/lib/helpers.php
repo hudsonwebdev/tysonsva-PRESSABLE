@@ -84,7 +84,7 @@ function metaslider_pro_is_installed()
  */
 function metaslider_pro_is_active()
 {
-    return is_plugin_active(metaslider_plugin_is_installed('ml-slider-pro'));
+    return function_exists('is_plugin_active') && is_plugin_active(metaslider_plugin_is_installed('ml-slider-pro'));
 }
 
 /**
@@ -406,4 +406,92 @@ function metaslider_upgrade_pro_small_btn($text = '')
     return '<a class="dashicons dashicons-lock is-pro-setting tipsy-tooltip-top" original-title="' . 
         esc_attr( $text ) . '" href="' . 
         esc_url( $link ) . '" target="_blank"></a>';
+}
+
+/**
+ * Get the closest image based on a width size
+ * 
+ * @since 3.102
+ * 
+ * @param int $width            Image width we want to target
+ * @param int $attachment_id    Image ID
+ * 
+ * @return string A valid media image URL or a placeholder URL
+ */
+function metaslider_intermediate_image_src( $width, $attachment_id )
+{
+    $image_sizes = wp_get_attachment_image_src( $attachment_id, 'full' );
+
+    if ( is_array( $image_sizes ) && count( $image_sizes ) ) {
+        $original_width = $image_sizes[1]; // Image width value from array
+        
+        // Find the closest image size to $width in width
+        $sizes = get_intermediate_image_sizes(); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.get_intermediate_image_sizes_get_intermediate_image_sizes
+
+        // Default if no smaller size is found
+        $closest_size = 'full'; 
+
+        foreach ( $sizes as $size ) {
+            $size_info  = image_get_intermediate_size( $attachment_id, $size );
+
+            if ( isset( $size_info['width'] ) 
+                && $size_info['width'] >= $width 
+                && $size_info['width'] < $original_width 
+            ) {
+                $closest_size = $size;
+                break;
+            }
+        }
+
+        // Get the URL of the closest image size.
+        $closest_image = wp_get_attachment_image_src( $attachment_id, $closest_size );
+        
+        // $closest_image[0] URL
+        // $closest_image[1] width
+        // $closest_image[2] height
+        // $closest_image[3] boolean for: is the image cropped?
+
+        if ( is_array( $closest_image ) ) {
+            $image_ = is_ssl() ? set_url_scheme( $closest_image[0], 'https' ) : set_url_scheme( $closest_image[0], 'http' );
+            return $image_;
+        }
+    }
+
+    return METASLIDER_ASSETS_URL . 'metaslider/placeholder-thumb.jpg';
+}
+
+/**
+ * Filter unsafe HTML from slide content (e.g. caption)
+ * 
+ * @since 3.103
+ * 
+ * @param string $content    The HTML content to be purified
+ * @param array  $slide      The slide data such as id, caption, caption_raw, etc.
+ * @param int    $slider_id  The slideshow ID
+ * @param array  $settings   The slideshow settings
+ * 
+ * @return string The purified HTML content
+ */
+function metaslider_filter_unsafe_html( $content, $slide, $slider_id, $settings )
+{
+    try {
+        if ( ! class_exists( 'HTMLPurifier' ) ) {
+            require_once( METASLIDER_PATH . 'lib/htmlpurifier/library/HTMLPurifier.auto.php' );
+        }
+        $config = HTMLPurifier_Config::createDefault();
+        // How to filter:
+        // add_filter('metaslider_html_purifier_config', function($config) {
+        //     $config->set('HTML.Allowed', 'a[href|target]');
+        //     $config->set('Attr.AllowedFrameTargets', array('_blank'));
+        //     return $config;
+        // });
+        $config   = apply_filters('metaslider_html_purifier_config', $config, $slide, $slider_id, $settings);
+        $purifier = new HTMLPurifier( $config );
+        $content  = $purifier->purify( $content );
+    } catch ( Exception $e ) {
+        // If something goes wrong then escape
+        $content = htmlspecialchars( do_shortcode( $content ), ENT_NOQUOTES, 'UTF-8' );
+    }
+
+    return $content;
 }

@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.5.3' );
+	define( '_S_VERSION', '1.6.3' );
 }
 
 /**
@@ -220,15 +220,17 @@ function add_custom_css_classes( $button, $form ) {
 //add_image_size( 'featured-image', 1378, 820 ); 
 
 
-
 function max_title_length( $title ) {
+    $max = 80;
 
-$max = 80;
-if( strlen( $title ) > $max ) {
-return substr( $title, 0, $max ). " …";
-} else {
-return $title;
-}
+    // Strip HTML tags first so we only count visible text
+    $plain = wp_strip_all_tags( $title );
+
+    if ( mb_strlen( $plain ) > $max ) {
+        return mb_substr( $plain, 0, $max ) . " …";
+    }
+
+    return $plain;
 }
 
 
@@ -391,3 +393,50 @@ function debug_event_plugin_assets() {
 add_action('wp_footer', 'debug_event_plugin_assets');
 
 */
+
+
+
+function my_custom_password_form( $output ) {
+    global $post;
+    $label = 'pwbox-' . ( empty( $post->ID ) ? wp_rand() : $post->ID );
+
+    $form  = '<div class="uk-container">';
+    $form .= '<div style="margin:10% 0;">';
+    
+    // Form with label on top, input + button in a row
+    $form .= '<form class="wp-password-form my-custom-pw-form" 
+        action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" 
+        method="post" 
+        style="display:flex;flex-direction:column;align-items:flex-start;gap:1rem;text-align:left;">';
+
+    // Label above
+    $form .= '<label for="' . esc_attr( $label ) . '" 
+        style="font-size:1.5rem;font-weight:700;color:#385DFF;margin-bottom:0.5rem;">' 
+        . esc_html__( 'Enter Password to View:', 'text-domain' ) . '</label>';
+
+    // Row container for input + button
+    $form .= '<div style="display:flex;gap:0.5rem;width:100%;">';
+
+    // Input covering 50% of page width
+    $form .= '<input name="post_password" id="' . esc_attr( $label ) . '" 
+        type="password" size="20" 
+        aria-label="' . esc_attr__( 'Password', 'text-domain' ) . '" 
+        style="border:2px solid #385DFF;padding:0.75rem 1rem;
+        font-size:1.25rem;border-radius:0;box-sizing:border-box;
+        outline-offset:3px;width:50%;" />';
+
+    // Button to the right
+    $form .= '<input type="submit" name="Submit" 
+        value="' . esc_attr__( 'Enter', 'text-domain' ) . '" 
+        style="background-color:#385DFF;color:#ffffff;border:none;
+        padding:0.75rem 1.25rem;font-size:1.15rem;
+        border-radius:0;cursor:pointer;transition:background 0.2s ease-in-out;" />';
+
+    $form .= '</div>'; // close row container
+    $form .= '</form>';
+    $form .= '</div>';
+    $form .= '</div>';
+
+    return $form;
+}
+add_filter( 'the_password_form', 'my_custom_password_form' );

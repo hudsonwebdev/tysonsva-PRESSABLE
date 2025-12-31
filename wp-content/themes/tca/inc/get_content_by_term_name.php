@@ -1,9 +1,10 @@
 <?php
 
-function get_content_by_term_ids($term_ids = [], $post_types = [], $future_only = true) {
+function get_content_by_term_ids($term_ids = [], $post_types = [], $future_only = true, $total_posts = 6) {
     if (empty($term_ids) || !is_array($term_ids)) {
         return new WP_Query(); // No terms selected
     }
+
 
     // Validate post types or use default
     if (empty($post_types) || !is_array($post_types)) {
@@ -60,6 +61,7 @@ function get_content_by_term_ids($term_ids = [], $post_types = [], $future_only 
         'post_type'   => $post_types,
         'post_status' => 'publish',
         'tax_query'   => $tax_query,
+        'posts_per_page' => $total_posts
     ];
 
     if (!empty($meta_query)) {

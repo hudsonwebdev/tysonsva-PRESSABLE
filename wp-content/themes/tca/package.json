@@ -4,7 +4,7 @@
   "description": "TCA Wordpress Theme",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "wp-scripts start --webpack-src-dir=src --output-path=public",
+    "start": "NODE_ENV=production wp-scripts start --webpack-src-dir=src --output-path=public",
     "build": "wp-scripts build --webpack-src-dir=src --output-path=public"
   },
   "author": "Hudson Web Development",

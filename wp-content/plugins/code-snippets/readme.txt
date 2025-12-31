@@ -1,11 +1,11 @@
 === Code Snippets ===
-Contributors: bungeshea, ver3, lightbulbman, 0aksmith, johnpixle
+Contributors: bungeshea, ver3, lightbulbman, 0aksmith, johnpixle, louiswol94, carolinaop
 Donate link: https://codesnippets.pro
 Tags: code, snippets, multisite, php, css
 License: GPL-2.0-or-later
 License URI: license.txt
-Stable tag: 3.7.0
-Tested up to: 6.8.2
+Stable tag: 3.9.3
+Tested up to: 6.8
 
 An easy, clean and simple way to enhance your site with code snippets.
 
@@ -103,6 +103,109 @@ You can report security bugs found in the source code of this plugin through the
 4. Importing snippets from an export file
 
 == Changelog ==
+
+
+= 3.9.3 (2025-12-03) =
+
+__Added__
+
+* Enhanced end-to-end tests to verify the toggle visual state in the snippets list page, improving UI verification and test reliability
+
+__Fixed__
+
+* Fix missing import of common/direction in src/css/manage.scss to restore correct styling and direction-aware layout
+* Fix toggle activation check to ensure the correct transformation value is used when detecting active/inactive state
+
+= 3.9.2 (2025-11-17) =
+
+__Changed__
+
+* Introduced a custom scissors icon and updated button title for the TinyMCE extension.
+* Improved back-navigation styling on the edit page.
+* Refined layout for column names and action buttons in the Cloud Snippets list.
+* Enhanced overall styling of cloud-related UI components.
+* Optimized cloud search with more efficient pagination and snippet retrieval.
+* Introduced groundwork to prevent Composer dependency collisions with other plugins.
+
+__Fixed__
+
+* Improved sanitization and normalization across Cloud API and pagination outputs.
+* Resolved various TinyMCE issues reported in the WordPress support forum.
+
+= 3.9.1 (2025-11-14) =
+
+__Changed__
+
+* Migrated to native CSS direction handling (RTL/LTR) for improved compatibility and simpler styling
+* Updated dependencies to the latest compatible versions
+
+__Fixed__
+
+* Fixed TinyMCE menu button registration to prevent initialization failure
+* Fixed the position of the 'code direction' control in the editor
+
+= 3.9.0 (2025-11-13) =
+
+__Added__
+
+* Added contextual notices in the Snippets list table to surface action results and warnings in the UI
+* Expanded Multisite Sharing settings for clearer control over network-wide snippet sharing
+
+__Changed__
+
+* Modernized browser support targets and polished admin UI (clearer row-action badges, improved Pro badge hover, refined active snippet name styling)
+
+__Fixed__
+
+* Fixed REST API pagination to return correct results and page counts
+* Resolved styling selector so the active snippet name highlights reliably
+
+= 3.8.2 (2025-10-31) =
+
+__Fixed__
+
+* Improved namespaced PHP snippet handling with file based execution.
+
+= 3.8.1 (2025-10-28) =
+
+__Added__
+
+* Code line explanation widget with apply and remove actions for AI-generated comments. (PRO)
+
+__Changed__
+
+* Improved pagination handling and display structure for cloud search results. (PRO)
+* Enhanced styling for codevault rows and inactive tabs in cloud interface. (PRO)
+
+__Removed__
+
+* Removed `guzzlehttp/guzzle` dependency to reduce package conflicts. (PRO)
+
+__Fixed__
+
+* Improved file-based snippet handling for multisite installations.
+
+= 3.8.0 (2025-10-24) =
+
+__Added__
+
+* @CarolinaOP and @louiswol94 join the team as plugin contributors.
+* File-based execution mode for snippets (Optional in Plugin Settings).
+* Version switch option, to help easily rollback the plugin to an earlier release.
+* Minor UI improvements to the editor and sidebar.
+
+__Changed__
+
+* Prefixed Composer packages to reduce collisions with other plugins.
+* Snippets REST API now supports pagination via page and per_page query parameters.
+* Improved editor preview behavior.
+
+__Fixed__
+
+* Fixed issues with snippet evaluation and front-end initialization in edge cases.
+* Improved reliability of snippet evaluation.
+* JavaScript and CSS snippets loading twice due to a conditions bug. (PRO)
+* Fixed issue where some conditions didn’t work due to loading before the loop. (PRO)
 
 = 3.7.0 (2025-08-29) =
 

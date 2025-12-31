@@ -1,5 +1,3 @@
-
-
 @import "uikit/src/scss/variables.scss";
 @import "global/uikit_variable_override.scss";
 @import "uikit/src/scss/mixins.scss";
@@ -72,13 +70,16 @@
 
 #page{
     overflow:hidden;
+  
 }
 
-.post-password-form{
-    padding:30px;
-    text-align: center;
-}
+
 
 em {
   color: inherit;
 }
+
+.make-button {
+  @include makeButton();
+}
+

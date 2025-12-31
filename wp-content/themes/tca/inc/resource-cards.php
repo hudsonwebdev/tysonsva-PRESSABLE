@@ -1,8 +1,11 @@
 <?php
 
+
 function draw_resource_card($rid,$count) { ?>
 
    <?php
+
+ 
 
             $url = get_field('url',$rid);
        
@@ -38,9 +41,6 @@ function draw_resource_card($rid,$count) { ?>
             </div> 
             <div class="inner-wrap">
 
-      
-        
-        
                 <a href="<?php echo $link; ?>" target="<?php echo $target; ?>">
                     <div class="cover-image">
                         <img <?php awesome_acf_responsive_image($image_id,'large','768px',get_the_title($rid)); ?>  />

@@ -51,12 +51,19 @@ case "Upcoming Events":
         'orderby'        => 'meta_value', // Order by the custom field value
         'order'          => 'ASC', // Ascending order (upcoming first)
         'meta_type'      => 'DATE', // Make sure the field is treated as a date
-        'meta_query'     => array(
+       'meta_query' => array(
+        'relation' => 'OR',
             array(
-                'key'     => '_event_start_date', // Start date field
-                'value'   => date('Y-m-d'), // Current date
-                'compare' => '>=', // Only future events
-                'type'    => 'DATE',
+                'key' => '_event_start_date',
+                'value' => date('Y-m-d'),
+                'compare' => '>=',
+                'type' => 'DATE',
+            ),
+            array(
+                'key' => '_event_end_date',
+                'value' => date('Y-m-d'),
+                'compare' => '>=',
+                'type' => 'DATE',
             ),
         ),
         'post__not_in'   => $stick_to_top,
@@ -91,7 +98,7 @@ case "Latest News":
 break;
 case "Mixed Content":
 
-    $containerClass = "event-container grid-view";
+    $containerClass = "event-container  grid-view";
 
     $post_query = get_field('post_picker');
     
@@ -154,14 +161,46 @@ $containerClass .= " column-count-" . $column_count_desktop;
 
 drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_underline,$section_intro,$section_button,$section_button_style); ?>
 
-<div class="<?php echo $containerClass; ?>"  uk-scrollspy="target: .flex-item; cls: uk-animation-slide-bottom-medium; delay: 200;repeat:true;">
-        
-            <?php 
+    <?php $display_type = get_field('display_type'); ?>
 
+    <?php if($display_type == "Slider"){ ?>
+
+    <div uk-slider>
+
+        <div class="uk-position-relative">
+
+            <div class="uk-slider-container">
+                <div class="uk-slider-items uk-child-width-1-3@s uk-child-width-1-<?php echo $column_count_desktop; ?>@  uk-grid uk-grid-small" >
+    <?php  }else{ ?>
+
+    <div class="<?php echo $containerClass; ?>"  uk-scrollspy="target: .flex-item; cls: uk-animation-slide-bottom-medium; delay: 200;repeat:true;">
+  
+    <?php 
+    }
         
         switch($content_selection){
 
             case "Latest News":
+
+                $count = 0;
+                if(!empty($stick_to_top)){
+
+                    foreach($stick_to_top as $pid){
+
+                   
+                        if($feature_first_post && $count==0){
+                            $columns = 2;
+                        }else{
+                            $columns = 1;
+                        }    
+    
+                       
+                        draw_news_card($pid,2,$columns);
+
+                        $count++;
+                    }
+        
+                }
 
      
             if ($post_query->have_posts()) :
@@ -321,7 +360,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
               
                 $future_only = get_field('only_include_future_events')?get_field('only_include_future_events'):false;
 
-                $query = get_content_by_term_ids($term_ids, $post_types,$future_only);
+                $query = get_content_by_term_ids($term_ids, $post_types,$future_only,$total_posts);
 
                  if ($query->have_posts()) {
 
@@ -392,6 +431,40 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
       
                 
         ?>
+
+        <?php if($display_type == "Slider"){ ?>
+
+                </div>
+
+                        <a class="uk-position-center-left-out prev-arrow" href uk-slider-item="previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
+                            <path d="M12.1211 21.061L2.12109 11.055L12.1211 1.06104" stroke="#385DFF" stroke-width="3" stroke-miterlimit="10"/>
+                            </svg>
+                        </a>
+                        <a class="uk-position-center-right-out next-arrow" href uk-slider-item="next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
+                            <path d="M1.06055 1.0603L11.0605 11.0663L1.06054 21.0603" stroke="#385DFF" stroke-width="3" stroke-miterlimit="10"/>
+                            </svg>
+                        </a>
+
+                    </div>
+
+                    <ul class="uk-slider-nav uk-dotnav content-dots"></ul>
+
+                </div>
+
+        <?php }else{ ?>
+
+            </div>
+
+        
+
+
+<?php } ?>
+
+
+
+
                   
 </div>
    

@@ -149,6 +149,24 @@ switch($result){
 			
 	break;
 
+    case '#_EVENTDATESTYSONSCARDS':
+			
+				$replace = get_date_display_top($EM_Event->ID);
+			
+			
+	break;
+
+    case '#_EVENTDATEDISPLAYTYSONSCARDS':
+			
+			if(get_post_meta($EM_Event->ID,'Date Display',true)){
+				$replace = get_post_meta($EM_Event->ID,'Date Display',true);
+			}else{
+                $replace = '';
+            }
+			
+			
+	break;
+
     case '#_ADDITIONALCARDINFOTYSONS':
 
 			if(get_post_meta($EM_Event->ID,'Card Info',true)){
@@ -161,8 +179,16 @@ switch($result){
 			
 	break;
 
+    
 
 
+    case '#_ALLCATEGORYSLUG':
+
+        $category_class_array = get_post_event_categories_as_classes( $EM_Event->ID );
+        $replace = implode(' ', $category_class_array); 
+		 
+
+	break;
 
 }
 

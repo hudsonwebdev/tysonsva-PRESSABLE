@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Events Manager
-Version: 7.1.7
+Version: 7.2.3
 Plugin URI: https://wp-events-plugin.com
 Description: Event registration and booking management for WordPress. Recurring events, locations, webinars, google maps, rss, ical, booking registration and more!
 Author: Pixelite
@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // Setting constants
 use EM\Archetypes;
 
-define('EM_VERSION', '7.1.7'); //self expanatory, although version currently may not correspond directly with published version number. until 6.0 we're stuck updating 5.999.x
-define('EM_PRO_MIN_VERSION', '3.7'); //self expanatory
+define('EM_VERSION', '7.2.3'); //self expanatory, although version currently may not correspond directly with published version number. until 6.0 we're stuck updating 5.999.x
+define('EM_PRO_MIN_VERSION', '3.7.2'); //self expanatory
 define('EM_PRO_MIN_VERSION_CRITICAL', '3.6.0.2'); //self expanatory
 define('EM_FILE', __FILE__); //an absolute path to this directory
 define('EM_DIR', dirname( __FILE__ )); //an absolute path to this directory
@@ -143,6 +143,8 @@ include( EM_DIR . '/classes/em-calendar.php' );
 include( EM_DIR . '/classes/em-category.php' );
 include( EM_DIR . '/classes/em-categories.php' );
 include( EM_DIR . '/classes/em-categories-frontend.php' );
+include( EM_DIR . '/classes/timeslots/timeranges.php' );
+include( EM_DIR . '/classes/timeslots/event-timeranges.php' );
 include( EM_DIR . '/classes/recurrences/recurrence-set.php' );
 include( EM_DIR . '/classes/recurrences/recurrence-sets.php' );
 include( EM_DIR . '/classes/em-event.php' );
@@ -210,7 +212,8 @@ if( EM_MS_GLOBAL ){
 }
 	define('EM_EVENTS_TABLE',$prefix.'em_events'); //TABLE NAME
 	define('EM_EVENT_RECURRENCES_TABLE',$prefix.'em_event_recurrences'); //TABLE NAME
-	define('EM_TIMESLOTS_TABLE', $wpdb->prefix . 'em_timeslots');
+	define('EM_TIMERANGES_TABLE', $wpdb->prefix . 'em_timeranges');
+	define('EM_EVENT_TIMESLOTS_TABLE', $wpdb->prefix . 'em_event_timeslots');
 	define('EM_TICKETS_TABLE', $prefix.'em_tickets'); //TABLE NAME
 	define('EM_TICKETS_BOOKINGS_TABLE', $prefix.'em_tickets_bookings'); //TABLE NAME
 	define('EM_META_TABLE',$prefix.'em_meta'); //TABLE NAME
@@ -277,6 +280,10 @@ function em_plugins_loaded(){
 	}
 	// duplicate posts - small so we just include it
 	include( EM_DIR . '/integrations/duplicate-post-plugins/duplicate-post-plugins.php' );
+	// fix Pro timeslot support by disabling timeslots if not the high enough version
+	if ( defined('EMP_VERSION')  && version_compare( EMP_VERSION, '3.7.2', '<' ) ) {
+		add_filter('pre_option_dbem_event_timeranges_enabled', '__return_zero');
+	}
 }
 add_filter('plugins_loaded','em_plugins_loaded');
 
@@ -358,8 +365,8 @@ function em_load_event(){
 	global $EM_Event, $EM_Recurrences, $EM_Location, $EM_Person, $EM_Booking, $EM_Category, $EM_Ticket, $current_user;
 	if( !defined('EM_LOADED') ){
 		$EM_Recurrences = array();
-		if( isset( $_REQUEST['event_id'] ) && is_numeric($_REQUEST['event_id']) && !is_object($EM_Event) ){
-			$EM_Event = new EM_Event( absint($_REQUEST['event_id']) );
+		if( isset( $_REQUEST['event_id'] ) && ( is_numeric($_REQUEST['event_id']) || preg_match('/^\d+:\d+$/', $_REQUEST['event_id']) ) && !is_object($EM_Event) ){
+			$EM_Event = em_get_event( $_REQUEST['event_id'] );
 		}elseif( isset($_REQUEST['post']) && Archetypes::is_event( $_REQUEST['post'] ) ){
 			$EM_Event = em_get_event($_REQUEST['post'], 'post_id');
 		}elseif ( !empty($_REQUEST['event_slug']) && EM_MS_GLOBAL && is_main_site() && !get_site_option('dbem_ms_global_events_links')) {
@@ -813,18 +820,21 @@ function em_rss() {
 	if( is_feed() && $wp_query->get(EM_TAXONOMY_CATEGORY) ){
 		//event category feed
 		$args = array('category' => $wp_query->get(EM_TAXONOMY_CATEGORY));
+		$args['event_archetype'] = false;
 	}elseif( is_feed() && $wp_query->get(EM_TAXONOMY_TAG) ){
 		//event tag feed
 		$args = array('tag' => $wp_query->get(EM_TAXONOMY_TAG));
+		$args['event_archetype'] = false;
 	}elseif( is_feed() && $wp_query->get('post_type') == EM_POST_TYPE_LOCATION && $wp_query->get(EM_POST_TYPE_LOCATION) ){
 		//location feeds
 		$location_id = $wpdb->get_var('SELECT location_id FROM '.EM_LOCATIONS_TABLE." WHERE location_slug='".$wp_query->get(EM_POST_TYPE_LOCATION)."' AND location_status=1 LIMIT 1");
 		if( !empty($location_id) ){
 			$args = array('location'=> $location_id);
 		}
-	}elseif( is_feed() && $wp_query->get('post_type') == EM_POST_TYPE_EVENT ) {
+	}elseif( is_feed() && EM\Archetypes::is_valid_cpt( $wp_query->get('post_type') ) ) {
 		//events feed - show it all
 		$args = array();
+		$args['event_archetype'] = $wp_query->get('post_type');
 	}
 	if( isset($args) ){
 		$wp_query->is_feed = true; //make is_feed() return true AIO SEO fix

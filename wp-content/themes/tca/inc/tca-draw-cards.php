@@ -79,6 +79,73 @@ function get_date_display($eid) {
 
 
 
+function get_date_display_top($eid) {
+    if (get_field('date_display', $eid)) {
+        $date_display = get_field('date_display', $eid);
+      
+    } else {
+        $event = em_get_event($eid, 'post_id');
+  
+
+        $event_start_date = get_post_meta($eid, '_event_start_date', true); 
+        $event_end_date = get_post_meta($eid, '_event_end_date', true); 
+
+
+
+        $datestring = strtotime($event_start_date);
+        $datestringend = strtotime($event_end_date);
+
+
+
+
+
+        $event_start_date = date('M d, Y', $datestring);
+        $event_end_date = date('M d, Y', $datestringend);
+
+        
+        $date_display = "";
+
+   $post_type = get_post_type($eid);
+
+        if ($event_end_date != $event_start_date && $post_type != "event-recurring") { 
+
+
+          
+            $date_display .= '<div class="date-top">';
+            $date_display .= '<div class="date-set">';
+            $date_display .= '<div class="month">' . date('M', $datestring) . '</div>';
+            $date_display .= '<div class="day">' . date('d', $datestring) . '</div>';
+            $date_display .= '</div>';
+
+
+            $date_display .= '<div class="date-set"><span><svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"/></svg></span>';
+            $date_display .= '<div class="month">' . date('M', $datestringend) . '</div>';
+            $date_display .= '<div class="day">' . date('d', $datestringend) . '</div>';
+            $date_display .= '</div>';
+
+            $date_display .= '</div>';
+
+        }else{
+
+            $date_display .= '<div class="date-top">';
+            $date_display .= '<div class="date-set">';
+            $date_display .= '<div class="month">' . date('M', $datestring) . '</div>';
+            $date_display .= '<div class="day">' . date('d', $datestring) . '</div>';
+            $date_display .= '</div>';
+            $date_display .= '</div>';
+
+        }
+
+       
+
+       
+    }
+
+    return $date_display;
+}
+
+
+
 
 function draw_datahub_card($label,$value,$small_text,$source) { ?>
 
@@ -181,6 +248,7 @@ function drawByPostType($pid,$columns,$count){
         case "post":
             draw_news_card_grid($pid,$columns);
         break;
+
         default:
             draw_event_card($pid,$columns);
         break;

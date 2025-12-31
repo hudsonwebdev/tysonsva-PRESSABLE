@@ -1,5 +1,5 @@
 <div class="em-event em-item">
-<div class="event-card #_CATEGORYSLUG">
+<div class="event-card #_ALLCATEGORYSLUG">
             <div class="outerblue">
                 <div class="outer-card-chevron"><?php drawSVG('outer-chevron-up-card'); ?></div>
             </div> 
@@ -13,6 +13,12 @@
 
                         <div class="card-image">
 
+                 
+    
+            #_EVENTDATESTYSONSCARDS
+
+
+    
                         {has_image}
 						#_EVENTIMAGE{medium}
 						{/has_image}
@@ -30,13 +36,20 @@
                         
                         <div class="tca-card-info">
                             <div class="inner">
-                                <div class="card-header">
-                                    <div class="card-type">Event</div>
 
-                                   
-                                    <div class="card-date">#_EVENTDATESTYSONS</div>
+                            <div class="card-header">
+
+                                    <div class="card-type">EVENT</div>
                                     
+                                      
+                                        <div class="card-date">
+				                          #_EVENTDATEDISPLAYTYSONSCARDS
+                                         </div>
+                                      
                                 </div>
+
+                                <br>
+                              
                                 <div class="card-title">
                                 
                                 

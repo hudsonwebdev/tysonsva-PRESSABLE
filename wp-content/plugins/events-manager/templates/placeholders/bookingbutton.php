@@ -45,6 +45,6 @@ if( is_user_logged_in() ){ //only show this to logged in users
 			?><span class="em-closed-button"><?php echo $button_closed ?></span><?php
 		}
 	}
-	echo apply_filters( 'em_booking_button', ob_get_clean(), $EM_Event, $status, $EM_Booking );
+	echo apply_filters( 'em_booking_button', ob_get_clean(), $EM_Event, $status, $EM_Booking ?? new EM_Booking() );
 }; 
 ?>

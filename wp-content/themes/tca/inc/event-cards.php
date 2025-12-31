@@ -100,8 +100,29 @@ function draw_event_card($eid,$columns=1) {
 
     }else{
 
+
+        if($post_type == "resource"){
+       
+
+            $resource_type = get_field('resource_type',$eid);
+
+
+            if ($resource_type == 2) {
+                $url = get_field('url',$eid);
+                $target= "_blank";
+            }else{ 
+                $url = get_the_permalink($eid);
+                $target = "_self";
+            }
+
+        }else{
+
         $url = get_the_permalink($eid);
         $target = "_self";
+
+        }
+
+
 
     }
 
@@ -123,7 +144,16 @@ function draw_event_card($eid,$columns=1) {
 
                     <div class="single-stack">
 
+                        
+
                         <div class="card-image">
+                            
+                        <?php if($post_type=="event" || $post_type=="event-recurring"){ ?>
+                                            
+                                        <div class="card-date-top"> <?php echo get_date_display_top($eid); ?></div>
+                                  
+                        <?php } ?>
+                        
 
                         <?php if($medium_portrait && $columns == 1){ ?>
                             
@@ -144,25 +174,24 @@ function draw_event_card($eid,$columns=1) {
                         
                         
                         <div class="tca-card-info">
+                        
+                        
                             <div class="inner">
                                 <div class="card-header">
 
                                     <div class="card-type"><?php echo $post_type_display; ?></div>
-
-                                    <?php if($post_type=="event" || $post_type=="event-recurring"){ ?>
-                                            
-                                        <div class="card-date"> <?php echo get_date_display($eid); ?></div>
-                                  
-                                  <?php } ?>
                                     
+                                       <?php if(get_post_meta($eid,'Date Display',true)){ ?>
+                                        <div class="card-date">
+				                            <?php echo get_post_meta($eid,'Date Display',true); ?>
+                                         </div>
+                                       <?php } ?>
                                 </div>
                                 <div class="card-title">
                             
                                     <h4><a href="<?php echo $url; ?>" target="<?php echo $target; ?>"><?php echo max_title_length( $title ); ?></a></h4>
                                     <?php printVenu($eid,false); ?>
-                                    <?php if(has_excerpt($eid)){ ?>
-                                    <div class="card-excerpt"><?php echo get_the_excerpt($eid);  ?></div>
-                                    <?php } ?>
+                                    
 
                                     <?php if(in_array('tca-event',$category_class_array)){ ?>
                                     <div  class="tcaeventlogo"><img src="<?php echo get_template_directory_uri(); ?>/img/tcalogoevents.png" alt="TCA Event" width="100"/></div>
