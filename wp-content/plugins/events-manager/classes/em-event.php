@@ -55,7 +55,7 @@ function em_get_event( $search_id = false, $search_by = 'event_id') {
 			$event_id = false;
 			if ( is_numeric( $id ) ) {
 				if ( $search_by == 'event_id' ) {
-					$event_id = absint( $id );
+					$event_id = EM_Event::abs_id( $id . ':' . $timeslot_id );
 				} elseif ( $search_by == 'post_id' ) {
 					$event_id = wp_cache_get( $id, 'em_events_ids' );
 				}
@@ -586,8 +586,8 @@ class EM_Event extends EM_Object{
 		do_action('em_event', $this, $id, $search_by);
 		//add this event to the cache
 		if( $this->event_id && $this->post_id ){
-			wp_cache_set($this->event_id, $this, 'em_events');
-			wp_cache_set($this->post_id, $this->event_id, 'em_events_ids');
+			wp_cache_set( $this->get_event_uid(), $this, 'em_events');
+			wp_cache_set( $this->post_id, $this->get_event_uid(), 'em_events_ids' );
 		}
 	}
 
@@ -748,11 +748,31 @@ class EM_Event extends EM_Object{
 	}
 
 	/**
-	 * Returns the full event ID including the timeslot ID
+	 * Returns the full event ID including the timeslot ID. A shortcut for get_event_id(false).
 	 * @return string
 	 */
 	function get_event_uid() {
 		return $this->get_event_id( false );
+	}
+
+	/**
+	 * Like absint() but accounts for the fact that event IDs may have a timeslot id too. Returns an int if just an event without timeslot, a string like 123:321 if timeslot.
+	 * @param $id
+	 *
+	 * @return int|string
+	 */
+	public static function abs_id( $id ) {
+		if ( preg_match( '/^(\d+):(\d+)$/', $id, $matches ) ) {
+			if ( absint( $matches[2] ) === 0 ) {
+				$clean_id = absint( $matches[1] );
+			} else {
+				$clean_id = absint( $matches[1] ) . ':' . absint( $matches[2] );
+			}
+		} else {
+			preg_replace( '/:.+$/', '', $id ); // remove any excess timeslot id attempts
+			$clean_id = absint( $id );
+		}
+		return $clean_id;
 	}
 	
 	/**
@@ -946,7 +966,14 @@ class EM_Event extends EM_Object{
 		return apply_filters('em_event_get_post', $result, $this);
 	}
 
+	/**
+	 * Returns the post ID of this event, and retreives parent post ID if a recurreng event automatically.
+	 * @return int|null
+	 */
 	public function get_post_id() {
+		if ( $this->post_id ) {
+			return $this->post_id;
+		}
 		return $this->is_recurrence() ? $this->get_recurring_event()->post_id : $this->post_id;
 	}
 
@@ -1392,8 +1419,8 @@ class EM_Event extends EM_Object{
 		if( $result && $this->is_published() ){ 
 			//we won't depend on hooks, if we saved the event and it's still published in its saved state, refresh the cache regardless
 			$this->load_postdata($this);
-			wp_cache_set($this->get_event_uid(), $this, 'em_events');
-			wp_cache_set($this->post_id, $this->get_event_uid(), 'em_events_ids');
+			wp_cache_set( $this->get_event_uid(), $this, 'em_events');
+			wp_cache_set( $this->post_id, $this->get_event_uid(), 'em_events_ids');
 		}
 		return $return;
 	}
@@ -3570,7 +3597,7 @@ class EM_Event extends EM_Object{
 	 */
 	function is_recurrence( $include_repeating = false ) {
 		$is_recurrence = ( !$this->post_id || $include_repeating ) && $this->event_type === 'recurrence' && $this->recurrence_set_id;
-		if ( $this->is_timeslot() && $this->recurrence_set_id ) {
+		if ( !$is_recurrence && $this->is_timeslot() && $this->recurrence_set_id ) {
 			$is_recurrence = $this->get_parent()->is_recurrence( $include_repeating );
 		}
 		return $is_recurrence;

@@ -5,7 +5,7 @@ Tags: acf, custom fields, meta, admin, fields
 Requires at least: 4.9
 Tested up to: 6.9
 Requires PHP: 5.6
-Stable tag: 0.9.2.1
+Stable tag: 0.9.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -493,6 +493,23 @@ The content of the upcoming patch and work in progress features are all listed o
 8. Enhanced WordPress UI
 
 == Changelog ==
+
+= 0.9.2.2 =
+
+**ACF Extended Pro 0.9.2.2:**
+
+* Field: Fields - Added "Group by field group" setting
+* Field: Field Types - Added "Group by category" setting
+* Fields: Fixed missing "Add choice" button when using "Display: Checkbox" and "Allow Custom"
+
+**ACF Extended Basic 0.9.2.2:**
+
+* Module: Forms - Enforced front-end fields validation against their respective "Choices" settings
+* Module: Forms - Added security measure for forms allowing user role selection
+* Module: Forms - Added `acfe/form/validate_value` hook to validate fields individually on front
+* Module: Forms - Added `acfe/form/pre_validate_value` hook to bypass enforced validation
+* Module: Enhanced UI - Fixed missing metabox when visiting its own profile via `user-edit.php`
+* Field Group - Fixed "Display Title" not being displayed on screens with Enhanced UI (ACF 6.6+)
 
 = 0.9.2.1 =
 

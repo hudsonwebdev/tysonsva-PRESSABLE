@@ -103,7 +103,6 @@ jQuery(document).ready( function($){
 				let month = calendar.find('select[name="month"]');
 				let year = calendar.find('select[name="year"]');
 				let monthpicker = calendar.find('.em-month-picker');
-				let month_real_value = monthpicker.val();
 				let month_value = monthpicker.data('month-value');
 				monthpicker.prop('type', 'text').prop('value', month_value);
 				calendar_resize_monthpicker( monthpicker[0], month_value );
@@ -138,14 +137,14 @@ jQuery(document).ready( function($){
 						calendar_trigger_ajax( calendar, selectedDates[0].getFullYear(), selectedDates[0].getMonth()+1);
 					},
 				});
-				fp.setDate( new Date( month_real_value ) ); // this line fixes issues if the supplied text value has a mismatch with the real text value due to localization differences between WP and flatpickr
-				monthpicker.addClass('select-toggle')
-				/* Disabling native picker at the moment, too quriky cross-browser
-			}
-			*/
+				// this bit fixes issues if the supplied text value has a mismatch with the real text value due to localization differences between WP and flatpickr
+				let month_real_value = monthpicker.val() + '-01';
+				fp.setDate( new Date( month_real_value ) );
+				// add classes to month picker
+				monthpicker.addClass('select-toggle');
 			}
 			if( calendar.hasClass('preview-tooltips') ){
-				var tooltip_vars = {
+				let tooltip_vars = {
 					theme : 'light-border',
 					allowHTML : true,
 					interactive : true,

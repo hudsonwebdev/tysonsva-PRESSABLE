@@ -154,8 +154,7 @@ function drawMegaMenu(){ ?>
             <a href="#" class="show-search" role="button" aria-label="Show Search"><span class="mobile-text">Search</span> <span class="mo"><span uk-icon="icon: search"></span></span></a>
             <a href="#" class="hide-search" role="button" aria-label="Hide Search"><span uk-icon="icon: close"></span></a>
         </li>
-        <li class="contact-link"><a href="/contact">Contact</a></li>
-        
+      
         </ul>
         
         </div>

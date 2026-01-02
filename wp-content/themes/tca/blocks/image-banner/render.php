@@ -45,7 +45,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
           
                 <div class="image-wrap">
-                    <img <?php awesome_acf_responsive_image($banner_image['id'],'full','2000px',$banner_image['alt']); ?>  />
+                    <img <?php awesome_acf_responsive_image($banner_image['id'],'full','4000px',$banner_image['alt']); ?>  />
                     
                 </div>
                 
@@ -69,6 +69,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
         <?php if($additional_text || $large_title){ ?>
 
             <div class="text-overlay">
+                <div class="uk-container">
                 <div class="inner">
                     <div style="height:<?php echo $above_title_spacer; ?>%"></div>
                     <h1 class="banner-title"><?php echo $large_title; ?></h1>
@@ -78,8 +79,8 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                     <?php } ?>
                     
                 </div>
-            </div>
-            
+                </div>
+            </div>         
         <?php } ?>
 
 

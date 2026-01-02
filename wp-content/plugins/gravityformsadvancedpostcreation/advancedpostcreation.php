@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms Advanced Post Creation Add-On
 Plugin URI: https://gravityforms.com
 Description: Allows you to create new posts through Gravity Forms.
-Version: 1.5.0
+Version: 1.6.1
 Author: Gravity Forms
 Author URI: https://gravityforms.com
 Text Domain: gravityformsadvancedpostcreation
@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 defined( 'ABSPATH' ) || die();
 
-define( 'GF_ADVANCEDPOSTCREATION_VERSION', '1.5.0' );
+define( 'GF_ADVANCEDPOSTCREATION_VERSION', '1.6.1' );
 
 // If Gravity Forms is loaded, bootstrap the Advanced Post Creation Add-On.
 add_action( 'gform_loaded', array( 'GF_PostCreation_Bootstrap', 'load' ), 5 );
@@ -53,12 +53,10 @@ class GF_PostCreation_Bootstrap {
 			return;
 		}
 
-		require_once( 'class-gf-advancedpostcreation.php' );
+		require_once 'class-gf-advancedpostcreation.php';
 
 		GFAddOn::register( 'GF_Advanced_Post_Creation' );
-
 	}
-
 }
 
 /**

@@ -483,7 +483,7 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 			//faster way of deleting bookings for an event circumventing the need to load all bookings if it hasn't been loaded already
 			$event_id = absint($this->event_id);
 			$event_ids = array($event_id);
-			$timeslot = $this->timeslot_id ? ' AND timeslot_id = ' . absint($this->timeslot_id) : '';
+			$timeslot = !empty($this->timeslot_id) ? ' AND timeslot_id = ' . absint($this->timeslot_id) : '';
 			$booking_ids = $wpdb->get_col("SELECT booking_id FROM ".EM_BOOKINGS_TABLE." WHERE event_id = '$event_id' $timeslot");
 			$result_tickets = $wpdb->query("DELETE FROM ". EM_TICKETS_BOOKINGS_TABLE ." WHERE booking_id IN (SELECT booking_id FROM ".EM_BOOKINGS_TABLE." WHERE event_id = '$event_id' $timeslot)");
 			$result = $wpdb->query("DELETE FROM ".EM_BOOKINGS_TABLE." WHERE event_id = '$event_id' $timeslot");
@@ -660,16 +660,16 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 		}
 		$status = str_replace(' ', '', $status);
 		// run if $status is clean
-		if ( preg_match('/[^0-9,]/', $status) ) {
+		if ( preg_match('/^[0-9,]+$/', $status) ) {
 			if ( !isset( $this->status_counts[ $status ] ) || $force_refresh ) {
 				if ( $this->get_event()->is_recurring( true ) ) {
 					$subquery = "SELECT event_id FROM " . EM_EVENTS_TABLE . " WHERE booking_status IN ( $status ) AND recurrence_set_id IN ( SELECT recurrence_set_id FROM " . EM_EVENT_RECURRENCES_TABLE . " WHERE event_id = '{$this->event_id}' )";
 					$sql = "SELECT SUM(booking_spaces) FROM " . EM_BOOKINGS_TABLE . " WHERE event_id IN ( $subquery ) ORDER BY booking_date";
 				} else {
-					$timeslot = $this->timeslot_id ? ' AND timeslot_id = ' . absint( $this->timeslot_id ) : '';
+					$timeslot = !empty($this->timeslot_id) ? ' AND timeslot_id = ' . absint( $this->timeslot_id ) : '';
 					$sql = 'SELECT SUM(booking_spaces) FROM ' . EM_BOOKINGS_TABLE . " WHERE booking_status IN ( $status ) AND event_id=" . absint( $this->event_id ) . $timeslot;
 				}
-				$this->status_counts[ $status ] = $wpdb->get_var( $sql );
+				$this->status_counts[ $status ] =  (int) $wpdb->get_var( $sql );
 			}
 		}
 		return apply_filters('em_bookings_get_status_count', $this->status_counts[ $status ] ?? 0, $this, $status, $force_refresh);
@@ -770,7 +770,7 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 		if( is_numeric($user_id) && $user_id > 0 ){
 			global $wpdb;
 			// get the first booking ID available and return that
-			$timeslot = $this->timeslot_id ? ' AND timeslot_id = ' . absint($this->timeslot_id) : '';
+			$timeslot = !empty($this->timeslot_id) ? ' AND timeslot_id = ' . absint($this->timeslot_id) : '';
 			$sql = $wpdb->prepare('SELECT booking_id FROM '.EM_BOOKINGS_TABLE.' WHERE event_id = %d AND person_id = %d AND booking_status NOT IN (2,3)' . $timeslot, $this->event_id, $user_id);
 			$booking_id = $wpdb->get_var($sql);
 			if( (int) $booking_id > 0 ){

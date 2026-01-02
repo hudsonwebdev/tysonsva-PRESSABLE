@@ -5,7 +5,7 @@ Tags: events, calendar, tickets, bookings, appointments
 Text Domain: events-manager
 Requires at least: 6.1
 Tested up to: 6.9
-Stable tag: 7.2.3
+Stable tag: 7.2.3.1
 Requires PHP: 7.0
 License: GPLv2
 
@@ -183,6 +183,13 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page for helps wit
 18. Grid view for displaying your upcoming events at a glance
 
 == Changelog ==
+= 7.2.3.1 =
+* Fixed bug with counting approved bookings since 7.2.3
+* Fixed WP caching of event timeslots using only event ID instead of full UID, causing retrieval errors
+* Fixed `EM_Event::get_post_id()` to return `post_id` directly if already set before checking recurrence conditions
+* Fixed timeranges (timeslots) not being properly loaded for repeated events, resulting in booking forms without timeslot selection
+* Fixed calendar month picker display issue for western hemisphere timezones
+
 = 7.2.3  =
 * Fixed multi-timerange and timeslot settings not being reflected in the event submission UI in some setups
 * Fixed incorrect default timerange UI data when adding an extra timerange to an event

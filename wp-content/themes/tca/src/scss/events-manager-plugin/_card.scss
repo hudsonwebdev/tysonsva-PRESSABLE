@@ -4,7 +4,7 @@
         flex-direction: column;
         height:100% !important;
 
- 
+   
         .outerblue{
             position:absolute;
             top:15px;
@@ -43,7 +43,7 @@
           
         .single-stack{
 
-          
+      
 
         position:relative;
         display:flex;
@@ -55,10 +55,11 @@
             position:relative;
 
             .date-top{
+             
                 position:absolute;
                 top:0px;
                 left:0;
-                background:$white;
+                background: $page-background;
                 
                 z-index:100;
                 text-align: center;
@@ -100,6 +101,7 @@
 
         .tca-card-info{
             background-color:$white;
+            background-color:$page-background;
             z-index:5;
             flex-grow:1;
             width:100%;
@@ -137,7 +139,7 @@
 
                 }
                 .card-date{
-                    
+                    background-color:$page-background;
                     text-transform: uppercase;
                     padding:0 10px 10px 10px;
                     font-size:.9rem;
@@ -145,6 +147,7 @@
                
 
             }
+
                             
             .card-title{
  

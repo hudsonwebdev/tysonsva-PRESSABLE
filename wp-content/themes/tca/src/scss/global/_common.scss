@@ -1,51 +1,5 @@
 
-.flex-item{
-    width:100%;
-}
 
-
-
-@media(min-width:$breakpoint-medium){
-
-    .flex-item{
-        width:50%;
-    }
-
-}
-
-
-
-@media(min-width:$breakpoint-large){
-
-        
-    .flex-item{
-        width:33.33333%;
-    }
-
-    .flex-item.columns-2{
-        width:66.66666%;
-    }
-
-}
-
-
-
-.column-count-4{
-
-
-@media(min-width:$breakpoint-large){
-
-        
-    .flex-item{
-        width:25%;
-    }
-
-
-
-}
-
-
-}
 
 
 

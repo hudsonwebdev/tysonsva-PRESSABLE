@@ -75,6 +75,8 @@ h2{
 }
 
 
+
+
 /* Base dotnav style */
 .uk-dotnav > * > * {
   width: 10px;
@@ -109,6 +111,19 @@ h2{
     width:50px;
     height:50px;
     padding:15px;
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    svg{
+        path{
+            stroke:$white;
+        }
+
+    }
+}
+.next-arrow{
+    right:0;
+    bottom:0;
 }
 
 

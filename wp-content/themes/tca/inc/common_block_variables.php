@@ -42,7 +42,7 @@ if(!empty($section_header)){
     $section_button = isset($section_header['section_button'])?$section_header['section_button']:'';
     $section_button_style = isset($section_header['section_button_style'])?$section_header['section_button_style']:'white';
     $section_title_size = isset($section_header['section_title_size'])?$section_header['section_title_size']:'medium';
-    
+    $title_container_size= isset($section_header['title_container_size'])?$section_header['title_container_size']:'full';
     
 }else{
     $section_title = '';
@@ -52,6 +52,7 @@ if(!empty($section_header)){
     $section_button = false;
     $section_button_style = 'white';
     $section_title_size = 'medium';
+    $title_container_size= 'full';
 }
 
 

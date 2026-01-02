@@ -165,15 +165,15 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
     <?php if($display_type == "Slider"){ ?>
 
-    <div uk-slider>
+    <div uk-slider="center: true">
 
         <div class="uk-position-relative">
 
-            <div class="uk-slider-container">
-                <div class="uk-slider-items uk-child-width-1-3@s uk-child-width-1-<?php echo $column_count_desktop; ?>@  uk-grid uk-grid-small" >
+            <div class="uk-slider-container" >
+                <div class="uk-slider-items uk-child-width-1-1@s uk-child-width-1-<?php echo intval($column_count_desktop-1); ?>@m uk-child-width-1-<?php echo $column_count_desktop; ?>@l  uk-grid uk-grid-small" >
     <?php  }else{ ?>
 
-    <div class="<?php echo $containerClass; ?>"  uk-scrollspy="target: .flex-item; cls: uk-animation-slide-bottom-medium; delay: 200;repeat:true;">
+    <div class="<?php echo $containerClass; ?> uk-child-width-1-1@s uk-child-width-1-<?php echo intval($column_count_desktop-1); ?>@m uk-child-width-1-<?php echo $column_count_desktop; ?>@l  uk-grid uk-grid-small"  uk-scrollspy="target: .flex-item; cls: uk-animation-slide-bottom-medium; delay: 200;repeat:true;">
   
     <?php 
     }
@@ -436,12 +436,12 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
                 </div>
 
-                        <a class="uk-position-center-left-out prev-arrow" href uk-slider-item="previous">
+                        <a class="prev-arrow" href uk-slider-item="previous" >
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
                             <path d="M12.1211 21.061L2.12109 11.055L12.1211 1.06104" stroke="#385DFF" stroke-width="3" stroke-miterlimit="10"/>
                             </svg>
                         </a>
-                        <a class="uk-position-center-right-out next-arrow" href uk-slider-item="next">
+                        <a class="next-arrow" href uk-slider-item="next">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
                             <path d="M1.06055 1.0603L11.0605 11.0663L1.06054 21.0603" stroke="#385DFF" stroke-width="3" stroke-miterlimit="10"/>
                             </svg>

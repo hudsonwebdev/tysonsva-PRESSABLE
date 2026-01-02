@@ -34,7 +34,7 @@ get_header(); // Include the header template
     </div>
     <hr>
     <div class="uk-container">
-    <div class="news-container" uk-scrollspy="target: .news-card; cls: uk-animation-slide-bottom-medium; delay: 200;repeat:true;">
+    <div class="news-container uk-child-width-1-1@s uk-child-width-1-3@m"  uk-scrollspy="target: .news-card; cls: uk-animation-slide-bottom-medium; delay: 200;repeat:true;">
        
 
             <?php

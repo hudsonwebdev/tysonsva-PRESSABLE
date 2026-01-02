@@ -46,10 +46,10 @@ function tca_setup() {
 		*/
 	add_theme_support( 'post-thumbnails' );
 
-	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
 			'footer-menu' => esc_html__( 'Footer Menu', 'tca' ),
+			'utility-menu' => esc_html__( 'Utility Menu', 'tca' ),
 		)
 	);
 

@@ -115,10 +115,10 @@ function closeSection($wrap_size,$container_size,$container_type,$graphic){ ?>
 <?php }
 
 
-function drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_underline,$section_intro,$section_button,$section_button_style){ ?>
+function drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_underline,$section_intro,$section_button,$section_button_style,$title_container_size="uk-container"){ ?>
+
+<div class="uk-container <?php echo $title_container_size; ?>">
 <?php 
-
-
 if($section_title>"" || $section_button>"") { ?>
     <div class="grid-header <?php if($show_underline){ echo "showunderline"; }?> ">
         <div class="left-header"><h2 class="section-title title-size-<?php echo $section_title_size; ?> uk-text-<?php echo $title_alignment; ?>"><?php echo $section_title; ?></h2></div>
@@ -139,7 +139,7 @@ if($section_title>"" || $section_button>"") { ?>
 
    
 <?php } ?>
-  
+    </div>
 <?php }
 
 
