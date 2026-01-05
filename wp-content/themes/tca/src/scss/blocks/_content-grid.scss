@@ -100,7 +100,6 @@ h2{
 
 
 .uk-dotnav{
-
     text-align: center;
     margin:15px 0;
     justify-content:center;
@@ -108,13 +107,14 @@ h2{
 
 .prev-arrow,
 .next-arrow{
-    width:50px;
-    height:50px;
+    width:65px;
+    height:65px;
     padding:15px;
     position:absolute;
     top:50%;
     transform:translateY(-50%);
     svg{
+      width:100%;
         path{
             stroke:$white;
         }
@@ -122,7 +122,7 @@ h2{
     }
 }
 .next-arrow{
-    right:0;
+    right:0px;
     bottom:0;
 }
 

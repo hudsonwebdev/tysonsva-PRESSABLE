@@ -32,23 +32,25 @@ $video = get_field('video');
 
 drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_underline,$section_intro,$section_button,$section_button_style); ?>
 
-<div class="image-banner">
-    <?php if(!$hide_decorative_chevron){ ?>
-        <div class="chevron"><svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 432 432" fill="none">
-            <path d="M129.582 0L0 129.582H302.418V432L432 302.43V0H129.582Z" fill="#385DFF"/></svg>
-        </div>
-    <?php } ?>
+
+        <?php if($image_or_video == "Image" && $banner_image){ ?>
+
+            <div class="image-banner">
+                <?php if(!$hide_decorative_chevron){ ?>
+                    <div class="chevron"><svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 432 432" fill="none">
+                        <path d="M129.582 0L0 129.582H302.418V432L432 302.43V0H129.582Z" fill="#385DFF"/></svg>
+                    </div>
+                <?php } ?>
   
 
-         <div class="image-tint"></div>
-        <?php if($image_or_video == "Image" && $banner_image){ ?>
+                <div class="image-tint"></div>
 
           
                 <div class="image-wrap">
                     <img <?php awesome_acf_responsive_image($banner_image['id'],'full','4000px',$banner_image['alt']); ?>  />
                     
                 </div>
-                
+            </div>    
        
         <?php }elseif($image_or_video == "Video" && $video){ ?>
 
@@ -56,9 +58,11 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
           
             <?php if($video_url){ ?>
-                <video class="tca-video-background" autoplay muted loop playsinline src="<?php echo $video_url; ?>" data-object-fit="cover"></video>
-            <?php } ?>
-
+                <div class="video-banner">
+                    <video class="tca-video-background" autoplay muted loop playsinline src="<?php echo $video_url; ?>" data-object-fit="cover"></video>
+                </div>
+                <?php } ?>
+            
 
         <?php } ?>
 
@@ -69,7 +73,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
         <?php if($additional_text || $large_title){ ?>
 
             <div class="text-overlay">
-                <div class="uk-container">
+                <div class="banner-text-container">
                 <div class="inner">
                     <div style="height:<?php echo $above_title_spacer; ?>%"></div>
                     <h1 class="banner-title"><?php echo $large_title; ?></h1>

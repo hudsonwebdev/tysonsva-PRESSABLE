@@ -77,8 +77,8 @@ if($container_type=="div"){ ?>
 
 
     <div class="section-content">
-            
-            
+   
+          
             
 <?php }
 
