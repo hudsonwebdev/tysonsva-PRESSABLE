@@ -7,9 +7,10 @@
  * @package tca
  */
 
+
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.6.3' );
+	define( '_S_VERSION', '1.6.194' );
 }
 
 /**
@@ -217,7 +218,9 @@ function add_custom_css_classes( $button, $form ) {
 }
 
 
-//add_image_size( 'featured-image', 1378, 820 ); 
+//add_image_size( 'featured-image', 1378, 820 );
+// Hero and full-bleed content images (max 1920px wide) for optimal PageSpeed.
+add_image_size( 'tca-hero', 1920, 0, false ); 
 
 
 function max_title_length( $title ) {
@@ -440,3 +443,53 @@ function my_custom_password_form( $output ) {
     return $form;
 }
 add_filter( 'the_password_form', 'my_custom_password_form' );
+
+
+
+/**
+ * Output responsive img attributes for the video banner poster (class: video-banner-poster).
+ * Use: <img class="video-banner-poster" <?php tca_video_banner_poster_attrs( $poster ); ?> />
+ *
+ * @param int|array $poster Attachment ID or ACF image array (must have 'id' for srcset).
+ * @param string   $max_width  Sizes constraint, e.g. '1920px'.
+ * @param string   $image_size WordPress image size name for srcset sources.
+ */
+function tca_video_banner_poster_attrs( $poster, $max_width = '1920px', $image_size = 'tca-hero' ) {
+    $attachment_id = null;
+    if ( is_numeric( $poster ) ) {
+        $attachment_id = (int) $poster;
+    } elseif ( is_array( $poster ) && ! empty( $poster['id'] ) ) {
+        $attachment_id = (int) $poster['id'];
+    }
+    if ( ! $attachment_id ) {
+        return;
+    }
+
+    // Use a smaller default src so mobile doesn't pull the 1920px image for LCP.
+    $src = wp_get_attachment_image_url( $attachment_id, 'medium_large' );
+    if ( ! $src ) {
+        $src = wp_get_attachment_image_url( $attachment_id, 'large' );
+    }
+    if ( ! $src ) {
+        $src = wp_get_attachment_image_url( $attachment_id, $image_size );
+    }
+    if ( ! $src ) {
+        return;
+    }
+
+    $srcset = wp_get_attachment_image_srcset( $attachment_id, $image_size );
+    $sizes  = '(max-width: ' . esc_attr( $max_width ) . ') 100vw, ' . esc_attr( $max_width );
+
+    $attrs = ' decoding="async" src="' . esc_url( $src ) . '"';
+    if ( $srcset ) {
+        $attrs .= ' srcset="' . esc_attr( $srcset ) . '" sizes="' . $sizes . '"';
+    }
+    $attrs .= ' alt="" loading="eager" fetchpriority="high"';
+
+    $meta = wp_get_attachment_metadata( $attachment_id );
+    if ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) ) {
+        $attrs .= ' width="' . esc_attr( $meta['width'] ) . '" height="' . esc_attr( $meta['height'] ) . '"';
+    }
+
+    echo $attrs;
+}

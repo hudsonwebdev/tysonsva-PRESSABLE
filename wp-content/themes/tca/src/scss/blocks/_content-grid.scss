@@ -74,7 +74,11 @@ h2{
 
 }
 
-
+@media(min-width:$breakpoint-medium){
+    .tysons-slider{
+        width:120%;
+    }
+}
 
 
 /* Base dotnav style */
@@ -103,18 +107,22 @@ h2{
     text-align: center;
     margin:15px 0;
     justify-content:center;
+   
 }
 
 .prev-arrow,
 .next-arrow{
-    width:65px;
-    height:65px;
-    padding:15px;
+    width:50px;
+    height:50px;
+    padding:10px;
     position:absolute;
     top:50%;
     transform:translateY(-50%);
+    background:$steel-blue;
+    text-align: center;
     svg{
-      width:100%;
+      width:30px;
+      height:30px;
         path{
             stroke:$white;
         }

@@ -55,7 +55,7 @@
                 .inner{
                     padding:0 5% 0 0;
                     @media(min-width:$breakpoint-medium){
-                        padding:0 10%;
+                        padding:0  0 0 10%;
                     }
 
                     h2{
@@ -75,6 +75,17 @@
                     float:right;
                     
             
+                }
+            }
+
+            .text-side{
+                
+                .inner{
+                    padding:0 5%  0  0;
+                    @media(min-width:$breakpoint-medium){
+                        padding:0  10% 0 0;
+                    }
+
                 }
             }
         }
@@ -130,6 +141,18 @@
         }
 
     }
+
+    /* Hide slider before JS loads */
+[uk-slider] {
+    visibility: hidden;
+}
+
+/* Show once UIkit is ready */
+.uk-slider {
+    visibility: visible;
+}
+
+
 
 
 }

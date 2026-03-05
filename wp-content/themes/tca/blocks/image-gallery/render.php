@@ -37,7 +37,7 @@ if( $images ): ?>
             <div  class="gallery-image">
                 <span>
                     
-                     <img <?php awesome_acf_responsive_image($image['id'],'full','600px',$image['alt']); ?>  />
+                     <img <?php awesome_acf_responsive_image( $image['id'], 'large', '800px', $image['alt'] ); ?> />
         </span>
             </div>  
         <?php endforeach; ?>

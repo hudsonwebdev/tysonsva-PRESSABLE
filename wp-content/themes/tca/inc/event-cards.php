@@ -164,7 +164,7 @@ function draw_event_card($eid,$columns=1) {
                             <?php if($columns == 2){ ?>
                                 <img <?php awesome_acf_responsive_image($img_id,'featured-image','1378px',$title); ?>  />
                             <?php }else{ ?>
-                                <img <?php awesome_acf_responsive_image($img_id,'large','768px',$title); ?>  />
+                                <img <?php awesome_acf_responsive_image($img_id,'large','550px',$title); ?>  />
                             <?php } ?>
 
 
@@ -189,7 +189,7 @@ function draw_event_card($eid,$columns=1) {
                                 </div>
                                 <div class="card-title">
                             
-                                    <h4><a href="<?php echo $url; ?>" target="<?php echo $target; ?>"><?php echo max_title_length( $title ); ?></a></h4>
+                                    <h3><a href="<?php echo $url; ?>" target="<?php echo $target; ?>"><?php echo max_title_length( $title ); ?></a></h3>
                                     <?php printVenu($eid,false); ?>
                                     
 

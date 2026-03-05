@@ -10,21 +10,26 @@ get_header();
 	<main id="primary" class="site-main">
 
 	<div class="event-list gradient-2-bg">
-        <div class="uk-container">
+ 
 
 			
     <?php
      $featured_events = get_field('featured_events');
     if($featured_events){ ?>
-
-<h2>Featured Events</h2>
+  <div class="uk-container">   
+    <div class="grid-header showunderline">
+        <div class="left-header">
+            <h2 class="section-title">Featured Events</h2>
+        </div>
+    </div>
+</div>
     <div class="featured-slides">
 
-        <div uk-slider>
+        <div uk-slider="finite: true">
 
         <div class="uk-position-relative">
             <div class="uk-slider-container">
-                <div class="uk-slider-items uk-child-width-1-3@s uk-child-width-1-<?php echo $column_count_desktop; ?>@  uk-grid uk-grid-small" >
+                <div class="uk-slider-items uk-child-width-1-3@s uk-child-width-1-4@m  uk-grid uk-grid-small uk-flex-center" >
    
 
                     <?php
@@ -50,16 +55,18 @@ get_header();
 
                 </div>
 
-            <a class="uk-position-center-left-out prev-arrow" href uk-slider-item="previous">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
-                <path d="M12.1211 21.061L2.12109 11.055L12.1211 1.06104" stroke="#385DFF" stroke-width="3" stroke-miterlimit="10"/>
-                </svg>
-            </a>
-            <a class="uk-position-center-right-out next-arrow" href uk-slider-item="next">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
-                <path d="M1.06055 1.0603L11.0605 11.0663L1.06054 21.0603" stroke="#385DFF" stroke-width="3" stroke-miterlimit="10"/>
-                </svg>
-            </a>
+     
+
+              <a class="prev-arrow" href uk-slider-item="previous" >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
+                            <path d="M12.1211 21.061L2.12109 11.055L12.1211 1.06104" stroke="#385DFF" stroke-width="3" stroke-miterlimit="10"/>
+                            </svg>
+                        </a>
+                        <a class="next-arrow" href uk-slider-item="next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
+                            <path d="M1.06055 1.0603L11.0605 11.0663L1.06054 21.0603" stroke="#385DFF" stroke-width="3" stroke-miterlimit="10"/>
+                            </svg>
+                        </a>
             <ul class="uk-slider-nav uk-dotnav content-dots"></ul>
         </div>
 
@@ -71,14 +78,18 @@ get_header();
   <?php  }?>
 
       
-        
-    
-<div class="event-page-header">
-       <h2 class="event-list-title">All Events</h2>
-       
-            <a class="tca-button green" href="/submit-event" >Submit Event</a>
-      
+    <div class="uk-container">   
+        <div class="grid-header showunderline">
+            <div class="left-header">
+                <h2 class="section-title">All Events</h2>
+            </div>
+            <div class="right-header">
+                <a class="tca-button green" href="/submit-event" >Submit Event</a>
+            </div>
+        </div>
     </div>
+    <div class="uk-container">   
+  
 
 
 			<?php
@@ -89,9 +100,9 @@ get_header();
 
 			endwhile; // End of the loop.
 			?>
-		</div>
+    </div>	
 
-		</div>
+    </div>	
 	</main><!-- #main -->
 
 <?php

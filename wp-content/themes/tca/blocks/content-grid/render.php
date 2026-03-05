@@ -165,15 +165,15 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
     <?php if($display_type == "Slider"){ ?>
 
-    <div uk-slider="center: true">
+    <div uk-slider>
 
         <div class="uk-position-relative">
 
-            <div class="uk-slider-container" >
-                <div class="uk-slider-items uk-child-width-1-1@s uk-child-width-1-<?php echo intval($column_count_desktop-1); ?>@m uk-child-width-1-<?php echo $column_count_desktop; ?>@l  uk-grid uk-grid-small" >
+            <div class="uk-slider-container tysons-slider"  >
+                <div class="uk-slider-items uk-child-width-1-1@s uk-child-width-1-<?php echo intval($column_count_desktop-1); ?>@m uk-child-width-1-<?php echo $column_count_desktop; ?>@l   uk-grid uk-grid-small" >
     <?php  }else{ ?>
 
-    <div class="<?php echo $containerClass; ?> uk-child-width-1-1@s uk-child-width-1-<?php echo intval($column_count_desktop-1); ?>@m uk-child-width-1-<?php echo $column_count_desktop; ?>@l  uk-grid uk-grid-small"  uk-scrollspy="target: .flex-item; cls: uk-animation-slide-bottom-medium; delay: 200;repeat:true;">
+    <div class="<?php echo $containerClass; ?> uk-child-width-1-1@s uk-child-width-1-<?php echo intval($column_count_desktop-1); ?>@m uk-child-width-1-<?php echo $column_count_desktop; ?>@l   uk-grid uk-grid-small"  uk-scrollspy="target: .flex-item; cls: uk-animation-slide-bottom-medium; delay: 200;repeat:true;">
   
     <?php 
     }

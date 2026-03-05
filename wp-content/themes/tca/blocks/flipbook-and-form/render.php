@@ -26,18 +26,20 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
 ?>
 <div class="flipbook-form">
-
-<div class="uk-container">
-    <div class="flipbook-form-wrap">
-        <div class="thumbside">
-
-        <?php
+<?php
+        $flipbook_position = get_field('flipbook_position')?get_field('flipbook_position'):'left';
         $flipbook_shortcode = get_field('flipbook_shortcode');
         $pdf_file = get_field('pdf');
-        echo $flipbook_shortcode;
-        ?><br>
+        
+?>
+<div class="uk-container">
+    <div class="flipbook-form-wrap">
+    <?php if($flipbook_position == 'left'){ ?>
+            <div class="thumbside">
+            <?php echo $flipbook_shortcode; ?>
+            </div>
        
-        </div>
+        <?php } ?>
 <?php
  $align_description = get_field('align_description')?get_field('align_description'):'flex-start';
 
@@ -130,6 +132,11 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
             </div>
         </div>
+        <?php if($flipbook_position == 'right'){ ?>
+            <div class="thumbside">
+            <?php echo $flipbook_shortcode; ?>
+            </div>
+        <?php } ?>
     </div>
 </div>
 </div>

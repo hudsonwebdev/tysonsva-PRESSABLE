@@ -34,7 +34,7 @@ if(get_field('source_url',$pid)){
 
                 <div class="card-image">
                 <?php if($img_id>0){ ?>
-                    <img <?php awesome_acf_responsive_image($img_id,'large','768px',$title); ?>  />
+                    <img <?php awesome_acf_responsive_image($img_id,'large','550px',$title); ?>  />
                     <?php } ?>
                 </div>
                 

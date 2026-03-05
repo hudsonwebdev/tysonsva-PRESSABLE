@@ -67,7 +67,9 @@
 
 * { box-sizing: border-box; }
 
-
+picture{
+  display:block;
+}
 
 #page{
     overflow:hidden;
@@ -83,4 +85,7 @@ em {
 .make-button {
   @include makeButton();
 }
+
+
+
 

@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunktca=globalThis.webpackChunktca||[]).push([[119],{597:(n,a,e)=>{e.r(a);var i=e(570),s=e.n(i),t=e(325),u=e.n(t);s().use(u()),"undefined"!=typeof window&&(window.UIkit=s())}}]);

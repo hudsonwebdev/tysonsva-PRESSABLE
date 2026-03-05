@@ -1,6 +1,6 @@
-import UIkit from "uikit";
-import Icons from "uikit/dist/js/uikit-icons";
-UIkit.use(Icons);
+// Load UIkit in a separate chunk to keep main entrypoint under size limit
+import(/* webpackChunkName: "uikit" */ "./uikit-loader.js").catch(function () {});
+
 import "./components/megamenu.js";
 
 
@@ -237,6 +237,33 @@ if(formId==7){
 
 }); */
 
+  // Defer hero video load until after first paint (LCP = poster image, then video plays)
+  function loadBannerVideo(video) {
+    var src = video.getAttribute('data-src');
+    if (!src) return;
+    video.src = src;
+    video.load();
+    video.play().catch(function () {});
+  }
+  function runDeferredBannerVideos() {
+    var videos = document.querySelectorAll('.tca-video-background[data-src]');
+    var isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+    videos.forEach(function (video) {
+      if (isMobile) {
+        // Mobile: load video after delay so LCP is the poster img, then user sees video
+        setTimeout(function () { loadBannerVideo(video); }, 1800);
+      } else {
+        loadBannerVideo(video);
+      }
+    });
+  }
+  if (document.readyState === 'complete') {
+    setTimeout(runDeferredBannerVideos, 100);
+  } else {
+    window.addEventListener('load', function () {
+      setTimeout(runDeferredBannerVideos, 100);
+    });
+  }
 
 });
 

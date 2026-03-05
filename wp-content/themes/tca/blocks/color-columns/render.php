@@ -35,6 +35,8 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
             while( have_rows('columns') ) : the_row();
 
                 $title = get_sub_field('title')?get_sub_field('title'):"";
+                $title_size = get_sub_field('title_size')?get_sub_field('title_size'):"20";
+                $title_color = get_sub_field('title_color')?get_sub_field('title_color'):"#ffffff";
                 $html = get_sub_field('html')?get_sub_field('html'):"";
                 $background_color = get_sub_field('background_color')?get_sub_field('background_color'):"#385DFF";
 
@@ -42,7 +44,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                 <div>
                     <div class="tca-column" style="background-color:<?php echo $background_color; ?>">
                     <?php if($title>""){  ?>
-                        <h2 class="column-title"><?php echo $title; ?></h2>
+                        <h2 class="column-title" style="font-size:<?php echo $title_size; ?>px;color:<?php echo $title_color; ?>"><?php echo $title; ?></h2>
                     <?php  } ?>
                     <?php
                     if($html){

@@ -24,6 +24,7 @@ function tca_allowed_block_types( $allowed_blocks, $editor_context ) {
 		'core/shortcode',
 		'core/html',
 		'core/columns',
+		'core/video',
 	);
 
     $allowed_block_types = array_merge( $allowed, get_custom_blocks($block_directories) );

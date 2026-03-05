@@ -37,7 +37,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                 <div class="norestraint">
          <?php }?>
                 
-                    <img <?php awesome_acf_responsive_image($block_image['id'],'full','2000px',$block_image['alt']); ?> />
+                    <img <?php awesome_acf_responsive_image( $block_image['id'], 'tca-hero', '1920px', $block_image['alt'] ); ?> />
                 </div>
 
                 <?php if( $block_image['caption'] >''){ ?>

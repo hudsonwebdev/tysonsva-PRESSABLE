@@ -78,10 +78,9 @@ if ($cols) {
                 
                 if (!empty($bhImg)) {
                     echo '<div class="block-header-image">';
-                    echo wp_get_attachment_image($bhImg['ID'], 'medium', false, [
-                        'alt' => esc_attr($bhImg['alt']),
-                        'class' => 'uk-margin-small-bottom'
-                    ]);
+                    echo '<img ';
+                    awesome_acf_responsive_image( $bhImg['ID'], 'large', '600px', $bhImg['alt'] ?? '' );
+                    echo ' class="uk-margin-small-bottom" />';
                     echo '</div>';
                 }
 

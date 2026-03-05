@@ -21,6 +21,7 @@ openSection(
 $banner_image = get_field('banner_image');
 $large_title = get_field('large_title');
 $additional_text = get_field('additional_text');
+$vertical_text_position = get_field('vertical_text_position')?get_field('vertical_text_position'):'center';
 
 $above_title_spacer = get_field('above_title_spacer')?get_field('above_title_spacer'):0;
 $hide_decorative_chevron = get_field('hide_decorative_chevron')?get_field('hide_decorative_chevron'):false;
@@ -45,26 +46,61 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
                 <div class="image-tint"></div>
 
-          
+        
                 <div class="image-wrap">
-                    <img <?php awesome_acf_responsive_image($banner_image['id'],'full','4000px',$banner_image['alt']); ?>  />
+                    <img <?php awesome_acf_responsive_image( $banner_image['id'], 'tca-hero', '1920px', $banner_image['alt'], true ); ?> />
                     
                 </div>
             </div>    
        
-        <?php }elseif($image_or_video == "Video" && $video){ ?>
+        <?php } elseif ( $image_or_video == 'Video' && $video && ! empty( $video['url'] ) ) {
+            $video_url = $video['url'];
+            // Poster: required for LCP and for iOS (video poster attribute often doesn't show when video has no src).
+            $poster_url = '';
+            $poster_id  = get_field( 'video_poster' );
+            if ( $poster_id && is_array( $poster_id ) && ! empty( $poster_id['url'] ) ) {
+                $poster_url = $poster_id['url'];
+            } elseif ( $poster_id && is_numeric( $poster_id ) ) {
+                $poster_url = wp_get_attachment_image_url( (int) $poster_id, 'tca-hero' );
+            }
+            if ( ! $poster_url && $banner_image && ! empty( $banner_image['url'] ) ) {
+                $poster_url = $banner_image['url'];
+            }
+            $poster_attrs = '';
+            if ( $poster_url ) {
+                $poster_attrs = ' src="' . esc_url( $poster_url ) . '" alt="" fetchpriority="high" loading="eager"';
+                if ( $banner_image && ! empty( $banner_image['width'] ) && ! empty( $banner_image['height'] ) ) {
+                    $poster_attrs .= ' width="' . esc_attr( $banner_image['width'] ) . '" height="' . esc_attr( $banner_image['height'] ) . '"';
+                } elseif ( $poster_id && is_array( $poster_id ) && ! empty( $poster_id['width'] ) && ! empty( $poster_id['height'] ) ) {
+                    $poster_attrs .= ' width="' . esc_attr( $poster_id['width'] ) . '" height="' . esc_attr( $poster_id['height'] ) . '"';
+                }
+            }
+            ?>
+            <div class="video-banner">
+                
+                <?php if ( $poster_url ) : ?>
+              
 
-            <?php $video_url = $video['url']; ?>
+                <?php
+                $poster = get_field( 'video_poster' );
+                if ( ! $poster && ! empty( $banner_image['id'] ) ) {
+                    $poster = $banner_image;
+                }
+                if ( $poster ) :
+                ?>
+                <img class="video-banner-poster" <?php tca_video_banner_poster_attrs( $poster ); ?> />
+                <?php endif; ?>
 
-          
-            <?php if($video_url){ ?>
-                <div class="video-banner">
-                    <video class="tca-video-background" autoplay muted loop playsinline src="<?php echo $video_url; ?>" data-object-fit="cover"></video>
-                </div>
-                <?php } ?>
-            
 
-        <?php } ?>
+                <?php endif; ?>
+                <video class="tca-video-background" autoplay muted loop playsinline preload="none"
+                    <?php if ( $poster_url ) { ?> poster="<?php echo esc_url( $poster_url ); ?>"<?php } ?>
+                    data-src="<?php echo esc_url( $video_url ); ?>"
+                    data-object-fit="cover"></video>
+                    <div class="image-tint"></div>
+            </div>
+            <?php
+        } ?>
 
 
         
@@ -73,16 +109,16 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
         <?php if($additional_text || $large_title){ ?>
 
             <div class="text-overlay">
-                <div class="banner-text-container">
-                <div class="inner">
-                    <div style="height:<?php echo $above_title_spacer; ?>%"></div>
-                    <h1 class="banner-title"><?php echo $large_title; ?></h1>
+                <div class="uk-container">
+                  
+                            <div class="inner" style="justify-content:<?php echo $vertical_text_position; ?>">
+                            <h1 class="banner-title"><?php echo $large_title; ?></h1>
 
-                    <?php if(get_field('add_additional_text')){ ?>
-                    <?php echo $additional_text; ?>
-                    <?php } ?>
-                    
-                </div>
+                            <?php if(get_field('add_additional_text')){ ?>
+                            <?php echo $additional_text; ?>
+                            <?php } ?>
+                  
+                    </div>
                 </div>
             </div>         
         <?php } ?>

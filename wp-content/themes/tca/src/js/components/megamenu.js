@@ -60,6 +60,7 @@ $(window).on('resize', function() {
 handleDesktopScroll();
 
 $(".top-level > a").mouseenter(function(){
+    if($(window).width()>1200){
     var $topLevel = $(this).parent();
     
     // Remove reverse animation class if present
@@ -74,7 +75,37 @@ $(".top-level > a").mouseenter(function(){
     // Close sibling submenus and open current
     $topLevel.siblings().find(".sub-menu-area").removeClass('open-menu');
     $topLevel.find(".sub-menu-area").addClass('open-menu');
+
+
+
+}else{
+
+    
+    $(".top-level > a").click(function(){
+    
+        var $topLevel = $(this).parent();
+        
+        // Remove reverse animation class if present
+        $topLevel.removeClass('line-reverse');
+        
+        // Remove active from siblings
+        $topLevel.siblings().removeClass('active');
+        
+        // Add active to current item
+        $topLevel.addClass("active");
+        
+        // Close sibling submenus and open current
+        $topLevel.siblings().find(".sub-menu-area").removeClass('open-menu');
+        $topLevel.find(".sub-menu-area").addClass('open-menu');
+    });
+
+
+}
+
+
+
 });
+
 
 // Handle mouseleave on anchor (for cases where user leaves without opening submenu)
 $(".top-level > a").mouseleave(function(){

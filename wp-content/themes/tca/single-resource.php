@@ -66,8 +66,12 @@ get_header();
                 <a class="tca-button blue" role="button" uk-toggle="target: #download-resource" type="button">Download PDF</a>
             
             <?php }else{ ?>
-
-                <a href="<?php echo $url; ?>" class="tca-button blue" role="button" type="button">Download PDF</a>
+                 <?php  if($resource_type==1){
+                    $url = $file['url'];
+                 }else{
+                    $url = $url;
+                 } ?>
+                <a href="<?php echo $url; ?>" class="tca-button blue" role="button" type="button" target="_blank">Download PDF</a>
 
             <?php } ?>
            

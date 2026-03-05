@@ -6,13 +6,17 @@
 	align-items:center;
 	justify-content: space-between;
 
+
 }
 
 
-.logo-list .logo {
+.logo-list .logo{
 
-	max-width:200px;
+
 	margin:0 auto;
+	a{
+		display:block;
+	}
 
 }
 
@@ -25,9 +29,9 @@
 	justify-content: center;
 }
 
-.logo-list .logo {
+.logo-list .logo{
 
-	max-width:200px;
+
 	margin:0 ;
 
 }

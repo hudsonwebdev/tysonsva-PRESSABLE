@@ -55,7 +55,7 @@ if ($flickr_url):
             // Check if there are any photos in the album
             if (!empty($photos)):
                 // Limit to the first 10 images
-                $photos = array_slice($photos, 0, 10);
+                $photos = array_slice($photos, 0, 100);
 
                 // Display either as slider or grid based on the user's choice
                 if ($display_choice === 'slider') {

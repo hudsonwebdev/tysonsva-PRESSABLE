@@ -28,19 +28,33 @@ if( $logos ): ?>
     <?php  foreach( $logos as $row ):
     $image = $row['logo'];
     $link = $row['logo_link'];
+    $logo_size_override = $row['logo_size_override']?$row['logo_size_override']:$logoSize;
     $alt_text = $image['title'] ?? '';
 
     if( $image ):
-      $img_tag = '<img src="' . esc_url($image['sizes']['medium']) . '" alt="' . esc_attr($alt_text) . '" style="padding:'. $logoSpc .'px;width:' . $logoSize . 'px">';
+      $img_id = isset( $image['id'] ) ? $image['id'] : $image['ID'];
+      $logo_style = 'padding:' . esc_attr( $logoSpc ) . 'px;width:' . esc_attr( $logo_size_override ) . 'px;height:auto;';
 
       if( $link && isset($link['url']) ):
-        echo '<div class="logo"><a href="' . esc_url($link['url']) . '"';
-        if( isset($link['target']) && $link['target'] === '_blank' ):
+        echo '<div class="logo" style="max-width:' . esc_attr( $logo_size_override ) . 'px"><a href="' . esc_url( $link['url'] ) . '"';
+        if( isset( $link['target'] ) && $link['target'] === '_blank' ):
           echo ' target="_blank" rel="noopener"';
         endif;
-        echo '>' . $img_tag . '</a></div>';
+        echo '>';
       else:
-        echo '<div class="logo">' . $img_tag . '</div>';
+        echo '<div class="logo">';
+      endif;
+      echo '<img ';
+      if ( $img_id ) {
+          awesome_acf_responsive_image( $img_id, 'medium', '320px', $alt_text );
+      } else {
+          echo 'src="' . esc_url( $image['sizes']['medium'] ) . '" alt="' . esc_attr( $alt_text ) . '"';
+      }
+      echo ' style="' . $logo_style . '" loading="lazy">';
+      if( $link && isset($link['url']) ):
+        echo '</a></div>';
+      else:
+        echo '</div>';
       endif;
     endif;
   endforeach; ?>
@@ -49,6 +63,7 @@ if( $logos ): ?>
 
 
 closeSection($wrap_size,$container_size,$container_type,$overlapping_graphic);
+
 
 
 

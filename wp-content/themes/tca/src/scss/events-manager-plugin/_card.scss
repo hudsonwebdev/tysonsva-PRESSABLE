@@ -150,11 +150,11 @@
 
                             
             .card-title{
- 
+
                     position:relative;
                     overflow:hidden;
                     flex-grow: 1;
-                    h4{
+                    h3{
                         margin:15px 0 30px 0;
                         color:$steel-blue;
                         @include cardTitles();

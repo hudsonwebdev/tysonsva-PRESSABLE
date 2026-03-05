@@ -66,6 +66,54 @@
                     "parent_repeater": "field_67cafb2180190"
                 },
                 {
+                    "key": "field_69727e65a0b34",
+                    "label": "Title Size",
+                    "name": "title_size",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "min": 12,
+                    "max": 60,
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "step": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_67cafb2180190"
+                },
+                {
+                    "key": "field_69727e0fa0b33",
+                    "label": "Title Color",
+                    "name": "title_color",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "#385DFF",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 0,
+                    "show_custom_palette": 0,
+                    "show_color_wheel": 1,
+                    "custom_palette_source": "",
+                    "palette_colors": "",
+                    "parent_repeater": "field_67cafb2180190"
+                },
+                {
                     "key": "field_67cafb6080192",
                     "label": "HTML",
                     "name": "html",
@@ -105,7 +153,10 @@
                     "enable_opacity": 0,
                     "return_format": "string",
                     "allow_in_bindings": 0,
-                    "parent_repeater": "field_67cafb2180190"
+                    "parent_repeater": "field_67cafb2180190",
+                    "custom_palette_source": "",
+                    "palette_colors": "",
+                    "show_color_wheel": true
                 }
             ]
         },
@@ -218,12 +269,12 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "acfe_display_title": "",
+    "display_title": "",
     "acfe_autosync": [
         "json"
     ],
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1741356133
+    "modified": 1769111332
 }

@@ -34,7 +34,7 @@ function draw_content_card($image,$content,$columns=1) {
                            <?php if($columns == 2){ ?>
                                <img <?php awesome_acf_responsive_image($img_id,'featured-image','1378px',$image['alt']); ?>  />
                            <?php }else{ ?>
-                               <img <?php awesome_acf_responsive_image($img_id,'large','768px',$image['alt']); ?>  />
+                               <img <?php awesome_acf_responsive_image($img_id,'large','550px',$image['alt']); ?>  />
                            <?php } ?>
 
                        </div>
@@ -43,7 +43,7 @@ function draw_content_card($image,$content,$columns=1) {
                        
                        <div class="tca-card-info">
                            <div class="inner">
-                               
+                           
                                <div class="card-content">
                             
                                   <?php echo $content; ?>

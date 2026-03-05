@@ -42,6 +42,32 @@
             "delay": 0
         },
         {
+            "key": "field_6980aae113781",
+            "label": "Single or Gallery",
+            "name": "single_or_gallery",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "single": "single",
+                "gallery": "gallery"
+            },
+            "default_value": "single",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
             "key": "field_679faa8b3815f",
             "label": "Image Side",
             "name": "image_side",
@@ -49,7 +75,15 @@
             "type": "image",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6980aae113781",
+                        "operator": "==",
+                        "value": "single"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "25",
                 "class": "",
@@ -67,6 +101,42 @@
             "max_size": "",
             "mime_types": "",
             "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_6980ab0d696e2",
+            "label": "Image Gallery",
+            "name": "image_gallery",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6980aae113781",
+                        "operator": "==",
+                        "value": "gallery"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min": "",
+            "max": "",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "insert": "append",
             "preview_size": "medium"
         },
         {
@@ -315,12 +385,12 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "acfe_display_title": "",
+    "display_title": "",
     "acfe_autosync": [
         "json"
     ],
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1755188686
+    "modified": 1770057365
 }

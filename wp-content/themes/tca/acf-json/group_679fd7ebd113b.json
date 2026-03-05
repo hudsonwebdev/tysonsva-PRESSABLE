@@ -103,7 +103,7 @@
             "name": "banner_image",
             "aria-label": "",
             "type": "image",
-            "instructions": "",
+            "instructions": "Required for Image mode. For Video mode, use as poster image to improve load performance (LCP) on mobile.",
             "required": 0,
             "conditional_logic": [
                 [
@@ -111,6 +111,13 @@
                         "field": "field_68ab5bfe71cb6",
                         "operator": "==",
                         "value": "Image"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_68ab5bfe71cb6",
+                        "operator": "==",
+                        "value": "Video"
                     }
                 ]
             ],
@@ -154,28 +161,6 @@
             "rows": "",
             "placeholder": "",
             "new_lines": ""
-        },
-        {
-            "key": "field_68628e40da91f",
-            "label": "Above title spacer",
-            "name": "above_title_spacer",
-            "aria-label": "",
-            "type": "range",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "min": "",
-            "max": 100,
-            "allow_in_bindings": 0,
-            "step": "",
-            "prepend": "",
-            "append": ""
         },
         {
             "key": "field_679fdcfb0b10e",
@@ -247,6 +232,38 @@
             "toolbar": "full",
             "media_upload": 1,
             "delay": 0
+        },
+        {
+            "key": "field_6972d7be5fa87",
+            "label": "Vertical Text Position",
+            "name": "vertical_text_position",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "flex-start": "top",
+                "center": "center",
+                "flex-end": "bottom"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0,
+            "allow_custom": 0,
+            "search_placeholder": ""
         },
         {
             "key": "field_68ab63c87173e",
@@ -379,12 +396,12 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "acfe_display_title": "",
+    "display_title": "",
     "acfe_autosync": [
         "json"
     ],
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1756067412
+    "modified": 1770328990
 }

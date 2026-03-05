@@ -3,6 +3,7 @@ const defaultConfig = require("@wordpress/scripts/config/webpack.config");
 
 // Plugins.
 const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
+const VersionUpdatePlugin = require("./webpack-version-update-plugin");
 
 // Utilities.
 const path = require("path");
@@ -11,6 +12,12 @@ const path = require("path");
 module.exports = {
   ...defaultConfig,
   ...{
+    // Raise limit so main bundle (UIkit + icons) doesn't trigger size warning.
+    // To reduce bundle size later: lazy-load UIkit or import only used components.
+    performance: {
+      maxEntrypointSize: 512000,  // 500 KiB
+      maxAssetSize: 512000,
+    },
     entry: {
       "js/main": path.resolve(process.cwd(), "src/js", "main.js"),
       "js/neighborhood": path.resolve(process.cwd(), "src/js", "neighborhood.js"),
@@ -40,6 +47,12 @@ module.exports = {
       // sets it after WP has generated its `*.asset.php` file.
       new RemoveEmptyScriptsPlugin({
         stage: RemoveEmptyScriptsPlugin.STAGE_AFTER_PROCESS_PLUGINS,
+      }),
+
+      // Updates the version number in functions.php after CSS compilation
+      new VersionUpdatePlugin({
+        functionsPath: path.resolve(process.cwd(), "functions.php"),
+        versionFormat: "auto", // 'auto' (detects semantic version and increments), 'timestamp', or 'increment'
       }),
     ],
   },
