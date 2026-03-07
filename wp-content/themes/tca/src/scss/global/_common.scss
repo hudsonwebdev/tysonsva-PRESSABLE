@@ -348,3 +348,39 @@ a{
         font-size:14px;
         margin:5px 0;
     }
+.video-player {
+  position: relative;
+  cursor: pointer;
+}
+
+.video-player video {
+  width: 100%;
+  display: block;
+}
+
+.video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.6);
+  cursor: pointer;
+}
+
+.video-play-btn::before {
+  content: "";
+  position: absolute;
+  left: 32px;
+  top: 22px;
+  border-left: 26px solid white;
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
+}
+
+.video-player.playing .video-play-btn {
+  display: none;
+}

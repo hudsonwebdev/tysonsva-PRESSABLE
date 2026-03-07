@@ -265,6 +265,11 @@ if(formId==7){
     });
   }
 
+
+
+
+
+
 });
 
 
@@ -273,3 +278,37 @@ if(formId==7){
 
 
 
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.querySelectorAll(".video-player").forEach(player => {
+
+    const video = player.querySelector("video");
+    const button = player.querySelector(".video-play-btn");
+
+    // Play when clicking play button
+    button.addEventListener("click", (e) => {
+      e.stopPropagation();
+      video.play();
+      player.classList.add("playing");
+    });
+
+    // Stop if user clicks the video while playing
+    video.addEventListener("click", () => {
+      if (!video.paused) {
+        video.pause();
+        video.currentTime = 0;
+        player.classList.remove("playing");
+      }
+    });
+
+    // Reset when video ends
+    video.addEventListener("ended", () => {
+      video.currentTime = 0;
+      player.classList.remove("playing");
+    });
+
+  });
+
+});

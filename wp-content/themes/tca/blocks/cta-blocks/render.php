@@ -49,7 +49,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
                         <div class="chev-up"><?php drawSVG('chevron-up-card'); ?></div>
                         <?php if(isset($cta_image['id'])){ ?>
-                            <img <?php echo awesome_acf_responsive_image( $cta_image['id'], 'large', '768px', isset( $cta_image['alt'] ) ? $cta_image['alt'] : '' ); ?> class="background-image"/>
+                            <img <?php echo awesome_acf_responsive_image( $cta_image['id'], 'medium_large', '768px', isset( $cta_image['alt'] ) ? $cta_image['alt'] : '' ); ?> class="background-image"/>
                         <?php } ?>
                         <div class="blue-curtain"></div>
                         <div class="tint"></div>

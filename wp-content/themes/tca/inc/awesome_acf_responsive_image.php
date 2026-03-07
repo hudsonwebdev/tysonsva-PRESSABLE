@@ -34,6 +34,8 @@ function awesome_acf_responsive_image( $image_id, $image_size, $max_width, $alt 
         $attrs .= ' fetchpriority="high"';
     }
 
+
+
     echo $attrs;
 }
 

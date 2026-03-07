@@ -53,21 +53,15 @@ if ( $images ) : ?>
 
                 <ul class="uk-slider-items uk-child-width-1-1">
                     <?php foreach ( $images as $image_id ) :
+           
+                    $alt_text = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+
                         $image_url = wp_get_attachment_image_url( $image_id, 'large' );
                     ?>
                         <li>
                             <div class="uk-cover-container uk-height-medium">
-                                <a href="<?php echo esc_url( $image_url ); ?>">
-                                    <?php
-                                    echo wp_get_attachment_image(
-                                        $image_id,
-                                        $size,
-                                        false,
-                                        [ 'uk-cover' => '' ]
-                                    );
-                                    ?>
-                                </a>
-                                <canvas width="1200" height="800"></canvas>
+                                    <img <?php awesome_acf_responsive_image( $image_id, 'large', '768px', $alt_text ); ?> />
+          
                             </div>
                         </li>
                     <?php endforeach; ?>

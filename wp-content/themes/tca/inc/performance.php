@@ -21,7 +21,7 @@ function tca_performance_resource_hints() {
 	echo '<link rel="preload" href="' . esc_url( $main_css ) . '?ver=' . esc_attr( $version ) . '" as="style">' . "\n";
 	echo '<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>' . "\n";
 
-	if ( is_singular( 'neighborhood' ) ) {
+	if ( is_singular( 'neighborhood' ) || ( function_exists( 'tca_post_has_neighborhood_map_block' ) && tca_post_has_neighborhood_map_block() ) ) {
 		echo '<link rel="preconnect" href="https://api.mapbox.com" crossorigin>' . "\n";
 	}
 }

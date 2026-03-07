@@ -15,6 +15,15 @@ get_header();
 			
     <?php
      $featured_events = get_field('featured_events');
+
+     $maxcards = count($featured_events);
+     $cardLimit = 3;
+     $cardmin = 2;
+     if($maxcards<4){
+        $cardLimit = $maxcards;
+     }
+
+   
     if($featured_events){ ?>
   <div class="uk-container">   
     <div class="grid-header showunderline">
@@ -22,14 +31,14 @@ get_header();
             <h2 class="section-title">Featured Events</h2>
         </div>
     </div>
-</div>
+   
     <div class="featured-slides">
 
         <div uk-slider="finite: true">
 
         <div class="uk-position-relative">
             <div class="uk-slider-container">
-                <div class="uk-slider-items uk-child-width-1-3@s uk-child-width-1-4@m  uk-grid uk-grid-small uk-flex-center" >
+                <div class="uk-slider-items uk-child-width-1-<?php echo $cardmin; ?>@m uk-child-width-1-<?php echo $cardLimit; ?>@l  uk-grid uk-grid-small uk-flex-center" >
    
 
                     <?php
@@ -78,7 +87,7 @@ get_header();
   <?php  }?>
 
       
-    <div class="uk-container">   
+   
         <div class="grid-header showunderline">
             <div class="left-header">
                 <h2 class="section-title">All Events</h2>
@@ -87,8 +96,8 @@ get_header();
                 <a class="tca-button green" href="/submit-event" >Submit Event</a>
             </div>
         </div>
-    </div>
-    <div class="uk-container">   
+    
+   
   
 
 
@@ -100,8 +109,8 @@ get_header();
 
 			endwhile; // End of the loop.
 			?>
-    </div>	
-
+   
+            </div>
     </div>	
 	</main><!-- #main -->
 

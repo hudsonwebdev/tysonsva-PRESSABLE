@@ -36,7 +36,6 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 	<link rel="manifest" href="/site.webmanifest">
 
-	<?php /* <link rel="preload" href="<?php echo get_stylesheet_directory_uri(); ?>/src/scss/silka/Silka-Roman-Webfont/silka-bold-webfont.woff2" as="font" type="font/woff2" crossorigin="anonymous"> */ ?>
 
 	<?php wp_head(); ?>
 </head>

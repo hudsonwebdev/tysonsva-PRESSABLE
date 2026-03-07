@@ -10,7 +10,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.6.194' );
+	define( '_S_VERSION', '1.6.270' );
 }
 
 /**
@@ -139,6 +139,35 @@ add_action( 'widgets_init', 'tca_widgets_init' );
 
 
 /**
+ * Check if the current post content contains the neighborhood map block.
+ * Ensures map scripts load on the parent Neighborhood Guide page as well as single neighborhood posts.
+ */
+function tca_post_has_neighborhood_map_block() {
+	if ( ! is_singular() ) {
+		return false;
+	}
+	$post = get_post();
+	if ( ! $post || ! has_blocks( $post->post_content ) ) {
+		return false;
+	}
+	$blocks = parse_blocks( $post->post_content );
+	$block_name = 'tca/image-banner-neighborhood-guide';
+	foreach ( $blocks as $block ) {
+		if ( isset( $block['blockName'] ) && $block['blockName'] === $block_name ) {
+			return true;
+		}
+		if ( ! empty( $block['innerBlocks'] ) ) {
+			foreach ( $block['innerBlocks'] as $inner ) {
+				if ( isset( $inner['blockName'] ) && $inner['blockName'] === $block_name ) {
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+/**
  * Enqueue scripts and styles.
  */
 function tca_scripts() {
@@ -153,15 +182,16 @@ function tca_scripts() {
 
 	wp_enqueue_script( 'tca-navigation', get_template_directory_uri() . '/public/js/main.js', array('jquery'), _S_VERSION, true );
 
-	if(is_singular('neighborhood')){
+	// Load map scripts on single neighborhood posts or any page that contains the neighborhood map block
+	$needs_neighborhood_map = is_singular( 'neighborhood' ) || tca_post_has_neighborhood_map_block();
 
-		 // Mapbox JS
-		 wp_enqueue_script('mapbox-js', 'https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js', array(), null, true);
-
-		 // Mapbox CSS
-		 wp_enqueue_style('mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css', array(), null);
-
-		wp_enqueue_script( 'tca-neighborhood', get_template_directory_uri() . '/public/js/neighborhood.js', array('jquery'), _S_VERSION, true );
+	if ( $needs_neighborhood_map ) {
+		// Mapbox JS
+		wp_enqueue_script( 'mapbox-js', 'https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js', array(), null, true );
+		// Mapbox CSS
+		wp_enqueue_style( 'mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css', array(), null );
+		// neighborhood.js needs: jquery (for DOM), tca-navigation (for smartresize), mapbox-js (for mapboxgl)
+		wp_enqueue_script( 'tca-neighborhood', get_template_directory_uri() . '/public/js/neighborhood.js', array( 'jquery', 'tca-navigation', 'mapbox-js' ), _S_VERSION, true );
 	}
 	
 

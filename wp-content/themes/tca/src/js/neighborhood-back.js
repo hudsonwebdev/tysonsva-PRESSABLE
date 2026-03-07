@@ -56,10 +56,6 @@ jQuery(document).ready(function($){
 	
 
 	if($('#neighborhood-map').length){
-		if (typeof mapboxgl === 'undefined') {
-			console.warn('TCA Neighborhood Map: Mapbox GL failed to load. Map will not display.');
-			return;
-		}
 		var activeid = '';
 
         var initialDesktop = [-77.227,38.926];
@@ -78,18 +74,24 @@ jQuery(document).ready(function($){
 
 
 	
-		var onResize = function () {
+		$(window).smartresize(function () {
+
 			if(document.documentElement.clientWidth>768){
-				map.flyTo({ center: initialDesktop, zoom: 13.2 });
-			} else {
-				map.flyTo({ center: initialMobile, zoom: 12.3 });
+			
+				map.flyTo({
+				center:  initialDesktop,
+				zoom: 13.2
+				});
+	
+			}else{
+	
+			  map.flyTo({
+				center: initialMobile,
+				zoom: 12.3
+				});
+	
 			}
-		};
-		if (typeof $.fn.smartresize === 'function') {
-			$(window).smartresize(onResize);
-		} else {
-			$(window).on('resize', onResize);
-		}
+		});
 
 
 				

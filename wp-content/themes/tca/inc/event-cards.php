@@ -157,14 +157,14 @@ function draw_event_card($eid,$columns=1) {
 
                         <?php if($medium_portrait && $columns == 1){ ?>
                             
-                                <img <?php awesome_acf_responsive_image($medium_portrait ['ID'],'large','440px',$title); ?> />
-                        
+                                <img <?php awesome_acf_responsive_image($medium_portrait ['ID'],'medium_large','440px',$title); ?> />
+                 
                         <?php }elseif($img_id>0){ ?>
 
-                            <?php if($columns == 2){ ?>
+                            <?php if($columns == 2){ ?>      
                                 <img <?php awesome_acf_responsive_image($img_id,'featured-image','1378px',$title); ?>  />
-                            <?php }else{ ?>
-                                <img <?php awesome_acf_responsive_image($img_id,'large','550px',$title); ?>  />
+                            <?php }else{  ?> 
+                                <img <?php awesome_acf_responsive_image($img_id,'medium','550px',$title); ?>  />
                             <?php } ?>
 
 

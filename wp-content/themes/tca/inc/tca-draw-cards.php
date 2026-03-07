@@ -182,13 +182,13 @@ function draw_bio_card($pid,$type=1) { ?>
 
             <?php if($type == 1){ ?>
                 <a href="<?php echo get_the_permalink($pid); ?>" class="bio-pic">
-                    <img <?php awesome_acf_responsive_image($image_id,'large','1024px',get_the_title($pid)); ?>  />
+                    <img <?php awesome_acf_responsive_image($image_id,'medium_large','768px',get_the_title($pid)); ?>  />
                 </a>
                 <h3><a href="<?php echo get_the_permalink($pid); ?>"><?php echo get_the_title($pid); ?></a></h3>
             
             <?php }else{  ?>
                 <a uk-toggle="target: #modal-id-<?php echo $pid; ?>" role="button" type="button"  class="bio-pic">
-                 <img <?php awesome_acf_responsive_image($image_id,'large','1024px',get_the_title($pid)); ?>  />
+                 <img <?php awesome_acf_responsive_image($image_id,'medium_large','768px',get_the_title($pid)); ?>  />
                 </a>
                 <h3><a uk-toggle="target: #modal-id-<?php echo $pid; ?>" role="button" type="button" ><?php echo get_the_title($pid); ?></a></h3>
                 <div id="modal-id-<?php echo $pid; ?>" class="uk-flex-top uk-modal-container bio-modal" uk-modal>
@@ -196,7 +196,7 @@ function draw_bio_card($pid,$type=1) { ?>
                         <button class="uk-modal-close" type="button"><span uk-icon="close"></span></button>
                         <div class="uk-child-width-1-2@s" uk-grid>
                             <div>
-                                <div class="modal-image"><img <?php awesome_acf_responsive_image($image_id,'large','1024px',get_the_title($pid)); ?>  /></div>
+                                <div class="modal-image"><img <?php awesome_acf_responsive_image($image_id,'medium_large','768px',get_the_title($pid)); ?>  /></div>
                             </div>
                             <div>  
                                 <h2 class="uk-modal-title"><?php echo get_the_title($pid); ?></h2>

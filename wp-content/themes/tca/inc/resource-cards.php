@@ -43,7 +43,7 @@ function draw_resource_card($rid,$count) { ?>
 
                 <a href="<?php echo $link; ?>" target="<?php echo $target; ?>">
                     <div class="cover-image">
-                        <img <?php awesome_acf_responsive_image($image_id,'large','768px',get_the_title($rid)); ?>  />
+                        <img <?php awesome_acf_responsive_image($image_id,'medium_large','768px',get_the_title($rid)); ?>  />
                     </div>
                 </a>
             </div>
