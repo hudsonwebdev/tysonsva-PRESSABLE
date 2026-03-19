@@ -10,7 +10,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.6.270' );
+	define( '_S_VERSION', '1.6.297' );
 }
 
 /**
@@ -186,10 +186,10 @@ function tca_scripts() {
 	$needs_neighborhood_map = is_singular( 'neighborhood' ) || tca_post_has_neighborhood_map_block();
 
 	if ( $needs_neighborhood_map ) {
-		// Mapbox JS
-		wp_enqueue_script( 'mapbox-js', 'https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js', array(), null, true );
+		// Mapbox GL JS v3 (required for mapbox://styles/mapbox/standard)
+		wp_enqueue_script( 'mapbox-js', 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js', array(), null, true );
 		// Mapbox CSS
-		wp_enqueue_style( 'mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css', array(), null );
+		wp_enqueue_style( 'mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css', array(), null );
 		// neighborhood.js needs: jquery (for DOM), tca-navigation (for smartresize), mapbox-js (for mapboxgl)
 		wp_enqueue_script( 'tca-neighborhood', get_template_directory_uri() . '/public/js/neighborhood.js', array( 'jquery', 'tca-navigation', 'mapbox-js' ), _S_VERSION, true );
 	}

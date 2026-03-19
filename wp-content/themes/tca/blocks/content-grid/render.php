@@ -342,7 +342,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                         $columns = 1;
                     }    
 
-                   drawByPostType($post->ID,$columns,$count);
+                 drawByPostType($post->ID,$columns,$count);
 
         
 
@@ -452,7 +452,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                     <ul class="uk-slider-nav uk-dotnav content-dots"></ul>
 
                 </div>
-
+                </div>
         <?php }else{ ?>
 
             </div>
@@ -466,7 +466,7 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 
 
                   
-</div>
+
    
             
 <?php

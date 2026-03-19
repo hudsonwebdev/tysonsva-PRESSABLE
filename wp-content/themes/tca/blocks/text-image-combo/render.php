@@ -42,15 +42,18 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
 <?php if($single_or_gallery=="gallery"){
 
 $images = get_field('image_gallery');
+$gallery_display = get_field('gallery_display')?get_field('gallery_display'):'slider';
 $size   = 'large';
+
+
 
 if ( $images ) : ?>
 <div class="image-side">
     <div class="inner">
+
+    <?php if($gallery_display == "slider"){ ?>
         <div uk-slider="center: true" uk-lightbox>
-
             <div class="uk-position-relative uk-visible-toggle" tabindex="-1">
-
                 <ul class="uk-slider-items uk-child-width-1-1">
                     <?php foreach ( $images as $image_id ) :
            
@@ -66,7 +69,7 @@ if ( $images ) : ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
-
+        
                 <!-- Arrows -->
                 <a class="uk-position-center-left uk-position-small uk-hidden-hover"
                    href="#"
@@ -79,11 +82,29 @@ if ( $images ) : ?>
                    uk-slider-item="next"></a>
 
             </div>
-
+                        </div>
             <!-- Dots -->
             <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
+        <?php }else{ ?> 
 
-        </div>
+                <ul class="image-side-list">
+                    <?php foreach ( $images as $image_id ) :
+           
+                    $alt_text = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+
+                        $image_url = wp_get_attachment_image_url( $image_id, 'large' );
+                    ?>
+                        <li>
+                            <div class="uk-cover-container uk-height-medium">
+                                    <img <?php awesome_acf_responsive_image( $image_id, 'large', '768px', $alt_text ); ?> />
+          
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+        
+        <?php } ?> 
+        
     </div>
 </div>
 <?php endif; ?>
