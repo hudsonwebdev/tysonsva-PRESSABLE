@@ -77,7 +77,6 @@
 .video-banner{
   position:relative;
   z-index:0;
-  overflow:hidden;
   height:50vh;
   min-height:400px;
   max-height:868px;
@@ -104,5 +103,78 @@
     z-index:1;
     top:0;
     left:0;
+  }
+
+  /* When the JS play/pause control attaches, drop the local stacking context
+     so .tca-video-pp-btn (z-index:30) can rise above the sibling .text-overlay
+     (z-index:10). Inner poster/video/tint keep their relative order via their
+     own z-indices (0 / 1 / 1) and remain below the overlay. */
+  &.tca-pp-ready{
+    z-index:auto;
+  }
+
+  .tca-video-pp-btn{
+    position:absolute;
+    bottom:12px;
+    left:12px;
+    z-index:30;
+    width:26px;
+    height:26px;
+    padding:0;
+    margin:0;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,0.55);
+    color:$white;
+    border:1px solid rgba(255,255,255,0.7);
+    border-radius:50%;
+    cursor:pointer;
+    line-height:0;
+    pointer-events:auto;
+    transition:background-color .15s ease, transform .15s ease;
+
+    &:hover,
+    &:focus{
+      background:rgba(0,0,0,0.85);
+    }
+
+    &:focus-visible{
+      outline:2px solid #fff;
+      outline-offset:2px;
+    }
+
+    svg{
+      width:11px;
+      height:11px;
+      fill:currentColor;
+      pointer-events:none;
+      display:block;
+    }
+
+    .tca-video-pp-icon-play{
+      display:none;
+    }
+
+    &[aria-pressed="true"]{
+      .tca-video-pp-icon-pause{
+        display:none;
+      }
+      .tca-video-pp-icon-play{
+        display:block;
+      }
+    }
+
+    @media(min-width:$breakpoint-medium){
+      bottom:16px;
+      left:16px;
+      width:28px;
+      height:28px;
+
+      svg{
+        width:12px;
+        height:12px;
+      }
+    }
   }
 }

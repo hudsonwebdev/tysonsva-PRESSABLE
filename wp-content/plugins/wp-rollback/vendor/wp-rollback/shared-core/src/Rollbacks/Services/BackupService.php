@@ -4,7 +4,6 @@
  * Backup service for creating and managing asset backups.
  *
  * @package WpRollback\SharedCore\Rollbacks\Services
- * @since 1.0.0
  */
 
 declare(strict_types=1);
@@ -23,7 +22,6 @@ use WpRollback\SharedCore\Core\SharedCore;
 /**
  * Service for creating and managing asset backups
  *
- * @since 1.0.0
  */
 class BackupService
 {
@@ -42,7 +40,6 @@ class BackupService
     /**
      * Constructor.
      *
-     * @since 1.0.0
      */
     public function __construct()
     {
@@ -53,7 +50,6 @@ class BackupService
     /**
      * Set up the rollback directory.
      *
-     * @since 1.0.0
      * @throws \RuntimeException If directory creation fails
      */
     public function setupRollbackDirectory(): void
@@ -93,7 +89,6 @@ class BackupService
     /**
      * Check if a backup already exists for a specific version.
      *
-     * @since 1.0.0
      * @param string $assetSlug The asset slug
      * @param string $assetType The asset type ('plugin' or 'theme')
      * @return bool|string False if no backup exists, version string if backup exists
@@ -120,7 +115,6 @@ class BackupService
     /**
      * Create a backup of a plugin or theme.
      *
-     * @since 1.0.0
      * @param string $assetSlug The asset slug
      * @param string $assetType The asset type ('plugin' or 'theme')
      * @return bool|string True if backup was created successfully, 'exists' if backup already exists, false otherwise
@@ -157,7 +151,6 @@ class BackupService
     /**
      * Intercept plugin/theme upgrade to store a backup.
      *
-     * @since 1.0.0
      * @param array $options Upgrader package options
      * @return array Modified options
      */
@@ -205,7 +198,6 @@ class BackupService
     /**
      * Get available versions for a plugin/theme from backup files.
      *
-     * @since 1.0.0
      * @param array  $versions Current versions array
      * @param string $slug     Plugin/theme slug
      * @return array Modified versions array
@@ -240,7 +232,6 @@ class BackupService
     /**
      * Check if a plugin/theme has backup versions available.
      *
-     * @since 1.0.0
      * @param bool   $isPro Current pro status
      * @param string $slug  Plugin/theme slug
      * @return bool Modified pro status
@@ -258,7 +249,6 @@ class BackupService
     /**
      * Control whether to delete the existing plugin/theme during rollback.
      *
-     * @since 1.0.0
      * @param bool   $shouldDelete Whether to delete the asset
      * @param string $assetFile    The asset file path
      * @param string $assetSlug    The asset slug
@@ -277,7 +267,6 @@ class BackupService
     /**
      * Modify rollback request data for assets with backup versions.
      *
-     * @since 1.0.0
      * @param array         $data    Current request data
      * @param WP_REST_Request $request Raw request data
      * @return array Modified request data
@@ -340,7 +329,6 @@ class BackupService
     /**
      * Create a backup of a plugin.
      *
-     * @since 1.0.0
      * @param string $pluginSlug The plugin slug
      * @return bool True if backup was created successfully
      * @throws \RuntimeException If backup creation fails
@@ -371,7 +359,6 @@ class BackupService
     /**
      * Create a backup of a theme.
      *
-     * @since 1.0.0
      * @param string $themeSlug The theme slug
      * @return bool True if backup was created successfully
      * @throws \RuntimeException If backup creation fails
@@ -413,7 +400,6 @@ class BackupService
     /**
      * Create a ZIP backup of an asset.
      *
-     * @since 1.0.0
      * @param string $assetPath The path to the asset directory
      * @param string $slug The asset slug
      * @param string $version The asset version
@@ -445,7 +431,6 @@ class BackupService
     /**
      * Create a ZIP backup using ZipArchive (preferred method).
      *
-     * @since 1.0.0
      * @param string $assetPath The path to the asset directory
      * @param string $slug The asset slug
      * @param string $type The asset type ('plugin' or 'theme')
@@ -464,18 +449,46 @@ class BackupService
         $assetDir = trailingslashit($assetPath);
 
         try {
-            $files = new RecursiveIteratorIterator(
+            // Collect all file paths before adding them to the archive.
+            //
+            // RecursiveDirectoryIterator returns entries in filesystem order,
+            // which differs between ext4, APFS, NTFS, and other filesystems.
+            // Because ZIP SHA-256 is sensitive to entry order, two servers
+            // creating a backup of the same plugin version would produce
+            // different checksums if files are added in a different sequence.
+            //
+            // Sorting alphabetically makes the entry order deterministic on
+            // every platform, so the Plugin Vault's SHA-256 quorum check
+            // produces the same result across all contributing sites.
+            $filePaths = [];
+            $iterator  = new RecursiveIteratorIterator(
                 new RecursiveDirectoryIterator($assetDir),
                 RecursiveIteratorIterator::LEAVES_ONLY
             );
 
-            foreach ($files as $file) {
+            foreach ($iterator as $file) {
                 if ($file->isDir()) {
                     continue;
                 }
+                // Use getPathname() rather than getRealPath() so the path is
+                // never symlink-resolved. getRealPath() would resolve /var to
+                // /private/var on macOS, making the path inconsistent with
+                // $assetDir and corrupting all relative path calculations.
+                $absolutePath = wp_normalize_path($file->getPathname());
+                // Skip OS-specific artefacts that are absent on some servers
+                // (e.g. .DS_Store on macOS, Thumbs.db on Windows) and VCS
+                // metadata that should never ship in a plugin package. These
+                // files cause SHA-256 differences between Mac-deployed and
+                // Linux-deployed servers even when the plugin code is identical.
+                if ($this->isOsArtefact($absolutePath)) {
+                    continue;
+                }
+                $filePaths[] = $absolutePath;
+            }
 
-                $filePath = wp_normalize_path($file->getRealPath());
+            sort($filePaths); // Stable, platform-independent entry order
 
+            foreach ($filePaths as $filePath) {
                 if ('theme' === $type) {
                     // For themes, WordPress expects files to be inside a directory with the theme's slug
                     $relativePath = $slug . '/' . str_replace($assetDir, '', $filePath);
@@ -487,6 +500,16 @@ class BackupService
                 if ($zip->addFile($filePath, $relativePath) === false) {
                     $zip->close();
                     throw new \RuntimeException('Failed to add file to ZIP archive: ' . esc_html($relativePath));
+                }
+
+                // Normalise the stored mtime to epoch 0 (PHP 8.0+).
+                // Without this, the ZIP entry timestamp reflects the file's
+                // mtime on the host filesystem, which can vary if PHP or the OS
+                // reset it during extraction or deployment. Setting a fixed
+                // value ensures the ZIP bytes — and therefore the SHA-256 —
+                // are identical across all sites backing up the same version.
+                if (method_exists($zip, 'setMtimeName')) {
+                    $zip->setMtimeName($relativePath, 0);
                 }
             }
 
@@ -511,7 +534,6 @@ class BackupService
     /**
      * Create a ZIP backup using PclZip (WordPress Core fallback).
      *
-     * @since 1.0.0
      * @param string $assetPath The path to the asset directory
      * @param string $slug The asset slug
      * @param string $type The asset type ('plugin' or 'theme')
@@ -568,9 +590,17 @@ class BackupService
     }
 
     /**
+     * Get the absolute path to the rollback backup directory.
+     *
+     */
+    public function getRollbackDirectory(): string
+    {
+        return $this->rollbackDir;
+    }
+
+    /**
      * Initialize WordPress filesystem.
      *
-     * @since 1.0.0
      * @throws \RuntimeException If filesystem initialization fails
      */
     private function initializeFilesystem(): void
@@ -602,7 +632,6 @@ class BackupService
     /**
      * Get the archive limit based on Pro/Free version
      *
-     * @since 1.0.0
      * @return int The archive limit
      */
     public function getArchiveLimit(): int
@@ -624,7 +653,6 @@ class BackupService
     /**
      * Rotate backups to maintain maximum backups per asset.
      *
-     * @since 1.0.0
      * @param string $slug The asset slug
      */
     private function rotateBackups(string $slug): void
@@ -653,9 +681,51 @@ class BackupService
     }
 
     /**
+     * Return true for OS-specific artefacts that should be excluded from
+     * vault-contribution ZIPs.
+     *
+     * These files are absent on some platforms (e.g. .DS_Store only appears
+     * on macOS; Thumbs.db / desktop.ini only on Windows). Including them
+     * would make the backup ZIP differ between servers even for identical
+     * plugin code, breaking the Plugin Vault's SHA-256 quorum check.
+     *
+     * VCS metadata (.git, .svn) is also excluded — it is occasionally
+     * shipped by accident but is never part of a distributed plugin package.
+     *
+     * NOTE: PclZip (the fallback when ZipArchive is unavailable) does not
+     * benefit from this filtering because it receives a directory path and
+     * traverses it internally. PclZip is only used on PHP 7.x hosts without
+     * the zip extension — an extremely rare configuration.
+     *
+     * @param string $absolutePath wp_normalize_path()-normalised absolute path.
+     */
+    private function isOsArtefact(string $absolutePath): bool
+    {
+        $basename = basename($absolutePath);
+
+        // macOS Finder metadata
+        if ('.DS_Store' === $basename) {
+            return true;
+        }
+
+        // Windows Explorer thumbnail / layout caches
+        if ('Thumbs.db' === $basename || 'desktop.ini' === $basename) {
+            return true;
+        }
+
+        // Files inside macOS ZIP resource-fork directory, VCS directories
+        foreach (['/__MACOSX/', '/.git/', '/.svn/'] as $segment) {
+            if (false !== strpos($absolutePath, $segment)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Get plugin file by slug.
      *
-     * @since 1.0.0
      * @param string $pluginSlug The plugin slug
      * @return string The plugin file path relative to plugins directory
      */
@@ -678,7 +748,6 @@ class BackupService
     /**
      * Get the current version of an asset.
      *
-     * @since 1.0.0
      * @param string $assetSlug The asset slug
      * @param string $assetType The asset type ('plugin' or 'theme')
      * @return string The asset version or empty string if not found
@@ -716,7 +785,6 @@ class BackupService
     /**
      * Cleanup excess archives when limit is reduced
      *
-     * @since 1.0.0
      * @param int $newLimit New archive limit
      * @return array Array with 'deleted' files and 'count' of deletions
      */
@@ -800,7 +868,6 @@ class BackupService
     /**
      * Clear all archives
      *
-     * @since 1.1.0
      * @return array Array with 'deleted' files and 'count' of deletions
      */
     public function clearAllArchives(): array

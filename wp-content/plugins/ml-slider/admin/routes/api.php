@@ -347,7 +347,7 @@ class MetaSlider_Api
         $manifest       = array();
         $data           = $this->get_request_data($request, array('slideshow_id', 'theme', 'type'));
         $slideshow_id   = absint($data['slideshow_id']);
-        $folder         = sanitize_text_field($data['theme']);
+        $folder         = sanitize_key($data['theme']);
         $type           = sanitize_text_field($data['type']);
         $settings       = get_post_meta($slideshow_id, 'ml-slider_settings', true);
 
@@ -831,8 +831,7 @@ class MetaSlider_Api
             return wp_send_json_success('OK', 200);
         }
 
-        // This wont provide a useful return
-        update_post_meta($data['slideshow_id'], $data['setting_key'], $data['setting_value']);
+        // To save other data different to 'title' add the cases below...
 
         wp_send_json_success('OK', 200);
     }
@@ -1114,8 +1113,6 @@ class MetaSlider_Api
 
     /**
      * Import theme images
-     *
-     * @deprecated 3.106 - Use MetaSlider_Slideshows->import() instead
      * 
      * @param object $request The request
      */
@@ -1255,8 +1252,14 @@ class MetaSlider_Api
                 continue;
             }
 
-            // For now there's no reason to import anything but images
-            if (!strstr(mime_content_type($tmp_name), "image/")) {
+            // Verify is an actual image
+            $filetype = wp_check_filetype_and_ext( $tmp_name, $files['name'][$index] );
+            if ( ! $filetype['type'] || strpos( $filetype['type'], 'image/') !== 0 ) {
+                continue;
+            }
+
+            $image_info = @getimagesize( $tmp_name );
+            if ( $image_info === false ) {
                 continue;
             }
 

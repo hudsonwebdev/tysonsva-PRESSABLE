@@ -11,6 +11,7 @@ $stick_to_top = get_field('stick_to_top')?get_field('stick_to_top'):array();
 
 
 
+
 $total_posts = get_field('total_posts')?get_field('total_posts'):6;
 
 $total_posts = intval($total_posts - count($stick_to_top));

@@ -84,6 +84,7 @@ class MetaFlexSlider extends MetaSlider
                 $options["animation"] = "'slide'";
                 $options["direction"] = "'horizontal'";
                 $options["minItems"] = $this->get_setting('minItems');
+                $options["maxItems"] = $this->get_setting('maxItems');
                 $options["move"] = 1;
                 $options["itemMargin"] = apply_filters('metaslider_carousel_margin', $this->get_setting('carouselMargin'), $slider_id);
                 //activate infinite loop when carousel is set to 'continously' and 'autoplay'

@@ -252,6 +252,11 @@ function cmplz_plugin_admin_scripts() {
                         'is_multisite'      => is_multisite(),
                         'is_multisite_plugin'=> defined('cmplz_premium_multisite'),
 						'onboarding_complete' => COMPLIANZ::$wsc_onboarding->wsc_is_dismissed(),
+						'referral'          => [
+							'source'      => cmplz_get_source(),
+							'ref_id'      => cmplz_get_ref(),
+							'has_partner' => cmplz_get_ref() !== false,
+						],
 				] )
 		);
 	}
@@ -1022,7 +1027,7 @@ function cmplz_sanitize_field( $value, string $type, string $id ) {
 			}
 			return array_map( 'sanitize_text_field', $value );
 		case 'email':
-			return sanitize_email( $value );
+			return strtolower(sanitize_email( $value ));
 		case 'processors':
 			return cmplz_sanitize_processors($value);
 		case 'thirdparties':

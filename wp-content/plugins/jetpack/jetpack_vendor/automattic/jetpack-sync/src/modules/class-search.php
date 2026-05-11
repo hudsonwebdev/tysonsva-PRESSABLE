@@ -441,6 +441,10 @@ class Search extends Module {
 		'_wc_general_product_dependency_theme'   => array(),
 		'_wc_general_product_dependency_plugin'  => array(),
 		'wpcom_marketplace_product_extra_fields' => array(),
+		'wccom_product_search_keywords'          => array( 'searchable_in_all_content' => true ),
+		'_wccom_product_faqs'                    => array( 'searchable_in_all_content' => true ),
+		'wccom_product_features'                 => array( 'searchable_in_all_content' => true ),
+		'wccom_product_compatibility'            => array( 'searchable_in_all_content' => true ),
 
 	); // end indexed post meta.
 
@@ -768,6 +772,7 @@ class Search extends Module {
 		'translation_priority',
 
 		// woocommerce.
+		'documentation_category',
 		'pa_accessory-type',
 		'pa_actor',
 		'pa_age',
@@ -806,6 +811,7 @@ class Search extends Module {
 		'pa_colour',
 		'pa_compactor',
 		'pa_condition',
+		'pa_conditions-options',
 		'pa_cor',
 		'pa_couleur',
 		'pa_country',
@@ -874,6 +880,7 @@ class Search extends Module {
 		'pa_high-blow-tank',
 		'pa_hoehe',
 		'pa_inhoud',
+		'pa_interchange-part-number',
 		'pa_isadultproduct',
 		'pa_isbn',
 		'pa_iseligiblefortradein',
@@ -1247,6 +1254,7 @@ class Search extends Module {
 		'group',
 		'group-documents-category',
 		'groups',
+		'guest',
 		'hashtags',
 		'hotel_facility',
 		'ia_invited_groups',
@@ -1325,6 +1333,7 @@ class Search extends Module {
 		'organization',
 		'our_team_category',
 		'page_category',
+		'page_condition',
 		'parisrestaurant',
 		'parissauna',
 		'partner_category',
@@ -1736,6 +1745,9 @@ class Search extends Module {
 		// wp.com a8c-support-theme taxonomies.
 		'kb_category',
 		'kb_tag',
+
+		// coolhunting.com
+		'article-type',
 
 	); // end taxonomies.
 

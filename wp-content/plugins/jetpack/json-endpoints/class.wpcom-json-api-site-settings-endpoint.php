@@ -335,10 +335,12 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
 					$response[ $key ] = $blog_id;
 					break;
 				case 'name':
-					$response[ $key ] = (string) htmlspecialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
+					$name             = get_bloginfo( 'name' );
+					$response[ $key ] = is_string( $name ) ? htmlspecialchars_decode( $name, ENT_QUOTES ) : '';
 					break;
 				case 'description':
-					$response[ $key ] = (string) htmlspecialchars_decode( get_bloginfo( 'description' ), ENT_QUOTES );
+					$description      = get_bloginfo( 'description' );
+					$response[ $key ] = is_string( $description ) ? htmlspecialchars_decode( $description, ENT_QUOTES ) : '';
 					break;
 				case 'URL':
 					$response[ $key ] = (string) home_url();
@@ -470,6 +472,7 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
 						'posts_per_rss'                    => (int) get_option( 'posts_per_rss' ),
 						'rss_use_excerpt'                  => (bool) get_option( 'rss_use_excerpt' ),
 						'launchpad_screen'                 => (string) get_option( 'launchpad_screen' ),
+						'wpcom_newsletter_send_default'    => (bool) get_option( 'wpcom_newsletter_send_default', true ),
 						'wpcom_featured_image_in_email'    => ( function () use ( $site ) {
 							if ( defined( 'IS_WPCOM' ) && IS_WPCOM ) {
 								$registered_date = method_exists( $site, 'get_registered_date' ) ? $site->get_registered_date() : '';
@@ -1182,6 +1185,11 @@ class WPCOM_JSON_API_Site_Settings_Endpoint extends WPCOM_JSON_API_Endpoint {
 					 */
 					update_option( 'lang_id', (int) $value );
 					$updated[ $key ] = (int) $value;
+					break;
+
+				case 'wpcom_newsletter_send_default':
+					update_option( 'wpcom_newsletter_send_default', (int) (bool) $value );
+					$updated[ $key ] = (int) (bool) $value;
 					break;
 
 				case 'wpcom_featured_image_in_email':

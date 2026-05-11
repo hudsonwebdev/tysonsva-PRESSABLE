@@ -32,7 +32,7 @@
 								<button
                                     @click.prevent="preview()"
                                     id="preview-slideshow"
-                                    title="<?php esc_attr_e('Save & open the preview', 'ml-slider'); echo esc_attr(_x(' (alt + p)', 'This is a keyboard shortcut.', 'ml-slider')); ?>" class="ms-toolbar-button tipsy-tooltip-bottom-toolbar"
+                                    title="<?php esc_attr_e('Save & open the preview', 'ml-slider'); echo esc_attr(_x(' (Use Alt + P keys)', 'This is a keyboard shortcut.', 'ml-slider')); ?>" class="ms-toolbar-button tipsy-tooltip-bottom-toolbar"
                                     :disabled="locked"
                                     :class="{'disabled': locked}">
                                     <svg

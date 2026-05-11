@@ -366,7 +366,7 @@ class MetaSlider_Notices extends Updraft_Notices_1_0
         );
 
         if ( metaslider_plugin_is_installed( 'ml-slider-lightbox' ) === false ) {
-            $messages['install-lightbox'] = __('Click to install the MetaSlider Lightbox plugin &rarr;', 'ml-slider');
+            $messages['install-lightbox'] = __('Click to install the MetaSlider Gallery plugin &rarr;', 'ml-slider');
         }
 
         $message = isset($messages[$type]) ? $messages[$type] : __('Read more', 'ml-slider');

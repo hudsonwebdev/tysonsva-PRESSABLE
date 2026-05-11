@@ -19,6 +19,11 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 	 */
 	public function index() {
 
+		// Run preview cleanup when manage imports page loads
+		if (function_exists('wpai_cleanup_preview_imports')) {
+			wpai_cleanup_preview_imports();
+		}
+
 		$get = $this->input->get(array(
 			's' => '',
 			'order_by' => 'registered_on',
@@ -43,7 +48,7 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 		}
 
 		$list = new PMXI_Import_List();
-		$by = array('parent_import_id' => 0);
+		$by = array('parent_import_id' => 0, 'is_preview' => 0);
 		if ('' != $s) {
 			$like = '%' . preg_replace('%\s+%', '%', preg_replace('/[%?]/', '\\\\$0', $s)) . '%';
 			$by[] = array(array('name LIKE' => $like, 'type LIKE' => $like, 'path LIKE' => $like, 'friendly_name LIKE' => $like), 'OR');
@@ -285,7 +290,22 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 
 			file_put_contents($bundle_dir . 'readme.txt', $readme);
 
-			@copy( $filepath, $bundle_dir . basename($filepath) );
+			if (empty($filepath))
+			{
+				$history = new PMXI_File_List();
+				$history->setColumns('id', 'name', 'registered_on', 'path')->getBy(array('import_id' => $import->id), 'id DESC');
+				if ($history->count())
+				{
+					$history_file = new PMXI_File_Record();
+					$history_file->getBy('id', $history[0]['id']);
+					$filepath = wp_all_import_get_absolute_path($history_file->path);
+				}
+			}
+
+			if ( ! empty($filepath) && @file_exists($filepath))
+			{
+				@copy($filepath, $bundle_dir . basename($filepath));
+			}
 
 			$bundle_path = $tmp_dir . $tpl_name . '.zip';
 
@@ -628,11 +648,14 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 	 */
 	public function bulk() {
 		check_admin_referer('bulk-imports', '_wpnonce_bulk-imports');
-		if ($this->input->post('doaction2')) {
-			$this->data['action'] = $action = $this->input->post('bulk-action2');
+		
+		$action2 = $this->input->post('bulk-action2');
+		if (!empty($action2)) {
+			$this->data['action'] = $action = $action2;
 		} else {
 			$this->data['action'] = $action = $this->input->post('bulk-action');
 		}
+
 		$this->data['ids'] = $ids = $this->input->post('items');
 		$this->data['items'] = $items = new PMXI_Import_List();
 		if (empty($action) or ! in_array($action, array('delete')) or empty($ids) or $items->getBy('id', $ids)->isEmpty()) {

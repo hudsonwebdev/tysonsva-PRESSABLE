@@ -23,7 +23,7 @@ class MetaSliderQuickstart
                 'label' => esc_html__( 'Nature Site', 'ml-slider' ),
                 'is_dummy' => false, // Is Free
                 'price' => 'free',
-                'type' => array( 'full-width', 'image' ), 
+                'type' => array( 'image' ), 
                 'features' => array( 'boxed' ),
                 'animation' => array( 'slide' ),
                 'integration' => false,
@@ -34,7 +34,7 @@ class MetaSliderQuickstart
                 'label' => esc_html__( 'Travel Itinerary', 'ml-slider' ),
                 'is_dummy' => false, // Is Free
                 'price' => 'free',
-                'type' => array( 'boxed', 'image' ), 
+                'type' => array( 'image' ), 
                 'features' => array( 'boxed' ),
                 'animation' => array( 'slide' ),
                 'integration' => false,
@@ -45,7 +45,7 @@ class MetaSliderQuickstart
                 'label' => esc_html__( 'City Guide', 'ml-slider' ),
                 'is_dummy' => false, // Is Free
                 'price' => 'free',
-                'type' => array( 'boxed', 'image' ), 
+                'type' => array( 'image' ), 
                 'features' => array( 'boxed' ),
                 'animation' => array( 'slide' ),
                 'integration' => false,
@@ -56,7 +56,7 @@ class MetaSliderQuickstart
                 'label' => esc_html__( 'Black and White Photography', 'ml-slider' ),
                 'is_dummy' => false, // Is Free
                 'price' => 'free',
-                'type' => array( 'boxed', 'image' ), 
+                'type' => array( 'image' ), 
                 'features' => array( 'boxed' ),
                 'animation' => array( 'zooming', 'ken-burns' ),
                 'integration' => false,
@@ -68,7 +68,7 @@ class MetaSliderQuickstart
                 'is_dummy' => false, // Is Free
                 'price' => 'free',
                 'type' => array( 'image' ), 
-                'features' => array( 'vertical-horizontal' ),
+                'features' => array(),
                 'animation' => array( 'slide' ),
                 'integration' => false,
                 'demo' => 'https://demo.metaslider.com/productivity-guide/'
@@ -79,21 +79,10 @@ class MetaSliderQuickstart
                 'is_dummy' => false, // Is Free
                 'price' => 'free',
                 'type' => array( 'image' ), 
-                'features' => array( 'full-width' ),
+                'features' => array( 'boxed' ),
                 'animation' => array( 'fade' ),
                 'integration' => false,
                 'demo' => 'https://demo.metaslider.com/real-estate-listings/'
-            ),
-            array(
-                'slug' => 'architecture',
-                'label' => esc_html__( 'Architecture', 'ml-slider' ),
-                'is_dummy' => false, // Is Free
-                'price' => 'free',
-                'type' => array( 'external' ), 
-                'features' => array( 'full-width' ),
-                'animation' => array( 'zooming', 'ken-burns' ),
-                'integration' => false,
-                'demo' => 'https://demo.metaslider.com/architecture/'
             ),
             array(
                 'slug' => 'landscape-photography',
@@ -162,6 +151,83 @@ class MetaSliderQuickstart
                 'demo' => 'https://demo.metaslider.com/carousel-with-captions/'
             ),
             array(
+                'slug' => 'creative-process',
+                'label' => esc_html__( 'Creative Process', 'ml-slider' ),
+                'is_dummy' => false, // Is Free
+                'price' => 'free',
+                'type' => array( 'image' ), 
+                'features' => array( 'boxed' ),
+                'animation' => array( 'slide', 'vertical' ),
+                'integration' => false,
+                'demo' => 'https://demo.metaslider.com/creative-process/'
+            ),
+            array(
+                'slug' => 'architecture',
+                'label' => esc_html__( 'Architecture', 'ml-slider' ),
+                'is_dummy' => false, // Is Free
+                'price' => 'free',
+                'type' => array( 'image' ), 
+                'features' => array( 'boxed' ),
+                'animation' => array( 'fade', 'ken-burns' ),
+                'integration' => false,
+                'demo' => 'https://demo.metaslider.com/architecture/'
+            ),
+            array(
+                'slug' => 'marathon-journey',
+                'label' => esc_html__( 'Marathon Journey', 'ml-slider' ),
+                'type' => array( 'local_video' ),
+                'is_dummy' => true, // Is Pro
+                'price' => 'pro',
+                'features' => array( 'boxed', 'video-caption' ),
+                'animation' => array( 'fade' ),
+                'integration' => false,
+                'demo' => 'https://demo.metaslider.com/marathon-journey/'
+            ),
+            array(
+                'slug' => 'cars-display',
+                'label' => esc_html__( 'Cars Display', 'ml-slider' ),
+                'type' => array( 'html_overlay' ),
+                'is_dummy' => true, // Is Pro
+                'price' => 'pro',
+                'features' => array( 'boxed', 'thumbnail-nav' ),
+                'animation' => array( 'slide' ),
+                'integration' => false,
+                'demo' => 'https://demo.metaslider.com/cars-display/'
+            ),
+            array(
+                'slug' => 'watch-shop-hero',
+                'label' => esc_html__( 'Watch Shop Hero', 'ml-slider' ),
+                'type' => array( 'html_overlay' ),
+                'is_dummy' => true, // Is Pro
+                'price' => 'pro',
+                'features' => array( 'boxed' ),
+                'animation' => array( 'slide', 'vertical' ),
+                'integration' => false,
+                'demo' => 'https://demo.metaslider.com/watch-shop-hero/'
+            ),
+            array(
+                'slug' => 'creative-agency-hero',
+                'label' => esc_html__( 'Creative Agency Hero', 'ml-slider' ),
+                'type' => array( 'html_overlay' ),
+                'is_dummy' => true, // Is Pro
+                'price' => 'pro',
+                'features' => array( 'boxed' ),
+                'animation' => array( 'fade' ),
+                'integration' => false,
+                'demo' => 'https://demo.metaslider.com/creative-agency-hero/'
+            ),
+            array(
+                'slug' => 'fashion-trends',
+                'label' => esc_html__( 'Fashion Trends', 'ml-slider' ),
+                'type' => array( 'html_overlay' ),
+                'is_dummy' => true, // Is Pro
+                'price' => 'pro',
+                'features' => array( 'boxed' ),
+                'animation' => array( 'zooming' ),
+                'integration' => false,
+                'demo' => 'https://demo.metaslider.com/fashion-trends/'
+            ),
+            array(
                 'slug' => 'entertainment-youtube-shorts-feed',
                 'label' => esc_html__( 'Entertainment YouTube Shorts Feed', 'ml-slider' ),
                 'type' => array( 'youtube' ),
@@ -178,7 +244,7 @@ class MetaSliderQuickstart
                 'type' => array( 'image' ),
                 'is_dummy' => true, // Is Pro
                 'price' => 'pro',
-                'features' => array( 'boxed', 'lightbox' ),
+                'features' => array( 'boxed', 'lightbox', 'hero' ),
                 'animation' => array( 'slide' ),
                 'integration' => false,
                 'demo' => 'https://demo.metaslider.com/album-cover-showcase/'
@@ -244,8 +310,8 @@ class MetaSliderQuickstart
                 'type' => array( 'tiktok' ),
                 'is_dummy' => true, // Is Pro
                 'price' => 'pro',
-                'features' => array( 'vertical-horizontal' ),
-                'animation' => array( 'slide' ),
+                'features' => array( 'boxed' ),
+                'animation' => array( 'slide', 'vertical' ),
                 'integration' => false,
                 'demo' => 'https://demo.metaslider.com/tiktok-vertical-videos/'
             ),
@@ -332,7 +398,7 @@ class MetaSliderQuickstart
                 'type' => array( 'image' ),
                 'is_dummy' => true, // Is Pro
                 'price' => 'pro',
-                'features' => array( 'full-width', 'carousel' ),
+                'features' => array( 'boxed', 'carousel' ),
                 'animation' => array( 'slide' ),
                 'integration' => false,
                 'demo' => 'https://demo.metaslider.com/trending-videos/'
@@ -387,7 +453,7 @@ class MetaSliderQuickstart
                 'type' => array( 'image' ),
                 'is_dummy' => true, // Is Pro
                 'price' => 'pro',
-                'features' => array( 'boxed', 'thumbnail-nav' ),
+                'features' => array( 'boxed', 'thumbnail-nav', 'hero' ),
                 'animation' => array( 'slide' ),
                 'integration' => false,
                 'demo' => 'https://demo.metaslider.com/natural-skincare-presentation/'
@@ -512,6 +578,17 @@ class MetaSliderQuickstart
                 'animation' => array( 'slide' ),
                 'integration' => array( 'woocommerce' ),
                 'demo' => 'https://demo.metaslider.com/woocommerce-carousel/'
+            ),
+            array(
+                'slug' => 'bold-motion',
+                'label' => __( 'Bold Motion', 'ml-slider' ),
+                'is_dummy' => true, // Is Pro
+                'price' => 'pro',
+                'type' => array( 'external_video' ),
+                'features' => array( 'boxed' ),
+                'animation' => array( 'slide', 'vertical' ),
+                'integration' => false,
+                'demo' => 'https://demo.metaslider.com/bold-motion/'
             )
         );
 
@@ -564,5 +641,51 @@ class MetaSliderQuickstart
         );
 
         return $slugs;
+    }
+
+    /**
+     * Get slide type translatable label
+     * 
+     * @since 3.107.0
+     * 
+     * @param string $type Slide type. e.g. 'external', 'image', etc.
+     * 
+     * @return string
+     */
+    public function slide_type_label( $type )
+    {
+        switch ( $type ) {
+            default:
+            case 'image':
+                return __( 'Image', 'ml-slider' );
+                break;
+            case 'vimeo':
+                return __( 'Vimeo', 'ml-slider' );
+                break;
+            case 'youtube':
+                return __( 'YouTube', 'ml-slider' );
+                break;
+            case 'local_video':
+                return __( 'Local Video', 'ml-slider' );
+                break;
+            case 'external':
+                return __( 'External Image', 'ml-slider' );
+                break;
+            case 'external_video':
+                return __( 'External Video', 'ml-slider' );
+                break;
+            case 'tiktok':
+                return __( 'TikTok', 'ml-slider' );
+                break;
+            case 'custom_html':
+                return __( 'Custom HTML', 'ml-slider' );
+                break;
+            case 'html_overlay':
+                return __( 'Layer Slide', 'ml-slider' );
+                break;
+            case 'post_feed':
+                return __( 'Post Feed', 'ml-slider' );
+                break;
+        }
     }
 }

@@ -1,0 +1,205 @@
+/* API-Sports–inspired league list: light cards, team row, logos, time column */
+.tca-football-fixtures-block {
+	--tca-ff-border: #e2e8f0;
+	--tca-ff-text: #0f172a;
+	--tca-ff-muted: #64748b;
+	margin-bottom: 1.5rem;
+	color: var(--tca-ff-text);
+}
+
+.tca-football-fixtures__heading {
+	margin: 0 0 1rem;
+	font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.tca-football-fixtures__message {
+	margin: 0;
+	color: var(--tca-ff-muted);
+}
+
+.tca-football-fixtures__message--error {
+	color: #b91c1c;
+}
+
+.tca-football-fixtures__list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.tca-football-fixtures__list--scroll {
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	@include tca-thin-scrollbar(#334155, #eef2f7);
+}
+
+.tca-football-fixtures__row {
+	display: grid;
+	grid-template-columns: minmax(5.5rem, 1fr);
+	grid-template-rows: auto auto;
+	gap: 0.35rem 0.4rem;
+	align-items: start;
+	padding: 5px;
+	background: #fff;
+	
+	border-bottom: 1px solid $steel-blue;
+	
+}
+
+@media (min-width: 640px) {
+	.tca-football-fixtures__row {
+		grid-template-columns: 7.75rem 1fr;
+		grid-template-rows: auto;
+		align-items: center;
+	}
+}
+
+.tca-football-fixtures__row-time {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+	font-size: 0.8125rem;
+	line-height: 1.25;
+	color: var(--tca-ff-muted);
+	font-weight: 600;
+}
+
+@media (min-width: 640px) {
+	.tca-football-fixtures__row-time {
+		grid-row: 1;
+	}
+}
+
+.tca-football-fixtures__date {
+	color: var(--tca-ff-text);
+}
+
+.tca-football-fixtures__clock {
+	font-variant-numeric: tabular-nums;
+}
+
+.tca-football-fixtures__row-main {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem 0.75rem;
+	min-width: 0;
+}
+
+@media (min-width: 640px) {
+	.tca-football-fixtures__row-main {
+		grid-column: 2;
+		grid-row: 1;
+	}
+}
+
+.tca-football-fixtures__side {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-width: 0;
+	flex: 1;
+}
+
+.tca-football-fixtures__side--home {
+	justify-content: flex-end;
+}
+
+.tca-football-fixtures__side--away {
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.tca-football-fixtures__logo-wrap {
+	flex-shrink: 0;
+	width: 2.5rem;
+	height: 2.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Wider box for SVG flags (API-Sports media.api-sports.io/flags/…). */
+.tca-football-fixtures__logo-wrap--flag {
+	width: 2.75rem;
+	height: 1.65rem;
+}
+
+.tca-football-fixtures__logo-wrap--flag .tca-football-fixtures__logo {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.tca-football-fixtures__logo {
+	width: 2.5rem;
+	height: 2.5rem;
+	object-fit: contain;
+}
+
+.tca-football-fixtures-block--icons-sm .tca-football-fixtures__logo-wrap:not(.tca-football-fixtures__logo-wrap--flag) {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.tca-football-fixtures-block--icons-sm .tca-football-fixtures__logo-wrap--flag {
+	width: 2rem;
+	height: 1.2rem;
+}
+
+.tca-football-fixtures-block--icons-sm .tca-football-fixtures__logo-wrap:not(.tca-football-fixtures__logo-wrap--flag) .tca-football-fixtures__logo {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.tca-football-fixtures__team-name {
+	font-size: 0.7rem;
+	font-weight: 600;
+	line-height: 1.2;
+	text-align: end;
+    word-break: keep-all;
+}
+
+.tca-football-fixtures__side--away .tca-football-fixtures__team-name {
+	text-align: start;
+}
+
+.tca-football-fixtures__center {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 3.5rem;
+}
+
+.tca-football-fixtures__vs {
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: var(--tca-ff-muted);
+	letter-spacing: 0.04em;
+}
+
+.tca-football-fixtures__score {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	font-size: 1.125rem;
+	font-weight: 800;
+	font-variant-numeric: tabular-nums;
+}
+
+.tca-football-fixtures__score-sep {
+	color: var(--tca-ff-muted);
+	font-weight: 600;
+}
+
+@media (max-width: 639px) {
+	.tca-football-fixtures__row-time {
+		flex-direction: row;
+		gap: 0;
+		align-items: baseline;
+	}
+}

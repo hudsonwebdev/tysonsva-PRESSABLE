@@ -192,7 +192,7 @@ eventually be removed/refactored */
     width: 40%;
 }
 .metaslider .ms-settings-table tr:not(.highlight) td:nth-of-type(2) {
-    width: 60%;
+    width: auto; /* 60% */
 }
 
 /* Toggle settings */
@@ -2356,6 +2356,16 @@ td .dot.available {
                 border: 1px solid rgba(255,255,255,0.3);
             }
 
+            .quickstart-type-label {
+                background: #1e6091;
+                color: #fff;
+            }
+
+            .quickstart-hero-label {
+                background: #29375b;
+                color: #fff;
+            }
+
             .quickstart-pro-label {
                 background: #ffcf56;
                 color: #000;
@@ -2377,6 +2387,20 @@ td .dot.available {
             }
         }
     }
+}
+.quickstart_progress_wrapper {
+    background: #e5e5e5;
+    height: 10px;
+    margin: 20px auto;
+    overflow: hidden;
+    width: 50%;
+    border-radius: 3px;
+}
+.quickstart_progress_bar {
+    width: 0%;
+    height: 100%;
+    background: #2271b1;
+    transition: width 0.3s ease;
 }
 #ms-save.ms-toolbar-button:not(.disabled) {
     background: #007cba !important;

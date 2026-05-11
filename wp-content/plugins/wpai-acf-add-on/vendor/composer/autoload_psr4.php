@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'wpai_acf_add_on_pro\\' => array($baseDir . '/src'),
+    'PMXI\\AddonInstaller\\' => array($baseDir . '/src'),
 );

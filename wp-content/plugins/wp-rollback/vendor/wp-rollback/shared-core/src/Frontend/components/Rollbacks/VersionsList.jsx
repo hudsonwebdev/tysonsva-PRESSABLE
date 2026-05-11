@@ -1,9 +1,30 @@
 import { __ } from '@wordpress/i18n';
 import TrunkPopover from './TrunkPopover';
+import VersionBadges from './VersionBadges';
 import { compareVersions } from '../../utils';
 
 /**
- * VersionsList component displays a list of available versions for rollback
+ * Parse a release date from either a Unix timestamp (number) or ISO 8601 string.
+ *
+ * @param {number|string|null} released Raw release value from the API.
+ * @return {string|null} Locale-formatted date string, or null.
+ */
+const formatReleaseDate = released => {
+    if ( ! released ) {
+        return null;
+    }
+
+    const date = typeof released === 'number' ? new Date( released * 1000 ) : new Date( released );
+
+    return isNaN( date.getTime() ) ? null : date.toLocaleDateString();
+};
+
+/**
+ * VersionsList component displays a list of available versions for rollback.
+ *
+ * Badge rendering is delegated to VersionBadges. The Repo badge only shows
+ * when a release date is present (indicating a WordPress.org version) — this
+ * prevents premium plugin versions from incorrectly displaying the WP.org badge.
  *
  * @param {Object}   props                    Component properties
  * @param {Object}   props.versions           Object containing version information
@@ -14,7 +35,6 @@ import { compareVersions } from '../../utils';
  * @return {JSX.Element} The versions list component
  */
 const VersionsList = ( { versions, rollbackVersion, setRollbackVersion, currentVersion, disabled = false } ) => {
-    // Validate versions prop
     if ( ! versions || typeof versions !== 'object' ) {
         return (
             <div className="wpr-versions-container">
@@ -23,14 +43,12 @@ const VersionsList = ( { versions, rollbackVersion, setRollbackVersion, currentV
         );
     }
 
-    // Sort descending (newest first) by inverting the shared compareVersions result.
     const sortedVersions = Object.keys( versions ).sort( ( a, b ) => compareVersions( b, a ) );
 
     const handleSelectionChange = version => {
         setRollbackVersion( version );
     };
 
-    // Ensure currentVersion and trunk are always in the list
     const versionsToDisplay = [ ...sortedVersions ];
 
     if ( ! versionsToDisplay.includes( currentVersion ) ) {
@@ -48,9 +66,8 @@ const VersionsList = ( { versions, rollbackVersion, setRollbackVersion, currentV
             ) : (
                 versionsToDisplay.map( version => {
                     const versionData = versions[ version ] || {};
-                    const releaseDate = versionData.released
-                        ? new Date( versionData.released * 1000 ).toLocaleDateString()
-                        : null;
+                    const releaseDate = formatReleaseDate( versionData.released );
+                    const isCurrentVersion = currentVersion === version;
 
                     return (
                         <div
@@ -71,16 +88,16 @@ const VersionsList = ( { versions, rollbackVersion, setRollbackVersion, currentV
                                         disabled={ disabled }
                                     />
                                     <span className="wpr-version-lineitem">{ version }</span>
-                                    { currentVersion === version && (
-                                        <span className="wpr-version-lineitem-current">
-                                            { __( 'Currently Installed', 'wp-rollback' ) }
-                                        </span>
-                                    ) }
+
                                     { version === 'trunk' && <TrunkPopover /> }
+
+                                    <VersionBadges
+                                        versionData={ versionData }
+                                        isCurrentVersion={ isCurrentVersion }
+                                        releaseDate={ releaseDate }
+                                    />
                                 </label>
                             </div>
-
-                            { releaseDate && <span className="wpr-version-date">{ releaseDate }</span> }
                         </div>
                     );
                 } )

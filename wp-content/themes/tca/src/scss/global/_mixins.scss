@@ -113,3 +113,33 @@
 @mixin coverImage(){
   
 }
+
+/**
+ * Thin scrollbar styling (Firefox + WebKit). Use when overflow creates scrollbars.
+ *
+ * @param {Color} $thumb - Thumb color (dark recommended on light surfaces).
+ * @param {Color} $track - Track / gutter color.
+ */
+@mixin tca-thin-scrollbar($thumb: #334155, $track: #e8eef3) {
+	scrollbar-width: thin;
+	scrollbar-color: $thumb $track;
+
+	&::-webkit-scrollbar {
+		width: 6px;
+		height: 6px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: $track;
+		border-radius: 3px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: $thumb;
+		border-radius: 3px;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background: #1e293b;
+	}
+}

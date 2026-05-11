@@ -11,10 +11,18 @@ class ComposerStaticInit2ec555cbe9214632fe839030b4857df6
         array (
             'wpai_acf_add_on_pro\\' => 20,
         ),
+        'P' => 
+        array (
+            'PMXI\\AddonInstaller\\' => 20,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'wpai_acf_add_on_pro\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
+        'PMXI\\AddonInstaller\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

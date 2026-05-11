@@ -3,11 +3,12 @@
 Plugin Name: WP All Import - ACF Add-On Pro
 Plugin URI: http://www.wpallimport.com/
 Description: Import to Advanced Custom Fields. Requires WP All Import, ACF Import Add-On Free, & Advanced Custom Fields.
-Version: 4.0.0
+Version: 4.0.1
 Author: Soflyy
 */
 
 namespace wpai_acf_add_on_pro;
+use PMXI\AddonInstaller\AddonInstaller;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -37,73 +38,28 @@ if ( ! class_exists( 'acf' ) ) {
 
 }
 
-const PMAI_PRO_VERSION = '4.0.0';
+const PMAI_PRO_VERSION = '4.0.1';
 
 require __DIR__ . '/vendor/autoload.php';
 
-// Load TGM Plugin Activation.
-require_once dirname( __FILE__ ) . '/classes/class-tgm-plugin-activation.php';
+// Initialize the PMXI Addon Installer SDK for ACF Add-On Free
+$wpai_addon_installer = new AddonInstaller([
+    'addon_name' => 'WP All Import - ACF Add-On Free',
+    'addon_slug' => 'csv-xml-import-for-acf',
+    'addon_author' => 'Soflyy',
+    'minimum_version' => '1.0.4',
+    'pro_plugin_name' => 'WP All Import - ACF Add-On Pro',
+    'pro_plugin_file' => __FILE__,
+    'textdomain' => 'wp_all_import_acf_add_on',
+    'version_constant' => 'PMAI_VERSION',
+    'edition_constant' => 'PMAI_EDITION',
+    'expected_edition' => 'free',
+	'free_plugin_file' => 'plugin.php',
+    'disable_deactivation' => true
+]);
 
-// Configure required plugin details.
-add_action( 'tgmpa_register', function() {
-$plugins = array(
-	array(
-		'name'      => 'ACF Import Add-On Free',
-		'slug'      => 'csv-xml-import-for-acf',
-		'required'  => true,
-	),
-);
+$wpai_addon_installer->install_addon_from_repository();
 
-$config = array(
-	'id'           => 'pmxi_required_plugins',
-	'default_path' => '',
-	'parent_slug'  => 'plugins.php',
-	'menu'         => 'soflyy-install-plugins',
-	'has_notices'  => true,
-	'dismissable'  => false,
-	'dismiss_msg'  => '',
-	'is_automatic' => true,
-	'silent'       => true,
-	'message'      => '',
-	'strings'      => ['notice_can_install_required'     => _n_noop(
-		'WP All Import ACF Import Add-On Pro: the following plugin is required: %1$s.',
-		'WP All Import ACF Import Add-On Pro: the following plugins are required: %1$s.',
-		'tgmpa'
-	),
-				/* translators: 1: plugin name(s). */
-				'notice_can_install_recommended'  => _n_noop(
-		'WP All Import ACF Import Add-On Pro: recommends the following plugin: %1$s.',
-		'WP All Import ACF Import Add-On Pro: recommends the following plugins: %1$s.',
-		'tgmpa'
-	),
-				/* translators: 1: plugin name(s). */
-				'notice_ask_to_update'            => _n_noop(
-		'WP All Import ACF Import Add-On Pro: The following plugin needs to be updated to its latest version to ensure maximum compatibility: %1$s.',
-		'WP All Import ACF Import Add-On Pro: The following plugins need to be updated to their latest version to ensure maximum compatibility: %1$s.',
-		'tgmpa'
-	),
-				/* translators: 1: plugin name(s). */
-				'notice_ask_to_update_maybe'      => _n_noop(
-		'WP All Import ACF Import Add-On Pro: There is an update available for: %1$s.',
-		'WP All Import ACF Import Add-On Pro: There are updates available for the following plugins: %1$s.',
-		'tgmpa'
-	),
-				/* translators: 1: plugin name(s). */
-				'notice_can_activate_required'    => _n_noop(
-		'WP All Import ACF Import Add-On Pro: The following required plugin is currently inactive: %1$s.',
-		'WP All Import ACF Import Add-On Pro: The following required plugins are currently inactive: %1$s.',
-		'tgmpa'
-	),
-				/* translators: 1: plugin name(s). */
-				'notice_can_activate_recommended' => _n_noop(
-		'WP All Import ACF Import Add-On Pro: The following recommended plugin is currently inactive: %1$s.',
-		'WP All Import ACF Import Add-On Pro: The following recommended plugins are currently inactive: %1$s.',
-		'tgmpa'
-	)],
-);
-
-tgmpa( $plugins, $config );
-});
 
 // Load Pro fields as needed.
 add_filter('wp_all_import_acf_field_class', function($class , $fieldData, $post, $fieldName, $fieldParent){

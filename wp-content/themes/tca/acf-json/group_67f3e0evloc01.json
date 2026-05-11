@@ -1,0 +1,514 @@
+{
+    "key": "group_67f3e0evloc01",
+    "title": "Block: Events Locations",
+    "fields": [
+        {
+            "key": "field_69dce0602f77d",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_67f3e0evloc02",
+            "label": "Mapbox style",
+            "name": "mapbox_style",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Base Mapbox style for the events map.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "mapbox:\/\/styles\/mapbox\/streets-v12": "Streets",
+                "mapbox:\/\/styles\/mapbox\/outdoors-v12": "Outdoors",
+                "mapbox:\/\/styles\/mapbox\/light-v11": "Light",
+                "mapbox:\/\/styles\/mapbox\/dark-v11": "Dark",
+                "mapbox:\/\/styles\/mapbox\/satellite-v9": "Satellite",
+                "mapbox:\/\/styles\/mapbox\/satellite-streets-v12": "Satellite streets",
+                "mapbox:\/\/styles\/mapbox\/navigation-day-v1": "Navigation day",
+                "mapbox:\/\/styles\/mapbox\/navigation-night-v1": "Navigation night",
+                "custom": "Custom"
+            },
+            "default_value": "mapbox:\/\/styles\/mapbox\/streets-v12",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": "",
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_67f3e0evloc05",
+            "label": "Custom Mapbox style",
+            "name": "mapbox_style_custom",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown when Mapbox style is Custom. Use a mapbox:\/\/styles\/… URL or an https:\/\/api.mapbox.com\/styles\/v1\/… style URL.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_67f3e0evloc02",
+                        "operator": "==",
+                        "value": "custom"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": 512,
+            "allow_in_bindings": 0,
+            "placeholder": "mapbox:\/\/styles\/username\/styleid",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_67f3e0evloc04",
+            "label": "Map height",
+            "name": "map_height",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Height of the map area in pixels (drawer matches this height when open).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 352,
+            "min": 200,
+            "max": 1600,
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "step": 1,
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_67f3e0evloc06",
+            "label": "Map pin shape",
+            "name": "map_pin_shape",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Shape of location markers on the map.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33.3333",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "teardrop": "Teardrop",
+                "circle": "Circle",
+                "square": "Square",
+                "diamond": "Diamond"
+            },
+            "default_value": "teardrop",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_67f3e0evloc07",
+            "label": "Map pin color",
+            "name": "map_pin_color",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Fill color for location markers.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33.3333",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "blue": "Blue",
+                "red": "Red",
+                "green": "Green",
+                "orange": "Orange",
+                "purple": "Purple",
+                "teal": "Teal",
+                "gray": "Gray",
+                "black": "Black",
+                "white": "White"
+            },
+            "default_value": "blue",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_69dce28eaadc8",
+            "label": "Map Pin Size",
+            "name": "map_pin_size",
+            "aria-label": "",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33.3333",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 5,
+            "max": 20,
+            "allow_in_bindings": 0,
+            "step": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_67f3e0evloc03",
+            "label": "Locations on map",
+            "name": "event_locations",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Choose which event locations appear as pins. Upcoming events at each location are shown when a pin is selected.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_69dce72a568f4",
+                        "operator": "==",
+                        "value": "Event Chooser"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "location"
+            ],
+            "post_status": "",
+            "taxonomy": "",
+            "filters": [
+                "search"
+            ],
+            "return_format": "id",
+            "acfe_bidirectional": {
+                "acfe_bidirectional_enabled": "0"
+            },
+            "min": "",
+            "max": "",
+            "allow_in_bindings": 0,
+            "elements": "",
+            "bidirectional": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_69dd9fb0ce300",
+            "label": "Show Upcoming Events",
+            "name": "show_upcoming_events",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_69dcecefef2cd",
+            "label": "Filter by Category",
+            "name": "filter_by_category",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_69dd9fb0ce300",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_69dce78b40d0a",
+            "label": "Event Category",
+            "name": "event_category",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_69dcecefef2cd",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_69dd9fb0ce300",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "event-categories",
+            "add_term": 1,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "id",
+            "field_type": "checkbox",
+            "acfe_bidirectional": {
+                "acfe_bidirectional_enabled": "0"
+            },
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "multiple": 0,
+            "allow_null": 0,
+            "bidirectional_target": []
+        },
+        {
+            "key": "field_69ff63474db23",
+            "label": "No Events Behavior",
+            "name": "no_events_behavior",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "When a pin has no upcoming events: hide the events column, or keep it open and show your message in place of the “Upcoming events” heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Show Message": "Show Message",
+                "Do Not Show": "Do Not Show"
+            },
+            "default_value": "Do Not Show",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_69ff642791d1a",
+            "label": "No Events Message",
+            "name": "no_events_message",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Shown in the drawer in place of the “Upcoming events” title when that location has no upcoming events (only if “Show Message” is selected).",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_69ff63474db23",
+                        "operator": "==",
+                        "value": "Show Message"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "acfe_textarea_code": 0,
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_69dce06d2f77e",
+            "label": "Container Settings",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_69d92bd30e30c",
+            "label": "Container Settings",
+            "name": "container_settings",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "group_67694de9a7420"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0,
+            "acfe_seamless_style": 0,
+            "acfe_clone_modal": 0,
+            "acfe_clone_modal_close": 0,
+            "acfe_clone_modal_button": "",
+            "acfe_clone_modal_size": "large"
+        },
+        {
+            "key": "field_69dce0772f77f",
+            "label": "Section Header",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_69d92c0aa3ad8",
+            "label": "Section Header",
+            "name": "section_header",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "group_6799322d74e27"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0,
+            "acfe_seamless_style": 0,
+            "acfe_clone_modal": 0,
+            "acfe_clone_modal_close": 0,
+            "acfe_clone_modal_button": "",
+            "acfe_clone_modal_size": "large"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "tca\/events-locations"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_form": 0,
+    "acfe_meta": "",
+    "acfe_note": "",
+    "modified": 1778345200
+}

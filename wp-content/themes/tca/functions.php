@@ -10,7 +10,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.6.297' );
+	define( '_S_VERSION', '1.6.369' );
 }
 
 /**
@@ -137,6 +137,24 @@ add_action( 'widgets_init', 'tca_widgets_init' );
 
 
 
+/**
+ * Recursively check parsed blocks (including inner blocks) for a block name.
+ *
+ * @param array  $blocks     Result of parse_blocks().
+ * @param string $block_name Full block name (e.g. tca/events-locations).
+ * @return bool
+ */
+function tca_blocks_list_contains( $blocks, $block_name ) {
+	foreach ( (array) $blocks as $block ) {
+		if ( isset( $block['blockName'] ) && $block['blockName'] === $block_name ) {
+			return true;
+		}
+		if ( ! empty( $block['innerBlocks'] ) && tca_blocks_list_contains( $block['innerBlocks'], $block_name ) ) {
+			return true;
+		}
+	}
+	return false;
+}
 
 /**
  * Check if the current post content contains the neighborhood map block.
@@ -150,22 +168,55 @@ function tca_post_has_neighborhood_map_block() {
 	if ( ! $post || ! has_blocks( $post->post_content ) ) {
 		return false;
 	}
-	$blocks = parse_blocks( $post->post_content );
-	$block_name = 'tca/image-banner-neighborhood-guide';
-	foreach ( $blocks as $block ) {
-		if ( isset( $block['blockName'] ) && $block['blockName'] === $block_name ) {
-			return true;
-		}
-		if ( ! empty( $block['innerBlocks'] ) ) {
-			foreach ( $block['innerBlocks'] as $inner ) {
-				if ( isset( $inner['blockName'] ) && $inner['blockName'] === $block_name ) {
-					return true;
-				}
-			}
-		}
-	}
-	return false;
+	return tca_blocks_list_contains( parse_blocks( $post->post_content ), 'tca/image-banner-neighborhood-guide' );
 }
+
+/**
+ * Check if the current post content contains the events locations map block.
+ */
+function tca_post_has_events_locations_block() {
+	if ( ! is_singular() ) {
+		return false;
+	}
+	$post = get_post();
+	if ( ! $post || ! has_blocks( $post->post_content ) ) {
+		return false;
+	}
+	return tca_blocks_list_contains( parse_blocks( $post->post_content ), 'tca/events-locations' );
+}
+
+/**
+ * Check if the current singular post content includes the Football Fixtures block.
+ *
+ * @return bool
+ */
+function tca_post_has_football_fixtures_block() {
+	if ( ! is_singular() ) {
+		return false;
+	}
+	$post = get_post();
+	if ( ! $post || ! has_blocks( $post->post_content ) ) {
+		return false;
+	}
+	return tca_blocks_list_contains( parse_blocks( $post->post_content ), 'tca/football-fixtures' );
+}
+
+/**
+ * Check if the current singular post content includes the Image Banner block.
+ *
+ * @return bool
+ */
+function tca_post_has_image_banner_block() {
+	if ( ! is_singular() ) {
+		return false;
+	}
+	$post = get_post();
+	if ( ! $post || ! has_blocks( $post->post_content ) ) {
+		return false;
+	}
+	return tca_blocks_list_contains( parse_blocks( $post->post_content ), 'tca/image-banner' );
+}
+
 
 /**
  * Enqueue scripts and styles.
@@ -182,18 +233,48 @@ function tca_scripts() {
 
 	wp_enqueue_script( 'tca-navigation', get_template_directory_uri() . '/public/js/main.js', array('jquery'), _S_VERSION, true );
 
-	// Load map scripts on single neighborhood posts or any page that contains the neighborhood map block
-	$needs_neighborhood_map = is_singular( 'neighborhood' ) || tca_post_has_neighborhood_map_block();
+	// Mapbox: neighborhood pages / block, or events locations block (single enqueue — same handle avoids loading twice).
+	$needs_neighborhood_map       = is_singular( 'neighborhood' ) || tca_post_has_neighborhood_map_block();
+	$needs_events_locations_map   = tca_post_has_events_locations_block();
+	$needs_football_fixtures_block = tca_post_has_football_fixtures_block();
+	$needs_mapbox                 = $needs_neighborhood_map || $needs_events_locations_map;
 
-	if ( $needs_neighborhood_map ) {
-		// Mapbox GL JS v3 (required for mapbox://styles/mapbox/standard)
+	if ( $needs_mapbox ) {
+		// Same handles as elsewhere; WordPress only outputs one script/style per handle.
 		wp_enqueue_script( 'mapbox-js', 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js', array(), null, true );
-		// Mapbox CSS
 		wp_enqueue_style( 'mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css', array(), null );
-		// neighborhood.js needs: jquery (for DOM), tca-navigation (for smartresize), mapbox-js (for mapboxgl)
-		wp_enqueue_script( 'tca-neighborhood', get_template_directory_uri() . '/public/js/neighborhood.js', array( 'jquery', 'tca-navigation', 'mapbox-js' ), _S_VERSION, true );
+		if ( $needs_neighborhood_map ) {
+			// neighborhood.js needs: jquery (for DOM), tca-navigation (for smartresize), mapbox-js (for mapboxgl)
+			wp_enqueue_script( 'tca-neighborhood', get_template_directory_uri() . '/public/js/neighborhood.js', array( 'jquery', 'tca-navigation', 'mapbox-js' ), _S_VERSION, true );
+		}
+		if ( $needs_events_locations_map ) {
+			if ( wp_style_is( 'block-events-locations', 'registered' ) ) {
+				wp_enqueue_style( 'block-events-locations' );
+			}
+			wp_enqueue_script(
+				'tca-events-locations-map',
+				get_template_directory_uri() . '/blocks/events-locations/events-map.js',
+				array( 'mapbox-js' ),
+				_S_VERSION,
+				true
+			);
+		}
 	}
-	
+
+	if ( $needs_football_fixtures_block && wp_style_is( 'block-football-fixtures', 'registered' ) ) {
+		wp_enqueue_style( 'block-football-fixtures' );
+	}
+
+	// Image Banner: accessibility play/pause control for autoplaying background videos.
+	if ( tca_post_has_image_banner_block() ) {
+		wp_enqueue_script(
+			'tca-image-banner-play-pause',
+			get_template_directory_uri() . '/blocks/image-banner/play-pause.js',
+			array(),
+			_S_VERSION,
+			true
+		);
+	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -523,3 +604,14 @@ function tca_video_banner_poster_attrs( $poster, $max_width = '1920px', $image_s
 
     echo $attrs;
 }
+
+
+
+
+
+
+
+
+
+
+

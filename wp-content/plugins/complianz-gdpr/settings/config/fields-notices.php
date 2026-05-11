@@ -199,6 +199,20 @@ function cmplz_field_notices(): array {
 		);
 	}
 
+	// Single functional category notice.
+	if ( cmplz_has_only_functional_category() ) {
+		$notices[] = array(
+			'field_id'    => 'last-step-feedback',
+			'label'       => 'info',
+			'title'       => __( 'Single Functional Category Detected', 'complianz-gdpr' ),
+			'text'        => '<strong>' . __( 'Attention: please review your cookie configuration', 'complianz-gdpr' ) . '</strong><br><br>' .
+							__( "Currently, the only active cookie category is Functional. In some regions, when only one category is available, the cookie banner may not be 
+	displayed. We recommend double-checking your settings and, if needed, following this guide to force the banner display.", 'complianz-gdpr' ),
+			'url'         => 'https://complianz.io/display-a-cookie-banner-even-when-not-required',
+			'dismissible' => true,
+		);
+	}
+
 	if ( 'clarity' === cmplz_get_option( 'compile_statistics' ) ) {
 		$notices[] = array(
 			'field_id' => 'clarity_consent_mode',

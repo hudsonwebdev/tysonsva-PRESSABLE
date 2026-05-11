@@ -3,7 +3,7 @@
         'name' => 'devinwalker/wp-rollback',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'c9bbbc4c623d6f56692f485c7e55fa548002ee2c',
+        'reference' => 'ce1dd4a9f9850a8c31aeadcafaa6e3b745b07577',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -24,7 +24,7 @@
         'devinwalker/wp-rollback' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'c9bbbc4c623d6f56692f485c7e55fa548002ee2c',
+            'reference' => 'ce1dd4a9f9850a8c31aeadcafaa6e3b745b07577',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

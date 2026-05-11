@@ -141,8 +141,8 @@ class MetaSlider_Theme_Base
                     var screenWidth = $(window).innerWidth();
                     var parentContainer = $('#metaslider_container_{$slideshow_id}');
                     var liWidth = responsive_arrows__slide_width();
-                    var prev = parentContainer.find('{$prev_class}');
-                    var next = parentContainer.find('{$next_class}');
+                    var prev = parentContainer.find('.flexslider:not(.filmstrip) {$prev_class}');
+                    var next = parentContainer.find('.flexslider:not(.filmstrip) {$next_class}');
 
                     /* 200 = give some breathe considering arrow size and position from edge */
                     if ((screenWidth - 200) < liWidth && (parseInt(prevStartVal, 10) < 0 || parseInt(nextStartVal, 10) < 0)) {

@@ -117,28 +117,31 @@
 
 
 .copa-2025{
+    .video-banner,
     .image-banner{
         margin-bottom:100px;
+        
         @media(min-width:$breakpoint-large){
             margin-bottom:50px;
         }
     &::after{
         content:'';
         display:block;
-        width:clamp(280px,60%,400px);
-        height:400px;
+        height:500px;
+        width:300px;
         position:absolute;
         z-index:3000;
         bottom:-100px;
         left:50%;
         transform:translateX(-50%);
-        background-size:100%;
+        background-size:70%;
         background-repeat:no-repeat;
-        background-image:url('https://tysonsva.org/wp-content/uploads/2025/05/CopaLogo-2025@3x.png');
+        background-image:url('https://tysonsva.org/wp-content/uploads/2026/04/copalogo.webp');
         background-position:center bottom;
         
          @media(min-width:$breakpoint-large){
         left:0;
+        margin-left:10%;
         transform:none;
         }
     }

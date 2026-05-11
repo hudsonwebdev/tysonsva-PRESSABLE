@@ -95,10 +95,10 @@ if ( $images ) : ?>
                         $image_url = wp_get_attachment_image_url( $image_id, 'large' );
                     ?>
                         <li>
-                            <div class="uk-cover-container uk-height-medium">
-                                    <img <?php awesome_acf_responsive_image( $image_id, 'large', '768px', $alt_text ); ?> />
+                            
+                                    <img <?php awesome_acf_responsive_image( $image_id, 'medium_large', '768px', $alt_text ); ?> />
           
-                            </div>
+                          
                         </li>
                     <?php endforeach; ?>
                 </ul>

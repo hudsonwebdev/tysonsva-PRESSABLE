@@ -36,7 +36,7 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 	<link rel="manifest" href="/site.webmanifest">
 
-
+<script type="module" crossorigin src="https://widgets.api-sports.io/3.1.0/widgets.js"></script>
 	<?php wp_head(); ?>
 </head>
 
@@ -49,6 +49,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- End Google Tag Manager (noscript) -->
 <?php wp_body_open(); ?>
+
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'tca' ); ?></a>
 	<div class="utility-container">

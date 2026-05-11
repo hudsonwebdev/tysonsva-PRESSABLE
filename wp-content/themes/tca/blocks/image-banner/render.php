@@ -98,6 +98,15 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                     data-src="<?php echo esc_url( $video_url ); ?>"
                     data-object-fit="cover"></video>
                     <div class="image-tint"></div>
+                    <button type="button" class="tca-video-pp-btn" aria-pressed="false" aria-label="Pause background video">
+                        <svg class="tca-video-pp-icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+                        </svg>
+                        <svg class="tca-video-pp-icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                    </button>
             </div>
             <?php
         } ?>

@@ -272,7 +272,9 @@
 		}
 
 		function stripHTML( text ) {
-			return text.replace( /<[^>]*>?/gm, '' );
+			var tmp = document.createElement( 'div' );
+			tmp.innerHTML = text.replace( /<[^>]*>?/gm, '' );
+			return tmp.textContent;
 		}
 
 		return {
@@ -815,7 +817,7 @@
 			}
 
 			// Record pageview in WP Stats, for each new image loaded full-screen.
-			if ( jetpackCarouselStrings.stats ) {
+			if ( jetpackCarouselStrings.stats && carousel.isOpen ) {
 				new Image().src =
 					document.location.protocol +
 					'//pixel.wp.com/g.gif?' +
@@ -826,9 +828,12 @@
 					Math.random();
 			}
 
-			pageview( attachmentId );
+			if ( carousel.isOpen ) {
+				pageview( attachmentId );
+			}
 
-			window.location.hash = lastKnownLocationHash = '#jp-carousel-' + attachmentId;
+			lastKnownLocationHash = '#jp-carousel-' + attachmentId;
+			window.location.hash = lastKnownLocationHash;
 		}
 
 		function restoreScroll() {
@@ -845,8 +850,8 @@
 
 			domUtil.emitEvent( carousel.overlay, 'jp_carousel.beforeClose' );
 			restoreScroll();
-			swiper.destroy();
 			carousel.isOpen = false;
+			swiper.destroy();
 			// Clear slide data for DOM garbage collection.
 			carousel.slides = [];
 			carousel.currentSlide = undefined;
@@ -912,7 +917,7 @@
 				return args.origFile;
 			}
 
-			if ( typeof args.mediumFile === 'undefined' || typeof args.largeFile === 'undefined' ) {
+			if ( typeof args.largeFile === 'undefined' ) {
 				return args.origFile;
 			}
 
@@ -939,14 +944,6 @@
 
 			if ( largeWidth >= args.maxWidth || largeHeight >= args.maxHeight ) {
 				return args.largeFile;
-			}
-
-			var mediumSizeParts = getImageSizeParts( args.mediumFile, args.origWidth, isPhotonUrl );
-			var mediumWidth = parseInt( mediumSizeParts[ 0 ], 10 );
-			var mediumHeight = parseInt( mediumSizeParts[ 1 ], 10 );
-
-			if ( mediumWidth >= args.maxWidth || mediumHeight >= args.maxHeight ) {
-				return args.mediumFile;
 			}
 
 			if ( isPhotonUrl ) {
@@ -1081,18 +1078,18 @@
 					domUtil.show( descriptionElement );
 
 					if ( ! title && ! caption ) {
-						captionMainElement.innerHTML = domUtil.stripHTML( desc );
+						captionMainElement.textContent = domUtil.stripHTML( desc );
 						domUtil.show( captionMainElement );
 					}
 				}
 
 				if ( title ) {
 					var plainTitle = domUtil.stripHTML( title );
-					titleElement.innerHTML = plainTitle;
+					titleElement.textContent = plainTitle;
 
 					if ( ! caption ) {
-						captionMainElement.innerHTML = plainTitle;
-						captionInfoExtraElement.innerHTML = plainTitle;
+						captionMainElement.textContent = plainTitle;
+						captionInfoExtraElement.textContent = plainTitle;
 
 						domUtil.show( captionMainElement );
 					}
@@ -1427,7 +1424,6 @@
 					imageMeta: domUtil.getJSONAttribute( item, 'data-image-meta' ) || {},
 					title: item.getAttribute( 'data-image-title' ) || '',
 					desc: item.getAttribute( 'data-image-description' ) || '',
-					mediumFile: item.getAttribute( 'data-medium-file' ) || '',
 					largeFile: item.getAttribute( 'data-large-file' ) || '',
 					origFile: origFile || '',
 					thumbSize: { width: item.naturalWidth, height: item.naturalHeight },
@@ -1458,7 +1454,6 @@
 						origHeight: attrs.origHeight,
 						maxWidth: max.width,
 						maxHeight: max.height,
-						mediumFile: attrs.mediumFile,
 						largeFile: attrs.largeFile,
 					} );
 				}
@@ -1607,6 +1602,9 @@
 			} );
 
 			swiper.on( 'slideChange', function ( swiper ) {
+				if ( ! carousel.isOpen ) {
+					return;
+				}
 				selectSlideAtIndex( swiper.realIndex );
 				carousel.overlay.classList.remove( 'jp-carousel-hide-controls' );
 			} );

@@ -1,12 +1,21 @@
 <h2 class="wpallimport-wp-notices"></h2>
 
-<form class="wpallimport-template <?php echo ! $this->isWizard ? 'edit' : '' ?> wpallimport-step-3" method="post">
+<?php
+// Build form classes
+$form_classes = 'wpallimport-template ' . ( ! $this->isWizard ? 'edit' : '' ) . ' wpallimport-step-3';
+$form_classes = apply_filters( 'pmxi_template_form_class', $form_classes, $this );
+?>
+
+<form class="<?php echo esc_attr( $form_classes ); ?>" method="post">
+
+	<!-- Hidden field for preview unique key override - updated by preview modal before refresh -->
+	<input type="hidden" name="wpai_preview_unique_key" id="wpai-preview-unique-key-hidden" value="" />
 
 	<div class="wpallimport-wrapper">
 		<div class="wpallimport-header">
 			<div class="wpallimport-logo"></div>
 			<div class="wpallimport-title">
-				<h2><?php _e('Drag & Drop', 'wp-all-import-pro'); ?></h2>
+				<h2><?php echo esc_html( apply_filters( 'pmxi_template_title', __('Drag & Drop', 'wp-all-import-pro'), $this ) ); ?></h2>
 			</div>
 			<div class="wpallimport-links">
 				<a href="http://www.wpallimport.com/support/" target="_blank"><?php _e('Support', 'wp-all-import-pro'); ?></a> | <a href="http://www.wpallimport.com/documentation/" target="_blank"><?php _e('Documentation', 'wp-all-import-pro'); ?></a>
@@ -14,6 +23,33 @@
 		</div>
 		<div class="clear"></div>
 	</div>
+
+	<?php
+	/**
+	 * Hook: pmxi_template_before_content
+	 *
+	 * Allows plugins to inject content before the template content.
+	 *
+	 * @param object $this The controller instance
+	 */
+	do_action( 'pmxi_template_before_content', $this );
+	?>
+
+
+
+	<?php
+	/**
+	 * Filter: pmxi_template_content_wrapper_style
+	 *
+	 * Allows plugins to set inline styles on the template content wrapper.
+	 * Used by the LLM Bridge plugin to hide content during AI configuration.
+	 *
+	 * @param string $style Inline style string (empty by default)
+	 * @param object $this The controller instance
+	 */
+	$wrapper_style = apply_filters( 'pmxi_template_content_wrapper_style', '', $this );
+	?>
+	<div class="wpai-normal-template-content" <?php echo !empty($wrapper_style) ? 'style="' . esc_attr($wrapper_style) . '"' : ''; ?>>
 
 	<?php $visible_sections = apply_filters('pmxi_visible_template_sections', array('caption', 'main', 'taxonomies', 'cf', 'featured', 'other', 'nested'), $post['custom_type']); ?>
 
@@ -104,6 +140,12 @@
 													<input type="checkbox" id="is_leave_html" name="is_leave_html" class="fix_checkbox" value="1" <?php echo $post['is_leave_html'] ? 'checked="checked"' : '' ?> style="position:relative;"/>
 													<label for="is_leave_html"><?php _e('Decode HTML entities with <b>html_entity_decode</b>', 'wp-all-import-pro') ?></label>
                                                     <a class="wpallimport-help" href="#help" style="position:relative; top:1px;" title="<?php _e('If HTML code is showing up in your posts, use this option. You can also use <br /><br /><i>[html_entity_decode({my/xpath})]</i><br /><br /> or <br /><br /><i>[htmlentities({my/xpath})]</i><br /><br /> or <br /><br /><i>[htmlspecialchars_decode({my/xpath})]</i><br /><br /> to decode or encode HTML in this import file.', 'wp-all-import-pro'); ?>">?</a>
+												</div>
+												<div class="input pmxi_option">
+													<input type="hidden" name="is_convert_to_blocks" value="0" />
+													<input type="checkbox" id="is_convert_to_blocks" name="is_convert_to_blocks" class="fix_checkbox" value="1" <?php echo $post['is_convert_to_blocks'] ? 'checked="checked"' : '' ?> style="position:relative;"/>
+													<label for="is_convert_to_blocks"><?php _e('Convert content to Gutenberg blocks', 'wp-all-import-pro') ?></label>
+                                                    <a class="wpallimport-help" href="#help" style="position:relative; top:1px;" title="<?php _e('Enable this option to automatically convert imported content to Gutenberg block format. If the content already contains block markup, it will be preserved. Otherwise, the content will be wrapped in appropriate blocks for proper display in the block editor.', 'wp-all-import-pro'); ?>">?</a>
 												</div>
 											</div>
 										</div>
@@ -230,6 +272,7 @@
 						<?php else: ?>
 							<a href="<?php echo esc_url(remove_query_arg('id', remove_query_arg('action', $this->baseUrl))); ?>" class="back rad3" style="float:none;"><?php _e('Back to Manage Imports', 'wp-all-import-pro') ?></a>
 						<?php endif; ?>
+						<button type="button" id="wpai-full-preview-btn" class="button button-secondary button-hero wpallimport-large-button" style="margin: 0 10px; background: 50% #425f9a; color: #fff;"><?php _e('Preview', 'wp-all-import-pro') ?></button>
 						<input type="submit" class="button button-primary button-hero wpallimport-large-button" value="<?php _e( ($this->isWizard) ? 'Continue to Import Settings' : 'Update Template', 'wp-all-import-pro') ?>" />
 					</div>
 
@@ -247,4 +290,8 @@
 		</tr>
 	</table>
 
+	</div><!-- .wpai-normal-template-content -->
+
 </form>
+
+<?php include __DIR__ . '/full-preview-modal.php'; ?>

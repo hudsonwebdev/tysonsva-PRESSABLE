@@ -730,6 +730,50 @@ window.jQuery(function ($) {
     showHideFullWidthOptions();
 
     /**
+     * Show/hide image options
+     * 
+     * @since 3.107
+     * 
+     */
+    $('.metaslider').on('change', '.ms-settings-table select[name="settings[smartCrop]"], .ms-settings-table select[name="settings[smartCropSource]"]', function () {
+        showHideImageOptions();
+    });
+
+    var showHideImageOptions = function () {
+        var table = $('.ms-settings-table');
+        var smartCrop = table.find('select[name="settings[smartCrop]"]');
+        var smartCropSource = table.find('select[name="settings[smartCropSource]"]');
+        var imageWidth = table.find('input[name="settings[imageWidth]"]') || null;
+        var imageHeight = table.find('input[name="settings[imageHeight]"]') || null;
+        var cropMultiply = table.find('select[name="settings[cropMultiply]"]');
+    
+        if (smartCrop.val() == 'true') {
+            cropMultiply.parents('tr').show();
+            smartCropSource.parents('tr').show();
+            
+            if (smartCropSource.val() == 'image') {
+                imageWidth.parents('tr').show();
+                imageHeight.parents('tr').show();
+            } else {
+                imageWidth.parents('tr').hide();
+                imageHeight.parents('tr').hide();
+            }
+        } else {
+            smartCropSource.parents('tr').hide();
+            imageWidth.parents('tr').hide();
+            imageHeight.parents('tr').hide();
+
+            if (smartCrop.val() == 'false') {
+                cropMultiply.parents('tr').show();
+            } else {
+                cropMultiply.parents('tr').hide();
+            }
+        }
+    };
+    
+    showHideImageOptions();
+
+    /**
      * Add all the image APIs. Add events everytime the modal is open
      * TODO: refactor out hard-coded unsplash (can wait until we add a second service)
      * TODO: right now this replaces the content pane. It might take some time but look for more native integration

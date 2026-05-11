@@ -444,8 +444,7 @@ if (!class_exists("cmplz_wsc_settings")) {
 					$this->log_user_deletion_error('cmplz_wsc_user_deletion_token_error', 'Token not retrieved');
 				} else {
 					// Make the API request to delete the application
-					$wsc_endpoint = base64_decode(cmplz_wsc_auth::WSC_ENDPOINT);
-					$request = wp_remote_request($wsc_endpoint . '/api/lite/oauth_applications', array(
+					$request = wp_remote_request(cmplz_wsc_auth::WSC_ENDPOINT . '/api/lite/oauth_applications', array(
 						'method' => 'DELETE',
 						'headers' => array(
 							'Content-Type' => 'application/json',
@@ -544,8 +543,7 @@ if (!class_exists("cmplz_wsc_settings")) {
 						continue;
 					}
 
-					$wsc_endpoint = base64_decode(cmplz_wsc_auth::WSC_ENDPOINT);
-					$request = wp_remote_request($wsc_endpoint . '/api/lite/oauth_applications', array(
+					$request = wp_remote_request(cmplz_wsc_auth::WSC_ENDPOINT . '/api/lite/oauth_applications', array(
 						'method' => 'DELETE',
 						'headers' => array(
 							'Content-Type' => 'application/json',
