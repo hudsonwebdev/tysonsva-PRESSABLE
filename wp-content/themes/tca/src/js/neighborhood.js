@@ -2,6 +2,8 @@ jQuery(document).ready(function($){
 
 
 
+	var ACCESS_TOKEN = (window.TCA_MAP && window.TCA_MAP.mapboxToken) || '';
+
 
 
 	const url = window.location.href;
@@ -60,8 +62,7 @@ jQuery(document).ready(function($){
 
         var initialDesktop = [-77.227,38.926];
 		var initialMobile = [-77.227,38.94];
-
-        mapboxgl.accessToken = 'pk.eyJ1IjoidGNhc29mdHdhcmUiLCJhIjoiY2xzdWd6MHVpMTFxajJ2cjA4cnh6cmZ5cCJ9.e9dAUpCID8DqXU5WD0QOxw';
+		mapboxgl.accessToken = (window.TCA_MAP && window.TCA_MAP.mapboxToken) || '';
 		var map = new mapboxgl.Map({
 		container: 'neighborhood-map', // container ID
 		style: 'mapbox://styles/tcasoftware/cm7unqmeq01px01qo3jv83ql2', // style URL

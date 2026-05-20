@@ -128,10 +128,10 @@
         content:'';
         display:block;
         height:500px;
-        width:300px;
+        width:clamp(200px,20vw,300px);
         position:absolute;
         z-index:3000;
-        bottom:-100px;
+        bottom:clamp(-150px,-30%,-300px);
         left:50%;
         transform:translateX(-50%);
         background-size:70%;
@@ -143,6 +143,7 @@
         left:0;
         margin-left:10%;
         transform:none;
+        bottom:clamp(-100px,-30%,-300px);
         }
     }
  

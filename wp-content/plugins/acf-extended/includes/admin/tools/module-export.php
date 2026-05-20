@@ -65,11 +65,14 @@ class acfe_module_export extends ACF_Admin_Tool{
         
         // vars
         $choices = array();
-        $items = $this->module->get_items('db');
-
-        // loop db items
-        foreach($items as $item){
-            $choices[ $item['name'] ] = esc_html($item['label']);
+        $items = $this->module->get_raw_items();
+    
+        if($items){
+            foreach($items as $item){
+                
+                $choices[ $item['name'] ] = esc_html($item['label']);
+                
+            }
         }
         
         ?>
@@ -451,11 +454,11 @@ class acfe_module_export extends ACF_Admin_Tool{
         
         foreach($keys as $name){
       
-            // get db item
-            $db_item = $this->module->get_item($name, 'db');
+            // get item
+            $item = $this->module->get_raw_item($name);
             
-            if($db_item){
-                $data[] = $db_item;
+            if($item){
+                $data[] = $item;
             }
             
         }

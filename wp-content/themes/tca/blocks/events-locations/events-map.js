@@ -4,8 +4,9 @@
 (function () {
 	'use strict';
 
-	var ACCESS_TOKEN =
-		'pk.eyJ1IjoidGNhc29mdHdhcmUiLCJhIjoiY2xzdWd6MHVpMTFxajJ2cjA4cnh6cmZ5cCJ9.e9dAUpCID8DqXU5WD0QOxw';
+	// Mapbox token is injected from PHP (functions.php -> wp_localize_script)
+	// using the value of MAPBOX_ACCESS_TOKEN from the theme's env loader.
+	var ACCESS_TOKEN = (window.TCA_MAP && window.TCA_MAP.mapboxToken) || '';
 	var TRANSITION_MS = 400;
 
 	function parseMarkers(raw) {

@@ -36,7 +36,6 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 	<link rel="manifest" href="/site.webmanifest">
 
-<script type="module" crossorigin src="https://widgets.api-sports.io/3.1.0/widgets.js"></script>
 	<?php wp_head(); ?>
 </head>
 

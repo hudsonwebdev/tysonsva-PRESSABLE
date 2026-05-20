@@ -99,7 +99,7 @@
             },
             "default_value": 3,
             "min": 1,
-            "max": 4,
+            "max": 5,
             "allow_in_bindings": 0,
             "placeholder": "",
             "step": "",
@@ -232,6 +232,27 @@
             "search_placeholder": "",
             "allow_custom": 0,
             "other_choice": 0
+        },
+        {
+            "key": "field_6a072027969fe",
+            "label": "Only Include Future Events",
+            "name": "only_include_future_events",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "If events are included in this list, limit to only upcoming events",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         },
         {
             "key": "field_67eeed5d0fbdf",
@@ -616,11 +637,13 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
     "acfe_autosync": [
         "json"
     ],
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1767191345
+    "modified": 1779020703
 }

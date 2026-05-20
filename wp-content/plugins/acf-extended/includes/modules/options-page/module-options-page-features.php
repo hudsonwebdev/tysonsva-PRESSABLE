@@ -26,26 +26,22 @@ class acfe_module_options_page_features{
      * admin_footer
      */
     function admin_footer(){
-
-        // check permissions
+    
         if(!acf_current_user_can_admin()){
             return;
         }
-
-        // get plugin page
+    
         global $plugin_page;
         if(!$plugin_page){
             return;
         }
-
-        // check options page exists
+    
         $options_page = acf_get_options_page($plugin_page);
         if(!$options_page){
             return;
         }
-
-        // get db item
-        $item = acfe_get_module('options_page')->get_item($options_page['menu_slug'], 'db');
+    
+        $item = acfe_get_module('options_page')->get_raw_item($options_page['menu_slug']);
         if(!$item){
             return;
         }
