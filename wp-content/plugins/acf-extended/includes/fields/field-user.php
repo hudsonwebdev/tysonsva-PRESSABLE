@@ -18,6 +18,43 @@ class acfe_field_user extends acfe_field_extend{
     }
     
     
+    
+    /**
+     * format_front_value
+     *
+     * @param $formatted
+     * @param $unformatted
+     * @param $post_id
+     * @param $field
+     * @param $form
+     *
+     * @return string
+     */
+    function format_front_value($formatted, $unformatted, $post_id, $field, $form){
+        
+        // vars
+        $value = acfe_as_array($unformatted);
+        $array = array();
+        
+        // loop values
+        foreach($value as $user_id){
+            
+            // get user data
+            $user_data = get_userdata($user_id);
+            
+            // validate
+            if($user_data){
+                $array[] = $user_data->user_nicename;
+            }
+            
+        }
+        
+        // merge
+        return implode(', ', $array);
+        
+    }
+    
+    
     /**
      * validate_front_value
      *
@@ -37,7 +74,7 @@ class acfe_field_user extends acfe_field_extend{
         }
         
         // vars
-        $value = acf_get_array($value);
+        $value = acfe_as_array($value);
         
         // loop value
         foreach($value as $user_id){
@@ -82,7 +119,7 @@ class acfe_field_user extends acfe_field_extend{
         
         // role
         if(!empty($field['role'])){
-            $args['role__in'] = acf_get_array($field['role']);
+            $args['role__in'] = acfe_as_array($field['role']);
         }
         
         // filter

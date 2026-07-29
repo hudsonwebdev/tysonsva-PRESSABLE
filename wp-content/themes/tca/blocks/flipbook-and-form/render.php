@@ -57,6 +57,20 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
             <?php 
 
             $access_forms = get_field('access_forms');
+
+           $mailchimp_tags = get_field( 'mailchimp_tags' );
+
+
+
+            $mailchimp_tags = array_map(
+                static fn( $term ) => $term->name,
+                get_field('mailchimp_tags') ?: array()
+            );
+
+
+            $mc_tags = tca_sanitize_mailchimp_tags( $mailchimp_tags );
+
+            
             $form_button_color = get_field('form_button_color')?get_field('form_button_color'):'blue';
 
             $download = false;
@@ -99,8 +113,13 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                         <h2 class="uk-modal-title">Download PDF</h2>
                         <div class="dl-form">
                         <?php
+
+          
                     
-                        $values = array('pdfurl'=>$pdf_file['url']);
+                       $values = array(
+                            'pdfurl'  => $pdf_file['url'],
+                            'mc_tags' => implode( ',', $mc_tags ),
+                        );
                         gravity_form( 7, false, false, false, $values, true, 0, true );
                         ?>
                         </div>
@@ -121,7 +140,10 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                         <?php
                        
                        
-                        $values = array('pdfurl'=>$pdf_file['url']);
+                        $values = array(
+                            'pdfurl'  => $pdf_file['url'],
+                            'mc_tags' => implode( ',', $mc_tags ),
+                        );
                         gravity_form( 13, false, false, false, $values, true, 0, true );
                       ?>
                         </div>

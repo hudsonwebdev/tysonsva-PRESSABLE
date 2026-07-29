@@ -925,10 +925,11 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 		// special join... if we are ordering by user meta, because we need to account for guest bookings stored in bookings meta vs real users in user meta
 		$bookings_table = EM_BOOKINGS_TABLE;
 		if( !empty($args['orderby']) ) {
-			$array_meta_intersect = array_intersect( $args['orderby'], array_keys($accepted_fields['orderby_user_meta']) );
-			$array_data_intersect = array_intersect( $args['orderby'], array_keys($accepted_fields['orderby_user_data']) );
-			$array_booking_meta_intersect = array_intersect( $args['orderby'], array_keys($accepted_fields['orderby_booking_meta']) );
-			if ( in_array( 'user_name', $args['orderby'] ) ) {
+			$orderby = is_array( $args['orderby'] ) ? $args['orderby'] : array_map( 'trim', explode( ',', (string) $args['orderby'] ) );
+				$array_meta_intersect = array_intersect( $orderby, array_keys($accepted_fields['orderby_user_meta']) );
+			$array_data_intersect = array_intersect( $orderby, array_keys($accepted_fields['orderby_user_data']) );
+			$array_booking_meta_intersect = array_intersect( $orderby, array_keys($accepted_fields['orderby_booking_meta']) );
+			if ( in_array( 'user_name', $orderby ) ) {
 				// a nuts order to join by name
 				// here we add a special join where we concat first and last names, because we'll always have a combo of those two even if user_name is saved, but not necessarily the other way around
 				// however, we also need to account for some bookings which may have just used the full 'user_name' when saving, so we add that to the end of the union

@@ -1,5 +1,56 @@
 <?php
 
+/**
+ * Public URL for an event card link.
+ *
+ * Recurring templates (event-recurring) are not publicly queryable in Events Manager,
+ * so link to the next upcoming occurrence in the series instead.
+ *
+ * @param int $eid Event post ID.
+ * @return string
+ */
+function tca_get_event_link( $eid ) {
+	if ( get_post_meta( $eid, 'External URL', true ) ) {
+		return get_post_meta( $eid, 'External URL', true );
+	}
+
+	$post_type = get_post_type( $eid );
+
+	if ( 'event-recurring' === $post_type && class_exists( 'EM_Events' ) ) {
+		$EM_Recurring = em_get_event( $eid, 'post_id' );
+		if ( $EM_Recurring && ! empty( $EM_Recurring->event_id ) ) {
+			$occurrences = EM_Events::get(
+				array(
+					'recurrence' => $EM_Recurring->event_id,
+					'scope'      => 'future',
+					'limit'      => 1,
+				)
+			);
+			if ( ! empty( $occurrences ) ) {
+				$next = reset( $occurrences );
+				if ( is_object( $next ) && method_exists( $next, 'get_permalink' ) ) {
+					$permalink = $next->get_permalink();
+					if ( $permalink ) {
+						return $permalink;
+					}
+				}
+			}
+		}
+	}
+
+	if ( class_exists( 'EM_Event' ) && in_array( $post_type, array( 'event', 'event-recurring' ), true ) ) {
+		$EM_Event = em_get_event( $eid, 'post_id' );
+		if ( $EM_Event && method_exists( $EM_Event, 'get_permalink' ) ) {
+			$permalink = $EM_Event->get_permalink();
+			if ( $permalink ) {
+				return $permalink;
+			}
+		}
+	}
+
+	return get_the_permalink( $eid );
+}
+
 // Function to render events in grid view
 function display_event_featured($eid,$number_of_events, $eventCount) {
 
@@ -31,7 +82,7 @@ function display_event_featured($eid,$number_of_events, $eventCount) {
                                 <div class="card-date"><?php echo get_date_display($eid); ?></div>
                             </div>
                             <div class="card-title">
-                                <h4><a href="<?php echo get_the_permalink($eid); ?>"><?php echo max_title_length( $title ); ?></a></h4>
+                                <h4><a href="<?php echo esc_url( tca_get_event_link( $eid ) ); ?>"><?php echo max_title_length( $title ); ?></a></h4>
                             </div>
                         </div>
                     </div>
@@ -117,7 +168,7 @@ function draw_event_card($eid,$columns=1) {
 
         }else{
 
-        $url = get_the_permalink($eid);
+        $url = tca_get_event_link( $eid );
         $target = "_self";
 
         }

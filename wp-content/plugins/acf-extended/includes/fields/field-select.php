@@ -33,11 +33,10 @@ class acfe_field_select extends acfe_field_extend{
         // allow custom
         acf_render_field_setting($field, array(
             'label'             => __('Allow Custom','acf'),
-            'instructions'      => '',
+            'instructions'      => __("Allow 'custom' values to be added", 'acf'),
             'name'              => 'allow_custom',
             'type'              => 'true_false',
             'ui'                => 1,
-            'message'           => __("Allow 'custom' values to be added", 'acf'),
             'conditional_logic' => array(
                 array(
                     array(
@@ -158,8 +157,8 @@ class acfe_field_select extends acfe_field_extend{
         // allow custom
         if(!empty($field['allow_custom'])){
         
-            $value = acf_maybe_get($field, 'value');
-            $value = acf_get_array($value);
+            $value = acfe_get($field, 'value');
+            $value = acfe_as_array($value);
         
             foreach($value as $v){
             
@@ -210,6 +209,34 @@ class acfe_field_select extends acfe_field_extend{
     
     
     /**
+     * format_front_value
+     *
+     * @param $formatted
+     * @param $unformatted
+     * @param $post_id
+     * @param $field
+     * @param $form
+     *
+     * @return string
+     */
+    function format_front_value($formatted, $unformatted, $post_id, $field, $form){
+        
+        // vars
+        $value = acfe_as_array($unformatted);
+        $array = array();
+        
+        // loop values
+        foreach($value as $v){
+            $array[] = acfe_get($field['choices'], $v, $v);
+        }
+        
+        // merge
+        return implode(', ', $array);
+        
+    }
+    
+    
+    /**
      * validate_front_value
      *
      * @param $valid
@@ -233,8 +260,8 @@ class acfe_field_select extends acfe_field_extend{
         }
         
         // vars
-        $value = acf_get_array($value);
-        $choices = acf_get_array($field['choices']);
+        $value = acfe_as_array($value);
+        $choices = acfe_as_array($field['choices']);
         
         // handle ajax choices
         if(!empty($field['ajax'])){
@@ -254,8 +281,8 @@ class acfe_field_select extends acfe_field_extend{
                 
                 // get results
                 // expecting array('results' => array( array('id' => '', 'text' => '') ))
-                $results = acf_maybe_get($query, 'results');
-                $results = acf_get_array($results);
+                $results = acfe_get($query, 'results');
+                $results = acfe_as_array($results);
                 
                 // no results
                 if(empty($results)){

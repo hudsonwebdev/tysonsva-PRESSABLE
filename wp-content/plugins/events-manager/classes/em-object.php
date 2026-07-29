@@ -419,8 +419,14 @@ class EM_Object {
 		if ( $args['timezone_scope'] ) {
 			$timezone_scope = in_array( $args['timezone_scope'], [1,'1',true], true )  ? em_get_option( 'timezone_string', $args['event_archetype'] ) : $args['timezone_scope'];
 			$cast = 'DATETIME';
-			$event_start_col = 'event_start';
-			$event_end_col = 'event_end';
+			if ( !empty( $args['timeslots'] ) ) {
+				// Timeslot rows are joined via the `ets` alias in EM_Events::get(). Scope on the timeslot's own datetime so cross-midnight rows from a neighbouring local day aren't included just because their parent event row happens to overlap the requested local date. Falls back to the parent event's datetime for rows the LEFT JOIN didn't match.
+				$event_start_col = 'COALESCE(ets.timeslot_start, ' . EM_EVENTS_TABLE . '.event_start)';
+				$event_end_col   = 'COALESCE(ets.timeslot_end, '   . EM_EVENTS_TABLE . '.event_end)';
+			} else {
+				$event_start_col = 'event_start';
+				$event_end_col = 'event_end';
+			}
 		}
 		if ( is_array($scope) ) {
 			if ( $timezone_scope ) {
@@ -1893,6 +1899,16 @@ class EM_Object {
 	function generate_uuid(){
 		return str_replace('-', '', wp_generate_uuid4());
 	}
+
+	/**
+	 * maybe_unserialize() variant that never instantiates objects (allowed_classes => false).
+	 */
+	public static function maybe_unserialize( $original ){
+		if ( is_serialized( $original ) ) {
+			return @unserialize( trim( $original ), array( 'allowed_classes' => false ) );
+		}
+		return $original;
+	}
 	
 	/**
 	 * Process meta stored in a meta table. Meta stored without a preceding _ are considered as-is values and added as a key/value pair to returned meta array, otherwise they are considered as arrays and parsed accordingly, so that each array item is stored as a separate row in the database and rebuilt when loaded.
@@ -1908,7 +1924,7 @@ class EM_Object {
 	function process_meta( $raw_meta ){
 		$processed_meta = array();
 		foreach( $raw_meta as $meta ){
-			$meta_value = maybe_unserialize($meta['meta_value']);
+			$meta_value = self::maybe_unserialize($meta['meta_value']);
 			$meta_key = $meta['meta_key'];
 			if( preg_match('/^_([a-zA-Z\-0-9 _]+)\|([^\|]+)?$/', $meta_key, $match) || preg_match('/^_([a-zA-Z\-0-9]+)_(.+)$/', $meta_key, $match) ){
 				$key = $match[1];

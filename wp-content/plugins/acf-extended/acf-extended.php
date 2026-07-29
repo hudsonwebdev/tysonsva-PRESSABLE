@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Advanced Custom Fields: Extended
  * Description: All-in-one enhancement suite that improves WordPress & Advanced Custom Fields.
- * Version:     0.9.2.3
+ * Version:     0.9.2.6
  * Author:      ACF Extended
  * Plugin URI:  https://www.acf-extended.com
  * Author URI:  https://www.acf-extended.com
@@ -19,7 +19,7 @@ if(!class_exists('ACFE')):
 class ACFE{
     
     // vars
-    var $version = '0.9.2.3';
+    var $version = '0.9.2.6';
     
     /**
      * construct
@@ -53,6 +53,9 @@ class ACFE{
         acfe_include('includes/acfe-file-functions.php');
         acfe_include('includes/acfe-form-functions.php');
         acfe_include('includes/acfe-helper-functions.php');
+        acfe_include('includes/acfe-helper-array-functions.php');
+        acfe_include('includes/acfe-helper-multi-functions.php');
+        acfe_include('includes/acfe-helper-string-functions.php');
         acfe_include('includes/acfe-meta-functions.php');
         acfe_include('includes/acfe-post-functions.php');
         acfe_include('includes/acfe-screen-functions.php');
@@ -79,7 +82,7 @@ class ACFE{
     function load(){
         
         // bail early
-        if(!acfe_has_acf()){
+        if(!acfe_is_acf()){
             return;
         }
         
@@ -129,7 +132,8 @@ class ACFE{
             'modules/settings_ui'               => true,
             'modules/term_ui'                   => true,
             'modules/user_ui'                   => true,
-            
+            'modules/wp7_ui'                    => true,
+
             // fields
             'field/recaptcha/site_key'          => '',
             'field/recaptcha/secret_key'        => '',
@@ -138,7 +142,8 @@ class ACFE{
             'field/recaptcha/v2/size'           => '',
             'field/recaptcha/v3/hide_logo'      => '',
             'compatibility/legacy_title_toggle' => false,
-            
+            'compatibility/legacy_field_group'  => false,
+
         ));
     
         // load textdomain
@@ -152,11 +157,12 @@ class ACFE{
         add_action('acf/include_admin_tools',   array($this, 'include_admin_tools_late'), 20);
         
         // compatibility
-        acfe_include('includes/compatibility-acf-6.0.php');
-        acfe_include('includes/compatibility-acf-6.4.php');
+        acfe_include('includes/compatibility-acf-5.8.php');
+        acfe_include('includes/compatibility-acf-5.9.php');
         acfe_include('includes/compatibility-acf-6.5.php');
         
         // admin
+        acfe_include('includes/admin/admin.php');
         acfe_include('includes/admin/menu.php');
         acfe_include('includes/admin/plugins.php');
         acfe_include('includes/admin/settings.php');
@@ -166,6 +172,7 @@ class ACFE{
         acfe_include('includes/field-extend.php');
         acfe_include('includes/local-meta.php');
         acfe_include('includes/multilang.php');
+        acfe_include('includes/revisions.php');
         acfe_include('includes/settings.php');
         acfe_include('includes/template-tags.php');
         acfe_include('includes/upgrades.php');
@@ -197,7 +204,6 @@ class ACFE{
         acfe_include('includes/modules/form/module-form-compatibility.php');
         acfe_include('includes/modules/form/module-form-deprecated.php');
         acfe_include('includes/modules/form/module-form-fields.php');
-        acfe_include('includes/modules/form/module-form-format.php');
         acfe_include('includes/modules/form/module-form-front.php');
         acfe_include('includes/modules/form/module-form-front-hooks.php');
         acfe_include('includes/modules/form/module-form-front-render.php');
@@ -247,18 +253,22 @@ class ACFE{
      */
     function init(){
         
-        // action
+        // action:init
         do_action('acfe/init');
         
         // core
         acfe_include('includes/assets.php');
         acfe_include('includes/hooks.php');
-        
+        acfe_include('includes/media.php');
+        acfe_include('includes/screen.php');
+
         // fields
         acfe_include('includes/fields/field-checkbox.php');
         acfe_include('includes/fields/field-clone.php');
         acfe_include('includes/fields/field-file.php');
         acfe_include('includes/fields/field-flexible-content.php');
+        acfe_include('includes/fields/field-gallery.php');
+        acfe_include('includes/fields/field-google-map.php');
         acfe_include('includes/fields/field-group.php');
         acfe_include('includes/fields/field-image.php');
         acfe_include('includes/fields/field-relationship.php');
@@ -283,21 +293,29 @@ class ACFE{
         // field groups
         acfe_include('includes/field-groups/field-group.php');
         acfe_include('includes/field-groups/field-group-advanced.php');
+        acfe_include('includes/field-groups/field-group-autosync.php');
         acfe_include('includes/field-groups/field-group-category.php');
         acfe_include('includes/field-groups/field-group-display-title.php');
+        acfe_include('includes/field-groups/field-group-extra.php');
         acfe_include('includes/field-groups/field-group-hide-on-screen.php');
         acfe_include('includes/field-groups/field-group-instruction-placement.php');
-        acfe_include('includes/field-groups/field-group-meta.php');
         acfe_include('includes/field-groups/field-group-permissions.php');
         acfe_include('includes/field-groups/field-groups.php');
         acfe_include('includes/field-groups/field-groups-local.php');
         acfe_include('includes/field-groups/field-types.php');
         
+        // forms
+        acfe_include('includes/forms/form-post.php');
+        acfe_include('includes/forms/form-post-type-archive.php');
+        acfe_include('includes/forms/form-post-type-list.php');
+        acfe_include('includes/forms/form-taxonomy-list.php');
+
         // locations
-        acfe_include('includes/locations/post-type-all.php');
-        acfe_include('includes/locations/post-type-archive.php');
-        acfe_include('includes/locations/post-type-list.php');
-        acfe_include('includes/locations/taxonomy-list.php');
+        acfe_include('includes/locations/location.php');
+        acfe_include('includes/locations/location-post-type-all.php');
+        acfe_include('includes/locations/location-post-type-archive.php');
+        acfe_include('includes/locations/location-post-type-list.php');
+        acfe_include('includes/locations/location-taxonomy-list.php');
         
         // modules
         acfe_include('includes/modules/author.php');
@@ -314,6 +332,9 @@ class ACFE{
         acfe_include('includes/modules/performance/module-performance-ultra.php');
         acfe_include('includes/modules/performance/module-performance-ultra-fields.php');
         acfe_include('includes/modules/performance/module-performance-ultra-revisions.php');
+
+        // action:ready
+        do_action('acfe/ready');
         
     }
     
@@ -374,7 +395,7 @@ class ACFE{
     /**
      * include_admin_tools_late
      *
-     * acf/include_admin_tools:99
+     * acf/include_admin_tools:20
      */
     function include_admin_tools_late(){
         

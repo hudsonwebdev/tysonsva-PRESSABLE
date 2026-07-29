@@ -61,7 +61,7 @@ class Settings {
 
 			$enabledPostType     = get_option( 'fbv_enabled_posttype', '' );
 			$wpmlActiveLanguages = apply_filters( 'wpml_active_languages', null, array( 'skip_missing' => 0 ) );
-
+	
 			wp_localize_script(
 				$script_handle,
 				'fbv_admin',
@@ -71,7 +71,7 @@ class Settings {
 					'rest_api_key'       => get_option( 'fbv_rest_api_key', '' ),
 					'wpml'               => array(
 						'display_sync' => ! empty( $wpmlActiveLanguages ),
-					),
+					)
 				)
 			);
 		}
@@ -137,6 +137,15 @@ class Settings {
 
 	public function savePostTypeSettings() {
 		check_ajax_referer( 'fbv_nonce', 'nonce', true );
+		
+		// Check if user has permission to manage options
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				array( 'mess' => __( 'You do not have permission to perform this action.', 'filebird' ) ),
+				403
+			);
+		}
+		
 		$fbv_enabled_posttype = '';
 		if ( isset( $_POST['post_types'] ) ) {
 			$post_types           = Helpers::sanitize_array( $_POST['post_types'] );

@@ -36,6 +36,7 @@ class EM_Event_Post_Admin{
 		if( empty($EM_Event) && !empty($post) && Archetypes::is_event($post) ){
 			$EM_Event = em_get_event($post->ID, 'post_id');
 		}
+		// Canvas-mode hiding of the mirrored classic postboxes is handled centrally and registry-driven by \EM\Editor\Editor::print_canvas_hide_css() (covers events + locations).
 	}
 
 	public static function admin_body_class($classes){
@@ -417,6 +418,7 @@ class EM_Event_Post_Admin{
 	}
 }
 add_action('admin_init',array('EM_Event_Post_Admin','init'));
+add_action('rest_api_init',array('EM_Event_Post_Admin','init')); //also register save/edit hooks for REST-driven saves (e.g. Gutenberg)
 
 /*
  * Recurring Events
@@ -577,3 +579,4 @@ class EM_Event_Recurring_Post_Admin{
 	}
 }
 add_action('admin_init',array('EM_Event_Recurring_Post_Admin','init'));
+add_action('rest_api_init',array('EM_Event_Recurring_Post_Admin','init')); //also register save/edit hooks for REST-driven saves (e.g. Gutenberg)

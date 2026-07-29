@@ -39,7 +39,26 @@ class Main {
 	private static function sort_natural_desc( $a, $b ) {
 		return strnatcasecmp( $a->name, $b->name ) * -1;
 	}
+    private function getMaxOrderOfPostType( $post_type, $parent = 0 ) {
+        $taxonomy = self::getTaxonomyName( $post_type );
+        global $wpdb;
 
+        $order = $wpdb->get_var(
+            $wpdb->prepare(
+            "SELECT MAX(CONVERT(tm1.meta_value, UNSIGNED)) FROM {$wpdb->prefix}term_taxonomy as tt
+            INNER JOIN {$wpdb->prefix}termmeta as tm ON tt.term_id = tm.term_id AND tm.meta_key = %s AND tm.meta_value = %d
+            INNER JOIN {$wpdb->prefix}termmeta as tm1 ON tm1.term_id = tt.term_id AND tm1.meta_key = %s
+            WHERE tt.taxonomy = %s AND tt.parent = %d
+        ",
+            self::AUTHOR_KEY,
+            apply_filters( 'fbv_folder_created_by', 0 ),
+            self::ORDER_META_KEY,
+            $taxonomy,
+            $parent
+        )
+        );
+        return $order;
+    }
     public function createFolder( $folder_name, $post_type, $parent = 0 ) {
         $taxonomy = self::getTaxonomyName( $post_type );
 
@@ -57,22 +76,7 @@ class Main {
                 return $res->get_error_data();
             }
         } else {
-            global $wpdb;
-
-            $order = $wpdb->get_var(
-                $wpdb->prepare(
-                "SELECT MAX(CONVERT(tm1.meta_value, UNSIGNED)) FROM {$wpdb->prefix}term_taxonomy as tt
-                INNER JOIN {$wpdb->prefix}termmeta as tm ON tt.term_id = tm.term_id AND tm.meta_key = %s AND tm.meta_value = %d
-                INNER JOIN {$wpdb->prefix}termmeta as tm1 ON tm1.term_id = tt.term_id AND tm1.meta_key = %s
-                WHERE tt.taxonomy = %s AND tt.parent = %d
-            ",
-                self::AUTHOR_KEY,
-                apply_filters( 'fbv_folder_created_by', 0 ),
-                self::ORDER_META_KEY,
-                $taxonomy,
-                $parent
-            )
-            );
+            $order = $this->getMaxOrderOfPostType( $post_type, $parent );
 
             update_term_meta( $res['term_id'], self::ORDER_META_KEY, is_null( $order ) ? 0 : ( intval( $order ) + 1 ) );
             update_term_meta( $res['term_id'], self::AUTHOR_KEY, apply_filters( 'fbv_folder_created_by', 0 ) );
@@ -167,6 +171,77 @@ class Main {
 			)
         );
         return count( $terms ) > 0;
-    }
+    }   
 
+    public function duplicateFolder( $folder_id, $post_type, $lang ) {
+        //delete all terms
+        // $all = get_terms(
+        //     array(
+        //         'taxonomy' => self::getTaxonomyName( $post_type ),
+        //         'hide_empty' => false,
+        //     )
+        // );
+        // foreach ( $all as $term ) {
+        //     wp_delete_term( $term->term_id, self::getTaxonomyName( $post_type ) );
+        // }
+        // exit('Deleted');
+        
+        $folder = get_term( $folder_id, self::getTaxonomyName( $post_type ) );
+        if( is_wp_error( $folder ) || !$folder ) {
+            return false;
+        }
+        $new_folder_name = substr($folder->name, 0, 190) . ' ' . esc_html__( '(Copy)', 'filebird' );
+        $new_folder_id = $this->createFolderWithUniqueName( $new_folder_name, $post_type, $folder->parent );
+        $i = 1;
+        while( ! is_numeric( $new_folder_id ) ) {
+            $new_folder_name = substr($folder->name, 0, 190) . ' ' . esc_html__( '(Copy)', 'filebird' ) . ' ' . $i;
+            $new_folder_id = $this->createFolderWithUniqueName( $new_folder_name, $post_type, $folder->parent );
+            $i++;
+        }
+
+        $order = $this->getMaxOrderOfPostType( $post_type, $folder->parent );
+        update_term_meta( $new_folder_id, self::AUTHOR_KEY, get_term_meta( $folder_id, self::AUTHOR_KEY, true ) );
+        update_term_meta( $new_folder_id, self::ORDER_META_KEY, is_null( $order ) ? 0 : ( intval( $order ) + 1 ) );
+        //duplicate children
+        $this->duplicateChildren( $folder_id, $new_folder_id, $post_type, $lang );
+
+        return $new_folder_id;
+    }
+    public function duplicateChildren( $folder_id, $new_parent_id, $post_type, $lang ) {
+        $children = get_terms(
+            array(
+                'taxonomy' => self::getTaxonomyName( $post_type ),
+                'parent'   => $folder_id,
+                'hide_empty' => false,
+            )
+        );
+        if( ! is_wp_error( $children ) ) {
+            foreach ( $children as $child ) {
+                $new_folder_id = $this->createFolderWithUniqueName( $child->name, $post_type, $new_parent_id );
+                //update author
+                update_term_meta( $new_folder_id, self::AUTHOR_KEY, get_term_meta( $child->term_id, self::AUTHOR_KEY, true ) );
+                //update order
+                $order = $this->getMaxOrderOfPostType( $post_type, $new_parent_id );
+                update_term_meta( $new_folder_id, self::ORDER_META_KEY, is_null( $order ) ? 0 : ( intval( $order ) + 1 ) );
+
+                $this->duplicateChildren( $child->term_id, $new_folder_id, $post_type, $lang );
+            }
+        }
+    }
+    private function createFolderWithUniqueName( $folder_name, $post_type, $parent ) {
+        $taxonomy = self::getTaxonomyName( $post_type );
+
+        $res = wp_insert_term(
+            $folder_name,
+            $taxonomy,
+            array(
+				'parent' => $parent,
+				'slug'   => sanitize_title( $folder_name ) . '-' . apply_filters( 'fbv_folder_created_by', 0 ),
+			)
+        );
+        if( is_wp_error( $res ) ) {
+            return $res;
+        }
+        return $res['term_id'];
+    }
 }

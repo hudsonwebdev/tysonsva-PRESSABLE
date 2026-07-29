@@ -54,13 +54,33 @@ if ($flickr_url):
 
             // Check if there are any photos in the album
             if (!empty($photos)):
-                // Limit to the first 10 images
-                $photos = array_slice($photos, 0, 100);
+                if ( get_field( 'flickr_newest_first' ) ) {
+                    $photos = array_reverse( $photos );
+                }
+                $photos = array_slice( $photos, 0, 500 );
+
+                wp_enqueue_script(
+                    'tca-flickr-lazy',
+                    get_template_directory_uri() . '/blocks/block-flickr/flickr-lazy.js',
+                    array(),
+                    defined( '_S_VERSION' ) ? _S_VERSION : null,
+                    true
+                );
 
                 // Display either as slider or grid based on the user's choice
                 if ($display_choice === 'slider') {
                     include 'flickr-slider.php'; // Include the slider layout
                 } else {
+                    $flickr_grid_columns = 4;
+                    $flickr_grid_rows    = 2;
+                    $cols_raw            = get_field('flickr_grid_columns');
+                    $rows_raw            = get_field('flickr_grid_rows');
+                    if (is_numeric($cols_raw)) {
+                        $flickr_grid_columns = max(2, min(6, (int) $cols_raw));
+                    }
+                    if (is_numeric($rows_raw)) {
+                        $flickr_grid_rows = max(2, min(4, (int) $rows_raw));
+                    }
                     include 'flickr-grid.php'; // Include the grid layout
                 }
 

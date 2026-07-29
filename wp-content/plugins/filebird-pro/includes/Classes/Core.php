@@ -34,6 +34,9 @@ class Core {
         add_filter( 'media_library_infinite_scrolling', '__return_true' );
 		add_filter( 'ajax_query_attachments_args', array( $this, 'ajaxQueryAttachmentsArgs' ), 20 );
 		add_filter( 'mla_media_modal_query_final_terms', array( $this, 'ajaxQueryAttachmentsArgs' ), 20 );
+
+		add_filter( 'wp_prepare_attachment_for_js', array( $this, 'wpPrepareAttachmentForJs' ), 10, 3 );
+
 		add_filter( 'restrict_manage_posts', array( $this, 'restrictManagePosts' ) );
 		add_filter( 'posts_clauses', array( $this, 'postsClauses' ), 10, 2 );
 		add_filter( 'attachment_fields_to_save', array( $this, 'attachment_fields_to_save' ), 10, 2 );
@@ -62,9 +65,15 @@ class Core {
 			if ( $is_converted !== '1' ) {
 				if ( ConvertController::countOldFolders() > 0 && ! isset( $_GET['autorun'] ) ) {
 					add_filter( 'fbv_update_database_notice', '__return_true' );
+					add_filter( 'fbv_data', array( $this, 'fbv_data_update_database_notice' ) );
 				}
 			}
 		}
+	}
+
+	public function fbv_data_update_database_notice( $data ) {
+		$data['update_database_notice'] = true;
+		return $data;
 	}
 
 	public function update_plugin_dependencies_slug( $slug ) {
@@ -123,6 +132,14 @@ class Core {
 
     public function ajax_first_folder_notice() {
 		check_ajax_referer( 'fbv_nonce', 'nonce', true );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				array( 'mess' => __( 'You do not have permission to perform this action.', 'filebird' ) ),
+				403
+			);
+		}
+		
 		update_option( 'fbv_first_folder_notice', time() + 30 * 60 * 60 * 24 ); //After 3 months show
 		wp_send_json_success();
 	}
@@ -216,7 +233,21 @@ class Core {
 			} elseif ( FolderModel::UN_CATEGORIZED === $fb_folder ) {
 				$clauses = FolderModel::getRelationsWithFolderUser( $clauses );
 			} else {
-				$clauses['join']  .= $wpdb->prepare( " LEFT JOIN {$wpdb->prefix}fbv_attachment_folder AS fbva ON fbva.attachment_id = {$wpdb->posts}.ID AND fbva.folder_id = %d ", $fb_folder );
+				$include_subfolders = apply_filters( 'fbv_query_include_subfolders', false, $fb_folder );
+
+				if ($include_subfolders) {
+					$descendant_ids = FolderModel::getAllDescendantIds($fb_folder);
+					$all_folder_ids = array_merge(array($fb_folder), array_map('intval', $descendant_ids));
+					$placeholders = implode(', ', array_fill(0, count($all_folder_ids), '%d'));
+
+					$clauses['join'] .= $wpdb->prepare(
+						" LEFT JOIN {$wpdb->prefix}fbv_attachment_folder AS fbva ON fbva.attachment_id = {$wpdb->posts}.ID AND fbva.folder_id IN ({$placeholders}) ",
+						...$all_folder_ids
+					);
+				} else {
+					$clauses['join'] .= $wpdb->prepare(" LEFT JOIN {$wpdb->prefix}fbv_attachment_folder AS fbva ON fbva.attachment_id = {$wpdb->posts}.ID AND fbva.folder_id = %d ", $fb_folder);
+				}
+
 				$clauses['where'] .= ' AND fbva.folder_id IS NOT NULL';
 			}
 		}
@@ -264,6 +295,12 @@ class Core {
 			$query['fbv'] = ( new FolderStateManager( $query, $this->userSettingModel ) )->getState( $fbv );
 		}
 		return $query;
+	}
+
+	public function wpPrepareAttachmentForJs( $response, $attachment, $meta ) {
+		$folders = FolderModel::getFolderFromPostId( $attachment->ID );
+		$response['fbv'] = count( $folders ) > 0 ? (int)$folders[0]->folder_id : 0;
+		return $response;
 	}
 
     public function attachment_fields_to_edit( $form_fields, $post ) {
@@ -342,6 +379,13 @@ class Core {
 	public function users_have_additional_content( $users_have_content, $userids ) {
 		global $wpdb;
 		if ( $userids && ! $users_have_content ) {
+			$userids = array_map( 'intval', (array) $userids );
+			$userids = array_filter( $userids, function( $id ) {
+				return $id !== 0;
+			} );
+			if ( empty( $userids ) ) {
+				return $users_have_content;
+			}
 			if ( $wpdb->get_var( "SELECT id FROM {$wpdb->prefix}fbv WHERE created_by IN( " . implode( ',', $userids ) . ' ) LIMIT 1' ) ) {
 				$users_have_content = true;
 			}

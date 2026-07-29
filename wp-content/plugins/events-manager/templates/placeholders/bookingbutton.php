@@ -6,7 +6,6 @@
  * $EM_Event - EM_Event object 
  */
 $notice_full = em_get_option('dbem_booking_button_msg_full');
-$notice_full = em_get_option('dbem_booking_button_msg_event_cancelled');
 $button_text = em_get_option('dbem_booking_button_msg_book');
 $button_already_booked = em_get_option('dbem_booking_button_msg_already_booked');
 $button_closed = em_get_option('dbem_booking_button_msg_closed');

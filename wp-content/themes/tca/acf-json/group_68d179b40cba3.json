@@ -68,6 +68,87 @@
             "save_other_choice": 0
         },
         {
+            "key": "field_68d183baa3808",
+            "label": "Newest Photos First",
+            "name": "flickr_newest_first",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Reverse album order so the most recently added photos appear first.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_68d183baa3806",
+            "label": "Grid Columns",
+            "name": "flickr_grid_columns",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Number of photo columns per grid page (2–6).",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68d183baa3805",
+                        "operator": "==",
+                        "value": "grid"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 4,
+            "min": 2,
+            "max": 6,
+            "step": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": "columns"
+        },
+        {
+            "key": "field_68d183baa3807",
+            "label": "Grid Rows",
+            "name": "flickr_grid_rows",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Number of photo rows per grid page (2–4). Extra photos appear on additional pages.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68d183baa3805",
+                        "operator": "==",
+                        "value": "grid"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 2,
+            "min": 2,
+            "max": 4,
+            "step": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": "rows"
+        },
+        {
             "key": "field_68d18474b8cd3",
             "label": "Container",
             "name": "",
@@ -183,5 +264,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1758561624
+    "modified": 1782422400
 }

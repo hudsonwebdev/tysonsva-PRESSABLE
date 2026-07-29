@@ -19,6 +19,34 @@ class acfe_field_radio extends acfe_field_extend{
     
     
     /**
+     * format_front_value
+     *
+     * @param $formatted
+     * @param $unformatted
+     * @param $post_id
+     * @param $field
+     * @param $form
+     *
+     * @return string
+     */
+    function format_front_value($formatted, $unformatted, $post_id, $field, $form){
+        
+        // vars
+        $value = acfe_as_array($unformatted);
+        $array = array();
+        
+        // loop values
+        foreach($value as $v){
+            $array[] = acfe_get($field['choices'], $v, $v);
+        }
+        
+        // merge
+        return implode(', ', $array);
+        
+    }
+    
+    
+    /**
      * validate_front_value
      *
      * @param $valid
@@ -42,8 +70,8 @@ class acfe_field_radio extends acfe_field_extend{
         }
         
         // vars
-        $value = acf_get_array($value);
-        $choices = acf_get_array($field['choices']);
+        $value = acfe_as_array($value);
+        $choices = acfe_as_array($field['choices']);
         
         // empty choices
         if(empty($choices)){

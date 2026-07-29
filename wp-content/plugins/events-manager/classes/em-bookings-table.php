@@ -398,18 +398,21 @@ class EM_Bookings_Table extends EM\List_Table {
 			$EM_Bookings_Table = new EM_Bookings_Table();
 		}
 		if( !empty($EM_Bookings_Table) ) {
-			// are we dealing with a booking, ticket or attendee?
+			// Re-check management rights against the object actually being rendered: row_id/booking_id are request-supplied and the 'refresh' action reaches here without the capability gate applied to the mutating verbs above.
 			if ( $_REQUEST['view'] === 'attendees' ) {
 				$EM_Ticket_Booking = new EM_Ticket_Booking( $_REQUEST['row_id'] );
+				if ( ! $EM_Ticket_Booking->can_manage( 'manage_bookings', 'manage_others_bookings' ) ) return;
 				$EM_Ticket_Booking->feedback_message = $EM_Booking->feedback_message;
 				$EM_Bookings_Table->single_row( $EM_Ticket_Booking );
 			} elseif ( $_REQUEST['view'] === 'tickets' ) {
 				$row_id = explode( '-', $_REQUEST['row_id'] );
 				$data = array( 'booking_id' => $row_id[0], 'ticket_id' => $row_id[1] );
+				if ( ! em_get_booking( $row_id[0] )->can_manage( 'manage_bookings', 'manage_others_bookings' ) ) return;
 				$EM_Ticket_Bookings = new EM_Ticket_Bookings( $data );
 				$EM_Ticket_Bookings->feedback_message = $EM_Booking->feedback_message;
 				$EM_Bookings_Table->single_row( $EM_Ticket_Bookings );
 			} else {
+				if ( ! $EM_Booking->can_manage( 'manage_bookings', 'manage_others_bookings' ) ) return;
 				$EM_Bookings_Table->single_row( $EM_Booking );
 			}
 		}
@@ -499,7 +502,7 @@ class EM_Bookings_Table extends EM\List_Table {
 		}
 		// add bookings scope args e.g. if a person's bookings
 		if( $EM_Person !== false ){
-			$args = array( 'person' => $EM_Person->ID, 'scope' => $this->filters['scope'], 'owner' => false );
+			$args = array( 'person' => $EM_Person->ID, 'scope' => $this->filters['scope'], 'owner' => !current_user_can('manage_others_bookings') ? get_current_user_id() : false );
 		}elseif( $EM_Ticket !== false ){
 			//searching bookings with a specific ticket
 			$args = array( 'ticket_id' => $EM_Ticket->ticket_id );

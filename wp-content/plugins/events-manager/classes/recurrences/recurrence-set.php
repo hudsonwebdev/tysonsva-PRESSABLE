@@ -735,7 +735,14 @@ class Recurrence_Set extends EM_Object {
 		// order
 		$this->recurrence_order = ( !empty($_DATA['recurrence_order']) && is_numeric($_DATA['recurrence_order']) ) ? (int) $_DATA['recurrence_order']:0;
 		// duration in days of each event
-		$this->recurrence_duration = ( !empty($_DATA['recurrence_duration']) && is_numeric($_DATA['recurrence_duration']) && $this->recurrence_type === 'include' ) ? (int) $_DATA['recurrence_duration']:null;
+		$old_duration = $this->recurrence_duration;
+		$new_duration = ( !empty($_DATA['recurrence_duration']) && is_numeric($_DATA['recurrence_duration']) && $this->recurrence_type === 'include' ) ? (int) $_DATA['recurrence_duration']:null;
+		$this->recurrence_duration = $new_duration;
+		// On an existing recurrence set, a duration change re-derives each parent event's end date in update_recurrence() but does NOT trigger timeslot regeneration on its own — the timeslot save path is gated on reschedule['times']/allow_edit, neither of which the duration field flips. Force a times-reschedule when the value actually changed so the existing update_recurrence() path rewrites stale timeslot_end values that were anchored to the previous duration.
+		if ( $this->recurrence_set_id && (int) $old_duration !== (int) $new_duration ) {
+			$this->reschedule['times'] = true;
+			$this->get_timeranges()->allow_edit = true;
+		}
 		// Sort out event times
 		if ( $this->has_reschedule('times') ) {
 			if ( !empty($_DATA['override_time']) || $this->is_primary() ) {
@@ -1939,7 +1946,13 @@ class Recurrence_Set extends EM_Object {
 			'start_date' => $this->start_date,
 			'end_date' => $this->end_date,
 			'start_time' => $this->start_time,
-			'end_time' => $this->end_time
+			'end_time' => $this->end_time,
+			// `all_day` and `timezone` apply to EVERY set, excludes included: timezone interprets the dates, and all_day distinguishes a whole-day skip from a timed one (recurrence_all_day=1 => whole day; otherwise start_time/end_time bound a timed window). `status` and `timeranges` are include-only — an exclude has no active status and (in the read shape) carries its single time window via start_time/end_time/all_day rather than a timeslot list. `dates` only carries values for freq=on.
+			'all_day' => (bool) $this->all_day,
+			'status' => $this->type === 'exclude' ? null : $this->status,
+			'timezone' => $this->timezone,
+			'dates' => $this->freq === 'on' ? array_values( (array) $this->dates ) : null,
+			'timeranges' => $this->type === 'exclude' ? array() : $this->get_timeranges()->to_api()['timeranges'],
 		];
 
 		return apply_filters( 'em_recurrence_set_to_api', $api, $this );

@@ -1,53 +1,17 @@
-Apr 19, 2025 - Version 6.4.8
-- Added: FileBird Gallery Element for WPBakery Page Builder
-- Added: Support Import/Export Custom Post Types
+May 22, 2026 - Version 6.5.4
+- Fixed: UI issues in WordPress 7.0
+- Fixed: Translation strings in several languages
+- Improved: UI elements in the Tools screen
 
-Mar 19, 2025 – Version 6.4.7
-- Added: AJAX Breadcrumbs
-- Fixed: Breadcrumb and Nested Folders issue when User Mode is on
-- Updated: Removed shop_order from the Post Type feature.
-- Improved: Code for Performance and maintainability
-
-Feb 12, 2025 - Version 6.4.6
-- Added: Display caption for lightbox
-- Improved: Request handling (conflict with JobBoardWP plugin)
-- Fixed: Security (reported by researcher Revan Arifio)
-
-Jan 17, 2025 - Version 6.4.3
-- Added: Backup feature
-
-Oct 25, 2024 - Version 6.4.2
-- Improved: UI
-- Fixed: Block FileBirdGallery not show
-
-Oct 16, 2024 - Version 6.4.1
-- Fixed: Some IU
-- Fixed: Settings issue
-
-Oct 9, 2024 - Version 6.4
-- Added: Auto Select Previous Folder in Upload New Media Page
-- Added: Change some user settings to global settings, not belong to each user anymore (Folder counter, Theme, Breadcrumb)
-- Updated: PL language
-- Added: Some new filter hooks
-
-(fbv_user_default_folder: This filter is used to set the default folder for a user. Developers can use this filter to specify which folder should be loaded by default when the user accesses FileBird plugin.
-
-fbv_user_default_sort_files: This filter allows you to set the default sorting method for files within a folder. Developers can customize how files are sorted when the user first accesses a folder.
-
-fbv_user_default_sort_folders: This filter allows developers to define the default sorting method for folders when the user first accesses the plugin.
-
-fbv_user_folder_startup: This filter lets developers define the initial folder or state that should be loaded when FileBird plugin starts up for the user.)
-
-- Fixed: Laggy text selection when using with Divi Builder
-- Fixed: Sort folders (display wrong order) in custom post types
-
-Aug 23, 2024 - Version 6.3.4
-- Fixed: CSV Export Vulnerability
-- Fixed: Improve Post Type Counter
-- Fixed: Exclude trashed posts out of folder count
-
-Jun 25, 2024 - Version 6.3.3
-- Fixed: Plugin dependencies
+May 11, 2026 – Version 6.5.3
+- Added: Folders for post/page (1 level folder supported) in FileBird free version
+- Added: File counter in both parent folder and subfolders in FileBird free version
+- Updated: Remove Document Library settings 
+- Updated: Hide "Create first folders" 3 months when user dismisses it
+- Improved: Compatible with WordPress 7.0
+- Improved: Compatible with FIFU plugin
+- Fixed: Block layout issue
+- Fixed: CSS issue on Zen Browser
 
 Jun 25, 2024 - Version 6.3.2
 - Fixed: CSS hiding all admin notices

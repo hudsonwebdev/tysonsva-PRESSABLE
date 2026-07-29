@@ -158,7 +158,7 @@ class CTF_Feed_Builder {
 
 				];
 
-				$upgrade_url = 'https://smashballoon.com/custom-twitter-feeds/demo?utm_campaign=twitter-free&utm_source=lite-upgrade-bar';
+				$upgrade_url = 'https://smashballoon.com/custom-twitter-feeds/twitter-lite-upgrade/?utm_campaign=twitter-free&utm_source=lite-upgrade-bar&utm_medium=upgrade-link';
 
 		        $ctf_builder = array(
 					'ajax_handler'		=> 	admin_url( 'admin-ajax.php' ),
@@ -331,7 +331,7 @@ class CTF_Feed_Builder {
 								'heading' => __( 'And get much more!', 'custom-twitter-feeds' ),
 								'content' => [
 									__( 'Display photos, videos & GIFs', 'custom-twitter-feeds' ),
-									__( 'Combine mulitple feeds into one', 'custom-twitter-feeds' ),
+									__( 'Combine multiple feeds into one', 'custom-twitter-feeds' ),
 									__( 'Unlimited feeds, 12 daily updates', 'custom-twitter-feeds' ),
 									__( 'Auto load tweets on scroll', 'custom-twitter-feeds' ),
 									__( 'Powerful Tweet filters', 'custom-twitter-feeds' ),
@@ -352,7 +352,7 @@ class CTF_Feed_Builder {
 								'heading' => __( 'And get much more!', 'custom-twitter-feeds' ),
 								'content' => [
 									__( 'Display photos, videos & GIFs', 'custom-twitter-feeds' ),
-									__( 'Combine mulitple feeds into one', 'custom-twitter-feeds' ),
+									__( 'Combine multiple feeds into one', 'custom-twitter-feeds' ),
 									__( 'Unlimited feeds, 12 daily updates', 'custom-twitter-feeds' ),
 									__( 'Auto load tweets on scroll', 'custom-twitter-feeds' ),
 									__( 'Powerful Tweet filters', 'custom-twitter-feeds' ),
@@ -373,7 +373,7 @@ class CTF_Feed_Builder {
 								'heading' => __( 'And get much more!', 'custom-twitter-feeds' ),
 								'content' => [
 									__( 'Display photos, videos & GIFs', 'custom-twitter-feeds' ),
-									__( 'Combine mulitple feeds into one', 'custom-twitter-feeds' ),
+									__( 'Combine multiple feeds into one', 'custom-twitter-feeds' ),
 									__( 'Unlimited feeds, 12 daily updates', 'custom-twitter-feeds' ),
 									__( 'Auto load tweets on scroll', 'custom-twitter-feeds' ),
 									__( 'Powerful Tweet filters', 'custom-twitter-feeds' ),
@@ -394,7 +394,7 @@ class CTF_Feed_Builder {
 								'heading' => __( 'And get much more!', 'custom-twitter-feeds' ),
 								'content' => [
 									__( 'Display photos, videos & GIFs', 'custom-twitter-feeds' ),
-									__( 'Combine mulitple feeds into one', 'custom-twitter-feeds' ),
+									__( 'Combine multiple feeds into one', 'custom-twitter-feeds' ),
 									__( 'Unlimited feeds, 12 daily updates', 'custom-twitter-feeds' ),
 									__( 'Auto load tweets on scroll', 'custom-twitter-feeds' ),
 									__( 'Powerful Tweet filters', 'custom-twitter-feeds' ),
@@ -437,7 +437,7 @@ class CTF_Feed_Builder {
 								'heading' => __( 'And get much more!', 'custom-twitter-feeds' ),
 								'content' => [
 									__( 'Display photos, videos & GIFs', 'custom-twitter-feeds' ),
-									__( 'Combine mulitple feeds into one', 'custom-twitter-feeds' ),
+									__( 'Combine multiple feeds into one', 'custom-twitter-feeds' ),
 									__( 'Unlimited feeds, 12 daily updates', 'custom-twitter-feeds' ),
 									__( 'Auto load tweets on scroll', 'custom-twitter-feeds' ),
 									__( 'Powerful Tweet filters', 'custom-twitter-feeds' ),
@@ -458,7 +458,7 @@ class CTF_Feed_Builder {
 								'heading' => __( 'And get much more!', 'custom-twitter-feeds' ),
 								'content' => [
 									__( 'Display photos, videos & GIFs', 'custom-twitter-feeds' ),
-									__( 'Combine mulitple feeds into one', 'custom-twitter-feeds' ),
+									__( 'Combine multiple feeds into one', 'custom-twitter-feeds' ),
 									__( 'Unlimited feeds, 12 daily updates', 'custom-twitter-feeds' ),
 									__( 'Auto load tweets on scroll', 'custom-twitter-feeds' ),
 									__( 'Powerful Tweet filters', 'custom-twitter-feeds' ),
@@ -480,7 +480,7 @@ class CTF_Feed_Builder {
 								'heading' => __( 'And get much more!', 'custom-twitter-feeds' ),
 								'content' => [
 									__( 'Display photos, videos & GIFs', 'custom-twitter-feeds' ),
-									__( 'Combine mulitple feeds into one', 'custom-twitter-feeds' ),
+									__( 'Combine multiple feeds into one', 'custom-twitter-feeds' ),
 									__( 'Unlimited feeds, 12 daily updates', 'custom-twitter-feeds' ),
 									__( 'Auto load tweets on scroll', 'custom-twitter-feeds' ),
 									__( 'Powerful Tweet filters', 'custom-twitter-feeds' ),
@@ -502,7 +502,7 @@ class CTF_Feed_Builder {
 								'heading' => __( 'And get much more!', 'custom-twitter-feeds' ),
 								'content' => [
 									__( 'Display photos, videos & GIFs', 'custom-twitter-feeds' ),
-									__( 'Combine mulitple feeds into one', 'custom-twitter-feeds' ),
+									__( 'Combine multiple feeds into one', 'custom-twitter-feeds' ),
 									__( 'Unlimited feeds, 12 daily updates', 'custom-twitter-feeds' ),
 									__( 'Auto load tweets on scroll', 'custom-twitter-feeds' ),
 									__( 'Powerful Tweet filters', 'custom-twitter-feeds' ),
@@ -524,7 +524,7 @@ class CTF_Feed_Builder {
 								'heading' => __( 'And get much more!', 'custom-twitter-feeds' ),
 								'content' => [
 									__( 'Display photos, videos & GIFs', 'custom-twitter-feeds' ),
-									__( 'Combine mulitple feeds into one', 'custom-twitter-feeds' ),
+									__( 'Combine multiple feeds into one', 'custom-twitter-feeds' ),
 									__( 'Unlimited feeds, 12 daily updates', 'custom-twitter-feeds' ),
 									__( 'Auto load tweets on scroll', 'custom-twitter-feeds' ),
 									__( 'Powerful Tweet filters', 'custom-twitter-feeds' ),
@@ -932,7 +932,7 @@ class CTF_Feed_Builder {
 			'delete' => __( 'Delete', 'custom-twitter-feeds' ),
 			'remove' => __( 'Remove', 'custom-twitter-feeds' ),
 			'removeSource' => __( 'Remove Source', 'custom-twitter-feeds' ),
-			'atLeastOneSource' => __( 'You need to have<br/>atleast one source', 'custom-twitter-feeds' ),
+			'atLeastOneSource' => __( 'You need to have<br/>at least one source', 'custom-twitter-feeds' ),
 			'shortcode' => __( 'Shortcode', 'custom-twitter-feeds' ),
 			'clickViewInstances' => __( 'Click to view Instances', 'custom-twitter-feeds' ),
 			'usedIn' => __( 'Used in', 'custom-twitter-feeds' ),
@@ -969,7 +969,7 @@ class CTF_Feed_Builder {
 			'advanced' => __( 'Advanced', 'custom-twitter-feeds' ),
 			'error' => __( 'Error:', 'custom-twitter-feeds' ),
 			'errorNotice' => __( 'There was an error when trying to connect to Instagram.', 'custom-twitter-feeds' ),
-			'errorDirections' => '<a href="https://smashballoon.com/custom-twitter-feeds/docs/errors/" target="_blank" rel="nofollow noopener">' . __( 'Directions on How to Resolve This Issue', 'custom-twitter-feeds' )  . '</a>',
+			'errorDirections' => '<a href="https://smashballoon.com/doc/twitter-api-error-message-reference/?utm_campaign=twitter-free&utm_source=feed-builder&utm_medium=docs" target="_blank" rel="nofollow noopener">' . __( 'Directions on How to Resolve This Issue', 'custom-twitter-feeds' )  . '</a>',
 			'errorSource' => __( 'Source Invalid', 'custom-twitter-feeds' ),
 			'invalid' => __( 'Invalid', 'custom-twitter-feeds' ),
 			'reconnect' => __( 'Reconnect', 'custom-twitter-feeds' ),
@@ -1085,7 +1085,7 @@ class CTF_Feed_Builder {
 			),
             'twitterApiLimit' => array(
 				'heading' =>  __( 'Some feed types are not available', 'custom-twitter-feeds' ),
-				'description' =>  sprintf( __( 'Due to Twitter API changes, we can no longer support Search, Home Timeline, Hashtag, Mentions and Lists feeds. To continue using them, you will have to connect your own Twitter app which Twitter charges $100/month for. You can learn more about it %shere%s.', 'custom-twitter-feeds' ), '<a href="https://smashballoon.com/custom-twitter-feeds/" target="_blank" rel="nofollow noopener">', '</a>' ),
+				'description' =>  sprintf( __( 'Due to Twitter API changes, we can no longer support Search, Home Timeline, Hashtag, Mentions and Lists feeds. To continue using them, you will have to connect your own Twitter app which Twitter charges $100/month for. You can learn more about it %shere%s.', 'custom-twitter-feeds' ), '<a href="https://smashballoon.com/custom-twitter-feeds/?utm_campaign=twitter-free&utm_source=feed-builder&utm_medium=docs" target="_blank" rel="nofollow noopener">', '</a>' ),
 			),
 			'disabledFeedTooltipNotice' =>  sprintf(
                 __( '%sThis feed is disabled%s
@@ -1397,7 +1397,7 @@ class CTF_Feed_Builder {
 			'upgrade' => [
 					'name' => __( 'Upgrade to Pro', 'custom-twitter-feeds' ),
 					'icon' => 'twitter',
-					'link' => 'https://smashballoon.com/twitter-feed/'
+					'link' => 'https://smashballoon.com/twitter-feed/?utm_campaign=twitter-free&utm_source=feed-builder&utm_medium=cross-sell'
 			],
 			'platforms' => [
 				[
@@ -1461,7 +1461,7 @@ class CTF_Feed_Builder {
 			'type' => $type,
 			'legacyFeeds' => array(
 				'heading' => __( 'Legacy Feed Settings', 'custom-twitter-feeds' ),
-				'description' => sprintf( __( 'These settings will impact %s legacy feeds on your site. You can learn more about what legacy feeds are and how they differ from new feeds %shere%s.', 'custom-twitter-feeds' ), '<span class="cff-fb-count-placeholder"></span>', '<a href="https://smashballoon.com/doc/facebook-legacy-feeds/" target="_blank" rel="nofollow noopener">', '</a>' ),
+				'description' => sprintf( __( 'These settings will impact %s legacy feeds on your site. You can learn more about what legacy feeds are and how they differ from new feeds %shere%s.', 'custom-twitter-feeds' ), '<span class="cff-fb-count-placeholder"></span>', '<a href="https://smashballoon.com/doc/facebook-legacy-feeds/?utm_campaign=twitter-free&utm_source=feed-builder&utm_medium=docs" target="_blank" rel="nofollow noopener">', '</a>' ),
 			),
 			'getStarted' => __( 'You can now create and customize feeds individually. Click "Add New" to get started.', 'custom-twitter-feeds' ),
 		);
@@ -1667,7 +1667,7 @@ class CTF_Feed_Builder {
 					'postDateDescription' => __( 'The date of the post', 'custom-twitter-feeds' ),
 					'format' => __( 'Format', 'custom-twitter-feeds' ),
 					'custom' => __( 'Custom', 'custom-twitter-feeds' ),
-					'learnMoreFormats' => '<a href="https://smashballoon.com/doc/date-formatting-reference/" target="_blank" rel="nofollow noopener">' . __( 'Learn more about custom formats', 'custom-twitter-feeds' ) . '</a>',
+					'learnMoreFormats' => '<a href="https://smashballoon.com/doc/date-formatting-reference/?utm_campaign=twitter-free&utm_source=customizer&utm_medium=docs" target="_blank" rel="nofollow noopener">' . __( 'Learn more about custom formats', 'custom-twitter-feeds' ) . '</a>',
 					'addTextBefore' => __( 'Add text before date', 'custom-twitter-feeds' ),
 					'addTextBeforeEG' => __( 'E.g. Posted', 'custom-twitter-feeds' ),
 					'addTextAfter' => __( 'Add text after date', 'custom-twitter-feeds' ),
@@ -1707,14 +1707,14 @@ class CTF_Feed_Builder {
 				'postType' => __( 'Post Type', 'custom-twitter-feeds' ),
 				'boxed' => __( 'boxed', 'custom-twitter-feeds' ),
 				'regular' => __( 'Regular', 'custom-twitter-feeds' ),
-				'indvidualProperties' => __( 'Indvidual Properties', 'custom-twitter-feeds' ),
+				'indvidualProperties' => __( 'Individual Properties', 'custom-twitter-feeds' ),
 				'backgroundColor' => __( 'Background Color', 'custom-twitter-feeds' ),
 				'borderRadius' => __( 'Border Radius', 'custom-twitter-feeds' ),
 				'boxShadow' => __( 'Box Shadow', 'custom-twitter-feeds' ),
 			],
 			'shoppableFeedScreen' => [
 				'heading1' => __( 'Make your Instagram Feed Shoppable', 'custom-twitter-feeds' ),
-				'description1' => __( 'This feature links the post to the one specificed in your caption.<br/><br/>Don’t want to add links to the caption? You can add links manually to each post.<br/><br/>Enable it to get started.', 'custom-twitter-feeds' ),
+				'description1' => __( 'This feature links the post to the one specified in your caption.<br/><br/>Don’t want to add links to the caption? You can add links manually to each post.<br/><br/>Enable it to get started.', 'custom-twitter-feeds' ),
 				'heading2' => __( 'Tap “Add” or “Update” on an<br/>image to add/update it’s URL', 'custom-twitter-feeds' ),
 
 			]
@@ -1743,9 +1743,9 @@ class CTF_Feed_Builder {
 		$sourceCombineCTA = sprintf('https://smashballoon.com/social-wall/?edd_license_key=%s&upgrade=true&utm_campaign=twitter-free&utm_source=customizer&utm_medium=sources&utm_content=social-wall', $license_key);
 
 		return array(
-			'allAccessBundle' => 'https://smashballoon.com/pricing/twitter-feed/?utm_campaign=twitter-free&utm_source=balloon&utm_medium=upgrade-button',
+			'allAccessBundle' => 'https://smashballoon.com/custom-twitter-feeds/twitter-lite-upgrade/?utm_campaign=twitter-free&utm_source=balloon&utm_medium=upgrade-button',
 			'popup' => array(
-				'allAccessBundle' => 'https://smashballoon.com/pricing/twitter-feed/?utm_campaign=twitter-free&utm_source=balloon&utm_medium=upgrade-button',
+				'allAccessBundle' => 'https://smashballoon.com/custom-twitter-feeds/twitter-lite-upgrade/?utm_campaign=twitter-free&utm_source=balloon&utm_medium=upgrade-button',
 				'fbProfile' => 'https://www.facebook.com/SmashBalloon/',
 				'twitterProfile' => 'https://twitter.com/smashballoon',
 			),
@@ -2160,7 +2160,7 @@ class CTF_Feed_Builder {
 		    [
 			    'type' => 'lists',
 			    'title' => __( 'Lists', 'custom-twitter-feeds' ),
-			    'description'=> __( 'Curated Tweets from a speicific Twitter list', 'custom-twitter-feeds' ),
+			    'description'=> __( 'Curated Tweets from a specific Twitter list', 'custom-twitter-feeds' ),
 			    'icon'	=>  'listsIcon'
 		    ],
 			[

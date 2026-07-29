@@ -55,6 +55,8 @@ jQuery(document).ready(function ($) {
     
     $('.search-link').removeClass('open');
 
+    $('.header-wrap').removeClass('search-open');
+
     if($(".event-container")){
       $(".event-container").removeClass("list-view").addClass("grid-view");
 

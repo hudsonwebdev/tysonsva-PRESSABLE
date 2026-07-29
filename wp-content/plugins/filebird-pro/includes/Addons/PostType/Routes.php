@@ -92,6 +92,15 @@ class Routes {
 				'permission_callback' => array( $this, 'resPermissionsCheck' ),
 			)
 		);
+        register_rest_route(
+			NJFB_REST_URL,
+			'pt-duplicate-folder',
+			array(
+				'methods'             => \WP_REST_Server::CREATABLE,
+				'callback'            => array( $controller, 'restPtDuplicateFolder' ),
+				'permission_callback' => array( $this, 'resPermissionsCheck' ),
+			)
+		);  
     }
 
     public function resPermissionsCheck() {

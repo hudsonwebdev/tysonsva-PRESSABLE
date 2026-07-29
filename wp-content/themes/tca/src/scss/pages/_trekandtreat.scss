@@ -1,0 +1,109 @@
+// Add the class .trek-treat-stats to the WordPress block/container that wraps the HTML.
+// All styles are scoped to this one wrapper class.
+
+.trek-treat-stats {
+    --tt-blue: #385DFF;
+    --tt-green: #00B852;
+    --tt-purple: #260D66;
+
+    color: var(--tt-purple);
+
+    .challenge-stat {
+        text-align: center;
+        max-width: 27rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .challenge-stat__icon {
+        display: block;
+        width: 190px;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto 1.1rem;
+    }
+
+    .challenge-stat__icon--wide {
+        width: 340px;
+        margin-bottom: 1rem;
+    }
+
+    .challenge-stat__number {
+        font-size: clamp(3.35rem, 6vw, 5rem);
+        line-height: 0.95;
+        font-weight: 800;
+        letter-spacing: -0.045em;
+        margin-bottom: 0.45rem;
+    }
+
+    .challenge-stat__prefix {
+        display: inline-block;
+        font-size: clamp(1.65rem, 3vw, 2.3rem);
+        line-height: 1;
+        letter-spacing: -0.035em;
+        color: var(--tt-purple);
+        vertical-align: baseline;
+    }
+
+    .challenge-stat__number--blue {
+        color: var(--tt-blue);
+    }
+
+    .challenge-stat__number--green {
+        color: var(--tt-green);
+    }
+
+    .challenge-stat__number--purple {
+        color: var(--tt-purple);
+    }
+
+    .challenge-stat__text,
+    .challenge-stat__label {
+        font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+        line-height: 1.35;
+        font-weight: 500;
+        color: var(--tt-purple);
+    }
+
+    .challenge-stat__text {
+        max-width: 23rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .challenge-stat__split {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: clamp(1.5rem, 4vw, 3rem);
+        margin-bottom: 0.75rem;
+    }
+
+    .challenge-stat__split-item {
+        min-width: 0;
+        text-align: center;
+    }
+
+    .challenge-stat__split .challenge-stat__number {
+        font-size: clamp(2.9rem, 5vw, 4.25rem);
+        margin-bottom: 0.25rem;
+    }
+
+    @media (max-width: 639px) {
+        .challenge-stat {
+            max-width: 22rem;
+        }
+
+        .challenge-stat__icon {
+            width: 165px;
+        }
+
+        .challenge-stat__icon--wide {
+            width: 300px;
+        }
+
+        .challenge-stat__split {
+            gap: 1.25rem;
+        }
+    }
+}

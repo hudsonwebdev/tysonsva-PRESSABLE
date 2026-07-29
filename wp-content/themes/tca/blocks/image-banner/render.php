@@ -27,117 +27,124 @@ $above_title_spacer = get_field('above_title_spacer')?get_field('above_title_spa
 $hide_decorative_chevron = get_field('hide_decorative_chevron')?get_field('hide_decorative_chevron'):false;
 $image_or_video = get_field('image_or_video')?get_field('image_or_video'):"Image";
 $video = get_field('video');
+$is_video_banner = ( 'Video' === $image_or_video && $video && ! empty( $video['url'] ) );
+$has_image_banner = ( 'Image' === $image_or_video && $banner_image );
+$has_any_banner = $has_image_banner || $is_video_banner;
+$banner_height_raw = get_field( 'banner_height' );
+$banner_height_class = ( 'short' === $banner_height_raw ) ? 'banner-height-short' : 'banner-height-tall';
+$badge_config = function_exists( 'tca_image_banner_get_badge_config' ) ? tca_image_banner_get_badge_config() : null;
 
+drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_underline,$section_intro,$section_button,$section_button_style);
 
+if ( $has_any_banner ) {
+	$shell_classes = array( 'banner-shell', $banner_height_class );
+	$shell_styles  = array();
 
+	if ( ! empty( $background_color ) ) {
+		$shell_styles[] = 'background-color:' . $background_color;
+	}
 
-drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_underline,$section_intro,$section_button,$section_button_style); ?>
+	if ( $badge_config ) {
+		$shell_classes[] = 'banner-shell--has-badge';
+		if ( ! empty( $badge_config['reserve_bottom'] ) ) {
+			$shell_styles[] = 'padding-bottom:' . (int) $badge_config['reserve_bottom'] . 'px';
+		}
+	}
 
+	$shell_style = ! empty( $shell_styles )
+		? ' style="' . esc_attr( implode( ';', $shell_styles ) ) . '"'
+		: '';
 
-        <?php if($image_or_video == "Image" && $banner_image){ ?>
+	echo '<div class="' . esc_attr( implode( ' ', $shell_classes ) ) . '"' . $shell_style . '>';
+	echo '<div class="banner-media">';
 
-            <div class="image-banner">
-                <?php if(!$hide_decorative_chevron){ ?>
-                    <div class="chevron"><svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 432 432" fill="none">
-                        <path d="M129.582 0L0 129.582H302.418V432L432 302.43V0H129.582Z" fill="#385DFF"/></svg>
-                    </div>
-                <?php } ?>
-  
+	if ( $has_image_banner ) {
+		?>
+		<div class="image-banner">
+			<div class="image-tint"></div>
+			<div class="image-wrap">
+				<img <?php awesome_acf_responsive_image( $banner_image['id'], 'tca-hero', '1920px', $banner_image['alt'], true ); ?> />
+			</div>
+		</div>
+		<?php
+	} elseif ( $is_video_banner ) {
+		$video_url = $video['url'];
+		$poster_url = '';
+		$poster_id  = get_field( 'video_poster' );
+		if ( $poster_id && is_array( $poster_id ) && ! empty( $poster_id['url'] ) ) {
+			$poster_url = $poster_id['url'];
+		} elseif ( $poster_id && is_numeric( $poster_id ) ) {
+			$poster_url = wp_get_attachment_image_url( (int) $poster_id, 'tca-hero' );
+		}
+		if ( ! $poster_url && $banner_image && ! empty( $banner_image['url'] ) ) {
+			$poster_url = $banner_image['url'];
+		}
+		?>
+		<div class="video-banner">
+			<?php if ( $poster_url ) : ?>
+				<?php
+				$poster = get_field( 'video_poster' );
+				if ( ! $poster && ! empty( $banner_image['id'] ) ) {
+					$poster = $banner_image;
+				}
+				if ( $poster ) :
+					?>
+					<img class="video-banner-poster" <?php tca_video_banner_poster_attrs( $poster ); ?> />
+				<?php endif; ?>
+			<?php endif; ?>
+			<video class="tca-video-background" autoplay muted loop playsinline preload="none"
+				<?php if ( $poster_url ) { ?> poster="<?php echo esc_url( $poster_url ); ?>"<?php } ?>
+				data-src="<?php echo esc_url( $video_url ); ?>"
+				data-object-fit="cover"></video>
+			<div class="image-tint"></div>
+		</div>
+		<?php
+	}
 
-                <div class="image-tint"></div>
+	echo '</div>';
 
-        
-                <div class="image-wrap">
-                    <img <?php awesome_acf_responsive_image( $banner_image['id'], 'tca-hero', '1920px', $banner_image['alt'], true ); ?> />
-                    
-                </div>
-            </div>    
-       
-        <?php } elseif ( $image_or_video == 'Video' && $video && ! empty( $video['url'] ) ) {
-            $video_url = $video['url'];
-            // Poster: required for LCP and for iOS (video poster attribute often doesn't show when video has no src).
-            $poster_url = '';
-            $poster_id  = get_field( 'video_poster' );
-            if ( $poster_id && is_array( $poster_id ) && ! empty( $poster_id['url'] ) ) {
-                $poster_url = $poster_id['url'];
-            } elseif ( $poster_id && is_numeric( $poster_id ) ) {
-                $poster_url = wp_get_attachment_image_url( (int) $poster_id, 'tca-hero' );
-            }
-            if ( ! $poster_url && $banner_image && ! empty( $banner_image['url'] ) ) {
-                $poster_url = $banner_image['url'];
-            }
-            $poster_attrs = '';
-            if ( $poster_url ) {
-                $poster_attrs = ' src="' . esc_url( $poster_url ) . '" alt="" fetchpriority="high" loading="eager"';
-                if ( $banner_image && ! empty( $banner_image['width'] ) && ! empty( $banner_image['height'] ) ) {
-                    $poster_attrs .= ' width="' . esc_attr( $banner_image['width'] ) . '" height="' . esc_attr( $banner_image['height'] ) . '"';
-                } elseif ( $poster_id && is_array( $poster_id ) && ! empty( $poster_id['width'] ) && ! empty( $poster_id['height'] ) ) {
-                    $poster_attrs .= ' width="' . esc_attr( $poster_id['width'] ) . '" height="' . esc_attr( $poster_id['height'] ) . '"';
-                }
-            }
-            ?>
-            <div class="video-banner">
-                
-                <?php if ( $poster_url ) : ?>
-              
+	if ( $is_video_banner ) {
+		?>
+		<button type="button" class="tca-video-pp-btn" aria-pressed="false" aria-label="Pause background video">
+			<svg class="tca-video-pp-icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+				<rect x="6" y="5" width="4" height="14" rx="1"></rect>
+				<rect x="14" y="5" width="4" height="14" rx="1"></rect>
+			</svg>
+			<svg class="tca-video-pp-icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+				<path d="M8 5v14l11-7z"></path>
+			</svg>
+		</button>
+		<?php
+	}
 
-                <?php
-                $poster = get_field( 'video_poster' );
-                if ( ! $poster && ! empty( $banner_image['id'] ) ) {
-                    $poster = $banner_image;
-                }
-                if ( $poster ) :
-                ?>
-                <img class="video-banner-poster" <?php tca_video_banner_poster_attrs( $poster ); ?> />
-                <?php endif; ?>
+	if ( $has_image_banner && ! $hide_decorative_chevron ) {
+		?>
+		<div class="chevron"><svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 432 432" fill="none">
+			<path d="M129.582 0L0 129.582H302.418V432L432 302.43V0H129.582Z" fill="#385DFF"/></svg>
+		</div>
+		<?php
+	}
 
+	if ( $badge_config && function_exists( 'tca_render_image_banner_badge' ) ) {
+		tca_render_image_banner_badge( $badge_config );
+	}
 
-                <?php endif; ?>
-                <video class="tca-video-background" autoplay muted loop playsinline preload="none"
-                    <?php if ( $poster_url ) { ?> poster="<?php echo esc_url( $poster_url ); ?>"<?php } ?>
-                    data-src="<?php echo esc_url( $video_url ); ?>"
-                    data-object-fit="cover"></video>
-                    <div class="image-tint"></div>
-                    <button type="button" class="tca-video-pp-btn" aria-pressed="false" aria-label="Pause background video">
-                        <svg class="tca-video-pp-icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
-                            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
-                        </svg>
-                        <svg class="tca-video-pp-icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                            <path d="M8 5v14l11-7z"></path>
-                        </svg>
-                    </button>
-            </div>
-            <?php
-        } ?>
+	if ( $additional_text || $large_title ) {
+		?>
+		<div class="text-overlay">
+			<div class="uk-container">
+				<div class="inner" style="justify-content:<?php echo esc_attr( $vertical_text_position ); ?>">
+					<h1 class="banner-title"><?php echo $large_title; ?></h1>
+					<?php if ( get_field( 'add_additional_text' ) ) { ?>
+						<?php echo $additional_text; ?>
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
 
-
-        
-
-
-        <?php if($additional_text || $large_title){ ?>
-
-            <div class="text-overlay">
-                <div class="uk-container">
-                  
-                            <div class="inner" style="justify-content:<?php echo $vertical_text_position; ?>">
-                            <h1 class="banner-title"><?php echo $large_title; ?></h1>
-
-                            <?php if(get_field('add_additional_text')){ ?>
-                            <?php echo $additional_text; ?>
-                            <?php } ?>
-                  
-                    </div>
-                </div>
-            </div>         
-        <?php } ?>
-
-
-
-
-
-                        
-<?php
+	echo '</div>';
+}
 
 closeSection($wrap_size,$container_size,$container_type,$overlapping_graphic);
-

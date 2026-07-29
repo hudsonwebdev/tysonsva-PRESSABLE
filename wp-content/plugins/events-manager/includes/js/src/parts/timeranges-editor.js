@@ -19,6 +19,16 @@
 
 			// Initialize preview if there are existing timeranges
 			wrapper.querySelectorAll('.em-timeranges-editor').forEach( editor => {
+				// Guard against double-binding. These listeners attach to the editor
+				// element directly, and in the Gutenberg canvas em_setup_ui_elements can
+				// re-run bindEvents over the same editor (e.g. after editing a recurrence
+				// date/timeslot), which would stack a duplicate handler and make "Add Time
+				// Slot" insert two timeranges per click.
+				if ( editor.dataset.emTimerangesBound ) {
+					return;
+				}
+				editor.dataset.emTimerangesBound = '1';
+
 				// Add timerange button
 				editor.addEventListener('click', function(e) {
 					if (e.target.matches('.em-timerange-add') || e.target.closest('.em-timerange-add')) {

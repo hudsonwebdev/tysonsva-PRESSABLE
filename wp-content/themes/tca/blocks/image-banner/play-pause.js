@@ -2,12 +2,11 @@
  * Image Banner: accessible play/pause control for background video.
  *
  * Loaded once on any page that renders the tca/image-banner block.
- * The button markup is emitted by render.php inside .video-banner. This
- * script wires up its behaviour and keeps the aria state in sync with the
- * <video> element.
+ * The button markup is emitted by render.php on .banner-shell (sibling of
+ * .banner-media). This script wires up its behaviour and keeps the aria state
+ * in sync with the <video> element inside .video-banner.
  *
- * Styles live in src/scss/blocks/_image-banner.scss (.tca-video-pp-btn and
- * .video-banner.tca-pp-ready).
+ * Styles live in src/scss/blocks/_image-banner.scss (.banner-shell .tca-video-pp-btn).
  */
 (function () {
 	'use strict';
@@ -18,11 +17,18 @@
 
 	function attach(banner) {
 		if (banner.getAttribute(INIT_ATTR)) return;
+		var shell = banner.closest('.banner-shell');
 		var video = banner.querySelector('video');
-		var btn = banner.querySelector('.tca-video-pp-btn');
+		var btn = shell
+			? shell.querySelector('.tca-video-pp-btn')
+			: banner.querySelector('.tca-video-pp-btn');
 		if (!video || !btn) return;
 		banner.setAttribute(INIT_ATTR, '1');
-		banner.classList.add('tca-pp-ready');
+		if (shell) {
+			shell.classList.add('tca-pp-ready');
+		} else {
+			banner.classList.add('tca-pp-ready');
+		}
 
 		function sync() {
 			var paused = video.paused || video.ended;

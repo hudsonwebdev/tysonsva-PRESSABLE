@@ -338,7 +338,12 @@ class EM_Location extends EM_Object {
 					if( (in_array($att_key, $location_available_attributes['names']) || array_key_exists($att_key, $this->location_attributes) ) ){
 						$att_vals = count($location_available_attributes['values'][$att_key]);
 						if( $att_vals == 0 || ($att_vals > 0 && in_array($att_value, $location_available_attributes['values'][$att_key])) ){
-							$this->location_attributes[$att_key] = wp_unslash($att_value);
+							// Same sanitization logic as event attributes: strip HTML for non-privileged users to prevent stored XSS via anonymous location submissions.
+							if( $att_vals == 0 && !current_user_can('unfiltered_html') ){
+								$this->location_attributes[$att_key] = wp_unslash(wp_kses($att_value, $allowedtags));
+							}else{
+								$this->location_attributes[$att_key] = wp_unslash($att_value);
+							}
 						}elseif($att_vals > 0){
 							$this->location_attributes[$att_key] = wp_unslash(wp_kses($location_available_attributes['values'][$att_key][0], $allowedtags));
 						}
@@ -512,7 +517,7 @@ class EM_Location extends EM_Object {
 			if( em_get_option('dbem_location_attributes_enabled') ){
 				//attributes get saved as individual keys or deleted if non-existent anymore
 				$atts = em_get_attributes( true ); //get available attributes that EM manages
-				$this->location_attributes= maybe_unserialize($this->location_attributes);
+				$this->location_attributes= EM_Object::maybe_unserialize($this->location_attributes);
 				foreach( $atts['names'] as $location_attribute_key ){
 					if( !empty($this->location_attributes[$location_attribute_key]) ){
 						update_post_meta($this->post_id, $location_attribute_key, $this->location_attributes[$location_attribute_key]);
@@ -1247,6 +1252,26 @@ class EM_Location extends EM_Object {
 		return apply_filters('em_location_get_google_maps_embed_url', $url, $this);
 	}
 	
+	/**
+	 * Returns the $_POST-shape array that EM_Location::get_post() expects.
+	 * Used by API consumers to pre-load $_REQUEST before applying partial updates.
+	 * @return array
+	 */
+	public function to_request_data() {
+		return array(
+			'location_name'      => $this->location_name,
+			'content'            => $this->post_content,
+			'location_address'   => $this->location_address,
+			'location_town'      => $this->location_town,
+			'location_state'     => $this->location_state,
+			'location_postcode'  => $this->location_postcode,
+			'location_region'    => $this->location_region,
+			'location_country'   => $this->location_country,
+			'location_latitude'  => $this->location_latitude,
+			'location_longitude' => $this->location_longitude,
+		);
+	}
+
 	public function to_api(){
 		return array (
 			'name' => $this->location_name,
@@ -1270,6 +1295,8 @@ class EM_Location extends EM_Object {
 				'postcode' => $this->location_postcode,
 				'country' => $this->location_country,
 			),
+			'image' => ( $em_api_image = $this->get_image_url( 'thumbnail' ) ) ? array( 'thumbnail' => $em_api_image, 'full' => $this->get_image_url( 'full' ) ) : null,
+			'upcoming_events_count' => class_exists( 'EM_Events' ) ? absint( EM_Events::count( array( 'location' => $this->location_id, 'scope' => 'future', 'owner' => false ) ) ) : null,
 			'language' => $this->location_language,
 			'translation' => $this->location_translation,
 		);

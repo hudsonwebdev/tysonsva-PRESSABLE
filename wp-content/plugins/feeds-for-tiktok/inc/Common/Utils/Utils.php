@@ -205,6 +205,23 @@ class Utils
 	{
 		$source_table = new SourcesTable();
 		$sources      = $source_table->get_sources($args);
+
+		if (! is_array($sources)) {
+			return $sources;
+		}
+
+		// Expose an `error` string per source (empty = healthy) for the Manage
+		// Sources screen, matching the Instagram Feeds convention.
+		$source_errors = SourceErrors::all();
+
+		foreach ($sources as $key => $source) {
+			$open_id = isset($source['open_id']) ? $source['open_id'] : '';
+
+			$sources[ $key ]['error'] = ($open_id !== '' && isset($source_errors[ $open_id ]['message']))
+				? $source_errors[ $open_id ]['message']
+				: '';
+		}
+
 		return $sources;
 	}
 
@@ -233,6 +250,33 @@ class Utils
 				array(
 					'open_id' => isset($settings['sources']) && ! empty($settings['sources']) ? $settings['sources'] : array(),
 				)
+			);
+		}
+
+		return $feeds;
+	}
+
+	/**
+	 * Compact `[{id, feed_name}]` list for block/widget editor dropdowns.
+	 *
+	 * Skips the per-feed JSON decode and sources lookup that get_feeds_list()
+	 * does for the settings page — editor pickers only need id + name.
+	 *
+	 * @return array<int, array{id:int, feed_name:string}>
+	 */
+	public static function get_feeds_compact()
+	{
+		$rows = (new FeedsTable())->get_feeds();
+
+		if (empty($rows) || ! is_array($rows)) {
+			return array();
+		}
+
+		$feeds = array();
+		foreach ($rows as $row) {
+			$feeds[] = array(
+				'id'        => isset($row['id']) ? (int) $row['id'] : 0,
+				'feed_name' => isset($row['feed_name']) ? (string) $row['feed_name'] : '',
 			);
 		}
 

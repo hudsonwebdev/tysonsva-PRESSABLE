@@ -10,7 +10,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.6.414' );
+	define( '_S_VERSION', '1.6.485' );
 }
 
 /**
@@ -202,6 +202,22 @@ function tca_post_has_football_fixtures_block() {
 }
 
 /**
+ * Check if the current singular post content includes the Football Live Scores block.
+ *
+ * @return bool
+ */
+function tca_post_has_football_live_scores_block() {
+	if ( ! is_singular() ) {
+		return false;
+	}
+	$post = get_post();
+	if ( ! $post || ! has_blocks( $post->post_content ) ) {
+		return false;
+	}
+	return tca_blocks_list_contains( parse_blocks( $post->post_content ), 'tca/football-live-scores' );
+}
+
+/**
  * Check if the current singular post content includes the Image Banner block.
  *
  * @return bool
@@ -235,7 +251,8 @@ function tca_scripts() {
 	// Mapbox: neighborhood pages / block, or events locations block (single enqueue — same handle avoids loading twice).
 	$needs_neighborhood_map       = is_singular( 'neighborhood' ) || tca_post_has_neighborhood_map_block();
 	$needs_events_locations_map   = tca_post_has_events_locations_block();
-	$needs_football_fixtures_block = tca_post_has_football_fixtures_block();
+	$needs_football_fixtures_block   = tca_post_has_football_fixtures_block();
+	$needs_football_live_scores_block = tca_post_has_football_live_scores_block();
 	$needs_mapbox                 = $needs_neighborhood_map || $needs_events_locations_map;
 
 	if ( $needs_mapbox ) {
@@ -283,8 +300,36 @@ function tca_scripts() {
 		
 	}
 
-	if ( $needs_football_fixtures_block && wp_style_is( 'block-football-fixtures', 'registered' ) ) {
+	if ( ( $needs_football_fixtures_block || $needs_football_live_scores_block ) && wp_style_is( 'block-football-fixtures', 'registered' ) ) {
 		wp_enqueue_style( 'block-football-fixtures' );
+	}
+
+	if ( $needs_football_fixtures_block || $needs_football_live_scores_block ) {
+		wp_enqueue_script(
+			'tca-football-fixtures-schedule',
+			get_template_directory_uri() . '/blocks/football-fixtures/fixtures-schedule.js',
+			array(),
+			_S_VERSION,
+			true
+		);
+	}
+
+	if ( $needs_football_live_scores_block ) {
+		wp_enqueue_script(
+			'tca-football-live-scores',
+			get_template_directory_uri() . '/blocks/football-live-scores/live-scores.js',
+			array( 'tca-football-fixtures-schedule' ),
+			_S_VERSION,
+			true
+		);
+		wp_localize_script(
+			'tca-football-live-scores',
+			'tcaLiveScores',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'tca_football_live_scores' ),
+			)
+		);
 	}
 
 	// Image Banner: accessibility play/pause control for autoplaying background videos.
@@ -580,6 +625,205 @@ add_filter( 'the_password_form', 'my_custom_password_form' );
 
 
 /**
+ * Sanitize a CSS length for banner badge offsets (px, %, rem, vw).
+ *
+ * @param mixed  $value   Raw ACF value.
+ * @param string $default Fallback when empty or invalid.
+ * @return string
+ */
+function tca_image_banner_css_offset( $value, $default = '0' ) {
+	if ( null === $value || '' === $value ) {
+		return $default;
+	}
+	if ( is_numeric( $value ) ) {
+		return (int) $value . 'px';
+	}
+	$value = trim( (string) $value );
+	if ( preg_match( '/^-?\d+(\.\d+)?(px|%|rem|vw)$/i', $value ) ) {
+		return $value;
+	}
+	if ( preg_match( '/^-?\d+(\.\d+)?$/', $value ) ) {
+		return $value . 'px';
+	}
+	return $default;
+}
+
+/**
+ * @param mixed $align Raw horizontal align value.
+ * @return string left|center|right
+ */
+function tca_image_banner_sanitize_align( $align ) {
+	$allowed = array( 'left', 'center', 'right' );
+	return in_array( $align, $allowed, true ) ? $align : 'center';
+}
+
+/**
+ * @param mixed $vertical Raw vertical anchor value.
+ * @return string top|bottom
+ */
+function tca_image_banner_sanitize_vertical( $vertical ) {
+	return ( 'top' === $vertical ) ? 'top' : 'bottom';
+}
+
+/**
+ * Map badge container size slug to uk-container class string.
+ *
+ * @param mixed $size Raw ACF container size value.
+ * @return string
+ */
+function tca_image_banner_badge_container_class( $size ) {
+	$allowed = array(
+		'uk-container-xsmall',
+		'uk-container-small',
+		'standard-container',
+		'uk-container-large',
+		'uk-container-xlarge',
+		'uk-container-expand',
+	);
+
+	$size = is_string( $size ) ? $size : '';
+	if ( ! in_array( $size, $allowed, true ) ) {
+		$size = 'standard-container';
+	}
+
+	return 'uk-container ' . $size;
+}
+
+/**
+ * Build badge layout config from ACF fields, or null when disabled.
+ *
+ * @return array<string, mixed>|null
+ */
+function tca_image_banner_get_badge_config() {
+	if ( ! function_exists( 'get_field' ) || ! get_field( 'show_banner_badge' ) ) {
+		return null;
+	}
+
+	$image = get_field( 'banner_badge_image' );
+	if ( empty( $image ) || ! is_array( $image ) || empty( $image['url'] ) ) {
+		return null;
+	}
+
+	$custom_mobile = (bool) get_field( 'banner_badge_custom_mobile' );
+	$max_width     = get_field( 'banner_badge_max_width' );
+	$max_width     = is_numeric( $max_width ) ? max( 80, min( 600, (int) $max_width ) ) : 280;
+	$max_width_mobile_raw = get_field( 'banner_badge_mobile_max_width' );
+	$max_width_mobile     = is_numeric( $max_width_mobile_raw )
+		? max( 80, min( 600, (int) $max_width_mobile_raw ) )
+		: $max_width;
+
+	$desktop = array(
+		'align'    => tca_image_banner_sanitize_align( get_field( 'banner_badge_desktop_align' ) ),
+		'vertical' => tca_image_banner_sanitize_vertical( get_field( 'banner_badge_desktop_vertical' ) ),
+		'offset_x' => tca_image_banner_css_offset( get_field( 'banner_badge_desktop_offset_x' ), '0' ),
+		'offset_y' => tca_image_banner_css_offset( get_field( 'banner_badge_desktop_offset_y' ), '0' ),
+	);
+
+	if ( $custom_mobile ) {
+		$mobile = array(
+			'align'    => tca_image_banner_sanitize_align( get_field( 'banner_badge_mobile_align' ) ),
+			'vertical' => tca_image_banner_sanitize_vertical( get_field( 'banner_badge_mobile_vertical' ) ),
+			'offset_x' => tca_image_banner_css_offset( get_field( 'banner_badge_mobile_offset_x' ), $desktop['offset_x'] ),
+			'offset_y' => tca_image_banner_css_offset( get_field( 'banner_badge_mobile_offset_y' ), $desktop['offset_y'] ),
+		);
+	} else {
+		$mobile = $desktop;
+	}
+
+	$reserve_bottom = 0;
+	foreach ( array( $mobile, $desktop ) as $layout ) {
+		if ( 'bottom' !== $layout['vertical'] ) {
+			continue;
+		}
+		if ( preg_match( '/^-(\d+(?:\.\d+)?)px$/', $layout['offset_y'], $matches ) ) {
+			$reserve_bottom = max( $reserve_bottom, (int) ceil( (float) $matches[1] ) );
+		}
+	}
+
+	$link = get_field( 'banner_badge_link' );
+
+	$width_mode_raw = get_field( 'banner_badge_width_mode' );
+	$width_mode     = ( 'full' === $width_mode_raw ) ? 'full' : 'container';
+	$container_class = 'container' === $width_mode
+		? tca_image_banner_badge_container_class( get_field( 'banner_badge_container_size' ) )
+		: '';
+
+	return array(
+		'image'            => $image,
+		'max_width'        => $max_width,
+		'max_width_mobile' => $max_width_mobile,
+		'desktop'          => $desktop,
+		'mobile'           => $mobile,
+		'custom_mobile'    => $custom_mobile,
+		'reserve_bottom'   => $reserve_bottom,
+		'link'             => ( is_array( $link ) && ! empty( $link['url'] ) ) ? $link : null,
+		'width_mode'       => $width_mode,
+		'container_class'  => $container_class,
+	);
+}
+
+/**
+ * Render the optional image-banner badge.
+ *
+ * @param array<string, mixed>|null $config From tca_image_banner_get_badge_config().
+ */
+function tca_render_image_banner_badge( $config ) {
+	if ( empty( $config ) || empty( $config['image']['url'] ) ) {
+		return;
+	}
+
+	$desktop = $config['desktop'];
+	$mobile  = $config['mobile'];
+
+	$classes = array(
+		'banner-badge',
+		'banner-badge--d-' . $desktop['align'],
+		'banner-badge--d-' . $desktop['vertical'],
+		'banner-badge--m-' . $mobile['align'],
+		'banner-badge--m-' . $mobile['vertical'],
+	);
+
+	$style = sprintf(
+		'--badge-max-width:%1$dpx;--badge-m-max-width:%2$dpx;--badge-d-x:%3$s;--badge-d-y:%4$s;--badge-m-x:%5$s;--badge-m-y:%6$s;',
+		(int) $config['max_width'],
+		(int) ( $config['max_width_mobile'] ?? $config['max_width'] ),
+		esc_attr( $desktop['offset_x'] ),
+		esc_attr( $desktop['offset_y'] ),
+		esc_attr( $mobile['offset_x'] ),
+		esc_attr( $mobile['offset_y'] )
+	);
+
+	$alt = ! empty( $config['image']['alt'] ) ? $config['image']['alt'] : '';
+	$img = '<img src="' . esc_url( $config['image']['url'] ) . '" alt="' . esc_attr( $alt ) . '" loading="lazy" decoding="async" />';
+
+	if ( ! empty( $config['link']['url'] ) ) {
+		$target = ! empty( $config['link']['target'] ) ? $config['link']['target'] : '';
+		$img    = '<a href="' . esc_url( $config['link']['url'] ) . '"' . ( '_blank' === $target ? ' target="_blank" rel="noopener noreferrer"' : '' ) . '>' . $img . '</a>';
+	}
+
+	$badge_markup = sprintf(
+		'<div class="%1$s" style="%2$s" aria-hidden="true">%3$s</div>',
+		esc_attr( implode( ' ', $classes ) ),
+		esc_attr( $style ),
+		$img
+	);
+
+	if ( ! empty( $config['container_class'] ) && 'container' === ( $config['width_mode'] ?? 'container' ) ) {
+		printf(
+			'<div class="banner-badge-wrap banner-badge-wrap--container"><div class="banner-badge-wrap__inner %1$s">%2$s</div></div>',
+			esc_attr( $config['container_class'] ),
+			$badge_markup
+		);
+		return;
+	}
+
+	printf(
+		'<div class="banner-badge-wrap banner-badge-wrap--full">%s</div>',
+		$badge_markup
+	);
+}
+
+/**
  * Output responsive img attributes for the video banner poster (class: video-banner-poster).
  * Use: <img class="video-banner-poster" <?php tca_video_banner_poster_attrs( $poster ); ?> />
  *
@@ -632,8 +876,78 @@ function tca_video_banner_poster_attrs( $poster, $max_width = '1920px', $image_s
 
 
 
+/**
+ * Sanitize tag names for the Mailchimp API.
+ *
+ * @param string[] $tags Raw tag names.
+ * @return string[]
+ */
+function tca_sanitize_mailchimp_tags( array $tags ) {
+	$sanitized = array();
 
+	foreach ( $tags as $tag ) {
+		if ( ! is_string( $tag ) ) {
+			continue;
+		}
 
+		$tag = trim( $tag );
+		if ( '' === $tag ) {
+			continue;
+		}
 
+		// Mailchimp rejects tags longer than 100 characters (common with full PDF URLs).
+		if ( strlen( $tag ) > 100 ) {
+			if ( filter_var( $tag, FILTER_VALIDATE_URL ) ) {
+				continue;
+			}
+			$tag = substr( $tag, 0, 100 );
+		}
 
+		$sanitized[] = $tag;
+	}
 
+	return array_values( array_unique( $sanitized ) );
+}
+
+/**
+ * Expand comma-separated tag strings in Gravity Forms Mailchimp subscriptions.
+ *
+ * When a feed uses {mc_tags} as a single merge tag, GF replaces it with e.g.
+ * "tag1,tag2" but keeps that as one tag name. Split those into separate tags.
+ *
+ * @param array       $subscription Subscription arguments.
+ * @param string      $list_id      Mailchimp list ID.
+ * @param array       $form         Form object.
+ * @param array       $entry        Entry object.
+ * @param array       $feed         Feed object.
+ * @param array|false $member       Existing Mailchimp member, if any.
+ * @return array
+ */
+function tca_mailchimp_expand_comma_tags( $subscription, $list_id, $form, $entry, $feed, $member ) {
+	unset( $list_id, $form, $entry, $feed, $member );
+
+	if ( empty( $subscription['tags'] ) || ! is_array( $subscription['tags'] ) ) {
+		return $subscription;
+	}
+
+	$expanded = array();
+
+	foreach ( $subscription['tags'] as $tag ) {
+		if ( ! is_string( $tag ) ) {
+			continue;
+		}
+
+		foreach ( explode( ',', $tag ) as $part ) {
+			$part = trim( $part );
+			if ( '' !== $part ) {
+				$expanded[] = $part;
+			}
+		}
+	}
+
+	$subscription['tags'] = array_values( array_unique( $expanded ) );
+
+	return $subscription;
+}
+
+add_filter( 'gform_mailchimp_subscription', 'tca_mailchimp_expand_comma_tags', 10, 6 );

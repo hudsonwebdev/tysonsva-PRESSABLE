@@ -61,6 +61,9 @@ handleDesktopScroll();
 
 $(".top-level > a").mouseenter(function(){
     if($(window).width()>1200){
+    if ($('.menu-search').hasClass('open')) {
+        return;
+    }
     var $topLevel = $(this).parent();
     
     // Remove reverse animation class if present
@@ -155,7 +158,7 @@ $('.sub-menu-area').mouseleave(function(){
 });
 
 
-$('#primary').click(function(){
+function closeMegaMenus() {
     $(".sub-menu-area").each(function() {
         var $subMenu = $(this);
         var $topLevel = $subMenu.closest('.top-level');
@@ -168,12 +171,47 @@ $('#primary').click(function(){
             reverseLineAnimation($topLevel);
         }
     });
+
+    $('.top-level').removeClass('active');
+    $('.menu-section').removeClass('mobile-active');
+    $('.mobile-toggle').removeClass('toggle-active');
+}
+
+// Close mega menus when the pointer leaves the nav/dropdown area (desktop only).
+$('.menu-section').on('mouseleave', function() {
+    if ($(window).width() > desktopBreakpoint) {
+        closeMegaMenus();
+    }
+});
+
+// Close when the pointer moves anywhere outside the mega menu while it is open.
+$(document).on('mouseover', function(e) {
+    if ($(window).width() <= desktopBreakpoint) {
+        return;
+    }
+
+    if (!$('.sub-menu-area.open-menu').length) {
+        return;
+    }
+
+    if (!$(e.target).closest('.menu-section').length) {
+        closeMegaMenus();
+    }
+});
+
+$('#primary').click(function(){
+    closeMegaMenus();
 })
 
 
-$('.search-link').click(function(){
-    $('.menu-search').toggleClass('open');
-    $(this).toggleClass('open');
+$('.search-link').click(function(e){
+    e.preventDefault();
+    // Always hide navigation mega menus when search is opened or closed.
+    closeMegaMenus();
+    var isOpen = !$('.menu-search').hasClass('open');
+    $('.menu-search').toggleClass('open', isOpen);
+    $(this).toggleClass('open', isOpen);
+    $('.header-wrap').toggleClass('search-open', isOpen);
 })
 
 
@@ -204,6 +242,8 @@ $('.arrow-left').click(function(){
 $('.mobile-hide-search').click(function(){
 
     $('.menu-search').removeClass('open');
+    $('.search-link').removeClass('open');
+    $('.header-wrap').removeClass('search-open');
 });
 
 

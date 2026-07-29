@@ -1,40 +1,21 @@
-/*COULD ADD STRAIGHT CSS HERE */
-
-
-.logo-list{
-
-	align-items:center;
-	justify-content: space-between;
-
-
-}
-
-
-.logo-list .logo{
-
-
-	margin:0 auto;
-	a{
-		display:block;
-	}
-
-}
-
-
-@media(min-width:768px){
-
 .logo-list {
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
 
-.logo-list .logo{
+.logo-list .logo {
+	margin: 0;
 
-
-	margin:0 ;
-
+	a {
+		display: block;
+	}
 }
 
-
+@media (min-width: 768px) {
+	.logo-list {
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
 }

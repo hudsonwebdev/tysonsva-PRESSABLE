@@ -18,20 +18,43 @@ class Folder {
 		//TODO need to convert ord to number using +0
 		global $wpdb;
 
-		$check_author = apply_filters( 'fbv_will_check_author', true );
-		$conditions = array(
-			'1 = 1'
-		);
-		if( $check_author ) {
-			$conditions[] = 'created_by = ' . apply_filters( 'fbv_folder_created_by', 0 );
+		$allowed_fields = array( '*', 'id', 'name', 'parent', 'type', 'created_by', 'ord' );
+		if ( '*' !== $select ) {
+			$select_fields = array_map( 'trim', explode( ',', $select ) );
+			foreach ( $select_fields as $field ) {
+				if ( ! in_array( $field, $allowed_fields, true ) ) {
+					$select = '*'; // Fallback to safe default
+					break;
+				}
+			}
 		}
-		if ( ! empty( $search ) ) {
-			$conditions[] = "name LIKE '%" . $wpdb->esc_like( $search ) . "%'";
-		}
-		$conditions = implode( ' AND ', $conditions );
-		$sql        = "SELECT $select FROM " . self::getTable( self::$folder_table ) . ' WHERE ' . $conditions . ' ORDER BY `ord` ASC';
 
-		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
+		$check_author = apply_filters( 'fbv_will_check_author', true );
+		$where_conditions = array();
+		$prepare_values = array();
+
+		$where_conditions[] = '1 = 1';
+
+		if ( $check_author ) {
+			$created_by = apply_filters( 'fbv_folder_created_by', 0 );
+			$where_conditions[] = 'created_by = %d';
+			$prepare_values[] = $created_by;
+		}
+
+		if ( ! empty( $search ) ) {
+			$where_conditions[] = 'name LIKE %s';
+			$prepare_values[] = '%' . $wpdb->esc_like( $search ) . '%';
+		}
+
+		$where_clause = implode( ' AND ', $where_conditions );
+		$table_name = self::getTable( self::$folder_table );
+		
+		$sql = "SELECT $select FROM $table_name WHERE $where_clause ORDER BY `ord` ASC";
+
+		if ( ! empty( $prepare_values ) ) {
+			$sql = $wpdb->prepare( $sql, $prepare_values );
+		}
+
 		$folders = $wpdb->get_results( $sql, $output );
 
 		if ( 'name' === $order_by && in_array( $order, array( 'asc', 'desc' ), true ) ) {
@@ -104,7 +127,12 @@ class Folder {
 
 	public static function getFolderIdFromPostId( $post_id ) {
 		global $wpdb;
-		return $wpdb->get_var( 'SELECT `folder_id` FROM ' . self::getTable( self::$relation_table ) . ' WHERE `attachment_id` = ' . (int) $post_id . ' GROUP BY `folder_id`' );
+		return $wpdb->get_var( 
+			$wpdb->prepare( 
+				'SELECT `folder_id` FROM ' . self::getTable( self::$relation_table ) . ' WHERE `attachment_id` = %d GROUP BY `folder_id`', 
+				(int) $post_id 
+			) 
+		);
 	}
 
 	public static function getFolderFromPostId( $post_id ) {
@@ -131,11 +159,14 @@ class Folder {
 		global $wpdb;
 
 		$counterType = SettingModel::getInstance()->get( 'folder_counter_type' );
-		$isUsed      = apply_filters( 'fbv_counter_type', $counterType ) === 'counter_file_in_folder_and_sub';
-
-		if ( ! $isUsed ) {
+		if($counterType !== 'counter_file_in_folder_and_sub') {
 			return array();
 		}
+		// $isUsed      = apply_filters( 'fbv_counter_type', $counterType ) === 'counter_file_in_folder_and_sub';
+
+		// if ( ! $isUsed ) {
+		// 	return array();
+		// }
 		$check_author = apply_filters( 'fbv_will_check_author', true );
 		if( $check_author ) {
 			$query = $wpdb->prepare(
@@ -186,13 +217,22 @@ class Folder {
 	public static function countAttachments( $lang = null ) {
         global $wpdb;
 		$check_author = apply_filters( 'fbv_will_check_author', true );
+        
+		$where_conditions = array( "posts.post_status != 'trash'" );
+		
+		// Add exclusion conditions using helper function
+		$where_conditions = array_merge( $where_conditions, Helpers::buildExclusionConditions() );
+		
+		// Convert array to string for WHERE clause
+		$where_clause = implode( ' AND ', $where_conditions );
+		
         if( $check_author ) {
 			$query = $wpdb->prepare(
 				"SELECT folder_id, count(attachment_id) as counter
 					FROM {$wpdb->prefix}posts AS `posts`
 					INNER JOIN {$wpdb->prefix}fbv_attachment_folder AS `fbva` ON (fbva.attachment_id = posts.ID AND posts.post_type = 'attachment')
 					INNER JOIN {$wpdb->prefix}fbv AS `fbv` ON (fbva.folder_id = fbv.id AND fbv.created_by = %d)
-					WHERE posts.post_status != 'trash'
+					WHERE {$where_clause}
 					GROUP BY folder_id",
 					apply_filters( 'fbv_folder_created_by', 0 )
 				);
@@ -201,7 +241,7 @@ class Folder {
 					FROM {$wpdb->prefix}posts AS `posts`
 					INNER JOIN {$wpdb->prefix}fbv_attachment_folder AS `fbva` ON (fbva.attachment_id = posts.ID AND posts.post_type = 'attachment')
 					INNER JOIN {$wpdb->prefix}fbv AS `fbv` ON (fbva.folder_id = fbv.id)
-					WHERE posts.post_status != 'trash'
+					WHERE {$where_clause}
 					GROUP BY folder_id";
 		}
 
@@ -319,7 +359,7 @@ class Folder {
 	}
 	public static function findById( $folder_id, $select = 'id' ) {
 		global $wpdb;
-		$query = 'SELECT ' . $select . ' FROM ' . self::getTable( self::$folder_table ) . " WHERE `id` = '" . (int) $folder_id . "'";
+		$query = $wpdb->prepare( "SELECT " . $select . " FROM " . self::getTable( self::$folder_table ) . " WHERE `id` = %d", (int) $folder_id );
 		return $wpdb->get_row( $query );
 	}
 
@@ -327,7 +367,7 @@ class Folder {
 		return self::findById( $folder_id ) !== null;
 	}
 
-	public static function updateFolderName( $new_name, $parent, $folder_id ) {
+	public static function updateFolderName( $new_name, $parent, $folder_id, $auto_rename = false ) {
 		global $wpdb;
 		$new_name   = sanitize_text_field( wp_unslash( wp_kses_post( $new_name ) ) );
 		$new_name   = Helpers::sanitize_for_excel( $new_name );
@@ -351,8 +391,62 @@ class Folder {
 			do_action( 'fbv_after_folder_renamed', $folder_id, $new_name );
 			return true;
 		}
+		if ( $auto_rename ) {
+			$unique_name = self::findUniqueFolderName( $new_name, $parent, $folder_id, 1 );
+			if ( $unique_name ) {
+				$wpdb->update(
+					self::getTable( self::$folder_table ),
+					array( 'name' => $unique_name ),
+					array( 'id' => $folder_id ),
+					array( '%s' ),
+					array( '%d' )
+				);
+				do_action( 'fbv_after_folder_renamed', $folder_id, $unique_name );
+				return true;
+			}
+		}
 
 		return false;
+	}
+
+	/**
+	 * Find a unique folder name by appending (1), (2), (3), etc. using while loop for better performance.
+	 *
+	 * @param string $base_name The base name to check
+	 * @param int    $parent    The parent folder ID
+	 * @param int    $folder_id The current folder ID (to exclude from check)
+	 * @param int    $counter   The counter starting from 1
+	 * @return string|false The unique name or false if not found
+	 */
+	public static function findUniqueFolderName( $base_name, $parent, $folder_id = null, $counter = 1 ) {
+		global $wpdb;
+		$max_attempts = 15; // Safety limit to prevent infinite loop
+		
+		while ( $counter <= $max_attempts ) {
+			$new_name = $base_name . ' (' . $counter . ')';
+			$exist_name = $folder_id !== null ? $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->prefix}fbv WHERE id != %d AND name = %s AND parent = %d",
+					$folder_id,
+					$new_name,
+					$parent
+				)
+			) : $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->prefix}fbv WHERE name = %s AND parent = %d",
+					$new_name,
+					$parent
+				)
+			);
+			
+			if ( \is_null( $exist_name ) ) {
+				return $new_name;
+			}
+			
+			$counter++;
+		}
+		
+		return false; // Return false if max attempts reached
 	}
 	public static function updateParent( $folder_id, $new_parent ) {
 		global $wpdb;
@@ -434,6 +528,15 @@ class Folder {
 			return $return_id_if_exist ? array( 'id' => (int) $check->id ) : false;
 		}
 	}
+	public static function newUniqueFolder( $name, $parent ) {
+		//check if the name is already exists
+		$check = self::detail( $name, $parent );
+		if ( ! is_null( $check ) ) {
+			$name = self::findUniqueFolderName( $name, $parent );
+		}
+		
+		return self::newFolder( $name, $parent );
+	}
 
 	public static function deleteFoldersOfPost( $post_id ) {
 		global $wpdb;
@@ -448,9 +551,13 @@ class Folder {
 		global $wpdb;
 		$detail = null;
 		if ( $index == 0 ) {
-			$detail = $wpdb->get_results( 'SELECT name, id FROM ' . $wpdb->prefix . 'fbv WHERE id = ' . (int) $folder_id );
+			$detail = $wpdb->get_results( 
+				$wpdb->prepare( 'SELECT name, id FROM ' . $wpdb->prefix . 'fbv WHERE id = %d', (int) $folder_id ) 
+			);
 		}
-		$children = $wpdb->get_results( 'SELECT name, id FROM ' . $wpdb->prefix . 'fbv WHERE parent = ' . (int) $folder_id );
+		$children = $wpdb->get_results( 
+			$wpdb->prepare( 'SELECT name, id FROM ' . $wpdb->prefix . 'fbv WHERE parent = %d', (int) $folder_id ) 
+		);
 		foreach ( $children as $k => $v ) {
 			$children[ $k ]->children = self::getChildrenOfFolder( $v->id, $index + 1 );
 		}
@@ -502,6 +609,29 @@ class Folder {
 		return $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}fbv WHERE parent = %d", $id ) );
     }
 
+	/**
+	 * Get all descendant folder IDs (children, grandchildren, etc.) recursively.
+	 *
+	 * @param int $folder_id The parent folder ID.
+	 * @return array Array of all descendant folder IDs.
+	 */
+	public static function getAllDescendantIds( $folder_id ) {
+		global $wpdb;
+
+		$children = $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}fbv WHERE parent = %d", (int) $folder_id ) );
+
+		if ( empty( $children ) ) {
+			return array();
+		}
+
+		$descendants = $children;
+		foreach ( $children as $child_id ) {
+			$descendants = array_merge( $descendants, self::getAllDescendantIds( (int) $child_id ) );
+		}
+
+		return $descendants;
+	}
+
 	public static function _delete( array $ids, array $folderColors ) {
         global $wpdb;
 
@@ -540,6 +670,7 @@ class Folder {
 		//get all terms of taxonomies
 		$enabledPostType = get_option( 'fbv_enabled_posttype', '' );
 		$enabledPostType = explode( ',', $enabledPostType );
+		$enabledPostType = array_filter( $enabledPostType );
 		foreach ( $enabledPostType as $postType ) {
 			$terms = get_terms( array(
 				'taxonomy'   => 'fbv_pt_tax_' . $postType,
@@ -548,9 +679,14 @@ class Folder {
 				'orderby'    => 'meta_value_num',
 				'order'      => 'ASC',
 			) );
+			if( is_wp_error( $terms ) ) {
+				continue;
+			}
 			foreach ( $terms as $term ) {
 				$folder = array();
-				
+				if ( is_array( $term ) ) {
+					$term = (object) $term;
+				}
 				$posts = get_posts( array(
 					'fields' => 'ids',
 					'post_type' => $postType,
@@ -578,5 +714,81 @@ class Folder {
 			}
 		}
 		return $folders;
+	}
+
+	public static function duplicateFolder( $folder_id, $change_name = true ) {
+		global $wpdb;
+		
+		// Get folder details
+		$folder = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}fbv WHERE id = %d", $folder_id ) );
+		if ( ! $folder ) {
+			return false;
+		}
+		
+		// Create new folder with same parent and name + " (Copy)"
+		$new_name = $change_name ? $folder->name . ' ' . esc_html__( '(Copy)', 'filebird' ) : $folder->name;
+
+		$new_name   = sanitize_text_field( wp_unslash( wp_kses_post( $new_name ) ) );
+		$new_name   = Helpers::sanitize_for_excel( $new_name );
+		$exist_name = $wpdb->get_row(
+            $wpdb->prepare(
+			"SELECT * FROM {$wpdb->prefix}fbv WHERE id != %d AND name = %s AND parent = %d",
+                $folder_id,
+                $new_name,
+                $folder->parent
+            )
+        );
+		$i = 1;
+		while ( $exist_name ) {
+			$new_name = $change_name ? ( $folder->name . ' ' . esc_html__( '(Copy)', 'filebird' ) . ' ' . $i ) : ( $folder->name . ' ' . $i );
+			$new_name = sanitize_text_field( wp_unslash( wp_kses_post( $new_name ) ) );
+			$new_name = Helpers::sanitize_for_excel( $new_name );
+			$exist_name = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT * FROM {$wpdb->prefix}fbv WHERE id != %d AND name = %s AND parent = %d",
+					$folder_id,
+					$new_name,
+					$folder->parent
+				)
+			);
+			$i++;
+		}
+
+		$new_folder = self::newFolder( $new_name, $folder->parent );
+		if ( ! $new_folder ) {
+			return false;
+		}
+		
+		// Copy folder color if exists
+		$folder_colors = get_option( 'fbv_folder_colors', array() );
+		if ( isset( $folder_colors[ $folder_id ] ) ) {
+			$folder_colors[ $new_folder['id'] ] = $folder_colors[ $folder_id ];
+			update_option( 'fbv_folder_colors', $folder_colors );
+		}
+		
+		// Copy children folders recursively
+		$children = $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}fbv WHERE parent = %d", $folder_id ) );
+		foreach ( $children as $child_id ) {
+			$child_folder = self::duplicateFolder( $child_id, false );
+			if ( $child_folder ) {
+				self::updateParent( $child_folder['id'], $new_folder['id'] );
+			}
+		}
+		
+		return $new_folder;
+	}
+	public static function resetCount() {
+		global $wpdb;
+		$wpdb->query("
+			CREATE TEMPORARY TABLE temp_keep AS
+			SELECT MIN(folder_id) AS folder_id, attachment_id
+			FROM wp_fbv_attachment_folder
+			GROUP BY attachment_id
+		");
+		$wpdb->query("DELETE FROM wp_fbv_attachment_folder");
+		$wpdb->query("
+			INSERT INTO wp_fbv_attachment_folder (folder_id, attachment_id)
+			SELECT folder_id, attachment_id FROM temp_keep
+		");
 	}
 }

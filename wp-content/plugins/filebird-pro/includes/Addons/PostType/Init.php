@@ -284,6 +284,7 @@ class Init {
             } else {
                 $data['i18n']['all_files'] = $translation['all_items'];
             }
+            $data['folder_counter_type_' . $typenow] = get_user_meta( get_current_user_id(), 'fbv_folder_counter_type_' . $typenow, true );
         }
 
         return $data;

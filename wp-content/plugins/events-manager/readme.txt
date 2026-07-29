@@ -1,11 +1,11 @@
 === Events Manager - Calendar, Bookings, Tickets, and more!  ===
 Contributors: msykes, pxlite, nutsmuggler, netweblogic
 Donate link: https://wp-events-plugin.com
-Tags: events, calendar, tickets, bookings, appointments
+Tags: events, calendar, tickets, bookings, block
 Text Domain: events-manager
 Requires at least: 6.1
-Tested up to: 6.9
-Stable tag: 7.2.3.1
+Tested up to: 7.0
+Stable tag: 7.4.0.1
 Requires PHP: 7.0
 License: GPLv2
 
@@ -21,6 +21,9 @@ Events Manager is a full-featured event calendar, bookings, appointments, schedu
 
 = Main Features =
 
+* **NEW** Integrate easily with your favourite AI via MCP, unlock the power of AI-powered Events!
+* **NEW** API Rest Integration
+* **NEW** EU Compliance Tools for ["Right of withdrawal" (EU 'Widerrufsbutton')](https://wp-events-plugin.com/documentation/compliance/right-of-withdrawal/)
 * Beautiful calendars, search pages, lists, grids and booking forms to enhance your site events.
 * Easy event registration (single day with start/end times)
 * Recurring and long (multi-day) event registration
@@ -36,7 +39,7 @@ Events Manager is a full-featured event calendar, bookings, appointments, schedu
  * Network-wide Global Booking Management
  * BuddyPress and BuddyBoss Support
  * Create modular (independent) event subsites or inter-networked events
-* **NEW** Multiple custom event types (Archetypes), such as Workshops, Events, Webinars, Appointments etc.
+* Multiple custom event types (Archetypes), such as Workshops, Events, Webinars, Appointments etc.
  * Customize your labels, slugs and CPT names
  * Enable or disable specific features for specific event archetypes.
 * Multiple Location Types
@@ -63,9 +66,17 @@ Events Manager is a full-featured event calendar, bookings, appointments, schedu
 * Compatible with SEO plugins
 * Timezone Support - create events in different timezones
 * Plenty of template tags and shortcodes for use in your posts and pages
+* Gutenberg block editor support, with native blocks for the Events Calendar, Events List, and Locations List — usable in posts, pages, the site editor and the widget editor
 * Actively maintained and supported
 * Lots of documentation and tutorials
+* **NEW** Gutenberg Supported
 * And much more!
+
+= AI Integration =
+
+AI is here, and we're on board! Check out what's possible with our new and evolving AI integration possibilities:
+
+https://www.youtube.com/watch?v=NYjCel9eBwY
 
 = Data Privacy and GDPR Compliance =
 We provide the tools to [help you be GDPR compliant](http://wp-events-plugin.com/documentation/data-privacy-gdpr-compliance/), including:
@@ -79,8 +90,8 @@ We provide the tools to [help you be GDPR compliant](http://wp-events-plugin.com
 
 We have a premium [Pro add-on for Events Manager](http://eventsmanagerpro.com/gopro/) which not only demonstrates the flexibility of Events Manager, but also adds some important features including but not limited to:
 
-* WooCommerce integration ([sold separately](https://em.cm/wc))
-* PayPal, Stripe, Authorize.net and Offline Payments
+* WooCommerce integration ([sold separately](https://pxlink.cc/wc))
+* PayPal, Stripe, Authorize.net, Square, Xero and Offline Payments
 * Custom booking forms
 * Individual Attendee custom forms
 * Upload fields for bookings, attendees and users
@@ -183,6 +194,106 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page for helps wit
 18. Grid view for displaying your upcoming events at a glance
 
 == Changelog ==
+= 7.4.0.1 =
+* Update notice for Pro users.
+
+= 7.4 =
+* Added: a "check for the latest stable version" option that bypasses the staggered update rollout, plus an EM_AUTO_UPDATES constant to auto-install held-back versions
+* Fixed: "_load_textdomain_just_in_time was called incorrectly" notice logged on every page load
+* Fixed: on multisite, the image maximum file size and minimum width settings were not applied network-wide
+* Fixed: form uploads could be silently dropped on save when another upload field was left empty
+* Fixed: malformed double-slash URL for the admin dashboard chart script
+
+= 7.3.7.4.2 =
+* Added: Stable update checking options, excluded from automatic background updates
+* Moved update checks into em-updates.php so the auto-update veto loads during cron
+
+= 7.3.7.4 =
+* Fixed: Critical error on front-end event pages for events with a location URL since 7.3.7
+
+= 7.3.7.3 =
+* Added: webp as accepted upload image type
+* Fixed: SQL syntax error affecting ticket counts due to unprepared SQL statement (props @joneiseman)
+
+= 7.3.7 =
+* Added: Push notification framework for the upcoming Events Manager mobile app — device registration, per-notification-type controls, and a settings UI.
+* Added: Block editor — Event Details canvas panel with tabbed When and Bookings sections; canvas/tabbed/stacked layout setting; namespaced EM\Editor tab system for event and location editors; EM runtime now loads inside the canvas iframe with full admin CSS and recurrence support.
+* Added: REST API recurring-event and timeslot read/write support.
+* Security: Fixed unauthenticated object injection via booking meta, SQL injection in iCal/feed/permalink slug lookups, and unauthenticated booking summary disclosure. Reported by Jakub Herman. We recommend updating.
+* Fixed: PHP 8.x infinite loop in the multi-day calendar slot allocator when two events overlap on the same day.
+* Fixed: WordPress 6.7+ "translation triggered too early" debug notice — API consent-scope now registers on `init` instead of `plugins_loaded`.
+* Fixed: Fatal `array_intersect()` error on the Bookings list when sorted by a single column.
+* Fixed: Fatal "Cannot access offset of type string on string" on settings save when `dbem_data` was corrupted to a plain string.
+* Fixed: Booked seat and ticket counts showed as 0 throughout the admin due to an inverted condition.
+* Fixed: "Limit CSS loading" setting ignored since 7.3 — stylesheet enqueued on every front-end page regardless of the setting.
+* Fixed: Fatal "Cannot redeclare em_admin_ms_locations()" on multisite subsite admin.
+* Fixed: Recurrence reschedule button and double timeslot bug in the block canvas.
+
+= 7.3.6 =
+* Added: EU right of withdrawal (Widerrufsbutton) — guests and registered users can now submit a statutory cancellation request directly from a booking confirmation email or the My Bookings page, fulfilling the § 356a BGB obligation for distance contracts. Includes a configurable site-wide footer link, admin and guest acknowledgement emails, and magic-link access so guests without a WordPress account can reach the cancellation form.
+* Fixed: Recurring events with an exclude-only recurrence set (or a malformed payload with no include/exclude keys) caused a fatal TypeError in uksort() — the order array is now initialised before sorting.
+* Tweaked: OAuth connect and disconnect flows now return the admin to the page where they initiated the connection rather than always landing on the Events Manager settings page; the `em_oauth_authorize_redirect_url` and `em_oauth_disconnect_redirect_url` filters let gateways and integrations customise the destination further.
+
+= 7.3.5 =
+* Security: Private events and locations could be exposed to non-privileged visitors when the `private` query argument was supplied — the fix ensures only users with the `read_private_events` / `read_private_locations` capability can request private content. CVE-2025-14945, responsibly disclosed by shark3y via WordFence. We recommend updating.
+* Fixed: A custom Grid format header/footer set in Formatting settings was never shown on grid event lists — the view was reading the wrong option name, so the header/footer text was silently dropped on both initial load and AJAX search.
+* Fixed: Custom Google Maps JSON styling (Styling Wizard / Snazzy Maps) stopped applying after the Advanced Markers upgrade — Google ignores legacy map styles when a Map ID is present. Front-end maps with custom styling now render correctly again, without the "styles property cannot be set when a mapId is present" console warning.
+* Fixed: Block editor — recurring events no longer trigger a false "recurrence times are required" error on second save (disabled recurrence fields are now included in form serialisation); the Event When block's edits are no longer silently dropped in Gutenberg 6.6+ where the canvas renders inside an iframe.
+* Tweaked: The default event editor has been switched back to Classic while block editor support is further refined — existing installs are unaffected and the setting can be changed under Events Manager → Settings.
+
+= 7.3.4 =
+* Security: Free-text event and location fields submitted by non-privileged users (e.g. front-end event submitters) are now sanitised, closing a stored-XSS vector. We recommend everyone update.
+* Added: New "Event When" block for the block editor — edit an event's date, time and recurrence inline from the canvas.
+* Added: New display options for timeslot booking cards, giving you more control over how timeslot selection appears on the booking form.
+* Fixed: Timeslot and recurring booking pickers are now a single shared template, resolving several layout and timezone-picker glitches, multiday date display, and a card-gap regression.
+* Fixed: Recurring events now regenerate their timeslots when the event duration changes, and event listings sort and scope correctly by timeslot date/time across a series.
+* Fixed: Block editor — recurring events no longer fail validation on a second save, and the date picker now initialises correctly inside the editor's iframe.
+* Fixed: Several REST/MCP API issues found in live testing — bookings made through the API were all being attributed to the authenticated admin rather than the intended account; partial event updates could wipe categories and tags; and media upload, booking-status and consent handling have been tightened. Booking on behalf of another person is now correctly a Pro-only capability.
+* Fixed: MCP installer buttons on the settings page not triggering the install.
+* Fixed: CSS glitches in the selectize search dropdown when resizing or typing.
+* Tweaked: The selected day is now shown in bold across every calendar event style.
+
+= 7.3.3 =
+* Added: Calendar "dots" style — events can now be marked with coloured dots instead of (or alongside) titles, with a style choice and a per-day event limit exposed in the Events Calendar block.
+* Added: REST API support for featured images on events and locations (input and output), a media upload endpoint and ability, and term colour + image on event categories/tags.
+* Added: Location geo-discovery REST endpoints (countries, regions, states, towns) and an `upcoming_events_count` field on the location response.
+* Added: REST `/bookings` now accepts location filters (country/region/state/town/near) and a `scope` parameter to filter bookings by event date.
+* Added: MCP `get-booking-requirements` now returns per-field validation metadata with country-tuned phone examples, so AI agents can pre-validate bookings.
+* Tweaked: The recurring-booking calendar picker now respects the configured default calendar style.
+* Tweaked: Improved the MCP experience for AI agents — authentication now uses WordPress application passwords instead of timeout-prone OAuth tokens, with native-app support, and the MCP server now exposes Pro and other add-on abilities alongside core's.
+
+= 7.3.2 =
+* Added: REST API now accepts a booking UUID on `/bookings/{id}` routes alongside the numeric booking ID, so MCP agents and headless clients can look up bookings without needing the database row id.
+* Added: `booked_spaces` and `available_spaces` fields on the event REST API response, with corresponding entries in the event-bookings schema.
+* Added: MCP `get-booking-requirements` ability so AI agents can introspect which fields, attendees and gateway data a booking needs before submission. Booking validation errors are now agent-friendly (specific required-field names instead of a generic message).
+* Fixed: REST/MCP — booking validation errors now surface to the caller instead of being swallowed; ticket-by-id lookups return the right ticket; event timeranges round-trip cleanly through the API.
+* Fixed: `#_BOOKINGBUTTON` placeholder rendering the "Event Cancelled" message instead of "Fully Booked" when an event sold out (`templates/placeholders/bookingbutton.php`). Thanks to Jon Eiseman for the report.
+* Fixed: Unavailable Dates being ignored when generating events for a repeating series — `Recurrence_Sets::has_collision()` was returning the inbound filter argument instead of the matched recurrence type, so the save loop treated every collision as no-collision. Repeating events with exclusions (e.g. "every Monday June 1–30 except June 15") now correctly omit the excluded occurrences. Thanks to Jon Eiseman for the diagnosis.
+* Fixed: Event Categories and Event Tags panels not appearing in the Gutenberg block editor's Document sidebar — taxonomies now opt into the WordPress REST API alongside the CPT when the block editor is enabled, so Gutenberg users can assign them to events again. Thanks to Jon Eiseman for the report.
+* Fixed: Multilingual — booking-form settings keys that were missing the WPML globe icon are now in the translatable-options whitelist.
+* Fixed: Multilingual — guarded against fatal errors when WPML is partially configured and expanded the translatable-settings whitelist to cover newly added options.
+
+= 7.3.1 =
+* Bumped version to fix missing file dependency during build causing fatal errors in 7.3
+
+= 7.3 =
+* Added REST API v1 with full event, location, booking, and ticket endpoints under `events-manager/v1/`, PATCH partial-update support, a validation endpoint, and extension hooks so custom archetypes and Pro modules plug into the same save pipeline as Gutenberg, the classic editor, headless clients, and WP-CLI
+* Added documented input schemas for the REST API covering events, locations, bookings, per-attendee custom fields, embedded location creation, attributes, coupons, and Pro overlay fields
+* Added OAuth Application-Password support so apps can authenticate against the REST API without admin sessions
+* Added MCP (Model Context Protocol) adapter and setup wizard so AI agents can read and manage events through the authenticated REST surface
+* Added Gutenberg (block editor) support for events and locations with a Classic/Gutenberg toggle on Settings → General, defaulting to Classic on upgrade and Gutenberg on fresh install
+* Added Events Manager block category with three blocks (Events Calendar, Events List, Locations List), each delegating to the existing widget classes so output stays identical to shortcodes and widgets
+* Added ACF-style pre-save validation for the block editor — clicking Publish/Update runs EM's validate() pipeline against the classic metabox state via `events-manager/v1/blocks/event/validate`, surfacing errors as editor notices instead of silently demoting to draft
+* Tweaked repeating-event template CPTs to continue loading in classic editor since the Recurrences metabox does not render correctly in Gutenberg's metabox panel
+* Fixed XSS vulnerability CVE-2025-12976 (medium severity) reported by Muhammad Yudha-DJ via Wordfence
+* Fixed vulnerabilities CVE-2025-12407 and CVE-2025-12408 reported by thinnawarth mathuros via Wordfence
+* Changed REST API endpoints to require authentication by default
+* Fixed advanced formatting textareas being POSTed even when their group was hidden, which caused some host firewalls (Hostinger, SiteGround, Wordfence) to flag the raw HTML templates as XSS payloads and block the Settings save with a 403
+* Fixed pending events count in the WP admin sidebar menu incorrectly including or excluding recurring-event templates — counts now filter by event_type for both single and recurring totals
+* Updated intl-tel-input i18n files
+* Fixed some newly added settings missing multilingual translatable options
+* Fixed some PHP notices related to multilingual setups
+
 = 7.2.3.1 =
 * Fixed bug with counting approved bookings since 7.2.3
 * Fixed WP caching of event timeslots using only event ID instead of full UID, causing retrieval errors

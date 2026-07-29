@@ -1,0 +1,16 @@
+{
+  "name": "tca/football-live-scores",
+  "title": "World Cup live scores",
+  "description": "Shows in-play FIFA World Cup matches from API-Football with automatic refresh.",
+  "category": "tca-custom",
+  "icon": "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 37.7 40.2'><path fill='#0000ff' d='M12.2,11.8H0V0h37.7v11.8H25.6v28.5H12.2V11.8z'/></svg>",
+  "keywords": ["football", "soccer", "live", "scores", "api-football"],
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "anchor": true,
+    "align": true
+  }
+}

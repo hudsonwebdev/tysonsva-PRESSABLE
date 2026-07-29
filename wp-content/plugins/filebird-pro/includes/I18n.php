@@ -18,7 +18,7 @@ class I18n {
 		}
 		unload_textdomain( 'filebird' );
 		load_textdomain( 'filebird', NJFB_PLUGIN_PATH . '/i18n/languages/filebird-' . $locale . '.mo' );
-		load_plugin_textdomain( 'filebird', false, NJFB_PLUGIN_PATH . '/i18n/languages/' );
+		load_plugin_textdomain( 'filebird', false, dirname( plugin_basename( NJFB_PLUGIN_FILE ) ) . '/i18n/languages/' );
 	}
 
 	public static function getTranslation() {
@@ -44,6 +44,7 @@ class I18n {
 			'delete_error'                      => __( "Can't delete!", 'filebird' ),
 			'change_color'                      => __( 'Change Color', 'filebird' ),
 			'save'                              => __( 'Save', 'filebird' ),
+			'save_d_folders'                    => __( 'Save %d folders', 'filebird' ),
 			'save_changes'                      => __( 'Save Changes', 'filebird' ),
 			'folder'                            => __( 'Folder', 'filebird' ),
 			'folder_name_placeholder'           => __( 'Folder name...', 'filebird' ),
@@ -199,7 +200,7 @@ class I18n {
 			<a
 			  target="_blank"
 			  href="https://ninjateam.gitbook.io/filebird/integrations/developer-zone/apis"
-			  rel="noreferrer"
+			  rel="noreferrer noopener"
 			>here</a>.',
                 'filebird'
                 ),
@@ -287,6 +288,8 @@ class I18n {
 			'activation'                        => __( 'Activation', 'filebird' ),
 			'tools'                             => __( 'Tools', 'filebird' ),
 			'import_export'                     => __( 'Import/Export', 'filebird' ),
+			'document_library'                  => __( 'Document Library', 'filebird' ),
+			'enable_cache_optimization'         => __( 'Enable cache optimization', 'filebird' ),
 			'select_theme'                      => __( 'Select theme', 'filebird' ),
 			'by'                                => __( 'By', 'filebird' ),
 			'no_folders_export'                 => __( 'There are no folders to export.', 'filebird' ),
@@ -300,7 +303,13 @@ class I18n {
 			'folders_for_media_library'         => __( 'Folders for media library', 'filebird' ),
 			'folders_for_post_types'            => __( 'Folders for post types', 'filebird' ),
 			'collapse_all'                      => __( 'Collapse all', 'filebird' ),
+			'expand_all'                        => __( 'Expand all', 'filebird' ),
 			'no_posts_found'                    => __( 'No posts found!', 'filebird' ),
+			'duplicate'                         => __( 'Duplicate', 'filebird' ),
+			'duplicate_folder'                  => __( 'Duplicate Folder', 'filebird' ),
+			'folder_duplicated'                 => __( 'Folder duplicated!', 'filebird' ),
+			'duplicating_folder'                => __( 'Duplicating folder...', 'filebird' ),
+
 		);
 		return $translation;
 	}

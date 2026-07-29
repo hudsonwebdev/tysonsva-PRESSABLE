@@ -2,26 +2,33 @@
 
 namespace FileBird\Support;
 
-defined( 'ABSPATH' ) || exit;
+use FileBird\Support\AdminColumns\FileBirdColumn;
 
-use Filebird\Support\AdminColumns\Column;
+defined('ABSPATH') || exit;
 
-class AdminColumns {
-	public function __construct() {
-		add_action(
-            'acp/column_types',
-            static function ( \AC\ListScreen $list_screen ): void {
-				if ( \ACP()->get_version()->is_lte( new \AC\Plugin\Version( '6.3' ) ) ) {
-					return;
-				}
+// use Filebird\Support\AdminColumns\Column;
+class AdminColumns
+{
+	public function __construct()
+	{
+		// add_action( 'acp/column_types', array( $this, 'register_column_type' ) );
+		add_filter('ac/column/types/pro', array($this, 'register_column_type'), 10, 2);
+	}
 
-				require_once __DIR__ . '/AdminColumns/Column.php';
-				require_once __DIR__ . '/AdminColumns/Export.php';
+	public function register_column_type($factories, $table_screen)
+	{
+		// Only add column for Media screen
+		if ((string) $table_screen->get_id() !== 'wp-media') {
+			return $factories;
+		}
 
-				if ( 'wp-media' === $list_screen->get_key() ) {
-					$list_screen->register_column_type( new Column() );
-				}
-			}
-        );
+		// Include custom column classes
+		require_once __DIR__ . '/AdminColumns/FileBirdFormatter.php';
+		require_once __DIR__ . '/AdminColumns/FileBirdColumn.php';
+
+		// Register the custom FileBird Column
+		$factories[] = FileBirdColumn::class;
+
+		return $factories;
 	}
 }

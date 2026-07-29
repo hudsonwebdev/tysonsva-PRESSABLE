@@ -39,6 +39,18 @@ get_header();
         $resource_type = get_field('resource_type');
         $flipbook_shortcode  = get_field('flipbook_shortcode');
 
+        $mailchimp_tags = array_map(
+            static fn( $term ) => $term->name,
+            get_field( 'mailchimp_tags', $rid ) ?: array()
+        );
+        $mc_tags = tca_sanitize_mailchimp_tags( $mailchimp_tags );
+
+        $gf_field_values = array(
+            'pdfurl'  => ! empty( $file['url'] ) ? $file['url'] : '',
+            'mc_tags' => implode( ',', $mc_tags ),
+        );
+
+
         if($flipbook_shortcode>""){
 
             echo do_shortcode($flipbook_shortcode); ?>
@@ -82,9 +94,8 @@ get_header();
                     <div class="dl-form">
                     <?php
                 
-                    if($form_id>0 && $file>""){
-                    $values = array('pdfurl'=>$file['url']);
-                    gravity_form($form_id, false, false, false, $values, true, 0, true );
+                    if ( $form_id > 0 && ! empty( $file ) && function_exists( 'gravity_form' ) ) {
+                        gravity_form( $form_id, false, false, false, $gf_field_values, true, 0, true );
                     } ?>
                     </div>
                 </div>
@@ -100,15 +111,24 @@ get_header();
 <section>
     <div class="additional-info">
         <div class="uk-container">
-            <?php 
-            if(get_field('additional_resource_info')){ 
-                echo get_field('additional_resource_info');
+            <?php
+            $additional_info = get_field( 'additional_resource_info' );
+            if ( $additional_info ) {
+                echo apply_filters( 'the_content', $additional_info );
+            }
 
-            } 
+            if ( get_field( 'show_order_print_form' ) && function_exists( 'gravity_form' ) ) {
+                $order_print_form_id = (int) get_field( 'order_print_form_id' );
+                if ( $order_print_form_id > 0 ) {
+
+                    echo "<h2>Mail Me A Copy</h2>";
+                    gravity_form( $order_print_form_id, false, false, false, $gf_field_values, true, 0, true );
+                }
+            }
             ?>
-        <div>
-     <div>
-<section>
+        </div>
+    </div>
+</section>
 
 			
 		<?php endwhile; ?>

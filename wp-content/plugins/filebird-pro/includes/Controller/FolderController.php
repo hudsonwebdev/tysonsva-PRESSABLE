@@ -40,7 +40,24 @@ class FolderController extends Controller {
 
 		return rest_ensure_response( FolderModel::countAttachments( $lang ) );
 	}
-
+	public function duplicateFolder( \WP_REST_Request $request ) {
+		if ( ! current_user_can( 'upload_files' ) ) {
+			return new \WP_Error( 
+				'rest_forbidden', 
+				__( 'Sorry, you are not allowed to manage folders.', 'filebird' ), 
+				array( 'status' => rest_authorization_required_code() ) 
+			);
+		}
+		
+		$folder_id = $request->get_param( 'folder_id' );
+		$lang = sanitize_key( $request->get_param( 'language' ) );
+		$new_folder = FolderModel::duplicateFolder( $folder_id, true );
+		if ( $new_folder ) {
+			return rest_ensure_response( $new_folder );
+		} else {
+			return new \WP_Error( 'duplicate_failed', __( 'Failed to duplicate folder', 'filebird' ) );
+		}
+	}
 	public function updateFolderColor( \WP_REST_Request $request ) {
 		$id    = sanitize_key( $request->get_param( 'folderId' ) );
 		$color = sanitize_hex_color( $request->get_param( 'color' ) );
@@ -54,16 +71,42 @@ class FolderController extends Controller {
 	}
 
 	public function createFolder( \WP_REST_Request $request ) {
+		if ( ! current_user_can( 'upload_files' ) ) {
+			return new \WP_Error( 
+				'rest_forbidden', 
+				__( 'Sorry, you are not allowed to manage folders.', 'filebird' ), 
+				array( 'status' => rest_authorization_required_code() ) 
+			);
+		}
+		
 		$name   = $request->get_param( 'title' );
 		$parent = $request->get_param( 'parent' );
 		$name   = isset( $name ) ? sanitize_text_field( wp_unslash( $name ) ) : '';
 		$parent = isset( $parent ) ? sanitize_text_field( $parent ) : '';
+
+		$isMultiple = $request->get_param( 'isMultiple' );
 		if ( $name != '' && $parent != '' ) {
-			$insert = FolderModel::newOrGet( $name, $parent, false );
-			if ( $insert !== false ) {
-				return rest_ensure_response( $insert );
+			if( $isMultiple === true ) {
+				$names = explode( ',', $name );
+				$names = array_map( 'trim', $names );
+				$names = array_filter( $names );
+				$names = array_unique( $names );
+
+				$inserted = array();
+				foreach( $names as $name ) {
+					$insert = FolderModel::newOrGet( $name, $parent, false );
+					if( $insert !== false ) {
+						$inserted[] = $insert;
+					}
+				}
+				return rest_ensure_response( $inserted );
 			} else {
-				return new \WP_Error( 'folder_name_exist', __( 'A folder with this name already exists. Please choose another one.', 'filebird' ) );
+				$insert = FolderModel::newUniqueFolder( $name, $parent );
+				if ( $insert !== false ) {
+					return rest_ensure_response( array( $insert ) );
+				} else {
+					return new \WP_Error( 'folder_name_exist', __( 'A folder with this name already exists. Please choose another one.', 'filebird' ) );
+				}
 			}
 		} else {
 			return new \WP_Error( 'validation_failed', __( 'Validation failed', 'filebird' ) );
@@ -71,6 +114,14 @@ class FolderController extends Controller {
 	}
 
 	public function updateFolder( \WP_REST_Request $request ) {
+		if ( ! current_user_can( 'upload_files' ) ) {
+			return new \WP_Error( 
+				'rest_forbidden', 
+				__( 'Sorry, you are not allowed to manage folders.', 'filebird' ), 
+				array( 'status' => rest_authorization_required_code() ) 
+			);
+		}
+		
 		$id     = $request->get_param( 'id' );
 		$parent = $request->get_param( 'parent' );
 		$name   = $request->get_param( 'title' );
@@ -83,7 +134,7 @@ class FolderController extends Controller {
 		$folder_per_user = SettingModel::getInstance()->get( 'user_mode' ) === '1';
 
 		if ( is_numeric( $id ) && is_numeric( $parent ) && $name != '' && FolderModel::verifyAuthor( $id, $current_user_id, $folder_per_user ) ) {
-			$update = FolderModel::updateFolderName( $name, $parent, $id );
+			$update = FolderModel::updateFolderName( $name, $parent, $id, false );
 			if ( true === $update ) {
 				return rest_ensure_response( $update );
 			} else {
@@ -94,6 +145,14 @@ class FolderController extends Controller {
 	}
 
 	public function updateFolderOrder( \WP_REST_Request $request ) {
+		if ( ! current_user_can( 'upload_files' ) ) {
+			return new \WP_Error( 
+				'rest_forbidden', 
+				__( 'Sorry, you are not allowed to manage folders.', 'filebird' ), 
+				array( 'status' => rest_authorization_required_code() ) 
+			);
+		}
+		
 		global $wpdb;
 
 		$data = array(
@@ -109,6 +168,35 @@ class FolderController extends Controller {
 			if ( strlen( $param ) === 0 || ! is_numeric( $param ) ) {
 				return new \WP_Error( 'invalid_params', __( 'Invalid params', 'filebird' ), array( 'status' => 400 ) );
 			}
+		}
+
+		$drag_node = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT id, parent, ord, name FROM {$wpdb->prefix}fbv WHERE `id` = %d AND `created_by` = %d",
+				$data['dragNodeId'],
+				apply_filters( 'fbv_folder_created_by', 0 )
+			),
+			ARRAY_A
+		);
+
+		if ( ! $drag_node ) {
+			return new \WP_Error( 'drag_node_not_found', __( 'Drag node not found', 'filebird' ), array( 'status' => 400 ) );
+		}
+
+		$will_be_renamed = false;
+		//check if the name of the drag node exists
+		$exist_name = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->prefix}fbv WHERE name = %s AND parent = %d AND created_by = %d AND id != %d",
+				$drag_node['name'],
+				$data['toParentId'],
+				apply_filters( 'fbv_folder_created_by', 0 ),
+				$data['dragNodeId']
+			),
+			ARRAY_A
+		);
+		if ( $exist_name ) {
+			$will_be_renamed = true;
 		}
 
 		$old_node = $wpdb->get_row(
@@ -231,6 +319,19 @@ class FolderController extends Controller {
 			}
 		}
 
+		if ( $will_be_renamed ) {
+			$base_name = $drag_node['name'];
+			$parent_id = $data['toParentId'];
+			$new_name = FolderModel::findUniqueFolderName( $base_name, $parent_id, $data['dragNodeId'], 1 );
+			$wpdb->update(
+				"{$wpdb->prefix}fbv",
+				array( 'name' => $new_name ),
+				array( 'id' => $data['dragNodeId'] ),
+				array( '%s' ),
+				array( '%d' )
+			);
+		}
+
 		if ( ! is_null( $old_node ) && ( $old_node['parent'] != $data['toParentId'] ) ) {
 			do_action( 'fbv_folder_parent_updated', $data['dragNodeId'], $data['toParentId'] );
 		}
@@ -239,10 +340,18 @@ class FolderController extends Controller {
 			return rest_ensure_response( FolderModel::countAttachments( $lang ) );
 		}
 
-		return rest_ensure_response( true );
+		return rest_ensure_response( array( 'reload' => $will_be_renamed ) );
 	}
 
 	public function deleteFolder( \WP_REST_Request $request ) {
+		if ( ! current_user_can( 'upload_files' ) ) {
+			return new \WP_Error( 
+				'rest_forbidden', 
+				__( 'Sorry, you are not allowed to manage folders.', 'filebird' ), 
+				array( 'status' => rest_authorization_required_code() ) 
+			);
+		}
+		
 		$ids  = $request->get_param( 'ids' );
 		$lang = sanitize_key( $request->get_param( 'language' ) );
 
@@ -266,6 +375,14 @@ class FolderController extends Controller {
 	}
 
 	public function assignFolder( \WP_REST_Request $request ) {
+		if ( ! current_user_can( 'upload_files' ) ) {
+			return new \WP_Error( 
+				'rest_forbidden', 
+				__( 'Sorry, you are not allowed to manage folders.', 'filebird' ), 
+				array( 'status' => rest_authorization_required_code() ) 
+			);
+		}
+		
 		$folderId = $request->get_param( 'folderId' );
 		$ids      = $request->get_param( 'ids' );
 		$lang     = sanitize_key( $request->get_param( 'language' ) );

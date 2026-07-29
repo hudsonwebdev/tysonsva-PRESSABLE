@@ -11,7 +11,7 @@ class AttachmentDownloader {
         if ( class_exists( '\ZipStream\ZipStream' ) && apply_filters( 'fbv_use_zipstream', true ) ) {
 			add_action( 'wp_ajax_fbv_download_folder', array( $this, 'ajaxDownloadFolder' ) );
 		} else {
-			add_action( 'wp_ajax_fbv_download_folder', array( $this, 'ajaxDownloadFolderO' ) );
+			add_action( 'wp_ajax_fbv_download_folder', array( $this, 'ajaxDownloadFolderZip' ) );
 		}
     }
 
@@ -19,6 +19,18 @@ class AttachmentDownloader {
 		global $wpdb;
 
 		check_ajax_referer( 'fbv_nonce', 'nonce', true );
+
+		// Check if user has permission to access Media Library
+		if ( ! current_user_can( 'upload_files' ) ) {
+			wp_send_json_error(
+				array(
+					'errorCode'    => 403,
+					'errorMessage' => __( 'You do not have permission to download folders.', 'filebird' ),
+				),
+				403
+			);
+		}
+
 		try {
 			if ( isset( $_GET['do-download'] ) ) {
 				if ( function_exists( 'set_time_limit' ) ) {
@@ -36,7 +48,7 @@ class AttachmentDownloader {
 					$options->setSendHttpHeaders( true );
 					$options->setEnableZip64( false );
 					$options->setFlushOutput( true );
-					$zipname = $folder->name . '-' . uniqid() . '-' . time() . '.zip';
+					$zipname = $folder->name . '.zip';
 					$zipname = apply_filters( 'fbv_download_filename', $zipname, $folder );
 
 					$zip = new \ZipStream\ZipStream( $zipname, $options );
@@ -44,7 +56,15 @@ class AttachmentDownloader {
 					$attachment_ids = Helpers::getAttachmentIdsByFolderId( $folder_id );
 					$files          = array();
 					if ( count( $attachment_ids ) > 0 ) {
-						$files = $wpdb->get_results( 'SELECT post_id, meta_value from ' . $wpdb->postmeta . " where meta_key = '_wp_attached_file' AND post_id IN (" . implode( ',', $attachment_ids ) . ')' );
+						$attachment_ids = array_filter( array_map( 'intval', $attachment_ids ) );
+						if ( ! empty( $attachment_ids ) ) {
+							$placeholders = implode( ',', array_fill( 0, count( $attachment_ids ), '%d' ) );
+							$query = $wpdb->prepare( 
+								"SELECT post_id, meta_value from {$wpdb->postmeta} where meta_key = '_wp_attached_file' AND post_id IN ($placeholders)", 
+								$attachment_ids 
+							);
+							$files = $wpdb->get_results( $query );
+						}
 					}
 
 					$uploads = wp_get_upload_dir();
@@ -119,8 +139,20 @@ class AttachmentDownloader {
 		}
 	}
 
-	public function ajaxDownloadFolderO() {
+	public function ajaxDownloadFolderZip() {
 		check_ajax_referer( 'fbv_nonce', 'nonce', true );
+
+		// Check if user has permission to access Media Library
+		if ( ! current_user_can( 'upload_files' ) ) {
+			wp_send_json_error(
+				array(
+					'errorCode'    => 403,
+					'errorMessage' => __( 'You do not have permission to download folders.', 'filebird' ),
+				),
+				403
+			);
+		}
+		
 		try {
 			$wp_dir        = wp_upload_dir();
 			$upload_folder = $wp_dir['path'] . DIRECTORY_SEPARATOR;
@@ -197,7 +229,15 @@ class AttachmentDownloader {
 			// $zip->addEmptyDir( $empty_dir );
 			$files = array();
 			if ( count( $attachment_ids ) > 0 ) {
-				$files = $wpdb->get_col( 'SELECT meta_value from ' . $wpdb->postmeta . " where meta_key = '_wp_attached_file' AND post_id IN (" . implode( ',', $attachment_ids ) . ')' );
+				$attachment_ids = array_filter( array_map( 'intval', $attachment_ids ) );
+				if ( ! empty( $attachment_ids ) ) {
+					$placeholders = implode( ',', array_fill( 0, count( $attachment_ids ), '%d' ) );
+					$query = $wpdb->prepare( 
+						"SELECT meta_value from {$wpdb->postmeta} where meta_key = '_wp_attached_file' AND post_id IN ($placeholders)", 
+						$attachment_ids 
+					);
+					$files = $wpdb->get_col( $query );
+				}
 			}
 
 			$uploads = wp_get_upload_dir();

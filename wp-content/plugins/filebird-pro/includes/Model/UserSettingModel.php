@@ -136,7 +136,7 @@ class UserSettingModel {
 				$folder_id = FolderModel::ALL_CATEGORIES;
 			}
 		}
-		return $folder_id;
+		return apply_filters( 'fbv_user_default_folder', $folder_id, $this->userId );
 	}
 
     public function setDefaultFolder( $value ) {

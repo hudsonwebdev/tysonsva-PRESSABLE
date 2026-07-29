@@ -17,8 +17,12 @@ class ModuleExclude {
 		}
 
 		if ( function_exists( 'uncode_get_gallery_attachment_ids' ) ) {
-			$media_attachments_ids = implode( ',', uncode_get_gallery_attachment_ids() );
-			$where[]               = "posts.ID NOT IN ($media_attachments_ids)";
+			$attachment_ids = uncode_get_gallery_attachment_ids();
+			$sanitized_ids = array_filter( array_map( 'absint', (array) $attachment_ids ) );
+			if ( ! empty( $sanitized_ids ) ) {
+				$media_attachments_ids = implode( ',', $sanitized_ids );
+				$where[]               = "posts.ID NOT IN ($media_attachments_ids)";
+			}
 		}
 
 		// Compatible https://wordpress.org/plugins/pdf-image-generator/

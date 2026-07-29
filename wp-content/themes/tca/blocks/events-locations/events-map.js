@@ -324,6 +324,7 @@
 				style: style,
 				center: [markers[0].lng, markers[0].lat],
 				zoom: 12,
+				cooperativeGestures: true,
 			});
 			wrap._tcaMapboxMap = map;
 

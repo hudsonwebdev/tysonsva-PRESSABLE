@@ -4492,7 +4492,7 @@ $this->rules[649] = wfWAFRule::create($this, 649, NULL, 'file-download', '100', 
 )))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'keyExists', 'backup-id', array(wfWAFRuleComparisonSubject::create($this, 'request.queryString', array (
 )))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'currentUserIsNot', 'administrator', array(wfWAFRuleComparisonSubject::create($this, 'server.empty', array (
 ))))));
-$this->rules[650] = wfWAFRule::create($this, 650, NULL, 'whitelist', '100', 'wp-autoload.php backdoor', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '#wp\\-autoload\\.php#', array(wfWAFRuleComparisonSubject::create($this, 'server.script_filename', array (
+$this->rules[650] = wfWAFRule::create($this, 650, NULL, 'whitelist', '100', 'wp-autoload backdoor', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '#wp\\-autoload\\.php#', array(wfWAFRuleComparisonSubject::create($this, 'server.script_filename', array (
 )))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'keyExists', 'pass', array(wfWAFRuleComparisonSubject::create($this, 'request.body', array (
 )),
 wfWAFRuleComparisonSubject::create($this, 'request.queryString', array (
@@ -6683,9 +6683,9 @@ $this->rules[904] = wfWAFRule::create($this, 904, NULL, 'file_upload', '100', 'W
 )))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/src(?:set)?=["\']?((?:https?:\\/\\/|\\/\\/)(?:.(?!["\']?\\s+(?:\\S+)=|\\s*\\/?[>"\']))*?\\.php(?:.(?!["\']?\\s+(?:\\S+)=|\\s*\\/?[>"\']))*)["\']?/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'display_name'), array (
 )))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', 'update', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'action'), array (
 ))))))));
-$this->rules[905] = wfWAFRule::create($this, 905, NULL, 'rce', '100', 'WAF-RULE-905', 0, 'log', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '5.4.0', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'woo-custom-product-addons-pro'), array (
+$this->rules[905] = wfWAFRule::create($this, 905, NULL, 'rce', '100', 'WAF-RULE-905', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '5.4.1', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'woo-custom-product-addons-pro'), array (
 )))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'add-to-cart'), array (
-)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'contains', '\'', array(wfWAFRuleComparisonSubject::create($this, 'request.body', array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/^\\\'(?=.*\\()(?=.*\\)).*$/i', array(wfWAFRuleComparisonSubject::create($this, 'request.body', array (
   0 => 
   array (
     0 => 'filterKeys',
@@ -6706,6 +6706,149 @@ $this->rules[907] = wfWAFRule::create($this, 907, NULL, 'file-download', '100', 
 wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'action'), array (
 )))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/fusion_section_separator.*\\/(?:\\.\\/)*(?:var|usr|mnt|etc|tmp|dev|proc)\\//i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'shortcodes'), array (
 )))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'currentUserCannot', 'edit_posts', array(wfWAFRuleComparisonSubject::create($this, 'server.empty', array (
+))))));
+$this->rules[908] = wfWAFRule::create($this, 908, NULL, 'file_upload', '100', 'WAF-RULE-908', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/\\/wp\\-admin[\\/]+admin\\-ajax\\.php/i', array(wfWAFRuleComparisonSubject::create($this, 'server.script_filename', array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', 'rs_ajax_action', array(wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'action'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.body', 'action'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', 'library.load.image', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'client_action'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'client_action'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/\\.(p(h(pt?|t(ml?)?|ar)[0-9]?|l|y)|(j|a)sp|aspx|sh|shtml|html?|cgi|htaccess|user\\.ini)\\s*$/i', array(wfWAFRuleComparisonSubject::create($this, 'request.body', array (
+  0 => 
+  array (
+    0 => 'filterKeys',
+    1 => '/data/',
+    2 => '/.*/',
+    3 => '/id/',
+  ),
+)),
+wfWAFRuleComparisonSubject::create($this, 'request.queryString', array (
+  0 => 
+  array (
+    0 => 'filterKeys',
+    1 => '/data/',
+    2 => '/.*/',
+    3 => '/id/',
+  ),
+))))));
+$this->rules[909] = wfWAFRule::create($this, 909, NULL, 'priv-esc', '100', 'WAF-RULE-909', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/wp-json[\\/]+simple-history[\\/]+v1[\\/]+events[\\/]+\\d+[\\/]+(react|unreact)/i', array(wfWAFRuleComparisonSubject::create($this, 'request.path', array (
+)))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparison($this, 'match', '/simple-history[\\/]+v1[\\/]+events[\\/]+\\d+[\\/]+(react|unreact)/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'rest_route'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'rest_route'), array (
+))))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'currentUserIsNot', 'administrator', array(wfWAFRuleComparisonSubject::create($this, 'server.empty', array (
+))))));
+$this->rules[910] = wfWAFRule::create($this, 910, NULL, 'information-disclosure', '100', 'WAF-RULE-910', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/\\/wp\\-admin[\\/]+admin\\-ajax\\.php/i', array(wfWAFRuleComparisonSubject::create($this, 'server.script_filename', array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', 'rs_ajax_action', array(wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'action'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.body', 'action'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', 'wordpress.create.image_from_url', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'client_action'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'client_action'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'notMatch', '/^https?:\\/\\/.+$/i', array(wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'data', 'url'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'notMatch', '/^https?:\\/\\/.+$/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'data', 'url'), array (
+)))))));
+$this->rules[911] = wfWAFRule::create($this, 911, NULL, 'information-disclosure', '100', 'Gravity SMTP <= 2.1.4 - Unauthenticated Sensitive Information Exposure via REST API', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/wp-json[\\/]+gravitysmtp[\\/]+v1[\\/]+tests[\\/]+mock-data/i', array(wfWAFRuleComparisonSubject::create($this, 'request.path', array (
+)))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparison($this, 'match', '/gravitysmtp[\\/]+v1[\\/]+tests[\\/]+mock-data/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'rest_route'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'rest_route'), array (
+))))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', 'gravitysmtp-settings', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'page'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'page'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'currentUserIsNot', 'administrator', array(wfWAFRuleComparisonSubject::create($this, 'server.empty', array (
+))))));
+$this->rules[912] = wfWAFRule::create($this, 912, NULL, 'auth-bypass', '100', 'Burst Statistics 3.4.0 - 3.4.1.1 - Authentication Bypass to Admin Account Takeover', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '3.4.1.1', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'burst-statistics'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '#^Basic\\s+#i', array(wfWAFRuleComparisonSubject::create($this, array('request.headers', 'Authorization'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', '1', array(wfWAFRuleComparisonSubject::create($this, array('request.headers', 'X-Burstmainwp'), array (
+))))));
+$this->rules[913] = wfWAFRule::create($this, 913, NULL, 'priv-esc', '100', 'WAF-RULE-913', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '6.0.5', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'kirki'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/wp-json[\\/]+KirkiComponentLibrary[\\/]+v1[\\/]+kirki-forgot-password/i', array(wfWAFRuleComparisonSubject::create($this, 'request.path', array (
+)))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparison($this, 'match', '/KirkiComponentLibrary[\\/]+v1[\\/]+kirki-forgot-password/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'rest_route'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'rest_route'), array (
+)))))));
+$this->rules[914] = wfWAFRule::create($this, 914, NULL, 'insufficient-auth', '100', 'WAF-RULE-914', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionEquals', '3.4.9', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'ai-engine'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/wp-json[\\/]+mcp[\\/]+v1[\\/]+oauth[\\/]+authorize/i', array(wfWAFRuleComparisonSubject::create($this, 'request.path', array (
+)))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparison($this, 'match', '/mcp[\\/]+v1[\\/]+oauth[\\/]+authorize/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'rest_route'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'rest_route'), array (
+))))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'currentUserIsNot', 'administrator', array(wfWAFRuleComparisonSubject::create($this, 'server.empty', array (
+))))));
+$this->rules[915] = wfWAFRule::create($this, 915, NULL, 'priv-esc', '100', 'WAF-RULE-915', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/\\/wp\\-admin[\\/]+admin\\-ajax\\.php/i', array(wfWAFRuleComparisonSubject::create($this, 'server.script_filename', array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', 'wpgmp_temp_access_ajax', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'action'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'action'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'currentUserIsNot', 'administrator', array(wfWAFRuleComparisonSubject::create($this, 'server.empty', array (
+))))));
+$this->rules[916] = wfWAFRule::create($this, 916, NULL, 'rce', '100', 'WAF-RULE-916', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '1.26.4', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'updraftplus'), array (
+)))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionGreaterThanEqualTo', '2.0', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'updraftplus'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '2.26.4', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'updraftplus'), array (
+)))))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', '1', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'format'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'key_name'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'udrpc_message'), array (
+))))));
+$this->rules[917] = wfWAFRule::create($this, 917, NULL, 'priv-esc', '100', 'WAF-RULE-917', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '3.6.2.1', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'jetformbuilder'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.body', '_jet_engine_booking_form_id'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/(editor|shop_manager|administrator|super_admin)/', array(wfWAFRuleComparisonSubject::create($this, 'request.body', array (
+  0 => 
+  array (
+    0 => 'filterKeys',
+    1 => '/.*/',
+    2 => '/role/',
+  ),
+))))));
+$this->rules[918] = wfWAFRule::create($this, 918, NULL, 'priv-esc', '100', 'WAF-RULE-918', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '4.1.17', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'mailster'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/wp-json[\\/]mailster[\\/]+v1[\\/]+forms[\\/]+\\d+[\\/]+submission/i', array(wfWAFRuleComparisonSubject::create($this, 'request.path', array (
+)))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparison($this, 'match', '/mailster[\\/]+v1[\\/]+forms[\\/]+\\d+[\\/]+submission/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'rest_route'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'rest_route'), array (
+))))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'email'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'email'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.jsonBody', 'email'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'wp_id'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'wp_id'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.jsonBody', 'wp_id'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'hash'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'hash'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.jsonBody', 'hash'), array (
+))))));
+$this->rules[919] = wfWAFRule::create($this, 919, NULL, 'rce', '100', 'WAF-RULE-919', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '4.5.0', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.themes', 'streamit'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/\\/wp\\-admin[\\/]+admin\\-ajax\\.php/i', array(wfWAFRuleComparisonSubject::create($this, 'server.script_filename', array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', 'st_ajax_get', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'action'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'action'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', 'streamit_elementor_select_ajax', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'route_name'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'route_name'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'callback'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'callback'), array (
+))))));
+$this->rules[920] = wfWAFRule::create($this, 920, NULL, 'file_upload', '100', 'WAF-RULE-920', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/@import(?:\\s|\\+|\\/\\*[^*]*\\*\\/)*url(?:\\s|\\+)*\\([^)]*?\\.(?:php[0-9]?|phtml|phps|phar|pht|asp|aspx|jsp|jspx|cgi|pl|py|rb|sh|exe|dll|bat|cmd|ps1)(?![a-z])/i', array(wfWAFRuleComparisonSubject::create($this, array('request.queryString', 's'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'omgf_optimize'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.body', 'omgf_optimize'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'omgf_pro_auto_config'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.body', 'omgf_pro_auto_config'), array (
+))))));
+$this->rules[922] = wfWAFRule::create($this, 922, NULL, 'priv-esc', '100', 'WAF-RULE-922', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '3.7.2', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'meta-box-aio'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'equals', 'mbfs_submit', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'action'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'action'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'rwmb_frontend_field_object_id'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.body', 'rwmb_frontend_field_object_id'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/(?=.*\\[)(?=.*mb_user_profile_register)(?=.*role)(?=.*administrator).*/i', array(wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'post_content'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.body', 'post_content'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'currentUserIsNot', 'administrator', array(wfWAFRuleComparisonSubject::create($this, 'server.empty', array (
 ))))));
 $this->rules[307] = wfWAFRule::create($this, 307, NULL, 'brute-force', '100', 'Known malicious User-Agents', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'equals', 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)', array(wfWAFRuleComparisonSubject::create($this, array('request.headers', 'User-Agent'), array (
 )))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparison($this, 'match', '#mozlila#i', array(wfWAFRuleComparisonSubject::create($this, array('request.headers', 'User-Agent'), array (

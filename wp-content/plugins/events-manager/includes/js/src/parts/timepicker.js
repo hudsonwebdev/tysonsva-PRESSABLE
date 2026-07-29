@@ -1,7 +1,14 @@
 function em_setup_timepicker( container ){
 	wrap = jQuery(container);
 	var timepicker_options = {
-		step:15
+		step:15,
+		// Append the dropdown list to the input's OWN document so it renders inside the
+		// Gutenberg editor-canvas iframe rather than the parent body. In the classic editor
+		// ownerDocument === document, so this matches the plugin's default "body" target.
+		appendTo: function( input ){
+			var el = input instanceof jQuery ? input[0] : input;
+			return jQuery( ( el && el.ownerDocument && el.ownerDocument.body ) || document.body );
+		}
 	}
 	timepicker_options.timeFormat = EM.show24hours == 1 ? 'G:i':'g:i A';
 	jQuery(document).triggerHandler('em_timepicker_options', timepicker_options);

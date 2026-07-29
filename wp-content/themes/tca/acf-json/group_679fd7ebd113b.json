@@ -68,6 +68,538 @@
             "save_other_choice": 0
         },
         {
+            "key": "field_6829a1b2c3d4e",
+            "label": "Banner Height",
+            "name": "banner_height",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Short caps the banner at 500px tall. Video and image still fill the area (edges may be cropped). Tall uses the full hero height.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "tall": "Tall",
+                "short": "Short (max 500px)"
+            },
+            "default_value": "tall",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_6829badge001",
+            "label": "Show Badge",
+            "name": "show_banner_badge",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Optional image badge that can extend outside the banner frame (e.g. event logo).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_6829badge002",
+            "label": "Badge Image",
+            "name": "banner_badge_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "preview_size": "medium",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
+        },
+        {
+            "key": "field_6829badge003",
+            "label": "Max Width — Desktop (px)",
+            "name": "banner_badge_max_width",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Maximum display width of the badge image.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 280,
+            "min": 80,
+            "max": 600,
+            "step": 1,
+            "placeholder": "",
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_6829badge014",
+            "label": "Badge Width",
+            "name": "banner_badge_width_mode",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Container keeps the badge within the site content width. Full width positions relative to the entire banner.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "container": "Container width",
+                "full": "Full banner width"
+            },
+            "default_value": "container",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_6829badge015",
+            "label": "Badge Container Size",
+            "name": "banner_badge_container_size",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Matches the site container sizes used elsewhere in the theme.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_6829badge014",
+                        "operator": "==",
+                        "value": "container"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "uk-container-xsmall": "Extra Small",
+                "uk-container-small": "Small",
+                "standard-container": "Standard",
+                "uk-container-large": "Large",
+                "uk-container-xlarge": "Extra Large",
+                "uk-container-expand": "Expand"
+            },
+            "default_value": "standard-container",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6829badge004",
+            "label": "Desktop Horizontal",
+            "name": "banner_badge_desktop_align",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "left": "Left",
+                "center": "Center",
+                "right": "Right"
+            },
+            "default_value": "center",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6829badge005",
+            "label": "Desktop Vertical",
+            "name": "banner_badge_desktop_vertical",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Anchor the vertical offset from the top or bottom edge of the banner.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "top": "Top",
+                "bottom": "Bottom"
+            },
+            "default_value": "bottom",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6829badge006",
+            "label": "Desktop Offset X",
+            "name": "banner_badge_desktop_offset_x",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Horizontal offset (px or %). Center uses this as a nudge after centering.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "0",
+            "maxlength": "",
+            "placeholder": "0 or 10%"
+        },
+        {
+            "key": "field_6829badge007",
+            "label": "Desktop Offset Y",
+            "name": "banner_badge_desktop_offset_y",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Offset from the chosen vertical edge. Use negative values to hang outside the banner.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "-80",
+            "maxlength": "",
+            "placeholder": "-80 or 20px"
+        },
+        {
+            "key": "field_6829badge008",
+            "label": "Custom Mobile Position",
+            "name": "banner_badge_custom_mobile",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "When off, desktop positioning is used on all screen sizes.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_6829badge016",
+            "label": "Max Width — Mobile (px)",
+            "name": "banner_badge_mobile_max_width",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Optional. Leave empty to use the desktop max width on mobile.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": 80,
+            "max": 600,
+            "step": 1,
+            "placeholder": "Same as desktop",
+            "prepend": "",
+            "append": "px"
+        },
+        {
+            "key": "field_6829badge009",
+            "label": "Mobile Horizontal",
+            "name": "banner_badge_mobile_align",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_6829badge008",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "left": "Left",
+                "center": "Center",
+                "right": "Right"
+            },
+            "default_value": "center",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6829badge010",
+            "label": "Mobile Vertical",
+            "name": "banner_badge_mobile_vertical",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_6829badge008",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "top": "Top",
+                "bottom": "Bottom"
+            },
+            "default_value": "bottom",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_6829badge011",
+            "label": "Mobile Offset X",
+            "name": "banner_badge_mobile_offset_x",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_6829badge008",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "0",
+            "maxlength": "",
+            "placeholder": "0 or 10%"
+        },
+        {
+            "key": "field_6829badge012",
+            "label": "Mobile Offset Y",
+            "name": "banner_badge_mobile_offset_y",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_6829badge008",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "-60",
+            "maxlength": "",
+            "placeholder": "-60 or 20px"
+        },
+        {
+            "key": "field_6829badge013",
+            "label": "Badge Link",
+            "name": "banner_badge_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Optional link wrapping the badge image.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6829badge001",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
             "key": "field_68ab5c2e37178",
             "label": "Video",
             "name": "video",
@@ -403,5 +935,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1770328990
+    "modified": 1776889200
 }

@@ -48,6 +48,22 @@ document.addEventListener("em_booking_form_js_loaded", function( e ) {
 	em_init_booking_recurring_form( container );
 });
 
+// Shared, page-cached fetch of the booking form nonces from the uncached endpoint, used on cached sites where the inline nonces are stale. Fetched once per page and reused by both the recurring form loader and each booking form's init. Resolves to null when the site is not in cache mode.
+var em_booking_nonces_promise;
+var em_get_booking_nonces = function(){
+	if ( ! EM.cached ) {
+		return Promise.resolve( null );
+	}
+	if ( ! em_booking_nonces_promise ) {
+		em_booking_nonces_promise = fetch( EM.bookingajaxurl, {
+			method : 'POST',
+			body : new URLSearchParams({ action : 'booking_form_nonces' })
+		} ).then( response => response.json() )
+		   .catch( function( error ){ console.log('Error fetching booking form nonces:', error); return null; } );
+	}
+	return em_booking_nonces_promise;
+};
+
 var em_init_booking_recurring_form = function( container ) {
 	// handle size breakpoints
 	let fetchEM = function( data, responseType = 'text' ){
@@ -75,11 +91,9 @@ var em_init_booking_recurring_form = function( container ) {
 		// load the nonces here, once, so we share them and also load them if in cache mode
 		if ( !( nonces instanceof Object ) ) {
 			if ( EM.cached ) {
-				// get the nonces via AJAX, set the nonces to object so we don't double-dip
+				// get the nonces via the shared, page-cached fetch, set to an object so we don't double-dip
 				nonces = {};
-				fetchEM( new URLSearchParams( { action: 'booking_form_nonces' } ), 'json' )
-					.then( json => { nonces = json; } )
-					.catch( error => console.log('Error fetching booking form:', error) );
+				em_get_booking_nonces().then( json => { if ( json ) { nonces = json; } } );
 			} else {
 				// nonces will be set already, get them directly
 				nonces = {
@@ -334,6 +348,13 @@ var em_booking_form_init = function( booking_form ){
 	booking_form.dispatchEvent( new CustomEvent('em_booking_form_init', {
 		bubbles : true,
 	}) );
+
+	// On cached sites the booking_add nonce is baked into the cached page HTML and would be rejected server-side once it ages out; refresh it from the shared uncached endpoint so the submission carries a valid nonce. Harmless for recurring forms (already loaded fresh via AJAX) since the shared fetch is only made once per page, and a no-op when the site is not cached.
+	em_get_booking_nonces().then( function( nonces ){
+		if ( nonces && nonces.booking_add ) {
+			booking_form.querySelectorAll('input[name="_wpnonce"]').forEach( function( input ){ input.value = nonces.booking_add; } );
+		}
+	});
 
 	/**
 	 * When ticket selection changes, trigger booking form update event
@@ -716,7 +737,7 @@ var em_booking_summary_ajax = async function ( booking_form ){
 };
 
 var em_booking_form_doing_ajax = false;
-var em_booking_form_submit = function( booking_form, opts = {} ){
+var em_booking_form_submit = async function( booking_form, opts = {} ){
 	let options = em_booking_form_submit_options( opts );
 
 	// before sending
@@ -731,6 +752,12 @@ var em_booking_form_submit = function( booking_form, opts = {} ){
 	}
 
 	let $response = null;
+
+	// On cached sites the baked-in booking_add nonce may have aged out; the form-init refresh is async, so wait for it (and apply the fresh nonce) before building the payload rather than racing it on a fast submit. Resolves to null and no-ops when the site is not cached.
+	let nonces = await em_get_booking_nonces();
+	if ( nonces && nonces.booking_add ) {
+		booking_form.querySelectorAll('input[name="_wpnonce"]').forEach( function( input ){ input.value = nonces.booking_add; } );
+	}
 
 	let data = new FormData( booking_form );
 

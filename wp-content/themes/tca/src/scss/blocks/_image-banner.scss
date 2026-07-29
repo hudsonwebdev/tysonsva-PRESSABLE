@@ -1,45 +1,22 @@
 .image-banner{
-
     position:relative;
-  
-
-    .chevron{
-        position:absolute;
-        top:-20px;
-        right:-20px;
-        z-index:5;
-        width:clamp(150px,25%,400px);
-        svg{
-            width:100%;
-        }
-    }
-
+    width:100%;
+    height:100%;
 
     .image-wrap{
- 
-            position: relative;
-            width: 100%;
-            height:clamp(490px,40vh,704px);
-            @media(min-width:$breakpoint-medium){
-                min-height:704px;
-            }
-            img{
-                position: absolute;
-                width:100%;
-                height: 100%;
-                object-fit: cover;
-                z-index:0;
-            }
+        position: relative;
+        width: 100%;
+        height:100%;
 
-   
+        img{
+            position: absolute;
+            width:100%;
+            height: 100%;
+            object-fit: cover;
+            z-index:0;
+        }
     }
-
-    
-
 }
-
-
-
 
 .text-overlay{
         position:absolute;
@@ -74,50 +51,66 @@
     
 }
 
-.video-banner{
+/* Hero frame: media is clipped; badge/chevron can overflow outside. */
+.banner-shell{
   position:relative;
-  z-index:0;
-  height:50vh;
-  min-height:400px;
-  max-height:868px;
-  background-color: #1a1a2e;
+  width:100%;
+  height:clamp(490px, 40vh, 704px);
+  overflow:visible;
 
-  /* Poster img: always visible; ensures LCP and shows on iOS when video has no src yet */
-  .video-banner-poster{
+  @media(min-width:$breakpoint-medium){
+    min-height:704px;
+  }
+
+  .banner-media{
     position:absolute;
-    width:100%;
-    height:100%;
-    min-height:500px;
-    object-fit:cover;
+    inset:0;
+    overflow:hidden;
     z-index:0;
-    top:0;
-    left:0;
   }
 
-  .tca-video-background{
+  .chevron{
     position:absolute;
+    top:-20px;
+    right:-20px;
+    z-index:15;
+    width:clamp(150px,25%,400px);
+    pointer-events:none;
+
+    svg{
+      width:100%;
+    }
+  }
+
+  .text-overlay{
+    z-index:10;
+  }
+
+  .image-tint{
+    position:absolute;
+    inset:0;
     width:100%;
     height:100%;
-    min-height:500px;
-    object-fit:cover;
-    z-index:1;
-    top:0;
-    left:0;
+    z-index:2;
+    pointer-events:none;
   }
 
-  /* When the JS play/pause control attaches, drop the local stacking context
-     so .tca-video-pp-btn (z-index:30) can rise above the sibling .text-overlay
-     (z-index:10). Inner poster/video/tint keep their relative order via their
-     own z-indices (0 / 1 / 1) and remain below the overlay. */
-  &.tca-pp-ready{
-    z-index:auto;
+  &.banner-height-short{
+    height:clamp(260px, 45vh, 500px);
+    max-height:500px;
+
+    @media(min-width:$breakpoint-medium){
+      min-height:0;
+      height:clamp(340px, 50vh, 500px);
+      max-height:500px;
+    }
   }
 
   .tca-video-pp-btn{
     position:absolute;
     bottom:12px;
     left:12px;
-    z-index:30;
+    z-index:25;
     width:26px;
     height:26px;
     padding:0;
@@ -176,5 +169,139 @@
         height:12px;
       }
     }
+  }
+}
+
+.banner-badge-wrap{
+  position:absolute;
+  inset:0;
+  z-index:20;
+  pointer-events:none;
+
+  &__inner{
+    position:relative;
+    height:100%;
+    pointer-events:none;
+  }
+
+  &--full .banner-badge{
+    position:absolute;
+  }
+}
+
+.banner-badge{
+  position:absolute;
+  z-index:1;
+  width:min(100%, var(--badge-m-max-width, var(--badge-max-width, 280px)));
+  max-width:var(--badge-m-max-width, var(--badge-max-width, 280px));
+  pointer-events:none;
+
+  a{
+    display:block;
+    pointer-events:auto;
+  }
+
+  img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+
+  @media (max-width: ($breakpoint-medium - 1px)) {
+    &.banner-badge--m-left{
+      left:var(--badge-m-x, 0);
+      right:auto;
+      transform:none;
+    }
+
+    &.banner-badge--m-center{
+      left:50%;
+      right:auto;
+      transform:translateX(-50%) translateX(var(--badge-m-x, 0));
+    }
+
+    &.banner-badge--m-right{
+      right:var(--badge-m-x, 0);
+      left:auto;
+      transform:none;
+    }
+
+    &.banner-badge--m-top{
+      top:var(--badge-m-y, 0);
+      bottom:auto;
+    }
+
+    &.banner-badge--m-bottom{
+      bottom:var(--badge-m-y, 0);
+      top:auto;
+    }
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    width:min(100%, var(--badge-max-width, 280px));
+    max-width:var(--badge-max-width, 280px);
+
+    &.banner-badge--d-left{
+      left:var(--badge-d-x, 0);
+      right:auto;
+      transform:none;
+    }
+
+    &.banner-badge--d-center{
+      left:50%;
+      right:auto;
+      transform:translateX(-50%) translateX(var(--badge-d-x, 0));
+    }
+
+    &.banner-badge--d-right{
+      right:var(--badge-d-x, 0);
+      left:auto;
+      transform:none;
+    }
+
+    &.banner-badge--d-top{
+      top:var(--badge-d-y, 0);
+      bottom:auto;
+    }
+
+    &.banner-badge--d-bottom{
+      bottom:var(--badge-d-y, 0);
+      top:auto;
+    }
+  }
+}
+
+.video-banner{
+  position:relative;
+  z-index:0;
+  width:100%;
+  height:100%;
+  background-color: #1a1a2e;
+
+  .video-banner-poster{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:0;
+  }
+
+  .tca-video-background{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:1;
+  }
+
+  .image-tint{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:2;
+    pointer-events:none;
   }
 }

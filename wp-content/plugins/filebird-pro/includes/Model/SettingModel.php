@@ -28,6 +28,7 @@ class SettingModel {
 			'show_breadcrumb'     => true,
 			'folder_counter_type' => 'counter_file_in_folder',
 			'theme'               => 'default',
+            'enable_cache_optimization' => false
         );
     }
 

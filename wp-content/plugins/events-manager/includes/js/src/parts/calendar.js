@@ -103,6 +103,7 @@ jQuery(document).ready( function($){
 				let month = calendar.find('select[name="month"]');
 				let year = calendar.find('select[name="year"]');
 				let monthpicker = calendar.find('.em-month-picker');
+				let monthpicker_value = monthpicker.val() + '-02'; // store this for further down before we change the value below
 				let month_value = monthpicker.data('month-value');
 				monthpicker.prop('type', 'text').prop('value', month_value);
 				calendar_resize_monthpicker( monthpicker[0], month_value );
@@ -138,8 +139,7 @@ jQuery(document).ready( function($){
 					},
 				});
 				// this bit fixes issues if the supplied text value has a mismatch with the real text value due to localization differences between WP and flatpickr
-				let month_real_value = monthpicker.val() + '-01';
-				fp.setDate( new Date( month_real_value ) );
+				fp.setDate( new Date( monthpicker_value ) );
 				// add classes to month picker
 				monthpicker.addClass('select-toggle');
 			}

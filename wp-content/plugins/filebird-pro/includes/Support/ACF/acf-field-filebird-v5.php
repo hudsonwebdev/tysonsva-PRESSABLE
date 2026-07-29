@@ -5,6 +5,11 @@ use FileBird\Classes\Tree;
 defined( 'ABSPATH' ) || exit;
 
 class acf_field_filebird extends acf_field {
+	public $name;
+	public $label;
+	public $category;
+	public $defaults;
+
 	protected static $instance = null;
 
 	public static function getInstance() {

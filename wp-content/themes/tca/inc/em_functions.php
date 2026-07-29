@@ -134,7 +134,21 @@ switch($result){
 
         $ticket_link = get_post_meta($EM_Event->ID,'Ticket Link',true);
 
-        $replace =  '<a href="' . $ticket_link . '" class="get-tickets"  target="_blank">Get Tickets</a>';
+        $ticket_link_button = get_post_meta($EM_Event->ID,'Ticket Link Button Text',true);
+
+       
+        if($ticket_link_button>""){
+
+            $ticket_link_button_text =  $ticket_link_button;
+
+        }else{
+
+            $ticket_link_button_text    = "Get Tickets";
+
+        }
+
+        $replace =  '<a href="' . $ticket_link . '" class="get-tickets"  target="_blank">' . $ticket_link_button_text . '</a>';
+
      }else{
         $replace = '';
      }

@@ -286,16 +286,20 @@
     width:100%;
     background:$light-light-blue;
     position:absolute;
-    z-index:4000;
+    z-index:5000;
     left:0;
-    top:98px;
-    padding:30px 15px;
+    right:0;
+    top:0;
+    height:100%;
+    margin:0;
+    padding:0 15px;
     display:none;
-    width:100%;
 
     &.open{
-        display:block;
+        display:flex;
+        align-items:center;
         .inner{
+            width:100%;
             max-width:$container-max-width;
             margin:0 auto;
         }
@@ -303,6 +307,18 @@
 
    
     
+}
+
+.header-wrap.search-open{
+    .menu-section{
+        pointer-events:none;
+    }
+
+    .search-link{
+        pointer-events:auto;
+        position:relative;
+        z-index:5001;
+    }
 }
 
 

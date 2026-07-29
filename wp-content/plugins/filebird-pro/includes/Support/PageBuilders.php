@@ -204,6 +204,9 @@ class PageBuilders {
 	public function registerBricksBuilder() {
 		if ( function_exists( 'bricks_is_builder' ) && \bricks_is_builder() ) {
 			add_action( 'bricks_after_footer', array( $this, 'enqueueScripts' ) );
+			if( class_exists( 'Advanced_Themer_Bricks\\BricksAdvancedThemer' ) ) {
+				wp_enqueue_style( 'filebird-ui', NJFB_PLUGIN_URL . 'assets/dist/style.css', array(), NJFB_VERSION );
+			}
 		}
 	}
 

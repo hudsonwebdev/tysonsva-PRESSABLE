@@ -535,6 +535,11 @@ class EM_Calendar extends EM_Object {
 				$allowed_sizes = apply_filters('em_calendar_output_sizes', array('large', 'medium', 'small'));
 				$args['calendar_size'] = in_array($args['calendar_size'], $allowed_sizes) ? $args['calendar_size'] : null;
 			}
+			// sanitize event display style, falling back to the site-wide default if an unknown style is supplied
+			$allowed_styles = apply_filters('em_calendar_output_event_styles', array('pill', 'dot', 'dots', 'ring'));
+			if( empty($args['calendar_event_style']) || !in_array($args['calendar_event_style'], $allowed_styles, true) ){
+				$args['calendar_event_style'] = em_get_option('dbem_calendar_event_style', 'pill');
+			}
 			// generate CSS classes based on $args
 			$calendar_array['css'] = array(
 				'calendar_classes' => array('preview-'.$args['calendar_preview_mode']),
@@ -732,7 +737,7 @@ class EM_Calendar extends EM_Object {
 			'show_search' => false, // don't show the search bar above by default, filters yes
 			'has_search' => false, // by default no search
 			'css_classes' => false,
-			'calendar_event_style' => 'pill', // default is pill view
+			'calendar_event_style' => em_get_option('dbem_calendar_event_style', 'pill'), // pill, dot or ring; defaults to the site-wide setting
 			'calendar_preview_mode' => em_get_option('dbem_calendar_preview_mode'), //modal, tooltips, none
 			'calendar_preview_mode_date' => em_get_option('dbem_calendar_preview_mode_date'), //modal, none
 			'calendar_nav_nofollow' => false,

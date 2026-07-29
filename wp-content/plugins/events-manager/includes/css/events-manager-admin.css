@@ -6026,6 +6026,9 @@
     display: block !important;
     visibility: visible !important;
   }
+  .wp-admin .em.em-modal.active .em-modal-popup header {
+    margin: 0 0 15px;
+  }
 }
 .wp-admin .em.em-modal > form {
   margin: 0 auto !important;
@@ -7138,9 +7141,6 @@
 .wp-admin .em .selectize-control.em-selectize:not(.always-open, .multidropdown) .selectize-input.focus.dropdown-active:after, .wp-admin .em .selectize-control.em-selectize-autocomplete:not(.always-open, .multidropdown) .selectize-input.focus.dropdown-active:after {
   margin-top: -8px;
   transform: rotate(180deg);
-}
-.wp-admin .em .selectize-control.em-selectize:not(.always-open, .multidropdown) .selectize-input:not(.has-items) input, .wp-admin .em .selectize-control.em-selectize-autocomplete:not(.always-open, .multidropdown) .selectize-input:not(.has-items) input {
-  width: calc(100% - 40px) !important;
 }
 .wp-admin .em .selectize-control.em-selectize:not(.always-open, .multidropdown).selectize-control, .wp-admin .em .selectize-control.em-selectize-autocomplete:not(.always-open, .multidropdown).selectize-control {
   margin-bottom: 15px !important;

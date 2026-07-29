@@ -6,6 +6,7 @@ use FileBird\Controller\Controller;
 defined( 'ABSPATH' ) || exit;
 
 class Polylang extends Controller {
+	private static $instance = null;
 	private $active;
 	private $lang;
 	private $lang_id = null;
@@ -24,13 +25,36 @@ class Polylang extends Controller {
 					add_filter( 'fbv_speedup_get_count_query', '__return_true' );
 				}
 				add_filter( 'fbv_ids_assigned_to_folder', array( $this, 'assigned_to_folder' ), 10, 2 );
-				add_filter( 'fbv_get_count_query', array( $this, 'fbv_get_count_query' ), 10, 3 );
 				add_filter( 'fbv_all_folders_and_count', array( $this, 'all_folders_and_count_query' ), 10, 2 );
 				add_filter( 'fbv_data', array( $this, 'fbv_data' ), 10, 1 );
 				add_filter( 'fbv_post_type_term_counter', array( $this, 'fbv_post_type_term_counter' ), 10, 5 );
 				add_filter( 'fbv_post_type_all_counter', array( $this, 'fbv_post_type_all_counter' ), 10, 3 );
 			}
 		}
+		
+		// Store singleton instance
+		if ( self::$instance === null ) {
+			self::$instance = $this;
+		}
+	}
+	public static function applyCountQuery( $query, $folder_id, $lang = null ) {
+		// Check if Polylang is active and has media support
+		if ( ! function_exists( 'pll_get_post_translations' ) ) {
+			return $query;
+		}
+		
+		global $polylang;
+		if ( ! isset( $polylang->options['media_support'] ) || $polylang->options['media_support'] != 1 ) {
+			return $query;
+		}
+		
+		// Get or create instance
+		if ( self::$instance === null ) {
+			return $query; // Instance not initialized yet, return original query
+		}
+		
+		// Call instance method
+		return self::$instance->fbv_get_count_query( $query, $folder_id, $lang );
 	}
 
 	public function fbv_data( $data ) {
@@ -192,7 +216,10 @@ class Polylang extends Controller {
 		$join .= " INNER JOIN {$wpdb->prefix}fbv as fbv ON fbv.id = fbva.folder_id ";
 		$join .= " INNER JOIN {$wpdb->posts} as posts ON posts.ID = fbva.attachment_id ";
 
+		// Ensure per-folder counts exclude the same attachments as Tree::getCount()
+		// (e.g. Elementor screenshots with meta_key `_elementor_is_screenshot`)
 		$where .= " WHERE posts.post_type = 'attachment' AND (posts.post_status = 'inherit' OR posts.post_status = 'private') ";
+		$where .= " AND posts.ID NOT IN (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_elementor_is_screenshot') ";
 		if( $check_author ) {
 			$where .= $wpdb->prepare( ' AND fbv.created_by = %d', apply_filters( 'fbv_folder_created_by', '0' ) );
 		}

@@ -10,11 +10,68 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 	<?php if ( !is_multisite() || is_network_admin() || get_site_option('dbem_ms_archetypes_enabled') ) : ?>
 		<?php include( EM_DIR . '/admin/settings/archetype-editor.php'); ?>
 	<?php endif; ?>
-	
+
 	<div  class="postbox " id="em-opt-general"  >
 	<div class="handlediv" title="<?php __('Click to toggle', 'events-manager'); ?>"><br /></div> <h3><span><?php _e ( 'General Options', 'events-manager'); ?> </span></h3>
 	<div class="inside">
         <table class="form-table">
+	        <tbody>
+		        <tr valign="top" id="dbem_editor_row">
+			        <th scope="row"><?php esc_html_e('Editor', 'events-manager'); ?></th>
+			        <td>
+				        <div class="em-default-option">
+					        <?php
+					        $em_editor_value = get_option('dbem_editor', 'classic');
+					        if ( defined('EM_GUTENBERG') ) {
+						        // Constant override is in effect; reflect it in the UI and lock the controls so users don't get confused why the option does nothing.
+						        $em_editor_value = EM_GUTENBERG ? 'gutenberg' : 'classic';
+					        }
+					        $em_editor_disabled = defined('EM_GUTENBERG') ? ' disabled' : '';
+					        ?>
+					        <label style="margin-right:1em;">
+						        <input type="radio" name="dbem_editor" value="classic" <?php checked($em_editor_value, 'classic'); ?><?php echo $em_editor_disabled; ?> />
+						        <?php esc_html_e('Classic Editor', 'events-manager'); ?>
+					        </label>
+					        <label>
+						        <input type="radio" name="dbem_editor" value="gutenberg" <?php checked($em_editor_value, 'gutenberg'); ?><?php echo $em_editor_disabled; ?> />
+						        <?php esc_html_e('Block Editor (Gutenberg)', 'events-manager'); ?>
+					        </label>
+				        </div>
+				        <p>
+				        	<em>
+				        		<?php esc_html_e("Select the editor type you'd like to use for submitting content in your dashboard.", 'events-manager'); ?>
+				        		<?php echo sprintf( esc_html__('For more information see our %s.', 'events-manager'), '<a href="https://wp-events-plugin.com/documentation/events/editor/" target="_blank">' . esc_html__('documentation', 'events-manager') . '</a>' ); ?>
+				        	</em>
+				        </p>
+				        <p>
+				        	<em><?php esc_html_e("Block Editor development is still ongoing, switch back to the Classic Editor if you experience issues.", 'events-manager'); ?></em>
+				        </p>
+				        <?php if ( defined('EM_GUTENBERG') ) : ?>
+				        	<p><strong><?php echo esc_html( sprintf( __('Currently overridden by the EM_GUTENBERG constant in wp-config.php (%s).', 'events-manager'), EM_GUTENBERG ? 'true' : 'false' ) ); ?></strong></p>
+				        <?php endif; ?>
+			        </td>
+		        </tr>
+	        </tbody>
+	        <tbody>
+		        <tr valign="top" id="dbem_event_editor_layout_row" class="em-block-editor-option">
+			        <th scope="row"><?php esc_html_e('Block editor layout', 'events-manager'); ?></th>
+			        <td>
+				        <div class="em-default-option">
+				        <?php $em_layout = get_option('dbem_event_editor_layout', 'metaboxes'); ?>
+					        <label style="margin-right:1em;"><input type="radio" name="dbem_event_editor_layout" value="canvas" <?php checked($em_layout, 'canvas'); ?> /> <?php esc_html_e('Canvas tabs', 'events-manager'); ?></label>
+					        <label style="margin-right:1em;"><input type="radio" name="dbem_event_editor_layout" value="tabs" <?php checked($em_layout, 'tabs'); ?> /> <?php esc_html_e('Tabbed metaboxes', 'events-manager'); ?></label>
+					        <label><input type="radio" name="dbem_event_editor_layout" value="metaboxes" <?php checked($em_layout, 'metaboxes'); ?> /> <?php esc_html_e('Stacked metaboxes', 'events-manager'); ?></label>
+				        </div>
+			        </td>
+		        </tr>
+		        <tr valign="top" id="dbem_event_editor_canvas_fallback_row" class="em-block-editor-option em-canvas-layout-option">
+			        <th scope="row"><?php esc_html_e('Fallback panels', 'events-manager'); ?></th>
+			        <td>
+				        <?php $em_canvas_fallback = get_option('dbem_event_editor_canvas_fallback', 1); ?>
+				        <label><input type="hidden" name="dbem_event_editor_canvas_fallback" value="0" /><input type="checkbox" name="dbem_event_editor_canvas_fallback" value="1" <?php checked($em_canvas_fallback, 1); ?> /> <?php esc_html_e('Gather panels that can\'t run in the canvas into a tabbed "Event Details" box', 'events-manager'); ?></label>
+			        </td>
+		        </tr>
+	        </tbody>
 	        <tbody data-group="general-options-events">
 	            <?php em_options_radio_binary ( __( 'Disable thumbnails?', 'events-manager'), 'dbem_thumbnails_enabled', __( 'Select yes to disable Events Manager from enabling thumbnails (some themes may already have this enabled, which we cannot be turned off here).','events-manager') ); ?>
 				<tr class="em-header">
@@ -190,7 +247,7 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 						}
 						em_options_select ( __( 'Default Location', 'events-manager'), 'dbem_default_location', $location_options, __('Please enter your Location ID.','events-manager').' '.__( 'This option allows you to select the default location when adding an event.','events-manager')." ".__('(not applicable with event ownership on presently, coming soon!)','events-manager') );
 					}
-					
+
 					/*default location country*/
 					em_options_select ( __( 'Default Location Country', 'events-manager'), 'dbem_location_default_country', em_get_countries(__('no default country', 'events-manager')), __('If you select a default country, that will be pre-selected when creating a new location.','events-manager') );
 				}
@@ -208,12 +265,12 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 			echo $save_button;
 			?>
 		</table>
-		    
+
 	</div> <!-- . inside -->
 	</div> <!-- .postbox -->
-	
+
 	<?php if ( !is_multisite() ){ em_admin_option_box_image_sizes(); } ?>
-	
+
 	<?php if ( !is_multisite() || (em_wp_is_super_admin() && !get_site_option('dbem_ms_global_caps')) ){ em_admin_option_box_caps(); } ?>
 
 	<div  class="postbox" id="em-opt-google-maps" >
@@ -257,7 +314,7 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 			</table>
 		</div> <!-- . inside -->
 	</div> <!-- .postbox -->
-	
+
 	<div  class="postbox" id="em-opt-event-submissions" >
 	<div class="handlediv" title="<?php __('Click to toggle', 'events-manager'); ?>"><br /></div><h3><span><?php _e ( 'Event Submission Forms', 'events-manager'); ?></span></h3>
 	<div class="inside">
@@ -285,7 +342,7 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 			?>
 	        <?php echo $save_button; ?>
 		</table>
-	</div> <!-- . inside --> 
+	</div> <!-- . inside -->
 	</div> <!-- .postbox -->
 	<?php do_action('em_options_page_event_submission_after'); ?>
 
@@ -356,7 +413,7 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 						//em_options_radio_binary( esc_html__('National Formatting', 'events-manager'), 'dbem_phone_national_format', sprintf(esc_html__('Numbers will be displayed in national format style, such as %s for US numbers.', 'events-manager'), '<code>(201) 555-1325</code>') );
 						em_options_radio_binary( esc_html__('Show Selected Dialcode', 'events-manager'), 'dbem_phone_show_selected_code', esc_html__('The selected country code will also show the dialcode, such as +1 for the US.', 'events-manager') );
 						em_options_radio_binary( esc_html__('Show Flags', 'events-manager'), 'dbem_phone_show_flags', esc_html__('Show the flag of the selected country code and in the country selection list of the phone input field.', 'events-manager') );
-						
+
 						em_options_radio_binary( esc_html__('Detect User Country', 'events-manager'), 'dbem_phone_detect', esc_html__('We will attempt to detect the location of the user based on their browser timezone and auto-select the corresponding country accordingly.', 'events-manager') );
 						//em_options_select( esc_html__('Preferred Countries', 'events-manager'), 'dbem_phone_countries_preferred', $phone_countries, esc_html__('The selected countries will appear at the top of the country selection list.', 'events-manager'), '', array(), array('selectize' => true, 'multiple' => true) );
 						em_options_select( esc_html__('Include Countries', 'events-manager'), 'dbem_phone_countries_include', $phone_countries, esc_html__('Only the selected countries will be included in the country selection list. This takes precedence over excluded countries.', 'events-manager'), '', array(), array('selectize' => true, 'multiple' => true) );
@@ -371,9 +428,46 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 	<?php endif; ?>
 
 
+	<div class="postbox" id="em-opt-app-notifications">
+		<div class="handlediv" title="<?php __('Click to toggle', 'events-manager'); ?>"><br /></div><h3><span><?php _e('Mobile App Notifications', 'events-manager'); ?></span></h3>
+		<div class="inside">
+			<div class="em-boxheader">
+				<p>
+					<?php echo sprintf( __('Push notifications for the <a href="%s">mobile app</a>. When enabled, registered devices receive real-time pushes for bookings and events on this site, and the app exposes per-type notification preferences to the user.', 'events-manager'), 'https://wp-events-plugin.com/features/mobile-apps/'); ?>
+					<?php echo sprintf( esc_html__('For more information see our %s.', 'events-manager'), '<a href="https://wp-events-plugin.com/documentation/mobile-app/" target="_blank">'.esc_html__('documentation', 'events-manager').'</a>'); ?>
+				</p>
+			</div>
+			<table class="form-table">
+				<?php
+				em_options_radio_binary(
+					__('Enable push notifications?', 'events-manager'),
+					'dbem_app_notifications_enabled',
+					__('When enabled, the mobile app can register devices and receive push notifications. Turning this off stops all outgoing pushes and hides the notification options in the app for this site.', 'events-manager'),
+					'',
+					'.em-app-notification-types'
+				);
+				?>
+				<tbody class="em-app-notification-types">
+					<tr><td colspan="2" class="em-boxheader">
+						<h4><?php esc_html_e('Notification types', 'events-manager'); ?></h4>
+						<?php esc_html_e('Enable or disable each notification type. The event/item owner and managers can further control their own preferences from the mobile app.', 'events-manager'); ?>
+					</td></tr>
+					<?php
+					if ( class_exists('\EM\Notifications\Notifications') ) {
+						foreach ( \EM\Notifications\Notifications::get_types() as $type_key => $type ) {
+							em_options_radio_binary( $type['label'], 'dbem_app_notification_' . $type_key, '' );
+						}
+					}
+					?>
+				</tbody>
+				<?php echo $save_button; ?>
+			</table>
+		</div> <!-- .inside -->
+	</div> <!-- .postbox -->
+
 	<?php do_action('em_options_page_footer'); ?>
-	
-	<?php /* 
+
+	<?php /*
 	<div  class="postbox" id="em-opt-geo" >
 	<div class="handlediv" title="<?php __('Click to toggle', 'events-manager'); ?>"><br /></div><h3><span><?php _e ( 'Geo APIs', 'events-manager'); ?> <em>(Beta)</em></span></h3>
 	<div class="inside">
@@ -392,14 +486,14 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 		</table>
 		</div>
 		<table class="form-table"><?php echo $save_button; ?></table>
-	</div> <!-- . inside --> 
+	</div> <!-- . inside -->
 	</div> <!-- .postbox -->
 	*/ ?>
-	
+
 	<div  class="postbox" id="em-opt-performance-optimization" >
 	<div class="handlediv" title="<?php __('Click to toggle', 'events-manager'); ?>"><br /></div><h3><span><?php _e ( 'Performance Optimization', 'events-manager'); ?> (<?php _e('Advanced','events-manager'); ?>)</span></h3>
 	<div class="inside">
-		<?php 
+		<?php
 			$performance_opt_page_instructions = __('In the boxes below, you are expected to write the page IDs. For multiple pages, use comma-separated values e.g. 1,2,3. Entering 0 means EVERY page, -1 means the home page.','events-manager');
 		?>
 		<div class="em-boxheader">
@@ -417,7 +511,7 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 			?>
 			<tbody id="dbem-js-limit-options">
 				<tr class="em-subheader"><td colspan="2">
-	            	<?php 
+	            	<?php
 	            	_e('Aside from pages we automatically generate and include certain jQuery files, if you are using Widgets, Shortcode or PHP to display specific items you may need to tell us where you are using them for them to work properly. Below are options for you to include specific jQuery dependencies only on certain pages.','events-manager');
 	            	echo $performance_opt_page_instructions;
 	            	?>
@@ -447,12 +541,12 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
             	</tbody>
             	<?php
 			?>
-			<tr  class="em-header"><td  colspan="2">  
-			    <h4><?php  _e('Thumbnails','events-manager');  ?></h4>  
-			</td></tr>  
+			<tr  class="em-header"><td  colspan="2">
+			    <h4><?php  _e('Thumbnails','events-manager');  ?></h4>
+			</td></tr>
 			<?php
-            em_options_radio_binary  (  __(  'Disable  WordPress Thumbnails?',  'events-manager'),  'dbem_disable_thumbnails',  __(  'If set to yes, full sized images will be used and HTML width and height attributes will be used to determine the size.',  'events-manager').' '.sprintf(__('Setting this to yes will also make your images crop efficiently with the %s feature in the %s plugin.','events-manager'), '<a href="http://jetpack.me/support/photon/">Photon</a>','<a href="https://wordpress.org/plugins/jetpack/">JetPack</a>') );  
-            ?>  
+            em_options_radio_binary  (  __(  'Disable  WordPress Thumbnails?',  'events-manager'),  'dbem_disable_thumbnails',  __(  'If set to yes, full sized images will be used and HTML width and height attributes will be used to determine the size.',  'events-manager').' '.sprintf(__('Setting this to yes will also make your images crop efficiently with the %s feature in the %s plugin.','events-manager'), '<a href="http://jetpack.me/support/photon/">Photon</a>','<a href="https://wordpress.org/plugins/jetpack/">JetPack</a>') );
+            ?>
 	        <?php echo $save_button; ?>
 		</table>
 		<script type="text/javascript">
@@ -461,22 +555,22 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 					if( $('input:radio[name="dbem_js_limit"]:checked').val() == 1 ){
 						$('tbody#dbem-js-limit-options').show();
 					}else{
-						$('tbody#dbem-js-limit-options').hide();					
+						$('tbody#dbem-js-limit-options').hide();
 					}
 				}).trigger('change');
-				
+
 				$('input:radio[name="dbem_css_limit"]').on('change', function(){
 					if( $('input:radio[name="dbem_css_limit"]:checked').val() == 1 ){
 						$('tbody#dbem-css-limit-options').show();
 					}else{
-						$('tbody#dbem-css-limit-options').hide();					
+						$('tbody#dbem-css-limit-options').hide();
 					}
 				}).trigger('change');
 			});
 		</script>
-	</div> <!-- . inside --> 
-	</div> <!-- .postbox --> 
-	
+	</div> <!-- . inside -->
+	</div> <!-- .postbox -->
+
 	<div  class="postbox" id="em-opt-style-options" >
 	<div class="handlediv" title="<?php __('Click to toggle', 'events-manager'); ?>"><br /></div><h3><span><?php _e ( 'Styling Options', 'events-manager'); ?> (<?php _e('Advanced','events-manager'); ?>)</span></h3>
 	<div class="inside">
@@ -543,10 +637,10 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 				?>
 			</tbody>
 		</table>
-	</div> <!-- . inside --> 
+	</div> <!-- . inside -->
 	</div> <!-- .postbox -->
 
 	<?php do_action('em_settings_general_footer'); ?>
 	<?php if ( !is_multisite() ) { em_admin_option_box_uninstall(); } ?>
-	
+
 </div> <!-- .em-menu-general -->

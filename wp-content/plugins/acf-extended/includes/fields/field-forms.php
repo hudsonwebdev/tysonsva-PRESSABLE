@@ -370,11 +370,10 @@ class acfe_field_forms extends acfe_field{
         // Checkbox: other_choice
         acf_render_field_setting($field, array(
             'label'         => __('Allow Custom','acf'),
-            'instructions'  => '',
+            'instructions'  => __("Allow 'custom' values to be added", 'acf'),
             'name'          => 'allow_custom',
             'type'          => 'true_false',
             'ui'            => 1,
-            'message'       => __("Allow 'custom' values to be added", 'acf'),
             'conditions'    => array(
                 array(
                     array(
@@ -456,8 +455,8 @@ class acfe_field_forms extends acfe_field{
         // allow custom
         if($field['allow_custom']){
         
-            $value = acf_maybe_get($field, 'value');
-            $value = acf_get_array($value);
+            $value = acfe_get($field, 'value');
+            $value = acfe_as_array($value);
         
             foreach($value as $v){
             
@@ -497,7 +496,7 @@ class acfe_field_forms extends acfe_field{
         
         // vars
         $is_array = is_array($value);
-        $value = acf_get_array($value);
+        $value = acfe_as_array($value);
         
         // loop
         foreach($value as &$v){
@@ -545,7 +544,7 @@ class acfe_field_forms extends acfe_field{
     
         // vars
         $is_array = is_array($value);
-        $value = acf_get_array($value);
+        $value = acfe_as_array($value);
     
         // loop
         foreach($value as &$v){
@@ -597,8 +596,8 @@ class acfe_field_forms extends acfe_field{
         }
         
         // vars
-        $value = acf_get_array($value);
-        $choices = acf_get_array($field['forms']);
+        $value = acfe_as_array($value);
+        $choices = acfe_as_array($field['forms']);
         
         // empty choices
         if(empty($choices)){

@@ -4,19 +4,21 @@
 
 namespace Composer\Autoload;
 
-use Composer\AutoloadWPMediaImagifyWordPressPlugin\ClassLoader as ClassLoaderWPMediaImagifyWordPressPlugin;
-
-
-class ComposerStaticInit0904377d4ce7befc7e9814f085804f15
+class ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb
 {
     public static $files = array (
         '6c592737b91137905268e9a0eb968869' => __DIR__ . '/..' . '/wp-media/apply-filters-typed/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'c' =>
+        array (
+            'cweagans\\Composer\\' => 18,
+        ),
         'W' =>
         array (
-            'WPMedia\\PluginFamily\\' => 21,
+            'WP\\McpSchema\\' => 13,
+            'WP\\MCP\\' => 7,
         ),
         'I' =>
         array (
@@ -27,11 +29,11 @@ class ComposerStaticInit0904377d4ce7befc7e9814f085804f15
             'Imagify\\ThirdParty\\EnableMediaReplace\\' => 38,
             'Imagify\\ThirdParty\\AS3CF\\' => 25,
             'Imagify\\Deprecated\\Traits\\' => 26,
+            'Imagify\\Dependencies\\WPMedia\\PluginFamily\\' => 42,
+            'Imagify\\Dependencies\\WPMedia\\Mixpanel\\' => 38,
+            'Imagify\\Dependencies\\Psr\\Container\\' => 35,
+            'Imagify\\Dependencies\\League\\Container\\' => 38,
             'Imagify\\' => 8,
-        ),
-        'D' =>
-        array (
-            'Dangoodman\\ComposerForWordpress\\' => 32,
         ),
         'C' =>
         array (
@@ -40,9 +42,17 @@ class ComposerStaticInit0904377d4ce7befc7e9814f085804f15
     );
 
     public static $prefixDirsPsr4 = array (
-        'WPMedia\\PluginFamily\\' =>
+        'cweagans\\Composer\\' =>
         array (
-            0 => __DIR__ . '/..' . '/wp-media/plugin-family/src',
+            0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
+        ),
+        'WP\\McpSchema\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/wordpress/php-mcp-schema/src',
+        ),
+        'WP\\MCP\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/wordpress/mcp-adapter/includes',
         ),
         'Imagify\\ThirdParty\\WPRocket\\' =>
         array (
@@ -72,13 +82,25 @@ class ComposerStaticInit0904377d4ce7befc7e9814f085804f15
         array (
             0 => __DIR__ . '/../..' . '/inc/deprecated/Traits',
         ),
+        'Imagify\\Dependencies\\WPMedia\\PluginFamily\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/wp-media/plugin-family/src',
+        ),
+        'Imagify\\Dependencies\\WPMedia\\Mixpanel\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src',
+        ),
+        'Imagify\\Dependencies\\Psr\\Container\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Imagify\\Dependencies\\League\\Container\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/league/container/src',
+        ),
         'Imagify\\' =>
         array (
             0 => __DIR__ . '/../..' . '/classes',
-        ),
-        'Dangoodman\\ComposerForWordpress\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/dangoodman/composer-for-wordpress',
         ),
         'Composer\\Installers\\' =>
         array (
@@ -132,17 +154,27 @@ class ComposerStaticInit0904377d4ce7befc7e9814f085804f15
         'Imagify_Settings' => __DIR__ . '/../..' . '/inc/classes/class-imagify-settings.php',
         'Imagify_User' => __DIR__ . '/../..' . '/inc/deprecated/classes/class-imagify-user.php',
         'Imagify_Views' => __DIR__ . '/../..' . '/inc/classes/class-imagify-views.php',
-        'Imagify_WP_Async_Request' => __DIR__ . '/../..' . '/inc/classes/Dependencies/deliciousbrains/wp-background-processing/classes/wp-async-request.php',
-        'Imagify_WP_Background_Process' => __DIR__ . '/../..' . '/inc/classes/Dependencies/deliciousbrains/wp-background-processing/classes/wp-background-process.php',
+        'Imagify_WPMedia_Base_MixpanelBase' => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src/Classes/Base/MixpanelBase.php',
+        'Imagify_WPMedia_ConsumerStrategies_AbstractConsumer' => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src/Classes/ConsumerStrategies/AbstractConsumer.php',
+        'Imagify_WPMedia_ConsumerStrategies_CurlConsumer' => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src/Classes/ConsumerStrategies/CurlConsumer.php',
+        'Imagify_WPMedia_ConsumerStrategies_FileConsumer' => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src/Classes/ConsumerStrategies/FileConsumer.php',
+        'Imagify_WPMedia_ConsumerStrategies_SocketConsumer' => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src/Classes/ConsumerStrategies/SocketConsumer.php',
+        'Imagify_WPMedia_Mixpanel' => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src/Classes/Mixpanel.php',
+        'Imagify_WPMedia_Producers_MixpanelBaseProducer' => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src/Classes/Producers/MixpanelBaseProducer.php',
+        'Imagify_WPMedia_Producers_MixpanelEvents' => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src/Classes/Producers/MixpanelEvents.php',
+        'Imagify_WPMedia_Producers_MixpanelGroups' => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src/Classes/Producers/MixpanelGroups.php',
+        'Imagify_WPMedia_Producers_MixpanelPeople' => __DIR__ . '/..' . '/wp-media/wp-mixpanel/src/Classes/Producers/MixpanelPeople.php',
+        'Imagify_WP_Async_Request' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-async-request.php',
+        'Imagify_WP_Background_Process' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-background-process.php',
     );
 
-    public static function getInitializer(ClassLoaderWPMediaImagifyWordPressPlugin $loader)
+    public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0904377d4ce7befc7e9814f085804f15::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0904377d4ce7befc7e9814f085804f15::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit0904377d4ce7befc7e9814f085804f15::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb::$classMap;
 
-        }, null, ClassLoaderWPMediaImagifyWordPressPlugin::class);
+        }, null, ClassLoader::class);
     }
 }

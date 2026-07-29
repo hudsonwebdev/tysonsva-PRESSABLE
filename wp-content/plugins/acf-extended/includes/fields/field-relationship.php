@@ -19,6 +19,42 @@ class acfe_field_relationship extends acfe_field_extend{
     
     
     /**
+     * format_front_value
+     *
+     * @param $formatted
+     * @param $unformatted
+     * @param $post_id
+     * @param $field
+     * @param $form
+     *
+     * @return string
+     */
+    function format_front_value($formatted, $unformatted, $post_id, $field, $form){
+        
+        // vars
+        $value = acfe_as_array($unformatted);
+        $array = array();
+        
+        // loop values
+        foreach($value as $p_id){
+            
+            // get post
+            $post = get_post($p_id);
+            
+            // validate
+            if($post && !is_wp_error($post)){
+                $array[] = get_the_title($post->ID);
+            }
+            
+        }
+        
+        // merge
+        return implode(', ', $array);
+        
+    }
+    
+    
+    /**
      * validate_front_value
      *
      * @param $valid
@@ -42,7 +78,7 @@ class acfe_field_relationship extends acfe_field_extend{
         }
         
         // cast array
-        $value = acf_get_array($value);
+        $value = acfe_as_array($value);
         
         // loop values
         foreach($value as $v){

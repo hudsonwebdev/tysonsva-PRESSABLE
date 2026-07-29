@@ -26,7 +26,11 @@ class Helpers {
     public static function sanitize_for_excel( $input ) {
         $dangerousCharacters = array( '=', '+', '-', '@', '|' );
 
-        while ( in_array( $input[0], $dangerousCharacters ) ) {
+        if ( empty( $input ) || !is_string( $input ) ) {
+            return '';
+        }
+
+        while ( strlen( $input ) > 0 && in_array( $input[0], $dangerousCharacters ) ) {
             $input = substr( $input, 1 );
         }
 
@@ -44,7 +48,12 @@ class Helpers {
 
     public static function getAttachmentIdsByFolderId( $folder_id ) {
         global $wpdb;
-        return $wpdb->get_col( 'SELECT `attachment_id` FROM ' . $wpdb->prefix . 'fbv_attachment_folder WHERE `folder_id` = ' . (int) $folder_id );
+        return $wpdb->get_col( 
+            $wpdb->prepare( 
+                'SELECT `attachment_id` FROM ' . $wpdb->prefix . 'fbv_attachment_folder WHERE `folder_id` = %d', 
+                (int) $folder_id 
+            ) 
+        );
     }
 
     public static function getAttachmentCountByFolderId( $folder_id ) {
@@ -213,5 +222,54 @@ class Helpers {
         }
 
         return apply_filters( 'filebird_post_types', $postTypes );
+    }
+    public static function buildExclusionConditions() {
+        global $wpdb;
+        
+        $conditions = array();
+
+        $exclusions = array(
+            'elementor_screenshots' => function_exists( '_is_elementor_installed' ),
+            'picu_collections'      => function_exists( 'picu_exclude_collection_images_from_library' ),
+            'uncode_gallery'        => function_exists( 'uncode_get_gallery_attachment_ids' ),
+            'pdf_thumbnails'        => class_exists( 'PIGEN' ),
+            'w3tc_cache'            => defined( 'W3TC_VERSION' ),
+        );
+
+        // Build exclusion conditions safely using subqueries
+        if ( ! empty( $exclusions['elementor_screenshots'] ) ) {
+            $conditions[] = "posts.ID NOT IN (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_elementor_is_screenshot')";
+        }
+        
+        if ( ! empty( $exclusions['picu_collections'] ) ) {
+            $conditions[] = "posts.post_parent NOT IN (SELECT {$wpdb->posts}.ID FROM {$wpdb->posts} WHERE {$wpdb->posts}.post_type = 'picu_collection')";
+        }
+        
+        if ( ! empty( $exclusions['uncode_gallery'] ) && function_exists( 'uncode_get_gallery_attachment_ids' ) ) {
+            $attachment_ids = uncode_get_gallery_attachment_ids();
+            $sanitized_ids  = array_filter( array_map( 'absint', (array) $attachment_ids ) );
+            if ( ! empty( $sanitized_ids ) ) {
+                $media_attachments_ids = implode( ',', $sanitized_ids );
+                $conditions[] = "posts.ID NOT IN ($media_attachments_ids)";
+            }
+
+        }
+        
+        if ( ! empty( $exclusions['pdf_thumbnails'] ) ) {
+            $opt = get_option( 'pigen_options' );
+            if ( isset( $opt['hidethumb'] ) && $opt['hidethumb'] !== '' ) {
+                $conditions[] = "posts.ID NOT IN (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_thumbnail_id')";
+            }
+        }
+        
+        if ( ! empty( $exclusions['w3tc_cache'] ) ) {
+            $conditions[] = "posts.ID NOT IN (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'w3tc_imageservice_file')";
+        }
+
+        if( function_exists( 'fifu_get_author' ) ) {
+            $conditions[] = "posts.post_author != " . intval( fifu_get_author() );
+        }
+        
+        return $conditions;
     }
 }

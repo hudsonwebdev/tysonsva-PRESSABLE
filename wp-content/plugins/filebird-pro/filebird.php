@@ -3,7 +3,7 @@
  * Plugin Name: FileBird Pro
  * Plugin URI: https://ninjateam.org/wordpress-media-library-folders/
  * Description: Organize thousands of WordPress media files into folders/ categories at ease.
- * Version: 6.4.8
+ * Version: 6.5.4
  * Author: Ninja Team
  * Author URI: https://ninjateam.org
  * Text Domain: filebird
@@ -32,7 +32,7 @@ if ( ! defined( 'NJFB_PREFIX' ) ) {
 }
 
 if ( ! defined( 'NJFB_VERSION' ) ) {
-	define( 'NJFB_VERSION', '6.4.8' );
+	define( 'NJFB_VERSION', '6.5.4' );
 }
 
 if ( ! defined( 'NJFB_PLUGIN_FILE' ) ) {
@@ -63,7 +63,7 @@ if ( ! defined( 'NJFB_UPLOAD_DIR' ) ) {
 	define( 'NJFB_UPLOAD_DIR', 'filebird-uploads' );
 }
 
-if ( file_exists( NJFB_PLUGIN_PATH . '/vendor/autoload.php' ) && $php_version_valid ) {
+if ( apply_filters( 'filebird_load_vendor', true ) && file_exists( NJFB_PLUGIN_PATH . '/vendor/autoload.php' ) && $php_version_valid ) {
 	require_once NJFB_PLUGIN_PATH . '/vendor/autoload.php';
 }
 
@@ -88,6 +88,11 @@ spl_autoload_register(
 		}
 	}
 );
+
+if ( file_exists( __DIR__ . '/cross-sell/loader.php' ) ) {
+    require_once __DIR__ . '/cross-sell/loader.php';
+}
+
 
 if ( ! function_exists( 'FileBird\\init' ) ) {
 	function init() {
@@ -117,6 +122,9 @@ if ( ! function_exists( 'FileBird\\init' ) ) {
 
 		// WPBakery Page Builder
 		PageBuilders\WPBakery\Init::getInstance();
+
+		// Elementor
+		PageBuilders\Elementor\Init::getInstance();
 
 		if ( function_exists( 'register_block_type' ) ) {
 			require plugin_dir_path( __FILE__ ) . 'blocks/filebird-gallery/init.php';

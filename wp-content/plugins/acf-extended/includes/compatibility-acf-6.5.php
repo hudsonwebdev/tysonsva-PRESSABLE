@@ -4,6 +4,11 @@ if(!defined('ABSPATH')){
     exit;
 }
 
+// check version
+if(!acfe_is_acf('6.5')){
+    return;
+}
+
 if(!class_exists('acfe_compatibility_acf_65')):
 
 class acfe_compatibility_acf_65{
@@ -34,19 +39,14 @@ class acfe_compatibility_acf_65{
      */
     function validate_field($field){
         
-        // pre-ACF 6.5+: bail early
-        if(!acfe_is_acf_65()){
-            return $field;
-        }
-        
         // check if setting is enabled
         if(!acfe_get_setting('compatibility/legacy_title_toggle')){
             return $field;
         }
         
         // get acfe flexible content actions
-        $actions = acf_maybe_get($field, 'acfe_flexible_add_actions');
-        $actions = acf_get_array($actions); // cast as array
+        $actions = acfe_get($field, 'acfe_flexible_add_actions');
+        $actions = acfe_as_array($actions); // cast as array
         
         // enable legacy title + toggle
         if(!in_array('title', $actions))  $actions[] = 'title';
@@ -73,11 +73,6 @@ class acfe_compatibility_acf_65{
      */
     function update_field($field){
         
-        // pre-ACF 6.5+: bail early
-        if(!acfe_is_acf_65()){
-            return $field;
-        }
-        
         // get original field
         $original_field = acf_get_field($field['key']);
         if(!$original_field){
@@ -85,8 +80,8 @@ class acfe_compatibility_acf_65{
         }
         
         // get original acfe actions
-        $original_actions = acf_maybe_get($original_field, 'acfe_flexible_add_actions');
-        $original_actions = acf_get_array($original_actions); // cast as array
+        $original_actions = acfe_get($original_field, 'acfe_flexible_add_actions');
+        $original_actions = acfe_as_array($original_actions); // cast as array
         
         // no original actions
         if(empty($original_actions)){
@@ -106,8 +101,8 @@ class acfe_compatibility_acf_65{
         }
         
         // get new acfe actions
-        $new_actions = acf_maybe_get($field, 'acfe_flexible_add_actions');
-        $new_actions = acf_get_array($new_actions); // cast as array
+        $new_actions = acfe_get($field, 'acfe_flexible_add_actions');
+        $new_actions = acfe_as_array($new_actions); // cast as array
         
         // loop on pass actions (title + toggle)
         foreach($pass_actions as $pass_action){
@@ -139,11 +134,6 @@ class acfe_compatibility_acf_65{
      * @return void
      */
     function update_value_cleanup_legacy($value, $post_id, $field){
-        
-        // pre-ACF 6.5+: bail early
-        if(!acfe_is_acf_65()){
-            return $value;
-        }
         
         // check value
         if(empty($value)){
@@ -193,11 +183,6 @@ class acfe_compatibility_acf_65{
      */
     function load_value_assign_legacy_value($value, $post_id, $field){
         
-        // pre-ACF 6.5+: bail early
-        if(!acfe_is_acf_65()){
-            return $value;
-        }
-        
         // check value
         if(empty($value)){
             return $value;
@@ -214,7 +199,7 @@ class acfe_compatibility_acf_65{
         }
         
         // sanitize
-        $value = acf_get_array($value);
+        $value = acfe_as_array($value);
         
         // loop value
         foreach(array_keys($value) as $i){
@@ -263,11 +248,6 @@ class acfe_compatibility_acf_65{
      */
     function load_value_compat_toggle($value, $post_id, $field){
         
-        // pre-ACF 6.5+: bail early
-        if(!acfe_is_acf_65()){
-            return $value;
-        }
-        
         // check setting
         if(!$this->has_toggle_action($field)){
             return $value;
@@ -294,7 +274,7 @@ class acfe_compatibility_acf_65{
         }
         
         // vars
-        $value = acf_get_array($value);
+        $value = acfe_as_array($value);
         
         // loop value
         foreach($value as $k => $row){
@@ -350,11 +330,6 @@ class acfe_compatibility_acf_65{
      */
     function layout_disabled($disabled, $field, $i){
         
-        // pre-ACF 6.5+: bail early
-        if(!acfe_is_acf_65()){
-            return $disabled;
-        }
-        
         // disabled already set
         if(!empty($disabled)){
             return $disabled;
@@ -391,11 +366,6 @@ class acfe_compatibility_acf_65{
      */
     function layout_renamed($renamed, $field, $i){
         
-        // pre-ACF 6.5+: bail early
-        if(!acfe_is_acf_65()){
-            return $renamed;
-        }
-        
         // disabled already set
         if(!empty($renamed)){
             return $renamed;
@@ -425,7 +395,7 @@ class acfe_compatibility_acf_65{
      * @return bool
      */
     function has_title_action($field){
-        return in_array('title', $field['acfe_flexible_add_actions']);
+        return in_array('title', acfe_as_array($field['acfe_flexible_add_actions']));
     }
     
     
@@ -437,7 +407,7 @@ class acfe_compatibility_acf_65{
      * @return bool
      */
     function has_toggle_action($field){
-        return in_array('toggle', $field['acfe_flexible_add_actions']);
+        return in_array('toggle', acfe_as_array($field['acfe_flexible_add_actions']));
     }
     
     

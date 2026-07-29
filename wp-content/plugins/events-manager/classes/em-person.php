@@ -65,7 +65,12 @@ class EM_Person extends WP_User{
 			$status_condition = " AND booking_status IN (".implode(',', $status).")";
 		}
 		$EM_Booking = em_get_booking(); //empty booking for fields
-		$results = $wpdb->get_results("SELECT b.".implode(', b.', array_keys($EM_Booking->fields))." FROM ".EM_BOOKINGS_TABLE." b, ".EM_EVENTS_TABLE." e WHERE e.event_id=b.event_id AND person_id={$this->ID} {$blog_condition} {$status_condition} ORDER BY ".em_get_option('dbem_bookings_default_orderby','event_start_date')." ".em_get_option('dbem_bookings_default_order','ASC'),ARRAY_A);
+		// Whitelist the ORDER BY column and direction
+		$orderby_options = apply_filters('em_settings_bookings_default_orderby_ddm', array( 'event_name' => '', 'event_start_date' => '', 'booking_date' => '' ));
+		$orderby = em_get_option('dbem_bookings_default_orderby', 'event_start_date');
+		if( !array_key_exists($orderby, $orderby_options) ) $orderby = 'event_start_date';
+		$order = strtoupper( em_get_option('dbem_bookings_default_order', 'ASC') ) === 'DESC' ? 'DESC' : 'ASC';
+		$results = $wpdb->get_results("SELECT b.".implode(', b.', array_keys($EM_Booking->fields))." FROM ".EM_BOOKINGS_TABLE." b, ".EM_EVENTS_TABLE." e WHERE e.event_id=b.event_id AND person_id={$this->ID} {$blog_condition} {$status_condition} ORDER BY ".$orderby." ".$order, ARRAY_A);
 		$bookings = array();
 		if($ids_only){
 			foreach($results as $booking_data){
@@ -161,7 +166,7 @@ class EM_Person extends WP_User{
 			'name_last' => $this->last_name,
 			'email' => $this->user_email,
 			'phone' => $this->phone,
-			'guest' => $this->ID > 0, // whether person is registered or not
+			'guest' => $this->ID <= 0, // whether person is registered or not
 		);
 		$person = array_merge( $person, $this->custom_user_fields );
 		return apply_filters('em_person_to_api', $person);

@@ -36,11 +36,12 @@ class Main {
             }
 
             $colors = get_option( "fbv_{$post_type}_folder_colors", array() );
+            $raw_terms = MainModel::getFolders( $post_type, $order );
             $terms  = array_map(
                 function ( $term ) use ( $colors ) {
                     return MainModel::convertFormat( $term, $colors );
                 },
-                MainModel::getFolders( $post_type, $order )
+                $raw_terms
             );
 
             $tree = array();
@@ -101,13 +102,15 @@ class Main {
 
             return rest_ensure_response(
                 array(
-                    'id'         => $res['term_id'],
-                    'key'        => $res['term_id'],
-                    'data-id'    => $res['term_id'],
-                    'parent'     => $parent,
-                    'data-count' => 0,
-                    'children'   => array(),
-                    'title'      => $folder_name,
+                    array(
+                        'id'         => $res['term_id'],
+                        'key'        => $res['term_id'],
+                        'data-id'    => $res['term_id'],
+                        'parent'     => $parent,
+                        'data-count' => 0,
+                        'children'   => array(),
+                        'title'      => $folder_name,
+                    )
                 )
             );
         }
@@ -359,24 +362,33 @@ class Main {
 		$type      = sanitize_key( $request->get_param( 'type' ) );
         $post_type = sanitize_text_field( $request->get_param( 'post_type' ) );
         $lang      = sanitize_key( $request->get_param( 'language' ) );
+        update_user_meta( get_current_user_id(), 'fbv_folder_counter_type_' . $post_type, $type );
 
-		add_filter(
-            'fbv_counter_type',
-            function() use ( $type ) {
-				return $type;
-			}
-        );
+		// add_filter(
+        //     'fbv_counter_type',
+        //     function() use ( $type ) {
+		// 		return $type;
+		// 	}
+        // );
 
 		return rest_ensure_response( self::getCountFromTerms( $post_type, $lang ) );
 	}
 
-    private static function getNestedFolder( $taxonomy ) {
+    public function restPtDuplicateFolder( \WP_REST_Request $request ) {
+        $folder_id = sanitize_key( $request->get_param( 'folder_id' ) );
+        $post_type = sanitize_text_field( $request->get_param( 'post_type' ) );
+        $lang      = sanitize_key( $request->get_param( 'language' ) );
+
+        $new_folder = $this->model->duplicateFolder( $folder_id, $post_type, $lang );
+
+        return rest_ensure_response( $new_folder );
+    }
+
+    private static function getNestedFolder( $taxonomy, $post_type ) {
 		global $wpdb;
+        $counterType = get_user_meta( get_current_user_id(), 'fbv_folder_counter_type_' . $post_type, true );
 
-        $counterType = SettingModel::getInstance()->get( 'folder_counter_type' );
-		$isUsed      = apply_filters( 'fbv_counter_type', $counterType === 'counter_file_in_folder_and_sub' );
-
-		if ( ! $isUsed ) {
+		if ( $counterType !== 'counter_file_in_folder_and_sub' ) {
 			return array();
 		}
 
@@ -432,7 +444,7 @@ class Main {
                 WHERE 1=1 $where
                 $groupby";
 
-		$nestedFolder = self::getNestedFolder( MainModel::getTaxonomyName( $post_type ) );
+		$nestedFolder = self::getNestedFolder( MainModel::getTaxonomyName( $post_type ), $post_type );
 
         // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $counters         = $wpdb->get_results( $query, OBJECT_K );

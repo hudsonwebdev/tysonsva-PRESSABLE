@@ -5,6 +5,8 @@ defined( 'ABSPATH' ) || exit;
 
 use FileBird\Model\Folder as FolderModel;
 use FileBird\Model\UserSettingModel;
+use FileBird\Support\Polylang;
+use FileBird\Support\WPML;
 
 class Tree {
 	private $order    = null;
@@ -70,17 +72,28 @@ class Tree {
 
 		// with specific folder
 		if ( $folder_id > 0 && ! apply_filters( 'fbv_speedup_get_count_query', false ) ) {
-			$post__in = $wpdb->get_col( "SELECT `attachment_id` FROM {$wpdb->prefix}fbv_attachment_folder WHERE `folder_id` = " . (int) $folder_id );
+			$post__in = $wpdb->get_col( 
+				$wpdb->prepare( 
+					"SELECT `attachment_id` FROM {$wpdb->prefix}fbv_attachment_folder WHERE `folder_id` = %d", 
+					(int) $folder_id 
+				) 
+			);
 			if ( count( $post__in ) == 0 ) {
 				$post__in = array( 0 );
 			}
-			$where[] = '(ID IN (' . implode( ', ', $post__in ) . '))';
+			$sanitized_ids = array_map( 'intval', $post__in );
+			$where[]       = '(ID IN (' . implode( ', ', $sanitized_ids ) . '))';
 		} elseif ( $folder_id == 0 ) {
 			return 0;//return 0 if this is uncategorized folder
 		}
 
-		$where = apply_filters( 'fbv_get_count_where_query', $where );
-		$query = apply_filters( 'fbv_get_count_query', $select . implode( ' AND ', $where ), $folder_id, $lang );
+		$where = array_merge( $where, Helpers::buildExclusionConditions() );
+		
+		$query = $select . implode( ' AND ', $where );
+		
+		$query = Polylang::applyCountQuery( $query, $folder_id, $lang );
+		$query = WPML::applyCountQuery( $query, $folder_id, $lang );
+		
 		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
 		return (int) $wpdb->get_var( $query );
 	}
@@ -201,3 +214,4 @@ class Tree {
 		return $data;
 	}
 }
+

@@ -12,6 +12,9 @@ This template is the main meat of the calendar, most of the heavy lifting is don
 	$col_max = count($calendar['row_headers']); //each time this collumn number is reached, we create a new collumn, the number of cells should divide evenly by the number of row_headers
 	// go through day cells
 	$events = $multiday_slots = $multiday_slots_freed = array();
+	$event_style = $args['calendar_event_style'] ?? 'pill';
+	$is_single_dot = ( $event_style === 'dot' ); // 'dot' = one dot per day, no overflow +
+	$is_dots = ( $event_style === 'dot' || $event_style === 'dots' ); // either dot style renders dots instead of pills
 	foreach($calendar['cells'] as $date => $cell_data ){
 		$class = ( !empty($cell_data['events']) && count($cell_data['events']) > 0 ) ? 'eventful eventful':'eventless';
 		if(!empty($cell_data['type'])){
@@ -25,10 +28,28 @@ This template is the main meat of the calendar, most of the heavy lifting is don
 			<?php if( !empty($cell_data['events']) && count($cell_data['events']) > 0 ): ?>
 				<div class="em-cal-day-date colored" data-date="<?php echo esc_attr($date); ?>" data-timestamp="<?php echo esc_attr($cell_data['date']); ?>" >
 					<a href="<?php echo esc_url($cell_data['link']); ?>" title="<?php echo esc_attr($cell_data['link_title']); ?>"><?php echo esc_html(date('j',$cell_data['date'])); ?></a>
-					<?php if( $args['limit'] && $cell_data['events_count'] > $args['limit'] && em_get_option('dbem_display_calendar_events_limit_msg') != '' ): ?>
+					<?php if( !$is_dots && $args['limit'] && $cell_data['events_count'] > $args['limit'] && em_get_option('dbem_display_calendar_events_limit_msg') != '' ): ?>
 						<div class="limited-icon size-small size-medium">+</div>
 					<?php endif; ?>
+					<?php if ( $is_dots ): ?>
+						<div class="em-cal-day-dots">
+							<?php
+							// 'dot' shows a single dot for the day; 'dots' shows one dot per event up to the limit
+							$dot_events = $is_single_dot ? array_slice( $cell_data['events'], 0, 1 ) : $cell_data['events'];
+							foreach ( $dot_events as $EM_Event ) :
+								$EM_Category = $EM_Event->get_categories()->get_first();
+								$dot_color = $EM_Category ? $EM_Category->get_color() : em_get_option('dbem_category_default_color');
+								$dot_color = apply_filters('em_calendar_dot_color', $dot_color, $EM_Event);
+								?>
+								<span class="em-cal-dot" style="--dot-color:<?php echo esc_attr($dot_color); ?>;" data-event-id="<?php echo esc_attr($EM_Event->event_id); ?>"></span>
+							<?php endforeach; ?>
+							<?php if ( !$is_single_dot && $args['limit'] && $cell_data['events_count'] > $args['limit'] ) : ?>
+								<span class="em-cal-dot em-cal-dot-more">+</span>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
 				</div>
+				<?php if ( !$is_dots ): ?>
 				<?php
 				// ouptut event data
 				$single_day_events = $allday_events = $colors = array();
@@ -97,11 +118,11 @@ This template is the main meat of the calendar, most of the heavy lifting is don
 							if( $col_count == 1 ) {
 								// fill up the slots which will be empty on first column
 								$days_key = $days_left_in_event - 1;
-								while( !empty($multiday_slots_content[$days_key]) ){
-									$days_key += 0.00001; // adding a large decimal to prevent large scale calendars
+								while( !empty($multiday_slots_content[(string) $days_key]) ){
+									$days_key += 0.00001; // PHP truncates float keys to int; the (string) cast above is what makes this nudge land on a new slot
 								}
-								$multiday_slots_content[$days_key] = $event_content;
-								$multiday_slots[$days_key] = $EM_Event->event_id;
+								$multiday_slots_content[(string) $days_key] = $event_content;
+								$multiday_slots[(string) $days_key] = $EM_Event->event_id;
 							}else{
 								// check if reserved
 								if( in_array( $EM_Event->event_id, $multiday_slots ) ){
@@ -181,7 +202,8 @@ This template is the main meat of the calendar, most of the heavy lifting is don
 							<?php echo str_replace('%COUNT%', $cell_data['events_count'] - $args['limit'], em_get_option('dbem_display_calendar_events_limit_msg')); ?></a>
 					</div>
 				<?php endif; ?>
-			
+				<?php endif; // end dots / pill switch ?>
+
 			<?php else:?>
 				<div class="em-cal-day-date">
 					<span><?php echo esc_html(date('j',$cell_data['date'])); ?></span>

@@ -7,6 +7,7 @@ use FileBird\Controller\Controller;
 defined( 'ABSPATH' ) || exit;
 
 class WPML extends Controller {
+	private static $instance = null;
 	protected $post_translations;
 	private $sitepress;
 	private $lang;
@@ -34,12 +35,38 @@ class WPML extends Controller {
 		add_filter( 'fbv_data', array( $this, 'fbv_data' ), 10, 1 );
 
 		if ( ! isset( $this->cpt_sync_options['attachment'] ) || $this->cpt_sync_options['attachment'] != '0' ) {
-			add_filter( 'fbv_get_count_query', array( $this, 'fbv_get_count_query' ), 10, 3 );
 			add_filter( 'fbv_speedup_get_count_query', '__return_true' );
 			add_filter( 'fbv_all_folders_and_count', array( $this, 'all_folders_and_count_query' ), 10, 2 );
 			add_filter( 'fbv_post_type_term_counter', array( $this, 'fbv_post_type_term_counter' ), 10, 5 );
 			add_filter( 'fbv_post_type_all_counter', array( $this, 'fbv_post_type_all_counter' ), 10, 3 );
 		}
+		
+		// Store singleton instance
+		if ( self::$instance === null ) {
+			self::$instance = $this;
+		}
+	}
+	
+	public static function applyCountQuery( $query, $folder_id, $lang = null ) {
+		global $sitepress;
+		
+		// Check if WPML is active
+		if ( $sitepress === null || get_class( $sitepress ) !== 'SitePress' ) {
+			return $query;
+		}
+		
+		// Get or create instance
+		if ( self::$instance === null ) {
+			return $query; // Instance not initialized yet, return original query
+		}
+		
+		// Check if attachment sync is enabled
+		if ( isset( self::$instance->cpt_sync_options['attachment'] ) && self::$instance->cpt_sync_options['attachment'] == '0' ) {
+			return $query; // Attachment sync disabled, return original query
+		}
+		
+		// Call instance method
+		return self::$instance->fbv_get_count_query( $query, $folder_id, $lang );
 	}
 
 	private function is_sync_post_type( $post_type ) {
@@ -104,7 +131,13 @@ class WPML extends Controller {
 		global $wpdb;
 
 		check_ajax_referer( 'fbv_nonce', 'nonce', true );
-
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				array( 'mess' => __( 'You do not have permission to perform this action.', 'filebird' ) ),
+				403
+			);
+		}
+		
 		$translationNotInFolder = $wpdb->get_results(
 			"SELECT GROUP_CONCAT( IF(fbv.folder_id is NULL, icl.element_id, NULL) ) as attachment_ids, GROUP_CONCAT(DISTINCT(fbv.folder_id)) as folder_id
 			FROM `{$wpdb->prefix}icl_translations` icl

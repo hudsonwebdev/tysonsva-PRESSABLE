@@ -342,10 +342,10 @@ class EM_Booking extends EM_Object{
 	function get_notes(){
 		global $wpdb;
 		if( !is_array($this->notes) && !empty($this->booking_id) ){
-		  	$notes = $wpdb->get_results("SELECT * FROM ". EM_META_TABLE ." WHERE meta_key='booking-note' AND object_id ='{$this->booking_id}'", ARRAY_A);
+		  	$notes = $wpdb->get_results($wpdb->prepare("SELECT * FROM ". EM_META_TABLE ." WHERE meta_key='booking-note' AND object_id = %d", $this->booking_id), ARRAY_A);
 		  	$this->notes = array();
 		  	foreach($notes as $note){
-		  		$this->notes[] = unserialize($note['meta_value']);
+		  		$this->notes[] = self::maybe_unserialize($note['meta_value']);
 		  	}
 		}elseif( empty($this->booking_id) ){
 			$this->notes = array();
@@ -673,7 +673,7 @@ class EM_Booking extends EM_Object{
 		//can we book this amount of spaces at once?
 		if( $this->get_event()->event_rsvp_spaces > 0 && $this->get_spaces() > $this->get_event()->event_rsvp_spaces ){
 		    $result = false;
-		    $this->add_error( sprintf( $this->get_option('dbem_booking_feedback_spaces_limit'), $this->get_event()->event_rsvp_spaces));			
+		    $this->add_error( sprintf( $this->get_option('dbem_booking_feedback_spaces_limit'), $this->get_event()->event_rsvp_spaces));
 		}
 		do_action( 'em_booking_validate_after', $this, $override_availability );
 		return apply_filters('em_booking_validate', empty($this->errors), $this);
@@ -2058,9 +2058,9 @@ class EM_Booking extends EM_Object{
 		if( !empty($args['event']) ) {
 			$booking['event'] = $this->get_event()->to_api();
 		}
-		// user
+		// user — a person_id of 0 is EM's guest-person model (no WP user account), so report it honestly rather than always claiming a registered user.
 		$booking['person'] = array(
-			'guest' => false,
+			'guest' => empty( $this->person_id ),
 			'email' => $this->get_person()->user_email,
 			'name' => $this->get_person()->get_name(),
 		);

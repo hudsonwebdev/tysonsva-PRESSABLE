@@ -26,19 +26,18 @@ class acfe_module_form_front{
      * acf/validate_save_post:1
      */
     function validate_save_post(){
-    
+
         // get form
         $form = $this->get_form_validation();
-    
-        // bail early
         if(!$form){
             return;
         }
-        
+
         // set form data
         // used in validation with acfe_add_validation_error()
         acf_set_form_data('acfe/form', $form);
-        
+        acf_set_form_data('post_id', $form['post_id']);
+
         // tags context
         acfe_add_context('form', $form);
         acfe_add_context('method', 'validate');
@@ -61,15 +60,13 @@ class acfe_module_form_front{
      * wp
      */
     function save_post(){
-        
+
         // get form
         $form = $this->get_form_submission();
-    
-        // bail early
         if(!$form){
             return;
         }
-        
+
         // default acf
         if(empty($_POST['acf'])){
             $_POST['acf'] = array();
@@ -88,19 +85,23 @@ class acfe_module_form_front{
         $show_errors = true;
         $show_errors = apply_filters("acfe/form/submit_show_errors",                      $show_errors, $form);
         $show_errors = apply_filters("acfe/form/submit_show_errors/form={$form['name']}", $show_errors, $form);
-        
+
         // validate save post
         // pass thru $this->validate_save_post()
         $valid = acf_validate_save_post($show_errors);
-        
+
+        // consume the nonce
+        acf_verify_nonce('acfe_form');
+
         // invalid form
         if(!$valid){
             return;
         }
-        
+
         // set form data
         acf_set_form_data('acfe/form', $form);
-        
+        acf_set_form_data('post_id', $form['post_id']);
+
         // tags context
         acfe_add_context('form', $form);
         acfe_add_context('method', 'submit');
@@ -142,7 +143,7 @@ class acfe_module_form_front{
         add_action('wp_print_footer_scripts', array($this, 'prevent_refresh'));
         
         // return (deprecated)
-        if($return = acf_maybe_get($form, 'return')){
+        if($return = acfe_get($form, 'return')){
             acfe_redirect($return);
         }
         
@@ -158,53 +159,32 @@ class acfe_module_form_front{
      */
     function get_form($form){
         
-        // allow non array argument
+        // allow name/ID
         if(!is_array($form)){
-            
-            $arg = $form;
-            $form = array(
-                'ID'   => is_numeric($arg) ? $arg : 0,
-                'name' => !is_numeric($arg) ? $arg : '',
-            );
-            
+            $form = is_numeric($form) ? array('ID' => $form) : array('name' => $form);
         }
-    
-        // check lowercase id
+
+        // cast as array
+        $form = acfe_as_array($form);
+
+        // sanitize lowercase id
         if(isset($form['id'])){
             $form['ID'] = acf_extract_var($form, 'id');
         }
-    
-        // get module
-        $module = acfe_get_module('form');
-        
-        // get by name or ID
-        $selector = !empty($form['name']) ? $form['name'] : acf_maybe_get($form, 'ID');
-        
-        if($selector){
-        
-            // get item
-            $item = $module->get_item($selector);
-        
-            // merge arrays
-            if($item){
-                
-                // assign item vars
-                $form['ID'] = $item['ID'];
-                $form['name'] = $item['name'];
-                $form = acfe_parse_args_r($form, $item);
-                
-                // allow validate_item again
-                acf_extract_vars($form, array('_valid'));
-            
-            }
-        
+
+        // get item
+        $item = acfe_get_module('form')->get_item($form);
+        if($item){
+
+            // cleanup vars (use item ID & name)
+            acf_extract_vars($form, array('ID', 'name'));
+            $form = acfe_parse_args_r($form, $item);
+
+        }else{
+            $form = acfe_get_module('form')->validate_item($form);
         }
-    
-        // validate form (set alias)
-        // also add settings in case there is no form found
-        $form = $module->validate_item($form);
         
-        // cleanup keys
+        // cleanup vars
         acf_extract_vars($form, array('label', 'modified', 'local', 'local_file', '_valid'));
         
         // add post id
@@ -384,15 +364,23 @@ class acfe_module_form_front{
      * @return array|false
      */
     function get_form_validation(){
-        
-        $valid_screen = acfe_is_front() && acf_maybe_get_POST('_acf_screen') === 'acfe_form';
-        $form = acfe_get_form_sent();
-        
-        if($valid_screen && $form){
-            return $form;
+
+        // get nonce
+        $nonce = acf_maybe_get_POST('_acf_nonce');
+
+        // verify nonce
+        if(!acfe_is_front() || !$nonce || !wp_verify_nonce($nonce, 'acfe_form')){
+            return false;
         }
-        
-        return false;
+
+        // get form
+        $form = acfe_get_form_sent();
+        if(!$form){
+            return false;
+        }
+
+        // return
+        return $form;
     }
     
     
@@ -402,15 +390,23 @@ class acfe_module_form_front{
      * @return array|false
      */
     function get_form_submission(){
-        
-        $valid_screen = acf_verify_nonce('acfe_form');
-        $form = acfe_get_form_sent();
-        
-        if($valid_screen && $form){
-            return $form;
+
+        // get nonce
+        $nonce = acf_maybe_get_POST('_acf_nonce');
+
+        // verify nonce
+        if(!acfe_is_front() || !$nonce || !wp_verify_nonce($nonce, 'acfe_form')){
+            return false;
         }
-        
-        return false;
+
+        // get form
+        $form = acfe_get_form_sent();
+        if(!$form){
+            return false;
+        }
+
+        // return
+        return $form;
         
     }
     
@@ -514,11 +510,11 @@ function acfe_form($form = array()){
 /**
  * acfe_get_form
  *
- * @param array $form
+ * @param $form
  *
  * @return mixed
  */
-function acfe_get_form(array $form = array()){
+function acfe_get_form($form = array()){
     return acf_get_instance('acfe_module_form_front')->get_form($form);
 }
 

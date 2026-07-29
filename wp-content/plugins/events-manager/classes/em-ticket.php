@@ -173,8 +173,8 @@ class EM_Ticket extends EM_Object {
 				$this->ticket_status = true;
 			}
 			//serialized arrays
-			$this->ticket_meta = ( !empty( $ticket['ticket_meta'] ) ) ? maybe_unserialize($ticket['ticket_meta']) : [];
-			$this->ticket_members_roles = maybe_unserialize($this->ticket_members_roles);
+			$this->ticket_meta = ( !empty( $ticket['ticket_meta'] ) ) ? EM_Object::maybe_unserialize($ticket['ticket_meta']) : [];
+			$this->ticket_members_roles = EM_Object::maybe_unserialize($this->ticket_members_roles);
 			if( !is_array($this->ticket_members_roles) ) $this->ticket_members_roles = [];
 			//sort out recurrence meta to save extra empty() checks, the 'true' cut-off info is here for the ticket if part of a recurring event
 			if( !empty($this->ticket_meta['recurrences']) ){
@@ -824,16 +824,14 @@ class EM_Ticket extends EM_Object {
 			$status = implode(',', $status);
 		}
 		$status = str_replace(' ', '', $status);
-		// run if $status is clean
-		if ( preg_match('/[^0-9,]/', $status) ) {
+		if ( !preg_match('/[^0-9,]/', $status) ) {
 			if ( !isset( $this->status_counts[ $this->event_id ][ $status ] ) || $force_refresh ) {
-				$status_cond = !$this->get_event()->get_option('dbem_bookings_approval') ? 'booking_status IN (0,1)' : 'booking_status = 1';
 				$sub_sql = 'SELECT booking_id FROM '.EM_BOOKINGS_TABLE." WHERE event_id=%d AND booking_status IN ($status)";
 				if ( $this->get_event()->is_timeslot() ) {
 					$sub_sql .= " AND timeslot_id=" . absint($this->get_event()->timeslot_id);
 				}
 				$sql = 'SELECT SUM(ticket_booking_spaces) FROM '.EM_TICKETS_BOOKINGS_TABLE. " WHERE booking_id IN ($sub_sql) AND ticket_id=%d";
-				$this->status_counts[ $this->event_id ][ $status ] = $wpdb->get_var( $sql );
+				$this->status_counts[ $this->event_id ][ $status ] = $wpdb->get_var( $wpdb->prepare( $sql, $this->event_id, $this->ticket_id ) );
 			}
 		}
 		return apply_filters('em_ticket_get_status_spaces', $this->status_counts[ $this->event_id ][ $status ] ?? 0, $this, $status, $force_refresh);
