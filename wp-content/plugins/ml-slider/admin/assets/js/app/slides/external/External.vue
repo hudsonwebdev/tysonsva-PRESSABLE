@@ -18,7 +18,7 @@
 							<div class="thumbnail">
 								<div class="centered">
 									<img
-										:src="$refs['external-api'].selected.urls.regular"
+										:src="$refs['external-api'].previewImageUrl"
 										:alt="$refs['external-api'].fileName"
 										draggable="false">
 								</div>
@@ -49,10 +49,12 @@
 import { EventManager } from '../../utils'
 import { Axios } from '../../api'
 import unsplash from './Unsplash.vue'
+import pixabay from './Pixabay.vue'
 
 export default {
 	components: {
-		unsplash
+		unsplash,
+		pixabay
 	},
 	props: {
 		source: {
@@ -80,7 +82,8 @@ export default {
 			ourMediaButton: {},
 			downloading: false,
 			uploadPercentage: 1,
-			downloadingMessage: ''
+			downloadingMessage: '',
+			pendingScrollSlideId: null
 		}
 	},
 	watch: {
@@ -90,8 +93,10 @@ export default {
 		}
 	},
 	created() {
-		// This can support other APIs, hard coded now for unsplash
-		this.component = this.source
+		// Addons (e.g. Pro's Pixabay module) register their own picker components on
+		// window.metaslider.components, keyed by source name - prefer that, and fall back to
+		// resolving the source as a locally-registered component name (e.g. 'unsplash')
+		this.component = (window.metaslider.components && window.metaslider.components[this.source]) || this.source
 	},
 	mounted() {
 		// Set up the download progress bar %
@@ -122,7 +127,11 @@ export default {
 		this.ourMediaButton.innerHTML = this.mediaButton.innerHTML
 		this.mediaButton.parentNode.insertBefore(this.ourMediaButton, this.mediaButton)
 
-		this.ourMediaButton.disabled = false
+		// Only enabled once something is actually selected in the picker
+		this.ourMediaButton.disabled = !this.$refs['external-api'].selected.id
+		this.$watch(() => this.$refs['external-api'].selected, (selected) => {
+			this.ourMediaButton.disabled = !(selected && selected.id)
+		})
 		this.mediaButton.style.visibility = 'hidden'
 
 		// The component isn't destroyed on tab switching, so this could be added multiple times. That's ok.
@@ -147,6 +156,13 @@ export default {
 			window.update_slide_frame && window.update_slide_frame.close()
 
 		}
+
+		// The media modal stays open through the whole upload and only actually closes above -
+		// scrolling any earlier would happen behind it, invisibly (#2363)
+		if (this.pendingScrollSlideId) {
+			window.metaslider.app.scrollToSlide(this.pendingScrollSlideId)
+			this.pendingScrollSlideId = null
+		}
 	},
 	methods: {
 		async interceptAddButton(event) {
@@ -155,6 +171,8 @@ export default {
 			if (this.$refs['external-api'].selected.id) {
 				this.downloading = true
 				this.downloadingMessage = this.__('Saving...', 'ml-slider')
+
+				const mediaType = this.$refs['external-api'].mediaType || 'image'
 
 				const { data } = await this.$refs['external-api'].download()
 				const uploadData = this.$refs['external-api'].upload
@@ -174,6 +192,41 @@ export default {
 				formData.append('slideshow_id', this.slideshowId)
 				this.slideType && formData.append('slide_type', this.slideType)
 				this.slideId && formData.append('slide_id', this.slideId)
+
+				// Pro module (Local Video)
+				if (mediaType === 'video') {
+					formData.append('action', 'ms_import_video')
+
+					const response = await Axios.post('import/video', formData).catch(error => {
+						this.notifyError('metaslider/video-import-error', error, true)
+						this.$destroy() // Close the module
+					})
+
+					if (response) {
+						this.uploadPercentage = 100
+						this.downloadingMessage = this.__('Complete!', 'ml-slider')
+						await new Promise(resolve => setTimeout(resolve, 1500))
+
+						const attachmentId = response.data.data.attachment_id
+
+						if (this.slideId) {
+							// Existing slide - let the pro module (Local Video) attach this as
+							// a video source via its own postmeta/AJAX actions
+							EventManager.$emit('metaslider/pixabay-video-imported', {
+								slideId: this.slideId,
+								attachmentId
+							})
+						} else {
+							// No slide yet (Add Slide > Local Video) - let the pro module create
+							// a brand new Local Video slide from this attachment
+							EventManager.$emit('metaslider/pixabay-video-created', { attachmentId })
+						}
+
+						this.$destroy()
+					}
+					return
+				}
+
 				formData.append('action', 'ms_import_images')
 
 				const thumbnail = await Axios.post('import/images', formData).catch(error => {
@@ -187,18 +240,54 @@ export default {
 				this.downloadingMessage = this.__('Complete!', 'ml-slider')
 				await new Promise(resolve => setTimeout(resolve, 1500))
 
-				// Reload to show the new slide
-				!this.slideId && window.location.reload(true)
+				// Add the new slide(s) to the list without a full page reload
+				if (!this.slideId) {
+					const importedSlides = (thumbnail && thumbnail.data) || []
+
+					if (!importedSlides.length) {
+						// Fall back to a reload if we didn't get anything usable back
+						window.location.reload(true)
+					} else if (window.location.href.indexOf('metaslider-start') > -1) {
+						// No slideshow existed yet - jump to the editor for the one that was just created
+						window.location.href = 'admin.php?page=metaslider&id=' + importedSlides[0].slideshow_id
+					} else {
+						// Mount and insert each new slide, same shared helper the Media Library "Add Slide" flow in admin.js uses
+						window.metaslider.app.mountNewSlides(importedSlides)
+
+						// Scroll once destroyed() has actually closed the media modal, not now while it's still open (#2363)
+						this.pendingScrollSlideId = importedSlides[importedSlides.length - 1].slide_id
+
+						// Same message/pluralization as the Media Library "Add Slide" flow in admin.js
+						const message = importedSlides.length === 1
+							? this.__('1 slide added successfully', 'ml-slider')
+							: this.__('%s slides added successfully', 'ml-slider')
+						this.notifySuccess('metaslider/slides-created', this.sprintf(message, importedSlides.length), true)
+						this.triggerEvent('metaslider/save')
+					}
+				}
 
 				// Set the new image if we are on a slide
 				if (this.slideId) {
-					document.querySelector('[data-slide-id="' + this.slideId + '"] .thumb').style.backgroundImage = 'url(' + thumbnail.data.data + ')'
-					
-					// Set the new image preview if we are editing a Local video's cover
-					if(this.proUser && this.slideType === 'local_video') {
-						const image_preview = document.querySelector('#slide-' + this.slideId + ' .update-cover-image');
-						image_preview.style.backgroundImage = 'url(' + thumbnail.data.data + ')';
-						image_preview.innerHTML = '';
+					// import/images responds with one row per imported image - we only ever import one here
+					const importedSlide = thumbnail && thumbnail.data && thumbnail.data[0]
+
+					if (importedSlide) {
+						// Update the actual <img> in the thumb - it sits on top of and hides any .thumb background-image
+						const new_image = document.querySelector('[data-slide-id="' + this.slideId + '"] .thumb img')
+						if (new_image) {
+							new_image.setAttribute(
+								'srcset',
+								`${importedSlide.thumbnail_url_large} 1024w, ${importedSlide.thumbnail_url_medium} 768w, ${importedSlide.thumbnail_url_small} 240w`
+							)
+							new_image.setAttribute('src', importedSlide.thumbnail_url_small)
+						}
+
+						// Set the new image preview if we are editing a Local video's cover
+						if(this.proUser && this.slideType === 'local_video') {
+							const image_preview = document.querySelector('#slide-' + this.slideId + ' .update-cover-image');
+							image_preview.style.backgroundImage = 'url(' + importedSlide.thumbnail_url_small + ')';
+							image_preview.innerHTML = '';
+						}
 					}
 
 					// Update any image data fields as necessary (field does not need to exist)

@@ -384,12 +384,14 @@ class Post_Update_Handler {
 	 * Generates a secure URL for editing a form entry.
 	 *
 	 * @since 1.6.0
+	 * @since 1.6.2 Added the $post_id parameter
 	 * @access public
 	 *
 	 * @param int $entry_id The ID of the entry to edit.
+	 * @param int $post_id The ID of the post associated with the entry.
 	 * @return string URL for editing the entry or empty string if unable to generate URL.
 	 */
-	public function get_edit_entry_link( $entry_id ) {
+	public function get_edit_entry_link( $entry_id, $post_id ) {
 		// Get the entry.
 		$entry = GFAPI::get_entry( $entry_id );
 		if ( is_wp_error( $entry ) ) {
@@ -398,18 +400,6 @@ class Post_Update_Handler {
 
 		// Check if the user is logged in and is the entry creator.
 		if ( ! is_user_logged_in() || get_current_user_id() != absint( $entry['created_by'] ) ) {
-			return '';
-		}
-
-		// Get the created posts for this entry.
-		$created_posts = gform_get_meta( $entry_id, $this->addon->get_slug() . '_post_id' );
-		if ( empty( $created_posts ) ) {
-			return '';
-		}
-
-		// Get the post ID for the first created post.
-		$post_id = rgar( $created_posts[0], 'post_id' );
-		if ( ! $post_id ) {
 			return '';
 		}
 
@@ -448,6 +438,7 @@ class Post_Update_Handler {
 
 		// Add the entry ID and a security nonce to the URL.
 		$edit_post_page_url = add_query_arg( 'entry_id', $entry_id, $edit_post_page_url );
+		$edit_post_page_url = add_query_arg( 'post_id', $post_id, $edit_post_page_url );
 		$edit_nonce         = wp_create_nonce( 'apc-gform_advancedpostcreation_edit_entry' );
 
 		return add_query_arg( 'apc_edit_nonce', $edit_nonce, $edit_post_page_url );
@@ -464,7 +455,7 @@ class Post_Update_Handler {
 	 */
 	public function entry_is_editable( $form_id ) {
 		// Check if we have the necessary URL parameters.
-		if ( ! rgget( 'entry_id' ) || ! rgget( 'apc_edit_nonce' ) ) {
+		if ( ! rgget( 'entry_id' ) || ! rgget( 'apc_edit_nonce' ) || ! rgget( 'post_id' ) ) {
 			return false;
 		}
 
@@ -489,17 +480,8 @@ class Post_Update_Handler {
 			return false;
 		}
 
-		// Check if the entry has associated posts.
-		$created_posts = gform_get_meta( $entry['id'], $this->addon->get_slug() . '_post_id' );
-		if ( empty( $created_posts ) ) {
-			return false;
-		}
-
 		// Get the post ID for the first created post.
-		$post_id = rgar( $created_posts[0], 'post_id' );
-		if ( ! $post_id ) {
-			return false;
-		}
+		$post_id = intval( rgget( 'post_id' ) );
 
 		// Get feed ID from post meta.
 		$feed_id = get_post_meta( $post_id, '_' . $this->addon->get_slug() . '_feed_id', true );
@@ -578,16 +560,14 @@ class Post_Update_Handler {
 			return $form;
 		}
 
-		// Get post ID(s) associated with this entry.
-		$created_posts = gform_get_meta( $entry['id'], $this->addon->get_slug() . '_post_id' );
-		if ( empty( $created_posts ) ) {
-			return $form;
-		}
-
 		// Get the feed for this post to determine editable fields.
-		$post_id = $created_posts[0]['post_id'];
+		$post_id = intval( rgget( 'post_id' ) );
 		$feed_id = get_post_meta( $post_id, '_' . $this->addon->get_slug() . '_feed_id', true );
 		$feed    = $this->addon->get_feed( $feed_id );
+
+		if ( ! $feed ) {
+			return $form;
+		}
 
 		// Get editable fields from the feed.
 		$editable_fields = $this->get_editable_fields_from_feed( $feed );
@@ -687,8 +667,9 @@ class Post_Update_Handler {
 			return $entry;
 		}
 
-		$entry_id       = $entry['id'];
-		$fields_updated = false;
+		$entry_id            = $entry['id'];
+		$fields_updated      = false;
+		$poll_fields_updated = false;
 
 		/**
 		 * Process readonly fields to preserve their original values.
@@ -701,14 +682,22 @@ class Post_Update_Handler {
 					continue;
 				}
 
-				// Only update entry if value exists and is different from current.
-				$has_value    = ! \GFCommon::is_empty_array( $value );
-				$needs_update = $has_value && rgar( $entry, $field_id ) != $value;
+				if ( is_array( $value ) ) {
+					$fields_updated = $this->update_multi_input_fields( $entry, $value, $entry_id, $fields_updated );
+					continue;
+				}
+
+				// Only update entry if value is different from current.
+				$needs_update = rgar( $entry, $field_id ) !== $value;
 
 				if ( $needs_update ) {
 					// Use GFAPI to update the entry values directly.
 					\GFAPI::update_entry_field( $entry_id, $field_id, $value );
 					$fields_updated = true;
+
+					if ( strpos( $value, 'gpoll' ) !== false ) {
+						$poll_fields_updated = true;
+					}
 				}
 			}
 		}
@@ -750,7 +739,49 @@ class Post_Update_Handler {
 			$entry = \GFAPI::get_entry( $entry_id );
 		}
 
+		if ( $poll_fields_updated ) {
+			$this->refresh_poll_results_cache( $form );
+		}
+
 		return $entry;
+	}
+
+	/**
+	 * Updates multiple input fields (Checkboxes, Name, Address, etc.) in the entry if their values have changed.
+	 *
+	 * @since 1.6.2
+	 * @access private
+	 *
+	 * @param array $entry The entry being updated.
+	 * @param array $value The new values for the multiple input fields.
+	 * @param int $entry_id The ID of the entry being updated.
+	 * @param bool $fields_updated Flag indicating if any fields were updated.
+	 * @return bool Updated flag indicating if any fields were updated.
+	 */
+	private function update_multi_input_fields( $entry, $value, $entry_id, $fields_updated ) {
+		foreach ( $value as $input_id => $input_value ) {
+			$needs_update = rgar( $entry, $input_id ) !== $input_value;
+
+			if ( $needs_update ) {
+				\GFAPI::update_entry_field( $entry_id, $input_id, $input_value );
+				$fields_updated = true;
+			}
+		}
+		return $fields_updated;
+	}
+
+	/**
+	 * Refreshes Polls cached results after readonly Poll values are restored.
+	 *
+	 * @since 1.6.2
+	 *
+	 * @param array $form The current form object.
+	 */
+	private function refresh_poll_results_cache( $form ) {
+		$form_id = rgar( $form, 'id' );
+
+		\GFCache::delete( 'gpoll_data_' . $form_id );
+		\GFCache::delete( 'gpoll_data_tmp_' . $form_id );
 	}
 
 	/**
@@ -874,8 +905,8 @@ class Post_Update_Handler {
 			return $form;
 		}
 
-		// Get feed ID from post data.
-		$feed_id = rgpost( 'apc_edit_feed_id' );
+		// Get feed ID from post meta.
+		$feed_id = get_post_meta( $post_id, '_' . $this->addon->get_slug() . '_feed_id', true );
 		if ( ! $feed_id ) {
 			$this->is_preparing_readonly_values = false;
 			return $form;
@@ -916,8 +947,23 @@ class Post_Update_Handler {
 			}
 
 			// For read-only fields, store original values.
-			$field_id       = $field->id;
-			$original_value = rgar( $entry, $field_id );
+			$field_id     = $field->id;
+			$multi_inputs = $field->get_entry_inputs();
+
+			if ( $field->type === 'poll' ) {
+				// For poll fields, store the original value from the entry.
+				$original_value = rgar( $entry, $field_id );
+			} elseif ( is_array( $multi_inputs ) ) {
+				// For multi-input fields.
+				$original_value = [];
+				foreach ( $multi_inputs as $input ) {
+					// For each input, store the original value from the entry.
+					$original_value[ $input['id'] ] = rgar( $entry, $input['id'] );
+				}
+			} else {
+				// For single-input fields, store the field value as-is.
+				$original_value = rgar( $entry, $field_id );
+			}
 
 			// Store in readonly values array.
 			$form['gform_apc_readonly_values'][ $field_id ] = $original_value;
@@ -979,6 +1025,12 @@ class Post_Update_Handler {
 			return;
 		}
 
+		// Only process if the feed is editable
+		$feed = $this->addon->get_feed( rgpost( 'apc_edit_feed_id' ) );
+		if ( ! $feed || ! rgars( $feed, 'meta/enable_editing' ) ) {
+			return;
+		}
+
 		// Verify post exists
 		$post = get_post( $post_id );
 		if ( ! $post ) {
@@ -993,8 +1045,8 @@ class Post_Update_Handler {
 			return;
 		}
 
-		// Get feed ID from post data.
-		$feed_id = rgpost( 'apc_edit_feed_id' );
+		// Get feed ID from post meta.
+		$feed_id = get_post_meta( $post_id, '_' . $this->addon->get_slug() . '_feed_id', true );
 		if ( ! $feed_id ) {
 			return;
 		}
@@ -1002,6 +1054,12 @@ class Post_Update_Handler {
 		// Get the feed.
 		$feed = $this->addon->get_feed( $feed_id );
 		if ( empty( $feed ) ) {
+			return;
+		}
+
+		// Verify that editing is enabled for this feed and that the feed is configured
+		// to use the logged-in user as the post author, matching the editability guards.
+		if ( ! rgars( $feed, 'meta/enable_editing' ) || rgars( $feed, 'meta/postAuthor' ) !== 'logged-in-user' ) {
 			return;
 		}
 

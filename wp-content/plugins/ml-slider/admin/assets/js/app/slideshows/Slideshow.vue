@@ -239,9 +239,16 @@ export default {
 			})
 		},
 		prepareSlideData(data) {
+			const deletedIds = new Set(
+				[...document.querySelectorAll('tr.ms-deleted [name^="attachment"]')]
+					.map(el => el.name.match(/attachment\[([\s\S]*?)\]/)?.[1])
+					.filter(Boolean)
+			)
+
 			let slides = new Set(
 				data.filter(input => input.name.startsWith('attachment'))
 					.map(slide => slide.name.match(/attachment\[([\s\S]*?)\]/)[1])
+					.filter(id => !deletedIds.has(id))
 			)
 
 			let allSlides = [...slides].map(slide => {
@@ -369,5 +376,5 @@ export default {
 </script>
 
 <style lang="scss">
-	@import '../assets/styles/main.scss';
+	@use '../assets/styles/main.scss';
 </style>

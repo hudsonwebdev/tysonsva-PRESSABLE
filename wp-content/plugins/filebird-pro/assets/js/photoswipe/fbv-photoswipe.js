@@ -1,7 +1,50 @@
 "use strict";
 
 var filebirdGallery = {
-  template: `
+  escapeHtml: function (str) {
+    return String(str == null ? "" : str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  },
+  renderTopBarButtons: function () {
+    var config =
+      typeof filebirdGalleryConfig !== "undefined" ? filebirdGalleryConfig : {};
+    var buttons = config.buttons;
+    // Fallback to the default set of buttons when no config is localized.
+    if (!buttons) {
+      buttons = {
+        close: { class: "pswp__button--close", title: "Close (Esc)" },
+        share: { class: "pswp__button--share", title: "Share" },
+        fs: { class: "pswp__button--fs", title: "Toggle fullscreen" },
+        zoom: { class: "pswp__button--zoom", title: "Zoom in/out" },
+      };
+    }
+    var html = "";
+    for (var key in buttons) {
+      if (!Object.prototype.hasOwnProperty.call(buttons, key)) {
+        continue;
+      }
+      var button = buttons[key];
+      // A falsy value hides the button entirely.
+      if (!button) {
+        continue;
+      }
+      var btnClass = button.class || "pswp__button--" + key;
+      var btnTitle = button.title || "";
+      html +=
+        '<button class="pswp__button ' +
+        btnClass +
+        '" title="' +
+        btnTitle +
+        '"></button>';
+    }
+    return html;
+  },
+  getTemplate: function () {
+    return `
     <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">
@@ -13,10 +56,7 @@ var filebirdGallery = {
         <div class="pswp__ui pswp__ui--hidden">
             <div class="pswp__top-bar">
                 <div class="pswp__counter"></div>
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                ${filebirdGallery.renderTopBarButtons()}
                 <div class="pswp__preloader">
                     <div class="pswp__preloader__icn">
                       <div class="pswp__preloader__cut">
@@ -37,10 +77,11 @@ var filebirdGallery = {
             </div>
         </div>
     </div>
-    </div>`,
+    </div>`;
+  },
   createGallery: function (gallerySelector) {
     if (!document.getElementsByClassName("pswp").length) {
-      document.body.insertAdjacentHTML('beforeend', filebirdGallery.template);
+      document.body.insertAdjacentHTML('beforeend', filebirdGallery.getTemplate());
     }
     filebirdGallery.initPhotoSwipeFromDOM(gallerySelector);
   },
@@ -61,11 +102,14 @@ var filebirdGallery = {
       imgEl = liEl.querySelector("img");
       figureEl = liEl.querySelector("figure");
       figcaptionEl = figureEl.querySelector("figcaption") || document.createElement("figcaption");
+      // data-pswp-* lets a gallery show a small image in the grid and still
+      // open the full size one. Falls back to the img itself when absent, which
+      // is what the Gutenberg block relies on.
       item = {
-        src: imgEl.getAttribute("src"),
-        w: parseInt(imgEl.getAttribute("width"), 10),
-        h: parseInt(imgEl.getAttribute("height"), 10),
-        title: imgEl.getAttribute("alt") + ' <div class="fbv-gallery-caption">' + figcaptionEl.innerHTML + '</div>',
+        src: imgEl.getAttribute("data-pswp-src") || imgEl.getAttribute("src"),
+        w: parseInt(imgEl.getAttribute("data-pswp-w") || imgEl.getAttribute("width"), 10),
+        h: parseInt(imgEl.getAttribute("data-pswp-h") || imgEl.getAttribute("height"), 10),
+        title: filebirdGallery.escapeHtml(imgEl.getAttribute("alt")) + ' <div class="fbv-gallery-caption">' + figcaptionEl.innerHTML + '</div>',
         msrc: imgEl.getAttribute("src"),
         el: figureEl,
       };
@@ -118,6 +162,16 @@ var filebirdGallery = {
     if (disableAnimation) {
       options.showAnimationDuration = 0;
     }
+
+    // Let the share menu sub-items be customized from PHP (filebird_gallery_share_buttons).
+    if (
+      typeof filebirdGalleryConfig !== "undefined" &&
+      filebirdGalleryConfig.shareButtons &&
+      filebirdGalleryConfig.shareButtons.length
+    ) {
+      options.shareButtons = filebirdGalleryConfig.shareButtons;
+    }
+
     gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
     gallery.init();
   },

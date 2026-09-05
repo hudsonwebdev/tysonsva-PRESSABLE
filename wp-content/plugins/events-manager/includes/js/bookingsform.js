@@ -344,6 +344,18 @@ var em_booking_form_count_spaces = function( booking_form ){
 	return tickets_selected;
 };
 
+/**
+ * Whether this form's _wpnonce may be replaced with a freshly fetched booking_add nonce.
+ * The wp-admin single-booking editor reuses this markup but submits booking_save with a
+ * booking_save_{id} nonce in the same input, so refreshing it there swaps a valid nonce for
+ * a wrong one and every save fails. Admin pages are never served from cache, so they never
+ * needed the refresh in the first place.
+ */
+var em_booking_form_nonce_refreshable = function( booking_form ){
+	var form_action = booking_form.querySelector('input[name="action"]');
+	return !form_action || form_action.value === 'booking_add';
+};
+
 var em_booking_form_init = function( booking_form ){
 	booking_form.dispatchEvent( new CustomEvent('em_booking_form_init', {
 		bubbles : true,
@@ -351,7 +363,7 @@ var em_booking_form_init = function( booking_form ){
 
 	// On cached sites the booking_add nonce is baked into the cached page HTML and would be rejected server-side once it ages out; refresh it from the shared uncached endpoint so the submission carries a valid nonce. Harmless for recurring forms (already loaded fresh via AJAX) since the shared fetch is only made once per page, and a no-op when the site is not cached.
 	em_get_booking_nonces().then( function( nonces ){
-		if ( nonces && nonces.booking_add ) {
+		if ( nonces && nonces.booking_add && em_booking_form_nonce_refreshable( booking_form ) ) {
 			booking_form.querySelectorAll('input[name="_wpnonce"]').forEach( function( input ){ input.value = nonces.booking_add; } );
 		}
 	});
@@ -755,7 +767,7 @@ var em_booking_form_submit = async function( booking_form, opts = {} ){
 
 	// On cached sites the baked-in booking_add nonce may have aged out; the form-init refresh is async, so wait for it (and apply the fresh nonce) before building the payload rather than racing it on a fast submit. Resolves to null and no-ops when the site is not cached.
 	let nonces = await em_get_booking_nonces();
-	if ( nonces && nonces.booking_add ) {
+	if ( nonces && nonces.booking_add && em_booking_form_nonce_refreshable( booking_form ) ) {
 		booking_form.querySelectorAll('input[name="_wpnonce"]').forEach( function( input ){ input.value = nonces.booking_add; } );
 	}
 

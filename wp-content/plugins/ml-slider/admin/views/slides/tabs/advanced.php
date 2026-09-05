@@ -39,6 +39,25 @@ die('No direct access.');
         ?> 
     </label>
 </div>
+<div class="row first_loop advanced-setting">
+    <div class="ms-switch-button">
+        <label>
+            <input type="checkbox" class="first-loop-slide mr-0" disabled> <span class="opacity-50"></span>
+        </label>
+    </div>
+    <label class="first-loop-slide">
+        <?php esc_html_e('Show only in the first loop', 'ml-slider') ?><span class="dashicons dashicons-info tipsy-tooltip-top" original-title="<?php esc_attr_e(
+            'The slide is only shown during the slideshow\'s first loop, then skipped on every following loop.',
+            'ml-slider'
+        ) ?>" style="line-height: 1.2em;"></span>
+        <?php
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo metaslider_upgrade_pro_small_btn(
+            __( 'Show only in the first loop is available in MetaSlider Slideshow Pro', 'ml-slider' )
+        );
+        ?>
+    </label>
+</div>
 <div class="row thumbnail advanced-setting">
     <div class="ms-switch-button">
         <label>

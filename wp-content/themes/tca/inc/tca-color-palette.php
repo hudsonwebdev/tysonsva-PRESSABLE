@@ -69,6 +69,72 @@ add_editor_style( 'public/css/editor.css' );
 }
 add_action( 'after_setup_theme', 'editor_setup' );
 
+/**
+ * Fix ACF blocks saved with mode "auto" (hides the preview/edit toolbar toggle).
+ */
+function tca_fix_acf_block_auto_mode() {
+	$script = <<<'JS'
+	wp.domReady( () => {
+		const { select, dispatch, subscribe } = wp.data;
+		let migrated = false;
+
+		const collectBlocks = ( blocks ) => {
+			return blocks.flatMap( ( block ) => [
+				block,
+				...collectBlocks( block.innerBlocks || [] ),
+			] );
+		};
+
+		const migrateAutoModeBlocks = () => {
+			if ( migrated || ! select( 'core/block-editor' ) ) {
+				return;
+			}
+
+			const blocks = collectBlocks(
+				select( 'core/block-editor' ).getBlocks()
+			);
+			const updates = [];
+
+			blocks.forEach( ( block ) => {
+				if (
+					block.name &&
+					block.name.indexOf( 'tca/' ) === 0 &&
+					block.attributes &&
+					block.attributes.mode === 'auto'
+				) {
+					updates.push( {
+						clientId: block.clientId,
+						attributes: { mode: 'preview' },
+					} );
+				}
+			} );
+
+			if ( ! updates.length ) {
+				migrated = true;
+				return;
+			}
+
+			updates.forEach( ( update ) => {
+				dispatch( 'core/block-editor' ).updateBlockAttributes(
+					update.clientId,
+					update.attributes
+				);
+			} );
+
+			migrated = true;
+		};
+
+		subscribe( migrateAutoModeBlocks );
+		migrateAutoModeBlocks();
+	} );
+JS;
+
+	wp_register_script( 'tca-acf-block-mode-fix', false, array( 'wp-dom-ready', 'wp-data', 'wp-edit-post' ), _S_VERSION, true );
+	wp_enqueue_script( 'tca-acf-block-mode-fix' );
+	wp_add_inline_script( 'tca-acf-block-mode-fix', $script );
+}
+add_action( 'enqueue_block_editor_assets', 'tca_fix_acf_block_auto_mode' );
+
 
 add_action( 'admin_footer', function () {
 

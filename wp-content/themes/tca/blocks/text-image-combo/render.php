@@ -109,6 +109,44 @@ if ( $images ) : ?>
 </div>
 <?php endif; ?>
 
+<?php } elseif ( $single_or_gallery === 'video' ) {
+
+$video_source    = get_field( 'video_source' ) ? get_field( 'video_source' ) : 'upload';
+$video_file      = get_field( 'video_file' );
+$video_embed_url = get_field( 'video_embed_url' );
+$video_thumbnail = get_field( 'video_thumbnail' );
+$has_video       = ( 'upload' === $video_source && $video_file && ! empty( $video_file['url'] ) )
+	|| ( 'embed' === $video_source && $video_embed_url );
+$use_thumbnail   = $video_thumbnail && ! empty( $video_thumbnail['id'] );
+
+if ( $has_video ) : ?>
+<div class="image-side">
+    <div class="video-wrap<?php echo $use_thumbnail ? ' video-player video-player--lazy' : ''; ?>">
+        <?php if ( $use_thumbnail ) : ?>
+            <div class="video-poster">
+                <img <?php awesome_acf_responsive_image( $video_thumbnail['id'], 'large', '1024px', $video_thumbnail['alt'] ); ?> />
+                <button type="button" class="video-play-btn" aria-label="<?php esc_attr_e( 'Play video', 'tca' ); ?>"></button>
+            </div>
+        <?php endif; ?>
+        <?php if ( 'upload' === $video_source && $video_file && ! empty( $video_file['url'] ) ) : ?>
+            <?php if ( $use_thumbnail ) : ?>
+                <video controls playsinline preload="none" data-src="<?php echo esc_url( $video_file['url'] ); ?>"></video>
+            <?php else : ?>
+                <video controls playsinline preload="metadata" src="<?php echo esc_url( $video_file['url'] ); ?>"></video>
+            <?php endif; ?>
+        <?php elseif ( 'embed' === $video_source && $video_embed_url ) : ?>
+            <?php if ( $use_thumbnail ) : ?>
+                <template class="video-embed-template">
+                    <?php echo tca_render_responsive_oembed( $video_embed_url ); ?>
+                </template>
+            <?php else :
+                echo tca_render_responsive_oembed( $video_embed_url );
+            endif; ?>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
+
 <?php }else{ ?>
 
  <?php if($image_side){ ?>

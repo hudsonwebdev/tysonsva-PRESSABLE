@@ -340,7 +340,7 @@ export default {
 </script>
 
 <style lang="scss">
-	@import '../assets/styles/globals.scss';
+	@use '../assets/styles/globals.scss' as *;
 	#preview-component .dashicons,
 	#preview-component .dashicons:before {
 		font-size: 30px;

@@ -150,7 +150,14 @@
 									PI
 								</div>
 								<div
-									v-else 
+									v-else-if="'gradient' === slide.meta['ml-slider_type']"
+									class="rounded-full h-full inline-block tipsy-tooltip-top w-12"
+									:style="{ background: gradientBackground(slide) }"
+									:original-title="__('Background Color slide', 'ml-slider')"
+									:title="__('Background Color slide', 'ml-slider')">
+								</div>
+								<div
+									v-else
 									:style="{ 'animation-delay': [(500 * index * Math.random()) + 'ms'] }"
 									class="gradient border border-white rounded-full h-full flex justify-center items-center text-red tipsy-tooltip-top"
 									:original-title="sprintf(__('Image not found<br>%s', 'ml-slider'), slide.image)"
@@ -362,6 +369,18 @@ export default {
 				img.onerror = () => resolve(false);
 				img.src = url;
 			});
+		},
+		// Mirrors MetaGradientSlide::build_gradient() in metaslider-pro's gradient module,
+		// so the thumbnail shows the slide's actual configured background.
+		gradientBackground(slide) {
+			const type = slide.meta['ml-slider_gradient_type'] || 'linear'
+			const c1 = slide.meta['ml-slider_gradient_color_1'] || '#dd6923'
+			const c2 = slide.meta['ml-slider_gradient_color_2'] || '#000000'
+			const angle = slide.meta['ml-slider_gradient_angle'] || 135
+
+			if ('solid' === type) return c1
+			if ('radial' === type) return `radial-gradient(circle, ${c1}, ${c2})`
+			return `linear-gradient(${angle}deg, ${c1}, ${c2})`
 		}
 	}
 }

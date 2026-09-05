@@ -12,9 +12,16 @@ $stick_to_top = get_field('stick_to_top')?get_field('stick_to_top'):array();
 
 
 
-$total_posts = get_field('total_posts')?get_field('total_posts'):6;
+$stick_to_top = is_array( $stick_to_top ) ? array_values( array_filter( array_map( 'intval', $stick_to_top ) ) ) : array();
 
-$total_posts = intval($total_posts - count($stick_to_top));
+$total_posts_raw = get_field( 'total_posts' );
+$total_posts     = ( '' === $total_posts_raw || false === $total_posts_raw || null === $total_posts_raw )
+	? 6
+	: (int) $total_posts_raw;
+
+$remaining_posts = ( $total_posts < 0 )
+	? -1
+	: max( 0, $total_posts - count( $stick_to_top ) );
 
 $column_count_desktop = get_field('column_count_desktop')?get_field('column_count_desktop'):3;
 
@@ -43,43 +50,18 @@ switch($content_selection){
 
 case "Upcoming Events":
 
+    $containerClass = "event-container grid-view";
+    $upcoming_event_ids = function_exists( 'tca_get_upcoming_event_post_ids' )
+        ? tca_get_upcoming_event_post_ids( $remaining_posts, $stick_to_top )
+        : array();
+    $post_query = null;
 
-
-    $args = array(
-        'post_type' => 'event',
-        'posts_per_page' => $total_posts, // Number of events per page
-        'paged' => get_query_var('paged', 1), // Pagination support
-        'orderby'        => 'meta_value', // Order by the custom field value
-        'order'          => 'ASC', // Ascending order (upcoming first)
-        'meta_type'      => 'DATE', // Make sure the field is treated as a date
-       'meta_query' => array(
-        'relation' => 'OR',
-            array(
-                'key' => '_event_start_date',
-                'value' => date('Y-m-d'),
-                'compare' => '>=',
-                'type' => 'DATE',
-            ),
-            array(
-                'key' => '_event_end_date',
-                'value' => date('Y-m-d'),
-                'compare' => '>=',
-                'type' => 'DATE',
-            ),
-        ),
-        'post__not_in'   => $stick_to_top,
-        );
-
-        $containerClass = "event-container grid-view";
-
-        $post_query = new WP_Query($args);
-   
 break;
 case "Latest News":
 
     $args = array(
     'post_type'      => 'post',
-    'posts_per_page' => $total_posts,
+    'posts_per_page' => $remaining_posts,
     'orderby'        => 'date',
     'order'          => 'DESC',
     'tax_query'      => array(
@@ -162,15 +144,26 @@ $containerClass .= " column-count-" . $column_count_desktop;
 
 drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_underline,$section_intro,$section_button,$section_button_style); ?>
 
-    <?php $display_type = get_field('display_type'); ?>
+    <?php
+    $display_type            = get_field( 'display_type' );
+    $slider_overflow_style   = get_field( 'slider_overflow_style' );
+    $slider_overflow_style   = in_array( $slider_overflow_style, array( 'edge_peek', 'contained' ), true ) ? $slider_overflow_style : 'edge_peek';
+    $slider_wrap_class       = ( 'Slider' === $display_type && 'contained' === $slider_overflow_style ) ? 'tca-slider--contained' : 'tca-slider--edge-peek';
+    $slider_container_class  = 'uk-slider-container';
+    if ( 'Slider' === $display_type ) {
+        $slider_container_class .= ( 'contained' === $slider_overflow_style )
+            ? ' tysons-slider--contained'
+            : ' tysons-slider tysons-slider--edge-peek';
+    }
+    ?>
 
-    <?php if($display_type == "Slider"){ ?>
+    <?php if ( 'Slider' === $display_type ) { ?>
 
-    <div uk-slider>
+    <div uk-slider class="<?php echo esc_attr( $slider_wrap_class ); ?>">
 
         <div class="uk-position-relative">
 
-            <div class="uk-slider-container tysons-slider"  >
+            <div class="<?php echo esc_attr( $slider_container_class ); ?>">
                 <div class="uk-slider-items uk-child-width-1-1@s uk-child-width-1-<?php echo intval($column_count_desktop-1); ?>@m uk-child-width-1-<?php echo $column_count_desktop; ?>@l   uk-grid uk-grid-small" >
     <?php  }else{ ?>
 
@@ -234,48 +227,29 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
             case "Upcoming Events":
 
                 $count = 0;
-                if(!empty($stick_to_top)){
+                $max_events = ( $total_posts < 0 ) ? PHP_INT_MAX : $total_posts;
+                $upcoming_ids = isset( $upcoming_event_ids ) ? $upcoming_event_ids : array();
 
-                    foreach($stick_to_top as $pid){
-
-                   
-                        if($feature_first_post && $count==0){
-                            $columns = 2;
-                        }else{
-                            $columns = 1;
-                        }    
-    
-                       
-                        draw_event_card($pid,$columns);
-
+                if ( ! empty( $stick_to_top ) ) {
+                    foreach ( $stick_to_top as $pid ) {
+                        if ( $count >= $max_events ) {
+                            break;
+                        }
+                        $columns = ( $feature_first_post && 0 === $count ) ? 2 : 1;
+                        draw_event_card( $pid, $columns );
                         $count++;
                     }
-        
                 }
-            
 
-     
-                if ($post_query->have_posts()) :
-                    
-                    while ($post_query->have_posts()) : $post_query->the_post();
-    
-                        $pid = get_the_ID();
-    
-                        if($feature_first_post && $count==0){
-                            $columns = 2;
-                        }else{
-                            $columns = 1;
-                        }    
-    
-                       
-                         draw_event_card($pid,$columns);
-                          
-                        $count++;
-                    endwhile;
-    
-    
-                endif;
-    
+                foreach ( $upcoming_ids as $pid ) {
+                    if ( $count >= $max_events ) {
+                        break;
+                    }
+                    $columns = ( $feature_first_post && 0 === $count ) ? 2 : 1;
+                    draw_event_card( $pid, $columns );
+                    $count++;
+                }
+
                 break;
 
 
@@ -433,17 +407,17 @@ drawSectionHeader($section_title_size,$section_title,$title_alignment,$show_unde
                 
         ?>
 
-        <?php if($display_type == "Slider"){ ?>
+        <?php if ( 'Slider' === $display_type ) { ?>
 
                 </div>
 
-                        <a class="prev-arrow" href uk-slider-item="previous" >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
+                        <a class="prev-arrow" href uk-slider-item="previous" aria-label="<?php echo esc_attr__( 'Previous slide', 'tca' ); ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none" aria-hidden="true" focusable="false">
                             <path d="M12.1211 21.061L2.12109 11.055L12.1211 1.06104" stroke="#385DFF" stroke-width="3" stroke-miterlimit="10"/>
                             </svg>
                         </a>
-                        <a class="next-arrow" href uk-slider-item="next">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
+                        <a class="next-arrow" href uk-slider-item="next" aria-label="<?php echo esc_attr__( 'Next slide', 'tca' ); ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none" aria-hidden="true" focusable="false">
                             <path d="M1.06055 1.0603L11.0605 11.0663L1.06054 21.0603" stroke="#385DFF" stroke-width="3" stroke-miterlimit="10"/>
                             </svg>
                         </a>

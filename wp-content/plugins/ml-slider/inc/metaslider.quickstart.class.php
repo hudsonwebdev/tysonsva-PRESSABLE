@@ -677,6 +677,18 @@ class MetaSliderQuickstart
                 'animation' => array( 'flip' ),
                 'integration' => false,
                 'demo' => 'https://demo.metaslider.com/playful-pets/'
+            ),
+            array(
+                'slug' => 'background-color',
+                'label' => __( 'Background Color', 'ml-slider' ),
+                'is_dummy' => true, // Is Pro
+                'price' => 'pro',
+                'theme' => 'default-base',
+                'type' => array( 'gradient' ),
+                'features' => array( 'boxed' ),
+                'animation' => array( 'fade' ),
+                'integration' => false,
+                'demo' => false
             )
         );
 
@@ -773,6 +785,9 @@ class MetaSliderQuickstart
                 break;
             case 'post_feed':
                 return __( 'Post Feed', 'ml-slider' );
+                break;
+            case 'gradient':
+                return __( 'Background Color', 'ml-slider' );
                 break;
         }
     }

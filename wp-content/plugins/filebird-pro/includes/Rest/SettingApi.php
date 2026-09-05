@@ -30,6 +30,16 @@ class SettingApi {
 				'permission_callback' => array( $this, 'permission_user_callback' ),
 			)
 		);
+
+		register_rest_route(
+			NJFB_REST_URL,
+			'reset-count',
+			array(
+				'methods'             => \WP_REST_Server::CREATABLE,
+				'callback'            => array( $this->controller, 'resetCount' ),
+				'permission_callback' => array( $this, 'permission_callback' ),
+			)
+		);
 	}
 
     public function permission_user_callback() {

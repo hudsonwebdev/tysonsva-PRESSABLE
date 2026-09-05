@@ -51,7 +51,7 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 	 * @access protected
 	 * @var    string $_min_gravityforms_version The minimum version required.
 	 */
-	protected $_min_gravityforms_version = '2.9.20';
+	protected $_min_gravityforms_version = '2.9.24';
 
 	/**
 	 * Defines the plugin slug.
@@ -280,7 +280,7 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 
 		add_filter( 'gform_shortcode_apc_posts_list', array( $this->get_posts_list_handler(), 'posts_list_shortcode' ), 10, 3 );
 		add_action( 'delete_post', array( $this->get_posts_list_handler(), 'reset_deleted_posts_entry_ids_cache' ), 10, 2 );
-		add_action( 'gform_enqueue_scripts', [ $this, 'get_shared_data' ] );
+		add_action( 'gform_enqueue_scripts', [ $this, 'maybe_enqueue_frontend_assets' ] );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'get_shared_data' ] );
 
 		require_once plugin_dir_path( __FILE__ ) . 'includes/helpers/class-admin-notifications.php';
@@ -389,7 +389,7 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 				'enqueue' => array(
 					function () {
 						if ( ! is_admin() ) {
-							return true;
+							return false;
 						}
 
 						// Check if this is a frontend form with entry editing
@@ -401,8 +401,11 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 							return false;
 						}
 
-						if ( function_exists( 'get_current_screen' ) && get_current_screen()->is_block_editor() ) {
-							return true;
+						if ( function_exists( 'get_current_screen' ) ) {
+							$screen = get_current_screen();
+							if ( $screen && $screen->is_block_editor() ) {
+								return true;
+							}
 						}
 
 						// Check for entry_id and edit nonce in URL
@@ -434,7 +437,18 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 
 		$admin_enqueue_condition = array(
 			function () {
-				return is_admin() && function_exists( 'get_current_screen' ) && get_current_screen()->is_block_editor();
+				if ( ! is_admin() ) {
+					return false;
+				}
+
+				if ( function_exists( 'get_current_screen' ) ) {
+					$screen = get_current_screen();
+					if ( $screen && $screen->is_block_editor() ) {
+						return true;
+					}
+				}
+
+				return false;
 			},
 		);
 
@@ -504,32 +518,6 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 				'version' => $this->_version,
 				'deps'    => array( 'gform_apc_vendor_admin', 'gform_apc_shared' ),
 				'enqueue' => $admin_enqueue_condition,
-			),
-			array(
-				'handle'  => 'gform_apc_vendor_theme',
-				'src'     => $this->get_base_url() . "/assets/js/dist/vendor-theme{$this->_asset_min}.js",
-				'version' => $this->_version,
-				'deps'    => [ 'gform_gravityforms_theme' ],
-				'enqueue' => $admin_enqueue_condition,
-			),
-			array(
-				'handle'  => 'gform_apc_theme_script',
-				'src'     => $this->get_base_url() . "/assets/js/dist/scripts-theme{$this->_asset_min}.js",
-				'version' => $this->_version,
-				'deps'    => [ 'gform_apc_vendor_theme', 'gform_apc_shared' ],
-				'enqueue' => array(
-					array(
-						function () {
-							if ( is_admin() || ! class_exists( 'GFFormDisplay' ) ) {
-								return false;
-							}
-							if ( ! rgget( 'entry_id' ) || ! rgget( 'apc_edit_nonce' ) ) {
-								return false;
-							}
-							return wp_verify_nonce( rgget( 'apc_edit_nonce' ), 'apc-gform_advancedpostcreation_edit_entry' );
-						},
-					),
-				),
 			),
 		);
 
@@ -612,7 +600,7 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 						'tooltip'        => sprintf(
 							'<h6>%s</h6>%s',
 							esc_html__( 'Conditional Logic', 'gravityformsadvancedpostcreation' ),
-							esc_html__( 'When conditional logic is enabled, form submissions will only be created when the condition is met. When disabled, all form submissions will be created.', 'gravityformsadvancedpostcreation' )
+							esc_html__( 'When conditional logic is enabled, posts will only be created when the condition is met. When disabled, all form submissions will create posts.', 'gravityformsadvancedpostcreation' )
 						),
 					),
 				),
@@ -654,9 +642,10 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 	 */
 	public function feed_settings_fields_create_post() {
 
-		// Get current feed settings and form object.
+		// Get current feed settings, form object, and feed object.
 		$settings = $this->get_current_settings();
 		$form     = $this->get_current_form();
+		$feed     = $this->get_current_feed();
 
 		// Get current post type.
 		$post_type     = rgar( $settings, 'postType' ) ? rgar( $settings, 'postType' ) : 'post';
@@ -842,7 +831,7 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 						'type'        => 'generic_map',
 						'merge_tags'  => true,
 						'key_field'   => array(
-							'choices'     => $this->get_post_meta_field_map(),
+							'choices'     => $this->get_post_meta_field_map( $form, $feed, $post_type ),
 							'placeholder' => esc_html__( 'Custom Field Name', 'gravityformsadvancedpostcreation' ),
 							'title'       => esc_html__( 'Name', 'gravityformsadvancedpostcreation' ),
 						),
@@ -1737,14 +1726,17 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 	 * Prepare fields for comment meta field mapping.
 	 *
 	 * @since  1.0
+	 * @since  1.6.2 Added $form, $feed, and $post type parameters with default values for `gform_advancedpostcreation_meta_fields` hook
 	 * @access public
 	 *
+	 * @param array      $form      The current form object.
+	 * @param array|bool $feed      The current feed object, or false when creating a new feed.
+	 * @param string     $post_type The selected post type.
 	 * @uses GFFormsModel::get_custom_field_names()
 	 *
 	 * @return array
 	 */
-	public function get_post_meta_field_map() {
-
+	public function get_post_meta_field_map( $form = array(), $feed = false, $post_type = 'post' ) {
 		// Setup meta fields array.
 		$meta_fields = array(
 			array(
@@ -1756,6 +1748,18 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 		// Get existing post meta keys.
 		$meta_keys = GFFormsModel::get_custom_field_names();
 
+		/**
+		 * Allow the meta keys that are shown in the Custom Fields in the feed settings to be modified
+		 *
+		 * @since 1.6.2
+		 *
+		 * @param array $meta_keys   Default meta keys that were retrieved by GFFormsModel::get_custom_field_names
+		 * @param array $form        Current form object
+		 * @param array|bool $feed   Current feed object, if it exists
+		 * @param string $post_type  Current Post Type for specific filtering
+		 */
+		$meta_keys = gf_apply_filters( array( 'gform_advancedpostcreation_meta_fields', absint( rgar($form, 'id') ) ), $meta_keys, $form, $feed, $post_type );
+
 		// If no meta keys exist, return an empty array.
 		if ( empty( $meta_keys ) ) {
 			return array();
@@ -1763,6 +1767,7 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 
 		// Add post meta keys to the meta fields array.
 		foreach ( $meta_keys as $meta_key ) {
+
 			$meta_fields[] = array(
 				'label' => esc_html( $meta_key ),
 				'value' => esc_attr( $meta_key ),
@@ -2044,9 +2049,10 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 	public function feed_list_columns() {
 
 		return array(
-			'feedName'   => esc_html__( 'Name', 'gravityformsadvancedpostcreation' ),
-			'postType'   => esc_html__( 'Post Type', 'gravityformsadvancedpostcreation' ),
-			'postStatus' => esc_html__( 'Status', 'gravityformsadvancedpostcreation' ),
+			'feedName'       => esc_html__( 'Name', 'gravityformsadvancedpostcreation' ),
+			'postType'       => esc_html__( 'Post Type', 'gravityformsadvancedpostcreation' ),
+			'postStatus'     => esc_html__( 'Status', 'gravityformsadvancedpostcreation' ),
+			'enable_editing' => esc_html__( 'Post Editing', 'gravityformsadvancedpostcreation' ),
 		);
 	}
 
@@ -2094,6 +2100,26 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 		$post_status = get_post_status_object( $feed['meta']['postStatus'] );
 
 		return $post_status ? esc_html( $post_status->label ) : esc_html__( 'Not Available', 'gravityformsadvancedpostcreation' );
+	}
+
+	/**
+	 * Get Post Editing status for feed list table.
+	 *
+	 * @since  1.6.2
+	 * @access public
+	 *
+	 * @param array $feed The current Feed object.
+	 *
+	 * @return string
+	 */
+	public function get_column_value_enable_editing( $feed = array() ) {
+
+		// If not enabled, return.
+		if ( ! rgars( $feed, 'meta/enable_editing' ) ) {
+			return esc_html__( 'Not Enabled', 'gravityformsadvancedpostcreation' );
+		}
+
+		return esc_html__( 'Enabled', 'gravityformsadvancedpostcreation' );
 	}
 
 	/**
@@ -2193,6 +2219,10 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 			'ping_status'    => rgars( $feed, 'meta/postPingbacks' ) ? 'open' : 'closed',
 		);
 
+		// Prevent WP from saving revisions now - we need to do it later so that all post meta is saved to the revision.
+		remove_action( 'wp_after_insert_post', 'wp_save_post_revision_on_insert', 9 );
+		remove_action( 'post_updated', 'wp_save_post_revision', 10 );
+
 		// Create base post object.
 		$post_id = wp_insert_post( $post, true );
 
@@ -2201,6 +2231,9 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 
 			// Log that post was not created.
 			$this->add_feed_error( 'Could not create base post object: ' . $post_id->get_error_message(), $feed, $entry, $form );
+
+			add_action( 'wp_after_insert_post', 'wp_save_post_revision_on_insert', 9 );
+			add_action( 'post_updated', 'wp_save_post_revision', 10 );
 
 			return $post_id;
 
@@ -2297,6 +2330,11 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 		gf_do_action( array( 'gform_advancedpostcreation_post_after_creation', $form['id'] ), $post['ID'], $feed, $entry, $form );
 
 		GFAPI::send_notifications( $form, $entry, 'post_created' );
+
+		$this->save_revision_meta( $feed, $entry, $form, $post['ID'] );
+
+		add_action( 'wp_after_insert_post', 'wp_save_post_revision_on_insert', 9 );
+		add_action( 'post_updated', 'wp_save_post_revision', 10 );
 
 		return $entry;
 	}
@@ -2953,6 +2991,44 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 	}
 
 	/**
+	 * Saves the post meta to the post revision.
+	 *
+	 * @since 1.6.2
+	 *
+	 * @param array $feed    The feed being processed.
+	 * @param array $entry   The entry being processed.
+	 * @param array $form    The form being processed.
+	 * @param int   $post_id The ID of the post the meta is to be saved for.
+	 */
+	public function save_revision_meta( $feed, $entry, $form, $post_id ) {
+
+		// Register all the meta keys so that they will get saved to the post revision.
+		$meta_fields = (array) $this->get_generic_map_fields( $feed,
+			'postMetaFields', $form, $entry );
+		$meta_keys   = array_keys( $meta_fields );
+		$slug        = $this->_slug;
+
+		$callback = static function( $keys ) use ( $meta_keys, $slug ) {
+
+			$keys = array_merge( $keys, $meta_keys, array(
+				'_' . $slug . '_entry_id',
+				'_' . $slug . '_feed_id',
+				'_gform-form-id'
+			) );
+
+			return array_values( array_unique( $keys ) );
+		};
+
+		add_filter( 'wp_post_revision_meta_keys', $callback );
+
+		// Save the post revision now that we have all the post data.
+		clean_post_cache( $post_id );
+		wp_save_post_revision( $post_id );
+
+		remove_filter( 'wp_post_revision_meta_keys', $callback );
+	}
+
+	/**
 	 * Update post author when user is registered with User Registration Add-On.
 	 *
 	 * @since 1.0
@@ -3420,7 +3496,7 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 			$post_obj->post_date = date_i18n( get_option( 'date_format' ), strtotime( $post_obj->post_date ) );
 			$post_title		     = get_the_title( $post_id );
 			$view_markup         = sprintf( '<a class="gform-button gform-button--size-height-s gform-button--icon-white gform-spacing gform-spacing--top-0 gform-spacing--right-2 gform-spacing--bottom-0 gform-spacing--left-0 gform-data-grid__action" href="%s" title="%s %s"><span class="dashicons dashicons-visibility"></span></a>', esc_url( get_permalink( $post_id ) ), esc_attr__( 'View', 'gravityformsadvancedpostcreation' ), esc_attr( $post_title ) );
-			$edit_link           = \GF_Advanced_Post_Creation::get_instance()->post_update_handler->get_edit_entry_link( $entry_id );
+			$edit_link           = \GF_Advanced_Post_Creation::get_instance()->post_update_handler->get_edit_entry_link( $entry_id, $post_id );
 			if ( $edit_link ) {
 				$edit_markup = sprintf( '<a class="gform-button gform-button--size-height-s gform-button--icon-white gform-spacing gform-spacing--top-0 gform-spacing--right-2 gform-spacing--bottom-0 gform-spacing--left-0 gform-data-grid__action" href="%s" title="%s %s"><span class="dashicons dashicons-edit"></span></a>', esc_url( $edit_link ), esc_attr__( 'Edit', 'gravityformsadvancedpostcreation' ), esc_attr( $post_title ) );
 			} else {
@@ -3445,6 +3521,36 @@ class GF_Advanced_Post_Creation extends GFFeedAddOn {
 		);
 
 		wp_send_json_success( $script_data );
+	}
+
+	/**
+	 * Enqueues the shared frontend assets only when the current page requires them.
+	 *
+	 * @since 1.6.2
+	 */
+	public function maybe_enqueue_frontend_assets() {
+		global $post;
+
+		if ( ! $post ) {
+			return;
+		}
+
+		if ( has_block( 'gravityforms/apc-posts', $post ) ) {
+			$this->get_shared_data();
+			return;
+		}
+
+		if ( has_shortcode( $post->post_content, 'apc_posts_list' ) ) {
+			$this->get_shared_data();
+			return;
+		}
+
+		if ( rgget( 'entry_id' ) && wp_verify_nonce( rgget( 'apc_edit_nonce' ), 'apc-gform_advancedpostcreation_edit_entry' ) ) {
+			$this->get_shared_data();
+			return;
+		}
+
+		return;
 	}
 
 	/**

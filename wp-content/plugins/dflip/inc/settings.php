@@ -10,7 +10,7 @@
  * @since   dflip 1.2
  */
 class DFlip_Settings {
-  
+
   /**
    * Holds the singleton class object.
    *
@@ -19,9 +19,9 @@ class DFlip_Settings {
    * @var object
    */
   public static $instance;
-  
+
   public $hook;
-  
+
   /**
    * Holds the base DFlip class object.
    *
@@ -30,7 +30,7 @@ class DFlip_Settings {
    * @var object
    */
   public $base;
-  
+
   /**
    * Holds the base DFlip class fields.
    *
@@ -39,46 +39,46 @@ class DFlip_Settings {
    * @var object
    */
   public $fields;
-  
+
   /**
    * Primary class constructor.
    *
    * @since 1.2.0
    */
   public function __construct() {
-    
+
     // Load the base class object.
     $this->base = DFlip::get_instance();
-    
+
     add_action( 'admin_menu', array( $this, 'settings_menu' ) );
-    
+
     $this->fields = array_merge( array(), $this->base->defaults );
-    
+
     foreach ( $this->fields as $key => $value ) {
-      
+
       if ( isset( $value['choices'] ) && is_array( $value['choices'] ) && isset( $value['choices']['global'] ) ) {
         unset( $this->fields[ $key ]['choices']['global'] );
       }
-      
+
     }
-    
+
     // Load the metabox hooks and filters.
     //		add_action('add_meta_boxes', array($this, 'add_meta_boxes'), 100);
-    
+
     // Add action to save metabox config options.
     //		add_action('save_post', array($this, 'save_meta_boxes'), 10, 2);
   }
-  
+
   /**
    * Creates menu for the settings page
    *
    * @since 1.2
    */
   public function settings_menu() {
-    
+
     $this->hook = add_submenu_page( 'edit.php?post_type=dflip', __( 'dFlip Global Settings', 'DFLIP' ), __( 'Global Settings', 'DFLIP' ), 'manage_options', $this->base->plugin_slug . '-settings',
         array( $this, 'settings_page' ) );
-    
+
     //The resulting page's hook_suffix, or false if the user does not have the capability required.
     if ( $this->hook ) {
       add_action( 'load-' . $this->hook, array( $this, 'update_settings' ) );
@@ -86,14 +86,14 @@ class DFlip_Settings {
       add_action( 'load-' . $this->hook, array( $this, 'hook_page_assets' ) );
     }
   }
-  
+
   /**
    * Callback to create the settings page
    *
    * @since 1.2
    */
   public function settings_page() {
-    
+
     $tabs = array(
         'general'   => __( 'General', 'DFLIP' ),
         'layout'    => __( 'Layout', 'DFLIP' ),
@@ -106,13 +106,13 @@ class DFlip_Settings {
         'translate' => __( 'Translate', 'DFLIP' ),
         //			'controls'  => __( 'Controls' , 'DFLIP' )
     );
-    
+
     //create tabs and content
     ?>
 
       <h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
       <form id="dflip-settings" method="post" class="dflip-settings postbox">
-        
+
         <?php
         wp_nonce_field( 'dflip_settings_nonce', 'dflip_settings_nonce' );
         submit_button( __( 'Update Settings', 'DFLIP' ), 'primary', 'dflip_settings_submit', false );
@@ -132,35 +132,35 @@ class DFlip_Settings {
                 ?>
               </ul>
             <?php
-            
+
             $active_set = false;
             foreach ( (array) $tabs as $id => $title ) {
               ?>
                 <div id="dflip-tab-content-<?php echo $id ?>"
                      class="dflip-tab-content <?php echo( $active_set == false ? "dflip-active" : "" ) ?>">
-                  
+
                   <?php
                   $active_set = true;
-                  
+
                   //create content for tab
                   $function = $id . "_tab";
                   if ( method_exists( $this, $function ) ) {
                     call_user_func( array( $this, $function ) );
                   };
-                  
+
                   ?>
                 </div>
             <?php } ?>
           </div>
       </form>
     <?php
-    
+
   }
-  
+
   public function hook_page_assets() {
     add_action( 'admin_enqueue_scripts', array( $this, 'meta_box_styles_scripts' ) );
   }
-  
+
   /**
    * Loads styles and scripts for our metaboxes.
    *
@@ -169,22 +169,22 @@ class DFlip_Settings {
    *
    */
   public function meta_box_styles_scripts() {
-    
-    
+
+
     // Load necessary metabox styles.
     wp_register_style( $this->base->plugin_slug . '-setting-metabox-style', plugins_url( '../assets/css/metaboxes.css', __FILE__ ), array(), $this->base->version );
     wp_enqueue_style( $this->base->plugin_slug . '-setting-metabox-style' );
     wp_enqueue_style( 'wp-color-picker' );
-    
+
     // Load necessary metabox scripts.
     wp_register_script( $this->base->plugin_slug . '-setting-metabox-script', plugins_url( '../assets/js/metaboxes.js', __FILE__ ), array( 'jquery', 'jquery-ui-tabs', 'wp-color-picker' ),
         $this->base->version );
     wp_enqueue_script( $this->base->plugin_slug . '-setting-metabox-script' );
-    
+
     wp_enqueue_media();
-    
+
   }
-  
+
   /**
    * Creates the UI for General tab
    *
@@ -192,16 +192,16 @@ class DFlip_Settings {
    *
    */
   public function general_tab() {
-    
+
     $this->base->create_setting( 'viewerType' );
     $this->base->create_setting( 'mobileViewerType' );
-    
+
     $this->base->create_separator( 'Page Size / Zoom' );
     $this->base->create_setting( 'page_scale' );
     $this->base->create_setting( 'texture_size' );
     $this->base->create_setting_pro( 'zoom_ratio' );
     $this->base->create_setting_pro( 'fakeZoom' );
-    
+
     $this->base->create_separator( 'Page Links' );
     $this->base->create_setting( 'linkColor' );
     $this->base->create_setting( 'linkColorOpacity' );
@@ -211,12 +211,12 @@ class DFlip_Settings {
 
       <!--Clear-fix-->
       <div class="dflip-box"></div>
-    
+
     <?php
   }
-  
+
   public function layout_tab() {
-    
+
     $this->base->create_setting( 'padding_top' );
     $this->base->create_setting( 'padding_bottom' );
     $this->base->create_setting( 'padding_left' );
@@ -225,43 +225,43 @@ class DFlip_Settings {
     $this->base->create_setting( 'sideMenuOverlay' );
     $this->base->create_setting( 'auto_outline' );
     $this->base->create_setting( 'auto_thumbnail' );
-    
+
     $this->base->create_setting( 'bg_color' );
     $this->base->create_setting( 'bg_image' );
-    
+
     ?>
 
       <!--Clear-fix-->
       <div class="dflip-box"></div>
-    
+
     <?php
   }
-  
+
   public function post_tab() {
-    
+
     ?>
 
       <!--Clear-fix-->
       <div class="dflip-box"></div>
-    
+
     <?php
   }
-  
-  
+
+
   public function flipbook_tab() {
-    
+
     unset( $this->base->defaults['webgl']['condition'] );
     $this->base->create_setting( 'webgl' );
     unset( $this->base->defaults['hard']['condition'] );
     $this->base->create_setting( 'hard' );
-    
+
     unset( $this->base->defaults['duration']['condition'] );
     $this->base->create_setting( 'duration' );
     $this->base->create_setting( 'page_mode' );
     $this->base->create_setting( 'single_page_mode' );
     unset( $this->base->defaults['direction']['condition'] );
     $this->base->create_setting( 'direction' );
-    
+
     $this->base->create_separator( '3D Settings' );
     $this->base->create_setting_pro( 'calendarMode' );
     $this->base->create_setting_pro( 'hasSpiral' );
@@ -272,8 +272,8 @@ class DFlip_Settings {
     $this->base->create_setting_pro( 'flexibility' );
     $this->base->create_setting_pro( 'flipbook3DTiltAngleUp' );
     $this->base->create_setting_pro( 'flipbook3DTiltAngleLeft' );
-    
-    
+
+
     $this->base->create_separator( 'Misc' );
     $this->base->create_setting( 'autoplay' );
     $this->base->create_setting( 'autoplay_duration' );
@@ -284,11 +284,11 @@ class DFlip_Settings {
 
       <!--Clear-fix-->
       <div class="dflip-box"></div>
-    
+
     <?php
   }
-  
-  
+
+
   /**
    * Creates the UI for Popup tab
    *
@@ -296,33 +296,33 @@ class DFlip_Settings {
    *
    */
   public function popup_tab() {
-    
+
     $this->base->create_setting( 'buttonClass' );
     $this->base->create_setting_pro( 'targetWindow' );
-    
+
     $this->base->create_separator( 'Thumb Popup' );
     $this->base->create_setting( 'popupThumbPlaceholder' );
     $this->base->create_setting( 'thumbLayout' );
-    
+
     $this->base->create_setting_pro( 'displayLightboxPlayIcon' );
     $this->base->create_setting_pro( 'lightboxPlayIconBGColor' );
     $this->base->create_setting_pro( 'lightboxPlayIconColor' );
-    
+
     $this->base->create_separator( 'Lightbox Settings' );
     $this->base->create_setting( 'popupBackGroundColor' );
     $this->base->create_setting( 'popupBackgroundColorOpacity' );
-    
+
     $this->base->create_separator( 'Book Shelf Settings (PRO)' );
     $this->base->create_setting_pro( 'shelfImage' );
     ?>
 
       <!--Clear-fix-->
       <div class="dflip-box"></div>
-    
+
     <?php
   }
-  
-  
+
+
   /**
    * Creates the UI for Controls tab
    *
@@ -330,7 +330,7 @@ class DFlip_Settings {
    *
    */
   public function controls_tab() {
-    
+
     unset( $this->base->defaults['auto_sound']['condition'] );
     $this->base->create_setting( 'auto_sound' );
     unset( $this->base->defaults['enable_download']['condition'] );
@@ -346,15 +346,15 @@ class DFlip_Settings {
     //    $this->base->create_setting( 'leftControls' );
     //    $this->base->create_setting( 'rightControls' );
     $this->base->create_setting( 'hideShareControls' );
-    
+
     ?>
 
       <!--Clear-fix-->
       <div class="dflip-box"></div>
-    
+
     <?php
   }
-  
+
   /**
    * Creates the UI for Advanced tab
    *
@@ -362,26 +362,27 @@ class DFlip_Settings {
    *
    */
   public function advanced_tab() {
-    
+
     $this->base->create_setting( 'share_prefix' );
     $this->base->create_setting( 'share_slug' );
+    $this->base->create_setting( 'hashNavigationEnabled' );
     $this->base->create_setting_pro( 'enable_analytics' );
-    
+
     $this->base->create_separator( 'Posts/Shortcode' );
     $this->base->create_setting_pro( 'enablePostPages' );
     $this->base->create_setting( 'attachment_lightbox' );
     $this->base->create_setting( 'multiplePostLimit' );
     $this->base->create_setting( 'selectiveScriptLoading' );
     $this->base->create_setting( 'autoPDFLinktoViewer' );
-    
+
     ?>
 
       <!--Clear-fix-->
       <div class="dflip-box"></div>
-    
+
     <?php
   }
-  
+
   /**
    * Creates the UI for PDF tab
    *
@@ -389,7 +390,7 @@ class DFlip_Settings {
    *
    */
   public function pdf_tab() {
-    
+
     $this->base->create_setting( 'disable_range' );
     $this->base->create_setting( 'range_size' );
 //    $this->base->create_setting( 'canvasWillReadFrequently' );
@@ -400,10 +401,10 @@ class DFlip_Settings {
 
       <!--Clear-fix-->
       <div class="dflip-box"></div>
-    
+
     <?php
   }
-  
+
   /**
    * Creates the UI for Translate tab
    *
@@ -411,18 +412,29 @@ class DFlip_Settings {
    *
    */
   public function translate_tab() {
-    
+
     $this->base->create_setting( 'external_translate' );
     $this->base->create_separator( 'General Texts' );
     $this->base->create_setting( 'text_open_book' );
     $this->base->create_setting( 'text_loading' );
     $this->base->create_setting( 'text_thumbnails_title' );
     $this->base->create_setting( 'text_outline_title' );
+    $this->base->create_separator( 'Search Text' );
     $this->base->create_setting( 'text_search_title' );
     $this->base->create_setting( 'text_search_placeholder' );
+    $this->base->create_setting( 'text_search_clear' );
+    $this->base->create_setting( 'text_search_searching_info' );
+    $this->base->create_setting( 'text_search_results_found' );
+    $this->base->create_setting( 'text_search_results_not_found' );
+    $this->base->create_setting( 'text_search_result_page' );
+    $this->base->create_setting( 'text_search_result' );
+    $this->base->create_setting( 'text_search_results' );
+    $this->base->create_setting( 'text_search_minimum' );
     $this->base->create_setting( 'text_mail_subject' );
     $this->base->create_setting( 'text_mail_body' );
     $this->base->create_separator( 'Buttons Text' );
+    $this->base->create_setting( 'text_play' );
+    $this->base->create_setting( 'text_pause' );
     $this->base->create_setting( 'text_toggle_sound' );
     $this->base->create_setting( 'text_toggle_thumbnails' );
     $this->base->create_setting( 'text_toggle_outline' );
@@ -446,9 +458,9 @@ class DFlip_Settings {
       <!--Clear-fix-->
       <div class="dflip-box"></div>
     <?php
-    
+
   }
-  
+
   /**
    * Update settings
    *
@@ -457,19 +469,19 @@ class DFlip_Settings {
    *
    */
   public function update_settings() {
-    
+
     // Check form was submitted
     if ( !isset( $_POST['dflip_settings_submit'] ) ) {
       return;
     }
-    
+
     // Check nonce is valid
     if ( !wp_verify_nonce( $_POST['dflip_settings_nonce'], 'dflip_settings_nonce' ) ) {
       return;
     }
-    
+
     $data = $_POST['_dflip'];
-    
+
     if ( is_multisite() ) {
       // Update options
       update_blog_option( null, '_dflip_settings', $data );
@@ -479,9 +491,9 @@ class DFlip_Settings {
     }
     // Show confirmation
     add_action( 'admin_notices', array( $this, 'updated_settings' ) );
-    
+
   }
-  
+
   /**
    * display a saved notice
    *
@@ -493,9 +505,9 @@ class DFlip_Settings {
           <p><?php _e( 'Settings updated.', 'DFLIP' ); ?></p>
       </div>
     <?php
-    
+
   }
-  
+
   /**
    * Returns the singleton instance of the class.
    *
@@ -504,14 +516,14 @@ class DFlip_Settings {
    *
    */
   public static function get_instance() {
-    
+
     if ( !isset( self::$instance )
         && !( self::$instance instanceof DFlip_Settings ) ) {
       self::$instance = new DFlip_Settings();
     }
-    
+
     return self::$instance;
-    
+
   }
 }
 

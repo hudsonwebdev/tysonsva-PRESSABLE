@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Events Manager
-Version: 7.4.0.1
+Version: 7.4.3
 Plugin URI: https://wp-events-plugin.com
 Description: Event registration and booking management for WordPress. Recurring events, locations, webinars, google maps, rss, ical, booking registration and more!
 Author: Pixelite
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // Setting constants
 use EM\Archetypes;
 
-define('EM_VERSION', '7.4.0.1'); //self expanatory, although version currently may not correspond directly with published version number. until 6.0 we're stuck updating 5.999.x
+define('EM_VERSION', '7.4.3'); //self expanatory, although version currently may not correspond directly with published version number. until 6.0 we're stuck updating 5.999.x
 define('EM_PRO_MIN_VERSION', '3.9'); //self expanatory
 define('EM_PRO_MIN_VERSION_CRITICAL', '3.6.0.2'); //self expanatory
 define('EM_FILE', __FILE__); //an absolute path to this directory
@@ -838,6 +838,37 @@ class EM_Formats {
 		} // if set to 2 (or something else) we're loading everything direct from settings
 		return $default_formats;
 	}
+
+	/**
+	 * Formats a request may select by name, as id => option name. Empty by default; nothing is exposed to requests
+	 * until it is registered here:
+	 *
+	 *     add_filter('em_registered_formats', function( $formats ){
+	 *         $formats['front-page-format'] = 'mytheme_front_page_format';
+	 *         return $formats;
+	 *     });
+	 *
+	 * @return array<string,string>
+	 */
+	public static function get_registered_formats(){
+		return apply_filters('em_registered_formats', array());
+	}
+
+	/**
+	 * Resolves a format id to the format stored against it, false if the id isn't registered. Never falls back to the
+	 * id itself, or an injected format would pass straight through.
+	 *
+	 * @param string $format_id
+	 * @return string|false
+	 */
+	public static function get_registered_format( $format_id ){
+		if( !is_string($format_id) || !preg_match('/^[a-zA-Z0-9_-]+$/', $format_id) ) return false;
+		$registered_formats = static::get_registered_formats();
+		if( !isset($registered_formats[$format_id]) ) return false;
+		$format = em_get_option( $registered_formats[$format_id] );
+		if( !is_string($format) || $format === '' ) return false;
+		return apply_filters('em_registered_format', $format, $format_id);
+	}
 }
 EM_Formats::init();
 
@@ -909,6 +940,15 @@ function em_delete_blog( $blog_id ){
 	$wpdb->query('DROP TABLE '.$prefix.'em_tickets');
 	$wpdb->query('DROP TABLE '.$prefix.'em_tickets_bookings');
 	$wpdb->query('DROP TABLE '.$prefix.'em_meta');
+	//em_timeranges/em_event_timeslots are always per-site (even under MS Global), so drop them in every mode
+	$wpdb->query('DROP TABLE IF EXISTS '.$prefix.'em_timeranges');
+	$wpdb->query('DROP TABLE IF EXISTS '.$prefix.'em_event_timeslots');
+	//these are per-site only in plain multisite; under MS Global they are base-prefix/shared and must never be dropped per-blog
+	if( !EM_MS_GLOBAL ){
+		$wpdb->query('DROP TABLE IF EXISTS '.$prefix.'em_event_recurrences');
+		$wpdb->query('DROP TABLE IF EXISTS '.$prefix.'em_bookings_meta');
+		$wpdb->query('DROP TABLE IF EXISTS '.$prefix.'em_tickets_bookings_meta');
+	}
 	//delete events if MS Global
 	if( EM_MS_GLOBAL ){
 	    EM_Events::delete(array('limit'=>0, 'blog'=>$blog_id));

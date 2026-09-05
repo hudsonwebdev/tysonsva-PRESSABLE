@@ -1,19 +1,19 @@
 {
-  "_index-61dabf12.js": {
-    "file": "index-61dabf12.js"
+  "_index-a19206ae.js": {
+    "file": "index-a19206ae.js"
   },
   "admin.tsx": {
-    "file": "admin.tsx-ca3a83a7.js",
+    "file": "admin.tsx-f57a31b0.js",
     "imports": [
-      "_index-61dabf12.js"
+      "_index-a19206ae.js"
     ],
     "isEntry": true,
     "src": "admin.tsx"
   },
   "main.tsx": {
-    "file": "main.tsx-42273ad5.js",
+    "file": "main.tsx-71eb9b58.js",
     "imports": [
-      "_index-61dabf12.js"
+      "_index-a19206ae.js"
     ],
     "isEntry": true,
     "src": "main.tsx"

@@ -11,7 +11,8 @@
   },
   
   "supports": {
-    "anchor": true
+    "anchor": true,
+    "mode": true
   },
    "example": {
     "attributes": {

@@ -1,0 +1,350 @@
+/* Events Location and List — 50/50 accordion list + map */
+
+.tca-evloc-list-block {
+	width: 100%;
+}
+
+.tca-evloc-list-empty {
+	margin: 0;
+	color: #64748b;
+}
+
+.tca-evloc-list-wrap {
+	width: 100%;
+	--tca-pin-fill: #4264fb;
+	--tca-evloc-list-height: 520px;
+}
+
+.tca-evloc-list-layout {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0;
+	min-height: var(--tca-evloc-list-height, 520px);
+	height: var(--tca-evloc-list-height, 520px);
+	border-radius: 4px;
+	overflow: hidden;
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+}
+
+@media (max-width: 900px) {
+	.tca-evloc-list-layout {
+		grid-template-columns: 1fr;
+		height: auto;
+		min-height: 0;
+	}
+}
+
+/* ——— Sidebar accordion (50%) ——— */
+.tca-evloc-list-sidebar {
+	min-height: 0;
+	overflow: auto;
+	background: #fff;
+	border-right: 1px solid #e2e8f0;
+	-webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 900px) {
+	.tca-evloc-list-sidebar {
+		border-right: 0;
+		border-bottom: 1px solid #e2e8f0;
+		max-height: 320px;
+	}
+}
+
+.tca-evloc-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.tca-evloc-list__item {
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.tca-evloc-list__item:last-child {
+	border-bottom: 0;
+}
+
+.tca-evloc-list__item.is-open {
+	background: #f8fafc;
+}
+
+.tca-evloc-list__title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	width: 100%;
+	margin: 0;
+	padding: 1rem 1.25rem;
+	border: 0;
+	background: transparent;
+	text-align: left;
+	font: inherit;
+	font-size: 1.05rem;
+	font-weight: 700;
+	color: #0c0042;
+	cursor: pointer;
+	line-height: 1.3;
+}
+
+.tca-evloc-list__title:hover,
+.tca-evloc-list__title:focus-visible {
+	color: #385dff;
+	outline: none;
+}
+
+.tca-evloc-list__item.is-open .tca-evloc-list__title {
+	color: #385dff;
+}
+
+.tca-evloc-list__title-text {
+	flex: 1;
+	min-width: 0;
+}
+
+.tca-evloc-list__chevron {
+	flex-shrink: 0;
+	width: 0.55rem;
+	height: 0.55rem;
+	border-right: 2px solid currentColor;
+	border-bottom: 2px solid currentColor;
+	transform: rotate(45deg);
+	transition: transform 0.2s ease;
+	opacity: 0.65;
+}
+
+.tca-evloc-list__item.is-open .tca-evloc-list__chevron {
+	transform: rotate(-135deg);
+	opacity: 1;
+}
+
+.tca-evloc-list__panel {
+	padding: 0 1.25rem 1.15rem;
+}
+
+.tca-evloc-list__panel[hidden] {
+	display: none !important;
+}
+
+.tca-evloc-list__detail {
+	display: flex;
+	gap: 0.85rem;
+	align-items: flex-start;
+}
+
+.tca-evloc-list__image-wrap {
+	flex-shrink: 0;
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	border-radius: 4px;
+	background: #e2e8f0;
+}
+
+.tca-evloc-list__image-wrap img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.tca-evloc-list__meta {
+	flex: 1;
+	min-width: 0;
+}
+
+.tca-evloc-list__address {
+	margin: 0 0 0.45rem;
+	font-size: 0.875rem;
+	line-height: 1.4;
+	color: #64748b;
+}
+
+.tca-evloc-list__website {
+	margin: 0 0 0.75rem;
+	font-size: 0.875rem;
+}
+
+.tca-evloc-list__website a {
+	color: #385dff;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.tca-evloc-list__website a:hover,
+.tca-evloc-list__website a:focus-visible {
+	text-decoration: underline;
+}
+
+.tca-evloc-list__events-heading {
+	margin: 0 0 0.45rem;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: #64748b;
+}
+
+.tca-evloc-list__events-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.tca-evloc-list__events-list li {
+	margin-bottom: 0.5rem;
+}
+
+.tca-evloc-list__events-list a {
+	color: #0c0042;
+	font-weight: 600;
+	font-size: 0.875rem;
+	text-decoration: none;
+}
+
+.tca-evloc-list__events-list a:hover,
+.tca-evloc-list__events-list a:focus-visible {
+	color: #385dff;
+	text-decoration: underline;
+}
+
+.tca-evloc-list__event-date {
+	display: block;
+	margin-top: 0.15rem;
+	font-size: 0.75rem;
+	color: #64748b;
+	font-weight: normal;
+}
+
+.tca-evloc-list__events-empty {
+	margin: 0;
+	font-size: 0.875rem;
+	color: #64748b;
+}
+
+/* ——— Map panel (50%) ——— */
+.tca-evloc-list-map-panel {
+	position: relative;
+	min-height: 0;
+	height: 100%;
+	align-self: stretch;
+	background: #e2e8f0;
+}
+
+@media (max-width: 900px) {
+	.tca-evloc-list-map-panel {
+		min-height: 360px;
+		height: 360px;
+	}
+}
+
+.tca-evloc-list-map-shell {
+	position: relative;
+	width: 100%;
+	height: var(--tca-evloc-list-height, 520px);
+	min-height: var(--tca-evloc-list-height, 520px);
+	overflow: hidden;
+	background: #e2e8f0;
+}
+
+@media (max-width: 900px) {
+	.tca-evloc-list-map-shell {
+		min-height: 360px;
+		height: 360px;
+	}
+}
+
+.tca-evloc-list-map-stage {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	min-height: 0;
+}
+
+.tca-evloc-list-map-canvas {
+	width: 100%;
+	height: 100%;
+	min-height: 0;
+	position: relative;
+}
+
+/* Undo UIKit `canvas { height:auto; max-width:100% }` for Mapbox WebGL */
+.tca-evloc-list-map-canvas .mapboxgl-canvas {
+	max-width: none !important;
+	height: unset !important;
+}
+
+/* ——— Pins ——— */
+.tca-evloc-list-pin {
+	width: 1.75rem;
+	height: 1.75rem;
+	padding: 0;
+	border: 2px solid #fff;
+	box-sizing: border-box;
+	background: var(--tca-pin-fill, #4264fb);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+	cursor: pointer;
+	transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tca-evloc-list-pin--teardrop {
+	border-radius: 50% 50% 50% 0;
+	transform: rotate(-45deg);
+}
+
+.tca-evloc-list-pin--circle {
+	border-radius: 50%;
+	transform: none;
+}
+
+.tca-evloc-list-pin--square {
+	border-radius: 6px;
+	transform: none;
+}
+
+.tca-evloc-list-pin--diamond {
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 3px;
+	transform: rotate(45deg);
+}
+
+.tca-evloc-list-pin--light {
+	border-color: #1e293b;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.tca-evloc-list-pin:focus-visible {
+	outline: 2px solid var(--tca-pin-fill, #4264fb);
+	outline-offset: 3px;
+}
+
+.tca-evloc-list-pin.is-focused {
+	width: 20px !important;
+	height: 20px !important;
+	background: #16a34a;
+	border-color: #fff;
+	box-shadow: 0 4px 12px rgba(22, 163, 74, 0.45);
+}
+
+.tca-evloc-list-pin--teardrop.is-focused {
+	transform: rotate(-45deg);
+}
+
+.tca-evloc-list-pin--circle.is-focused,
+.tca-evloc-list-pin--square.is-focused {
+	transform: none;
+}
+
+.tca-evloc-list-pin--diamond.is-focused {
+	width: 18px !important;
+	height: 18px !important;
+	transform: rotate(45deg);
+}
+
+.tca-evloc-list-pin--light.is-focused {
+	background: #16a34a;
+	border-color: #fff;
+}

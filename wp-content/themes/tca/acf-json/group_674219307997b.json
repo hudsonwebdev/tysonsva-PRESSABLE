@@ -84,6 +84,40 @@
             "save_other_choice": 0
         },
         {
+            "key": "field_tca_cgrid_slider_overflow",
+            "label": "Slider overflow style",
+            "name": "slider_overflow_style",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Edge peek shows partial next/previous slides (best for full-width sections). Contained keeps slides clipped inside the block — same arrow buttons either way.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_68fb72a1c8f11",
+                        "operator": "==",
+                        "value": "Slider"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "edge_peek": "Edge peek (partial slides visible)",
+                "contained": "Contained (no slide overflow)"
+            },
+            "default_value": "edge_peek",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
             "key": "field_67a80a2b71767",
             "label": "Column Count Desktop",
             "name": "column_count_desktop",
@@ -645,5 +679,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1779667051
+    "modified": 1755888120
 }

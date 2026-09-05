@@ -231,11 +231,11 @@ if(!empty($id)){
       });
 
 
-  $(document).on('click','#vx_revoke',function(e){
+/*  $(document).on('click','#vx_revoke',function(e){
   
   if(!confirm('<?php esc_html_e('Notification - Remove Connection?','gravity-forms-salesforce-crm'); ?>')){
   e.preventDefault();   
   }
-  })  
+  }) */ 
   })
   </script>

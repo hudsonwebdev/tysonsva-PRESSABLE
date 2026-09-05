@@ -54,7 +54,7 @@
                                 
                                 
                                 
-                                   <h4 class="em-item-title"><a href="#_EVENTLINKTYSONS" target="#_EVENTTARGETTYSONS">#_EVENTNAME</a></h4>
+                                   <h4 class="em-item-title"><a class="event-card-title-link" href="#_EVENTLINKTYSONS" target="#_EVENTTARGETTYSONS">#_EVENTNAME</a></h4>
                                     {has_location_venue}
 									
 
@@ -92,7 +92,7 @@
                     </div>
 
              </div>
-    
+    <a class="event-card-overlay" href="#_EVENTLINKTYSONS" target="#_EVENTTARGETTYSONS" tabindex="-1" aria-hidden="true"></a>
 </div>
 </div>
 

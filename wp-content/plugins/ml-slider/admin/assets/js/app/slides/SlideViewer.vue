@@ -90,10 +90,39 @@ export default {
                 axis: 'y',
                 stop: function(e, ui) {
                     const $tbody = $('#metaslider-slides-list > tbody')
+
+                    // Destroy TinyMCE editors before moving DOM nodes — iframes lose state on DOM moves
+                    if (typeof tinymce !== 'undefined') {
+                        $('#metaslider-slides-list').find('textarea.wysiwyg, textarea[class^="wysiwyg-"]').each(function() {
+                            const editor = tinymce.get($(this).attr('id'))
+                            if (editor) editor.destroy()
+                            $(this).attr('disabled', true)
+                        })
+                    }
+
                     $('#ms-slide-sidebar-list li').each(function() {
                         const slideId = $(this).data('slide-id')
                         $tbody.append($('#slide-' + slideId))
                     })
+
+                    // Reinitialize TinyMCE editors after DOM reorder
+                    if (typeof tinymce !== 'undefined') {
+                        $('#metaslider-slides-list').find('textarea.wysiwyg, textarea[class^="wysiwyg-"]').each(function() {
+                            const slide_type = $(this).data('type')
+                            const slide_id = $(this).attr('id')
+                            if (slide_type && slide_id) {
+                                const tinymce_data = metaslider.tinymce.find(obj => obj.type === slide_type)
+                                if (typeof tinymce_data !== 'undefined') {
+                                    $(this).attr('disabled', false)
+                                    tinymce.init({
+                                        ...{ selector: `#${slide_id}` },
+                                        ...tinymce_data.configuration
+                                    })
+                                }
+                            }
+                        })
+                    }
+
                     buildSidebar()
                     EventManager.$emit('metaslider/save')
 
@@ -167,6 +196,13 @@ export default {
                     event.preventDefault();
                     $(':focus').trigger('click');
                 }
+            });
+
+            // Open the upgrade link (instead of switching tabs) when clicking the pro-ad lock icon on a tab title
+            $(".metaslider-ui").on('click', 'ul.tabs .is-pro-setting', function(event) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                window.open($(this).data('href'), '_blank');
             });
 
             // Event to switch tabs within a slide

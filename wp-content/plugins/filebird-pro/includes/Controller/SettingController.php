@@ -30,8 +30,6 @@ class SettingController {
 		return rest_ensure_response( true );
     }
     public function resetCount( \WP_REST_Request $request ) {
-        $params = Helpers::sanitize_array( $request->get_params() );
-
         FolderModel::resetCount();
 
 		return rest_ensure_response( true );

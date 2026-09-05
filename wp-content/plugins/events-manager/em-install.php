@@ -69,38 +69,60 @@ function em_install() {
 }
 
 /**
- * Magic function that takes a table name and cleans all non-unique keys not present in the $clean_keys array. if no array is supplied, all but the primary key is removed.
+ * Ensures the non-primary indexes named in $keys exist on $table_name, adding any that are missing and redefining any whose column prefix or uniqueness has changed. Indexes are removed only when named in $drop_keys: an index this function was never told about (e.g. one added by a later foundation migration, an add-on, or the site admin) is left untouched, so it survives a plugin upgrade rather than being silently dropped.
+ *
+ * Each $keys entry is one of: 'col' (a plain index named after and covering that single column), or 'name (col)' / 'name (col(191))' (an explicit index name with a column definition, optionally prefixed). Prefix an entry with 'UNIQUE ' to create it as a unique index.
+ *
  * @param string $table_name
- * @param array $clean_keys
+ * @param array $keys       indexes that must exist; added or redefined as needed
+ * @param array $drop_keys  index names to remove deliberately (deprecations / redefinitions)
  */
-function em_sort_out_table_nu_keys($table_name, $clean_keys = array()){
+function em_sort_out_table_nu_keys($table_name, $keys = array(), $drop_keys = array()){
 	global $wpdb;
-	//sort out the keys
-	$new_keys = $clean_keys;
-	$table_key_changes = array();
-	$table_keys = $wpdb->get_results("SHOW KEYS FROM $table_name WHERE Key_name != 'PRIMARY'", ARRAY_A);
-	foreach($table_keys as $table_key_row){
-		if( !in_array($table_key_row['Key_name'], $clean_keys) ){
-			$table_key_changes[] = "ALTER TABLE $table_name DROP INDEX ".$table_key_row['Key_name'];
-		}elseif( in_array($table_key_row['Key_name'], $clean_keys) ){
-			foreach($clean_keys as $key => $clean_key){
-				if($table_key_row['Key_name'] == $clean_key){
-					unset($new_keys[$key]);
-				}
-			}
+	// Map current non-primary indexes: name => [ 'unique' => bool, 'columns' => [ seq => [col, sub_part] ] ]
+	$existing = array();
+	foreach( $wpdb->get_results("SHOW KEYS FROM $table_name WHERE Key_name != 'PRIMARY'", ARRAY_A) as $row ){
+		$name = $row['Key_name'];
+		if( !isset($existing[$name]) ){
+			$existing[$name] = array('unique' => $row['Non_unique'] == 0, 'columns' => array());
+		}
+		$existing[$name]['columns'][ (int) $row['Seq_in_index'] ] = array(
+			'col'      => $row['Column_name'],
+			'sub_part' => $row['Sub_part'] !== null ? (int) $row['Sub_part'] : null,
+		);
+	}
+	// Deliberate removals only.
+	foreach( $drop_keys as $drop_key ){
+		if( isset($existing[$drop_key]) ){
+			$wpdb->query("ALTER TABLE $table_name DROP INDEX `$drop_key`");
+			unset($existing[$drop_key]);
 		}
 	}
-	//delete duplicates
-	foreach($table_key_changes as $sql){
-		$wpdb->query($sql);
-	}
-	//add new keys
-	foreach($new_keys as $key){
-		if( preg_match('/\(/', $key) ){
-			$wpdb->query("ALTER TABLE $table_name ADD INDEX $key");
+	// Ensure each requested index exists with the requested definition.
+	foreach( $keys as $key ){
+		$unique = (bool) preg_match('/^UNIQUE\s+/i', $key);
+		$key = preg_replace('/^UNIQUE\s+/i', '', $key);
+		if( preg_match('/^([^\s(]+)\s*\((.*)\)\s*$/', $key, $m) ){ //name token must stop at the first bracket, or a sub_part like col(191) swallows the definition
+			$name = $m[1];
+			$definition = trim($m[2]);
 		}else{
-			$wpdb->query("ALTER TABLE $table_name ADD INDEX ($key)");
+			$name = $definition = trim($key);
 		}
+		// Parse the definition into ordered [col, sub_part] pairs for comparison against the live index.
+		$columns = array();
+		foreach( array_map('trim', explode(',', $definition)) as $seq => $part ){
+			$columns[ $seq + 1 ] = ( preg_match('/^(\S+?)\s*\((\d+)\)$/', $part, $cm) )
+				? array('col' => $cm[1], 'sub_part' => (int) $cm[2])
+				: array('col' => $part, 'sub_part' => null);
+		}
+		if( isset($existing[$name]) ){
+			if( $existing[$name]['unique'] === $unique && $existing[$name]['columns'] == $columns ){
+				continue; // already correct, leave it alone
+			}
+			$wpdb->query("ALTER TABLE $table_name DROP INDEX `$name`"); // redefine
+		}
+		$type = $unique ? 'UNIQUE INDEX' : 'INDEX';
+		$wpdb->query("ALTER TABLE $table_name ADD $type `$name` ($definition)");
 	}
 }
 
@@ -248,18 +270,15 @@ function em_create_timeslots_table(){
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-	$sql = "CREATE TABLE IF NOT EXISTS {$table_name} (
+	$sql = "CREATE TABLE {$table_name} (
 		timerange_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		timerange_group_id VARCHAR(64) NOT NULL DEFAULT '',
-
 		timerange_start TIME NOT NULL,
 		timerange_end TIME DEFAULT NULL,
 		timerange_all_day TINYINT(1) NOT NULL DEFAULT 0,
-
 		timeslot_frequency VARCHAR(5) DEFAULT NULL,
 		timeslot_buffer VARCHAR(5) DEFAULT NULL,
 		timeslot_duration VARCHAR(5) DEFAULT NULL,
-
 		PRIMARY KEY  (timerange_id)
 	) {$wpdb->get_charset_collate()};";
 
@@ -515,7 +534,7 @@ function em_add_options() {
 	}
 	$decimal_point = !empty($wp_locale->number_format['decimal_point']) ? $wp_locale->number_format['decimal_point']:'.';
 	$thousands_sep = !empty($wp_locale->number_format['thousands_sep']) ? $wp_locale->number_format['thousands_sep']:',';
-	$email_footer = '<br/><br/>-------------------------------<br/>Powered by Events Manager - http://wp-events-plugin.com';
+	$email_footer = '<br/><br/>-------------------------------<br/>Powered by Events Manager - https://wp-events-plugin.com';
 	$respondent_email_body_localizable = __("Dear #_BOOKINGNAME, <br/>You have successfully reserved #_BOOKINGSPACES space/spaces for #_EVENTNAME.<br/>When : #_EVENTDATES @ #_EVENTTIMES<br/>Where : #_LOCATIONNAME - #_LOCATIONFULLLINE<br/>Yours faithfully,<br/>#_CONTACTNAME",'events-manager').$email_footer;
 	$respondent_email_pending_body_localizable = __("Dear #_BOOKINGNAME, <br/>You have requested #_BOOKINGSPACES space/spaces for #_EVENTNAME.<br/>When : #_EVENTDATES @ #_EVENTTIMES<br/>Where : #_LOCATIONNAME - #_LOCATIONFULLLINE<br/>Your booking is currently pending approval by our administrators. Once approved you will receive an automatic confirmation.<br/>Yours faithfully,<br/>#_CONTACTNAME",'events-manager').$email_footer;
 	$respondent_email_rejected_body_localizable = __("Dear #_BOOKINGNAME, <br/>Your requested booking for #_BOOKINGSPACES spaces at #_EVENTNAME on #_EVENTDATES has been rejected.<br/>Yours faithfully,<br/>#_CONTACTNAME",'events-manager').$email_footer;
@@ -536,7 +555,7 @@ function em_add_options() {
  	 		__('Name','events-manager').' : #_BOOKINGNAME'.'<br/>'.
  		    __('Email','events-manager').' : #_BOOKINGEMAIL'.'<br/>'.
  		    '#_BOOKINGSUMMARY'.'<br/>'.
- 		    '<br/>Powered by Events Manager - http://wp-events-plugin.com';
+ 		    '<br/>Powered by Events Manager - https://wp-events-plugin.com';
 	$contact_person_emails['confirmed'] = sprintf(__('The following booking is %s :','events-manager'),strtolower(__('Confirmed','events-manager'))).'<br/>'.$contact_person_email_body_template;
 	$contact_person_emails['pending'] = sprintf(__('The following booking is %s :','events-manager'),strtolower(__('Pending','events-manager'))).'<br/>'.$contact_person_email_body_template;
 	$contact_person_emails['cancelled'] = sprintf(__('The following booking is %s :','events-manager'),strtolower(__('Cancelled','events-manager'))).'<br/>'.$contact_person_email_body_template;
@@ -1175,7 +1194,7 @@ function em_upgrade_current_installation(){
 		update_site_option('dbem_data', $data);
 	}
 	// temp promo
-	if( time() < 1783728000 && ( version_compare($current_version, '7.3.7.1', '<') || !empty($data['admin-modals']['review-nudge']) ) ) {
+	if( time() < 1786352400 && ( version_compare($current_version, '7.4.1', '<') || !empty($data['admin-modals']['review-nudge']) ) ) {
 		if( empty($data['admin-modals']) ) $data['admin-modals'] = array();
 		$data['admin-modals']['promo-popup'] = true;
 		update_site_option('dbem_data', $data);
@@ -1448,7 +1467,7 @@ function em_upgrade_current_installation(){
 		if( $current_version != '' && $current_version < 5.975 ){
 			update_option('dbem_location_types', array('location'=>1));
 			$message = esc_html__('Events Manager has introduced location types, which can include online locations such as a URL or integrations with webinar platforms such as Zoom! Enable different location types in your settings page, for more information see our %s.', 'events-manager');
-			$message = sprintf( $message, '<a href="http://wp-events-plugin.com/documentation/location-types/" target="_blank">'. esc_html__('documentation', 'events-manager')).'</a>';
+			$message = sprintf( $message, '<a href="https://wp-events-plugin.com/documentation/location-types/" target="_blank">'. esc_html__('documentation', 'events-manager')).'</a>';
 			$EM_Admin_Notice = new EM_Admin_Notice(array( 'name' => 'v-update', 'who' => 'admin', 'where' => 'all', 'message' => "$message" ));
 			EM_Admin_Notices::add($EM_Admin_Notice, is_multisite());
 		}
@@ -2027,6 +2046,9 @@ function em_upgrade_current_installation(){
 			$message =  sprintf(__('Events Manager Pro %s has received a major security update. Please <a href="%s">read our announcement</a> and log into your account for upgrade options.','events-manager'), '3.9', 'https://pxlink.cc/security-3-9');
 			EM_Admin_Notices::add(new EM_Admin_Notice(array( 'name' => 'v-pro-update', 'who' => 'admin', 'what' => 'warning', 'where' => 'all', 'message' => $message )), is_multisite());
 		}
+		if ( version_compare( $current_version, '7.4.0.2', '<' ) ) {
+			em_repair_detached_events();
+		}
 
 		$pro_update = function() {
 			if ( defined('EMP_VERSION') && version_compare( EMP_VERSION, '3.7.2', '<' ) ) {
@@ -2040,6 +2062,26 @@ function em_upgrade_current_installation(){
 			add_action('plugins_loaded', $pro_update);
 		}
 	}
+}
+
+function em_repair_detached_events(){
+	global $wpdb;
+	//the historical detach() bug committed _event_type='single' to post meta but the events-table half of the write hit a non-existent column and failed, so realign the diverged table rows to the postmeta that already succeeded
+	$blog_cond = '';
+	if ( EM_MS_GLOBAL ) {
+		//main-site rows may carry NULL/0 blog_id in the shared table (the em_migrate_datetime_timezones convention); subsites stay strict so cross-blog post_id collisions cannot match this site's postmeta
+		if ( is_main_site() ) {
+			$blog_cond = $wpdb->prepare(' AND (e.blog_id = %d OR e.blog_id IS NULL OR e.blog_id = 0)', get_current_blog_id());
+		} else {
+			$blog_cond = $wpdb->prepare(' AND e.blog_id = %d', get_current_blog_id());
+		}
+	}
+	$wpdb->query(
+		"UPDATE ". EM_EVENTS_TABLE ." e
+		JOIN {$wpdb->postmeta} pm ON pm.post_id = e.post_id AND pm.meta_key = '_event_type' AND pm.meta_value = 'single'
+		SET e.recurrence_id = NULL, e.recurrence_set_id = NULL, e.event_type = 'single'
+		WHERE e.event_type = 'recurrence'". $blog_cond
+	);
 }
 
 function em_set_mass_caps( $roles, $caps ){

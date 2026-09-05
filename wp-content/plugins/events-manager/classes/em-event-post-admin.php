@@ -269,7 +269,7 @@ class EM_Event_Post_Admin{
 	public static function before_delete_post($post_id){
 		if( Archetypes::is_event( $post_id ) ){
 			$EM_Event = em_get_event($post_id,'post_id');
-			do_action('em_event_delete_pre ',$EM_Event);
+			do_action('em_event_delete_pre',$EM_Event);
 			$EM_Event->delete_meta();
 		}
 	}
@@ -466,7 +466,7 @@ class EM_Event_Recurring_Post_Admin{
 		$post_type = get_post_type($post_id);
 		if( Archetypes::is_repeating( $post_type ) ){
 			$EM_Event = em_get_event($post_id,'post_id');
-			do_action('em_event_delete_pre ',$EM_Event);
+			do_action('em_event_delete_pre',$EM_Event);
 			//now delete recurrences
 			//only delete other events if this isn't a draft-never-published event
 			if( !empty($EM_Event->event_id) ){

@@ -1006,8 +1006,8 @@ class EM_Ticket extends EM_Object {
 			$ticket_ids = [ $ticket_ids ];
 		}
 		return 'UPDATE ' . EM_TICKETS_TABLE . ' AS target
-				INNER JOIN wp_em_tickets AS source ON source.ticket_id = ' . absint( $parent_id ) . '
-				SET 
+				INNER JOIN ' . EM_TICKETS_TABLE . ' AS source ON source.ticket_id = ' . absint( $parent_id ) . '
+				SET
 				    target.ticket_status = CASE WHEN target.ticket_status IS NULL THEN source.ticket_status ELSE target.ticket_status END,
 				    target.ticket_name = CASE WHEN target.ticket_name IS NULL THEN source.ticket_name ELSE target.ticket_name END,
 				    target.ticket_description = CASE WHEN target.ticket_description IS NULL THEN source.ticket_description ELSE target.ticket_description END,
@@ -1049,8 +1049,8 @@ class EM_Ticket extends EM_Object {
 			$ticket_ids = [ $ticket_ids ];
 		}
 		return 'UPDATE ' . EM_TICKETS_TABLE . ' AS target
-				INNER JOIN wp_em_tickets AS source ON source.ticket_id = ' . absint( $parent_id ) . '
-				SET 
+				INNER JOIN ' . EM_TICKETS_TABLE . ' AS source ON source.ticket_id = ' . absint( $parent_id ) . '
+				SET
 				    target.ticket_status = CASE WHEN target.ticket_status = source.ticket_status THEN NULL ELSE target.ticket_status END,
 				    target.ticket_description = CASE WHEN target.ticket_description = source.ticket_description THEN NULL ELSE target.ticket_description END,
 				    target.ticket_price = CASE WHEN target.ticket_price = source.ticket_price THEN NULL ELSE target.ticket_price END,
@@ -1064,7 +1064,7 @@ class EM_Ticket extends EM_Object {
 				    target.ticket_meta = CASE WHEN target.ticket_meta = source.ticket_meta THEN NULL ELSE target.ticket_meta END,
 				    target.ticket_parent = source.ticket_id
 				WHERE source.ticket_id = ' . absint( $parent_id ) . '
-				AND target.ticket_id IN ( ' . implode($ticket_ids) . ');';
+				AND target.ticket_id IN ( ' . implode(',', $ticket_ids) . ');';
 	}
 
 	/**

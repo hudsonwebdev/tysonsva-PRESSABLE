@@ -560,34 +560,32 @@ class Archetypes {
 				$c = static::map_meta_cap_type( $c, $archetype );
 			}
 
-			if ( !empty( $c['read'][$post->post_type] ) || !empty( $c['edit'][$post->post_type] ) || !empty( $c['delete'][$post->post_type] ) ) {
-				/* Set an empty array for the caps. */
+			// Only reset $caps when the requested capability is one of our archetype meta caps for this post type. Resetting on any object-carrying cap emptied the requirement list for unrelated caps (e.g. edit_user, promote_user), which reads as allow.
+			if ( !empty( $c['read'][$post->post_type] ) && $c['read'][$post->post_type] == $cap ) {
 				$caps = [];
-
-				//Filter according to caps
-				if ( $c['read'][$post->post_type] == $cap ) {
-					if ( 'private' != $post->post_status ) {
-						$caps[] = 'read';
-					} elseif ( $user_id == $post->post_author ) {
-						$caps[] = 'read';
-					} else {
-						$post_type = get_post_type_object( $post->post_type );
-						$caps[] = $post_type->cap->read_private_posts;
-					}
-				} elseif ( $c['edit'][$post->post_type] == $cap  ) {
+				if ( 'private' != $post->post_status ) {
+					$caps[] = 'read';
+				} elseif ( $user_id == $post->post_author ) {
+					$caps[] = 'read';
+				} else {
 					$post_type = get_post_type_object( $post->post_type );
-					if ( $user_id == $post->post_author ) {
-						$caps[] = $post_type->cap->edit_posts;
-					} else {
-						$caps[] = $post_type->cap->edit_others_posts;
-					}
-				} elseif ( $c['delete'][$post->post_type] == $cap ) {
-					$post_type = get_post_type_object( $post->post_type );
-					if ( $user_id == $post->post_author ) {
-						$caps[] = $post_type->cap->delete_posts;
-					} else {
-						$caps[] = $post_type->cap->delete_others_posts;
-					}
+					$caps[] = $post_type->cap->read_private_posts;
+				}
+			} elseif ( !empty( $c['edit'][$post->post_type] ) && $c['edit'][$post->post_type] == $cap  ) {
+				$caps = [];
+				$post_type = get_post_type_object( $post->post_type );
+				if ( $user_id == $post->post_author ) {
+					$caps[] = $post_type->cap->edit_posts;
+				} else {
+					$caps[] = $post_type->cap->edit_others_posts;
+				}
+			} elseif ( !empty( $c['delete'][$post->post_type] ) && $c['delete'][$post->post_type] == $cap ) {
+				$caps = [];
+				$post_type = get_post_type_object( $post->post_type );
+				if ( $user_id == $post->post_author ) {
+					$caps[] = $post_type->cap->delete_posts;
+				} else {
+					$caps[] = $post_type->cap->delete_others_posts;
 				}
 			}
 		}

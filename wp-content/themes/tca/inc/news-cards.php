@@ -156,7 +156,7 @@ if(get_field('source_url',$pid)>""){
                                 <div class="card-date"><?php echo get_the_date('M j, Y',$pid); ?></div>
                             </div>
                             <div class="card-title">
-                                <h4><a href="<?php echo $url; ?>" target="<?php echo $target; ?>"><?php echo max_title_length( $title ); ?></a></h4>
+                                <h4><a class="event-card-title-link" href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>"<?php echo ( '_blank' === $target ) ? ' rel="noopener noreferrer"' : ''; ?>><?php echo max_title_length( $title ); ?></a></h4>
                                
                    
                                 
@@ -169,6 +169,7 @@ if(get_field('source_url',$pid)>""){
                 </div>
 
          </div>
+        <?php echo tca_event_card_overlay_html( $url, $target ); ?>
     </div>
   </div>
 <?php

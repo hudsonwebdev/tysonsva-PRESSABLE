@@ -1244,7 +1244,17 @@ Query.prototype.show = function() {
     return this;
 };
 Query.prototype.ready = function(callback) {
-    document.addEventListener('DOMContentLoaded', callback);
+    // Reference: https://github.com/jquery/jquery/blob/main/src/core/ready.js
+    // and https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
+    if (document.readyState !== 'loading') {
+        // DOMContentLoaded has already fired; handle it asynchronously like jQuery
+        setTimeout(callback);
+    } else {
+        document.addEventListener('DOMContentLoaded', callback, {
+            once: true
+        });
+    }
+    return this;
 };
 Query.prototype.scrollTop = function(value) {
     if (value === undefined) {
@@ -1437,7 +1447,7 @@ Query.event = {
 
 /* globals jQuery */ var defaults_DEARVIEWER = {
     jQuery: null,
-    version: '2.4.13',
+    version: '2.4.37',
     autoDetectLocation: true,
     _isHashTriggered: false,
     slug: undefined,
@@ -1670,6 +1680,14 @@ defaults_DEARVIEWER._defaults = {
         outlineTitle: "Table of Contents",
         searchTitle: "Search",
         searchPlaceHolder: "Search",
+        searchClear: "Clear",
+        searchSearchingInfo: "Searching Page:",
+        searchResultsFound: "results found",
+        searchResultsNotFound: "No results Found!",
+        searchResultPage: "Page",
+        searchResult: "result",
+        searchResults: "results",
+        searchMinimum: "Minimum 3 letters required!",
         analyticsEventCategory: "DearFlip",
         analyticsViewerReady: "Document Ready",
         analyticsViewerOpen: "Document Opened",
@@ -1699,6 +1717,7 @@ defaults_DEARVIEWER._defaults = {
     paddingRight: 15,
     paddingBottom: 20,
     enableAnalytics: false,
+    hashNavigationEnabled: false,
     zoomRatio: 2,
     maxDPI: 2,
     fakeZoom: 1,
@@ -1900,6 +1919,9 @@ var utils = DV.utils = {
         try {
             if (url === null || url === void 0) return null;
             if (typeof url !== "string") return url;
+            // No scheme present — relative ("file.pdf") or protocol-relative
+            // ("//host/path"). Nothing to http/https-correct; return as-is.
+            if (url.indexOf("://") === -1) return url;
             var location = window.location;
             if (location.href.split(".")[0] === url.split(".")[0]) return url;
             var urlHostName = url.split("://")[1].split("/")[0];
@@ -1924,6 +1946,23 @@ var utils = DV.utils = {
             console.log("Skipping URL correction: " + url);
         }
         return url;
+    },
+    // Resolve a value to a safe absolute http(s) URL, or "" if it isn't one.
+    // Only explicit absolute http(s) URLs are accepted. Used for untrusted
+    // option values (logo, logoUrl) that are placed into href/src.
+    safeURL: function safeURL(url) {
+        if (url == null) return "";
+        var s = ("" + url).trim();
+        // Require an explicit absolute http(s) URL. Rejecting anything that does
+        // not start with http:// or https:// stops new URL() from coercing junk
+        // (e.g. "<img src=x onerror=...>") into a resolved same-origin URL, and
+        // also blocks relative paths, protocol-relative URLs, and javascript:/data:.
+        if (!/^https?:\/\//i.test(s)) return "";
+        try {
+            var u = new URL(s);
+            if (u.protocol === "http:" || u.protocol === "https:") return u.href;
+        } catch (e) {}
+        return "";
     },
     rotateStr: function rotateStr(deg) {
         return ' rotateZ(' + deg + 'deg) ';
@@ -2444,7 +2483,7 @@ var getAttributes = function getAttributes(element) {
         source: 'pdf-source,df-source,source',
         is3D: 'webgl,is3d',
         viewerType: 'viewertype,viewer-type',
-        pagemode: ''
+        pageMode: 'pagemode'
     };
     for(var key in attrKeys){
         var aliases = (key + "," + attrKeys[key]).split(",");
@@ -2700,16 +2739,23 @@ defaults_DEARVIEWER.parseThumbs = function(args) {
         args.element.addClass("df-thumb-not-found");
         args.thumbURL = defaults_DEARVIEWER.defaults.popupThumbPlaceholder;
     }
-    var titleElement = utils_jQuery("<span class='df-book-title'>").html(args.title);
+    var titleElement = utils_jQuery("<span class='df-book-title'>").text(args.title);
     var wrapperElement = utils_jQuery("<div class='df-book-wrapper'>").appendTo(args.element);
     wrapperElement.append(utils_jQuery("<div class='df-book-page1'>"));
     wrapperElement.append(utils_jQuery("<div class='df-book-page2'>"));
     var coverElement = utils_jQuery("<div class='df-book-cover'>").append(titleElement).appendTo(wrapperElement);
-    var image = utils_jQuery('<img width="210px" height="297px" class="df-lazy" alt="' + args.title + '"/>');
-    image.attr('data-src', args.thumbURL);
-    image.attr('src', defaults_DEARVIEWER.defaults.popupThumbPlaceholder);
+    var skipLazy = args.element.hasClass("df-skip-lazy");
+    var image = utils_jQuery('<img width="210px" height="297px" class="df-lazy" alt=""/>');
+    image.attr("alt", args.title);
     coverElement.prepend(image);
-    defaults_DEARVIEWER.addLazyElement(image[0]);
+    if (skipLazy) {
+        image.attr('src', args.thumbURL);
+        image.removeClass("df-lazy");
+    } else {
+        image.attr('data-src', args.thumbURL);
+        image.attr('src', defaults_DEARVIEWER.defaults.popupThumbPlaceholder);
+        defaults_DEARVIEWER.addLazyElement(image[0]);
+    }
     if (defaults_DEARVIEWER.defaults.displayLightboxPlayIcon === true) coverElement.addClass("df-icon-play-popup");
     if (args.thumbLayout === "book-title-top") {
         titleElement.prependTo(args.element);
@@ -2773,7 +2819,7 @@ defaults_DEARVIEWER.parseNormalElements = function() {
                     var thumbLayout = element.data("df-thumb-layout") || defaults_DEARVIEWER.defaults.thumbLayout;
                     var thumbURL = utils.httpsCorrection(element.data("df-thumb"));
                     element.removeAttr("data-thumb").removeAttr("data-thumb-layout");
-                    var innerText = element.html().trim();
+                    var innerText = element.text().trim();
                     if (innerText === undefined || innerText === "") {
                         innerText = "Click to Open";
                     }
@@ -3189,7 +3235,9 @@ var BaseViewer = /*#__PURE__*/ function() {
         },
         {
             key: "pagesReady",
-            value: function pagesReady() {}
+            value: function pagesReady() {
+                this.app.executeCallback('onPagesReady');
+            }
         },
         {
             key: "onReady",
@@ -3572,6 +3620,24 @@ var BaseViewer = /*#__PURE__*/ function() {
         {
             key: "render",
             value: function render() {}
+        },
+        {
+            key: "checkPageLoading",
+            value: function checkPageLoading() {
+                var all = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : false;
+                var isLoaded = true;
+                var pages = this.getVisiblePages().main;
+                var checkCount = all === true ? pages.length : this.isBooklet ? 1 : 2;
+                checkCount = Math.min(checkCount, pages.length);
+                for(var index = 0; index < checkCount; index++){
+                    var page = this.getPageByNumber(pages[index]);
+                    if (page) {
+                        isLoaded = page.textureLoaded && isLoaded;
+                    }
+                }
+                this.element.toggleClass("df-loading", !isLoaded);
+                return isLoaded;
+            }
         },
         {
             key: "textureLoadedCallback",
@@ -4042,6 +4108,7 @@ function reader_create_super(Derived) {
 
 
 
+var reader_jQuery = defaults_DEARVIEWER.jQuery;
 var reader_utils = defaults_DEARVIEWER.utils;
 var Reader = /*#__PURE__*/ function(BaseViewer) {
     "use strict";
@@ -4105,22 +4172,27 @@ var Reader = /*#__PURE__*/ function(BaseViewer) {
         {
             key: "initScrollBar",
             value: function initScrollBar() {
-                this.scrollBar = jQuery("<div class='df-reader-scrollbar'>");
+                this.scrollBar = reader_jQuery("<div class='df-reader-scrollbar'>");
                 //adding scrollbar to viewer.wrapper doesn't fit properly with mobile momentum scroll, shaky movement is detected
                 this.scrollBar.appendTo(this.app.container);
                 //solved #237
-                this.scrollPageNumber = jQuery("<div class='df-reader-scroll-page-number'>").appendTo(this.app.container);
+                this.scrollPageNumber = reader_jQuery("<div class='df-reader-scroll-page-number'>").appendTo(this.app.container);
+                this.scrollPageNumberCurrent = reader_jQuery("<div>").appendTo(this.scrollPageNumber);
+                this.scrollPageNumberTotal = reader_jQuery("<div class='df-reader-scroll-page-number-total'>").appendTo(this.scrollPageNumber);
             }
         },
         {
             key: "afterControlUpdate",
             value: function afterControlUpdate() {
                 if (this.scrollBar === void 0) return;
-                this.scrollBar[0].innerHTML = this.app.getCurrentLabel();
+                var currentLabel = this.app.getCurrentLabel();
+                this.scrollBar.text(currentLabel);
                 if (this.app.provider.pageLabels) {
-                    this.scrollPageNumber[0].innerHTML = this.app.getCurrentLabel() + "<div>(" + this.app.currentPageNumber + " of " + this.app.pageCount + ")</div>";
+                    this.scrollPageNumberCurrent.text(currentLabel);
+                    this.scrollPageNumberTotal.text("(" + this.app.currentPageNumber + " of " + this.app.pageCount + ")");
                 } else {
-                    this.scrollPageNumber[0].innerHTML = this.app.getCurrentLabel() + "<div>of " + this.app.pageCount + "</div>";
+                    this.scrollPageNumberCurrent.text(currentLabel);
+                    this.scrollPageNumberTotal.text("of " + this.app.pageCount);
                 }
             }
         },
@@ -4429,6 +4501,7 @@ var Reader = /*#__PURE__*/ function(BaseViewer) {
                 var page = this.getPageByNumber(param.pageNumber), app = this.app;
                 var viewPort = this.getViewPort(param.pageNumber, true);
                 page.element.height(Math.floor(viewPort.height * app.pageScaleValue * app.zoomValue)).width(Math.floor(viewPort.width * app.pageScaleValue * app.zoomValue));
+                this.pagesReady();
             }
         },
         {
@@ -5300,23 +5373,26 @@ var BaseFlipBookViewer = /*#__PURE__*/ function(BaseViewer) {
                 this.pageMode = isSingle ? defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.SINGLE : defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.DOUBLE;
                 this.updatePageMode();
                 app.resizeRequestStart();
-                // this.requestRefresh();
-                if (app.viewer.pageMode === defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.DOUBLE && app.ui.controls.pageMode) {
-                    app.ui.controls.pageMode.removeClass(app.options.icons['doublepage']).addClass(app.options.icons['singlepage']).attr('title', app.options.text.singlePageMode).html('<span>' + app.options.text.singlePageMode + '</span>');
-                } else {
-                    app.ui.controls.pageMode.addClass(app.options.icons['doublepage']).removeClass(app.options.icons['singlepage']).attr('title', app.options.text.doublePageMode).html('<span>' + app.options.text.doublePageMode + '</span>');
-                }
+            // this.requestRefresh();
             }
         },
         {
             key: "updatePageMode",
             value: function updatePageMode() {
+                var app = this.app;
                 if (this.app.pageCount < 3) this.pageMode = defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.SINGLE;
                 this.isSingle = this.pageMode === defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.SINGLE;
                 this.isBooklet = this.isSingle && this.singlePageMode === defaults_DEARVIEWER.FLIPBOOK_SINGLE_PAGE_MODE.BOOKLET;
                 this.app.jumpStep = this.isSingle ? 1 : 2;
                 this.totalSheets = Math.ceil(this.app.pageCount / (this.isBooklet ? 1 : 2));
                 if (this.sheets.length > 0) this.reset();
+                if (app.ui.controls.pageMode) {
+                    if (app.viewer.pageMode === defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.DOUBLE) {
+                        app.ui.controls.pageMode.removeClass(app.options.icons['doublepage']).addClass(app.options.icons['singlepage']).attr('title', app.options.text.singlePageMode).html('<span>' + app.options.text.singlePageMode + '</span>');
+                    } else {
+                        app.ui.controls.pageMode.addClass(app.options.icons['doublepage']).removeClass(app.options.icons['singlepage']).attr('title', app.options.text.doublePageMode).html('<span>' + app.options.text.doublePageMode + '</span>');
+                    }
+                }
             }
         },
         {
@@ -6849,6 +6925,7 @@ var FlipBook2D = /*#__PURE__*/ function(BaseFlipBookViewer) {
                 }
                 this.updateCenter();
                 this.updatePendingStatusClass();
+                this.app.executeCallback('onPagesReady');
             }
         },
         {
@@ -6984,6 +7061,7 @@ function slider_create_super(Derived) {
 
 
 
+var slider_jQuery = defaults_DEARVIEWER.jQuery;
 var slider_utils = defaults_DEARVIEWER.utils;
 var SliderPage = /*#__PURE__*/ function(BookSheet2D) {
     "use strict";
@@ -6998,7 +7076,7 @@ var SliderPage = /*#__PURE__*/ function(BookSheet2D) {
             key: "init",
             value: function init() {
                 var sheet = this, div = '<div>';
-                var element = sheet.element = jQuery(div, {
+                var element = sheet.element = slider_jQuery(div, {
                     "class": 'df-sheet'
                 });
                 var frontPage = sheet.frontPage = new Page2D();
@@ -7124,7 +7202,7 @@ var Slider = /*#__PURE__*/ function(FlipBook2D) {
             value: function eventToPoint(event) {
                 var point = slider_get(slider_get_prototype_of(Slider.prototype), "eventToPoint", this).call(this, event);
                 //setting isInsideSheet == true call every other match as right page slide
-                point.isInsideSheet = jQuery(event.srcElement).closest(".df-page").length > 0;
+                point.isInsideSheet = slider_jQuery(event.srcElement).closest(".df-page").length > 0;
                 point.isInsideCorner = false;
                 return point;
             }
@@ -7181,6 +7259,7 @@ var Slider = /*#__PURE__*/ function(FlipBook2D) {
                 }
                 this.updateCenter();
                 this.updatePendingStatusClass();
+                this.app.executeCallback('onPagesReady');
             }
         },
         {
@@ -9125,6 +9204,7 @@ var FlipBook3D = /*#__PURE__*/ function(BaseFlipBookViewer) {
                 if (this.cameraPositionDirty === true) {
                     this.updateCameraPosition();
                 }
+                this.app.executeCallback('onPagesReady');
             }
         },
         {
@@ -9330,20 +9410,6 @@ var FlipBook3D = /*#__PURE__*/ function(BaseFlipBookViewer) {
                     isLeftSheet: isLeftSheet,
                     sheet: sheet
                 };
-            }
-        },
-        {
-            key: "checkPageLoading",
-            value: function checkPageLoading() {
-                var isLoaded = true;
-                var pages = this.getVisiblePages().main;
-                for(var index = 0; index < (this.isBooklet ? 1 : 2); index++){
-                    var page = this.getPageByNumber(pages[index]);
-                    if (page) {
-                        isLoaded = page.textureLoaded && isLoaded;
-                    }
-                }
-                this.element.toggleClass("df-loading", !isLoaded);
             }
         },
         {
@@ -10658,6 +10724,7 @@ var DocumentProvider = /*#__PURE__*/ function() {
         this.PDFLinkItemsCache = [];
         this.canPrint = true;
         this.textPostion = [];
+        this.renderTime = 0;
     }
     provider_create_class(DocumentProvider, [
         {
@@ -10797,65 +10864,72 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
     function PDFDocumentProvider(props, context) {
         provider_class_call_check(this, PDFDocumentProvider);
         var _this;
-        var getPDFScript = function getPDFScript(callback) {
-            if (typeof pdfjsLib === "undefined") {
-                app.updateInfo(app.options.text.loading + " PDF Service ...");
-                provider_utils.getScript(app.options.pdfjsSrc + provider.cacheBustParameters, function() {
-                    if (typeof define === 'function' && __webpack_require__.amdO && window.requirejs && window.require && window.require.config) {
-                        app.updateInfo(app.options.text.loading + " PDF Service (require) ...");
-                        window.require.config({
-                            paths: {
-                                'pdfjs-dist/build/pdf.worker': app.options.pdfjsWorkerSrc.replace(".js", "")
-                            }
-                        });
-                        window.require([
-                            'pdfjs-dist/build/pdf'
-                        ], function(pdfjsLib1) {
-                            window.pdfjsLib = pdfjsLib1;
-                            getWorkerScript(callback);
-                        });
-                    } else {
-                        getWorkerScript(callback);
-                    }
-                }, function() {
-                    app.updateInfo("Unable to load PDF service..");
-                    provider.dispose();
-                }, app.options.pdfjsSrc.indexOf("pdfjs-4") > 1);
-            } else {
-                if (typeof callback === "function") callback();
-            }
-        };
-        var getWorkerScript = function getWorkerScript(callback) {
-            app.updateInfo(app.options.text.loading + " PDF Worker ...");
-            var tmp = document.createElement('a');
-            tmp.href = app.options.pdfjsWorkerSrc + provider.cacheBustParameters;
-            if (tmp.hostname !== window.location.hostname && defaults_DEARVIEWER['loadCorsPdfjsWorker'] === true) {
-                app.updateInfo(app.options.text.loading + " PDF Worker CORS ...");
-                provider_jQuery.ajax({
-                    url: app.options.pdfjsWorkerSrc + provider.cacheBustParameters,
-                    cache: true,
-                    success: function success(data) {
-                        app.options.pdfjsWorkerSrc = provider_utils.createObjectURL(data, "text/javascript");
-                        if (typeof callback === "function") callback();
-                    }
-                });
-            } else {
-                if (typeof callback === "function") callback();
-            }
-        };
         _this = _super.call(this, props, context);
         var app = _this.app, provider = provider_assert_this_initialized(_this);
         provider.pdfDocument = undefined;
         provider._page2Ratio = undefined;
         provider.cacheBustParameters = "?ver=" + defaults_DEARVIEWER.version + "&pdfver=" + app.options.pdfVersion;
-        getPDFScript(function() {
-            pdfjsLib.GlobalWorkerOptions.workerSrc = app.options.pdfjsWorkerSrc + provider.cacheBustParameters;
-            pdfjsLib.canvasWillReadFrequently = defaults_DEARVIEWER.defaults.canvasWillReadFrequently;
-            provider.loadDocument();
-        });
+        if (props.skipInit !== true) _this.init();
         return _this;
     }
     provider_create_class(PDFDocumentProvider, [
+        {
+            key: "init",
+            value: function init() {
+                var app = this.app, provider = this;
+                function getPDFScript(callback) {
+                    if (typeof pdfjsLib === "undefined") {
+                        app.updateInfo(app.options.text.loading + " PDF Service ...");
+                        provider_utils.getScript(app.options.pdfjsSrc + provider.cacheBustParameters, function() {
+                            if (typeof define === 'function' && __webpack_require__.amdO && window.requirejs && window.require && window.require.config) {
+                                app.updateInfo(app.options.text.loading + " PDF Service (require) ...");
+                                window.require.config({
+                                    paths: {
+                                        'pdfjs-dist/build/pdf.worker': app.options.pdfjsWorkerSrc.replace(".js", "")
+                                    }
+                                });
+                                window.require([
+                                    'pdfjs-dist/build/pdf'
+                                ], function(pdfjsLib1) {
+                                    window.pdfjsLib = pdfjsLib1;
+                                    getWorkerScript(callback);
+                                });
+                            } else {
+                                getWorkerScript(callback);
+                            }
+                        }, function() {
+                            app.updateInfo("Unable to load PDF service..");
+                            provider.dispose();
+                        }, app.options.pdfjsSrc.indexOf("pdfjs-4") > 1 || app.options.pdfjsSrc.indexOf("pdfjs-5") > 1);
+                    } else {
+                        if (typeof callback === "function") callback();
+                    }
+                }
+                function getWorkerScript(callback) {
+                    app.updateInfo(app.options.text.loading + " PDF Worker ...");
+                    var tmp = document.createElement('a');
+                    tmp.href = app.options.pdfjsWorkerSrc + provider.cacheBustParameters;
+                    if (tmp.hostname !== window.location.hostname && defaults_DEARVIEWER['loadCorsPdfjsWorker'] === true) {
+                        app.updateInfo(app.options.text.loading + " PDF Worker CORS ...");
+                        provider_jQuery.ajax({
+                            url: app.options.pdfjsWorkerSrc + provider.cacheBustParameters,
+                            cache: true,
+                            success: function success(data) {
+                                app.options.pdfjsWorkerSrc = provider_utils.createObjectURL(data, "text/javascript");
+                                if (typeof callback === "function") callback();
+                            }
+                        });
+                    } else {
+                        if (typeof callback === "function") callback();
+                    }
+                }
+                getPDFScript(function() {
+                    pdfjsLib.GlobalWorkerOptions.workerSrc = app.options.pdfjsWorkerSrc + provider.cacheBustParameters;
+                    pdfjsLib.canvasWillReadFrequently = defaults_DEARVIEWER.defaults.canvasWillReadFrequently;
+                    provider.loadDocument();
+                });
+            }
+        },
         {
             key: "dispose",
             value: function dispose() {
@@ -10937,7 +11011,7 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
                         app.dimensions.maxTextureWidth = app.dimensions.maxTextureHeight * _defaultPageRatio;
                         app.dimensions.autoHeightRatio = 1 / _defaultPageRatio;
                         provider.pageCount = pdf.numPages;
-                        provider.numPages = pdf.numPages;
+                        provider.numPages = pdf.numPages; //numPages are original pages, required when comparing the values even after pageCount is altered.
                         provider._page1Pass = true;
                         provider.pagesLoaded();
                     });
@@ -11095,7 +11169,7 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
         {
             key: "processPage",
             value: function processPage(param) {
-                var app = this.app, provider = this, pageNumber = param.pageNumber, startTime = performance.now(), sizeStr = "";
+                var app = this.app, provider = this, pageNumber = param.pageNumber, startTime = 0, sizeStr = "";
                 var dimen = app.viewer.getTextureSize(param);
                 if (DEARFLIP.defaults.cachePDFTexture === true) {
                     if (this.getCache(pageNumber, dimen.height) !== undefined) {
@@ -11129,6 +11203,7 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
                     param.trace = provider.requestIndex++;
                     provider.requestedPages += "," + param.trace + "[" + pdfPageNumberToRender + "|" + renderContext.canvas.height + "]";
                     pdfPage.cleanupAfterRender = false; //needs to disable the cleanup after render code in pdf.js
+                    startTime = performance.now();
                     var pageRendering = pdfPage.render(renderContext);
                     pageRendering.promise.then(function() {
                         app.applyTexture(renderContext.canvas, param);
@@ -11150,7 +11225,9 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
                             }
                         }
                         renderContext = null;
-                        provider_utils.log("Rendered " + pageNumber + " in " + Math.floor(performance.now() - startTime) + " ms : " + sizeStr);
+                        var _renderTime = performance.now() - startTime;
+                        provider.renderTime += _renderTime;
+                        provider_utils.log("Rendered " + pageNumber + " in " + _renderTime + " ms : " + sizeStr);
                     })["catch"](function(error) {
                         console.log(error);
                     });
@@ -11190,7 +11267,7 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
                 if (provider.textSearch === text) return;
                 provider.clearSearch();
                 if (text.length < 3 && text != "") {
-                    provider.app.updateSearchInfo("Minimum 3 letters required.");
+                    provider.app.updateSearchInfo(provider.app.options.text.searchMinimum);
                     return;
                 }
                 provider.textSearch = text;
@@ -11205,7 +11282,7 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
             value: function _search(text) {
                 var pageNumber = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1;
                 var provider = this;
-                provider.app.updateSearchInfo("Searching Page: " + pageNumber);
+                provider.app.updateSearchInfo(provider.app.options.text.searchSearchingInfo + " " + pageNumber);
                 provider.searchPage(pageNumber).then(function(textContent) {
                     // console.log(textContent);
                     var searchString = textContent, pos = 0, myRegexp = new RegExp(text, 'gi'), result;
@@ -11221,7 +11298,7 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
                         var searchPage = provider.app.viewer.searchPage(pageNumber);
                         if (searchPage.include === true) {
                             provider.totalHits += hits.length;
-                            provider.app.searchResults.append('<div class="df-search-result ' + (provider.app.currentPageNumber === pageNumber ? 'df-active' : '') + '" data-df-page="' + pageNumber + '">' + '<span>Page ' + searchPage.label + '</span><span>' + hits.length + ' ' + (hits.length > 1 ? 'results' : 'result') + '</span></div>');
+                            provider.app.searchResults.append('<div class="df-search-result ' + (provider.app.currentPageNumber === pageNumber ? 'df-active' : '') + '" data-df-page="' + pageNumber + '">' + '<span>' + provider.app.options.text.searchResultPage + ' ' + searchPage.label + '</span><span>' + hits.length + ' ' + (hits.length > 1 ? provider.app.options.text.searchResults : provider.app.options.text.searchResult) + '</span></div>');
                         }
                     }
                     if (provider.app.viewer.isActivePage(pageNumber)) {
@@ -11230,10 +11307,10 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
                     }
                     provider._search(text, pageNumber + 1);
                 })["catch"](function() {})["finally"](function() {
-                    if (provider.totalHits == 0) {
-                        provider.app.updateSearchInfo("No results Found!");
+                    if (provider.totalHits === 0) {
+                        provider.app.updateSearchInfo(provider.app.options.text.searchResultsNotFound);
                     } else {
-                        provider.app.updateSearchInfo(provider.totalHits + " results found");
+                        provider.app.updateSearchInfo(provider.totalHits + " " + provider.app.options.text.searchResultsFound);
                     }
                     provider.app.searchContainer.removeClass("df-searching");
                     provider.app.container.removeClass('df-fetch-pdf');
@@ -11941,12 +12018,14 @@ var UI = /*#__PURE__*/ function() {
             key: "createLogo",
             value: function createLogo() {
                 var app = this.app;
-                var logo = null;
-                if (app.options.logo.indexOf("<") > -1) {
-                    logo = controls_jQuery(app.options.logo).addClass("df-logo df-logo-html");
-                } else if (app.options.logo.trim().length > 2) {
-                    logo = controls_jQuery('<a class="df-logo df-logo-img" target="_blank" href="' + app.options.logoUrl + '"><img alt="" src="' + app.options.logo + '"/>');
-                }
+                // logo is a plain image URL (http/https only). HTML logo markup is no
+                // longer accepted — it was an XSS sink (jQuery(html) / attribute breakout).
+                var src = controls_utils.safeURL(app.options.logo);
+                if (!src) return;
+                var logo = controls_jQuery('<a class="df-logo df-logo-img" target="_blank" rel="noopener"><img alt=""/></a>');
+                var href = controls_utils.safeURL(app.options.logoUrl);
+                if (href) logo.attr("href", href);
+                logo.find("img").attr("src", src);
                 this.element.append(logo);
             }
         },
@@ -11975,27 +12054,27 @@ var UI = /*#__PURE__*/ function() {
                     //https://github.com/deepak-ghimire/dearviewer/issues/349
                     this.pageLabel.width("");
                     if (app.provider.pageLabels) {
-                        this.pageLabel.html("88888888888888888".substring(0, app.pageCount.toString().length * 3 + 4));
+                        this.pageLabel.text("88888888888888888".substring(0, app.pageCount.toString().length * 3 + 4));
                     } else {
-                        this.pageLabel.html("88888888888".substring(0, app.pageCount.toString().length * 2 + 3));
+                        this.pageLabel.text("88888888888".substring(0, app.pageCount.toString().length * 2 + 3));
                     }
                     this.pageNumber.width(this.pageLabel.width());
                     this.pageLabel.width(this.pageLabel.width());
-                    this.pageLabel.html("");
+                    this.pageLabel.text("");
                     this._pageLabelWidthSet = true;
                 }
                 var pageLabel = app.getCurrentLabel();
                 if (pageLabel.toString() !== app.currentPageNumber.toString()) {
-                    controls.pageLabel.html(pageLabel + "(" + app.currentPageNumber + "/" + app.pageCount + ")");
+                    controls.pageLabel.text(pageLabel + "(" + app.currentPageNumber + "/" + app.pageCount + ")");
                 } else {
-                    controls.pageLabel.html(pageLabel + "/" + app.pageCount);
+                    controls.pageLabel.text(pageLabel + "/" + app.pageCount);
                 }
                 controls.pageInput.val(pageLabel);
                 app.container.toggleClass("df-sidemenu-open", app.container.find(".df-sidemenu-visible").length > 0);
-                var isSearchOpen = app.provider.totalHits > 0 && app.container.find(".df-sidemenu-visible.df-search-container").length > 0;
-                app.container.toggleClass("df-search-open", isSearchOpen);
-                if (isSearchOpen) {
-                    var targetSearchresult = app.searchContainer.find(".df-search-result[data-df-page=" + app.currentPageNumber + "]");
+                this.isSearchOpen = app.provider.totalHits > 0 && app.container.find(".df-sidemenu-visible.df-search-container").length > 0;
+                app.container.toggleClass("df-search-open", this.isSearchOpen);
+                if (this.isSearchOpen) {
+                    var targetSearchresult = app.searchContainer.find(".df-search-result[data-df-page='" + app.currentPageNumber + "']");
                     app.searchContainer.find(".df-search-result.df-active").removeClass("df-active");
                     if (targetSearchresult.length > 0 && !targetSearchresult.hasClass(".df-active")) {
                         targetSearchresult.addClass("df-active");
@@ -12163,7 +12242,7 @@ var PrintHandler = /*#__PURE__*/ function() {
         controls_class_call_check(this, PrintHandler);
         //cache this
         var printHandler = this;
-        printHandler.frame = controls_jQuery('<iframe id="df-print-frame" style="display:none">').appendTo(controls_jQuery("body"));
+        printHandler.frame = controls_jQuery('<iframe id="df-print-frame" style="display:none" src="about:blank">').appendTo(controls_jQuery("body"));
         printHandler.frame.on("load", function() {
             try {
                 printHandler.frame[0].contentWindow.print();
@@ -12177,6 +12256,12 @@ var PrintHandler = /*#__PURE__*/ function() {
         {
             key: "printPDF",
             value: function printPDF(source) {
+                //bypass dearflip chrome extension
+                if (source.indexOf("?") == -1) {
+                    source += "?print=true";
+                } else {
+                    source += "&print=true";
+                }
                 this.frame[0].src = source;
             }
         }
@@ -12840,7 +12925,7 @@ var App = /*#__PURE__*/ function() {
                 this.container = app_jQuery("<div>").appendTo(this.element);
                 // Q. Why are this.element and this.container defined separately?
                 // A. In IOS when fullscreen is used, then the whole this.container can be transferred to the pseudo fullscreen container that stays at the last of the DOM.
-                this.container.addClass('df-container df-loading df-init' + " df-controls-" + this.options.controlsPosition + (this.options.controlsFloating === true ? " df-float" : " df-float-off") + (this.options.backgroundColor === 'transparent' ? " df-transparent" : "") + (this.isRTL === true ? " df-rtl" : "") + (app_utils.isIOS === true || app_utils.isIPad === true ? " df-ios" : ""));
+                this.container.addClass('df-container df-loading df-init' + (this.options.controlsFloating === true ? " df-float" : " df-float-off") + " df-controls-" + this.options.controlsPosition + (this.options.backgroundColor === 'transparent' ? " df-transparent" : "") + (this.isRTL === true ? " df-rtl" : "") + (app_utils.isIOS === true || app_utils.isIPad === true ? " df-ios" : ""));
                 this._offsetParent = this.container[0].offsetParent;
                 this.backGround = app_jQuery("<div class='df-bg'>").appendTo(this.container).css({
                     backgroundColor: this.options.backgroundColor,
@@ -13169,7 +13254,7 @@ var App = /*#__PURE__*/ function() {
                 app.searchButton = app_jQuery('<div class="df-ui-btn df-search-btn df-icon-search">').on("click", function(event) {
                     app.search();
                 }).appendTo(app.searchForm);
-                app.clearButton = app_jQuery('<a class="df-search-clear">Clear</a>').on("click", function(event) {
+                app.clearButton = app_jQuery('<a class="df-search-clear">' + this.options.text.searchClear + '</a>').on("click", function(event) {
                     app.clearSearch();
                 }).appendTo(app.searchForm);
                 app.searchInfo = app_jQuery('<div class="df-search-info">').appendTo(searchContainer);
@@ -13330,6 +13415,7 @@ var App = /*#__PURE__*/ function() {
                 } else {
                     app.textureRequestStatus = app_REQUEST_STATUS.ON;
                 }
+                return requestCount;
             }
         },
         {

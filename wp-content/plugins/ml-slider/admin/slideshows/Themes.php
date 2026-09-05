@@ -1112,8 +1112,8 @@ return $theme;
 
         $replace = array(
             $id,
-            strip_tags( $value ),
-            strip_tags( $value )
+            wp_strip_all_tags( $value ),
+            wp_strip_all_tags( $value )
         );
 
         return str_replace($search, $replace, $css);

@@ -57,6 +57,10 @@
       "type": "string",
       "default": "date"
     },
+    "customOrder": {
+      "type": "array",
+      "default": []
+    },
     "sortType": {
       "type": "string",
       "default": "DESC"

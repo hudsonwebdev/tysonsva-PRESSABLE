@@ -112,7 +112,7 @@
 					v-if="Object.keys(themes).length || Object.keys(customThemes).length"
 					type="button"
 					class="button"
-					@click="openModal">{{ __('Select a custom theme', 'ml-slider') }}
+					@click="openModal">{{ __('Select a theme', 'ml-slider') }}
 				</button>
 			</div>
 
@@ -341,7 +341,7 @@
                             {{ __('Preview', 'ml-slider') }}
 						</button>
 						<button
-							:disabled="!selectedTheme.folder"
+							:disabled="!selectedTheme.folder || savingTheme"
 							class="button button-primary"
 							@click.stop.prevent="setTheme">{{ __('Select', 'ml-slider') }}
 						</button>
@@ -384,7 +384,8 @@ export default {
 			is_open: false,
 			revealThemeAd: null,
 			theme_customize: [], // @TODO Maybe declare as {} ?
-			theme_edit_settings: {}
+			theme_edit_settings: {},
+			savingTheme: false
 		}
 	},
 	watch: {
@@ -568,12 +569,18 @@ export default {
 			this.setTheme()
 		},
 		setTheme() {
+			// A previous selection's auto-apply/auto-save chain (below) can still be running -
+			// letting a new one start concurrently is what causes #2362's Vue diffing crash
+			if (this.savingTheme) return
+			this.savingTheme = true
+
 			this.notifyInfo('metaslider/theme-updating', this.__('Saving theme...', 'ml-slider'))
 			this.$refs.themesModal.close()
 
 			// If the selected theme is set and already the current theme, do nothing
 			if (Object.keys(this.selectedTheme).length && Object.is(this.selectedTheme.folder, this.current.theme.folder)) {
 				this.notifySuccess('metaslider/theme-updated', this.__('Theme saved', 'ml-slider'), true)
+				this.savingTheme = false
 			} else {
 				this.$store.commit('slideshows/updateTheme', this.selectedTheme)
 
@@ -617,35 +624,18 @@ export default {
 					if (Number(this.autoThemeConfig)) {
 						this.theme_edit_settings = this.selectedTheme.edit_settings ?? {};
 						this.updateEditSettings();
+					} else {
+						this.savingTheme = false
 					}
 				}).catch(error => {
 					this.notifyError('metaslider/theme-error', error, true)
+					this.savingTheme = false
 				})
 			}
 		},
 		setColorPicker() {
-			var $ = window.jQuery;
-			$('.static-theme-customize .colorpicker').each(function () {
-				$(this).wpColorPicker({
-					change: function(event, ui) {
-						var input = $(this).parents('.wp-picker-container').find('input.colorpicker');
-						var btn = $(this).parents('.wp-picker-container').find('button.wp-color-result');
-			
-						btn.css('background-color',ui.color.toCSS('rgba'));
-			
-						input.data('new-color',ui.color.toCSS('rgba'));
-						input.attr('value',ui.color.toCSS('rgba'));
-			
-						btn.trigger('change');
-					}
-				}).promise().done(function() {
-					var text = typeof metaslider !== 'undefined' ? metaslider : null;
-					if (text) {
-						$(this).parents('.wp-picker-container').find('.iris-strip').eq(0).prepend(`<span class="ms-color-tooltip">${text.tone}</span>`);
-						$(this).parents('.wp-picker-container').find('.iris-strip').eq(1).prepend(`<span class="ms-color-tooltip">${text.opacity}</span>`);
-					}
-				});
-			});
+			var text = typeof metaslider !== 'undefined' ? metaslider : null;
+			window.metaslider.init_color_picker('.static-theme-customize .colorpicker', text);
 		},
 		updateColorPicker() {
 			this.$nextTick( function () {
@@ -689,9 +679,12 @@ export default {
 						}
 					}
 
-					setTimeout(function () {
+					setTimeout(() => {
 						EventManager.$emit('metaslider/save');
+						this.savingTheme = false
 					}, 1000);
+				} else {
+					this.savingTheme = false
 				}
 			});
 		},
@@ -767,8 +760,8 @@ export default {
 </script>
 
 <style lang="scss">
-	@import '../assets/styles/globals.scss';
-	@import '../assets/styles/mixins.scss';
+	@use '../assets/styles/globals.scss' as *;
+	@use '../assets/styles/mixins.scss' as *;
 
 	@mixin custom-theme-box() {
 		.theme-image-wrapper {

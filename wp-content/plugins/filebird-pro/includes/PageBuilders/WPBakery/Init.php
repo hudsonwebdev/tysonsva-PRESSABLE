@@ -4,6 +4,7 @@ namespace FileBird\PageBuilders\WPBakery;
 use FileBird\Classes\Tree;
 use FileBird\Model\Folder as FolderModel;
 use FileBird\Classes\Helpers;
+use FileBird\PageBuilders\GalleryRenderer;
 
 defined('ABSPATH') || exit;
 
@@ -141,101 +142,11 @@ class Init {
             'order' => 'DESC',
         ), $atts, 'filebird_gallery');
 
-        $folder_id = intval($atts['folder_id']);
-        
-        if ($folder_id <= 0) {
-            return '<div class="filebird-gallery-error">' . __('Please select a folder', 'filebird') . '</div>';
-        }
-
-        $attachment_ids = Helpers::getAttachmentIdsByFolderId($folder_id);
-        
-        if (empty($attachment_ids)) {
-            return '<div class="filebird-gallery-empty">' . __('No images found in this folder', 'filebird') . '</div>';
-        }
-
-        $args = array(
-            'post_type' => 'attachment',
-            'post_status' => 'inherit',
-            'post__in' => $attachment_ids,
-            'posts_per_page' => -1,
-            'orderby' => $atts['orderby'],
-            'order' => $atts['order'],
-        );
-
-        $query = new \WP_Query($args);
-        $output = '';
-
-        if ($query->have_posts()) {
-            $output .= '<div class="filebird-gallery filebird-gallery-columns-' . esc_attr($atts['columns']) . '">';
-            
-            while ($query->have_posts()) {
-                $query->the_post();
-                $attachment_id = get_the_ID();
-                $image_src = wp_get_attachment_image_src($attachment_id, $atts['size']);
-                $image_full = wp_get_attachment_image_src($attachment_id, 'full');
-                
-                $link = '';
-                switch ($atts['link_to']) {
-                    case 'file':
-                        $link = $image_full[0];
-                        break;
-                    case 'post':
-                        $link = get_attachment_link($attachment_id);
-                        break;
-                    default:
-                        $link = '';
-                }
-                
-                $output .= '<div class="filebird-gallery-item">';
-                if ($link) {
-                    $output .= '<a href="' . esc_url($link) . '">';
-                }
-                $output .= '<img src="' . esc_url($image_src[0]) . '" alt="' . esc_attr(get_the_title()) . '" />';
-                if ($link) {
-                    $output .= '</a>';
-                }
-                $output .= '</div>';
-            }
-            
-            $output .= '</div>';
-            $output .= '<style>
-                .filebird-gallery {
-                    display: flex;
-                    flex-wrap: wrap;
-                    margin: -10px;
-                }
-                .filebird-gallery-item {
-                    box-sizing: border-box;
-                    padding: 10px;
-                }
-                .filebird-gallery-columns-1 .filebird-gallery-item { width: 100%; }
-                .filebird-gallery-columns-2 .filebird-gallery-item { width: 50%; }
-                .filebird-gallery-columns-3 .filebird-gallery-item { width: 33.33%; }
-                .filebird-gallery-columns-4 .filebird-gallery-item { width: 25%; }
-                .filebird-gallery-columns-5 .filebird-gallery-item { width: 20%; }
-                .filebird-gallery-columns-6 .filebird-gallery-item { width: 16.66%; }
-                .filebird-gallery-item img {
-                    width: 100%;
-                    height: auto;
-                    display: block;
-                }
-            </style>';
-            
-            wp_reset_postdata();
-        }
-
-        return $output;
+        return GalleryRenderer::render($atts);
     }
 
     private function get_image_sizes() {
-        $sizes = array();
-        $wp_sizes = get_intermediate_image_sizes();
-        
-        foreach ($wp_sizes as $size) {
-            $sizes[$size] = $size;
-        }
-        
-        return $sizes;
+        return GalleryRenderer::getImageSizes();
     }
 
 }

@@ -270,6 +270,10 @@ class MetaSlide
      */
     public function build_anchor_tag($attributes, $content)
     {
+        // Preview is a srcdoc iframe - force new tab so links don't navigate it away.
+        if (isset($attributes['target']) && isset($_REQUEST['action']) && 'ms_get_preview' == $_REQUEST['action']) {
+            $attributes['target'] = '_blank';
+        }
 
         $html = "<a";
 
@@ -381,7 +385,14 @@ class MetaSlide
 
             $selected = $pos == 0 ? "class='selected " . esc_attr($add_class) . "' style='" . esc_attr($hide) . "'" : "class='" . esc_attr($add_class) . "' style='" . esc_attr($hide) . "'";
 
-            $return .= "<li {$selected} ><a tabindex='0' href='#' data-tab_id='tab-" . esc_attr($pos) . "'>" . esc_html($tab['title']) . "</a></li>";
+            $pro_btn = '';
+            $tab_link_class = '';
+            if (!empty($tab['pro'])) {
+                $pro_btn = ' <span class="dashicons dashicons-lock is-pro-setting tipsy-tooltip-top" original-title="' . esc_attr($tab['pro']) . '" data-href="' . esc_url('https://www.metaslider.com/upgrade?utm_source=lite&utm_medium=banner&utm_campaign=pro') . '"></span>';
+                $tab_link_class = " class='has-pro-ad'";
+            }
+
+            $return .= "<li {$selected} ><a tabindex='0' href='#' data-tab_id='tab-" . esc_attr($pos) . "'{$tab_link_class}>" . esc_html($tab['title']) . "{$pro_btn}</a></li>";
         }
 
         $return .= "</ul>";
@@ -504,7 +515,7 @@ class MetaSlide
             $menu_order = $query->post->menu_order;
         }
 
-        wp_reset_query();
+        wp_reset_query(); // phpcs:ignore WordPress.WP.DiscouragedFunctions.wp_reset_query_wp_reset_query
 
         // increment
         $menu_order = $menu_order + 1;

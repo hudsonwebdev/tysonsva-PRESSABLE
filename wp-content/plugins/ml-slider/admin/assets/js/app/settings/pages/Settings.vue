@@ -207,13 +207,93 @@
 					</div>
 				</div>
 			</template>
+			<template>
+				<div id="external-media-settings" class="bg-white shadow mb-4 relative">
+					<div class="px-4 py-5 md:p-6">
+						<h3 class="text-lg leading-6 m-0 font-medium text-gray-darkest">
+							{{ __('External Media Quality', 'ml-slider') }}
+						</h3>
+						<div class="mt-2 max-w-xl text-sm leading-5 text-gray-dark">
+							<div class="m-0 pt-0">
+								{{ __('Choose the default quality for images and videos from Unsplash and Pixabay. Higher quality means larger downloads, which can be slow or fail on some hosts. Sizes are a maximum, not a guarantee - smaller originals won\'t be scaled up, and not every video size is available for every clip.', 'ml-slider') }}
+							</div>
+						</div>
+						<div class="mt-5 mb-5">
+							<label for="unsplash-image-quality" class="block text-lg leading-6 m-0 font-medium text-gray-darkest mb-2">{{ __('Unsplash Image Quality', 'ml-slider') }}</label>
+							<div class="md:flex md:items-center">
+								<div class="relative rounded-md shadow-sm max-w-sm w-full">
+									<select id="unsplash-image-quality" v-model="globalSettings.unsplashImageQuality" class="form-select form-select--forced block w-full">
+										<option value="optimized">{{ __('Optimized - up to 2560px (recommended)', 'ml-slider') }}</option>
+										<option value="regular">{{ __('Regular - 1080px', 'ml-slider') }}</option>
+									</select>
+								</div>
+								<span class="mt-3 inline-flex rounded-md shadow-sm md:mt-0 md:ml-3 md:w-auto">
+									<button @click="saveGlobalSettings()" type="button" class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-orange hover:bg-orange-darker active:bg-orange-darkest transition ease-in-out duration-150 md:w-auto md:text-sm md:leading-5">
+										{{ __('Save', 'ml-slider') }}
+									</button>
+								</span>
+							</div>
+						</div>
+						<div class="mb-5">
+							<label for="pixabay-image-quality" class="block text-lg leading-6 m-0 font-medium text-gray-darkest mb-2">{{ __('Pixabay Image Quality', 'ml-slider') }}</label>
+							<div class="md:flex md:items-center">
+								<div class="relative rounded-md shadow-sm max-w-sm w-full">
+									<select id="pixabay-image-quality" v-model="globalSettings.pixabayImageQuality" class="form-select form-select--forced block w-full">
+										<option value="largeImageURL">{{ __('Large - up to 1280px (recommended)', 'ml-slider') }}</option>
+										<option value="webformatURL">{{ __('Medium - up to 640px', 'ml-slider') }}</option>
+									</select>
+								</div>
+								<span class="mt-3 inline-flex rounded-md shadow-sm md:mt-0 md:ml-3 md:w-auto">
+									<button @click="saveGlobalSettings()" type="button" class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-orange hover:bg-orange-darker active:bg-orange-darkest transition ease-in-out duration-150 md:w-auto md:text-sm md:leading-5">
+										{{ __('Save', 'ml-slider') }}
+									</button>
+								</span>
+							</div>
+						</div>
+						<div>
+							<label for="pixabay-video-quality" class="block text-lg leading-6 m-0 font-medium text-gray-darkest mb-2">{{ __('Pixabay Video Quality', 'ml-slider') }}</label>
+							<div class="md:flex md:items-center">
+								<div class="relative rounded-md shadow-sm max-w-sm w-full">
+									<select id="pixabay-video-quality" v-model="globalSettings.pixabayVideoQuality" :disabled="!isPro()" class="form-select form-select--forced block w-full">
+										<option value="large">{{ __('Original - full resolution', 'ml-slider') }}</option>
+										<option value="medium">{{ __('Full HD - up to 1920px (if available)', 'ml-slider') }}</option>
+										<option value="small">{{ __('HD - up to 1280px (if available, recommended)', 'ml-slider') }}</option>
+										<option value="tiny">{{ __('SD - up to 640px (if available)', 'ml-slider') }}</option>
+									</select>
+								</div>
+								<span class="mt-3 inline-flex rounded-md shadow-sm md:mt-0 md:ml-3 md:w-auto">
+									<button
+										@click="saveGlobalSettings()"
+										:disabled="!isPro()"
+										type="button"
+										:class="{ 'opacity-50 pointer-events-none': !isPro() }"
+										class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-orange hover:bg-orange-darker active:bg-orange-darkest transition ease-in-out duration-150 md:w-auto md:text-sm md:leading-5">
+										{{ __('Save', 'ml-slider') }}
+									</button>
+								</span>
+								<a
+									v-if="!isPro()"
+									:href="hoplink"
+									target="_blank"
+									class="dashicons dashicons-lock is-pro-setting tipsy-tooltip-top mt-3 md:mt-0 md:ml-2"
+									:original-title="__('This feature is available in MetaSlider Slideshow Pro', 'ml-slider')"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</template>
 		</template>
 	</split-layout>
 	<!-- Pro Ads -->
 	<split-layout :loading="loading" class="lg:mt-6" v-if="!isPro()">
-		<template slot="header">{{ __('Pro Settings', 'ml-slider') }}</template>
-		<template slot="description">{{ __('Update the MetaSlider Slideshow Pro settings.', 'ml-slider') }}</template>
+		<template slot="header">{{ __('Advanced Settings', 'ml-slider') }}</template>
+		<template slot="description">{{ __('Settings for Post Feed, WooCommerce, and caching.', 'ml-slider') }}</template>
 		<template slot="fields">
+			<text-single-input-ad :value="proSettings.postFeedFields">
+				<template slot="header">{{ __('Maximum Number of Custom Fields in Post Feed and WooCommerce Slides', 'ml-slider') }}</template>
+				<template slot="description">{{ __('Select how many custom fields will display in the dropdown menu when you are inserting tags.', 'ml-slider') }}</template>
+				<template slot="proText">{{ __('This feature is available in MetaSlider Slideshow Pro', 'ml-slider') }}</template>
+			</text-single-input-ad>
 			<switch-single-input-ad :value="false">
 				<template slot="header">{{ __('Flush Cache when Saving Changes', 'ml-slider') }}</template>
 				<template slot="description">{{ __('This setting allows you to automatically flush the cache when saving slideshow changes. Supports WP Rocket, WP Super Cache, W3 Total Cache, WP-Optimize and WP Fastest Cache plugins.', 'ml-slider') }}</template>
@@ -223,8 +303,8 @@
 	</split-layout>
 	<!-- Pro settings -->
 	<split-layout :loading="loading" class="lg:mt-6" v-if="isPro()">
-		<template slot="header">{{ __('Pro Settings', 'ml-slider') }}</template>
-		<template slot="description">{{ __('Update the MetaSlider Slideshow Pro settings.', 'ml-slider') }}</template>
+		<template slot="header">{{ __('Advanced Settings', 'ml-slider') }}</template>
+		<template slot="description">{{ __('Settings for Post Feed, WooCommerce, the legacy Theme Editor, and caching.', 'ml-slider') }}</template>
 		<template slot="fields">
 			<text-single-input 
 				v-model="proSettings.postFeedFields" 
@@ -256,6 +336,7 @@ import { default as TextSingle } from '../inputs/_textSingle'
 import { default as TextMultiple } from '../inputs/_textMultiple'
 import { default as SwitchSingle } from '../inputs/_switchSingle'
 import { default as SwitchSingleAd } from '../inputs/_switchSingleAd'
+import { default as TextSingleAd } from '../inputs/_textSingleAd'
 import { default as SelectField } from '../inputs/_selectField'
 import { default as WarningAlert } from '../inputs/alerts/_warningSmall'
 import { Settings } from '../../api'
@@ -267,6 +348,7 @@ export default {
 		'text-multiple-input' : TextMultiple,
 		'switch-single-input' : SwitchSingle,
 		'switch-single-input-ad' : SwitchSingleAd,
+		'text-single-input-ad' : TextSingleAd,
 		'select-field-input' : SelectField,
 		'alert-warning-small': WarningAlert
 	},
@@ -288,6 +370,7 @@ export default {
             },
             globalSettings: {
 				license: '',
+				optIn: false,
 				adminBar: true,
 				editLink: false,
 				legacy: true,
@@ -299,7 +382,10 @@ export default {
 				autoThemeConfig: true,
 				dashboardSort: 'ID',
 				dashboardOrder: 'asc',
-				dashboardItems: 10
+				dashboardItems: 10,
+				unsplashImageQuality: 'optimized',
+				pixabayImageQuality: 'largeImageURL',
+				pixabayVideoQuality: 'small'
 
 			},
 			proSettings: {

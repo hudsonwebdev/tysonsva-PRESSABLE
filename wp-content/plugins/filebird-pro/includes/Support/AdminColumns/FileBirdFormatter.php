@@ -30,7 +30,7 @@ class FileBirdFormatter implements Formatter
         $current_folder_path = $this->get_folder_path( $current_folder_id );
 
         if ( ! isset( $this->folders[ $current_folder_id ] ) ) {
-            return '';
+            return $value->with_value('');
         }
 
         $formatted_string = sprintf( '<a data-id="%1$d" href="#" title="%2$s">%3$s</a>', $current_folder_id, $current_folder_path, $this->folders[ $current_folder_id ]->name );

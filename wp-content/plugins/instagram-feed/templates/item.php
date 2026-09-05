@@ -49,16 +49,19 @@ $img_screenreader = str_replace(
 	$img_screenreader
 );
 $img_screenreader = trim( $img_screenreader );
+if ( '' === $img_screenreader ) {
+	$img_screenreader = sprintf( __( 'Instagram post %s', 'instagram-feed' ), $post_id );
+}
 $img_screenreader = apply_filters('sbi_img_screenreader', $img_screenreader, $post);
 
 ?>
-<div class="sbi_item sbi_type_<?php echo esc_attr($media_type); ?><?php echo esc_attr($classes); ?>"
+<div class="sbi_item sbi_type_<?php echo esc_attr($media_type); ?><?php echo esc_attr($classes); ?>" role="listitem"
 	id="sbi_<?php echo esc_html($post_id); ?>" data-date="<?php echo esc_html($timestamp); ?>">
 	<div class="sbi_photo_wrap">
 		<a class="sbi_photo" href="<?php echo esc_url($permalink); ?>" target="_blank" rel="noopener nofollow"
 			data-full-res="<?php echo esc_url($media_full_res); ?>"
-			data-img-src-set="<?php echo esc_attr(sbi_json_encode($media_all_sizes_json)); ?>">
-			<span class="sbi-screenreader"><?php echo esc_html($img_screenreader); ?></span>
+			data-img-src-set="<?php echo esc_attr(sbi_json_encode($media_all_sizes_json)); ?>"<?php echo SB_Instagram_Display_Elements::get_customizer_decorative_tabindex($settings); ?>>
+			<span class="sbi-screenreader"<?php echo SB_Instagram_Display_Elements::vue_pre_attr($settings); ?>><?php echo esc_html($img_screenreader); ?></span>
 			<?php echo $maybe_carousel_icon; ?>
 			<?php echo $maybe_video_icon; ?>
 			<img src="<?php echo esc_url($media_url); ?>" alt="<?php echo esc_attr($img_alt); ?>" aria-hidden="true">

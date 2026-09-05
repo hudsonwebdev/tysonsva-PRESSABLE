@@ -43,7 +43,7 @@
         },
         {
             "key": "field_6980aae113781",
-            "label": "Single or Gallery",
+            "label": "Media Type",
             "name": "single_or_gallery",
             "aria-label": "",
             "type": "radio",
@@ -56,8 +56,9 @@
                 "id": ""
             },
             "choices": {
-                "single": "single",
-                "gallery": "gallery"
+                "single": "Image",
+                "gallery": "Image Gallery",
+                "video": "Video"
             },
             "default_value": "single",
             "return_format": "value",
@@ -174,6 +175,141 @@
             "save_other_choice": 0
         },
         {
+            "key": "field_67f2b1001vid01",
+            "label": "Video Source",
+            "name": "video_source",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6980aae113781",
+                        "operator": "==",
+                        "value": "video"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "upload": "Upload Video",
+                "embed": "YouTube or Vimeo URL"
+            },
+            "default_value": "upload",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "allow_in_bindings": 0,
+            "layout": "vertical",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_67f2b1002vid02",
+            "label": "Video File",
+            "name": "video_file",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Upload an MP4, WebM, or OGG video file.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6980aae113781",
+                        "operator": "==",
+                        "value": "video"
+                    },
+                    {
+                        "field": "field_67f2b1001vid01",
+                        "operator": "==",
+                        "value": "upload"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "mp4,webm,ogg",
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_67f2b1004vid04",
+            "label": "Video Thumbnail",
+            "name": "video_thumbnail",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Optional. Shown before the video loads. Visitors click the thumbnail to play the video.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6980aae113781",
+                        "operator": "==",
+                        "value": "video"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "uploader": "",
+            "return_format": "array",
+            "library": "all",
+            "acfe_thumbnail": 0,
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_67f2b1003vid03",
+            "label": "Video URL",
+            "name": "video_embed_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Paste a YouTube or Vimeo URL.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6980aae113781",
+                        "operator": "==",
+                        "value": "video"
+                    },
+                    {
+                        "field": "field_67f2b1001vid01",
+                        "operator": "==",
+                        "value": "embed"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "placeholder": "https://www.youtube.com/watch?v=..."
+        },
+        {
             "key": "field_689e0b45eae82",
             "label": "Image Link",
             "name": "image_link",
@@ -181,7 +317,15 @@
             "type": "url",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6980aae113781",
+                        "operator": "==",
+                        "value": "single"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "79",
                 "class": "",
@@ -199,7 +343,15 @@
             "type": "true_false",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6980aae113781",
+                        "operator": "==",
+                        "value": "single"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "20",
                 "class": "",
@@ -280,7 +432,15 @@
             "type": "true_false",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6980aae113781",
+                        "operator": "==",
+                        "value": "single"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "25",
                 "class": "",
@@ -426,5 +586,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1773771508
+    "modified": 1773772800
 }

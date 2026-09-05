@@ -216,7 +216,7 @@ function toggleEventView(viewtarget){
 }
 
 
-$(".event-card, .news-card, .cta-block").click(function (e) {
+$(".news-card, .cta-block").click(function (e) {
   e.preventDefault();
 
   var newsurl = $(this).find("a").attr("href");
@@ -288,13 +288,64 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const video = player.querySelector("video");
     const button = player.querySelector(".video-play-btn");
+    const embedTemplate = player.querySelector("template.video-embed-template");
 
-    // Play when clicking play button
-    button.addEventListener("click", (e) => {
-      e.stopPropagation();
-      video.play();
+    if (!button) return;
+
+    const poster = player.querySelector(".video-poster");
+
+    function hidePoster() {
+      if (!poster) return;
+      poster.hidden = true;
+      poster.setAttribute("aria-hidden", "true");
+      poster.style.display = "none";
+    }
+
+    function activateVideo(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (player.classList.contains("playing")) return;
+
+      // Mark playing immediately so CSS swaps layers before media paints
       player.classList.add("playing");
-    });
+      hidePoster();
+
+      if (video) {
+        const lazySrc = video.getAttribute("data-src");
+        if (lazySrc && !video.getAttribute("src")) {
+          video.setAttribute("src", lazySrc);
+          video.load();
+        }
+
+        const tryPlay = () => {
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(() => {
+              /* Autoplay may be blocked; controls remain available */
+            });
+          }
+        };
+
+        if (video.readyState >= 2) {
+          tryPlay();
+        } else {
+          video.addEventListener("loadeddata", tryPlay, { once: true });
+        }
+      } else if (embedTemplate) {
+        player.appendChild(embedTemplate.content.cloneNode(true));
+        embedTemplate.remove();
+      }
+    }
+
+    // Play when clicking play button or thumbnail
+    button.addEventListener("click", activateVideo);
+    if (poster) {
+      poster.addEventListener("click", activateVideo);
+    }
+
+    if (!video) return;
 
     // Stop if user clicks the video while playing
     video.addEventListener("click", () => {
@@ -302,6 +353,11 @@ document.addEventListener("DOMContentLoaded", () => {
         video.pause();
         video.currentTime = 0;
         player.classList.remove("playing");
+        if (poster) {
+          poster.hidden = false;
+          poster.removeAttribute("aria-hidden");
+          poster.style.display = "";
+        }
       }
     });
 
@@ -309,6 +365,11 @@ document.addEventListener("DOMContentLoaded", () => {
     video.addEventListener("ended", () => {
       video.currentTime = 0;
       player.classList.remove("playing");
+      if (poster) {
+        poster.hidden = false;
+        poster.removeAttribute("aria-hidden");
+        poster.style.display = "";
+      }
     });
 
   });

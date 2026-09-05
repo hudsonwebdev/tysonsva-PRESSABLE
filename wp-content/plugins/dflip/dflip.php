@@ -4,7 +4,7 @@
 /**
  * Plugin Name: DearFlip (dflip)
  * Description: Realistic 3D Flip-books for WordPress
- * Version: 2.4.13
+ * Version: 2.4.37
  * Update URI: https://api.freemius.com
  *
  * Text Domain: DFLIP

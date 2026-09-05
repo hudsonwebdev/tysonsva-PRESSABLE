@@ -45,6 +45,9 @@ function tca_defer_scripts( $tag, $handle, $src ) {
 		'tca-navigation',
 		'tca-neighborhood',
 		'mapbox-js',
+		// Must defer with mapbox-js: otherwise these run before Mapbox and never init.
+		'tca-events-locations-map',
+		'tca-events-location-list-map',
 	);
 
 	if ( in_array( $handle, $defer_handles, true ) ) {

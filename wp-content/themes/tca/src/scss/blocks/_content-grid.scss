@@ -75,8 +75,23 @@ h2{
 }
 
 @media(min-width:$breakpoint-medium){
-    .tysons-slider{
+    .tysons-slider--edge-peek,
+    .tysons-slider:not(.tysons-slider--contained){
         width:120%;
+    }
+}
+
+/* Standard UIKit slider — no intentional bleed past the container */
+.tca-slider--contained{
+    overflow:hidden;
+
+    .uk-position-relative{
+        overflow:hidden;
+    }
+
+    .tysons-slider--contained{
+        width:100%;
+        max-width:100%;
     }
 }
 

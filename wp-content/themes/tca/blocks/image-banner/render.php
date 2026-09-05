@@ -61,7 +61,6 @@ if ( $has_any_banner ) {
 	if ( $has_image_banner ) {
 		?>
 		<div class="image-banner">
-			<div class="image-tint"></div>
 			<div class="image-wrap">
 				<img <?php awesome_acf_responsive_image( $banner_image['id'], 'tca-hero', '1920px', $banner_image['alt'], true ); ?> />
 			</div>
@@ -96,12 +95,16 @@ if ( $has_any_banner ) {
 				<?php if ( $poster_url ) { ?> poster="<?php echo esc_url( $poster_url ); ?>"<?php } ?>
 				data-src="<?php echo esc_url( $video_url ); ?>"
 				data-object-fit="cover"></video>
-			<div class="image-tint"></div>
 		</div>
 		<?php
 	}
 
 	echo '</div>';
+
+	// Tint sits on .banner-shell (sibling of .banner-media), not inside the
+	// media/video stacking context — otherwise Chrome can composite the
+	// gradient against the dark fallback instead of the actual image/video.
+	echo '<div class="image-tint"></div>';
 
 	if ( $is_video_banner ) {
 		?>

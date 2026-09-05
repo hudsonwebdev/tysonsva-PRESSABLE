@@ -50,7 +50,14 @@ class FolderController extends Controller {
 		}
 		
 		$folder_id = $request->get_param( 'folder_id' );
-		$lang = sanitize_key( $request->get_param( 'language' ) );
+
+		$current_user_id = get_current_user_id();
+		$folder_per_user = SettingModel::getInstance()->get( 'user_mode' ) === '1';
+
+		if ( ! FolderModel::verifyAuthor( $folder_id, $current_user_id, $folder_per_user ) ) {
+			return new \WP_Error( 'rest_forbidden', __( 'Permission denied.', 'filebird' ), array( 'status' => rest_authorization_required_code() ) );
+		}
+
 		$new_folder = FolderModel::duplicateFolder( $folder_id, true );
 		if ( $new_folder ) {
 			return rest_ensure_response( $new_folder );

@@ -3,7 +3,7 @@ import { EventManager } from '../../utils'
 
 // Since this uses an external api we need a new instance
 const api = Axios.create({
-	baseURL: 'https://www.metaslider.com/wp-json/unsplash/v1/'
+	baseURL: 'https://connect.metaslider.com/wp-json/unsplash/v1/'
 })
 
 const Unsplash = {

@@ -3,6 +3,25 @@
         display:flex;
         flex-direction: column;
         height:100% !important;
+        cursor:pointer;
+
+        .event-card-overlay{
+            position:absolute;
+            inset:0;
+            z-index:2;
+            display:block;
+            text-decoration:none;
+        }
+
+        &:has(.event-card-title-link:focus-visible){
+            outline:3px solid $steel-blue;
+            outline-offset:3px;
+        }
+
+        .event-card-title-link:focus,
+        .event-card-title-link:focus-visible{
+            outline:none;
+        }
 
    
         .outerblue{
@@ -22,6 +41,7 @@
         .inner-wrap{
 
             position:relative;
+            z-index:1;
             overflow:hidden;
             height:100%;
             background-color:$gray;
@@ -53,6 +73,27 @@
             width:100%;
             padding-bottom:70%;
             position:relative;
+            overflow:hidden;
+
+            picture,
+            img{
+                position:absolute;
+                inset:0;
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                max-width:none;
+                z-index:0;
+            }
+
+            picture img{
+                position:absolute;
+                inset:0;
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                max-width:none;
+            }
 
             .date-top{
              
@@ -244,6 +285,9 @@
     }
 
     &.tca-event{
+            &:has(.event-card-title-link:focus-visible){
+                outline-color:$purple;
+            }
             .inner-wrap{
                 .single-stack{
                     .card-image{

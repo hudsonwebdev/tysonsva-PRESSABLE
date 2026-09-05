@@ -7,29 +7,30 @@
 					class="screen-reader-text">{{ __('Filter by type', 'ml-slider') }}</label>
 				<select
 					v-if="$parent.filters.length"
+					id="media-attachment-filters"
+					v-model="$parent.imageType"
 					class="attachment-filters"
 					style="min-width:150px">
-					<option value="all">{{ __('All media items', 'ml-slider') }}</option>
 					<option
-						v-for="(filter, value) in $parent.filters"
-						:key="value"
-						:value="value"
-					>{{ filter }}</option>
+						v-for="filter in $parent.filters"
+						:key="filter.value"
+						:value="filter.value"
+					>{{ filter.label }}</option>
 				</select>
 				<span class="spinner"/>
 			</div>
 			<div class="media-toolbar-primary search-form">
 				<!-- TODO: make search optional -->
 				<label
-					for="media-search-input"
-					class="screen-reader-text">{{ __('Search Unsplash API', 'ml-slider') }}</label>
+					:for="$parent.searchInputId"
+					class="screen-reader-text">{{ sprintf(__('Search %s', 'ml-slider'), $parent.serviceName) }}</label>
 				<input
-					id="search-unsplash"
+					:id="$parent.searchInputId"
 					v-model="$parent.searchTerm"
-					:placeholder="__('Search unsplash.com...', 'ml-slider')"
+					:placeholder="$parent.searchPlaceholder"
 					type="search"
 					class="search"
-					@focus="notifyInfo('metaslider/unsplash-search-focused', 'Unsplash search was focused')"
+					@focus="notifyInfo($parent.searchFocusedEvent, $parent.serviceName + ' search was focused')"
 					@keyup="searchByTerm"
 					@search="searchByTerm">
 			</div>
@@ -124,8 +125,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../assets/styles/globals.scss';
-@import '../../assets/styles/mixins.scss';
+@use '../../assets/styles/globals.scss' as *;
+@use '../../assets/styles/mixins.scss' as *;
 .ms-load-more-api {
 	.ms-load-more-button {
 		display: flex;

@@ -1,10 +1,17 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
      exit;
- }                                            
+ } 
+   $api_type=$this->post('api_type',$info);
+  $org_name=trim($this->post('org_name',$info));
+  $pkce=$this->post('code',$info); 
+  if($api_type == '' && $org_name !='' && $pkce == ''){
+   $pkce=$api->get_code();   
+  }                                          
 $name=$this->post('name',$info);  
 $api=$this->post('api',$info);  
 $self_dir=admin_url().'?'.$this->id.'_tab_action=get_code'; 
+
  ?>
   <div class="crm_fields_table">
     <div class="crm_field">
@@ -75,9 +82,43 @@ echo '<option value="'.esc_attr($k).'" '.$sel.'>'.esc_html($v).'</option>';
   </div>   
   </div>
   <div class="vx_tabs" id="tab_vx_api" style="<?php if($this->post('api',$info) == "web"){echo 'display:none';} ?>">
+  
+      <div class="crm_field">
+  <div class="crm_field_cell1"><label for="vx_org_name"><?php esc_html_e('Salesforce domain name','gravity-forms-salesforce-crm'); ?></label>
+  </div>
+  <div class="crm_field_cell2">
+  <input type="text" name="crm[org_name]" value="<?php echo esc_attr($this->post('org_name',$info)); ?>" id="vx_org_name" class="crm_text" required="required" placeholder="<?php echo esc_html_e('your-org-domain only','gravity-forms-salesforce-crm');  ?>" <?php if( $api!='web' && !empty($info['access_token'])){ echo 'disabled="disabled"'; } ?>>
+  <span class="howto"><?php esc_html_e('Go to Salesforce Setup > Company Settings > My Domain and copy "My Domain Name".','gravity-forms-salesforce-crm'); echo sprintf(__(" You can copy this from salesforce url. e.g %s.my.salesforce.com ",'gravity-forms-salesforce-crm'),'<code>your-org-domain</code>'); ?></span>
+  </div>
+  <div class="clear"></div>
+  </div>
+  <?php
+      if(!empty($info['org_name'])){  ?>
+  
+      <div class="crm_field">
+  <div class="crm_field_cell1">
+  <label for="vx_api_type"><?php esc_html_e('Connection Type','gravity-forms-salesforce-crm'); ?></label>
+  </div>
+  <div class="crm_field_cell2">
+<select name="crm[api_type]" class="crm_text" id="vx_api_type" data-save="no" <?php if( $api!='web' && !empty($info['access_token'])){ echo 'disabled="disabled"'; } ?> >
+  <?php $envs=array(''=>__('Web Server Flow (authorize as Salesforce User)','gravity-forms-salesforce-crm'),'client'=>__('Client Credentials Flow (using own salesforce app)','gravity-forms-salesforce-crm'));
+foreach($envs as $k=>$v){
+    $sel='';
+if(!empty($info['api_type']) && $info['api_type'] == $k){ $sel='selected="selected"'; }
+echo '<option value="'.esc_attr($k).'" '.$sel.'>'.esc_html($v).'</option>';
+}
+ ?>
+ </select>
+  </div>
+  <div class="clear"></div>
+  </div>
+  
    
-  <div class="crm_field">
-  <div class="crm_field_cell1"><label><?php esc_html_e('Salesforce Access','gravity-forms-salesforce-crm'); ?></label></div>
+ 
+     <?php if(isset($info['access_token'])  && $info['access_token']!="") {
+  ?>
+    <div class="crm_field">
+  <div class="crm_field_cell1"><label><?php esc_html_e("Salesforce Access",'gravity-forms-salesforce-crm'); ?></label></div>
   <div class="crm_field_cell2">
   <?php if(isset($info['access_token'])  && $info['access_token']!="") {
   ?>
@@ -85,24 +126,19 @@ echo '<option value="'.esc_attr($k).'" '.$sel.'>'.esc_html($v).'</option>';
                             $instance_url=str_replace("https://","",$info["instance_url"]);
   echo sprintf(__("Authorized Connection to %s on %s",'gravity-forms-salesforce-crm'),'<code>'.$instance_url.'</code>',date('F d, Y h:i:s A',$info['sales_token_time']));
         ?></div>
+            <a class="button button-secondary" id="vx_revoke" href="<?php echo esc_url($link."&".$this->id."_tab_action=get_token&vx_nonce=".$nonce.'&id='.$id)?>"><i class="fa fa-unlock"></i> <?php esc_html_e("Revoke Access",'gravity-forms-salesforce-crm'); ?></a>
   <?php
   }else{
   $test_link='https://test.salesforce.com/services/oauth2/authorize?response_type=code&state='.urlencode($link."&".$this->id."_tab_action=get_token&id=".$id."&vx_nonce=".$nonce.'&vx_env=test').'&client_id='.esc_html($client['client_id']).'&redirect_uri='.urlencode(esc_url($client['call_back'])).'&scope='.urlencode('api refresh_token'); 
       
- $link_href='https://login.salesforce.com/services/oauth2/authorize?response_type=code&state='.urlencode($link."&".$this->id."_tab_action=get_token&id=".$id."&vx_nonce=".$nonce.'&vx_env=').'&client_id='.esc_html($client['client_id']).'&redirect_uri='.urlencode(esc_url($client['call_back'])).'&scope='.urlencode('api refresh_token'); 
+ $link_href='https://login.salesforce.com/services/oauth2/authorize?response_type=code&state='.urlencode($link."&".$this->id."_tab_action=get_token&id=".$id."&vx_nonce=".$nonce.'&vx_env=').'&client_id='.esc_html($client['client_id']).'&redirect_uri='.urlencode(esc_url($client['call_back'])).'&scope='.urlencode('api refresh_token').'&code_challenge='.$pkce; 
  if(!empty($info['env'])){ $link_href=$test_link; }    
   ?>
   <a class="button button-default button-hero sf_login" id="vx_login_btn" data-id="<?php echo esc_html($client['client_id']) ?>" href="<?php echo $link_href ?>" data-login="<?php echo $link_href ?>" target="_self" data-test="<?php echo $test_link ?>"> <i class="fa fa-lock"></i> <?php esc_html_e("Login with Salesforce",'gravity-forms-salesforce-crm'); ?></a>
   <?php
   }
-  ?></div>
-  <div class="clear"></div>
-  </div>                  
-    <?php if(isset($info['access_token'])  && $info['access_token']!="") {
   ?>
-    <div class="crm_field">
-  <div class="crm_field_cell1"><label><?php esc_html_e("Revoke Access",'gravity-forms-salesforce-crm'); ?></label></div>
-  <div class="crm_field_cell2">  <a class="button button-secondary" id="vx_revoke" href="<?php echo esc_url($link."&".$this->id."_tab_action=get_token&vx_nonce=".$nonce.'&id='.$id)?>"><i class="fa fa-unlock"></i> <?php esc_html_e("Revoke Access",'gravity-forms-salesforce-crm'); ?></a>
+
   </div>
   <div class="clear"></div>
   </div> 
@@ -115,21 +151,35 @@ echo '<option value="'.esc_attr($k).'" '.$sel.'>'.esc_html($v).'</option>';
   <?php
     }
   ?>
+ <div id="vx_login_div" style="<?php if($this->post('api_type',$info) != ""){echo 'display:none';} ?>"> 
+   <?php if(!isset($info['access_token']) || empty($info['access_token']) ) {
+  ?> 
   <div class="crm_field">
-  <div class="crm_field_cell1"><label for="vx_error_email"><?php esc_html_e("Notify by Email on Errors",'gravity-forms-salesforce-crm'); ?></label></div>
-  <div class="crm_field_cell2"><textarea name="crm[error_email]" id="vx_error_email" placeholder="<?php esc_html_e("Enter comma separated email addresses",'gravity-forms-salesforce-crm'); ?>" class="crm_text" style="height: 70px"><?php echo isset($info['error_email']) ? esc_html($info['error_email']) : ""; ?></textarea>
-  <span class="howto"><?php esc_html_e("Enter comma separated email addresses. An email will be sent to these email addresses if an order is not properly added to Salesforce. Leave blank to disable.",'gravity-forms-salesforce-crm'); ?></span>
+  <div class="crm_field_cell1"><label><?php esc_html_e('Salesforce Access','gravity-forms-salesforce-crm'); ?></label></div>
+  <div class="crm_field_cell2">
+  <?php 
+  $test_link='https://test.salesforce.com/services/oauth2/authorize?response_type=code&state='.urlencode($link."&".$this->id."_tab_action=get_token&id=".$id."&vx_nonce=".$nonce.'&vx_env=test').'&client_id='.esc_html($client['client_id']).'&redirect_uri='.urlencode(esc_url($client['call_back'])).'&scope='.urlencode('api refresh_token'); 
+      
+ $link_href='https://login.salesforce.com/services/oauth2/authorize?response_type=code&state='.urlencode($link."&".$this->id."_tab_action=get_token&id=".$id."&vx_nonce=".$nonce.'&vx_env=').'&client_id='.esc_html($client['client_id']).'&redirect_uri='.urlencode(esc_url($client['call_back'])).'&scope='.urlencode('api refresh_token').'&code_challenge='.$pkce; 
+ if(!empty($info['env'])){ $link_href=$test_link; }    
+  ?>
+  <a class="button button-default button-hero sf_login" id="vx_login_btn" data-id="<?php echo esc_html($client['client_id']) ?>" href="<?php echo $link_href ?>" data-login="<?php echo $link_href ?>" target="_self" data-test="<?php echo $test_link ?>"> <i class="fa fa-lock"></i> <?php esc_html_e("Login with Salesforce",'gravity-forms-salesforce-crm'); ?></a>
   </div>
   <div class="clear"></div>
-  </div>  
+  </div>                  
+<?php
+   }
+?>
+  
    <div class="crm_field">
   <div class="crm_field_cell1"><label for="vx_custom_app_check"><?php esc_html_e("Salesforce App",'gravity-forms-salesforce-crm'); ?></label></div>
   <div class="crm_field_cell2"><div><input type="checkbox" name="crm[custom_app]" id="vx_custom_app_check" value="yes" <?php if($this->post('custom_app',$info) == "yes"){echo 'checked="checked"';} ?> style="margin-right: 5px; vertical-align: top"><?php echo esc_html__('Use Own Salesforce App - If you want to connect one Salesforce account to 5+ sites then use a separate Salesforce App for each 5 sites ','gravity-forms-salesforce-crm'); gform_tooltip('vx_custom_app'); ?></div>
   </div>
   <div class="clear"></div>
   </div>
-  
-  <div id="vx_custom_app_div" style="<?php if($this->post('custom_app',$info) != "yes"){echo 'display:none';} ?>">
+ </div>
+ 
+  <div id="vx_custom_app_div" style="<?php if ($this->post('custom_app',$info) != "yes" && $this->post('api_type',$info) == ''){echo 'display:none';} ?>">
      <div class="crm_field">
   <div class="crm_field_cell1"><label for="app_id"><?php esc_html_e("Consumer Key",'gravity-forms-salesforce-crm'); ?></label></div>
   <div class="crm_field_cell2">
@@ -142,12 +192,15 @@ echo '<option value="'.esc_attr($k).'" '.$sel.'>'.esc_html($v).'</option>';
   </div></div>
   
     <ol>
-  <li><?php echo esc_html__('In Salesforce, go to Setup -> App Manager -> create new "Connected APP"','gravity-forms-salesforce-crm'); ?></li>
+  <li><?php echo esc_html__('In Salesforce, go to Setup -> Apps -> External Client App Manager -> create new "External Client App"','gravity-forms-salesforce-crm'); ?></li>
   <li><?php esc_html_e('Enter Application Name(eg. My App) then check "Enable OAuth Settings" checkbox','gravity-forms-salesforce-crm'); ?></li>
   <li><?php echo sprintf(__('Enter %s or %s in Callback URL','gravity-forms-salesforce-crm'),'<code>https://www.crmperks.com/sf_auth/</code>','<code>'.$self_dir.'</code>'); ?>
   </li>
-<li><?php echo sprintf(__('Select OAuth Scopes %s and %s then Save Application','gravity-forms-salesforce-crm'),'<code>Access and manage your data (api)</code>','<code>Perform requests on your behalf at any time (refresh_token, offline_access)</code>'); ?></li>
-<li><?php esc_html_e('Copy Consumer Key and Secret','gravity-forms-salesforce-crm'); ?></li>
+<li><?php echo sprintf(__('Select OAuth Scope %s, For webserver flow add additional scope %s then Save Application','gravity-forms-salesforce-crm'),'<code>Manage user data via APIs (api)</code>','<code>Perform requests at any time (refresh_token, offline_access)</code>'); ?></li>
+<li><?php echo sprintf(__('For Client Credentials Flow, enable %s checkbox','gravity-forms-salesforce-crm'),'<code>Enable Client Credentials Flow</code>'); ?></li>
+<li><?php echo __('Save Application','gravity-forms-salesforce-crm'); ?></li>
+<li><?php echo sprintf(__('For Client Credentials Flow, go to "Policies" tab , click "edit" button, enable %s checkbox, enter your salesforce email in "Run As" field then Save it.','gravity-forms-salesforce-crm'),'<code>Enable Client Credentials Flow</code>'); ?></li>
+<li><?php esc_html_e('Go to "Settings" tab and click "Copy Consumer Key and Secret" button','gravity-forms-salesforce-crm'); ?></li>
    </ol>
   
 </div>
@@ -173,6 +226,16 @@ echo '<option value="'.esc_attr($k).'" '.$sel.'>'.esc_html($v).'</option>';
   </div>
   <div class="clear"></div>
   </div>
+  </div>
+ <?php
+      }
+  ?> 
+    <div class="crm_field">
+  <div class="crm_field_cell1"><label for="vx_error_email"><?php esc_html_e("Notify by Email on Errors",'gravity-forms-salesforce-crm'); ?></label></div>
+  <div class="crm_field_cell2"><textarea name="crm[error_email]" id="vx_error_email" placeholder="<?php esc_html_e("Enter comma separated email addresses",'gravity-forms-salesforce-crm'); ?>" class="crm_text" style="height: 70px"><?php echo isset($info['error_email']) ? esc_html($info['error_email']) : ""; ?></textarea>
+  <span class="howto"><?php esc_html_e("Enter comma separated email addresses. An email will be sent to these email addresses if an order is not properly added to Salesforce. Leave blank to disable.",'gravity-forms-salesforce-crm'); ?></span>
+  </div>
+  <div class="clear"></div>
   </div>
   
    <div class="crm_field">
@@ -223,6 +286,16 @@ echo '<option value="'.esc_attr($k).'" '.$sel.'>'.esc_html($v).'</option>';
     link=btn.attr('data-test');   
   }
   btn.attr('href',link);
+  });
+  $('#vx_api_type').change(function(){
+   var login=$('#vx_login_div');
+   var app=$('#vx_custom_app_div');
+   if($(this).val() == 'client'){
+    login.hide(); app.show();   
+   }else{
+       login.show(); app.hide();
+   }
+
   });
   $(".vx_tabs_radio").click(function(){
   $(".vx_tabs").hide();   

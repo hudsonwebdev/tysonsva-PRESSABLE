@@ -215,7 +215,7 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 					        <?php endforeach; ?>
 				        </div>
 				        <?php endif; ?>
-				        <p><em><?php echo sprintf( esc_html__('You can allow different location types which can be assigned to an event. For more information see our %s.', 'events-manager'), '<a href="http://wp-events-plugin.com/documentation/location-types/" target="_blank">'.esc_html__('documentation', 'events-manager').'</a>'); ?></em></p>
+				        <p><em><?php echo sprintf( esc_html__('You can allow different location types which can be assigned to an event. For more information see our %s.', 'events-manager'), '<a href="https://wp-events-plugin.com/documentation/location-types/" target="_blank">'.esc_html__('documentation', 'events-manager').'</a>'); ?></em></p>
 			        </td>
 		        </tr>
 	        </tbody>
@@ -498,7 +498,7 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 		?>
 		<div class="em-boxheader">
 			<p><?php _e('This section allows you to configure parts of this plugin that will improve performance on your site and increase page speeds by reducing extra files from being unnecessarily included on pages as well as reducing server loads where possible. This only applies to pages outside the admin area.','events-manager'); ?></p>
-			<p><strong><?php _e('Warning!','events-manager'); ?></strong> <?php echo sprintf(__('This is for advanced users, you should know what you\'re doing here or things will not work properly. For more information on how these options work see our <a href="%s" target="_blank">optimization recommendations</a>','events-manager'), 'http://wp-events-plugin.com/documentation/optimization-recommendations/'); ?></p>
+			<p><strong><?php _e('Warning!','events-manager'); ?></strong> <?php echo sprintf(__('This is for advanced users, you should know what you\'re doing here or things will not work properly. For more information on how these options work see our <a href="%s" target="_blank">optimization recommendations</a>','events-manager'), 'https://wp-events-plugin.com/documentation/optimization-recommendations/'); ?></p>
 		</div>
             <table class="form-table">
             <tr class="em-header"><td colspan="2">

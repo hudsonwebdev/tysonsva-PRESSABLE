@@ -11,11 +11,13 @@ class AdminColumns
 {
 	public function __construct()
 	{
-		// add_action( 'acp/column_types', array( $this, 'register_column_type' ) );
-		add_filter('ac/column/types/pro', array($this, 'register_column_type'), 10, 2);
+		if( defined( 'ACP_VERSION' ) && version_compare( ACP_VERSION, '7.0.10', '<' ) ) {
+			return;
+		}
+		add_filter('ac/column/types', array($this, 'register_column_type'), 10, 3);
 	}
 
-	public function register_column_type($factories, $table_screen)
+	public function register_column_type(array $factories, $table_screen, $container = null): array
 	{
 		// Only add column for Media screen
 		if ((string) $table_screen->get_id() !== 'wp-media') {

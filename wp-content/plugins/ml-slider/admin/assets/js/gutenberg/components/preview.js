@@ -168,13 +168,13 @@ class MetaSliderPreview extends React.Component {
                 {this.state.previewIsLoading && <Placeholder
                     key="ms-loader"
                     className="ms-loader"
-                    label={[icon, ' MetaSlider']}>
+                    label={[icon, ' MetaSlider Slideshow']}>
                     <Spinner/> {__('Loading slideshow', 'ml-slider')}
                 </Placeholder>}
                 {(this.state.previewErrorMessage) && <Placeholder
                     key="ms-preview-empty"
                     className="ms-loader"
-                    label={[icon, ' MetaSlider']}>
+                    label={[icon, ' MetaSlider Slideshow']}>
                     {this.state.previewErrorMessage}
                 </Placeholder>}
             </div>

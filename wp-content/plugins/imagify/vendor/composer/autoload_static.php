@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb
+class ComposerStaticInitbcae8345a2792511741a5bdfd06a96f8
 {
     public static $files = array (
         '6c592737b91137905268e9a0eb968869' => __DIR__ . '/..' . '/wp-media/apply-filters-typed/functions.php',
@@ -19,6 +19,7 @@ class ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb
         array (
             'WP\\McpSchema\\' => 13,
             'WP\\MCP\\' => 7,
+            'WPMedia\\MCP\\OAuth\\' => 18,
         ),
         'I' =>
         array (
@@ -53,6 +54,10 @@ class ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb
         'WP\\MCP\\' =>
         array (
             0 => __DIR__ . '/..' . '/wordpress/mcp-adapter/includes',
+        ),
+        'WPMedia\\MCP\\OAuth\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/wp-media/mcp-oauth/inc',
         ),
         'Imagify\\ThirdParty\\WPRocket\\' =>
         array (
@@ -171,9 +176,9 @@ class ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9b2a32ca0a73450671aaef8a574bfbdb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbcae8345a2792511741a5bdfd06a96f8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbcae8345a2792511741a5bdfd06a96f8::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbcae8345a2792511741a5bdfd06a96f8::$classMap;
 
         }, null, ClassLoader::class);
     }

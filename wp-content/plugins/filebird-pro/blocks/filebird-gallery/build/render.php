@@ -17,17 +17,34 @@ if ( empty( $in_not_in ) ) {
     return '';
 }
 
+$is_custom_order = ( 'custom' === $attributes['sortBy'] );
+
 $query = new \WP_Query(
     array(
         'post_type'      => 'attachment',
         'posts_per_page' => -1,
         'post__in'       => $in_not_in,
-        'orderby'        => sanitize_text_field( $attributes['sortBy'] ),
-        'order'          => sanitize_text_field( $attributes['sortType'] ),
+        // 'custom' is not a valid WP_Query orderby; fall back to date and reorder below.
+        'orderby'        => $is_custom_order ? 'date' : sanitize_text_field( $attributes['sortBy'] ),
+        'order'          => $is_custom_order ? 'DESC' : sanitize_text_field( $attributes['sortType'] ),
         'post_status'    => 'inherit',
     )
 );
 $posts = $query->get_posts();
+
+if ( $is_custom_order && ! empty( $attributes['customOrder'] ) ) {
+    $order_map = array_flip( array_map( 'intval', $attributes['customOrder'] ) );
+    usort(
+        $posts,
+        function( $img1, $img2 ) use ( $order_map ) {
+            // Images present in the saved order come first (in that order);
+            // anything not yet ordered (e.g. newly added) sinks to the end.
+            $pos1 = isset( $order_map[ $img1->ID ] ) ? $order_map[ $img1->ID ] : PHP_INT_MAX;
+            $pos2 = isset( $order_map[ $img2->ID ] ) ? $order_map[ $img2->ID ] : PHP_INT_MAX;
+            return $pos1 <=> $pos2;
+        }
+    );
+}
 if ( $attributes['sortBy'] == 'file_name' ) {
     if ( $attributes['sortType'] == 'ASC' ) {
         usort(
@@ -98,7 +115,7 @@ foreach ( $posts as $post ) {
             break;
     }
 
-    $img  = '<img src="' . esc_attr( $imageSrc ) . '" alt="' . esc_html( $imageAlt ) . '"';
+    $img  = '<img src="' . esc_attr( $imageSrc ) . '" alt="' . esc_attr( $imageAlt ) . '"';
     $img .= ' class="' . "wp-image-{$post->ID}" . '"/>';
 
     $hoverAnimation = $attributes['imageHoverAnimation'];
@@ -127,6 +144,86 @@ if ( $attributes['hasLightbox'] ) {
     wp_enqueue_script( 'fbv-photoswipe' );
     wp_enqueue_script( 'fbv-photoswipe-ui-default' );
     wp_enqueue_script( 'filebird-gallery' );
+
+    /**
+     * Filter the buttons shown in the FileBird gallery lightbox top bar.
+     *
+     * Each key maps to whether the corresponding button is displayed. Set a value
+     * to false to hide a button, or add custom entries to render extra buttons.
+     *
+     * @param array $buttons {
+     *     @type bool|array $close  Close button.
+     *     @type bool|array $share  Share button.
+     *     @type bool|array $fs     Toggle fullscreen button.
+     *     @type bool|array $zoom   Zoom in/out button.
+     * }
+     */
+    $lightbox_buttons = apply_filters(
+        'filebird_gallery_lightbox_buttons',
+        array(
+            'close' => array(
+                'class' => 'pswp__button--close',
+                'title' => __( 'Close (Esc)', 'filebird' ),
+            ),
+            'share' => array(
+                'class' => 'pswp__button--share',
+                'title' => __( 'Share', 'filebird' ),
+            ),
+            'fs'    => array(
+                'class' => 'pswp__button--fs',
+                'title' => __( 'Toggle fullscreen', 'filebird' ),
+            ),
+            'zoom'  => array(
+                'class' => 'pswp__button--zoom',
+                'title' => __( 'Zoom in/out', 'filebird' ),
+            ),
+        )
+    );
+
+    /**
+     * Filter the sub-items shown in the FileBird gallery lightbox share menu.
+     *
+     * Each entry is passed to PhotoSwipe's `shareButtons` option. Use the `{{url}}`,
+     * `{{text}}`, `{{image_url}}` and `{{raw_image_url}}` placeholders in `url`.
+     * Set `download` to true to force a download instead of opening a share link.
+     *
+     * @param array $share_buttons List of share button definitions.
+     */
+    $share_buttons = apply_filters(
+        'filebird_gallery_share_buttons',
+        array(
+            array(
+                'id'    => 'facebook',
+                'label' => __( 'Share on Facebook', 'filebird' ),
+                'url'   => 'https://www.facebook.com/sharer/sharer.php?u={{url}}',
+            ),
+            array(
+                'id'    => 'twitter',
+                'label' => __( 'Tweet', 'filebird' ),
+                'url'   => 'https://twitter.com/intent/tweet?text={{text}}&url={{url}}',
+            ),
+            array(
+                'id'    => 'pinterest',
+                'label' => __( 'Pin it', 'filebird' ),
+                'url'   => 'http://www.pinterest.com/pin/create/button/?url={{url}}&media={{image_url}}&description={{text}}',
+            ),
+            array(
+                'id'       => 'download',
+                'label'    => __( 'Download image', 'filebird' ),
+                'url'      => '{{raw_image_url}}',
+                'download' => true,
+            ),
+        )
+    );
+
+    wp_localize_script(
+        'filebird-gallery',
+        'filebirdGalleryConfig',
+        array(
+            'buttons'      => $lightbox_buttons,
+            'shareButtons' => array_values( $share_buttons ),
+        )
+    );
 }
 
 echo $html;

@@ -474,7 +474,7 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 			$result = true;
 			if( count($booking_ids) > 0 ){
 				// before deleting, get all the event ids associated with these bookings, in case we need to do any checks on those events via filters
-				$event_ids = $wpdb->get_col("SEELCT event_id FROM ". EM_BOOKINGS_TABLE ." WHERE booking_id IN (".implode(',',$booking_ids).");");
+				$event_ids = $wpdb->get_col("SELECT event_id FROM ". EM_BOOKINGS_TABLE ." WHERE booking_id IN (".implode(',',$booking_ids).");");
 				//Delete bookings and ticket bookings
 				$result_tickets = $wpdb->query("DELETE FROM ". EM_TICKETS_BOOKINGS_TABLE ." WHERE booking_id IN (".implode(',',$booking_ids).");");
 				$result = $wpdb->query("DELETE FROM ".EM_BOOKINGS_TABLE." WHERE booking_id IN (".implode(',',$booking_ids).")");
@@ -663,8 +663,8 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 		if ( preg_match('/^[0-9,]+$/', $status) ) {
 			if ( !isset( $this->status_counts[ $status ] ) || $force_refresh ) {
 				if ( $this->get_event()->is_recurring( true ) ) {
-					$subquery = "SELECT event_id FROM " . EM_EVENTS_TABLE . " WHERE booking_status IN ( $status ) AND recurrence_set_id IN ( SELECT recurrence_set_id FROM " . EM_EVENT_RECURRENCES_TABLE . " WHERE event_id = '{$this->event_id}' )";
-					$sql = "SELECT SUM(booking_spaces) FROM " . EM_BOOKINGS_TABLE . " WHERE event_id IN ( $subquery ) ORDER BY booking_date";
+					$subquery = "SELECT event_id FROM " . EM_EVENTS_TABLE . " WHERE recurrence_set_id IN ( SELECT recurrence_set_id FROM " . EM_EVENT_RECURRENCES_TABLE . " WHERE event_id = '{$this->event_id}' )";
+					$sql = "SELECT SUM(booking_spaces) FROM " . EM_BOOKINGS_TABLE . " WHERE booking_status IN ( $status ) AND event_id IN ( $subquery )";
 				} else {
 					$timeslot = !empty($this->timeslot_id) ? ' AND timeslot_id = ' . absint( $this->timeslot_id ) : '';
 					$sql = 'SELECT SUM(booking_spaces) FROM ' . EM_BOOKINGS_TABLE . " WHERE booking_status IN ( $status ) AND event_id=" . absint( $this->event_id ) . $timeslot;

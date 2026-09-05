@@ -551,6 +551,7 @@ class EM_Booking extends EM_Object{
 				if( is_array($meta_value) ){
 					$associative = array_keys($meta_value) !== range(0, count($meta_value) - 1);
 					// we go down one level of array
+					$meta_insert = array();
 					foreach( $meta_value as $kk => $vv ){
 						if( is_array($vv) ) $vv = serialize($vv);
 						if( $associative ) {
@@ -559,7 +560,9 @@ class EM_Booking extends EM_Object{
 							$meta_insert[] = $wpdb->prepare('(%d, %s, %s)', $this->booking_id, '_'.$meta_key.'|', $vv);
 						}
 					}
-					$result = $wpdb->query('INSERT INTO '. EM_BOOKINGS_META_TABLE .' (booking_id, meta_key, meta_value) VALUES '. implode(',', $meta_insert));
+					if( !empty($meta_insert) ){
+						$result = $wpdb->query('INSERT INTO '. EM_BOOKINGS_META_TABLE .' (booking_id, meta_key, meta_value) VALUES '. implode(',', $meta_insert));
+					}
 				}else{
 					$result = $wpdb->insert( EM_BOOKINGS_META_TABLE, array('booking_id' => $this->booking_id, 'meta_key' => $meta_key, 'meta_value' => $meta_value));
 				}
@@ -1012,7 +1015,7 @@ class EM_Booking extends EM_Object{
 	 */
 	function get_event(){
 		global $EM_Event;
-		if( ! ( $this->event instanceof EM_Event && ($this->event->event_id == $this->get_event_uid() || (EM_ML::$is_ml && $this->event->event_parent == $this->event_id)) ) ) {
+		if( ! ( $this->event instanceof EM_Event && ($this->event->event_id == $this->get_event_uid() || (EM_ML::$is_ml && !empty($this->event->event_translation) && $this->event->event_parent == $this->event_id)) ) ) {
 			// do nothing, we make sure timeslots match next step
 			if ( is_object( $EM_Event ) && $EM_Event->get_id() == $this->event_id && $this->event ) {
 				$this->event = $EM_Event;
@@ -1369,7 +1372,7 @@ class EM_Booking extends EM_Object{
 		if( $this->get_option('dbem_bookings_user_cancellation') && !in_array($this->booking_status, array(2,3)) ){
 			$cancellation_time = $this->get_option('dbem_bookings_user_cancellation_time');
 			$can_cancel = $this->get_event()->start()->getTimestamp() > time(); // previously default was rsvp end
-			if( !empty($cancellation_time) && $cancellation_time > 0 ){
+			if( is_numeric($cancellation_time) && $cancellation_time > 0 ){
 				$EM_DateTime = $this->get_event()->start()->copy()->sub('PT'.$cancellation_time.'H');
 				$can_cancel = time() < $EM_DateTime->getTimestamp();
 			}elseif( static::is_dateinterval_string($cancellation_time) && $cancellation_time[0] !== '-' ){

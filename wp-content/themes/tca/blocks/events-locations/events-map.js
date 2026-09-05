@@ -369,13 +369,62 @@
 				map.fitBounds(bounds, { padding: 48, maxZoom: 14 });
 			}
 
+			map.on('load', function () {
+				map.resize();
+			});
+			// Editor preview containers often measure after paint.
+			setTimeout(function () {
+				map.resize();
+			}, 250);
+
 			wrap.setAttribute('data-tca-events-map-initialized', '1');
 		});
 	}
 
+	function scheduleInit() {
+		var attempts = 0;
+		var maxAttempts = 40;
+
+		function tryInit() {
+			if (typeof mapboxgl === 'undefined') {
+				attempts += 1;
+				if (attempts < maxAttempts) {
+					setTimeout(tryInit, 100);
+				}
+				return;
+			}
+			initMaps();
+			setTimeout(initMaps, 100);
+			setTimeout(initMaps, 400);
+		}
+
+		tryInit();
+	}
+
+	window.tcaEventsLocationsInitMaps = scheduleInit;
+
+	function bindEditorPreviewHooks() {
+		if (typeof acf !== 'undefined' && typeof acf.addAction === 'function') {
+			acf.addAction('render_block_preview', function () {
+				scheduleInit();
+			});
+			acf.addAction('render_block_preview/type=acf/events-locations', function () {
+				scheduleInit();
+			});
+			acf.addAction('render_block_preview/type=tca/events-locations', function () {
+				scheduleInit();
+			});
+		}
+		document.addEventListener('acf-block-preview-ready', scheduleInit);
+	}
+
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initMaps);
+		document.addEventListener('DOMContentLoaded', function () {
+			scheduleInit();
+			bindEditorPreviewHooks();
+		});
 	} else {
-		initMaps();
+		scheduleInit();
+		bindEditorPreviewHooks();
 	}
 })();

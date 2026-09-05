@@ -71,7 +71,9 @@ Vue.mixin({
 				false)
 		}
 		Vue.config.errorHandler = function (error, vm, info) {
-			vm.notifyError(`vue/${info}-error`, error, false)
+			// vm can be undefined - e.g. an error surfacing after its component already unmounted
+			// (switching between theme previews in quick succession is a common trigger).
+			vm ? vm.notifyError(`vue/${info}-error`, error, false) : console.error(`vue/${info}-error (no component instance):`, error)
 		}
 	},
 	methods: {

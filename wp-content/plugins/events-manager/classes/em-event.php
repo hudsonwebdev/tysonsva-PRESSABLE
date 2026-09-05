@@ -545,16 +545,16 @@ class EM_Event extends EM_Object{
 				$this->event_timezone = EM_DateTimeZone::create()->getName(); //set a default timezone if none exists
 			}
 		}
-		// handle empty post_id case, load up content from the parent such as post content etc.
+		// handle empty post_id case, fill only blank fields from the parent such as post content etc.
 		if( empty($this->post_id) && !empty($this->event_parent) ){
 			$parent_event = em_get_event($this->event_parent);
 			if( $parent_event instanceof EM_Event ){
-				$this->post_content = $parent_event->post_content;
-				$this->event_attributes = $parent_event->event_attributes;
-				$this->event_slug = $parent_event->event_slug;
-				$this->event_owner = $parent_event->event_owner;
-				$this->event_name = $parent_event->event_name;
-				$this->post_excerpt = $parent_event->post_excerpt;
+				if( empty($this->post_content) ) $this->post_content = $parent_event->post_content;
+				if( empty($this->event_attributes) ) $this->event_attributes = $parent_event->event_attributes;
+				if( empty($this->event_slug) ) $this->event_slug = $parent_event->event_slug;
+				if( empty($this->event_owner) ) $this->event_owner = $parent_event->event_owner;
+				if( empty($this->event_name) ) $this->event_name = $parent_event->event_name;
+				if( empty($this->post_excerpt) ) $this->post_excerpt = $parent_event->post_excerpt;
 			}
 		}
 		// set some type casts
@@ -1317,7 +1317,9 @@ class EM_Event extends EM_Object{
 			$this->add_error( __( 'Missing fields: ', 'events-manager') . implode ( ", ", $missing_fields ) . ". " );
 		}
 		if ( $this->is_recurring( true ) ){
-		    if( $this->event_end_date == "" || $this->event_end_date == $this->event_start_date){
+			// An 'on' recurrence lists its dates explicitly instead of spanning a range, so a set holding one date legitimately has start == end. Recurrence_Set::validate() still rejects a genuinely inverted range.
+			$Primary_Set = $this->get_recurrence_set();
+		    if( ( !$Primary_Set || $Primary_Set->recurrence_freq !== 'on' ) && ( $this->event_end_date == "" || $this->event_end_date == $this->event_start_date ) ){
 		        $this->add_error( __( 'Since the event is recurring, you must specify an event end date greater than the start date.', 'events-manager'));
 		    }
 			if ( !$this->get_recurrence_sets()->validate() ) {
@@ -1421,11 +1423,14 @@ class EM_Event extends EM_Object{
 		$EM_SAVING_EVENT = false;
 		//reload post data and add this event to the cache, after any other hooks have done their thing
 		//cache refresh when saving via admin area is handled in EM_Event_Post_Admin::save_post/refresh_cache
-		if( $result && $this->is_published() ){ 
+		if( $result && $this->is_published() ){
 			//we won't depend on hooks, if we saved the event and it's still published in its saved state, refresh the cache regardless
 			$this->load_postdata($this);
-			wp_cache_set( $this->get_event_uid(), $this, 'em_events');
-			wp_cache_set( $this->post_id, $this->get_event_uid(), 'em_events_ids');
+			//postless events are never object-cached (matches the load path guard) and a NULL post_id must not become a cache key
+			if( $this->post_id ){
+				wp_cache_set( $this->get_event_uid(), $this, 'em_events');
+				wp_cache_set( $this->post_id, $this->get_event_uid(), 'em_events_ids');
+			}
 		}
 		return $return;
 	}
@@ -1711,20 +1716,22 @@ class EM_Event extends EM_Object{
 				$event_meta = $this->get_event_meta($this->blog_id);
 				$new_event_meta = $EM_Event->get_event_meta($EM_Event->blog_id);
 				$event_meta_inserts = array();
+				$event_meta_values = array();
 			 	//Get custom fields and post meta - adapted from $this->load_post_meta()
 			 	foreach($event_meta as $event_meta_key => $event_meta_vals){
 			 		if( $event_meta_key == '_wpas_' ) continue; //allow JetPack Publicize to detect this as a new post when published
 			 		if( is_array($event_meta_vals) ){
 			 		    if( !array_key_exists($event_meta_key, $new_event_meta) &&  !in_array($event_meta_key, array('_event_attributes', '_edit_last', '_edit_lock', '_event_owner_name','_event_owner_anonymous','_event_owner_email')) ){
 				 			foreach($event_meta_vals as $event_meta_val){
-				 			    $event_meta_inserts[] = "({$EM_Event->post_id}, '{$event_meta_key}', '{$event_meta_val}')";
+				 			    $event_meta_inserts[] = '(%d, %s, %s)';
+				 			    array_push($event_meta_values, $EM_Event->post_id, $event_meta_key, $event_meta_val);
 				 			}
 			 			}
 			 		}
 			 	}
-			 	//save in one SQL statement
+			 	//save in one SQL statement — meta keys/values come from stored post meta and must be parameterised (second-order SQLi otherwise)
 			 	if( !empty($event_meta_inserts) ){
-			 		$wpdb->query('INSERT INTO '.$wpdb->postmeta." (post_id, meta_key, meta_value) VALUES ".implode(', ', $event_meta_inserts));
+			 		$wpdb->query( $wpdb->prepare('INSERT INTO '.$wpdb->postmeta." (post_id, meta_key, meta_value) VALUES ".implode(', ', $event_meta_inserts), $event_meta_values) );
 			 	}
 				if( array_key_exists('_event_approvals_count', $event_meta) ) update_post_meta($EM_Event->post_id, '_event_approvals_count', 0);
 				//copy anything from the em_meta table too
@@ -3702,12 +3709,20 @@ class EM_Event extends EM_Object{
 		if( $this->is_repeated() && $this->can_manage('edit_recurring_events','edit_others_recurring_events') ){
 			//remove recurrence id from post meta and index table
 			$url = $this->get_attach_url();
-			$wpdb->update(EM_EVENTS_TABLE, array('recurrence_id' => null, 'recurrence_set' => null, 'event_type' => 'single' ), array('event_id' => $this->event_id));
+			$updated = $wpdb->update(EM_EVENTS_TABLE, array('recurrence_id' => null, 'recurrence_set_id' => null, 'event_type' => 'single' ), array('event_id' => $this->event_id));
+			if( $updated === false ){
+				//a failed UPDATE must not leave the events table and postmeta diverged
+				$this->add_error(__('Event could not be detached.','events-manager'));
+				return apply_filters('em_event_detach', false, $this);
+			}
 			delete_post_meta($this->post_id, '_recurrence_id'); // legacy
 			delete_post_meta($this->post_id, '_recurrence_set_id');
 			update_post_meta($this->post_id, '_event_type', 'single' );
 			$this->feedback_message = __('Event detached.','events-manager') . ' <a href="'.$url.'">'.__('Undo','events-manager').'</a>';
-			$this->recurrence_set_id = 0;
+			$this->recurrence_id = null;
+			$this->recurrence_set_id = null;
+			$this->recurrence_set = null;
+			$this->event_type = 'single';
 			$this->get_tickets()->detach();
 			return apply_filters('em_event_detach', true, $this);
 		}

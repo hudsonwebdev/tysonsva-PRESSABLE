@@ -44,7 +44,7 @@ if ( !class_exists( 'DFlip' ) ) {
      *
      * @var string
      */
-    public $version = '2.4.13';
+    public $version = '2.4.37';
     
     /**
      * The name of the plugin.
@@ -142,12 +142,52 @@ if ( !class_exists( 'DFlip' ) ) {
               'title' => __( 'Search Box Title', 'DFLIP' ),
           ),
           'text_search_placeholder' => array(
-              'std'   => __( "Search", 'DFLIP' ),
-              'title' => __( 'Search Text Placeholder', 'DFLIP' ),
+	          'std'   => __( "Search", 'DFLIP' ),
+	          'title' => __( 'Search Text Placeholder', 'DFLIP' ),
+          ),
+          'text_search_clear' => array(
+	          'std'   => __( "Clear", 'DFLIP' ),
+	          'title' => __( 'Search Clear', 'DFLIP' ),
+          ),
+          'text_search_searching_info' => array(
+	          'std'   => __( "Searching Page:", 'DFLIP' ),
+	          'title' => __( 'Search - Searching Info', 'DFLIP' ),
+          ),
+          'text_search_results_found' => array(
+	          'std'   => __( "results found", 'DFLIP' ),
+	          'title' => __( 'Search Results Found', 'DFLIP' ),
+          ),
+          'text_search_results_not_found' => array(
+	          'std'   => __( "No results Found!", 'DFLIP' ),
+	          'title' => __( 'Search No Results', 'DFLIP' ),
+          ),
+          'text_search_result_page' => array(
+	          'std'   => __( "Page", 'DFLIP' ),
+	          'title' => __( 'Search Page', 'DFLIP' ),
+          ),
+          'text_search_result' => array(
+	          'std'   => __( "result", 'DFLIP' ),
+	          'title' => __( 'Search Result count(singular)', 'DFLIP' ),
+          ),
+          'text_search_results' => array(
+	          'std'   => __( "results", 'DFLIP' ),
+	          'title' => __( 'Search Result count(plural)', 'DFLIP' ),
+          ),
+          'text_search_minimum' => array(
+	          'std'   => __( "Minimum 3 letters required!", 'DFLIP' ),
+	          'title' => __( 'Search Minimum Text Info', 'DFLIP' ),
+          ),
+          'text_play'    => array(
+	          'std'   => __( "Start AutoPlay", 'DFLIP' ),
+	          'title' => 'std'
+          ),
+          'text_pause'    => array(
+	          'std'   => __( "Pause AutoPlay", 'DFLIP' ),
+	          'title' => 'std'
           ),
           'text_toggle_outline'    => array(
-              'std'   => __( "Toggle Outline/Bookmark", 'DFLIP' ),
-              'title' => 'std'
+	          'std'   => __( "Toggle Outline/Bookmark", 'DFLIP' ),
+	          'title' => 'std'
           ),
           'text_previous_page'     => array(
               'std'   => __( "Previous Page", 'DFLIP' ),
@@ -468,6 +508,17 @@ if ( !class_exists( 'DFlip' ) ) {
               'class'   => '',
               'title'   => 'Enable Analytics',
               'desc'    => 'Enable Google Analytics. Analytics code should be added to site before ths can be used.'
+          ),
+          'hashNavigationEnabled'           => array(
+              'std'     => 'false',
+              'choices' => array(
+                  'global' => __( 'Global Setting', 'DFLIP' ),
+                  'true'   => __( 'True', 'DFLIP' ),
+                  'false'  => __( 'False', 'DFLIP' )
+              ),
+              'class'   => '',
+              'title'   => 'Enable Hash Navigation',
+              'desc'    => 'When page changes, the URL is auto updated with the page number. Make sure there is no other hash conflict with hash functions.'
           ),
           'webgl'                      => array(
               'std'     => 'true',
@@ -1198,6 +1249,16 @@ if ( !class_exists( 'DFlip' ) ) {
               'outlineTitle'     => $this->get_translate( 'text_outline_title' ),
               'searchTitle'      => $this->get_translate( 'text_search_title' ),
               'searchPlaceHolder'=> $this->get_translate( 'text_search_placeholder' ),
+              'searchClear'          => $this->get_translate( 'text_search_clear' ),
+              'searchSearchingInfo'  => $this->get_translate( 'text_search_searching_info' ),
+              'searchResultsFound'   => $this->get_translate( 'text_search_results_found' ),
+              'searchResultsNotFound'=> $this->get_translate( 'text_search_results_not_found' ),
+              'searchResultPage'     => $this->get_translate( 'text_search_result_page' ),
+              'searchResult'         => $this->get_translate( 'text_search_result' ),
+              'searchResults'        => $this->get_translate( 'text_search_results' ),
+              'searchMinimum'        => $this->get_translate( 'text_search_minimum' ),
+              'play'                 => $this->get_translate( 'text_play' ),
+              'pause'                => $this->get_translate( 'text_pause' ),
               'toggleOutline'    => $this->get_translate( 'text_toggle_outline' ),
               'previousPage'     => $this->get_translate( 'text_previous_page' ),
               'nextPage'         => $this->get_translate( 'text_next_page' ),
@@ -1240,7 +1301,8 @@ if ( !class_exists( 'DFlip' ) ) {
           'showDownloadControl' => $this->get_config( 'enable_download' ),
           'showSearchControl'   => $this->get_config( 'enable_search' ),
           'showPrintControl'    => $this->get_config( 'enable_print' ),
-          'enableAnalytics'     => $this->get_config( 'enable_analytics' ),
+          'hashNavigationEnabled'     => $this->get_config( 'hashNavigationEnabled' ) == "true",
+          'enableAnalytics'     => $this->get_config( 'enable_analytics' ) == "true",
           'webgl'               => $this->get_config( 'webgl' ),
           'hard'                => $this->get_config( 'hard' ),
           'autoEnableOutline'   => $this->get_config( 'auto_outline' ),
@@ -1291,7 +1353,7 @@ if ( !class_exists( 'DFlip' ) ) {
       }
       
       //registers a variable that stores the location of plugin
-      $output = '<script data-cfasync="false"> var dFlipLocation = "' . plugins_url( 'assets/', __FILE__ ) . '"; var dFlipWPGlobal = ' . json_encode( $data ) . ';</script>';
+      $output = '<script data-cfasync="false"> window.dFlipLocation = "' . plugins_url( 'assets/', __FILE__ ) . '"; window.dFlipWPGlobal = ' . json_encode( $data ) . ';</script>';
       
       $output .= '<style>';
       

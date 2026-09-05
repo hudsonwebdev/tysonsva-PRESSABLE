@@ -213,7 +213,7 @@ $this->push($entry,$form,'add_note');
   */
   public  function setup(){
 
-      RGForms::add_settings_page(array('name' => $this->id,'tab_label' => esc_html__('Salesforce','gravity-forms-salesforce-crm'),"handler"=>array($this, "settings_page") ,'icon' => 'dashicons-cloud dashicons'),array($this, "settings_page"));
+      GFForms::add_settings_page(array('name' => $this->id,'tab_label' => esc_html__('Salesforce','gravity-forms-salesforce-crm'),"handler"=>array($this, "settings_page") ,'icon' => 'dashicons-cloud dashicons'),array($this, "settings_page"));
  
            global $wpdb; 
   if($this->post('vx_tab_action_'.$this->id)=="export_log"){
@@ -1082,7 +1082,7 @@ $this->screen_msg($uninstall_msg);
   }
   $client=$api->client_info();
   $link=$this->link_to_settings();
-  
+
   if(!$force_check && isset($_POST['vx_test_connection'])){
     $force_check=true;  
   }
@@ -1111,7 +1111,6 @@ $this->screen_msg($uninstall_msg);
   //verify connection
   $info=$this->validate_api($info,$force_check); 
  // $tooltips=self::$tooltips ; 
- 
   $conn_class=$this->post('class',$info);
   if(!empty($conn_class)){
   $msgs['connection']=array('class'=>$info['class'],'msg'=>$info['msg']);
@@ -1333,7 +1332,7 @@ include_once(self::$path . "templates/feed-account.php");
 
   array_push($form['fields'],array("id" => "status" , "label" => esc_html__('Entry Status', 'gravity-forms-infusionsoft-crm')));
 
-  $skip_inputs=array('checkbox','select','time','date','radio','poll','multi_choice'); 
+  $skip_inputs=array('checkbox','select','time','date','radio','poll','multi_choice','image_choice'); 
   if(is_array($form['fields'])){
   foreach($form['fields'] as $field){
   if(isset($field["inputs"]) && is_array($field["inputs"]) && !in_array($field['type'] ,$skip_inputs) ){
@@ -1504,9 +1503,10 @@ $api_check=(int)$this->post('valid_api',$info);
      
   }
   }
-  if($this->post('api',$info) != "web"){
+  if($this->post('api',$info) != "web"){ 
   if($check){ 
     $res=$api->get_crm_objects(); 
+    $info=$api->info;
   if(!empty($res) && is_string($res)){
   $info['error']=$res;   
   unset($info['access_token']); 

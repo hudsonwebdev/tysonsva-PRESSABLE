@@ -128,7 +128,7 @@
 								v-for="quality in qualityOptions"
 								:key="quality"
 								:value="quality">
-								{{ quality.charAt(0).toUpperCase() + quality.slice(1) }}
+								{{ qualityLabels[quality] }}
 							</option>
 						</select>
 					</label>
@@ -150,6 +150,10 @@
 import { Unsplash } from '../../api'
 import MediaContainer from './MediaContainer.vue'
 
+// WordPress's own big_image_size_threshold default - matched here so 'optimized' downloads
+// something WordPress won't immediately scale down again (#2365)
+const OPTIMIZED_MAX_SIZE = 2560
+
 export default {
 	components: {
 		MediaContainer
@@ -167,22 +171,52 @@ export default {
 			selected: { id: null },
 			filters: {},
 			mediaButton: {},
-			qualityOptions: ['raw', 'full', 'regular'],
+			// 'raw'/'full' dropped - both can exceed what WordPress can actually process (up to
+			// ~49MP), and WordPress would just scale them back down to 2560px anyway
+			// (big_image_size_threshold, #2365) - 'optimized' already covers that ceiling, so
+			// the only other option worth offering is Unsplash's own smaller 'regular' preset
+			qualityOptions: ['optimized', 'regular'],
 			upload: {
 				title: '',
 				caption: '',
 				alt: '',
 				description: '',
-				quality: 'full' // TODO: maybe we persist this in file data?
+				// Global default from the Settings & Help page, falling back to 'optimized'
+				quality: (window.metaslider_api && window.metaslider_api.unsplashImageQuality) || 'optimized'
 			}
 		}
 	},
 	computed: {
+		// 'optimized' is a max width/height we set ourselves (see optimizedUrl()), so that number
+		// is exact. 'regular' is Unsplash's own documented fixed preset (1080px wide) - also exact.
+		qualityLabels() {
+			return {
+				optimized: this.sprintf(this.__('Optimized - up to %spx (recommended)', 'ml-slider'), OPTIMIZED_MAX_SIZE),
+				regular: this.sprintf(this.__('Regular - %spx', 'ml-slider'), 1080)
+			}
+		},
 		fileName() {
 			// Not sure if we can get the real file name without a second call on the photo id. likely not important
 			return this.selected.id
 				? this.selected.user.name.replace(' ', '-').toLowerCase() + '-' + this.selected.id + '-unsplash.jpg'
 				: ''
+		},
+		// Used by External.vue's "Saving..." progress overlay
+		previewImageUrl() {
+			return this.selected.urls ? this.selected.urls.regular : ''
+		},
+		// Used by MediaContainer.vue's search box, kept source-specific so each external API can label its own
+		serviceName() {
+			return 'Unsplash'
+		},
+		searchInputId() {
+			return 'search-unsplash'
+		},
+		searchPlaceholder() {
+			return this.__('Search unsplash.com...', 'ml-slider')
+		},
+		searchFocusedEvent() {
+			return 'metaslider/unsplash-search-focused'
 		}
 	},
 	watch: {
@@ -243,7 +277,21 @@ export default {
 				})
 		},
 		download() {
-			return Unsplash.download(this.selected.urls[this.upload.quality], this.selected.id)
+			const url = this.upload.quality === 'optimized'
+				? this.optimizedUrl(this.selected.urls.raw)
+				: this.selected.urls[this.upload.quality]
+			return Unsplash.download(url, this.selected.id)
+		},
+		// urls.raw is imgix-backed with no size limit baked in - originals can be up to ~49MP,
+		// which can exhaust ImageMagick's memory during WordPress's own thumbnail generation
+		// (#2365). Capping it here costs nothing visually since WordPress would scale anything
+		// bigger than 2560px down anyway (big_image_size_threshold).
+		optimizedUrl(rawUrl) {
+			const url = new URL(rawUrl)
+			url.searchParams.set('w', OPTIMIZED_MAX_SIZE)
+			url.searchParams.set('h', OPTIMIZED_MAX_SIZE)
+			url.searchParams.set('fit', 'max')
+			return url.toString()
 		},
 		fetchFilters() {
 			// TODO: Call to get available filters (pro override with more?)

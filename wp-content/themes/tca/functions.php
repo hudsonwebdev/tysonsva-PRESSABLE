@@ -10,7 +10,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.6.485' );
+	define( '_S_VERSION', '1.6.501' );
 }
 
 /**
@@ -186,6 +186,20 @@ function tca_post_has_events_locations_block() {
 }
 
 /**
+ * Check if the current post content contains the events location and list block.
+ */
+function tca_post_has_events_location_list_block() {
+	if ( ! is_singular() ) {
+		return false;
+	}
+	$post = get_post();
+	if ( ! $post || ! has_blocks( $post->post_content ) ) {
+		return false;
+	}
+	return tca_blocks_list_contains( parse_blocks( $post->post_content ), 'tca/events-location-list' );
+}
+
+/**
  * Check if the current singular post content includes the Football Fixtures block.
  *
  * @return bool
@@ -215,6 +229,22 @@ function tca_post_has_football_live_scores_block() {
 		return false;
 	}
 	return tca_blocks_list_contains( parse_blocks( $post->post_content ), 'tca/football-live-scores' );
+}
+
+/**
+ * Check if the current singular post content includes the NFL schedule block.
+ *
+ * @return bool
+ */
+function tca_post_has_nfl_schedule_block() {
+	if ( ! is_singular() ) {
+		return false;
+	}
+	$post = get_post();
+	if ( ! $post || ! has_blocks( $post->post_content ) ) {
+		return false;
+	}
+	return tca_blocks_list_contains( parse_blocks( $post->post_content ), 'tca/nfl-schedule' );
 }
 
 /**
@@ -248,12 +278,14 @@ function tca_scripts() {
 
 	wp_enqueue_script( 'tca-navigation', get_template_directory_uri() . '/public/js/main.js', array('jquery'), _S_VERSION, true );
 
-	// Mapbox: neighborhood pages / block, or events locations block (single enqueue — same handle avoids loading twice).
-	$needs_neighborhood_map       = is_singular( 'neighborhood' ) || tca_post_has_neighborhood_map_block();
-	$needs_events_locations_map   = tca_post_has_events_locations_block();
-	$needs_football_fixtures_block   = tca_post_has_football_fixtures_block();
+	// Mapbox: neighborhood pages / block, or events locations blocks (single enqueue — same handle avoids loading twice).
+	$needs_neighborhood_map         = is_singular( 'neighborhood' ) || tca_post_has_neighborhood_map_block();
+	$needs_events_locations_map     = tca_post_has_events_locations_block();
+	$needs_events_location_list_map = tca_post_has_events_location_list_block();
+	$needs_football_fixtures_block    = tca_post_has_football_fixtures_block();
 	$needs_football_live_scores_block = tca_post_has_football_live_scores_block();
-	$needs_mapbox                 = $needs_neighborhood_map || $needs_events_locations_map;
+	$needs_nfl_schedule_block         = tca_post_has_nfl_schedule_block();
+	$needs_mapbox                     = $needs_neighborhood_map || $needs_events_locations_map || $needs_events_location_list_map;
 
 	if ( $needs_mapbox ) {
 		
@@ -296,6 +328,10 @@ function tca_scripts() {
 			
 		}
 
+		if ( $needs_events_location_list_map ) {
+			tca_enqueue_events_location_list_map_assets();
+		}
+
 
 		
 	}
@@ -304,7 +340,11 @@ function tca_scripts() {
 		wp_enqueue_style( 'block-football-fixtures' );
 	}
 
-	if ( $needs_football_fixtures_block || $needs_football_live_scores_block ) {
+	if ( $needs_nfl_schedule_block && wp_style_is( 'block-nfl-schedule', 'registered' ) ) {
+		wp_enqueue_style( 'block-nfl-schedule' );
+	}
+
+	if ( $needs_football_fixtures_block || $needs_football_live_scores_block || $needs_nfl_schedule_block ) {
 		wp_enqueue_script(
 			'tca-football-fixtures-schedule',
 			get_template_directory_uri() . '/blocks/football-fixtures/fixtures-schedule.js',
@@ -348,6 +388,132 @@ function tca_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'tca_scripts',20 );
+
+/**
+ * Enqueue Mapbox + Events Location and List map assets (safe to call from render).
+ */
+function tca_enqueue_events_location_list_map_assets() {
+	static $done = false;
+	if ( $done ) {
+		return;
+	}
+	$done = true;
+
+	$token = function_exists( 'tca_env' ) ? tca_env( 'MAPBOX_ACCESS_TOKEN' ) : '';
+	$js    = get_template_directory() . '/blocks/events-location-list/events-location-list-map.js';
+	$ver   = file_exists( $js ) ? (string) filemtime( $js ) : ( defined( '_S_VERSION' ) ? _S_VERSION : null );
+
+	wp_enqueue_script( 'mapbox-js', 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js', array(), null, true );
+	wp_enqueue_style( 'mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css', array(), null );
+
+	if ( wp_style_is( 'block-events-location-list', 'registered' ) ) {
+		wp_enqueue_style( 'block-events-location-list' );
+	}
+
+	wp_enqueue_script(
+		'tca-events-location-list-map',
+		get_template_directory_uri() . '/blocks/events-location-list/events-location-list-map.js',
+		array( 'mapbox-js' ),
+		$ver,
+		true
+	);
+	wp_localize_script(
+		'tca-events-location-list-map',
+		'TCA_MAP',
+		array(
+			'mapboxToken' => $token,
+		)
+	);
+}
+
+/**
+ * Load Mapbox + events map scripts in the block editor canvas (iframe)
+ * so ACF block previews can render maps for both location blocks.
+ */
+function tca_enqueue_events_map_editor_assets() {
+	// Frontend loads these via tca_scripts() / render enqueue; only needed in the editor here.
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	$token = function_exists( 'tca_env' ) ? tca_env( 'MAPBOX_ACCESS_TOKEN' ) : '';
+	$list_js = get_template_directory() . '/blocks/events-location-list/events-location-list-map.js';
+	$loc_js  = get_template_directory() . '/blocks/events-locations/events-map.js';
+	$list_ver = file_exists( $list_js ) ? (string) filemtime( $list_js ) : _S_VERSION;
+	$loc_ver  = file_exists( $loc_js ) ? (string) filemtime( $loc_js ) : _S_VERSION;
+
+	wp_enqueue_script( 'mapbox-js', 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js', array(), null, true );
+	wp_enqueue_style( 'mapbox-css', 'https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css', array(), null );
+
+	if ( wp_style_is( 'block-events-locations', 'registered' ) ) {
+		wp_enqueue_style( 'block-events-locations' );
+	}
+	if ( wp_style_is( 'block-events-location-list', 'registered' ) ) {
+		wp_enqueue_style( 'block-events-location-list' );
+	}
+
+	wp_enqueue_script(
+		'tca-events-locations-map',
+		get_template_directory_uri() . '/blocks/events-locations/events-map.js',
+		array( 'mapbox-js' ),
+		$loc_ver,
+		true
+	);
+	wp_localize_script(
+		'tca-events-locations-map',
+		'TCA_MAP',
+		array(
+			'mapboxToken' => $token,
+		)
+	);
+
+	wp_enqueue_script(
+		'tca-events-location-list-map',
+		get_template_directory_uri() . '/blocks/events-location-list/events-location-list-map.js',
+		array( 'mapbox-js' ),
+		$list_ver,
+		true
+	);
+	wp_localize_script(
+		'tca-events-location-list-map',
+		'TCA_MAP',
+		array(
+			'mapboxToken' => $token,
+		)
+	);
+
+	// Re-init after ACF injects / refreshes preview HTML in the canvas.
+	$bridge = <<<'JS'
+(function () {
+	function run() {
+		if (typeof window.tcaEventsLocationsInitMaps === 'function') {
+			window.tcaEventsLocationsInitMaps();
+		}
+		if (typeof window.tcaEvlocListInitMaps === 'function') {
+			window.tcaEvlocListInitMaps();
+		}
+	}
+	function bindAcf() {
+		if (typeof acf === 'undefined' || typeof acf.addAction !== 'function') {
+			return false;
+		}
+		acf.addAction('render_block_preview', run);
+		return true;
+	}
+	if (!bindAcf()) {
+		document.addEventListener('DOMContentLoaded', bindAcf);
+		window.addEventListener('load', bindAcf);
+	}
+	document.addEventListener('DOMContentLoaded', run);
+	window.addEventListener('load', function () {
+		setTimeout(run, 300);
+	});
+})();
+JS;
+	wp_add_inline_script( 'tca-events-location-list-map', $bridge, 'after' );
+}
+// enqueue_block_assets loads into the editor content iframe (where ACF previews live).
+add_action( 'enqueue_block_assets', 'tca_enqueue_events_map_editor_assets' );
 
 
 
@@ -869,6 +1035,25 @@ function tca_video_banner_poster_attrs( $poster, $max_width = '1920px', $image_s
     }
 
     echo $attrs;
+}
+
+/**
+ * Render a responsive YouTube or Vimeo embed.
+ *
+ * @param string $url YouTube or Vimeo URL.
+ * @return string HTML markup or empty string.
+ */
+function tca_render_responsive_oembed( $url ) {
+	if ( empty( $url ) ) {
+		return '';
+	}
+
+	$embed = wp_oembed_get( $url, array( 'width' => 800 ) );
+	if ( ! $embed ) {
+		return '';
+	}
+
+	return '<div class="video-embed-responsive">' . $embed . '</div>';
 }
 
 

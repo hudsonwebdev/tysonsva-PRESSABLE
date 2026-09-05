@@ -223,7 +223,18 @@ class Consent {
 	 * @param EM_Event|EM_Location $EM_Object
 	 * @return bool
 	 */
+	/**
+	 * Whether this request is one init() meant to exclude but could not.
+	 *
+	 * WordPress defines REST_REQUEST in rest_api_loaded(), hooked to parse_request, which runs long after this class is included and after the init action that registers the hooks below. The check in init() therefore always sees the constant as undefined and registers the consent hooks for every REST request, including the block editor's save. Re-checking here works because every callback below runs during the save itself, by which point the constant is set.
+	 * @return bool
+	 */
+	protected static function is_excluded_request() {
+		return defined('REST_REQUEST') && REST_REQUEST;
+	}
+
 	public static function cpt_get_post($result, $EM_Object ){
+		if( static::is_excluded_request() ) return $result;
 		if( !empty($_REQUEST[ static::$options['param'] ]) ){
 			if( get_class($EM_Object) == 'EM_Event' ){
 				$EM_Object->event_attributes['_' . static::$options['meta_key']] = 1;
@@ -242,6 +253,7 @@ class Consent {
 	 * @return bool
 	 */
 	public static function cpt_validate( $result, $EM_Object ){
+		if( static::is_excluded_request() ) return $result;
 		if( !empty($EM_Object->post_id) ) return $result;
 		if( is_user_logged_in() ){
 			//check if consent was previously given and ignore if settings dictate so
@@ -263,6 +275,7 @@ class Consent {
 	 * @return bool
 	 */
 	public static function cpt_save( $result, $EM_Object ){
+		if( static::is_excluded_request() ) return $result;
 		$attributes = get_class($EM_Object) == 'EM_Event' ? 'event_attributes':'location_attributes';
 		if( $result && !empty($EM_Object->{$attributes}['_' . static::$prefix])){
 			if( !em_get_option('dbem_events_anonymous_submissions') || $EM_Object->post_author != em_get_option('dbem_events_anonymous_user') ){

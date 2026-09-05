@@ -51,8 +51,9 @@ class Vite {
 	}
 
 	public static function enqueue_preload( $script ) {
+		$priority = NJFB_DEVELOPMENT ? 9 : 10;
 		add_action(
-			'admin_head',
+			'admin_print_footer_scripts',
 			function() use ( $script ) {
 				if ( NJFB_DEVELOPMENT ) {
 					echo '<script type="module">
@@ -67,7 +68,8 @@ class Vite {
 						echo ( '<link rel="modulepreload" href="' . esc_url( $url ) . '">' );
 					}
 				}
-			}
+			},
+			$priority
 		);
 	}
 
@@ -79,7 +81,7 @@ class Vite {
 		}
 
 		// wp_enqueue_script( self::CLIENT_SCRIPT_HANDLE, self::HOST . '@vite/client', array(), NJFB_VERSION, false );
-		wp_enqueue_script( "module/filebird/$entry", $url, false, true, NJFB_DEVELOPMENT ? true : false );
+		wp_enqueue_script( "module/filebird/$entry", $url, false, true, true );
 
 		return "module/filebird/$entry";
 	}

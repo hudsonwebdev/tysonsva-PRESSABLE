@@ -134,8 +134,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	@import '../../assets/styles/globals.scss';
-	@import '../../assets/styles/mixins.scss';
+	@use '../../assets/styles/globals.scss' as *;
+	@use '../../assets/styles/mixins.scss' as *;
 	#ms-image-drag-drop > form {
 		display: flex;
 		justify-content: center;

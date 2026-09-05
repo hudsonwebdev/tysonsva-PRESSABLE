@@ -269,6 +269,7 @@ class Folder {
 	public static function assignFolder( int $folderId, array $attachmentIds, string $lang ) {
         global $wpdb;
 
+		$attachmentIds = array_map( 'intval', $attachmentIds );
         $ids = implode( ',', $attachmentIds );
 
         // phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
@@ -779,16 +780,20 @@ class Folder {
 	}
 	public static function resetCount() {
 		global $wpdb;
-		$wpdb->query("
-			CREATE TEMPORARY TABLE temp_keep AS
-			SELECT MIN(folder_id) AS folder_id, attachment_id
-			FROM wp_fbv_attachment_folder
-			GROUP BY attachment_id
-		");
-		$wpdb->query("DELETE FROM wp_fbv_attachment_folder");
-		$wpdb->query("
-			INSERT INTO wp_fbv_attachment_folder (folder_id, attachment_id)
-			SELECT folder_id, attachment_id FROM temp_keep
-		");
+
+		// Remove relations whose attachment no longer exists in the posts table
+		// (e.g. media deleted while FileBird was deactivated).
+		$wpdb->query(
+			"DELETE `fbva` FROM {$wpdb->prefix}fbv_attachment_folder AS `fbva`
+			LEFT JOIN {$wpdb->prefix}posts AS `posts` ON posts.ID = fbva.attachment_id
+			WHERE posts.ID IS NULL"
+		);
+
+		// Remove relations pointing to a folder that no longer exists.
+		$wpdb->query(
+			"DELETE `fbva` FROM {$wpdb->prefix}fbv_attachment_folder AS `fbva`
+			LEFT JOIN {$wpdb->prefix}fbv AS `fbv` ON fbv.id = fbva.folder_id
+			WHERE fbv.id IS NULL"
+		);
 	}
 }

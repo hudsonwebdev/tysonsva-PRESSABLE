@@ -1,10 +1,10 @@
-=== WP Gravity Forms Salesforce ===
+=== CRM Perks Integration for Gravity Forms and Salesforce ===
 Contributors: crmperks, sbazzi, asif876
 Tags: salesforce, gravity forms salesforce, gravity forms salesforce crm, gravity forms salesforce integration, salesforce wordpress gravity forms
 Requires at least: 4.7
-Tested up to: 6.8
-Stable tag: 1.4.8
-Version: 1.4.8
+Tested up to: 7.0
+Stable tag: 1.5.5
+Version: 1.5.5
 Requires PHP: 5.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ Gravity Forms salesforce Add-on sends form submissions from Gravity Forms to Sal
 
 **Connecting salesforce account**
 
-Connect any gravity forms form to salesforce account by safe and secure Oauth 2.0. Additionally, you can connect multiple salesforce accounts to Gravity Forms.
+Connect any gravity forms form to salesforce account by safe and secure Oauth 2.0. Plugin supports WebServer and client credentials oauth flows. Additionally, you can connect multiple salesforce accounts to Gravity Forms.
 
 **Map salesforce crm fields**
 
@@ -184,11 +184,29 @@ Yes, as you connect your normal salesforce account similarly, you can connect yo
 == Changelog ==
 
 
+= 1.5.5 =
+* fixed "php warning issue when salesforce connection fails".
+* fixed "gravity forms 3.0 compatibility" issue.
+
+= 1.5.4 =
+* upgraded "salesforce REST api version".
+* fixed "refresh token rotation" issue.
+* added "pkce enforcement" feature.
+* added "client credentials flow" feature.
+
+= 1.5.3 =
+* fixed "empty basedir with uploaded file" issue.
+
+= 1.5.2 =
+* fixed "updating OpportunityContactRole" issue.
+
 = 1.5.1 =
-* fixed "subscription paid event" issue.
+* fixed "image choice field" issue.
 
 = 1.5.0 =
 * fixed "comma issue with custom value".
+* fixed "subscription paid event" issue.
+* fixed "PHP Object Injection Vulnerability" issue.
 
 = 1.4.9 =
 * fixed "multiple file links issue with Notes".

@@ -1,3 +1,23 @@
+Aug 22, 2026 – Version 6.5.8
+- Added: FileBird Gallery module for Divi Builder (Pro version)
+- Added: Support moving media and posts to folders on touch devices
+- Updated: License handling (only for Pro version sold on NinjaTeam official website)
+- Fixed: Sort files by name issue
+- Fixed: Drag-and-drop handle for the WordPress 7.1 list table
+- Fixed: Issue with uploading image to selected folder (browser's built-in file uploaded)
+
+Jul 27, 2026 - Version 6.5.7
+- New: Native license activation mode (for purchases made directly on https://ninjateam.org)
+- Updated: RU language files
+- Updated: APIs for post types
+- Improved: Creating a new page while selecting a folder categorizes that page in that folder
+- Fixed: Import CSV issue
+- Fixed: Drag to reorder images (Block Gallery)
+- Fixed: WordFence security issue
+
+Jun 19, 2026 - Version 6.5.5
+- Fixed: Compatibility issue with Admin Column
+
 May 22, 2026 - Version 6.5.4
 - Fixed: UI issues in WordPress 7.0
 - Fixed: Translation strings in several languages

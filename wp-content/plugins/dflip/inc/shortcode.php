@@ -251,9 +251,13 @@ class DFlip_ShortCode {
     
     //pull post data if available for the script part only
     if ( $post != null && !empty( $post_id ) && is_numeric( $post_id ) ) {
+	    
       if ( ( $post->post_status === "private" && !current_user_can( 'read_private_posts' ) ) ) {
         return '';
       }
+	    if ( ( $post->post_status === "draft" && !current_user_can( 'edit_post',$post_id) ) ) {
+		    return '';
+	    }
       $post_data = $this->get_post_data( $post, $post_data );
       
       $id = $post->ID;

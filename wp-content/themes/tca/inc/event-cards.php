@@ -51,6 +51,132 @@ function tca_get_event_link( $eid ) {
 	return get_the_permalink( $eid );
 }
 
+/**
+ * Pointer-only overlay so the whole card is clickable.
+ *
+ * The visible title link remains the single accessible control (keyboard + screen readers).
+ * This overlay is excluded from the accessibility tree and is not a tab stop.
+ *
+ * @param string $url    Destination URL.
+ * @param string $target Link target, typically _self or _blank.
+ * @return string
+ */
+function tca_event_card_overlay_html( $url, $target = '_self' ) {
+	$target = $target ? $target : '_self';
+	$rel    = ( '_blank' === $target ) ? ' rel="noopener noreferrer"' : '';
+
+	return sprintf(
+		'<a class="event-card-overlay" href="%s" target="%s"%s tabindex="-1" aria-hidden="true"></a>',
+		esc_url( $url ),
+		esc_attr( $target ),
+		$rel
+	);
+}
+
+/**
+ * Upcoming event post IDs for the content-grid block.
+ *
+ * Events Manager stores each recurrence as its own `event` post, so a WP_Query
+ * with posts_per_page can still return a huge set (or ignore the limit). Query
+ * through EM when available, de-dupe series, then slice to $limit.
+ *
+ * @param int   $limit       Max unique events. -1 means no cap.
+ * @param int[] $exclude_ids Post IDs already shown (stick-to-top).
+ * @return int[]
+ */
+function tca_get_upcoming_event_post_ids( $limit, $exclude_ids = array() ) {
+	$limit       = (int) $limit;
+	$exclude_ids = array_values( array_filter( array_map( 'intval', (array) $exclude_ids ) ) );
+	$ids         = array();
+	$seen_series = array();
+
+	if ( 0 === $limit ) {
+		return array();
+	}
+
+	if ( class_exists( 'EM_Events' ) ) {
+		$fetch  = ( $limit < 0 ) ? 200 : max( $limit * 6, $limit );
+		$events = EM_Events::get(
+			array(
+				'scope'   => 'future',
+				'limit'   => $fetch,
+				'orderby' => 'event_start_date,event_start_time',
+				'order'   => 'ASC',
+				'status'  => 1,
+			)
+		);
+
+		foreach ( (array) $events as $EM_Event ) {
+			if ( ! is_object( $EM_Event ) ) {
+				continue;
+			}
+
+			$post_id = ! empty( $EM_Event->post_id ) ? (int) $EM_Event->post_id : 0;
+			if ( $post_id < 1 || in_array( $post_id, $exclude_ids, true ) ) {
+				continue;
+			}
+
+			if ( ! empty( $EM_Event->recurrence_set_id ) ) {
+				$series = 'rs-' . (int) $EM_Event->recurrence_set_id;
+			} elseif ( ! empty( $EM_Event->recurrence_id ) ) {
+				$series = 'rid-' . (int) $EM_Event->recurrence_id;
+			} else {
+				$series = 'id-' . $post_id;
+			}
+
+			if ( isset( $seen_series[ $series ] ) ) {
+				continue;
+			}
+
+			$seen_series[ $series ] = true;
+			$ids[]                  = $post_id;
+
+			if ( $limit > 0 && count( $ids ) >= $limit ) {
+				break;
+			}
+		}
+
+		return $ids;
+	}
+
+	$query_limit = ( $limit < 0 ) ? 200 : $limit;
+	$query       = new WP_Query(
+		array(
+			'post_type'           => 'event',
+			'post_status'         => 'publish',
+			'posts_per_page'      => $query_limit,
+			'nopaging'            => false,
+			'no_found_rows'       => true,
+			'ignore_sticky_posts' => true,
+			'orderby'             => 'meta_value',
+			'meta_key'            => '_event_start_date',
+			'meta_type'           => 'DATE',
+			'order'               => 'ASC',
+			'meta_query'          => array(
+				array(
+					'key'     => '_event_end_date',
+					'value'   => gmdate( 'Y-m-d' ),
+					'compare' => '>=',
+					'type'    => 'DATE',
+				),
+			),
+			'post__not_in'        => $exclude_ids,
+		)
+	);
+
+	if ( $query->have_posts() ) {
+		foreach ( $query->posts as $post ) {
+			$ids[] = (int) $post->ID;
+			if ( $limit > 0 && count( $ids ) >= $limit ) {
+				break;
+			}
+		}
+	}
+	wp_reset_postdata();
+
+	return $ids;
+}
+
 // Function to render events in grid view
 function display_event_featured($eid,$number_of_events, $eventCount) {
 
@@ -240,7 +366,7 @@ function draw_event_card($eid,$columns=1) {
                                 </div>
                                 <div class="card-title">
                             
-                                    <h3><a href="<?php echo $url; ?>" target="<?php echo $target; ?>"><?php echo max_title_length( $title ); ?></a></h3>
+                                    <h3><a class="event-card-title-link" href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>"<?php echo ( '_blank' === $target ) ? ' rel="noopener noreferrer"' : ''; ?>><?php echo max_title_length( $title ); ?></a></h3>
                                     <?php printVenu($eid,false); ?>
                                     
 
@@ -269,6 +395,7 @@ function draw_event_card($eid,$columns=1) {
                     </div>
 
              </div>
+        <?php echo tca_event_card_overlay_html( $url, $target ); ?>
         </div>
         </div>
     <?php

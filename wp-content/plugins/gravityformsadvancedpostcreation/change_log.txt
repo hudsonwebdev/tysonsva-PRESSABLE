@@ -1,3 +1,23 @@
+### 1.6.2 | Smoketest
+- Added security enhancements.
+- Added Post Editing column to the feeds list page.
+- Added a filter hook, [gform_advancedpostcreation_meta_fields](https://docs.gravityforms.com/gform_advancedpostcreation_meta_fields/), to modify the meta keys shown on the Feed.
+- Updated the APC Post List block to Block API v3.
+- Updated the appearance of the Signature field when you are editing a post to hide the "Reset Signature" button when the field is not editable.
+- Fixed an issue where the gform_apc_shared dependency was triggering a console error.
+- Fixed wording for the feed conditional logic tooltip.
+- Fixed a compatibility bug with Divi Theme where the pagination buttons in the APC block display list markers.
+- Fixed an issue where the get_forms() function is called on pages that have no Gravity Forms elements.
+- Fixed a bug that prevented post meta from being saved to the initial revision when a post is created.
+- Fixed a console error in the block editor when an APC block is present.
+- Fixed an issue where the Dropbox field remains enabled even when it is not selected as editable in the Edit Post settings.
+- Fixed an issue that causes APC assets to be enqueued on frontend pages where no APC features are used.
+- Fixed an issue where a warning appears when importing a form that contains an APC hook.
+- Fixed an issue where a non-editable Paragraph RTE field remains editable via keyboard navigation.
+- Fixed an issue where the APC grid is not displaying correctly in the block editor in mobile view.
+- Fixed an issue that allowed readonly fields to be modified in frontend post editing.
+- Fixed an error caused by the `get_current_screen()` function returning null in certain admin contexts.
+
 ### 1.6.1 | 2025-12-18
 - Fixed a bug that caused JavaScript errors when forms are embedded using non-standard methods.
 

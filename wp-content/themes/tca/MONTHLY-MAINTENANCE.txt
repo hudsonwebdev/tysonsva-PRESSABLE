@@ -1,0 +1,137 @@
+TCA website — monthly maintenance checklist
+==========================================
+
+Site: Tysons Community Alliance (tysonsva.org)
+Theme: tca
+Host: Pressable
+
+Time to budget
+--------------
+Plan on 5 to 6 hours per month for a full pass.
+
+  Light month (no plugin updates, nothing broken): about 4 hours
+  Heavy month (WordPress/plugin updates + a broken feed or form): 7 to 8 hours
+
+Do not skip the “must not fail” section. Those items go blank with no PHP error.
+
+
+MUST NOT FAIL (about 2.5 hours)
+-------------------------------
+
+1. Homepage hero (15 min)
+   - Video or image banner plays / loads
+   - Gradient is a tint over the media, not a solid wash
+   - Play/pause button works in Chrome
+   - Overlapping corner graphic sits on top of the banner and under the next section
+   - Title text is readable
+
+2. Events (30 min)
+   - /events shows upcoming events, not past ones
+   - Recurring events: only one card per series, link goes to the next occurrence
+   - Event cards, dates, “Learn more” / ticket links
+   - Submit-an-event / proposed events form (Gravity Form 18) still submits
+   - Events + locations map (if used on a page): pins load, Mapbox tiles appear
+
+3. Neighborhood map (15 min)
+   - Neighborhood Guide page: Mapbox map renders (not a blank 830px box)
+   - Neighborhoods color/fill; dropdown jumps to the right permalink
+   - If the map is blank, check MAPBOX_ACCESS_TOKEN on the server (~/.env on Pressable)
+     and that the Mapbox Studio style is still published
+
+4. Football widgets (15 min) — skip in the off-season if unused
+   - Fixtures schedule block shows matches for the selected season (currently 2026)
+   - Live scores block updates (it polls about every 45 seconds)
+   - If empty: check API-Football quota/key and that the season field is still correct
+   - After World Cup 2026, editors must change the season or the widget stays empty
+
+5. Forms and email (30 min)
+   - Footer “Get the Scoop” (Gravity Form 1): test submit, confirm Mailchimp
+   - Resource / flipbook gated download (forms 7 and 13): PDF email or download works
+   - Explore Tysons form (form 4) if that page is still live
+   - WP Mail SMTP: no auth errors; a test email arrives
+   - reCAPTCHA: form is not silently blocking real people
+   - Tools → Gravity Forms Usage if a form was duplicated/imported (IDs 1, 4, 7, 13, 18
+     are hardcoded in the theme)
+
+6. Social feeds (20 min)
+   - Instagram feed on the homepage (Smash Balloon tokens often expire around 60 days)
+   - Any Facebook, X/Twitter, TikTok, or YouTube feeds still in use
+   - Flickr album block (uses a live Flickr API call, no cache)
+
+7. Square store (10 min) — if gift cards / store is live
+   - Product images and “Buy now” URLs still open a working Square checkout
+
+
+CORE HEALTH (about 1.5 hours)
+-----------------------------
+
+8. Updates (45 min)
+   - WordPress core, then plugins, then theme — on staging first if possible
+   - Yoast SEO free and Yoast Premium versions should stay compatible
+     (they have drifted apart before)
+   - After Events Manager updates: spot-check event permalinks, recurrences, iCal
+   - After ACF / ACF Extended updates: open a few custom blocks in the editor
+     (Image Banner, Text Image Combo, Content Grid, Football, Neighborhood map)
+   - Do not update everything blindly on the same day as a campaign launch
+
+9. Security and backups (20 min)
+   - Wordfence: scan clean; it is not blocking admin-ajax.php (live scores use it)
+   - Pressable backups exist and a recent restore point is available
+   - Complianz: cookie banner still appears; GTM / Mapbox are not firing before consent
+     if that is the intended setup
+   - User accounts: no leftover contractor logins
+
+10. Cache and performance (20 min)
+    - Flush Pressable cache after updates
+    - Homepage LCP: hero poster/image should appear quickly; video should not block it
+    - Imagify quota not exhausted (large hero images/videos)
+    - Confirm public/js and public/css are the built files (src/ changes do nothing
+      until `npm run build` in the theme)
+
+
+CONTENT AND CMS (about 1 hour)
+------------------------------
+
+11. Content grids (20 min)
+    - Homepage “What’s Happening”, Featured News, datahub numbers
+    - News listing /news with filters
+    - Resource library: PDFs open; DearFlip flipbooks still render
+    - Bios / Our Team
+    - Mega menu (ACF options “Tysons Mega Menu”): featured cards and links
+
+12. SEO and analytics (20 min)
+    - Yoast: homepage, a few key pages, no crawl errors in Search Console
+    - GTM-5SGV8GQ still receiving hits
+    - Broken-link spot check on footer, mega menu, Square URLs
+
+13. Hardcoded campaign pages (20 min) — only if still linked
+    - Explore Tysons (template-explore.php) — images under /uploads/2025/02/
+    - Get Around Guide (template-gag.php)
+    These pages are mostly hardcoded HTML, not CMS blocks. Image URLs rot if
+    media is moved.
+
+
+QUARTERLY ADD-ONS (not every month, but calendar them)
+------------------------------------------------------
+  - Instagram / Facebook / X token refresh (do not wait for the feed to go blank)
+  - API-Football plan/quota review if live scores are on a high-traffic page
+  - License check: Gravity Forms, ACF Pro, Yoast Premium, Wordfence, Imagify,
+    DearFlip, Admin Columns, FileBird, WP Migrate DB
+  - Code Snippets plugin: list active snippets (they are not in git)
+  - ACF JSON sync: Custom Fields vs themes/tca/acf-json/ after anyone edits in wp-admin
+  - Mapbox token rotation / style ownership (user tcasoftware)
+
+
+HOW TO SPEND THE 5–6 HOURS
+--------------------------
+  0:00–0:30  Homepage + hero + overlapping graphic + Instagram
+  0:30–1:15  Events, recurrences, maps
+  1:15–1:45  Forms (test submits) + Mailchimp + SMTP
+  1:45–2:15  Football / Flickr / Square / Neighborhood map
+  2:15–3:00  Plugin/core updates on staging, then production
+  3:00–3:30  Wordfence, backups, Complianz, cache flush
+  3:30–4:15  Content grids, mega menu, resources, bios
+  4:15–5:00  SEO / Search Console / GTM / leftover campaign pages
+  5:00–5:30  Buffer for whatever actually broke
+
+Keep a one-line log (date, what you updated, what failed) so the next month is faster.

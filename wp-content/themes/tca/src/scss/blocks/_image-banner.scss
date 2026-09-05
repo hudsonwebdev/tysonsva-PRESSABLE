@@ -69,6 +69,17 @@
     z-index:0;
   }
 
+  /* Overlay above media, below text/badge/chevron. Kept outside .banner-media
+     so it composites over the image/video layer (incl. Chrome <video>). */
+  .image-tint{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:2;
+    pointer-events:none;
+  }
+
   .chevron{
     position:absolute;
     top:-20px;
@@ -84,15 +95,6 @@
 
   .text-overlay{
     z-index:10;
-  }
-
-  .image-tint{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    z-index:2;
-    pointer-events:none;
   }
 
   &.banner-height-short{
@@ -294,14 +296,5 @@
     height:100%;
     object-fit:cover;
     z-index:1;
-  }
-
-  .image-tint{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    z-index:2;
-    pointer-events:none;
   }
 }

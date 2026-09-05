@@ -1,0 +1,8 @@
+wflogs/
+upgrade/
+uploads/
+cache/
+*.log
+node_modules/
+.DS_Store
+local-xdebuginfo.php

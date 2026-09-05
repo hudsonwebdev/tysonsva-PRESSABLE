@@ -59,6 +59,9 @@ class GF_APC_Blocks_Config extends GF_Config {
 	 * @return array[]
 	 */
 	public function data() {
+		if ( ! \GFCommon::is_block_editor_page() ) {
+			return array();
+		}
 		$attributes    = $this->attributes;
 		$forms         = $this->get_forms();
 		$defaultFormId = '';

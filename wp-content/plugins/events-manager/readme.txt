@@ -5,7 +5,7 @@ Tags: events, calendar, tickets, bookings, block
 Text Domain: events-manager
 Requires at least: 6.1
 Tested up to: 7.0
-Stable tag: 7.4.0.1
+Stable tag: 7.4.3
 Requires PHP: 7.0
 License: GPLv2
 
@@ -194,7 +194,41 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page for helps wit
 18. Grid view for displaying your upcoming events at a glance
 
 == Changelog ==
+= 7.4.3 =
+* Security: Fixed an XSS vulnerability CVE-2026-66457. Reported by Mukhlis Amien via Patchstack.
+* Security: Fixed low-severity (self-diagnosed) vulnerability allowing unfiltered shortcode output under specific setup/variable circumstances.
+* Fixed: fatal error when the booking cancellation cut-off is set as an interval such as `P2D` rather than a number of hours
+* Fixed: fatal error saving a location with an attribute no longer in your configured attribute list
+* Fixed: quotes in a custom calendar month format broke the month picker
+* Tweaked: documentation links now use https
+
+= 7.4.2 =
+* Security: Fixed an XSS vulnerability in grouped event lists.
+
+= 7.4.1 =
+* Fixed: events could revert to Draft on save reporting that timeranges cannot overlap, and in some cases the event's timeslots were silently removed
+* Fixed: events saved in the block editor failed validation asking for consent that cannot be given there
+* Fixed: saving a booking in the admin area failed with "The link you followed has expired" on sites running a page cache plugin
+* Fixed: adding unavailable dates to a saved recurring event did nothing
+* Fixed: recurrences set to specific dates could not be published, reporting that the end date must be greater than the start date
+* Fixed: individually edited occurrences of a repeating event had their name, content and other details overwritten from the parent
+* Fixed: detaching an occurrence from a repeating event silently failed and left the event out of sync with its post, with affected events repaired on upgrade
+* Fixed: detaching tickets did nothing on sites not using the default `wp_` database prefix
+* Fixed: fatal error when booking meta was saved with an empty value
+* Fixed: deleting multiple events at once reported the wrong result
+* Fixed: waitlist re-checks and other listeners of `em_bookings_deleted` received no event ids
+* Fixed: listeners of `em_event_delete_pre` never fired, due to a trailing space in the hook name
+* Fixed: on multilingual sites, bookings could resolve to the wrong event, and deleting a master event could detach occurrences from their series
+* Fixed: on multisite, deleting a site left the timeslot, recurrence and booking meta tables behind
+* Fixed: columns added to the timeslots table in a later release were never applied to existing sites, and upgrades could remove database indexes added elsewhere
+* Security: Fixed a privilege escalation vulnerability. Reported by Jakub Herman.
+* Security: Fixed an SQLi vulnerability. Reported by Jakub Herman.
+* Security: Fixed an SQLi vulnerability (CVE-2026-15023). Reported by Dmitrii Ignatyev (CleanTalk) via Wordfence.
+* Security: Fixed an XSS vulnerability (CVE-2026-17089). Reported by Wordfence PRISM.
+* Security: Fixed an information disclosure vulnerability (CVE-2026-10627). Reported by molten bit via Wordfence.
+
 = 7.4.0.1 =
+* Fixed (in-dev): dbDelta warnings and malformed ALTER TABLE queries on upgrade for the new timeranges table due to blank lines in the CREATE TABLE definition
 * Update notice for Pro users.
 
 = 7.4 =

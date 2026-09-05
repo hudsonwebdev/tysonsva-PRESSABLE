@@ -336,7 +336,7 @@ class EM_Location extends EM_Object {
 			if( !empty($_POST['em_attributes']) && is_array($_POST['em_attributes']) ){
 				foreach($_POST['em_attributes'] as $att_key => $att_value ){
 					if( (in_array($att_key, $location_available_attributes['names']) || array_key_exists($att_key, $this->location_attributes) ) ){
-						$att_vals = count($location_available_attributes['values'][$att_key]);
+						$att_vals = isset($location_available_attributes['values'][$att_key]) ? count($location_available_attributes['values'][$att_key]) : 0;
 						if( $att_vals == 0 || ($att_vals > 0 && in_array($att_value, $location_available_attributes['values'][$att_key])) ){
 							// Same sanitization logic as event attributes: strip HTML for non-privileged users to prevent stored XSS via anonymous location submissions.
 							if( $att_vals == 0 && !current_user_can('unfiltered_html') ){
@@ -604,20 +604,22 @@ class EM_Location extends EM_Object {
 				$location_meta = $this->get_location_meta( $this->blog_id );
 				$new_location_meta = $EM_Location->get_location_meta( $EM_Location->blog_id );
 				$location_meta_inserts = array();
+				$location_meta_values = array();
 				//Get custom fields and post meta - adapted from $this->load_post_meta()
 				foreach($location_meta as $location_meta_key => $location_meta_vals){
 					if( $location_meta_key == '_wpas_' ) continue; //allow JetPack Publicize to detect this as a new post when published
 					if( is_array($location_meta_vals) ){
 						if( !array_key_exists($location_meta_key, $new_location_meta) &&  !in_array($location_meta_key, array('_location_attributes', '_edit_last', '_edit_lock', '_location_owner_name','_location_owner_anonymous','_location_owner_email')) ){
 							foreach($location_meta_vals as $location_meta_val){
-								$location_meta_inserts[] = "({$EM_Location->post_id}, '{$location_meta_key}', '{$location_meta_val}')";
+								$location_meta_inserts[] = '(%d, %s, %s)';
+								array_push($location_meta_values, $EM_Location->post_id, $location_meta_key, $location_meta_val);
 							}
 						}
 					}
 				}
-				//save in one SQL statement
+				//save in one SQL statement — meta keys/values come from stored post meta and must be parameterised (second-order SQLi otherwise)
 				if( !empty($location_meta_inserts) ){
-					$wpdb->query('INSERT INTO '.$wpdb->postmeta." (post_id, meta_key, meta_value) VALUES ".implode(', ', $location_meta_inserts));
+					$wpdb->query( $wpdb->prepare('INSERT INTO '.$wpdb->postmeta." (post_id, meta_key, meta_value) VALUES ".implode(', ', $location_meta_inserts), $location_meta_values) );
 				}
 				if( array_key_exists('_location_approvals_count', $location_meta) ) update_post_meta($EM_Location->post_id, '_location_approvals_count', 0);
 				//copy anything from the em_meta table too

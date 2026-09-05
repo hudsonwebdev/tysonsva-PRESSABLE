@@ -441,7 +441,10 @@ class CFF_Shortcode extends CFF_Shortcode_Display
 		}
 
 		// See Less text
-		$cff_posttext_link_color = str_replace('#', '', $this->atts['textlinkcolor']);
+		// Constrain to a hex colour at the source — this value feeds multiple
+		// style="..." attributes below.
+		$cff_posttext_link_color_raw = ltrim( (string) $this->atts['textlinkcolor'], '#' );
+		$cff_posttext_link_color     = preg_match( '/^[0-9a-fA-F]{3,8}$/', $cff_posttext_link_color_raw ) ? $cff_posttext_link_color_raw : '';
 		$cff_title_link = CFF_Utils::check_if_on($this->atts['textlink']);
 
 		// Description Style
@@ -569,7 +572,7 @@ class CFF_Shortcode extends CFF_Shortcode_Display
 		$custom_wrp_class = !empty($cff_feed_height) ? ' cff-wrapper-fixed-height' : '';
 
 		$cff_content .= '<div class="cff-wrapper-ctn ' . $custom_wrp_class . '" ' . $cff_insider_style . '>';
-		$cff_content .= '<div id="cff" ' . $cff_style_class['cff_custom_class'] . ' ' . $cff_style_class['cff_feed_styles'] . ' ' . $cff_style_class['cff_feed_attributes'] . '>';
+		$cff_content .= '<div id="cff" role="region" aria-label="' . esc_attr__('Facebook feed', 'custom-facebook-feed') . '" ' . $cff_style_class['cff_custom_class'] . ' ' . $cff_style_class['cff_feed_styles'] . ' ' . $cff_style_class['cff_feed_attributes'] . '>';
 
 		// Add the page header to the inside of the top of feed
 		if ($cff_show_header && !$cff_header_outside) {
@@ -608,7 +611,7 @@ class CFF_Shortcode extends CFF_Shortcode_Display
 
 
 		$posts_wrap_box_shadow_class = $cff_box_shadow && $this->atts['feedlayout'] === 'list' ? ' cff-posts-wrap-box-shadow' : '';
-		$cff_content .= '<div class="cff-posts-wrap' . $posts_wrap_box_shadow_class . '">';
+		$cff_content .= '<div class="cff-posts-wrap' . $posts_wrap_box_shadow_class . '" role="list">';
 
 			// ***STARTS POSTS LOOP***
 		if (isset($FBdata->data)) {
@@ -1056,7 +1059,7 @@ class CFF_Shortcode extends CFF_Shortcode_Display
 
 						// Change the linebreak element if the text issue setting is enabled
 						$cff_format_issue = CFF_Utils::check_if_on($this->atts['textissue']);
-						$cff_linebreak_el = ( $cff_format_issue ) ?  '<br />' : '<img class="cff-linebreak" />';
+						$cff_linebreak_el = ( $cff_format_issue ) ?  '<br />' : '<img class="cff-linebreak" alt="" aria-hidden="true" />';
 
 						// EVENT
 						$cff_event_has_cover_photo = false;
@@ -1146,7 +1149,7 @@ class CFF_Shortcode extends CFF_Shortcode_Display
 			$cff_content .= CFF_Utils::print_template_part('credit', get_defined_vars());
 
 		// End the feed
-			$cff_content .= '<input class="cff-pag-url" type="hidden" data-locatornonce="' . esc_attr(wp_create_nonce('cff-locator-nonce-' . get_the_ID())) . '" data-cff-shortcode="' . $data_att_html . '" data-post-id="' . get_the_ID() . '" data-feed-id="' . $atts['id'] . '">';
+			$cff_content .= '<input class="cff-pag-url" type="hidden" data-locatornonce="' . esc_attr( wp_create_nonce( 'cff-locator-nonce-' . get_the_ID() ) ) . '" data-cff-shortcode="' . $data_att_html . '" data-post-id="' . get_the_ID() . '" data-feed-id="' . esc_attr( $atts['id'] ) . '">';
 			$cff_content .= '</div></div><div class="cff-clear"></div>';
 
 			// Add the Like Box outside

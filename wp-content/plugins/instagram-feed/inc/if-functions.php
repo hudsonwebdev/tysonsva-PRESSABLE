@@ -1024,7 +1024,7 @@ function sbi_is_url($input)
 
 
 /**
- * Added to workaround MySQL tables that don't use utf8mb4 character sets
+ * Added to work around MySQL tables that don't use utf8mb4 character sets
  *
  * @since 2.2.1/5.3.1
  */
@@ -1037,7 +1037,7 @@ function sbi_sanitize_emoji($string)
 }
 
 /**
- * Added to workaround MySQL tables that don't use utf8mb4 character sets
+ * Added to work around MySQL tables that don't use utf8mb4 character sets
  *
  * @since 2.2.1/5.3.1
  */
@@ -1239,6 +1239,29 @@ function sb_instagram_clear_page_caches()
 }
 
 /**
+ * Registers the local design-tokens stylesheet so consumer styles can
+ * declare it as a dependency. Hooked at priority 1 on both the frontend
+ * and admin enqueue actions so the handle is always available before
+ * any consumer style registers.
+ *
+ * The file is a snapshot of @smashballoons/tokens (npm) — see
+ * assets/tokens/sb-tokens-local.css for the version pin and migration
+ * notes.
+ */
+function sb_instagram_register_tokens_local_style()
+{
+	wp_register_style(
+		'sbi-tokens-local',
+		SBI_PLUGIN_URL . 'assets/tokens/sb-tokens-local.css',
+		array(),
+		SBIVER
+	);
+}
+
+add_action('wp_enqueue_scripts', 'sb_instagram_register_tokens_local_style', 1);
+add_action('admin_enqueue_scripts', 'sb_instagram_register_tokens_local_style', 1);
+
+/**
  * Makes the JavaScript file available and enqueues the stylesheet
  * for the plugin
  */
@@ -1266,9 +1289,9 @@ function sb_instagram_scripts_enqueue($enqueue = false)
 	}
 
 	if (isset($sb_instagram_settings['enqueue_css_in_shortcode']) && $sb_instagram_settings['enqueue_css_in_shortcode']) {
-		wp_register_style('sbi_styles', trailingslashit(SBI_PLUGIN_URL) . $css_file, array(), SBIVER);
+		wp_register_style('sbi_styles', trailingslashit(SBI_PLUGIN_URL) . $css_file, array('sbi-tokens-local'), SBIVER);
 	} else {
-		wp_enqueue_style('sbi_styles', trailingslashit(SBI_PLUGIN_URL) . $css_file, array(), SBIVER);
+		wp_enqueue_style('sbi_styles', trailingslashit(SBI_PLUGIN_URL) . $css_file, array('sbi-tokens-local'), SBIVER);
 	}
 
 
@@ -1595,7 +1618,17 @@ function sbi_schedule_report_email()
 	wp_schedule_event($six_am_local, 'sbiweekly', 'sb_instagram_feed_issue_email');
 }
 
-function sbi_send_report_email()
+/**
+ * Build and send the feed issue report email.
+ *
+ * @param array $staleness Optional BackupCacheMonitor::evaluate() state. When
+ *                         its tier is non-zero the report describes stale
+ *                         backup content instead of a connection error; pass
+ *                         nothing to keep the original critical-error copy.
+ *
+ * @return bool
+ */
+function sbi_send_report_email($staleness = array())
 {
 	$options = get_option('sb_instagram_settings');
 
@@ -1639,7 +1672,24 @@ function sbi_send_report_email()
 		}
 	}
 
-	if (!$is_expiration_notice) {
+	// Staleness never overrides the reauthentication notice: an expiring
+	// private account is the more specific, more actionable problem.
+	$is_staleness_notice = !$is_expiration_notice && !empty($staleness['tier']);
+
+	if ($is_staleness_notice) {
+		$stale_days = isset($staleness['worst_days']) ? (int)$staleness['worst_days'] : 0;
+		$stale_feeds = isset($staleness['feed_count']) ? (int)$staleness['feed_count'] : 0;
+
+		$title = sprintf(__('Instagram Feed Report for %s', 'instagram-feed'), str_replace(array('http://', 'https://'), '', home_url()));
+		$bold = __('An Instagram Feed on Your Website is Showing Old Posts', 'instagram-feed');
+		$details = '<p>' . sprintf(__('An Instagram feed on your website has not been able to get new posts from Instagram for %d days, so visitors are seeing an old saved copy of your feed. Your website looks normal, which makes this easy to miss, but new Instagram posts will not appear until the connection is fixed.', 'instagram-feed'), $stale_days) . '</p>';
+
+		if ($stale_feeds > 1) {
+			$details .= '<p>' . sprintf(__('%d feeds on this site are affected.', 'instagram-feed'), $stale_feeds) . '</p>';
+		}
+
+		$details .= '<p>' . sprintf(__('To check the connection and get it working again, please visit the %sInstagram Feed settings page%s on your website.', 'instagram-feed'), '<a href="' . esc_url($link) . '">', '</a>') . '</p>';
+	} elseif (!$is_expiration_notice) {
 		$title = sprintf(__('Instagram Feed Report for %s', 'instagram-feed'), str_replace(array('http://', 'https://'), '', home_url()));
 		$bold = __('There\'s an Issue with an Instagram Feed on Your Website', 'instagram-feed');
 		$details = '<p>' . __('An Instagram feed on your website is currently unable to connect to Instagram to retrieve new posts. Don\'t worry, your feed is still being displayed using a cached version, but is no longer able to display new posts.', 'instagram-feed') . '</p>';
@@ -1647,7 +1697,7 @@ function sbi_send_report_email()
 	} else {
 		$title = __('Your Private Instagram Feed Account Needs to be Reauthenticated', 'instagram-feed');
 		$bold = __('Access Token Refresh Needed', 'instagram-feed');
-		$details = '<p>' . __('As your Instagram account is set to be "Private", Instagram requires that you reauthenticate your account every 60 days. This a courtesy email to let you know that you need to take action to allow the Instagram feed on your website to continue updating. If you don\'t refresh your account, then a backup cache will be displayed instead.', 'instagram-feed') . '</p>';
+		$details = '<p>' . __('As your Instagram account is set to be "Private", Instagram requires that you reauthenticate your account every 60 days. This is a courtesy email to let you know that you need to take action to allow the Instagram feed on your website to continue updating. If you don\'t refresh your account, then a backup cache will be displayed instead.', 'instagram-feed') . '</p>';
 		$details .= '<p>' . sprintf(__('To prevent your account expiring every 60 days %sswitch your account to be public%s. For more information and to refresh your account, click here to visit the %sInstagram Feed settings page%s on your website.', 'instagram-feed'), '<a href="https://help.instagram.com/116024195217477/In">', '</a>', '<a href="' . esc_url($link) . '">', '</a>') . '</p>';
 	}
 	$message_content = '<h6 style="padding:0;word-wrap:normal;font-family:\'Helvetica Neue\',Helvetica,Arial,sans-serif;font-weight:bold;line-height:130%;font-size: 16px;color:#444444;text-align:inherit;margin:0 0 20px 0;Margin:0 0 20px 0;">' . $bold . '</h6>' . $details;
@@ -1665,16 +1715,30 @@ function sbi_send_report_email()
 function sbi_maybe_send_feed_issue_email()
 {
 	global $sb_instagram_posts_manager;
-	if (!$sb_instagram_posts_manager->are_critical_errors()) {
+
+	$are_critical_errors = $sb_instagram_posts_manager->are_critical_errors();
+
+	// Backup-cache staleness is a time-based signal that can be true with no
+	// critical error at all: a feed can serve saved posts for weeks while the
+	// site looks perfectly healthy. That is precisely the case the staleness
+	// notice exists for, so it has to reach the email report too (SMASH-1975).
+	// Reuses this cron run rather than adding a second scheduler.
+	$staleness = \InstagramFeed\BackupCacheMonitor::evaluate();
+	$is_stale = $staleness['tier'] > 0;
+
+	if (!$are_critical_errors && !$is_stale) {
 		return;
 	}
+
 	$options = get_option('sb_instagram_settings');
 
 	if (isset($options['enable_email_report']) && empty($options['enable_email_report'])) {
 		return;
 	}
 
-	sbi_send_report_email();
+	// A critical error keeps its existing copy — the staleness wording is used
+	// only when staleness is the sole reason we are emailing.
+	sbi_send_report_email($are_critical_errors ? array() : $staleness);
 }
 
 add_action('sb_instagram_feed_issue_email', 'sbi_maybe_send_feed_issue_email');

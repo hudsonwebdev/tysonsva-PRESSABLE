@@ -122,7 +122,7 @@ class GF_Block_APC_Posts extends GF_Block {
 			);
 
 			// Edit link (or disabled markup)
-			$edit_link = \GF_Advanced_Post_Creation::get_instance()->post_update_handler->get_edit_entry_link( $entry_id );
+			$edit_link = \GF_Advanced_Post_Creation::get_instance()->post_update_handler->get_edit_entry_link( $entry_id, $post_id );
 			if ( $edit_link ) {
 				$edit_markup = sprintf(
 					'<a class="gform-button gform-button--size-height-s gform-button--icon-white gform-spacing gform-spacing--top-0 gform-spacing--right-2 gform-spacing--bottom-0 gform-spacing--left-0 gform-data-grid__action" href="%s" title="%s %s"><span class="dashicons dashicons-edit"></span></a>',

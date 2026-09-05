@@ -9,7 +9,7 @@ class EM_Admin_Modals {
 		add_filter('wp_ajax_em-admin-popup-modal', 'EM_Admin_Modals::ajax');
 		add_filter('em_admin_notice_review-nudge_message', 'EM_Admin_Modals::review_notice');
 		//add_filter('em_admin_notice_newsletter-signup_message', 'EM_Admin_Modals::newsletter_notice');
-		if( time() < 1783728000 ) {
+		if( time() < 1786352400 ) {
 			add_filter( 'em_admin_notice_promo-popup_message', 'EM_Admin_Modals::promo_notice' );
 		}
 		add_filter( 'em_admin_notice_expired-reminder_message', 'EM_Admin_Modals::expired_reminder_notice' );
@@ -84,7 +84,7 @@ class EM_Admin_Modals {
 				$key = em_get_option('dbem_pro_api_key');
 				//$has_lifetime_already = $key && date('Y', $key['until'] ?? time() ) === '2125';
 			}
-			if( time() < 1783728000 && !empty($data['admin-modals']['promo-popup']) && empty($has_lifetime_already) ) {
+			if( time() < 1786352400 && !empty($data['admin-modals']['promo-popup']) && empty($has_lifetime_already) ) {
 				if( $data['admin-modals']['promo-popup'] && ($show_plugin_pages || $show_network_admin) ) {
 					// enqueue script and load popup action
 					if( empty($data['admin-modals']['promo-popup-count']) ){
@@ -308,12 +308,11 @@ class EM_Admin_Modals {
 			<div class="em-modal-popup">
 				<header>
 					<a class="em-close-modal dismiss-modal" href="#"></a><!-- close modal -->
-					<div class="em-modal-title">Prices Going Up - Get 25% off now!</div>
+					<div class="em-modal-title">It's the season of change, get up to 35% off!</div>
 				</header>
 				<div class="em-modal-content has-image" style="--font-size:16px;">
 					<div>
-						<p>We're raising our prices soon, and we're letting you know first!</p>
-						<p>We have lots of new features coming very soon, go Pro now and get access at today's great prices.</p>
+						<p>Beat the heat, because things <em>ARE</em> heating up... go Pro now and get access at today's great prices! Changes are coming... <a href="https://pxlink.cc/7-4-1">learn more</a></p>
 					</div>
 					<div class="image">
 						<img src="<?php echo EM_DIR_URI . '/includes/images/events-manager.svg'; ?>">
@@ -343,9 +342,8 @@ class EM_Admin_Modals {
 					<img src="<?php echo EM_DIR_URI . '/includes/images/events-manager.svg'; ?>" style="width: 100%;">
 				</div>
 				<div>
-					<h3 style="margin: 0 0 5px; padding-bottom:0;">Prices Going Up - Get 25% off now!</h3>
-					<p>We're raising our prices soon, and we're letting you know first!</p>
-					<p>We have lots of new features coming very soon, go Pro now and get access at today's great prices.</p>
+					<h3 style="margin: 0 0 5px; padding-bottom:0;">It's the season of change, get up to 35% off!</h3>
+					<p>Beat the heat, because things <em>ARE</em> heating up... go Pro now and get access at today's great prices! Changes are coming... <a href="https://pxlink.cc/7-4-1">learn more</a></p>
 					<div>
 						<a href="https://pxlink.cc/promo-gopro-n" class="button button-primary input" target="_blank" style="margin-right:10px; --accent-color:#429543; --accent-color-hover:#429543;">Go Pro!</a>
 						<a href="<?php echo esc_url( admin_url('admin-ajax.php?action=em_dismiss_admin_notice&notice=promo-popup&redirect=1&nonce='. wp_create_nonce('em_dismiss_admin_noticepromo-popup'.get_current_user_id()) ) ); ?>" class="button button-secondary"><?php esc_html_e('Dismiss', 'events-manager'); ?></a>

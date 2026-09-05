@@ -51,10 +51,16 @@ export default {
 	methods: {
 		close() {
 			if (this.forceOpen) {
-				this.forceOpen()
-				this.$nextTick(() => {
-					this.forceOpen = false
-				})
+				// A handler can return false to say "not yet" - e.g. a request
+				// is still in flight - keeping itself installed so a repeat
+				// close attempt is guarded again, instead of always resetting
+				// and letting the next call fall through to a hard unmount.
+				const keepGuarding = false === this.forceOpen()
+				if (!keepGuarding) {
+					this.$nextTick(() => {
+						this.forceOpen = false
+					})
+				}
 				return
 			}
 			this.notifyInfo('metaslider/utility-modal-closing-ui', this.__('Closing utility modal...', 'ml-slider') + ' (' + this.filename + ')')
