@@ -51,4 +51,7 @@ node_modules
 .DS_Store
 
 
-.env/wp-content/wflogs/
+.env
+
+# Wordfence runtime files (per-environment; do not commit)
+/wp-content/wflogs/
