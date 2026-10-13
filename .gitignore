@@ -55,3 +55,6 @@ node_modules
 
 # Wordfence runtime files (per-environment; do not commit)
 /wp-content/wflogs/
+
+# Local-only maintenance notes (not for deploy)
+/wp-content/themes/tca/MONTHLY-MAINTENANCE.txt
