@@ -204,6 +204,38 @@
             "append": ""
         },
         {
+            "key": "field_69dce72a568f4",
+            "label": "Event selection",
+            "name": "event_selection_method",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "All upcoming events maps every future Events Manager event that has coordinates. Event chooser lets you pick locations. Upcoming by category maps locations that have events in the selected categories.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "All Upcoming Events": "All upcoming events",
+                "Event Chooser": "Event chooser",
+                "Upcoming by Category": "Upcoming by category"
+            },
+            "default_value": "All Upcoming Events",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "allow_in_bindings": 0,
+            "ui": 1,
+            "ajax": 0,
+            "placeholder": "",
+            "allow_custom": 0,
+            "search_placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
             "key": "field_67f3e0evloc03",
             "label": "Locations on map",
             "name": "event_locations",
@@ -252,7 +284,15 @@
             "type": "true_false",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_69dce72a568f4",
+                        "operator": "!=",
+                        "value": "All Upcoming Events"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -279,6 +319,20 @@
                         "field": "field_69dd9fb0ce300",
                         "operator": "==",
                         "value": "1"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_69dce72a568f4",
+                        "operator": "==",
+                        "value": "All Upcoming Events"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_69dce72a568f4",
+                        "operator": "==",
+                        "value": "Upcoming by Category"
                     }
                 ]
             ],
@@ -313,6 +367,25 @@
                         "field": "field_69dd9fb0ce300",
                         "operator": "==",
                         "value": "1"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_69dcecefef2cd",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_69dce72a568f4",
+                        "operator": "==",
+                        "value": "All Upcoming Events"
+                    }
+                ],
+                [
+                    {
+                        "field": "field_69dce72a568f4",
+                        "operator": "==",
+                        "value": "Upcoming by Category"
                     }
                 ]
             ],
@@ -510,5 +583,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1778345200
+    "modified": 1778349000
 }

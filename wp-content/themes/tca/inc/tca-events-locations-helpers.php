@@ -242,6 +242,60 @@ function tca_evloc_markers_from_location_posts( array $location_post_ids, $show_
 }
 
 /**
+ * Build markers from all upcoming Events Manager events, grouped by location.
+ *
+ * Uses EM location_latitude / location_longitude. Recurring series are reduced
+ * to the next occurrence. Events without a mapped location are skipped.
+ *
+ * @param bool  $show_upcoming     Include event titles/dates on pins.
+ * @param int[] $category_term_ids Optional event-categories filter.
+ * @return array[]
+ */
+function tca_evloc_markers_from_upcoming_events( $show_upcoming = true, array $category_term_ids = array() ) {
+	$markers = array();
+	if ( ! class_exists( 'EM_Events' ) || ! function_exists( 'em_get_location' ) ) {
+		return $markers;
+	}
+
+	$em_events_base_args = array(
+		'scope'     => 'future',
+		'limit'     => 0,
+		'status'    => 'published',
+		'orderby'   => 'event_start_date,event_start_time',
+		'order'     => 'ASC',
+		'recurring' => false,
+	);
+
+	if ( ! empty( $category_term_ids ) ) {
+		$em_events_base_args['category'] = $category_term_ids;
+	}
+
+	$all_events = tca_evloc_one_per_series( (array) EM_Events::get( $em_events_base_args ) );
+	$by_location_id = array();
+
+	foreach ( $all_events as $EM_Event ) {
+		if ( ! is_object( $EM_Event ) || empty( $EM_Event->location_id ) ) {
+			continue;
+		}
+		$lid = (int) $EM_Event->location_id;
+		if ( ! isset( $by_location_id[ $lid ] ) ) {
+			$by_location_id[ $lid ] = array();
+		}
+		$by_location_id[ $lid ][] = $EM_Event;
+	}
+
+	foreach ( $by_location_id as $location_id => $loc_events ) {
+		$EM_Location = em_get_location( (int) $location_id, 'location_id' );
+		$marker      = tca_evloc_build_marker( $EM_Location, $loc_events, $show_upcoming, false );
+		if ( $marker ) {
+			$markers[] = $marker;
+		}
+	}
+
+	return $markers;
+}
+
+/**
  * Resolve Mapbox style URL from ACF fields.
  *
  * @param string $style_choice Selected style or "custom".

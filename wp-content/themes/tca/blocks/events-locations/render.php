@@ -286,9 +286,17 @@ $tca_events_locations_append_location = static function ( $EM_Location, $loc_eve
 };
 
 $event_selection_method = function_exists( 'get_field' ) ? get_field( 'event_selection_method' ) : '';
-$use_category_mode      = ( 'Upcoming by Category' === $event_selection_method );
-$filter_by_category     = (bool) ( function_exists( 'get_field' ) ? get_field( 'filter_by_category' ) : false );
-$category_term_ids      = $tca_events_locations_category_term_ids( function_exists( 'get_field' ) ? get_field( 'event_category' ) : null );
+if ( ! is_string( $event_selection_method ) || '' === $event_selection_method ) {
+	$event_selection_method = 'Event Chooser';
+}
+$use_all_upcoming_mode = ( 'All Upcoming Events' === $event_selection_method );
+$use_category_mode     = ( 'Upcoming by Category' === $event_selection_method );
+$filter_by_category    = (bool) ( function_exists( 'get_field' ) ? get_field( 'filter_by_category' ) : false );
+$category_term_ids     = $tca_events_locations_category_term_ids( function_exists( 'get_field' ) ? get_field( 'event_category' ) : null );
+
+if ( $use_all_upcoming_mode ) {
+	$show_upcoming_events = true;
+}
 
 $selected = function_exists( 'get_field' ) ? get_field( 'event_locations' ) : null;
 $location_post_ids = array();
@@ -316,7 +324,12 @@ $em_events_base_args = array(
 	'recurring' => false,
 );
 
-if ( $use_category_mode ) {
+if ( $use_all_upcoming_mode ) {
+	$upcoming_cats = ( $filter_by_category && ! empty( $category_term_ids ) ) ? $category_term_ids : array();
+	if ( function_exists( 'tca_evloc_markers_from_upcoming_events' ) ) {
+		$markers = tca_evloc_markers_from_upcoming_events( true, $upcoming_cats );
+	}
+} elseif ( $use_category_mode ) {
 	if ( ! empty( $category_term_ids ) ) {
 		$all_cat_events = EM_Events::get(
 			array_merge(
@@ -390,7 +403,9 @@ $markers_json = wp_json_encode(
 );
 
 $tca_evloc_show_map = false;
-if ( $use_category_mode ) {
+if ( $use_all_upcoming_mode ) {
+	$tca_evloc_show_map = ! empty( $markers );
+} elseif ( $use_category_mode ) {
 	$tca_evloc_show_map = ! empty( $category_term_ids ) && ! empty( $markers );
 } else {
 	$tca_evloc_show_map = ! empty( $location_post_ids ) && ! empty( $markers );
@@ -401,7 +416,7 @@ if ( $use_category_mode ) {
 	<div class="uk-container">
 		<?php if ( $use_category_mode && empty( $category_term_ids ) ) : ?>
 			<p class="tca-events-locations-no-selection"><?php echo esc_html__( 'Select one or more event categories in the block settings.', 'tca' ); ?></p>
-		<?php elseif ( ! $use_category_mode && empty( $location_post_ids ) ) : ?>
+		<?php elseif ( ! $use_all_upcoming_mode && ! $use_category_mode && empty( $location_post_ids ) ) : ?>
 			<p class="tca-events-locations-no-selection"><?php echo esc_html__( 'Select one or more locations in the block settings.', 'tca' ); ?></p>
 		<?php elseif ( $tca_evloc_show_map ) : ?>
 			<div
@@ -461,6 +476,8 @@ if ( $use_category_mode ) {
 					</div>
 				</div>
 			</div>
+		<?php elseif ( $use_all_upcoming_mode ) : ?>
+			<p class="tca-events-locations-no-matching-events"><?php echo esc_html__( 'No upcoming events found with a map location.', 'tca' ); ?></p>
 		<?php elseif ( $use_category_mode ) : ?>
 			<p class="tca-events-locations-no-matching-events"><?php echo esc_html__( 'No upcoming events found for the selected categories with a map location.', 'tca' ); ?></p>
 		<?php else : ?>
