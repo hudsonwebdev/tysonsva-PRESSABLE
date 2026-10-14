@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Product;
 
 use ACP\Query\Bindings;
@@ -10,7 +12,6 @@ use ACP\Search\Value;
 
 class Featured extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -34,12 +35,7 @@ class Featured extends Comparison
         return $bindings;
     }
 
-    /**
-     * @param string $operator
-     *
-     * @return array
-     */
-    public function get_tax_query($operator)
+    public function get_tax_query(string $operator): array
     {
         $product_visibility_term_ids = wc_get_product_visibility_term_ids();
         $operator = $operator === Operators::IS_EMPTY ? 'NOT IN' : 'IN';

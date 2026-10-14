@@ -13,12 +13,11 @@ use ACP\Sorting\Type\Order;
 
 class OrderData implements QueryBindings
 {
+    private string $field;
 
-    private $field;
+    private ?DataType $data_type;
 
-    private $data_type;
-
-    public function __construct(string $field, DataType $data_type = null)
+    public function __construct(string $field, ?DataType $data_type = null)
     {
         $this->field = $field;
         $this->data_type = $data_type;

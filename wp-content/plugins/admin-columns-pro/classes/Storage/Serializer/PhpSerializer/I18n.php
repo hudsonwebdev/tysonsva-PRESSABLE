@@ -8,10 +8,9 @@ use ACP\Storage\Serializer;
 
 final class I18n implements Serializer
 {
+    private Serializer $serializer;
 
-    private $serializer;
-
-    private $text_domain;
+    private string $text_domain;
 
     public function __construct(Serializer $serializer, string $text_domain)
     {
@@ -22,7 +21,7 @@ final class I18n implements Serializer
     public function serialize(array $data): string
     {
         $patterns = [
-            'ac_translate_open' => "__('",
+            'ac_translate_open'  => "__('",
             'ac_translate_close' => sprintf("','%s')", sanitize_key($this->text_domain)),
         ];
 
@@ -31,7 +30,7 @@ final class I18n implements Serializer
         array_walk_recursive(
             $data,
             function (&$value, $key) use ($translatable_keys) {
-                if ( ! is_array($value) && in_array($key, $translatable_keys, true)) {
+                if (! is_array($value) && in_array($key, $translatable_keys, true)) {
                     $value =
                         $this->add_delimiter('ac_translate_open') .
                         $value .

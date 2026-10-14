@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Sorting\Product;
 
 use ACP\Query\Bindings;
@@ -9,7 +11,6 @@ use ACP\Sorting\Type\Order;
 
 class ProductType implements QueryBindings
 {
-
     public function create_query_bindings(Order $order): Bindings
     {
         global $wpdb;

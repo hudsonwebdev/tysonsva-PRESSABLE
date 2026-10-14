@@ -1,20 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Updates;
 
-use AC\Asset\Location\Absolute;
 use AC\Registerable;
+use ACP\AdminColumnsPro;
 use ACP\Asset\Script\PluginUpdatesCheck;
 use ACP\Transient\TimeTransientFactory;
 
 class PeriodicUpdateCheck implements Registerable
 {
+    private AdminColumnsPro $plugin;
 
-    private Absolute $location;
-
-    public function __construct(Absolute $location)
+    public function __construct(AdminColumnsPro $plugin)
     {
-        $this->location = $location;
+        $this->plugin = $plugin;
     }
 
     public function register(): void
@@ -27,7 +28,9 @@ class PeriodicUpdateCheck implements Registerable
         $cache = TimeTransientFactory::create_update_check();
 
         if ($cache->is_expired()) {
-            $script = new PluginUpdatesCheck($this->location->with_suffix('assets/core/js/update-plugins-check.js'));
+            $script = new PluginUpdatesCheck(
+                $this->plugin->get_location()->with_suffix('assets/core/js/update-plugins-check.js')
+            );
             $script->enqueue();
         }
     }

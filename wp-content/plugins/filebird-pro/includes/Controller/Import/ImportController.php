@@ -159,7 +159,7 @@ class ImportController {
             array(
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => array( $this, 'get_backup_files' ),
-                'permission_callback' => array( $this, 'permission_callback' ),
+                'permission_callback' => array( $this, 'backup_permission_callback' ),
             )
         );
 
@@ -169,7 +169,7 @@ class ImportController {
             array(
                 'methods'             => \WP_REST_Server::CREATABLE,
                 'callback'            => array( $this, 'download_backup' ),
-                'permission_callback' => array( $this, 'permission_callback' ),
+                'permission_callback' => array( $this, 'backup_permission_callback' ),
             )
         );
         register_rest_route(
@@ -178,7 +178,7 @@ class ImportController {
             array(
                 'methods'             => \WP_REST_Server::CREATABLE,
                 'callback'            => array( $this, 'backup_now' ),
-                'permission_callback' => array( $this, 'permission_callback' ),
+                'permission_callback' => array( $this, 'backup_permission_callback' ),
             )
         );
         register_rest_route(
@@ -194,6 +194,10 @@ class ImportController {
 
     public function permission_callback() {
 		return current_user_can( 'upload_files' );
+    }
+
+    public function backup_permission_callback() {
+		return current_user_can( 'manage_options' );
     }
 
     public static function get_counters( $prefix ) {
@@ -223,27 +227,40 @@ class ImportController {
 
     public function get_backup_files( $request ) {
         global $wpdb;
-        $query = "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE 'filebird_backup_%' ORDER BY option_id DESC";
-        $backup_files = $wpdb->get_col( $query );
+        $backup_files = $wpdb->get_col( $wpdb->prepare( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id DESC", Helpers::backupOptionLike() ) );
 
-        $formatted_backup_files = array_map(
-            function( $filename ) {
-                $id = substr( $filename, 16, 19 );
+        $meta    = Helpers::getBackupsMeta();
+        $changed = false;
 
-                $str_time = preg_replace('/^([^_]*)_([^_]*)_([^_]*)_/', '$1-$2-$3 ', $id, 1);
-                $str_time = preg_replace('/_/', ':', $str_time, 2);
-                $str_time = str_replace('_', ' ', $str_time);
-                $timestamp = strtotime($str_time);
-                $format_from_wp_settings = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
-                $formatted_time = wp_date( $format_from_wp_settings, $timestamp );
+        $formatted_backup_files = array();
+        foreach ( $backup_files as $option_name ) {
+            $id = substr( $option_name, strlen( 'filebird_backup_' ) );
 
-                return array(
-                    'id' => $id,
-                    'name' => $formatted_time,
+            // Backups made before FileBird stored meta: count them once and remember it.
+            if ( ! isset( $meta[ $id ] ) ) {
+                $meta[ $id ] = array_merge(
+                    array(
+                        'type' => '',
+                        'note' => '',
+                    ),
+                    Helpers::countBackupRows( get_option( $option_name, array() ) )
                 );
-            },
-            $backup_files
-        );
+                $changed     = true;
+            }
+
+            $formatted_backup_files[] = array_merge(
+                $meta[ $id ],
+                array(
+                    'id'   => $id,
+                    'name' => Helpers::backupName( $id ),
+                )
+            );
+        }
+
+        if ( $changed ) {
+            update_option( Helpers::BACKUP_META_OPTION, $meta, false );
+        }
+
         wp_send_json_success( array( 'backup_files' => $formatted_backup_files ) );
     }
     public function download_backup( $request ) {
@@ -262,7 +279,7 @@ class ImportController {
     }
 
     public function backup_now( $request ) {
-        $backup = Helpers::backupFileBird();
+        $backup = Helpers::backupFileBird( 'manual' );
         wp_send_json_success( array( $backup ) );
     }
     public function run_import( $request ) {

@@ -10,13 +10,14 @@ use ACP\Sorting\Model\Post\PostRequestTrait;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
+use ACP\Sql\QueryBuilder;
 
 class Roles implements QueryBindings
 {
-
     use PostRequestTrait;
 
-    private $formatter;
+    private FormatValue\Roles $formatter;
 
     public function __construct()
     {
@@ -40,32 +41,25 @@ class Roles implements QueryBindings
     {
         global $wpdb;
 
-        $where = '';
+        $query = QueryBuilder::for($wpdb->posts, 'pp')
+            ->select_columns(['pp.ID AS id', 'um.meta_value AS caps'])
+            ->join($wpdb->usermeta, function (Join $join) {
+                $join->on('pp.post_author', '=', 'um.user_id')
+                     ->on('um.meta_key', '=', "'wp_capabilities'");
+            }, null, null, 'um')
+            ->where('pp.post_type', '=', $this->get_var_post_type());
 
         $status = $this->get_var_post_status();
-
         if ($status) {
-            $where = $wpdb->prepare("\nAND pp.post_status = %s", $status);
+            $query->and_where('pp.post_status', '=', $status);
         }
-
-        $sql = $wpdb->prepare(
-            "
-            SELECT pp.ID AS id, um.meta_value AS caps
-            FROM $wpdb->posts AS pp
-            INNER JOIN $wpdb->usermeta AS um ON pp.post_author = um.user_id 
-				AND um.meta_key = 'wp_capabilities'
-            WHERE pp.post_type = %s
-                $where
-            ",
-            $this->get_var_post_type()
-        );
 
         $ids = [];
 
-        foreach ($wpdb->get_results($sql) as $row) {
+        foreach ($wpdb->get_results($query->get_sql()) as $row) {
             $role = $this->formatter->format_value($row->caps);
 
-            if ( ! $role) {
+            if (! $role) {
                 continue;
             }
 

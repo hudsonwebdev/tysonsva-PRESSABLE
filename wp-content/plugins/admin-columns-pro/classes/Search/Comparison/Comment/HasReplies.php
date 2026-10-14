@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use AC;
@@ -9,10 +11,8 @@ use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class HasReplies extends Comparison
-    implements Comparison\Values
+class HasReplies extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -27,6 +27,16 @@ class HasReplies extends Comparison
         $bindings = new Bindings\Comment();
 
         $ids = $this->get_comments_with_replies();
+
+        // No comments have replies yet
+        if (empty($ids)) {
+            switch ($value->get_value()) {
+                case '1':
+                    return $bindings->where('1 = 0'); // no results
+                default:
+                    return $bindings; // all comments qualify
+            }
+        }
 
         switch ($value->get_value()) {
             case '1':
@@ -47,7 +57,7 @@ class HasReplies extends Comparison
         ]);
     }
 
-    private function get_comments_with_replies()
+    private function get_comments_with_replies(): array
     {
         global $wpdb;
 

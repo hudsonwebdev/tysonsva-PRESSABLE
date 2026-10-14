@@ -8,7 +8,6 @@ use LogicException;
 
 class InvalidImportFileException extends LogicException
 {
-
     public static function from_invalid_extension(string $extension): self
     {
         return new self(

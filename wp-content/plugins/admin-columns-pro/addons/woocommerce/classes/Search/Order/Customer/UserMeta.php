@@ -1,21 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order\Customer;
 
-use ACA\WC\Search;
 use ACP;
 use ACP\Query\Bindings;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class UserMeta extends ACP\Search\Comparison
 {
-
     /**
      * @var string
      */
-    private $meta_key;
+    private string $meta_key;
 
     public function __construct(string $meta_key)
     {
@@ -50,7 +51,7 @@ class UserMeta extends ACP\Search\Comparison
             $this->meta_key
         );
 
-        $alias = $bindings->get_unique_alias('usermeta');
+        $alias = AliasGenerator::generate_from_class(static::class);
         $order_table = $wpdb->prefix . 'wc_orders';
         $bindings->join("JOIN($subquery) AS $alias on $order_table.customer_id = $alias.ID");
 

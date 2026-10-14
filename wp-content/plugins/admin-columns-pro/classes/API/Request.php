@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\API;
 
 class Request
 {
-
-    protected $args = [];
+    protected array $args = [];
 
     public function __construct(array $body)
     {
-        $this->set_body($body)
-             ->set_timeout(15);
+        $this
+            ->set_body($body)
+            ->set_timeout(15);
     }
 
     public function get_body(): array

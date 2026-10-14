@@ -1,33 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\PageFactory;
 
-use AC\Admin;
 use AC\Admin\MenuFactoryInterface;
 use AC\Admin\Page;
 use AC\Admin\PageFactoryInterface;
-use AC\Asset\Location;
+use AC\Admin\View;
+use AC\AdminColumns;
+use AC\Deprecated\HookCollectionFactory;
 use AC\Deprecated\Hooks;
 
 class Help implements PageFactoryInterface
 {
+    protected AdminColumns $plugin;
 
-    protected $location;
+    protected MenuFactoryInterface $menu_factory;
 
-    protected $menu_factory;
+    protected View\MenuFactory $view_menu_factory;
 
-    public function __construct(Location\Absolute $location, MenuFactoryInterface $menu_factory)
-    {
-        $this->location = $location;
+    public function __construct(
+        AdminColumns $plugin,
+        MenuFactoryInterface $menu_factory,
+        View\MenuFactory $view_menu_factory
+    ) {
+        $this->plugin = $plugin;
         $this->menu_factory = $menu_factory;
+        $this->view_menu_factory = $view_menu_factory;
     }
 
-    public function create()
+    public function create(): Page\Help
     {
         return new Page\Help(
-            new Hooks(),
-            $this->location,
-            new Admin\View\Menu($this->menu_factory->create('help'))
+            new Hooks(new HookCollectionFactory()),
+            $this->view_menu_factory->create($this->menu_factory, 'help')
         );
     }
 

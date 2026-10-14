@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Query\Bindings;
 
 use ACP\Query\Bindings;
 
 class Post extends Bindings
 {
-
-    protected $tax_query = [];
+    protected array $tax_query = [];
 
     public function get_tax_query(): array
     {

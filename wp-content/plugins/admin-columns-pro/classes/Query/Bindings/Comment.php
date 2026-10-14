@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Query\Bindings;
 
 use ACP\Query\Bindings;
 
 class Comment extends Bindings
 {
-
-    protected $parent = 0;
+    protected int $parent = 0;
 
     public function get_parent(): int
     {

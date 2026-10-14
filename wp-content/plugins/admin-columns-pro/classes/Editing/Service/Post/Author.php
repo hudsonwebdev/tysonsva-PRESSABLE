@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service\Post;
 
 use ACP\Editing\Service;
@@ -9,7 +11,6 @@ use ACP\Editing\View\AjaxSelect;
 
 class Author extends Service\User implements Editability
 {
-
     public function __construct()
     {
         parent::__construct(

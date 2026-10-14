@@ -11,7 +11,6 @@ use LogicException;
  */
 class CastType
 {
-
     public const SIGNED = 'SIGNED';
     public const CHAR = 'CHAR';
     public const DECIMAL = 'DECIMAL(60,10)';
@@ -19,11 +18,11 @@ class CastType
     public const DATETIME = 'DATETIME';
     public const BINARY = 'BINARY';
 
-    private $value;
+    private string $value;
 
     public function __construct(string $value)
     {
-        if ( ! self::is_valid($value)) {
+        if (! self::is_valid($value)) {
             throw new LogicException('Invalid cast type.');
         }
 
@@ -52,16 +51,16 @@ class CastType
     public static function create_from_data_type(DataType $data_type): self
     {
         switch ($data_type->get_value()) {
-            case DataType::NUMERIC :
+            case DataType::NUMERIC:
                 return new self(self::SIGNED);
-            case DataType::DATE :
+            case DataType::DATE:
                 return new self(self::DATE);
-            case DataType::DATETIME :
+            case DataType::DATETIME:
                 return new self(self::DATETIME);
             case DataType::DECIMAL:
                 return new self(self::DECIMAL);
-            case DataType::STRING :
-            default :
+            case DataType::STRING:
+            default:
                 return new self(self::CHAR);
         }
     }

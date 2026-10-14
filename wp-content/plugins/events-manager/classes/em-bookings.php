@@ -464,11 +464,12 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 	 */
 	function delete(){
 		global $wpdb;
-		$booking_ids = $event_ids = array();
+		$booking_ids = $event_ids = $event_uids = array();
 		if( !empty($this->bookings) ){
 			//get the booking ids tied to this event or preloaded into this object
 			foreach( $this->bookings as $EM_Booking ){
 				$booking_ids[] = $EM_Booking->booking_id;
+				$event_uids[] = $EM_Booking->get_event_uid();
 			}
 			$result_tickets = true;
 			$result = true;
@@ -484,6 +485,7 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 			$event_id = absint($this->event_id);
 			$event_ids = array($event_id);
 			$timeslot = !empty($this->timeslot_id) ? ' AND timeslot_id = ' . absint($this->timeslot_id) : '';
+			if( !empty($this->timeslot_id) ) $event_uids[] = $event_id . ':' . absint($this->timeslot_id);
 			$booking_ids = $wpdb->get_col("SELECT booking_id FROM ".EM_BOOKINGS_TABLE." WHERE event_id = '$event_id' $timeslot");
 			$result_tickets = $wpdb->query("DELETE FROM ". EM_TICKETS_BOOKINGS_TABLE ." WHERE booking_id IN (SELECT booking_id FROM ".EM_BOOKINGS_TABLE." WHERE event_id = '$event_id' $timeslot)");
 			$result = $wpdb->query("DELETE FROM ".EM_BOOKINGS_TABLE." WHERE event_id = '$event_id' $timeslot");
@@ -494,6 +496,8 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 			//we have not bookings loaded to delete, nor an event to delete bookings from, so bookings are considered 'deleted' since there's nothing ot delete
 			$result = $result_tickets = true;
 		}
+		// this path never runs EM_Booking::delete(), so the events it just emptied are dropped from the cache here
+		EM_Event::flush_cache( array_merge($event_ids, $event_uids) );
 		do_action('em_bookings_deleted', $result, $booking_ids, $event_ids);
 		return apply_filters('em_bookings_delete', $result !== false && $result_tickets !== false, $booking_ids, $this, $event_ids);
 	}
@@ -642,7 +646,7 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 	function get_pending_spaces( $force_refresh = false ){
 		if( em_get_option('dbem_bookings_approval') ) {
 			if ( $this->pending_spaces === null || $force_refresh ) {
-				$pending_spaces = $this->get_status_count( 0 );
+				$pending_spaces = $this->get_status_count( 0, $force_refresh );
 				$this->pending_spaces = $pending_spaces > 0 ? $pending_spaces : 0;
 				$this->pending_spaces = apply_filters('em_bookings_get_pending_spaces', $this->pending_spaces, $this, $force_refresh);
 			}
@@ -660,7 +664,7 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 		}
 		$status = str_replace(' ', '', $status);
 		// run if $status is clean
-		if ( preg_match('/^[0-9,]+$/', $status) ) {
+		if ( preg_match('/^[0-9,]+$/D', $status) ) {
 			if ( !isset( $this->status_counts[ $status ] ) || $force_refresh ) {
 				if ( $this->get_event()->is_recurring( true ) ) {
 					$subquery = "SELECT event_id FROM " . EM_EVENTS_TABLE . " WHERE recurrence_set_id IN ( SELECT recurrence_set_id FROM " . EM_EVENT_RECURRENCES_TABLE . " WHERE event_id = '{$this->event_id}' )";
@@ -1269,7 +1273,7 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 			$conditions['status'] = 'booking_status='.$args['status'];
 		}elseif( self::array_is_numeric($args['status']) && count($args['status']) > 0 ){
 			$conditions['status'] = 'booking_status IN ('.implode(',',$args['status']).')';
-		}elseif( !is_array($args['status']) && preg_match('/^([0-9],?)+$/', $args['status']) ){
+		}elseif( !is_array($args['status']) && preg_match('/^([0-9],?)+$/D', $args['status']) ){
 			$conditions['status'] = 'booking_status IN ('.$args['status'].')';
 		}
 		// RSVP status
@@ -1280,7 +1284,7 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 				$conditions['rsvp_status'] = 'booking_rsvp_status IS NULL';
 			}elseif( self::array_is_numeric($args['rsvp_status']) && count($args['rsvp_status']) > 0 ){
 				$conditions['rsvp_status'] = 'booking_status IN ('.implode(',',$args['rsvp_status']).')';
-			}elseif( !is_array($args['rsvp_status']) && preg_match('/^(([0-9]|null),?)+$/i', $args['rsvp_status']) ){
+			}elseif( !is_array($args['rsvp_status']) && preg_match('/^(([0-9]|null),?)+$/iD', $args['rsvp_status']) ){
 				$conditions['rsvp_status'] = 'booking_rsvp_status IN ('.$args['rsvp_status'].')';
 			}
 		}
@@ -1310,7 +1314,7 @@ class EM_Bookings extends EM_Object implements Iterator, ArrayAccess {
 			$search_conditions[] = EM_BOOKINGS_TABLE.'.person_id IN (SELECT user_id FROM '.$wpdb->usermeta ." WHERE meta_value LIKE '$search' AND meta_key NOT LIKE '%_settings')";
 			$search_conditions[] = EM_BOOKINGS_TABLE.'.booking_id IN (SELECT booking_id FROM '.EM_BOOKINGS_META_TABLE." WHERE meta_value LIKE '$search')";
 			$search_conditions[] = EM_BOOKINGS_TABLE.'.person_id IN (SELECT ID FROM '.$wpdb->users." WHERE user_nicename LIKE '$search' OR user_email LIKE '$search' OR display_name LIKE '$search' OR user_login LIKE '$search')";
-			if( preg_match('/^[a-zA-Z0-9]{32}$/', $args['search']) ) {
+			if( preg_match('/^[a-zA-Z0-9]{32}$/D', $args['search']) ) {
 				$search_conditions[] = EM_BOOKINGS_TABLE . '.booking_id IN (SELECT booking_id FROM ' . EM_TICKETS_BOOKINGS_TABLE . " WHERE ticket_uuid = '{$args['search']}')";
 			}
 			$conditions['search'] = '('. implode(' OR ', $search_conditions) . ')';

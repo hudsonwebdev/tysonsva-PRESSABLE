@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AC\Helper\Select\Generic\GroupFormatter;
 
+use AC\Helper\Network;
 use AC\Helper\Select\Generic\GroupFormatter;
 
 class BlogSite implements GroupFormatter
 {
-
     public function format(string $value): string
     {
         foreach ($this->get_groups() as $key => $label) {
@@ -33,17 +33,20 @@ class BlogSite implements GroupFormatter
                 $label = sprintf(
                     '%s %s',
                     __('Network Site:', 'codepress-admin-columns'),
-                    ac_helper()->network->get_site_option($site->blog_id, 'blogname')
+                    Network::create()->get_site_option((int)$site->blog_id, 'blogname')
                 );
 
-                if (get_current_blog_id() === $site->blog_id) {
+                if (get_current_blog_id() === (int)$site->blog_id) {
                     $label = sprintf('%s (%s)', $label, __('current', 'codepress-admin-columns'));
                 }
 
                 $groups[$wpdb->get_blog_prefix($site->blog_id)] = $label;
             }
 
-            $groups = array_reverse($groups);
+            // Match longer (sub-site) prefixes such as `wp_2_` before the shorter main-site `wp_`.
+            uksort($groups, static function (string $a, string $b): int {
+                return strlen($b) <=> strlen($a);
+            });
         }
 
         return $groups;

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Access;
 
 interface Rule
 {
-
-    public function get_permissions(): Permissions;
+    public function modify(Permissions $permissions): Permissions;
 
 }

@@ -13,9 +13,8 @@ use ACP\Exception\FileNotWritableException;
 use ACP\Search\Entity\Segment;
 use ACP\Search\SegmentCollection;
 use ACP\Search\SegmentRepositoryWritable;
-use ACP\Search\Storage;
 use ACP\Search\Type\SegmentKey;
-use ACP\Storage\AbstractDecoderFactory;
+use ACP\Storage\CompositeDecoderFactory;
 use ACP\Storage\Decoder;
 use ACP\Storage\Directory;
 use ACP\Storage\EncoderFactory;
@@ -25,23 +24,21 @@ use SplFileInfo;
 
 final class File implements SegmentRepositoryWritable
 {
-
     use OpCacheInvalidateTrait;
-    use KeyGeneratorTrait;
 
     private const SUFFIX = '_segments';
 
-    private $directory;
+    private Directory $directory;
 
-    private $decoder_factory;
+    private CompositeDecoderFactory $decoder_factory;
 
-    private $encoder_factory;
+    private EncoderFactory $encoder_factory;
 
-    private $serializer;
+    private Serializer $serializer;
 
     public function __construct(
         Directory $directory,
-        AbstractDecoderFactory $decoder_factory,
+        CompositeDecoderFactory $decoder_factory,
         EncoderFactory $encoder_factory,
         Serializer $serializer
     ) {
@@ -62,12 +59,7 @@ final class File implements SegmentRepositoryWritable
         return null;
     }
 
-    /**
-     * @param ListScreenId|null $list_screen_id
-     *
-     * @return array
-     */
-    private function load_segments(ListScreenId $list_screen_id = null): array
+    private function load_segments(?ListScreenId $list_screen_id = null): array
     {
         $segments = [];
 
@@ -75,7 +67,7 @@ final class File implements SegmentRepositoryWritable
          * @var SplFileInfo $file
          */
         foreach ((new DirectoryIterator($this->directory->get_path())) as $file) {
-            if ( ! $file->isReadable() ||
+            if (! $file->isReadable() ||
                  ! $file->isFile() ||
                  ! $file->getSize() ||
                  $file->getExtension() !== $this->get_file_extension() ||
@@ -86,7 +78,7 @@ final class File implements SegmentRepositoryWritable
 
             $list_id = str_replace(sprintf('%s.%s', self::SUFFIX, $file->getExtension()), '', $file->getBasename());
 
-            if ( ! ListScreenId::is_valid_id($list_id)) {
+            if (! ListScreenId::is_valid_id($list_id)) {
                 continue;
             }
 
@@ -98,13 +90,13 @@ final class File implements SegmentRepositoryWritable
 
             $encoded_data = require($file->getRealPath());
 
-            if ( ! $this->decoder_factory->can_create($encoded_data)) {
+            if (! $this->decoder_factory->supports($encoded_data)) {
                 continue;
             }
 
             $decoder = $this->decoder_factory->create($encoded_data);
 
-            if ( ! $decoder instanceof Decoder\SegmentsDecoder || ! $decoder->has_segments()) {
+            if (! $decoder instanceof Decoder\SegmentsDecoder || ! $decoder->has_segments()) {
                 continue;
             }
 
@@ -120,7 +112,7 @@ final class File implements SegmentRepositoryWritable
         return $segments;
     }
 
-    public function find_all(ListScreenId $list_screen_id = null, Sort $sort = null): SegmentCollection
+    public function find_all(?ListScreenId $list_screen_id = null, ?Sort $sort = null): SegmentCollection
     {
         if (null === $sort) {
             $sort = new Sort\Name();
@@ -137,13 +129,13 @@ final class File implements SegmentRepositoryWritable
 
     public function find_all_personal(
         int $user_id,
-        ListScreenId $list_screen_id = null,
-        Sort $sort = null
+        ?ListScreenId $list_screen_id = null,
+        ?Sort $sort = null
     ): SegmentCollection {
         return new SegmentCollection();
     }
 
-    public function find_all_shared(ListScreenId $list_screen_id = null, Sort $sort = null): SegmentCollection
+    public function find_all_shared(?ListScreenId $list_screen_id = null, ?Sort $sort = null): SegmentCollection
     {
         return $this->find_all($list_screen_id, $sort);
     }
@@ -156,11 +148,11 @@ final class File implements SegmentRepositoryWritable
      */
     public function save(Segment $segment): void
     {
-        if ( ! $this->directory->exists()) {
+        if (! $this->directory->exists()) {
             $this->directory->create();
         }
 
-        if ( ! $this->directory->is_writable()) {
+        if (! $this->directory->is_writable()) {
             throw new DirectoryNotWritableException($this->directory->get_path());
         }
 
@@ -168,12 +160,15 @@ final class File implements SegmentRepositoryWritable
             throw FailedToSaveSegmentException::from_duplicate_key($segment->get_key());
         }
 
+        // Mark as modified
+        $segment = $segment->with_modified_now();
+
         $file = $this->get_file_name($segment->get_list_id());
 
         $segments = $this->get_segments_from_file($file);
         $segments->add($segment);
 
-        $this->update_file($segments, $file, $segment->get_list_id());
+        $this->update_file($segments, $file);
     }
 
     private function find_segment_data_by_key(SegmentKey $key): ?array
@@ -194,26 +189,24 @@ final class File implements SegmentRepositoryWritable
     {
         $segment_data = $this->find_segment_data_by_key($key);
 
-        if ( ! $segment_data) {
+        if (! $segment_data) {
             return;
         }
 
         $file = $segment_data['file'];
-        $list_id = $segment_data['list_id'];
 
         $segments = $this->get_segments_from_file($file);
         $segments->remove($key);
 
         if ($segments->count() < 1) {
-            $this->delete_file($file, $list_id);
+            $this->delete_file($file);
 
             return;
         }
 
         $this->update_file(
             $segments,
-            $file,
-            $list_id
+            $file
         );
     }
 
@@ -227,7 +220,7 @@ final class File implements SegmentRepositoryWritable
         );
 
         if (file_exists($file)) {
-            $this->delete_file($file, $list_screen_id);
+            $this->delete_file($file);
         }
     }
 
@@ -247,7 +240,7 @@ final class File implements SegmentRepositoryWritable
         if ($info->isFile()) {
             $encoded_data = require($info->getRealPath());
 
-            if (is_array($encoded_data) && $this->decoder_factory->can_create($encoded_data)) {
+            if (is_array($encoded_data) && $this->decoder_factory->supports($encoded_data)) {
                 $decoder = $this->decoder_factory->create($encoded_data);
 
                 if ($decoder instanceof Decoder\SegmentsDecoder && $decoder->has_segments()) {
@@ -262,7 +255,7 @@ final class File implements SegmentRepositoryWritable
     /**
      * @throws FileNotWritableException
      */
-    private function update_file(SegmentCollection $segments, string $file, ListScreenId $list_screen_id): void
+    private function update_file(SegmentCollection $segments, string $file): void
     {
         $encoded_data = $this->encoder_factory
             ->create()
@@ -275,7 +268,7 @@ final class File implements SegmentRepositoryWritable
         );
 
         if ($result === false) {
-            throw FileNotWritableException::from_saving_segment($list_screen_id);
+            throw FileNotWritableException::for_file($file);
         }
 
         $this->opcache_invalidate($file);
@@ -284,14 +277,18 @@ final class File implements SegmentRepositoryWritable
     /**
      * @throws FileNotWritableException
      */
-    private function delete_file(string $file, ListScreenId $list_screen_id): void
+    private function delete_file(string $file): void
     {
         $this->opcache_invalidate($file);
+
+        if (! file_exists($file)) {
+            return;
+        }
 
         $result = unlink($file);
 
         if ($result === false) {
-            throw FileNotWritableException::from_removing_segment($list_screen_id);
+            throw FileNotWritableException::for_file($file);
         }
     }
 

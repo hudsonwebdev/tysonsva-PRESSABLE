@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 use AC\Asset\Enqueueable;
@@ -11,17 +13,13 @@ use AC\View;
 
 class AdminLoader implements Registerable
 {
+    protected string $hook;
 
-    protected $hook;
+    protected RequestHandlerInterface $request_handler;
 
-    protected $request_handler;
+    protected Enqueueables $assets;
 
-    protected $assets;
-
-    /**
-     * @var Renderable|null
-     */
-    private $page;
+    private ?Renderable $page = null;
 
     public function __construct(string $hook, RequestHandlerInterface $request_handler, Enqueueables $assets)
     {
@@ -45,12 +43,12 @@ class AdminLoader implements Registerable
 
     public function load(): void
     {
-        if ( ! $this->page) {
+        if (! $this->page) {
             return;
         }
 
         if ($this->page instanceof Registerable) {
-            $this->register();
+            $this->page->register();
         }
 
         $screen = get_current_screen();
@@ -81,7 +79,7 @@ class AdminLoader implements Registerable
     public function head(): void
     {
         if ($this->page instanceof RenderableHead) {
-            echo $this->page->render_head();
+            echo $this->page->render_head()->render();
         }
     }
 

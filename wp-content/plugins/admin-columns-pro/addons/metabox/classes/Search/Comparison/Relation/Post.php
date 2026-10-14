@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\MetaBox\Search\Comparison\Relation;
 
 use AC\Helper\Select\Options\Paginated;
@@ -9,7 +11,6 @@ use ACP\Helper\Select\Post\PaginatedFactory;
 
 class Post extends Search\Comparison\Relation
 {
-
     private function get_label_formatter(): PostTitle
     {
         return new PostTitle();

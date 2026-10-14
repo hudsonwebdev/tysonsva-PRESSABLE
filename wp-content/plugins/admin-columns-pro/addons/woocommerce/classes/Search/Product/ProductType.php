@@ -9,11 +9,11 @@ use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 use WP_Term;
 
 class ProductType extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         parent::__construct(
@@ -28,8 +28,8 @@ class ProductType extends Comparison implements Comparison\Values
         global $wpdb;
 
         $bindings = new Bindings();
-        $alias_pml = $bindings->get_unique_alias('pml_prtype');
-        $alias_tr = $bindings->get_unique_alias('tr_prtype');
+        $alias_pml = AliasGenerator::generate_from_class(static::class);
+        $alias_tr = AliasGenerator::generate('tr_prtype');
 
         $join_pml = "LEFT JOIN {$wpdb->prefix}wc_product_meta_lookup AS $alias_pml 
                         ON $wpdb->posts.ID = $alias_pml.product_id";
@@ -37,16 +37,16 @@ class ProductType extends Comparison implements Comparison\Values
                         ON $wpdb->posts.ID = $alias_tr.object_id";
 
         switch ($value->get_value()) {
-            case 'virtual' :
+            case 'virtual':
                 $bindings->join($join_pml)
                          ->where("$alias_pml.virtual=1");
                 break;
-            case 'downloadable' :
+            case 'downloadable':
                 $bindings->join($join_pml)
                          ->where("$alias_pml.downloadable=1");
                 break;
-            default :
-                $term = get_term_by('name', $value->get_value(), 'product_type');
+            default:
+                $term = get_term_by('name', (string)$value->get_value(), 'product_type');
 
                 if ($term instanceof WP_Term) {
                     $bindings->join($join_tr)

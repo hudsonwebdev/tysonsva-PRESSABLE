@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Query\Bindings;
@@ -8,14 +10,15 @@ use ACP\Sorting\Type\Order;
 
 class Status implements QueryBindings
 {
-
     public function create_query_bindings(Order $order): Bindings
     {
         global $wpdb;
 
         $bindings = new Bindings();
 
-        $fields = implode("','", array_map('esc_sql', $this->get_stati()));
+        $fields = implode("','", array_map(static function ($status): string {
+            return (string)esc_sql((string)$status);
+        }, $this->get_stati()));
 
         return $bindings->order_by(
             sprintf("FIELD( $wpdb->posts.post_status, '%s' ) %s", $fields, $order)
@@ -26,7 +29,7 @@ class Status implements QueryBindings
     {
         $translated_stati = [];
 
-        foreach (get_post_stati(null, 'objects') as $key => $post_status) {
+        foreach (get_post_stati([], 'objects') as $key => $post_status) {
             $translated_stati[$key] = $post_status->label;
         }
 

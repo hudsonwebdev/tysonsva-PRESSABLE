@@ -1,22 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Type;
 
 use LogicException;
 
 final class AddressType
 {
-
     public const BILLING = 'billing';
     public const SHIPPING = 'shipping';
 
-    private $address_type;
+    private string $address_type;
 
     public function __construct(string $address_type)
     {
         $this->address_type = $address_type;
 
         $this->validate();
+    }
+
+    public static function billing(): AddressType
+    {
+        return new AddressType(self::BILLING);
+    }
+
+    public static function shipping(): AddressType
+    {
+        return new AddressType(self::SHIPPING);
     }
 
     public function get(): string
@@ -34,7 +45,7 @@ final class AddressType
             self::SHIPPING,
         ];
 
-        if ( ! in_array($this->address_type, $types, true)) {
+        if (! in_array($this->address_type, $types, true)) {
             throw new LogicException('Invalid address type.');
         }
     }

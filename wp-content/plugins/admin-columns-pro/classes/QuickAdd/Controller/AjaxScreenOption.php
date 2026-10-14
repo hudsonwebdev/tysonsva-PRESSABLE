@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\QuickAdd\Controller;
 
 use AC;
@@ -7,13 +9,13 @@ use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Type\ListScreenId;
 use ACP\QuickAdd\Table;
+use InvalidArgumentException;
 
 class AjaxScreenOption implements Registerable
 {
+    private Storage $storage;
 
-    private $storage;
-
-    private $preference_button;
+    private Table\Preference\ShowButton $preference_button;
 
     public function __construct(Storage $storage, Table\Preference\ShowButton $preference_button)
     {
@@ -29,8 +31,9 @@ class AjaxScreenOption implements Registerable
     protected function get_ajax_handler(): AC\Ajax\Handler
     {
         $handler = new AC\Ajax\Handler();
-        $handler->set_action('acp_new_inline_show_button')
-                ->set_callback([$this, 'update_table_option']);
+        $handler
+            ->set_action('acp_new_inline_show_button')
+            ->set_callback([$this, 'update_table_option']);
 
         return $handler;
     }
@@ -39,13 +42,24 @@ class AjaxScreenOption implements Registerable
     {
         $this->get_ajax_handler()->verify_request();
 
-        $list_screen = $this->storage->find(new ListScreenId(filter_input(INPUT_POST, 'layout')));
-
-        if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+        try {
+            $list_screen = $this->storage->find(
+                new ListScreenId(
+                    (string)filter_input(INPUT_POST, 'layout')
+                )
+            );
+        } catch (InvalidArgumentException $e) {
             exit;
         }
 
-        echo $this->preference_button->set($list_screen->get_key(), 'true' === filter_input(INPUT_POST, 'value'));
+        if (! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+            exit;
+        }
+
+        $this->preference_button->set_status(
+            $list_screen->get_table_id(),
+            'true' === filter_input(INPUT_POST, 'value')
+        );
         exit;
     }
 

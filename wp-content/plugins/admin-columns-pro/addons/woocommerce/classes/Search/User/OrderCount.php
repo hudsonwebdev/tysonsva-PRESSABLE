@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\User;
 
 use ACP\Query\Bindings;
@@ -7,16 +9,13 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class OrderCount extends Comparison
 {
+    protected array $status;
 
-    /**
-     * @var array
-     */
-    protected $status;
-
-    public function __construct(array $status = [])
+    public function __construct(array $stati = [])
     {
         $operators = new Operators([
             Operators::EQ,
@@ -28,7 +27,7 @@ class OrderCount extends Comparison
             Operators::BETWEEN,
         ]);
 
-        $this->status = $status;
+        $this->status = $stati;
 
         parent::__construct($operators, Value::INT);
     }
@@ -52,7 +51,7 @@ class OrderCount extends Comparison
         $comparison = ComparisonFactory::create('order_count', $operator, $value);
         $having = $comparison();
 
-        $alias = $bindings->get_unique_alias('sq');
+        $alias = AliasGenerator::generate_from_class(static::class);
         $table = $wpdb->prefix . 'wc_orders';
 
         $subquery = "SELECT customer_id,COUNT(id) as order_count FROM $table WHERE type = 'shop_order' $where GROUP BY customer_id HAVING $having";

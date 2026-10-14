@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Helper\MetaQuery\Comparison;
 
 use ACP\Search\Helper\MetaQuery;
@@ -7,7 +9,6 @@ use ACP\Search\Value;
 
 class IsEmpty extends MetaQuery\Comparison
 {
-
     public function __construct(string $key, Value $value)
     {
         if ($value->get_value()) {

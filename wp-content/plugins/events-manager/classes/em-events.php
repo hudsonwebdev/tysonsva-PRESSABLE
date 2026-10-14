@@ -665,7 +665,7 @@ $orderby_sql";
 					$conditions['blog'] = "(".EM_EVENTS_TABLE.".blog_id={$args['blog']})";
 				}
 		    }else{
-		        if( !is_array($args['blog']) && preg_match('/^([\-0-9],?)+$/', $args['blog']) ){
+		        if( !is_array($args['blog']) && preg_match('/^([\-0-9],?)+$/D', $args['blog']) ){
 		            $conditions['blog'] = "(".EM_EVENTS_TABLE.".blog_id IN ({$args['blog']}) )";
 			    }elseif( is_array($args['blog']) && self::array_is_numeric($args['blog']) ){
 			        $conditions['blog'] = "(".EM_EVENTS_TABLE.".blog_id IN (".implode(',',$args['blog']).") )";
@@ -912,7 +912,8 @@ $orderby_sql";
 		// Prevent disclosure of non-published events via the public/AJAX search: a request `status` can otherwise expose draft/pending/trashed events to anyone. Users without edit_others_events may only see non-published events they own; guests are clamped to published only.
 		if ( !current_user_can('edit_others_events') && !in_array($args['status'], array(1, '1', true), true) ) {
 			if ( is_user_logged_in() ) {
-				if ( empty($args['owner']) ) $args['owner'] = get_current_user_id();
+				// Forced, not defaulted: filling this in only when it was blank let a caller supply someone else's id (or a comma list of them) and read their unpublished events anyway, which is how the 7.4.1 clamp was still bypassable.
+				$args['owner'] = get_current_user_id();
 			} else {
 				$args['status'] = 1;
 			}

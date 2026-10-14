@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use AC\Helper\Select\Options\Paginated;
@@ -10,12 +12,11 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\TaxQuery\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use WP_Term;
 
-class Taxonomy extends Comparison
-    implements Comparison\SearchableValues
+class Taxonomy extends Comparison implements Comparison\SearchableValues
 {
-
-    protected $taxonomy;
+    protected string $taxonomy;
 
     public function __construct(string $taxonomy)
     {
@@ -40,7 +41,7 @@ class Taxonomy extends Comparison
     {
         $term = get_term($value);
 
-        return $term
+        return $term instanceof WP_Term
             ? $this->get_formatter()->format_label($term)
             : '';
     }

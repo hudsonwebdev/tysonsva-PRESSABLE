@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Helper\Select\Comment;
 
 use AC\ApplyFilter\QueryTotalNumber;
@@ -7,14 +9,9 @@ use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
 use WP_Comment_Query;
 
-class Query extends ArrayIterator
-    implements Paginated
+class Query extends ArrayIterator implements Paginated
 {
-
-    /**
-     * @var WP_Comment_Query
-     */
-    protected $query;
+    protected WP_Comment_Query $query;
 
     public function __construct(array $args = [])
     {
@@ -31,7 +28,9 @@ class Query extends ArrayIterator
 
         $this->query = new WP_Comment_Query($args);
 
-        parent::__construct($this->query->get_comments());
+        $comments = $this->query->get_comments();
+
+        parent::__construct(is_array($comments) ? $comments : []);
     }
 
     public function get_total_pages(): int

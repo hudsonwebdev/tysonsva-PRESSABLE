@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP;
 
 use ACP\Access\ActivationKeyStorage;
@@ -7,10 +9,9 @@ use ACP\Type\ActivationToken;
 
 class ActivationTokenFactory
 {
+    private ActivationKeyStorage $activation_key_storage;
 
-    private $activation_key_storage;
-
-    private $license_key_storage;
+    private LicenseKeyRepository $license_key_storage;
 
     public function __construct(ActivationKeyStorage $activation_key_storage, LicenseKeyRepository $license_key_storage)
     {
@@ -22,7 +23,7 @@ class ActivationTokenFactory
     {
         $token = $this->activation_key_storage->find();
 
-        if ( ! $token) {
+        if (! $token) {
             $token = $this->license_key_storage->find();
         }
 

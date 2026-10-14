@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Type;
+
+use AC\Helper;
 
 class ProductAttribute
 {
-
     private const TAXONOMY_PREFIX = 'pa_';
 
-    private $name;
+    private string $name;
 
     public function __construct(string $name)
     {
@@ -28,7 +31,7 @@ class ProductAttribute
     public function get_taxonomy_name(): string
     {
         return wc_attribute_taxonomy_name(
-            urldecode(ac_helper()->string->remove_prefix($this->name, self::TAXONOMY_PREFIX))
+            urldecode(Helper\Strings::create()->remove_prefix($this->name, self::TAXONOMY_PREFIX))
         );
     }
 

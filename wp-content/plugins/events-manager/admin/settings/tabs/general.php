@@ -595,7 +595,7 @@ global $events_placeholder_tip, $locations_placeholder_tip, $categories_placehol
 				<tr><td colspan="2">
 					<h4><?php _e('Individual Components','events-manager'); ?></h4>
 					<p>
-					<?php echo sprintf(esc_html__('Our theme has multiple CSS variables that can be overriden easily. The options below could be overriden just as easily via one line of CSS in your %s settings area, for example %s'), '<em>'.__('Customizer').' > '. __('Additional CSS').'</em>', '<code>body .em.pixelbones{ --font-family:arial, --font-size:14px; --font-weight: normal; --line-height:16px; }</code>'); ?>
+					<?php echo sprintf(esc_html__('Our theme has multiple CSS variables that can be overriden easily. The options below could be overriden just as easily via one line of CSS in your %s settings area, for example %s', 'events-manager'), '<em>'.__('Customizer', 'events-manager').' > '. __('Additional CSS', 'events-manager').'</em>', '<code>body .em.pixelbones{ --font-family:arial, --font-size:14px; --font-weight: normal; --line-height:16px; }</code>'); ?>
 					</p>
 				</td></tr>
 				<?php

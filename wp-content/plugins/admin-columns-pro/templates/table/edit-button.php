@@ -1,4 +1,4 @@
-<label class="ac-table-button -toggle -iedit">
+<label class="button ac-table-button -toggle -iedit">
 			<span class="ac-toggle">
 				<input type="checkbox" value="1" id="acp-enable-editing" <?php checked( $this->is_active ); ?>>
 				<span class="ac-toggle__switch">

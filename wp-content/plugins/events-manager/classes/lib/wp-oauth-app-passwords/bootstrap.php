@@ -31,6 +31,7 @@ require_once $dir . '/src/Clients.php';
 require_once $dir . '/src/Codes.php';
 require_once $dir . '/src/Grants.php';
 require_once $dir . '/src/App_Passwords.php';
+require_once $dir . '/src/Scope_Guard.php';
 require_once $dir . '/src/Consent.php';
 require_once $dir . '/src/Endpoints/Metadata.php';
 require_once $dir . '/src/Endpoints/Authorize.php';

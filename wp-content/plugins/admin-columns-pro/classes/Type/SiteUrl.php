@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Type;
 
 use AC\Type\Url;
 
 class SiteUrl implements Url
 {
-
-    private $url;
+    private string $url;
 
     public function __construct(string $url)
     {

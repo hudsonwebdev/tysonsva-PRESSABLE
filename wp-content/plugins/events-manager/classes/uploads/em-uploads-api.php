@@ -265,17 +265,24 @@ class API {
 			if ( file_exists( $file_path ) && is_readable( $file_path ) ) {
 				// Get the file contents and MIME type.
 				$file_contents = file_get_contents( $file_path );
-				$mime_type     = mime_content_type( $file_path );
+				// Only images are shown inline (FilePond previews); anything else goes out as an opaque download, so a document that happens to contain HTML is never rendered on the site origin.
+				$mime_type = Uploader::sniff_mime_type( $file_path );
+				$is_image  = $mime_type && strpos( $mime_type, 'image/' ) === 0 && !Uploader::is_active_content_mime( $mime_type );
+				if ( !$is_image ) {
+					$mime_type = 'application/octet-stream';
+				}
 				
 				// get filename if exists
 				$filenames = json_decode( $request->get_header('X-Filenames') , true);
 				$filename = !empty($filenames[$temp_id]) ? sanitize_file_name($filenames[$temp_id]['name']) : 'unknown';
+				$filename = str_replace( array( '"', '\\' ), '', $filename );
 				
 				// Create a WP_REST_Response object with the file contents.
 				$response = new WP_REST_Response( $file_contents, 200 );
 				$response->set_headers( [
-					'Content-Type'        => $mime_type,
-					'Content-Disposition' => 'inline; filename="'. $filename .'"'
+					'Content-Type'           => $mime_type,
+					'Content-Disposition'    => ( $is_image ? 'inline' : 'attachment' ) . '; filename="'. $filename .'"',
+					'X-Content-Type-Options' => 'nosniff',
 				] );
 				
 				/**
@@ -291,6 +298,7 @@ class API {
 							// Send the headers.
 							header( 'Content-Type: ' . $headers['Content-Type'] );
 							header( 'Content-Disposition: ' . $headers['Content-Disposition'] );
+							header( 'X-Content-Type-Options: nosniff' );
 							// Output the raw file contents.
 							echo $result->get_data();
 							return true; // We've handled serving the response.

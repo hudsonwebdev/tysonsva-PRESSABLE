@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\User;
 
 use AC;
@@ -7,16 +9,11 @@ use AC\Helper\Select\Options;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 
-class Country extends Comparison\Meta
-    implements Comparison\Values
+class Country extends Comparison\Meta implements Comparison\Values
 {
+    private array $countries;
 
-    /**
-     * @var array
-     */
-    private $countries;
-
-    public function __construct($meta_key, $countries)
+    public function __construct(string $meta_key, array $countries)
     {
         $operators = new Operators([
             Operators::EQ,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search;
 
 use AC\Config;
@@ -7,7 +9,6 @@ use LogicException;
 
 final class Operators extends Config
 {
-
     public const EQ = '=';
     public const NEQ = '!=';
     public const GT = '>';
@@ -77,7 +78,7 @@ final class Operators extends Config
         $operators = $this->get_operators();
 
         foreach ($this as $operator) {
-            if ( ! in_array($operator, $operators, true)) {
+            if (! in_array($operator, $operators, true)) {
                 throw new LogicException('Invalid operator found.');
             }
         }

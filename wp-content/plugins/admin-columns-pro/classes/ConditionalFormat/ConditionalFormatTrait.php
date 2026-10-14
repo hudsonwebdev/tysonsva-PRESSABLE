@@ -1,11 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\ConditionalFormat;
 
-trait ConditionalFormatTrait {
+use AC\Setting\Config;
 
-	public function conditional_format(): ?FormattableConfig {
-		return new FormattableConfig();
-	}
+trait ConditionalFormatTrait
+{
+    protected function get_conditional_format(Config $config): ?FormattableConfig
+    {
+        return new FormattableConfig(
+            new Formatter\FilterHtmlFormatter()
+        );
+    }
 
 }

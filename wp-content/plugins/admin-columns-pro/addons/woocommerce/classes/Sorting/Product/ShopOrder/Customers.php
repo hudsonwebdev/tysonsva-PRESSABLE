@@ -1,21 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Sorting\Product\ShopOrder;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
 
-class Customers implements QueryBindings
+class Customers extends Base
 {
-
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
-
-        $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('customer');
 
         $bindings->join(
             "
@@ -33,8 +31,6 @@ class Customers implements QueryBindings
         $bindings->order_by(
             SqlOrderByFactory::create_with_count("DISTINCT $alias.meta_value", (string)$order)
         );
-
-        return $bindings;
     }
 
 }

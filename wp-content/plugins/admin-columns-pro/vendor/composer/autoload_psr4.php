@@ -10,6 +10,8 @@ return array(
     'ACA\\YoastSeo\\' => array($baseDir . '/addons/yoast-seo/classes'),
     'ACA\\WC\\' => array($baseDir . '/addons/woocommerce/classes'),
     'ACA\\Types\\' => array($baseDir . '/addons/types/classes'),
+    'ACA\\SeoPress\\' => array($baseDir . '/addons/seopress/classes'),
+    'ACA\\RankMath\\' => array($baseDir . '/addons/rankmath/classes'),
     'ACA\\Polylang\\' => array($baseDir . '/addons/polylang/classes'),
     'ACA\\Pods\\' => array($baseDir . '/addons/pods/classes'),
     'ACA\\MetaBox\\' => array($baseDir . '/addons/metabox/classes'),
@@ -17,8 +19,8 @@ return array(
     'ACA\\JetEngine\\' => array($baseDir . '/addons/jetengine/classes'),
     'ACA\\GravityForms\\' => array($baseDir . '/addons/gravityforms/classes'),
     'ACA\\EC\\' => array($baseDir . '/addons/events-calendar/classes'),
+    'ACA\\DataSources\\' => array($baseDir . '/addons/data-sources/classes'),
     'ACA\\BeaverBuilder\\' => array($baseDir . '/addons/beaver-builder/classes'),
-    'ACA\\BbPress\\' => array($baseDir . '/addons/bbpress/classes'),
     'ACA\\BP\\' => array($baseDir . '/addons/buddypress/classes'),
     'ACA\\ACF\\' => array($baseDir . '/addons/acf/classes'),
 );

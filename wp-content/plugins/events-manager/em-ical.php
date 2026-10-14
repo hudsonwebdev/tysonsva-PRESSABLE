@@ -8,11 +8,28 @@
 			header('Content-Type: text/calendar; charset=utf-8');
 			header('Content-Disposition: inline; filename="events.ics"');
 			//send headers
+			em_ical_protect_passworded_events();
 			em_locate_template('templates/ical.php', true);
 			die();
 		}
 	}
 	add_action ( 'init', 'em_ical' );
+	
+	/**
+	 * Keeps password-protected events out of an iCalendar feed. The feed publishes the event name, description, permalink, image, location and coordinates, none of which a visitor should get without the password, and the query layer can't tell: event_status and event_private say nothing about wp_posts.post_password.
+	 *
+	 * Filtering EM_Events::get() rather than the template means a theme carrying its own copy of ical.php is covered too.
+	 */
+	function em_ical_protect_passworded_events(){
+		add_filter('em_events_get', function( $events ){
+			foreach ( $events as $key => $EM_Event ) {
+				if ( is_object($EM_Event) && method_exists($EM_Event, 'password_required') && $EM_Event->password_required() ) {
+					unset($events[$key]);
+				}
+			}
+			return $events;
+		});
+	}
 	
 	/**
 	 * Generates an ics file for a single event, or a specific archetype
@@ -77,6 +94,7 @@
 				//send headers and output ical
 				header('Content-type: text/calendar; charset=utf-8');
 				header('Content-Disposition: inline; filename="'.$filename.'.ics"');
+				em_ical_protect_passworded_events();
 				em_locate_template('templates/ical.php', true, array('args'=>$args));
 				exit();
 			}else{

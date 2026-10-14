@@ -11,8 +11,7 @@ use AC\Plugin\Version;
 
 final class V6300 extends Update
 {
-
-    private $storage;
+    private Storage $storage;
 
     public function __construct(Storage $storage)
     {
@@ -80,14 +79,14 @@ final class V6300 extends Update
         foreach ($this->storage->get_repositories() as $repository) {
             $list_screen_repository = $repository->get_list_screen_repository();
 
-            if ( ! $list_screen_repository instanceof ListScreenRepositoryWritable || ! $repository->is_writable()) {
+            if (! $list_screen_repository instanceof ListScreenRepositoryWritable || ! $repository->is_writable()) {
                 continue;
             }
 
             foreach ($list_screen_repository->find_all() as $list_screen) {
                 $preferences = $list_screen->get_preferences();
 
-                if ( ! isset($preferences['filter_segment'], $mapping[$preferences['filter_segment']])) {
+                if (! isset($preferences['filter_segment'], $mapping[$preferences['filter_segment']])) {
                     continue;
                 }
 

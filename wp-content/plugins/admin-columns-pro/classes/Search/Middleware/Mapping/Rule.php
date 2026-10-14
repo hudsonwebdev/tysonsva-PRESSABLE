@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Middleware\Mapping;
 
 use ACP\Search\Middleware\Mapping;
 
 class Rule extends Mapping
 {
-
     protected function get_properties(): array
     {
         return [

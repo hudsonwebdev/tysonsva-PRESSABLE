@@ -1,29 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\User;
 
 use ACP\Query\Bindings;
 use ACP\Sorting\FormatValue;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
+use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Sorter;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
+use ACP\Sql\QueryBuilder;
 
 /**
  * Sorts a user list table on a meta key. The meta value may contain mixed values, as long
  * as the supplied formatter can process them into a string.
  */
-class MetaFormat implements QueryBindings
+class MetaFormat implements QueryBindings, WarningAware
 {
+    private string $meta_key;
 
-    private $meta_key;
+    private FormatValue $formatter;
 
-    private $formatter;
+    protected DataType $data_type;
 
-    protected $data_type;
-
-    public function __construct(FormatValue $formatter, string $meta_key, DataType $data_type = null)
+    public function __construct(FormatValue $formatter, string $meta_key, ?DataType $data_type = null)
     {
         $this->formatter = $formatter;
         $this->meta_key = $meta_key;
@@ -47,19 +51,20 @@ class MetaFormat implements QueryBindings
     {
         global $wpdb;
 
-        $sql = $wpdb->prepare(
-            "
-			SELECT uu.ID AS id, um.meta_value AS value
-			FROM $wpdb->users AS uu
-			LEFT JOIN $wpdb->usermeta AS um ON uu.ID = um.user_id
-				AND um.meta_key = %s AND um.meta_value <> ''
-		",
-            $this->meta_key
-        );
+        $prepared_meta_key = $wpdb->prepare('%s', $this->meta_key);
+
+        $sql = QueryBuilder::for($wpdb->users, 'uu')
+            ->select_columns(['uu.ID AS id', 'um.meta_value AS value'])
+            ->left_join($wpdb->usermeta, function (Join $join) use ($prepared_meta_key) {
+                $join->on('uu.ID', '=', 'um.user_id')
+                     ->on('um.meta_key', '=', $prepared_meta_key)
+                     ->on('um.meta_value', '<>', "''");
+            }, null, null, 'um')
+            ->get_sql();
 
         $results = $wpdb->get_results($sql);
 
-        if ( ! $results) {
+        if (! $results) {
             return [];
         }
 

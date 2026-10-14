@@ -1,23 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\FormatValue;
 
-use AC;
+use AC\Formatter\Aggregate;
+use AC\FormatterCollection;
+use AC\Type\Value;
 use ACP\Sorting\FormatValue;
 
-class SettingFormatter implements FormatValue {
+class SettingFormatter implements FormatValue
+{
+    private FormatterCollection $formatters;
 
-	/**
-	 * @var AC\Settings\FormatValue
-	 */
-	private $setting;
+    public function __construct(FormatterCollection $formatters)
+    {
+        $this->formatters = $formatters;
+    }
 
-	public function __construct( AC\Settings\FormatValue $setting ) {
-		$this->setting = $setting;
-	}
+    public function format_value($value): string
+    {
+        if (null === $value) {
+            return '';
+        }
 
-	public function format_value( $value ) {
-		return $this->setting->format( $value, null );
-	}
+        $formatter = new Aggregate($this->formatters);
+
+        $object = $formatter->format(new Value($value));
+
+        if (! $object instanceof Value) {
+            return '';
+        }
+
+        return (string)$object;
+    }
 
 }

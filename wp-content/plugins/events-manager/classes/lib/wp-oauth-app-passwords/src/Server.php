@@ -30,6 +30,7 @@ class Server {
 
 		I18n::boot();
 		App_Passwords::boot();
+		Scope_Guard::boot();
 
 		// The shared AI/MCP setup screen registers its install/activate handlers here so consuming plugins only need to call Admin::render() where they want the UI shown — no extra wiring on the host side.
 		if ( is_admin() ) {
@@ -131,23 +132,88 @@ class Server {
 	/**
 	 * Register a scope shown on the consent screen and advertised in metadata.
 	 *
+	 * `routes` is the list of REST route prefixes (e.g. `/events-manager/v1`, `/mcp/events-manager`) a credential granted this scope may call; Scope_Guard rejects every other route with 403. Omit it and the scope grants the account's full REST access, which is what Application Passwords do on their own.
+	 *
 	 * @param string $scope       e.g. "bbpress:mcp"
-	 * @param array  $args        { label, description }
+	 * @param array  $args        { label, description, routes[] }
 	 */
 	public static function register_scope( string $scope, array $args = array() ): void {
+		$routes = array();
+		foreach ( (array) ( $args['routes'] ?? array() ) as $route ) {
+			$route = trim( (string) $route, "/ \t\n\r" );
+			if ( '' !== $route ) {
+				$routes[] = '/' . $route;
+			}
+		}
 		self::$scopes[ $scope ] = array(
 			'label'       => (string) ( $args['label'] ?? $scope ),
 			'description' => (string) ( $args['description'] ?? '' ),
+			'routes'      => array_values( array_unique( $routes ) ),
 		);
+	}
+
+	/**
+	 * The registered scope names a requested scope string resolves to. Unknown names are ignored; when nothing known remains, the default scope's names are used instead. Never returns a name that is not registered.
+	 *
+	 * @return array<int,string>
+	 */
+	private static function resolve_scope_names( string $scope ): array {
+		$known = array_keys( self::scopes() );
+		$names = array_filter( (array) preg_split( '/\s+/', trim( $scope ) ) );
+		$kept  = array_values( array_intersect( $names, $known ) );
+		if ( $kept ) {
+			return $kept;
+		}
+		$default = array_filter( (array) preg_split( '/\s+/', trim( self::default_scope() ) ) );
+		return array_values( array_intersect( $default, $known ) );
+	}
+
+	/**
+	 * Reduce a requested scope string to scopes this server knows. A client asking for `wp:api` on a site whose only registered scope is `events-manager:mcp` gets the Events Manager scope (and its route limits), not an unrestricted token.
+	 */
+	public static function normalize_scope( string $scope ): string {
+		$names = self::resolve_scope_names( $scope );
+		return $names ? implode( ' ', $names ) : self::default_scope();
+	}
+
+	/**
+	 * REST route prefixes a credential granted this scope string may call, or null when it is unrestricted, i.e. when any granted scope was registered without routes. The library's own endpoints are always included so a scoped client can still refresh and revoke.
+	 *
+	 * @return array<int,string>|null
+	 */
+	public static function routes_for_scope( string $scope ): ?array {
+		$known  = self::scopes();
+		$routes = array();
+		foreach ( self::resolve_scope_names( $scope ) as $name ) {
+			if ( empty( $known[ $name ]['routes'] ) ) {
+				return null;
+			}
+			$routes = array_merge( $routes, $known[ $name ]['routes'] );
+		}
+		if ( empty( $routes ) ) {
+			return null;
+		}
+		$routes[] = '/' . trim( Support::rest_namespace(), '/' );
+		/**
+		 * Filter the REST route prefixes a scoped credential may call. Return an empty array to lift the restriction.
+		 *
+		 * @param array<int,string> $routes
+		 * @param string            $scope  The granted scope string.
+		 */
+		$routes = (array) apply_filters( 'pixelite_oauth_scope_routes', array_values( array_unique( $routes ) ), $scope );
+		return $routes ? array_values( $routes ) : null;
 	}
 
 	/** @return array<string,array> */
 	public static function scopes(): array {
 		if ( empty( self::$scopes ) ) {
-			// Always advertise at least the default generic scope when no plugin has registered one.
-			self::$scopes[ self::default_scope() ] = array(
-				'label'       => __( 'Site API access', 'wp-oauth-app-passwords' ),
-				'description' => __( 'Read and write access to this site through the REST API, acting as your account.', 'wp-oauth-app-passwords' ),
+			// Always advertise at least the default generic scope when no plugin has registered one. Returned rather than stored: if this ran before a host's register_scope() (an early metadata or default_scope() call), the unrestricted generic scope would otherwise stick as the first-registered default and every later grant could resolve to it.
+			return array(
+				self::default_scope() => array(
+					'label'       => __( 'Site API access', 'wp-oauth-app-passwords' ),
+					'description' => __( 'Read and write access to this site through the REST API, acting as your account.', 'wp-oauth-app-passwords' ),
+					'routes'      => array(),
+				),
 			);
 		}
 		return self::$scopes;

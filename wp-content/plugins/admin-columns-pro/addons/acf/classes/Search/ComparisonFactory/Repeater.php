@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Search\ComparisonFactory;
 
 use ACA\ACF\Field;
@@ -9,7 +11,6 @@ use ACP;
 
 class Repeater
 {
-
     public function create(Field $field, string $parent_meta_key, string $meta_type): ?ACP\Search\Comparison
     {
         $meta_key = $field->get_meta_key();
@@ -34,7 +35,7 @@ class Repeater
                     $meta_type,
                     $parent_meta_key,
                     $meta_key,
-                    $field instanceof Field\Multiple ? $field->is_multiple() : null
+                    $field instanceof Field\Multiple ? $field->is_multiple() : false
                 );
 
             case FieldType::TYPE_POST:
@@ -46,6 +47,16 @@ class Repeater
                     $field instanceof Field\PostTypeFilterable ? $field->get_post_types() : null
                 );
 
+            case FieldType::TYPE_CHECKBOX:
+                return new Comparison\Repeater\Select(
+                    $meta_type,
+                    $parent_meta_key,
+                    $meta_key,
+                    $field instanceof Field\Choices ? $field->get_choices() : [],
+                    true
+                );
+
+            case FieldType::TYPE_BUTTON_GROUP:
             case FieldType::TYPE_SELECT:
             case FieldType::TYPE_RADIO:
                 return new Comparison\Repeater\Select(

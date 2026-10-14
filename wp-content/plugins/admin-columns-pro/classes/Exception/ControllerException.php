@@ -8,7 +8,6 @@ use LogicException;
 
 class ControllerException extends LogicException
 {
-
     public static function from_invalid_action(string $action): self
     {
         return new self(sprintf('The action %s is not defined.', $action));

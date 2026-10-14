@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace ACP\Storage;
 
+use AC\Exception\IteratorException;
 use FilterIterator;
 use Iterator;
 use SplFileInfo;
+use Throwable;
 
 final class FileIterator extends FilterIterator
 {
-
-    private $extension;
+    private string $extension;
 
     public function __construct(Iterator $iterator, string $extension)
     {
@@ -24,16 +25,26 @@ final class FileIterator extends FilterIterator
     {
         $file = $this->getInnerIterator()->current();
 
-        return $file instanceof SplFileInfo &&
-               $file->isFile() &&
-               $file->isReadable() &&
-               $file->getSize() &&
-               $file->getExtension() === $this->extension;
+        try {
+            return $file instanceof SplFileInfo &&
+                   $file->isFile() &&
+                   $file->isReadable() &&
+                   $file->getSize() &&
+                   $file->getExtension() === $this->extension;
+        } catch (Throwable $e) {
+            return false;
+        }
     }
 
     public function current(): SplFileInfo
     {
-        return parent::current();
+        $current = parent::current();
+
+        if (! $current instanceof SplFileInfo) {
+            throw IteratorException::from_current();
+        }
+
+        return $current;
     }
 
 }

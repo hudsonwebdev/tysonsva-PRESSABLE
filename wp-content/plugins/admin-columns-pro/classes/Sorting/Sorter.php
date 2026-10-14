@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting;
 
 use ACP\Sorting\Type\DataType;
@@ -9,23 +11,22 @@ use ACP\Sorting\Type\DataType;
  */
 class Sorter
 {
-
     /**
      * @param array         $values [ (int) $id => (string|int|bool) $value ]
      * @param DataType|null $data_type
      *
      * @return int[]
      */
-    public function sort(array $values, DataType $data_type = null): array
+    public function sort(array $values, ?DataType $data_type = null): array
     {
         switch ((string)$data_type) {
-            case DataType::NUMERIC :
+            case DataType::NUMERIC:
                 $values = array_filter($values, 'is_numeric');
 
                 asort($values, SORT_NUMERIC);
 
                 return array_keys($values);
-            default :
+            default:
                 $values = array_filter($values, 'is_scalar');
                 $values = array_filter($values, [$this, 'is_not_empty']);
                 $values = array_map([$this, 'truncate'], $values);
@@ -55,7 +56,7 @@ class Sorter
      *
      * @return bool
      */
-    private function is_not_empty($value)
+    private function is_not_empty($value): bool
     {
         return $value || 0 === $value || '0' === $value;
     }

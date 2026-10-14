@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model;
 
 use ACP\Query\Bindings;
@@ -7,8 +9,7 @@ use ACP\Sorting\Type\Order;
 
 class OrderByMultiple implements QueryBindings
 {
-
-    private $columns;
+    private array $columns;
 
     public function __construct(array $columns)
     {

@@ -1,27 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Check;
 
 use AC\Ajax;
-use AC\Asset\Location\Absolute;
-use AC\Asset\Script;
 use AC\Capabilities;
 use AC\Message;
-use AC\Preferences;
+use AC\Notice\NoticeState;
 use AC\Registerable;
 use AC\Screen;
 use AC\Type\Url\Documentation;
 use AC\Type\Url\UtmTags;
 
-class Review
-    implements Registerable
+final class Review implements Registerable
 {
+    private const SLUG = 'review';
+    private const DELAY_DAYS = 30;
 
-    private $location;
+    private NoticeState $state;
 
-    public function __construct(Absolute $location)
+    public function __construct(NoticeState $state)
     {
-        $this->location = $location;
+        $this->state = $state;
     }
 
     public function register(): void
@@ -33,29 +34,27 @@ class Review
 
     public function display(Screen $screen): void
     {
-        if ( ! $screen->has_screen()) {
+        if (! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
-        if ( ! current_user_can(Capabilities::MANAGE)) {
+        if (! $screen->has_screen()) {
             return;
         }
 
-        if ( ! $screen->is_admin_screen() && ! $screen->is_list_screen()) {
+        if (! $screen->is_admin_screen()) {
             return;
         }
 
-        if ($this->get_preferences()->get('dismiss-review')) {
+        if ($this->state->is_dismissed(self::SLUG)) {
             return;
         }
 
-        if ( ! $this->first_login_compare()) {
+        $this->state->track_first_seen(self::SLUG);
+
+        if (! $this->state->is_delay_met(self::SLUG, self::DELAY_DAYS)) {
             return;
         }
-
-        $script = new Script('ac-notice-review', $this->location->with_suffix('assets/js/message-review.js'), ['jquery']
-        );
-        $script->enqueue();
 
         $notice = new Message\Notice\Dismissible($this->get_message(), $this->get_ajax_handler());
         $notice
@@ -73,42 +72,15 @@ class Review
         return $handler;
     }
 
-    protected function get_preferences(): Preferences\User
-    {
-        return new Preferences\User('check-review');
-    }
-
-    protected function first_login_compare(): bool
-    {
-        // Show after 30 days
-        return time() - (30 * DAY_IN_SECONDS) > $this->get_first_login();
-    }
-
-    /**
-     * Return the Unix timestamp of first login
-     */
-    protected function get_first_login(): int
-    {
-        $timestamp = $this->get_preferences()->get('first-login-review');
-
-        if (empty($timestamp)) {
-            $timestamp = time();
-
-            $this->get_preferences()->set('first-login-review', $timestamp);
-        }
-
-        return $timestamp;
-    }
-
     public function ajax_dismiss_notice(): void
     {
         $this->get_ajax_handler()->verify_request();
-        $this->get_preferences()->set('dismiss-review', true);
+        $this->state->dismiss(self::SLUG);
     }
 
-    private function get_documentation_url(string $utm_medium): string
+    private function get_documentation_url(): string
     {
-        return (new UtmTags(new Documentation(), $utm_medium))->get_url();
+        return (new UtmTags(new Documentation(), 'review-notice'))->get_url();
     }
 
     protected function get_message(): string
@@ -143,7 +115,6 @@ class Review
 			</p>
 		</div>
 		<div class="help hidden">
-			<a href="#" class="hide-notice hide-review-notice"></a>
 			<p>
                 <?php
 
@@ -153,31 +124,33 @@ class Review
                         'codepress-admin-columns'
                     ),
                     $product,
-                    '<a href="' . esc_url($this->get_documentation_url('review-notice')) . '" target="_blank">' . __(
+                    '<a href="' . esc_url(
+                        $this->get_documentation_url()
+                    ) . '" target="_blank">' . __(
                         'documentation page',
                         'codepress-admin-columns'
                     ) . '</a>'
                 );
 
-                printf(
-                    __('You can also find help on the %s, and %s.', 'codepress-admin-columns'),
-                    '<a href="https://wordpress.org/support/plugin/codepress-admin-columns#postform" target="_blank">' . __(
-                        'Admin Columns forum on WordPress.org',
-                        'codepress-admin-columns'
-                    ) . '</a>',
-                    '<a href="https://wordpress.org/plugins/codepress-admin-columns/#faq" target="_blank">' . __(
-                        'find answers to frequently asked questions',
-                        'codepress-admin-columns'
-                    ) . '</a>'
-                );
+        printf(
+            __('You can also find help on the %s, and %s.', 'codepress-admin-columns'),
+            '<a href="https://wordpress.org/support/plugin/codepress-admin-columns#postform" target="_blank">' . __(
+                'Admin Columns forum on WordPress.org',
+                'codepress-admin-columns'
+            ) . '</a>',
+            '<a href="https://wordpress.org/plugins/codepress-admin-columns/#faq" target="_blank">' . __(
+                'find answers to frequently asked questions',
+                'codepress-admin-columns'
+            ) . '</a>'
+        );
 
-                ?>
+        ?>
 			</p>
 		</div>
 
         <?php
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
 }

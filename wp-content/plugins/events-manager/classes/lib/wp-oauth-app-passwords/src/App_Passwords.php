@@ -19,6 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class App_Passwords {
 
+	/** `app_id` stamped on every Application Password this library creates, so they can be told apart from manually created ones. */
+	const APP_ID = 'pixelite-oauth';
+
 	/**
 	 * Hook the Bearer -> core-auth translation. We do not authenticate ourselves; we translate the Bearer header into the Basic credentials WordPress core's Application Password validator already understands, then let core (priority 20 on determine_current_user) do the real work.
 	 */
@@ -72,7 +75,7 @@ class App_Passwords {
 		}
 		$created = \WP_Application_Passwords::create_new_application_password( $user_id, array(
 			'name'   => self::sanitize_app_name( $app_name ),
-			'app_id' => 'pixelite-oauth',
+			'app_id' => self::APP_ID,
 		) );
 		if ( is_wp_error( $created ) ) {
 			return $created;

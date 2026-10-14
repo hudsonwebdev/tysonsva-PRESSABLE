@@ -106,6 +106,35 @@ class Uploader {
 		do_action('em_uploads_uploader_init');
 	}
 
+	/**
+	 * Server-side MIME detection of a file's actual bytes, independent of its name or of the type the browser claimed.
+	 *
+	 * @param string $path
+	 * @return string Lower-cased MIME type, or '' when nothing could detect it.
+	 */
+	public static function sniff_mime_type( $path ) {
+		$mime = '';
+		if ( class_exists( 'finfo' ) ) {
+			$mime = (string) ( new \finfo( FILEINFO_MIME_TYPE ) )->file( $path );
+		}
+		if ( ! $mime && function_exists( 'mime_content_type' ) ) {
+			$mime = (string) mime_content_type( $path );
+		}
+		$mime = explode( ';', $mime );
+		return strtolower( trim( $mime[0] ) );
+	}
+
+	/**
+	 * Whether a MIME type is something a browser would render or execute if it were served from the site origin, which no document upload should ever be.
+	 *
+	 * @param string $mime
+	 * @return bool
+	 */
+	public static function is_active_content_mime( $mime ) {
+		$active = array( 'text/html', 'application/xhtml+xml', 'image/svg+xml', 'application/javascript', 'application/x-javascript', 'text/javascript', 'application/ecmascript', 'text/ecmascript', 'application/x-httpd-php', 'application/x-php', 'text/x-php', 'application/x-sh', 'text/x-shellscript' );
+		return in_array( strtolower( (string) $mime ), apply_filters( 'em_uploads_active_content_mime_types', $active ), true );
+	}
+
 	
 	/**
 	 * Merges provided options with default options.
@@ -437,6 +466,11 @@ class Uploader {
 							}
 						}
 					} else {
+						// The browser-supplied type above is only a hint; libmagic decides what the bytes are, and anything a browser would execute is refused whatever the extension says.
+						$sniffed_mime = static::sniff_mime_type( $single_file['tmp_name'] );
+						if ( $sniffed_mime && static::is_active_content_mime( $sniffed_mime ) ) {
+							$file_errors[] = __( 'The file content does not match its file extension.', 'events-manager' );
+						}
 						// Additional security validations for non-image file types.
 						switch ( $extension_str ) {
 							case 'pdf':
@@ -474,7 +508,7 @@ class Uploader {
 								break;
 						}
 						// further validation if necessary, and ideally validate any custom-added extensions!
-						$file_errors = apply_filters('em_uploads_uploader_validate_extension_' . $extension_str, [], $single_file, ['file_key' => $file_key, 'files_key' => $files_key, 'options' => $options] );
+						$file_errors = array_merge( $file_errors, (array) apply_filters('em_uploads_uploader_validate_extension_' . $extension_str, [], $single_file, ['file_key' => $file_key, 'files_key' => $files_key, 'options' => $options] ) );
 					}
 				} else {
 					$allowed_exts = implode( ', ', array_keys( $permitted_extensions ) );

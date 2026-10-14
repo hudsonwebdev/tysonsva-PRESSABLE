@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-05-25T13:04:12+00:00\n"
-"PO-Revision-Date: 2026-08-28 16:45+0000\n"
+"PO-Revision-Date: 2026-09-16 16:45+0000\n"
 "X-Generator: Poedit 3.2.2\n"
 "X-Domain: ml-slider\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -150,12 +150,22 @@ msgstr "További információ"
 #: inc/slide/metaslide.image.class.php:232
 #: inc/slide/metaslide.image.class.php:286
 #: inc/slide/metaslide.image.class.php:404
-#: ml-slider.php:944
-#: ml-slider.php:1026
-#: ml-slider.php:1138
-#: ml-slider.php:2853
-#: ml-slider.php:2898
-#: ml-slider.php:2973
+#: inc/slide/metaslide.livid.class.php:334
+#: inc/slide/metaslide.livid.class.php:401
+#: inc/slide/metaslide.livid.class.php:448
+#: inc/slide/metaslide.livid.class.php:776
+#: ml-slider.php:994
+#: ml-slider.php:1076
+#: ml-slider.php:1188
+#: ml-slider.php:2860
+#: ml-slider.php:2905
+#: ml-slider.php:2980
+#: modules/local_video/slide.php:870
+#: modules/local_video/slide.php:928
+#: modules/local_video/slide.php:1036
+#: modules/local_video/slide.php:1201
+#: modules/local_video/slide.php:1274
+#: modules/local_video/slide.php:1388
 msgid "The security check failed. Please refresh the page and try again."
 msgstr ""
 "A biztonsági ellenőrzés meghiúsult. Kérjük, frissítse az oldalt, és "
@@ -163,18 +173,21 @@ msgstr ""
 
 #: admin/Notices.php:394
 #: admin/Notices.php:642
-#: admin/routes/api.php:141
+#: admin/routes/api.php:145
 #: inc/slide/metaslide.class.php:152
 #: inc/slide/metaslide.image.class.php:135
 #: inc/slide/metaslide.image.class.php:154
 #: inc/slide/metaslide.image.class.php:240
 #: inc/slide/metaslide.image.class.php:294
-#: ml-slider.php:952
-#: ml-slider.php:1034
-#: ml-slider.php:1146
-#: ml-slider.php:2861
-#: ml-slider.php:2906
-#: ml-slider.php:2981
+#: inc/slide/metaslide.livid.class.php:342
+#: inc/slide/metaslide.livid.class.php:409
+#: inc/slide/metaslide.livid.class.php:456
+#: ml-slider.php:1002
+#: ml-slider.php:1084
+#: ml-slider.php:1196
+#: ml-slider.php:2868
+#: ml-slider.php:2913
+#: ml-slider.php:2988
 msgid "Access denied. Sorry, you do not have permission to complete this task."
 msgstr ""
 "Hozzáférés megtagadva. Sajnálom, nincs engedélye ennek a feladatnak a "
@@ -187,12 +200,25 @@ msgstr ""
 #: inc/slide/metaslide.image.class.php:249
 #: inc/slide/metaslide.image.class.php:303
 #: inc/slide/metaslide.image.class.php:422
-#: ml-slider.php:961
-#: ml-slider.php:1043
-#: ml-slider.php:1155
-#: ml-slider.php:2870
-#: ml-slider.php:2914
-#: ml-slider.php:2990
+#: inc/slide/metaslide.livid.class.php:351
+#: inc/slide/metaslide.livid.class.php:416
+#: inc/slide/metaslide.livid.class.php:463
+#: inc/slide/metaslide.livid.class.php:470
+#: inc/slide/metaslide.livid.class.php:793
+#: ml-slider.php:1011
+#: ml-slider.php:1093
+#: ml-slider.php:1205
+#: ml-slider.php:2877
+#: ml-slider.php:2921
+#: ml-slider.php:2997
+#: modules/local_video/slide.php:209
+#: modules/local_video/slide.php:887
+#: modules/local_video/slide.php:945
+#: modules/local_video/slide.php:1057
+#: modules/local_video/slide.php:1221
+#: modules/local_video/slide.php:1291
+#: modules/local_video/slide.php:1405
+#: modules/local_video/slide.php:2091
 msgid "Bad request"
 msgstr "Hibás kérés"
 
@@ -239,6 +265,7 @@ msgid "URL"
 msgstr "URL"
 
 #: admin/Pages.php:157
+#: modules/local_video/slide.php:423
 #: themes/architekt/customize.php:511
 #: themes/bitono/customize.php:625
 #: themes/blend/customize.php:655
@@ -316,7 +343,7 @@ msgid "Tone"
 msgstr "Hang"
 
 #: admin/Pages.php:186
-#: admin/views/pages/parts/slider-settings.php:1431
+#: admin/views/pages/parts/slider-settings.php:1427
 #: admin/views/slides/tabs/background.php:73
 #: inc/metaslider.imagestyles.class.php:463
 #: themes/architekt/customize.php:602
@@ -420,46 +447,46 @@ msgstr "Szöveg színe"
 msgid "Link Text"
 msgstr "Link szöveg"
 
-#: admin/routes/api.php:462
+#: admin/routes/api.php:466
 msgid "The request format was not valid."
 msgstr "A kérés formátuma érvénytelen volt."
 
-#: admin/routes/api.php:470
-#: admin/routes/api.php:602
+#: admin/routes/api.php:474
+#: admin/routes/api.php:606
 msgid "This slideshow is no longer available."
 msgstr "Ez a diavetítés már nem érhető el."
 
-#: admin/routes/api.php:557
+#: admin/routes/api.php:561
 msgid "Nothing to import."
 msgstr "Nincs mit importálni."
 
-#: admin/routes/api.php:609
+#: admin/routes/api.php:613
 msgid "This was not a slideshow, so we cannot delete it."
 msgstr "Ez nem volt diavetítés, így nem tudjuk törölni."
 
-#: admin/routes/api.php:822
+#: admin/routes/api.php:826
 msgid "This was not a slideshow, so we cannot update the setting."
 msgstr "Ez nem volt diavetítés, így nem tudjuk frissíteni a beállítást."
 
-#: admin/routes/api.php:930
+#: admin/routes/api.php:934
 msgid "The title cannot be empty."
 msgstr "A cím nem lehet üres."
 
-#: admin/routes/api.php:934
-#: admin/routes/api.php:1208
+#: admin/routes/api.php:938
+#: admin/routes/api.php:1212
 #, php-format
 msgid "The field (%s) cannot be empty"
 msgstr "A mező (%s) nem lehet üres"
 
-#: admin/routes/api.php:1198
+#: admin/routes/api.php:1202
 msgid "Maximum Number of Custom Field in Post Feed Sliders"
 msgstr "A testreszabott mezők maximális száma a bejegyzés feed diavetítéseiben"
 
-#: admin/routes/api.php:1242
+#: admin/routes/api.php:1246
 msgid "No video file was received by the server."
 msgstr "A szerver nem kapott videófájlt."
 
-#: admin/routes/api.php:1258
+#: admin/routes/api.php:1262
 #. translators: 1: uploaded filename, 2: mime type WordPress detected, or "none"
 #, php-format
 msgid ""
@@ -470,19 +497,19 @@ msgstr ""
 "Lehetséges, hogy egy nem támogatott formátum vagy meghaladja a szerver "
 "feltöltési korlátját."
 
-#: admin/routes/api.php:1260
+#: admin/routes/api.php:1264
 msgid "none"
 msgstr "nincs"
 
-#: admin/routes/api.php:1268
+#: admin/routes/api.php:1272
 msgid "The video could not be imported."
 msgstr "A videó nem importálható."
 
-#: admin/routes/api.php:1386
+#: admin/routes/api.php:1409
 msgid "Import slug not found"
 msgstr "Importálási slug nem található"
 
-#: admin/routes/api.php:1402
+#: admin/routes/api.php:1425
 msgid "Import data could not be processed"
 msgstr "Az importálási adatokat nem lehetett feldolgozni"
 
@@ -491,18 +518,18 @@ msgid "We could not find any images to import."
 msgstr "Nem találtunk importálható képeket."
 
 #: admin/slideshows/Settings.php:59
-#: inc/slider/metaslider.class.php:161
+#: inc/slider/metaslider.class.php:165
 msgid "New Slideshow"
 msgstr "Új diavetítés"
 
 #: admin/slideshows/Settings.php:86
-#: inc/slider/metaslider.class.php:188
+#: inc/slider/metaslider.class.php:192
 #: inc/slider/metaslider.flex.class.php:819
 msgid "Previous"
 msgstr "Előző"
 
 #: admin/slideshows/Settings.php:87
-#: inc/slider/metaslider.class.php:189
+#: inc/slider/metaslider.class.php:193
 #: inc/slider/metaslider.flex.class.php:820
 msgid "Next"
 msgstr "Következő"
@@ -527,23 +554,23 @@ msgstr "Nem sikerült szöveges nyomvonalat importálni az URL-ről: %s."
 msgid "Failed to import image from URL: %s."
 msgstr "Nem sikerült képet importálni az URL-ről: %s."
 
-#: admin/slideshows/Slideshows.php:1204
+#: admin/slideshows/Slideshows.php:1208
 msgid "Only http/https URLs are allowed."
 msgstr "Csak http/https URL-ek engedélyezettek."
 
-#: admin/slideshows/Slideshows.php:1214
+#: admin/slideshows/Slideshows.php:1218
 msgid "URL does not point to an allowed file type."
 msgstr "A URL nem mutat engedélyezett fájltípusra."
 
-#: admin/slideshows/Slideshows.php:1224
+#: admin/slideshows/Slideshows.php:1228
 msgid "URL resolves to a disallowed address."
 msgstr "A URL egy nem megengedett címre mutat."
 
-#: admin/slideshows/Themes.php:60
+#: admin/slideshows/Themes.php:203
 msgid "No themes found."
 msgstr "Nincsenek témák."
 
-#: admin/slideshows/Themes.php:449
+#: admin/slideshows/Themes.php:595
 msgid ""
 "We removed your selected theme as it could not be found. Was the folder "
 "deleted?"
@@ -562,100 +589,100 @@ msgstr ""
 "Még nincsenek diavetítéseid. Kattints %shere%s az új diavetítés "
 "létrehozásához."
 
-#: admin/Table.php:184
-#: admin/Table.php:347
+#: admin/Table.php:193
+#: admin/Table.php:356
 #: inc/slide/metaslide.class.php:420
 msgid "Restore"
 msgstr "Visszaállítás"
 
-#: admin/Table.php:185
-#: admin/Table.php:348
+#: admin/Table.php:194
+#: admin/Table.php:357
 #: inc/slide/metaslide.class.php:430
 msgid "Delete Permanently"
 msgstr "Törlés véglegesen"
 
-#: admin/Table.php:189
-#: admin/Table.php:362
+#: admin/Table.php:198
+#: admin/Table.php:371
 msgid "Trash"
 msgstr "Kuka"
 
-#: admin/Table.php:200
+#: admin/Table.php:209
 #: admin/views/pages/parts/toolbar.php:75
 #: admin/assets/dist/js/app.js:2
 msgid "Preview"
 msgstr "Előnézet"
 
-#: admin/Table.php:201
+#: admin/Table.php:210
 #: admin/assets/dist/js/app.js:2
 msgid "Title"
 msgstr "Cím"
 
-#: admin/Table.php:202
+#: admin/Table.php:211
 msgid "Type of Slides"
 msgstr "Diák típusa"
 
-#: admin/Table.php:203
+#: admin/Table.php:212
 msgid "Number of Slides"
 msgstr "Diák száma"
 
-#: admin/Table.php:204
+#: admin/Table.php:213
 msgid "Theme"
 msgstr "Téma"
 
-#: admin/Table.php:205
+#: admin/Table.php:214
 msgid "Created"
 msgstr "Létrehozva"
 
-#: admin/Table.php:206
-#: admin/views/pages/parts/slider-settings.php:1694
+#: admin/Table.php:215
+#: admin/views/pages/parts/slider-settings.php:1690
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: admin/Table.php:212
+#: admin/Table.php:221
 msgid "Usage"
 msgstr "Használat"
 
-#: admin/Table.php:361
+#: admin/Table.php:370
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: admin/Table.php:398
+#: admin/Table.php:407
 #: admin/views/pages/parts/shortcode.php:11
 msgid "Click to copy shortcode."
 msgstr "Kattintson a shortcode másolásához."
 
-#: admin/Table.php:406
-#: admin/Table.php:419
-#: admin/Table.php:479
+#: admin/Table.php:415
+#: admin/Table.php:428
+#: admin/Table.php:488
 msgid "Not found."
 msgstr "Nem található."
 
-#: admin/Table.php:408
+#: admin/Table.php:417
 msgid "View Usage"
 msgstr "Használat megtekintése"
 
-#: admin/Table.php:414
+#: admin/Table.php:423
 msgid "Content Using This Slideshow"
 msgstr "Tartalom, amely ezt a diavetítőt használja"
 
-#: admin/Table.php:456
+#: admin/Table.php:465
 msgid "Theme Setting"
 msgstr "Téma beállítás"
 
-#: admin/Table.php:470
+#: admin/Table.php:479
 msgid "Option"
 msgstr "Opció"
 
-#: admin/Table.php:527
-#: admin/views/pages/start.php:191
+#: admin/Table.php:536
+#: admin/views/pages/start.php:192
 msgid "All Themes"
 msgstr "Összes téma"
 
-#: admin/Table.php:540
+#: admin/Table.php:549
 msgid "(No Theme)"
 msgstr "(Nincs téma)"
 
-#: admin/Table.php:544
+#: admin/Table.php:553
 #: admin/views/slides/tabs/background.php:32
 #: inc/metaslider.imagestyles.class.php:388
 msgid "Filter"
@@ -672,7 +699,7 @@ msgid "(%s Weeks)"
 msgstr "( %s Hét )"
 
 #: admin/views/pages/dashboard.php:8
-#: ml-slider.php:574
+#: ml-slider.php:578
 #: admin/assets/dist/js/app.js:2
 msgid "Slideshows"
 msgstr "Diavetítők"
@@ -801,7 +828,7 @@ msgstr "Slideshow szélessége"
 
 #: admin/views/pages/parts/slider-settings.php:90
 #: admin/views/pages/parts/slider-settings.php:103
-#: admin/views/pages/parts/slider-settings.php:926
+#: admin/views/pages/parts/slider-settings.php:922
 #: admin/views/slides/tabs/background.php:51
 #: inc/metaslider.imagestyles.class.php:407
 #: inc/metaslider.imagestyles.class.php:419, fuzzy
@@ -1135,30 +1162,30 @@ msgid "This animation is used when changing slides."
 msgstr "Ez az animáció a diák váltásakor használatos."
 
 #: admin/views/pages/parts/slider-settings.php:550
-#: admin/views/pages/start.php:174
+#: admin/views/pages/start.php:175
 #: inc/metaslider.imagestyles.class.php:537
 msgid "Fade"
 msgstr "Halványul"
 
 #: admin/views/pages/parts/slider-settings.php:554
-#: admin/views/pages/start.php:173, fuzzy
+#: admin/views/pages/start.php:174, fuzzy
 msgid "Slide"
 msgstr "Slide"
 
 #: admin/views/pages/parts/slider-settings.php:558
-#: admin/views/pages/start.php:175
+#: admin/views/pages/start.php:176
 msgid "Zooming"
 msgstr "Zoomolás"
 
 #: admin/views/pages/parts/slider-settings.php:562
-#: admin/views/pages/start.php:176
+#: admin/views/pages/start.php:177
 #: admin/views/slides/tabs/background.php:87
 #: inc/metaslider.imagestyles.class.php:488
 msgid "Flip"
 msgstr "Forgatás"
 
 #: admin/views/pages/parts/slider-settings.php:566
-#: admin/views/pages/parts/slider-settings.php:1344
+#: admin/views/pages/parts/slider-settings.php:1340
 msgid "Random"
 msgstr "Váltakozó"
 
@@ -1281,7 +1308,7 @@ msgid "Horizontal"
 msgstr "Vízszintes"
 
 #: admin/views/pages/parts/slider-settings.php:757
-#: admin/views/pages/start.php:178
+#: admin/views/pages/start.php:179
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:494
 msgid "Vertical"
@@ -1364,11 +1391,11 @@ msgstr ""
 "alapértelmezés szerint 100% szélességgel és a 'Diák' átmeneti effektussal "
 "fog működni."
 
-#: admin/views/pages/parts/slider-settings.php:903
+#: admin/views/pages/parts/slider-settings.php:899
 msgid "Loop Carousel Continuously"
 msgstr "Karusszel folyamatos ismétlése"
 
-#: admin/views/pages/parts/slider-settings.php:908
+#: admin/views/pages/parts/slider-settings.php:904
 msgid ""
 "Infinite loop of slides when Carousel Mode is enabled. This option disables "
 "arrows and navigation. The slideshow width must be less than or equal to "
@@ -1378,29 +1405,29 @@ msgstr ""
 "opció letiltja a nyilakat és a navigációt. A diavetítés szélessége nem "
 "lehet nagyobb, mint a tartály szélessége, ahová be van ágyazva."
 
-#: admin/views/pages/parts/slider-settings.php:919
+#: admin/views/pages/parts/slider-settings.php:915
 msgid "Carousel Margin"
 msgstr "Karusszel Margó"
 
-#: admin/views/pages/parts/slider-settings.php:922
+#: admin/views/pages/parts/slider-settings.php:918
 msgid "Pixel margin between slides in carousel."
 msgstr "Pixeles margó a diák között a karusszelben."
 
-#: admin/views/pages/parts/slider-settings.php:936
+#: admin/views/pages/parts/slider-settings.php:932
 msgid "Display Minimum"
 msgstr "Megjelenítési Minimum"
 
-#: admin/views/pages/parts/slider-settings.php:938
+#: admin/views/pages/parts/slider-settings.php:934
 msgid "Minimum number of slides to be displayed at the same time in the carousel."
 msgstr ""
 "A minimális diák száma, amelyet egyszerre meg kell jeleníteni a "
 "karusszelben."
 
-#: admin/views/pages/parts/slider-settings.php:952
+#: admin/views/pages/parts/slider-settings.php:948
 msgid "Display Maximum"
 msgstr "Megjelenítési Maximum"
 
-#: admin/views/pages/parts/slider-settings.php:954
+#: admin/views/pages/parts/slider-settings.php:950
 msgid ""
 "Maximum number of slides to be displayed at the same time in the carousel. "
 "Set to 0 to adjust automatically."
@@ -1408,11 +1435,11 @@ msgstr ""
 "A maximális diák száma, amelyet egyszerre meg kell jeleníteni a "
 "karusszelben. Állítsa 0-ra az automatikus beállításhoz."
 
-#: admin/views/pages/parts/slider-settings.php:963
+#: admin/views/pages/parts/slider-settings.php:959
 msgid "Slides to Show per Device"
 msgstr "Megjelenítendő diák száma eszközönként"
 
-#: admin/views/pages/parts/slider-settings.php:964
+#: admin/views/pages/parts/slider-settings.php:960
 msgid ""
 "Set an exact number of slides to show for each device width. Leave a device "
 "at 0 to use the Display Minimum/Maximum settings instead."
@@ -1421,7 +1448,7 @@ msgstr ""
 "eszközök szélességén. Hagyja 0-ra az eszközt, hogy a Megjelenítési "
 "minimum/máximális beállításokat használja."
 
-#: admin/views/pages/parts/slider-settings.php:972
+#: admin/views/pages/parts/slider-settings.php:968
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths less than %spx. Set to 0 to "
@@ -1431,8 +1458,8 @@ msgstr ""
 "képernyőszélességek esetén. Állítson 0-ra, hogy a Megjelenítési "
 "minimum/máximális beállításokat használja."
 
-#: admin/views/pages/parts/slider-settings.php:982
-#: admin/views/pages/parts/slider-settings.php:993
+#: admin/views/pages/parts/slider-settings.php:978
+#: admin/views/pages/parts/slider-settings.php:989
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths of %1$spx to %2$spx. Set to "
@@ -1442,7 +1469,7 @@ msgstr ""
 "képernyőszélességeken. Állítson 0-ra, hogy a Megjelenítési "
 "minimum/máximális beállításokat használja."
 
-#: admin/views/pages/parts/slider-settings.php:1004
+#: admin/views/pages/parts/slider-settings.php:1000
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths equal to or greater than "
@@ -1452,19 +1479,19 @@ msgstr ""
 "nagyobb képernyőszélességeken. Állítson 0-ra, hogy a Megjelenítési "
 "minimum/máximális beállításokat használja."
 
-#: admin/views/pages/parts/slider-settings.php:1021
+#: admin/views/pages/parts/slider-settings.php:1017
 msgid "Slides per Navigation Click"
 msgstr "Diák száma Navigációs Kattintásonként"
 
-#: admin/views/pages/parts/slider-settings.php:1023
+#: admin/views/pages/parts/slider-settings.php:1019
 msgid "Number of slides to move when clicking next or previous."
 msgstr "A diák száma, amelyet a következő vagy előző gombra kattintva mozgathat."
 
-#: admin/views/pages/parts/slider-settings.php:1032
+#: admin/views/pages/parts/slider-settings.php:1028
 msgid "Force Height"
 msgstr "Kényszerített Magasság"
 
-#: admin/views/pages/parts/slider-settings.php:1037
+#: admin/views/pages/parts/slider-settings.php:1033
 msgid ""
 "If the slideshow looks small, force slideshow height when using Carousel "
 "mode. Please note when is enabled slides may look cropped."
@@ -1473,31 +1500,31 @@ msgstr ""
 "Karusszel mód használatakor. Kérjük, vegye figyelembe, hogy ha engedélyezve "
 "van, a diák vágottak lehetnek."
 
-#: admin/views/pages/parts/slider-settings.php:1062
+#: admin/views/pages/parts/slider-settings.php:1058
 msgid "Image Options"
 msgstr "Kép Opciók"
 
-#: admin/views/pages/parts/slider-settings.php:1074
+#: admin/views/pages/parts/slider-settings.php:1070
 msgid "Image Crop"
 msgstr "Kép Vágás"
 
-#: admin/views/pages/parts/slider-settings.php:1079
+#: admin/views/pages/parts/slider-settings.php:1075
 msgid "Smart Crop"
 msgstr "Okos Vágás"
 
-#: admin/views/pages/parts/slider-settings.php:1086
+#: admin/views/pages/parts/slider-settings.php:1082
 msgid "Standard"
 msgstr "Szabványos"
 
-#: admin/views/pages/parts/slider-settings.php:1093
+#: admin/views/pages/parts/slider-settings.php:1089
 msgid "Disabled"
 msgstr "Letiltva"
 
-#: admin/views/pages/parts/slider-settings.php:1100
+#: admin/views/pages/parts/slider-settings.php:1096
 msgid "Disabled (Smart Pad)"
 msgstr "Letiltva (Okos Pad)"
 
-#: admin/views/pages/parts/slider-settings.php:1107
+#: admin/views/pages/parts/slider-settings.php:1103
 msgid ""
 "Smart Crop ensures your responsive slides are cropped to a ratio that "
 "results in a consistent slideshow size."
@@ -1505,19 +1532,19 @@ msgstr ""
 "Az Okos Vágás biztosítja, hogy a reszponzív diák olyan arányra legyenek "
 "vágva, amely következetes diavetítési méretet eredményez."
 
-#: admin/views/pages/parts/slider-settings.php:1115
+#: admin/views/pages/parts/slider-settings.php:1111
 msgid "Image Crop Source"
 msgstr "Kép Vágás Forrás"
 
-#: admin/views/pages/parts/slider-settings.php:1120
+#: admin/views/pages/parts/slider-settings.php:1116
 msgid "Slideshow width/height"
 msgstr "Diavetítés szélessége/magassága"
 
-#: admin/views/pages/parts/slider-settings.php:1123
+#: admin/views/pages/parts/slider-settings.php:1119
 msgid "Custom width/height (Pro)"
 msgstr "Egyedi szélesség/magasság (Pro)"
 
-#: admin/views/pages/parts/slider-settings.php:1127
+#: admin/views/pages/parts/slider-settings.php:1123
 msgid ""
 "By default, MetaSlider Slideshow will crop images using the main width and "
 "height of the slideshow. If you want smaller images, select Custom "
@@ -1529,11 +1556,11 @@ msgstr ""
 "válassza a Testreszabott szélességet/magasságot, és győződjön meg arról, "
 "hogy az értékek kisebbek, mint a fő szélesség és magasság."
 
-#: admin/views/pages/parts/slider-settings.php:1136
+#: admin/views/pages/parts/slider-settings.php:1132
 msgid "Image Crop Size"
 msgstr "Képvágási méret"
 
-#: admin/views/pages/parts/slider-settings.php:1145
+#: admin/views/pages/parts/slider-settings.php:1141
 msgid ""
 "This will increase the size of the images in your slideshow. Larger images "
 "are higher quality. Smaller images load more quickly."
@@ -1541,11 +1568,11 @@ msgstr ""
 "Ez növeli a diavetítésben lévő képek méretét. A nagyobb képek jobb "
 "minőségűek. A kisebb képek gyorsabban betöltődnek."
 
-#: admin/views/pages/parts/slider-settings.php:1156
+#: admin/views/pages/parts/slider-settings.php:1152
 msgid "Lazy Load Images"
 msgstr "Képek késleltetett betöltése"
 
-#: admin/views/pages/parts/slider-settings.php:1161
+#: admin/views/pages/parts/slider-settings.php:1157
 msgid ""
 "This feature can speed up your site. MetaSlider Slideshow will only load "
 "slides when they are required by your slideshow."
@@ -1553,25 +1580,25 @@ msgstr ""
 "Ez a funkció felgyorsíthatja az oldalát. A MetaSlider csak akkor tölti be a "
 "diát, amikor az szükséges a diavetítéshez."
 
-#: admin/views/pages/parts/slider-settings.php:1177
+#: admin/views/pages/parts/slider-settings.php:1173
 #: inc/metaslider.imagestyles.class.php:96
 msgid "Image Styles"
 msgstr "Kép stílusok"
 
-#: admin/views/pages/parts/slider-settings.php:1195
+#: admin/views/pages/parts/slider-settings.php:1191
 msgid "Layout Features"
 msgstr "Elrendezési jellemzők"
 
-#: admin/views/pages/parts/slider-settings.php:1207
+#: admin/views/pages/parts/slider-settings.php:1203
 #: admin/assets/dist/js/app.js:2
 msgid "Auto Play"
 msgstr "Automatikus lejátszás"
 
-#: admin/views/pages/parts/slider-settings.php:1212
+#: admin/views/pages/parts/slider-settings.php:1208
 msgid "Transition between slides automatically."
 msgstr "A diák automatikus váltása."
 
-#: admin/views/pages/parts/slider-settings.php:1220
+#: admin/views/pages/parts/slider-settings.php:1216
 #: themes/architekt/customize.php:615
 #: themes/bitono/customize.php:798
 #: themes/blend/customize.php:828
@@ -1593,26 +1620,26 @@ msgstr "A diák automatikus váltása."
 msgid "Play / Pause Button"
 msgstr "Lejátszás / Szünet gomb"
 
-#: admin/views/pages/parts/slider-settings.php:1225
+#: admin/views/pages/parts/slider-settings.php:1221
 msgid "This allows user to pause or resume Auto Play on the slideshow."
 msgstr ""
 "Ez lehetővé teszi a felhasználó számára, hogy szüneteltesse vagy folytassa "
 "az automatikus lejátszást a diavetítésben."
 
-#: admin/views/pages/parts/slider-settings.php:1233
+#: admin/views/pages/parts/slider-settings.php:1229
 msgid "Show Play / Pause Button Text"
 msgstr "Lejátszás / Szünet gomb szövegének megjelenítése"
 
-#: admin/views/pages/parts/slider-settings.php:1238
+#: admin/views/pages/parts/slider-settings.php:1234
 msgid "Show text options for Play / Pause Button"
 msgstr "A Lejátszás / Szünet gomb szövegopcióinak megjelenítése"
 
-#: admin/views/pages/parts/slider-settings.php:1246
+#: admin/views/pages/parts/slider-settings.php:1242
 msgid "Play Text"
 msgstr "Lejátszás szöveg"
 
-#: admin/views/pages/parts/slider-settings.php:1248
-#: admin/views/pages/parts/slider-settings.php:1261
+#: admin/views/pages/parts/slider-settings.php:1244
+#: admin/views/pages/parts/slider-settings.php:1257
 msgid ""
 "Enter text for the Play/Pause Button. Leave the field empty to use the icon "
 "only."
@@ -1620,24 +1647,24 @@ msgstr ""
 "Írja be a szöveget a Lejátszás/Szünet gombhoz. Hagyja üresen a mezőt, ha "
 "csak az ikont szeretné használni."
 
-#: admin/views/pages/parts/slider-settings.php:1259
+#: admin/views/pages/parts/slider-settings.php:1255
 msgid "Pause Text"
 msgstr "Szünet szöveg"
 
-#: admin/views/pages/parts/slider-settings.php:1272
+#: admin/views/pages/parts/slider-settings.php:1268
 #: themes/customize.php:34
 msgid "Progress Bar"
 msgstr "Előrehaladási sáv"
 
-#: admin/views/pages/parts/slider-settings.php:1277
+#: admin/views/pages/parts/slider-settings.php:1273
 msgid "Displays a visual indicator showing the time left before the next slide."
 msgstr "Vizualizálja az időt, ami hátra van a következő diáig."
 
-#: admin/views/pages/parts/slider-settings.php:1285
+#: admin/views/pages/parts/slider-settings.php:1281
 msgid "Hover Pause"
 msgstr "Túlmutatás szünet"
 
-#: admin/views/pages/parts/slider-settings.php:1290
+#: admin/views/pages/parts/slider-settings.php:1286
 msgid ""
 "Pause the slideshow when hovering over slider, then resume when no longer "
 "hovering."
@@ -1645,11 +1672,11 @@ msgstr ""
 "Megállítja a slideshowt, amikor egy slide fölé visszük a kruzort, majd "
 "folytatja, amint elvittük onnan azt"
 
-#: admin/views/pages/parts/slider-settings.php:1298
+#: admin/views/pages/parts/slider-settings.php:1294
 msgid "Loop"
 msgstr "Ismétlés"
 
-#: admin/views/pages/parts/slider-settings.php:1300
+#: admin/views/pages/parts/slider-settings.php:1296
 msgid ""
 "If you choose \"Loop endlessly\", the slides will loop infinitely. If you "
 "choose \"Stop on first slide after looping\", the slideshow will stop on "
@@ -1662,51 +1689,51 @@ msgstr ""
 "elemet. Ha a \"Megállás az utolsó dián\" lehetőséget választja, a diák az "
 "utolsó dián állnak meg."
 
-#: admin/views/pages/parts/slider-settings.php:1303
+#: admin/views/pages/parts/slider-settings.php:1299
 msgid "Loop Endlessly"
 msgstr "Végtelen hurok"
 
-#: admin/views/pages/parts/slider-settings.php:1304
+#: admin/views/pages/parts/slider-settings.php:1300
 msgid "Stop On Last Slide"
 msgstr "Megállás az utolsó dián"
 
-#: admin/views/pages/parts/slider-settings.php:1305
+#: admin/views/pages/parts/slider-settings.php:1301
 msgid "Stop On First Slide After Looping"
 msgstr "Megállás az első dián a hurok után"
 
-#: admin/views/pages/parts/slider-settings.php:1311
+#: admin/views/pages/parts/slider-settings.php:1307
 msgid "Smooth Height"
 msgstr "Simított magasság"
 
-#: admin/views/pages/parts/slider-settings.php:1316
+#: admin/views/pages/parts/slider-settings.php:1312
 msgid "Allow navigation to follow the slide's height smoothly."
 msgstr "Engedje meg, hogy a navigáció simán kövesse a diák magasságát."
 
-#: admin/views/pages/parts/slider-settings.php:1324
+#: admin/views/pages/parts/slider-settings.php:1320
 msgid "Slide Order"
 msgstr "Diák sorrendje"
 
-#: admin/views/pages/parts/slider-settings.php:1329
+#: admin/views/pages/parts/slider-settings.php:1325
 msgid "Newest First"
 msgstr "Legújabb elöl"
 
-#: admin/views/pages/parts/slider-settings.php:1332
+#: admin/views/pages/parts/slider-settings.php:1328
 msgid "Oldest First"
 msgstr "Legöregebb elöl"
 
-#: admin/views/pages/parts/slider-settings.php:1335
+#: admin/views/pages/parts/slider-settings.php:1331
 msgid "A to Z (by filename)"
 msgstr "A-tól Z-ig (fájl név szerint)"
 
-#: admin/views/pages/parts/slider-settings.php:1338
+#: admin/views/pages/parts/slider-settings.php:1334
 msgid "Z to A (by filename)"
 msgstr "Z-től A-ig (fájl név szerint)"
 
-#: admin/views/pages/parts/slider-settings.php:1341
+#: admin/views/pages/parts/slider-settings.php:1337
 msgid "Drag-and-drop"
 msgstr "Húzd és ejtsd"
 
-#: admin/views/pages/parts/slider-settings.php:1347
+#: admin/views/pages/parts/slider-settings.php:1343
 msgid ""
 "Select the order in which slides appear in the slideshow. This impacts the "
 "frontend view."
@@ -1714,116 +1741,116 @@ msgstr ""
 "Válassza ki a sorrendet, amelyben a diák megjelennek a diavetítésben. Ez "
 "befolyásolja a frontend nézetet."
 
-#: admin/views/pages/parts/slider-settings.php:1355
+#: admin/views/pages/parts/slider-settings.php:1351
 msgid "Touch Swipe"
 msgstr "Érintéses elcsúsztatás"
 
-#: admin/views/pages/parts/slider-settings.php:1360
+#: admin/views/pages/parts/slider-settings.php:1356
 msgid "Allow touch swipe navigation of the slider on touch-enabled devices."
 msgstr ""
 "Engedje meg az érintéses elcsúsztatásos navigációt a csúszkán "
 "érintésérzékeny eszközökön."
 
-#: admin/views/pages/parts/slider-settings.php:1368
+#: admin/views/pages/parts/slider-settings.php:1364
 msgid "Loading Indicator"
 msgstr "Betöltési jelző"
 
-#: admin/views/pages/parts/slider-settings.php:1373
+#: admin/views/pages/parts/slider-settings.php:1369
 msgid "Displays a visual indicator while the slideshow is loading."
 msgstr "Megjelenít egy vizuális jelzőt, amíg a diavetítés betöltődik."
 
-#: admin/views/pages/parts/slider-settings.php:1381
+#: admin/views/pages/parts/slider-settings.php:1377
 msgid "Previous Text"
 msgstr "Előző szöveg"
 
-#: admin/views/pages/parts/slider-settings.php:1383
+#: admin/views/pages/parts/slider-settings.php:1379
 msgid "Set the text for the \"previous\" direction item."
 msgstr "Állítsa be a szöveget az \"előző\" irányú elemhez."
 
-#: admin/views/pages/parts/slider-settings.php:1395
+#: admin/views/pages/parts/slider-settings.php:1391
 msgid "Next Text"
 msgstr "Következő szöveg"
 
-#: admin/views/pages/parts/slider-settings.php:1397
+#: admin/views/pages/parts/slider-settings.php:1393
 msgid "Set the text for the \"next\" direction item."
 msgstr "Állítsa be a szöveget a \"következő\" irányú elemhez."
 
-#: admin/views/pages/parts/slider-settings.php:1414
+#: admin/views/pages/parts/slider-settings.php:1410
 msgid "Square Delay"
 msgstr "Négyzet késleltetés"
 
-#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1412
 msgid "Delay between squares in ms."
 msgstr "Késleltetés a négyzetek között ms-ben."
 
-#: admin/views/pages/parts/slider-settings.php:1433
+#: admin/views/pages/parts/slider-settings.php:1429
 msgid "Opacity of title and navigation, between 0 and 1."
 msgstr "A cím és a navigáció átlátszósága, 0 és 1 között."
 
-#: admin/views/pages/parts/slider-settings.php:1448
+#: admin/views/pages/parts/slider-settings.php:1444
 msgid "Caption Speed"
 msgstr "Felirat sebesség"
 
-#: admin/views/pages/parts/slider-settings.php:1450
+#: admin/views/pages/parts/slider-settings.php:1446
 msgid "Set the fade in speed of the caption."
 msgstr "Állítsa be a felirat megjelenési sebességét."
 
-#: admin/views/pages/parts/slider-settings.php:1472
+#: admin/views/pages/parts/slider-settings.php:1468
 msgid "Container Options"
 msgstr "Tartály opciók"
 
-#: admin/views/pages/parts/slider-settings.php:1484
+#: admin/views/pages/parts/slider-settings.php:1480
 msgid "Container Box"
 msgstr "Tartály doboz"
 
-#: admin/views/pages/parts/slider-settings.php:1489
+#: admin/views/pages/parts/slider-settings.php:1485
 msgid "Customize the slideshow's container box."
 msgstr "Testre szabja a diavetítés tartályának dobozát."
 
-#: admin/views/pages/parts/slider-settings.php:1495
-#: admin/views/pages/parts/slider-settings.php:1535
+#: admin/views/pages/parts/slider-settings.php:1491
+#: admin/views/pages/parts/slider-settings.php:1531
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "This feature is available in MetaSlider Slideshow Pro"
 msgstr "Ez a funkció a MetaSlider Pro-ban érhető el"
 
-#: admin/views/pages/parts/slider-settings.php:1510
+#: admin/views/pages/parts/slider-settings.php:1506
 msgid "Watermark Options"
 msgstr "Vízjel beállítások"
 
-#: admin/views/pages/parts/slider-settings.php:1524
+#: admin/views/pages/parts/slider-settings.php:1520
 msgid "Watermark"
 msgstr "Vízjel"
 
-#: admin/views/pages/parts/slider-settings.php:1529
+#: admin/views/pages/parts/slider-settings.php:1525
 msgid "Overlay an image (e.g. a logo) on top of the slideshow."
 msgstr "Egy képet (pl. logót) helyezzen a dia show fölé."
 
-#: admin/views/pages/parts/slider-settings.php:1550
+#: admin/views/pages/parts/slider-settings.php:1546
 msgid "Accessibility Options"
 msgstr "Hozzáférhetőségi opciók"
 
-#: admin/views/pages/parts/slider-settings.php:1562
+#: admin/views/pages/parts/slider-settings.php:1558
 msgid "Keyboard Controls"
 msgstr "Billentyűzet vezérlés"
 
-#: admin/views/pages/parts/slider-settings.php:1567
+#: admin/views/pages/parts/slider-settings.php:1563
 msgid "Use arrow keys to get to the next slide."
 msgstr "Használja a nyíl billentyűket a következő diára lépéshez."
 
-#: admin/views/pages/parts/slider-settings.php:1575
+#: admin/views/pages/parts/slider-settings.php:1571
 msgid "Tabindex For Navigation"
 msgstr "Tabindex a navigációhoz"
 
-#: admin/views/pages/parts/slider-settings.php:1580
+#: admin/views/pages/parts/slider-settings.php:1576
 msgid "This helps make the slideshow navigation more accessible."
 msgstr "Ez segít a diavetítés navigációját hozzáférhetőbbé tenni."
 
-#: admin/views/pages/parts/slider-settings.php:1588
+#: admin/views/pages/parts/slider-settings.php:1584
 msgid "ARIA Live"
 msgstr "ARIA Élő"
 
-#: admin/views/pages/parts/slider-settings.php:1593
+#: admin/views/pages/parts/slider-settings.php:1589
 msgid ""
 "If Autoplay is enabled, this causes screen readers to announce that the "
 "slides are changing."
@@ -1831,11 +1858,11 @@ msgstr ""
 "Ha az automatikus lejátszás engedélyezve van, ez arra kényszeríti a "
 "képernyőolvasókat, hogy bejelentsék, hogy a diák változnak."
 
-#: admin/views/pages/parts/slider-settings.php:1601
+#: admin/views/pages/parts/slider-settings.php:1597
 msgid "ARIA Current"
 msgstr "ARIA Aktuális"
 
-#: admin/views/pages/parts/slider-settings.php:1606
+#: admin/views/pages/parts/slider-settings.php:1602
 msgid ""
 "This is used on the navigation button for the active slide. It helps screen "
 "readers understand which slide is active."
@@ -1843,15 +1870,15 @@ msgstr ""
 "Ezt az aktív diát megjelenítő navigációs gombon használják. Segít a "
 "képernyőolvasóknak megérteni, hogy melyik diát aktív."
 
-#: admin/views/pages/parts/slider-settings.php:1622
+#: admin/views/pages/parts/slider-settings.php:1618
 msgid "Developer Options"
 msgstr "Fejlesztői opciók"
 
-#: admin/views/pages/parts/slider-settings.php:1634
+#: admin/views/pages/parts/slider-settings.php:1630
 msgid "CSS Classes"
 msgstr "CSS osztályok"
 
-#: admin/views/pages/parts/slider-settings.php:1636
+#: admin/views/pages/parts/slider-settings.php:1632
 msgid ""
 "Enter custom CSS classes to apply to the slider wrapper. Separate multiple "
 "classes with a space."
@@ -1859,36 +1886,36 @@ msgstr ""
 "Adja meg a saját CSS osztályait, amelyeket a csúszkafedélhez szeretne "
 "alkalmazni. A több osztályt szóközzel válassza el."
 
-#: admin/views/pages/parts/slider-settings.php:1647
+#: admin/views/pages/parts/slider-settings.php:1643
 msgid "Print CSS"
 msgstr "Nyomtatási CSS"
 
-#: admin/views/pages/parts/slider-settings.php:1652
+#: admin/views/pages/parts/slider-settings.php:1648
 msgid "Uncheck this if you would like to include your own CSS."
 msgstr "Törölje a jelölést, ha szeretné, hogy a saját CSS-e legyen."
 
-#: admin/views/pages/parts/slider-settings.php:1660
+#: admin/views/pages/parts/slider-settings.php:1656
 msgid "Print JS"
 msgstr "Nyomtatási JS"
 
-#: admin/views/pages/parts/slider-settings.php:1665
+#: admin/views/pages/parts/slider-settings.php:1661
 msgid "Uncheck this if you would like to include your own Javascript."
 msgstr "Törölje a jelölést, ha szeretné, hogy a saját Javascript-e legyen."
 
-#: admin/views/pages/parts/slider-settings.php:1673
+#: admin/views/pages/parts/slider-settings.php:1669
 msgid "No Conflict Mode"
 msgstr "Nincs ütközési mód"
 
-#: admin/views/pages/parts/slider-settings.php:1678
+#: admin/views/pages/parts/slider-settings.php:1674
 msgid "Delay adding the flexslider class to the slideshow."
 msgstr "Késleltesse a flexslider osztály hozzáadását a diavetítéshez."
 
-#: admin/views/pages/parts/slider-settings.php:1716
-#: ml-slider.php:1880
+#: admin/views/pages/parts/slider-settings.php:1712
+#: ml-slider.php:1930
 msgid "Trashed Slides"
 msgstr "Lomtárba helyezett diák"
 
-#: admin/views/pages/parts/slider-settings.php:1726
+#: admin/views/pages/parts/slider-settings.php:1722
 msgid "View trashed slides"
 msgstr "Lomtárba helyezett diák megtekintése"
 
@@ -1906,7 +1933,7 @@ msgid "Add a new slide"
 msgstr "Új dia hozzáadása"
 
 #: admin/views/pages/parts/toolbar.php:60
-#: inc/slider/metaslider.class.php:1055
+#: inc/slider/metaslider.class.php:1065
 msgid "Add Slide"
 msgstr "Slide hozzáadása"
 
@@ -1952,7 +1979,7 @@ msgid "Save"
 msgstr "Ment"
 
 #: admin/views/pages/parts/toolbar.php:155
-#: ml-slider.php:1945
+#: ml-slider.php:1995
 msgid "Return to Published Slides"
 msgstr "Visszatérés a közzétett diákhoz"
 
@@ -1988,7 +2015,7 @@ msgid "Redirecting..."
 msgstr "Átirányítás..."
 
 #: admin/views/pages/start.php:106
-#: ml-slider.php:575
+#: ml-slider.php:579
 msgid "Quick Start"
 msgstr "Gyors kezdés"
 
@@ -2017,163 +2044,164 @@ msgid "Slide Type"
 msgstr "Dia típusa"
 
 #: admin/views/pages/start.php:145
-#: inc/metaslider.quickstart.class.php:760
-#: ml-slider.php:798
+#: inc/metaslider.quickstart.class.php:773
+#: ml-slider.php:849
 msgid "Image"
 msgstr "Kép"
 
-#: admin/views/pages/start.php:149
-#: inc/metaslider.quickstart.class.php:611
-#: inc/metaslider.quickstart.class.php:772
-#: ml-slider.php:842
+#: admin/views/pages/start.php:150
+#: inc/metaslider.quickstart.class.php:623
+#: inc/metaslider.quickstart.class.php:785
+#: ml-slider.php:893
 msgid "External Image"
 msgstr "Külső kép"
 
-#: admin/views/pages/start.php:150
-#: inc/metaslider.quickstart.class.php:623
-#: inc/metaslider.quickstart.class.php:775
-#: ml-slider.php:843
+#: admin/views/pages/start.php:151
+#: inc/metaslider.quickstart.class.php:635
+#: inc/metaslider.quickstart.class.php:788
+#: ml-slider.php:894
 msgid "External Video"
 msgstr "Külső videó"
 
-#: admin/views/pages/start.php:151
-#: inc/metaslider.quickstart.class.php:635
-#: inc/metaslider.quickstart.class.php:781
-#: ml-slider.php:844
+#: admin/views/pages/start.php:152
+#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:797
+#: ml-slider.php:895
 msgid "Custom HTML"
 msgstr "Egyedi HTML"
 
-#: admin/views/pages/start.php:152
-#: inc/metaslider.quickstart.class.php:683
-#: inc/metaslider.quickstart.class.php:790
-#: ml-slider.php:845
+#: admin/views/pages/start.php:153
+#: inc/metaslider.quickstart.class.php:695
+#: inc/metaslider.quickstart.class.php:806
+#: ml-slider.php:896
 msgid "Background Color"
 msgstr "Háttérszín"
 
-#: admin/views/pages/start.php:153
-#: admin/views/pages/start.php:184
-#: ml-slider.php:848
+#: admin/views/pages/start.php:154
+#: admin/views/pages/start.php:185
+#: ml-slider.php:899
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: admin/views/pages/start.php:154
-#: inc/metaslider.quickstart.class.php:599
-#: inc/metaslider.quickstart.class.php:787
-#: ml-slider.php:849
+#: admin/views/pages/start.php:155
+#: inc/metaslider.quickstart.class.php:611
+#: inc/metaslider.quickstart.class.php:803
+#: ml-slider.php:900
 msgid "Post Feed"
 msgstr "Bejegyzés hírcsatorna"
 
-#: admin/views/pages/start.php:155
-#: inc/metaslider.quickstart.class.php:784
-#: ml-slider.php:850
+#: admin/views/pages/start.php:156
+#: inc/metaslider.quickstart.class.php:800
+#: ml-slider.php:901
 msgid "Layer Slide"
 msgstr "Réteg dia"
 
-#: admin/views/pages/start.php:156
-#: inc/metaslider.quickstart.class.php:575
-#: inc/metaslider.quickstart.class.php:769
-#: ml-slider.php:851
+#: admin/views/pages/start.php:157
+#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:782
+#: modules/local_video/slide.php:43
+#: modules/local_video/slide.php:82
 msgid "Local Video"
 msgstr "Helyi videó"
 
-#: admin/views/pages/start.php:161
+#: admin/views/pages/start.php:162
 msgid "Features"
 msgstr "Funkciók"
 
-#: admin/views/pages/start.php:162
+#: admin/views/pages/start.php:163
 msgid "Boxed"
 msgstr "Dobozolt"
 
-#: admin/views/pages/start.php:163
+#: admin/views/pages/start.php:164
 msgid "Full-width"
 msgstr "Teljes szélesség"
 
-#: admin/views/pages/start.php:164
+#: admin/views/pages/start.php:165
 msgid "Carousel"
 msgstr "Körforgás"
 
-#: admin/views/pages/start.php:165
+#: admin/views/pages/start.php:166
 msgid "Thumbnail Navigation"
 msgstr "Bélyegkép navigáció"
 
-#: admin/views/pages/start.php:166
+#: admin/views/pages/start.php:167
 msgid "Video Caption"
 msgstr "Videó felirat"
 
-#: admin/views/pages/start.php:167
-#: admin/views/pages/start.php:302
+#: admin/views/pages/start.php:168
+#: admin/views/pages/start.php:303
 msgid "Hero Image"
 msgstr "Fő kép"
 
-#: admin/views/pages/start.php:172
+#: admin/views/pages/start.php:173
 msgid "Animation Type"
 msgstr "Animáció típusa"
 
-#: admin/views/pages/start.php:177, fuzzy
+#: admin/views/pages/start.php:178, fuzzy
 msgid "Ken Burns"
 msgstr "Ken Burns"
 
-#: admin/views/pages/start.php:183
+#: admin/views/pages/start.php:184
 msgid "Integration"
 msgstr "Integráció"
 
-#: admin/views/pages/start.php:185
+#: admin/views/pages/start.php:186
 msgid "The Events Calendar"
 msgstr "Az események naptára"
 
-#: admin/views/pages/start.php:186
-#: admin/views/pages/start.php:298
+#: admin/views/pages/start.php:187
+#: admin/views/pages/start.php:299
 msgid "WordPress Posts"
 msgstr "WordPress bejegyzések"
 
-#: admin/views/pages/start.php:227
+#: admin/views/pages/start.php:228
 msgid "Free and Pro"
 msgstr "Ingyenes és Pro"
 
-#: admin/views/pages/start.php:228
+#: admin/views/pages/start.php:229
 msgid "Free only"
 msgstr "Csak ingyenes"
 
-#: admin/views/pages/start.php:229
+#: admin/views/pages/start.php:230
 msgid "Pro only"
 msgstr "Csak Pro"
 
-#: admin/views/pages/start.php:233
+#: admin/views/pages/start.php:234
 msgid "Reset Filters"
 msgstr "Szűrők visszaállítása"
 
-#: admin/views/pages/start.php:239
+#: admin/views/pages/start.php:240
 msgid "No demos match your filters."
 msgstr "Nincsenek olyan bemutatók, amelyek megfelelnének a szűrőidnek."
 
-#: admin/views/pages/start.php:322
+#: admin/views/pages/start.php:323
 #, php-format
 msgid "Create %s slideshow?"
 msgstr "Készítsen %s diavetítést?"
 
-#: admin/views/pages/start.php:328
+#: admin/views/pages/start.php:329
 msgid "Cancel"
 msgstr "Mégse"
 
-#: admin/views/pages/start.php:331
+#: admin/views/pages/start.php:332
 msgid "Yes, please!"
 msgstr "Igen, kérem!"
 
-#: admin/views/pages/start.php:337
+#: admin/views/pages/start.php:338
 msgid "Demo"
 msgstr "Bemutató"
 
-#: admin/views/pages/start.php:343
+#: admin/views/pages/start.php:344
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Get MetaSlider Slideshow Pro!"
 msgstr "MetaSlider Slideshow"
 
-#: admin/views/pages/start.php:346
+#: admin/views/pages/start.php:347
 msgid "Upgrade now to unlock this demo slideshow!"
 msgstr "Frissíts most, hogy feloldhasd ezt a bemutató diavetítőt!"
 
-#: admin/views/pages/start.php:349
+#: admin/views/pages/start.php:350
 #: admin/views/pages/theme-editor.php:36
 #: admin/views/pages/upgrade.php:26
 #: admin/views/pages/upgrade.php:201
@@ -2181,19 +2209,19 @@ msgstr "Frissíts most, hogy feloldhasd ezt a bemutató diavetítőt!"
 msgid "Upgrade now"
 msgstr "Frissíts most"
 
-#: admin/views/pages/start.php:367
+#: admin/views/pages/start.php:368
 msgid "Create a slideshow with your images"
 msgstr "Hozz létre diavetítőt a képeiddel"
 
-#: admin/views/pages/start.php:368
+#: admin/views/pages/start.php:369
 msgid "Choose your own images to start a new slideshow."
 msgstr "Válaszd ki a saját képeidet egy új diavetítő indításához."
 
-#: admin/views/pages/start.php:374
+#: admin/views/pages/start.php:375
 msgid "Uploading images..."
 msgstr "Képek feltöltése..."
 
-#: admin/views/pages/start.php:385
+#: admin/views/pages/start.php:386
 msgid "Open Media Library"
 msgstr "Média könyvtár megnyitása"
 
@@ -2203,7 +2231,7 @@ msgid "Introducing the Theme Editor in MetaSlider Slideshow Pro"
 msgstr "Bemutatjuk a Téma Szerkesztőt a MetaSlider Pro-ban"
 
 #: admin/views/pages/theme-editor.php:18
-#: ml-slider.php:579
+#: ml-slider.php:583
 msgid "Theme Editor"
 msgstr "Téma Szerkesztő"
 
@@ -2948,10 +2976,12 @@ msgstr ""
 "alkalmazva."
 
 #: admin/views/slides/tabs/link.php:20
+#: modules/local_video/tabs/link.php:28
 msgid "New window"
 msgstr "Új ablak"
 
 #: admin/views/slides/tabs/link.php:22
+#: modules/local_video/tabs/link.php:30
 msgid "Open link in a new window"
 msgstr "Link megnyitása egy új ablakban"
 
@@ -2971,11 +3001,66 @@ msgstr ""
 msgid "Enter text here"
 msgstr "Írjon szöveget ide"
 
-#: admin/views/slides/tabs/mobile.php:33
+#: admin/views/slides/tabs/livid.php:18
+msgid "Livid Video URL"
+msgstr "Livid videó URL"
+
+#: admin/views/slides/tabs/livid.php:19
+msgid ""
+"Paste the link to a video hosted on livid.com. We will create the embed for "
+"you."
+msgstr ""
+"Illessze be a linket egy, a livid.com-on hosztolt videóhoz. Mi létrehozzuk "
+"a beágyazást az Ön számára."
+
+#: admin/views/slides/tabs/livid.php:33
+#: modules/local_video/tabs/general.php:70
+msgid "Mute video"
+msgstr "Videó némítása"
+
+#: admin/views/slides/tabs/livid.php:47
+#: modules/local_video/tabs/general.php:82
+msgid "Show controls"
+msgstr "Szerkesztési lehetőségek megjelenítése"
+
+#: admin/views/slides/tabs/livid.php:49
+msgid ""
+"Hiding the controls only works if the video is on a Livid Pro or Premium "
+"account"
+msgstr ""
+"A vezérlők elrejtése csak akkor működik, ha a videó Livid Pro vagy Premium "
+"fiókon van"
+
+#: admin/views/slides/tabs/livid.php:65
+#: modules/local_video/tabs/general.php:95
+msgid "Auto play"
+msgstr "Automatikus lejátszás"
+
+#: admin/views/slides/tabs/livid.php:67
+msgid "May require the video to be muted"
+msgstr "Lehetséges, hogy a videót némítani kell"
+
+#: admin/views/slides/tabs/livid.php:83
+#: modules/local_video/tabs/general.php:113
+msgid "Lazy load video"
+msgstr "Lusta betöltésű videó"
+
+#: admin/views/slides/tabs/livid.php:85
+msgid "The video only loads once a visitor clicks play"
+msgstr "A videó csak akkor töltődik be, amikor a látogató rákattint a lejátszásra"
+
+#: admin/views/slides/tabs/livid.php:99
+#: modules/local_video/tabs/general.php:125
+msgid "Loop video"
+msgstr "Videó ismétlése"
+
+#: admin/views/slides/tabs/mobile.php:35
+#: modules/local_video/tabs/mobile.php:22
 msgid "Hide slide on:"
 msgstr "Diák elrejtése:"
 
-#: admin/views/slides/tabs/mobile.php:46
+#: admin/views/slides/tabs/mobile.php:48
+#: modules/local_video/tabs/mobile.php:35
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths equal to or "
@@ -2984,7 +3069,8 @@ msgstr ""
 "Ha engedélyezve van, ez a beállítás elrejti a diát a %spx vagy annál "
 "nagyobb képernyőszélességeken"
 
-#: admin/views/slides/tabs/mobile.php:56
+#: admin/views/slides/tabs/mobile.php:58
+#: modules/local_video/tabs/mobile.php:45
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths of %1$spx to "
@@ -2993,11 +3079,11 @@ msgstr ""
 "Ha engedélyezve van, ez a beállítás elrejti a diát a %1$spx és %2$spx "
 "közötti képernyőszélességeken"
 
-#: admin/views/slides/tabs/mobile.php:72
+#: admin/views/slides/tabs/mobile.php:75
 msgid "Hide caption on:"
 msgstr "Felirat elrejtése:"
 
-#: admin/views/slides/tabs/mobile.php:85
+#: admin/views/slides/tabs/mobile.php:88
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths equal to "
@@ -3006,7 +3092,7 @@ msgstr ""
 "Ha engedélyezve van, ez a beállítás elrejti a feliratot a %spx vagy annál "
 "nagyobb képernyőszélességeken"
 
-#: admin/views/slides/tabs/mobile.php:95
+#: admin/views/slides/tabs/mobile.php:98
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths of %1$spx "
@@ -3244,136 +3330,136 @@ msgstr "Felkészülő nézőpontok"
 msgid "Sporting Spirit"
 msgstr "Sportos Szellem"
 
-#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:227
 msgid "Marathon Journey"
 msgstr "Maratoni utazás"
 
-#: inc/metaslider.quickstart.class.php:227
-msgid "Cars Display"
-msgstr "Autók megjelenítése"
-
 #: inc/metaslider.quickstart.class.php:239
-msgid "Watch Shop Hero"
-msgstr "Óra bolt hőse"
-
-#: inc/metaslider.quickstart.class.php:251
-msgid "Creative Agency Hero"
-msgstr "Kreatív ügynökség hőse"
-
-#: inc/metaslider.quickstart.class.php:263
-msgid "Fashion Trends"
-msgstr "Divat trendek"
-
-#: inc/metaslider.quickstart.class.php:275
-msgid "Entertainment YouTube Shorts Feed"
-msgstr "Szórakozás YouTube Shorts hírcsatorna"
-
-#: inc/metaslider.quickstart.class.php:287
-msgid "Album Cover Showcase"
-msgstr "Album borító bemutató"
-
-#: inc/metaslider.quickstart.class.php:299
-msgid "Business Presentation"
-msgstr "Üzleti prezentáció"
-
-#: inc/metaslider.quickstart.class.php:311
-msgid "Books by Genre"
-msgstr "Könyvek műfaj szerint"
-
-#: inc/metaslider.quickstart.class.php:323
-msgid "Testimonials"
-msgstr "Vélemények"
-
-#: inc/metaslider.quickstart.class.php:335
-msgid "Skincare Routine Guide"
-msgstr "Bőrápolási rutin útmutató"
-
-#: inc/metaslider.quickstart.class.php:347
-msgid "Indoor Plant Selection Guide"
-msgstr "Beltéri növényválasztási útmutató"
-
-#: inc/metaslider.quickstart.class.php:359
-msgid "TikTok Vertical Videos"
-msgstr "TikTok függőleges videók"
-
-#: inc/metaslider.quickstart.class.php:371
 msgid "Daily Routine Videos"
 msgstr "Napi rutin videók"
 
+#: inc/metaslider.quickstart.class.php:263
+msgid "Cars Display"
+msgstr "Autók megjelenítése"
+
+#: inc/metaslider.quickstart.class.php:275
+msgid "Watch Shop Hero"
+msgstr "Óra bolt hőse"
+
+#: inc/metaslider.quickstart.class.php:287
+msgid "Creative Agency Hero"
+msgstr "Kreatív ügynökség hőse"
+
+#: inc/metaslider.quickstart.class.php:299
+msgid "Fashion Trends"
+msgstr "Divat trendek"
+
+#: inc/metaslider.quickstart.class.php:311
+msgid "Entertainment YouTube Shorts Feed"
+msgstr "Szórakozás YouTube Shorts hírcsatorna"
+
+#: inc/metaslider.quickstart.class.php:323
+msgid "Album Cover Showcase"
+msgstr "Album borító bemutató"
+
+#: inc/metaslider.quickstart.class.php:335
+msgid "Business Presentation"
+msgstr "Üzleti prezentáció"
+
+#: inc/metaslider.quickstart.class.php:347
+msgid "Books by Genre"
+msgstr "Könyvek műfaj szerint"
+
+#: inc/metaslider.quickstart.class.php:359
+msgid "Testimonials"
+msgstr "Vélemények"
+
+#: inc/metaslider.quickstart.class.php:371
+msgid "Skincare Routine Guide"
+msgstr "Bőrápolási rutin útmutató"
+
 #: inc/metaslider.quickstart.class.php:383
+msgid "Indoor Plant Selection Guide"
+msgstr "Beltéri növényválasztási útmutató"
+
+#: inc/metaslider.quickstart.class.php:395
+msgid "TikTok Vertical Videos"
+msgstr "TikTok függőleges videók"
+
+#: inc/metaslider.quickstart.class.php:407
 msgid "Coffee Brewing Guide"
 msgstr "Kávé főzési útmutató"
 
-#: inc/metaslider.quickstart.class.php:395
+#: inc/metaslider.quickstart.class.php:419
 msgid "Upcoming City Events"
 msgstr "Közelgő városi események"
 
-#: inc/metaslider.quickstart.class.php:407
+#: inc/metaslider.quickstart.class.php:431
 msgid "Product Categories"
 msgstr "Termék kategóriák"
 
-#: inc/metaslider.quickstart.class.php:419
+#: inc/metaslider.quickstart.class.php:443
 msgid "Recent WooCommerce Products"
 msgstr "Legutóbbi WooCommerce termékek"
 
-#: inc/metaslider.quickstart.class.php:431
+#: inc/metaslider.quickstart.class.php:455
 msgid "Latest News Posts"
 msgstr "Legfrissebb hírek bejegyzések"
 
-#: inc/metaslider.quickstart.class.php:443
+#: inc/metaslider.quickstart.class.php:467
 msgid "Product Demo"
 msgstr "Termék bemutató"
 
-#: inc/metaslider.quickstart.class.php:455
+#: inc/metaslider.quickstart.class.php:479
 msgid "Trending Videos"
 msgstr "Trendi videók"
 
-#: inc/metaslider.quickstart.class.php:467
+#: inc/metaslider.quickstart.class.php:491
 msgid "Hotel Rooms"
 msgstr "Hotel szobák"
 
-#: inc/metaslider.quickstart.class.php:479
+#: inc/metaslider.quickstart.class.php:503
 msgid "Client Testimonials"
 msgstr "Ügyfélvélemények"
 
-#: inc/metaslider.quickstart.class.php:491
+#: inc/metaslider.quickstart.class.php:515
 msgid "Meet the Team"
 msgstr "Ismerje meg a csapatot"
 
-#: inc/metaslider.quickstart.class.php:503
+#: inc/metaslider.quickstart.class.php:527
 msgid "Curated Videos"
 msgstr "Kézzel válogatott videók"
 
-#: inc/metaslider.quickstart.class.php:515
+#: inc/metaslider.quickstart.class.php:539
 msgid "Natural Skincare Presentation"
 msgstr "Természetes bőrápolás bemutató"
 
-#: inc/metaslider.quickstart.class.php:539
+#: inc/metaslider.quickstart.class.php:563
 msgid "YouTube Shorts Carousel"
 msgstr "YouTube Shorts karusszel"
 
-#: inc/metaslider.quickstart.class.php:551
+#: inc/metaslider.quickstart.class.php:575
 msgid "TikTok Carousel"
 msgstr "TikTok karusszel"
 
-#: inc/metaslider.quickstart.class.php:563
-#: ml-slider.php:839, fuzzy
+#: inc/metaslider.quickstart.class.php:587
+#: ml-slider.php:890, fuzzy
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: inc/metaslider.quickstart.class.php:587
+#: inc/metaslider.quickstart.class.php:599
 msgid "Layer Slides"
 msgstr "Rétegek csúszkák"
 
-#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:659
 msgid "WooCommerce Carousel"
 msgstr "WooCommerce karusszel"
 
-#: inc/metaslider.quickstart.class.php:659
+#: inc/metaslider.quickstart.class.php:671
 msgid "Bold Motion"
 msgstr "Merész mozgás"
 
-#: inc/metaslider.quickstart.class.php:671
+#: inc/metaslider.quickstart.class.php:683
 msgid "Playful Pets"
 msgstr "Játékos Háziállatok"
 
@@ -3407,7 +3493,7 @@ msgid "Select Slider:"
 msgstr "Slider kiválasztása:"
 
 #: inc/metaslider.widget.class.php:126
-#: ml-slider.php:2074
+#: ml-slider.php:2124
 #: admin/assets/dist/js/app.js:2
 msgid "No slideshows found"
 msgstr "Nincs találat"
@@ -3451,6 +3537,15 @@ msgid "This isn't a valid image format. Please try again."
 msgstr "Ez nem érvényes képformátum. Kérjük, próbálja újra."
 
 #: inc/slide/metaslide.image.class.php:412
+#: inc/slide/metaslide.livid.class.php:784
+#: modules/local_video/slide.php:203
+#: modules/local_video/slide.php:878
+#: modules/local_video/slide.php:936
+#: modules/local_video/slide.php:1044
+#: modules/local_video/slide.php:1209
+#: modules/local_video/slide.php:1282
+#: modules/local_video/slide.php:1396
+#: modules/local_video/slide.php:2082
 msgid "Access denied"
 msgstr "Hozzáférés megtagadva"
 
@@ -3465,10 +3560,13 @@ msgstr ""
 "képet."
 
 #: inc/slide/metaslide.image.class.php:555
+#: inc/slide/metaslide.livid.class.php:875
+#: modules/local_video/slide.php:407
 msgid "General"
 msgstr "Általános"
 
 #: inc/slide/metaslide.image.class.php:559
+#: modules/local_video/slide.php:411
 msgid "Link"
 msgstr "Hivatkozás"
 
@@ -3477,6 +3575,8 @@ msgid "SEO"
 msgstr "SEO"
 
 #: inc/slide/metaslide.image.class.php:578
+#: inc/slide/metaslide.livid.class.php:893
+#: modules/local_video/slide.php:438
 msgid "Device"
 msgstr "Eszköz"
 
@@ -3500,7 +3600,67 @@ msgstr "Fejlett beállítások állnak rendelkezésre a MetaSlider Slideshow Pro
 msgid "View Slide Details"
 msgstr "Dia részleteinek megtekintése"
 
-#: inc/slider/metaslider.class.php:457
+#: inc/slide/metaslide.livid.class.php:217
+msgid "Livid Video"
+msgstr "Livid videó"
+
+#: inc/slide/metaslide.livid.class.php:272
+#: inc/slide/metaslide.livid.class.php:320
+#: inc/slide/metaslide.livid.class.php:364
+#: inc/slide/metaslide.livid.class.php:425
+#: inc/slide/metaslide.livid.class.php:477
+msgid "Please enter a valid link to a video hosted on livid.com."
+msgstr "Kérjük, adjon meg egy érvényes linket egy, a livid.com-on hosztolt videóhoz."
+
+#: inc/slide/metaslide.livid.class.php:278
+msgid "Create slideshows with your Livid videos"
+msgstr "Készítsen diavetítéseket a Livid videóival"
+
+#: inc/slide/metaslide.livid.class.php:281
+msgid "Enter the URL of a Livid video:"
+msgstr "Adja meg egy Livid videó URL-jét:"
+
+#: inc/slide/metaslide.livid.class.php:292
+#: ml-slider.php:850
+#: modules/local_video/slide.php:112
+#: admin/assets/dist/js/admin.js:1
+#: admin/assets/js/admin.js:218
+msgid "Add to slideshow"
+msgstr "Hozzáadás a diavetítéshez"
+
+#: inc/slide/metaslide.livid.class.php:318
+msgid "Updating the Livid video..."
+msgstr "A Livid videó frissítése..."
+
+#: inc/slide/metaslide.livid.class.php:319
+msgid "Livid video updated."
+msgstr "Livid videó frissítve."
+
+#: inc/slide/metaslide.livid.class.php:321
+msgid "We could not update the Livid video. Please check the link and try again."
+msgstr ""
+"Nem tudtuk frissíteni a Livid videót. Kérjük, ellenőrizze a linket, és "
+"próbálja újra."
+
+#: inc/slide/metaslide.livid.class.php:561
+msgid "Livid video player"
+msgstr "Livid videólejátszó"
+
+#: inc/slide/metaslide.livid.class.php:681
+#. translators: %s: Livid video URL
+#, php-format
+msgid "Livid video thumbnail - %s"
+msgstr "Livid videó előnézet - %s"
+
+#: inc/slide/metaslide.livid.class.php:818
+msgid "Livid Video Slide"
+msgstr "Livid videó diavetítés"
+
+#: inc/slide/metaslide.livid.class.php:1011
+msgid "Play video"
+msgstr "Videó lejátszása"
+
+#: inc/slider/metaslider.class.php:461
 msgid "Edit Slideshow"
 msgstr "Diavetítés szerkesztése"
 
@@ -3512,7 +3672,7 @@ msgstr "Lejátszás"
 msgid "Pause"
 msgstr "Szünet"
 
-#: ml-slider.php:267
+#: ml-slider.php:270
 #, php-format
 msgid ""
 "MetaSlider Slideshow Pro is installed but is out of date. You may update it "
@@ -3521,70 +3681,64 @@ msgstr ""
 "A MetaSlider Pro telepítve van, de elavult. Frissítheti itt %shere%s. "
 "További információ erről az értesítésről itt %shere%s"
 
-#: ml-slider.php:576
+#: ml-slider.php:580
 msgid "Settings & Help"
 msgstr "Beállítások & Súgó"
 
-#: ml-slider.php:580
+#: ml-slider.php:584
 msgid "Upgrade to Pro"
 msgstr "Frissítés Pro verzióra"
 
-#: ml-slider.php:610
-#: ml-slider.php:613
+#: ml-slider.php:614
+#: ml-slider.php:617
 #: themes/customize.php:20
 msgid "Slideshow"
 msgstr "Diavetítés"
 
-#: ml-slider.php:619
-#: ml-slider.php:622
+#: ml-slider.php:623
+#: ml-slider.php:626
 msgid "All Slideshows"
 msgstr "Összes diavetítés"
 
-#: ml-slider.php:630
-#: ml-slider.php:633
+#: ml-slider.php:634
+#: ml-slider.php:637
 msgid "Create Slideshow"
 msgstr "Diavetítés létrehozása"
 
-#: ml-slider.php:799
-#: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:218
-msgid "Add to slideshow"
-msgstr "Hozzáadás a diavetítéshez"
-
-#: ml-slider.php:840, fuzzy
+#: ml-slider.php:891, fuzzy
 msgid "YouTube"
 msgstr "YouTube"
 
-#: ml-slider.php:841, fuzzy
+#: ml-slider.php:892, fuzzy
 msgid "TikTok"
 msgstr "TikTok"
 
-#: ml-slider.php:846
+#: ml-slider.php:897
 msgid "Image Folder"
 msgstr "Kép mappa"
 
-#: ml-slider.php:847
+#: ml-slider.php:898
 #: admin/assets/dist/js/app.js:2
 msgid "Post Images"
 msgstr "Bejegyzés képei"
 
-#: ml-slider.php:976
+#: ml-slider.php:1026
 msgid "The slide was successfully restored"
 msgstr "A diát sikeresen visszaállították"
 
-#: ml-slider.php:999
+#: ml-slider.php:1049
 msgid "The attempt to restore the slide failed."
 msgstr "A dia visszaállításának kísérlete meghiúsult."
 
-#: ml-slider.php:1058
+#: ml-slider.php:1108
 msgid "The slide was successfully trashed"
 msgstr "A diát sikeresen a kukába helyezték"
 
-#: ml-slider.php:1170
+#: ml-slider.php:1220
 msgid "The slide was permanently deleted"
 msgstr "A dia véglegesen törölve lett"
 
-#: ml-slider.php:1461
+#: ml-slider.php:1511
 #, php-format
 msgid ""
 "Please consider moving your slides to <b>FlexSlider</b>. We're adding all "
@@ -3595,19 +3749,19 @@ msgstr ""
 "szolgáltatásba. Minden új MetaSlider funkciót ehhez az opcióhoz adunk "
 "hozzá. <a href=\"%s\">Tudjon meg többet</a>."
 
-#: ml-slider.php:1863
+#: ml-slider.php:1913
 msgid "Slide permanently deleted."
 msgstr "Dia véglegesen törölve."
 
-#: ml-slider.php:1866
+#: ml-slider.php:1916
 msgid "Slide restored."
 msgstr "Dia visszaállítva."
 
-#: ml-slider.php:1898
+#: ml-slider.php:1948
 msgid "Toggle slide reorder panel"
 msgstr "Diák átrendezési panel váltása"
 
-#: ml-slider.php:1935
+#: ml-slider.php:1985
 #, php-format
 msgid ""
 "You are viewing slides that have been trashed, which will be automatically "
@@ -3616,27 +3770,27 @@ msgstr ""
 "Olyan diákat néz, amelyeket a kukába helyeztek, és amelyeket %s napon belül "
 "automatikusan törölnek."
 
-#: ml-slider.php:1968
+#: ml-slider.php:2018
 msgid "Move slideshow to trash"
 msgstr "Diavetítést a kukába helyezni"
 
-#: ml-slider.php:2023
+#: ml-slider.php:2073
 msgid "Add slideshow"
 msgstr "Diavetítés hozzáadása"
 
-#: ml-slider.php:2059
+#: ml-slider.php:2109
 msgid "Choose slideshow"
 msgstr "Válassz slideshowt"
 
-#: ml-slider.php:2069
+#: ml-slider.php:2119
 msgid "Insert slideshow"
 msgstr "Diavetítés beszúrása"
 
-#: ml-slider.php:2104
+#: ml-slider.php:2154
 msgid "Create slides by adding text, videos and more to your images"
 msgstr "Diák létrehozása szöveg, videók és egyéb tartalmak hozzáadásával a képeihez"
 
-#: ml-slider.php:2108
+#: ml-slider.php:2158
 msgid ""
 "With Layer slides, you can create beautiful, stylish layers of different "
 "elements."
@@ -3644,7 +3798,7 @@ msgstr ""
 "A réteges diák segítségével gyönyörű, stílusos rétegeket hozhat létre "
 "különböző elemekből."
 
-#: ml-slider.php:2112
+#: ml-slider.php:2162
 msgid ""
 "You start with an image and then can add text, video, colors, animations, "
 "more images, and even shortcodes."
@@ -3652,35 +3806,34 @@ msgstr ""
 "Kezdje egy képpel, majd adjon hozzá szöveget, videót, színeket, "
 "animációkat, további képeket és akár rövidkódokat."
 
-#: ml-slider.php:2118
-#: ml-slider.php:2159
-#: ml-slider.php:2200
-#: ml-slider.php:2243
-#: ml-slider.php:2286
-#: ml-slider.php:2329
-#: ml-slider.php:2372
-#: ml-slider.php:2411
-#: ml-slider.php:2454
-#: ml-slider.php:2493
-#: ml-slider.php:2564
-#: ml-slider.php:2599
-#: ml-slider.php:2634
+#: ml-slider.php:2168
+#: ml-slider.php:2209
+#: ml-slider.php:2250
+#: ml-slider.php:2293
+#: ml-slider.php:2336
+#: ml-slider.php:2379
+#: ml-slider.php:2418
+#: ml-slider.php:2461
+#: ml-slider.php:2500
+#: ml-slider.php:2571
+#: ml-slider.php:2606
+#: ml-slider.php:2641
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Find out more about MetaSlider Slideshow Pro"
 msgstr "Tudjon meg többet a MetaSlider Próról"
 
-#: ml-slider.php:2147
+#: ml-slider.php:2197
 msgid "Create slideshows with your Vimeo videos"
 msgstr "Diavetítések létrehozása a Vimeo videóival"
 
-#: ml-slider.php:2151
+#: ml-slider.php:2201
 msgid ""
 "With Vimeo slides, you can build beautiful slideshows with your Vimeo "
 "videos."
 msgstr "A Vimeo diák segítségével gyönyörű diavetítéseket építhet a Vimeo videóival."
 
-#: ml-slider.php:2155
+#: ml-slider.php:2205
 msgid ""
 "Vimeo slides will display your videos with auto play, mute, the ability to "
 "hide controls, and much more."
@@ -3688,11 +3841,11 @@ msgstr ""
 "A Vimeo diák automatikus lejátszással, némítással, a vezérlők elrejtésének "
 "lehetőségével és sok más funkcióval jelenítik meg videóit."
 
-#: ml-slider.php:2188
+#: ml-slider.php:2238
 msgid "Create slideshows with your YouTube videos"
 msgstr "Készíts bemutatókat a YouTube videóiddal"
 
-#: ml-slider.php:2192
+#: ml-slider.php:2242
 msgid ""
 "With YouTube slides, you can build beautiful slideshows with your YouTube "
 "videos."
@@ -3700,7 +3853,7 @@ msgstr ""
 "A YouTube diák segítségével gyönyörű bemutatókat készíthetsz a YouTube "
 "videóiddal."
 
-#: ml-slider.php:2196
+#: ml-slider.php:2246
 msgid ""
 "YouTube slides will display your videos with auto play, mute, lazy load, "
 "the ability to hide controls, and much more."
@@ -3709,11 +3862,11 @@ msgstr ""
 "a vezérlők elrejtésének lehetőségével és sok más funkcióval jelenítik meg a "
 "videóidat."
 
-#: ml-slider.php:2229
+#: ml-slider.php:2279
 msgid "Create slideshows with your posts"
 msgstr "Készíts bemutatókat a bejegyzéseiddel"
 
-#: ml-slider.php:2233
+#: ml-slider.php:2283
 msgid ""
 "With Post Feed slides, you can build slideshows with your latest posts, "
 "events, or WooCommerce products."
@@ -3721,7 +3874,7 @@ msgstr ""
 "A Bejegyzés Feed diákkal a legújabb bejegyzéseiddel, eseményeiddel vagy "
 "WooCommerce termékeiddel készíthetsz bemutatókat."
 
-#: ml-slider.php:2237
+#: ml-slider.php:2287
 msgid ""
 "Post Feed slides will automatically display your posts with images, text, "
 "custom fields, and much more."
@@ -3729,11 +3882,11 @@ msgstr ""
 "A Bejegyzés Feed diák automatikusan megjelenítik a bejegyzéseidet képekkel, "
 "szöveggel, testreszabott mezőkkel és sok más funkcióval."
 
-#: ml-slider.php:2272
+#: ml-slider.php:2322
 msgid "Create slideshows with images stored outside of WordPress"
 msgstr "Készíts bemutatókat WordPress-en kívüli képekkel"
 
-#: ml-slider.php:2276
+#: ml-slider.php:2326
 msgid ""
 "With External URL slides, you can load images directly from non-WordPress "
 "sources such as CDNs or image hosts."
@@ -3741,7 +3894,7 @@ msgstr ""
 "A Külső URL diák segítségével közvetlenül tölthetsz be képeket nem "
 "WordPress forrásokból, mint például CDN-ek vagy képtárolók."
 
-#: ml-slider.php:2280
+#: ml-slider.php:2330
 msgid ""
 "External URL slides give you all the power of MetaSlider Slideshow, using "
 "images stored anywhere you want."
@@ -3749,34 +3902,11 @@ msgstr ""
 "A Külső URL diák lehetővé teszik a MetaSlider összes funkciójának "
 "kihasználását, bármilyen helyen tárolt képekkel."
 
-#: ml-slider.php:2315
-msgid "Create slideshows with videos in your media library"
-msgstr "Készíts bemutatókat a média könyvtáradban lévő videókkal"
-
-#: ml-slider.php:2319
-msgid ""
-"With Local Video slides, you can build beautiful slideshows with videos in "
-"your WordPress media library or searched directly from Pixabay."
-msgstr ""
-"Helyi videó diák segítségével gyönyörű diavetítéseket készíthet a WordPress "
-"médiakönyvtárában található videókkal, vagy közvetlenül a Pixabay-ból "
-"keresett videókkal."
-
-#: ml-slider.php:2323
-msgid ""
-"Local Video slides will display your MP4, WebM, and MOV videos with cover "
-"images, auto play, mute, lazy load, the ability to hide controls, and much "
-"more."
-msgstr ""
-"A Helyi Videó diák az MP4, WebM és MOV videóidat borítókép, automatikus "
-"lejátszás, némítás, késleltetett betöltés, a vezérlők elrejtésének "
-"lehetősége és sok más funkcióval jelenítik meg."
-
-#: ml-slider.php:2358
+#: ml-slider.php:2365
 msgid "Create slideshows with videos stored outside of WordPress"
 msgstr "Készíts bemutatókat WordPress-en kívüli videókkal"
 
-#: ml-slider.php:2362
+#: ml-slider.php:2369
 msgid ""
 "With External Video slides, you can add videos directly from non-WordPress "
 "sources."
@@ -3784,7 +3914,7 @@ msgstr ""
 "A Külső Videó diák segítségével közvetlenül adhatsz hozzá videókat nem "
 "WordPress forrásokból."
 
-#: ml-slider.php:2366
+#: ml-slider.php:2373
 msgid ""
 "External Video Slides will display your MP4, WebM, and MOV videos. Features "
 "include text captions, cover images, auto play, mute, lazy load, the "
@@ -3795,11 +3925,11 @@ msgstr ""
 "némítás, késleltetett betöltés, a vezérlők elrejtésének lehetősége és sok "
 "más."
 
-#: ml-slider.php:2401
+#: ml-slider.php:2408
 msgid "Create slideshows with custom HTML"
 msgstr "Készíts bemutatókat testreszabott HTML-lel"
 
-#: ml-slider.php:2405
+#: ml-slider.php:2412
 msgid ""
 "With Custom HTML slides, you can design slides using images, HTML and CSS. "
 "This gives you complete control over the layout and styling."
@@ -3808,11 +3938,11 @@ msgstr ""
 "HTML és CSS felhasználásával. Ez teljes kontrollt ad a megjelenés és a "
 "stílus felett."
 
-#: ml-slider.php:2444
+#: ml-slider.php:2451
 msgid "Create slides with background colors and text"
 msgstr "Diák létrehozása háttérszínekkel és szöveggel"
 
-#: ml-slider.php:2448
+#: ml-slider.php:2455
 msgid ""
 "With Background Color slides, you can create slides using a solid or "
 "gradient background color. Perfect for text-only slides, calls to action or "
@@ -3821,11 +3951,11 @@ msgstr ""
 "Háttérszín diák segítségével szilárd vagy átmenetes háttérszínt használhat. "
 "Tökéletes szöveges diákhoz, cselekvésre ösztönzőkhez vagy gyors bannerekhez."
 
-#: ml-slider.php:2483
+#: ml-slider.php:2490
 msgid "Create slideshows with Tiktok Videos"
 msgstr "Készíts bemutatókat TikTok videókkal"
 
-#: ml-slider.php:2487
+#: ml-slider.php:2494
 msgid ""
 "A TikTok Slide will display a video in your slideshow directly from "
 "TikTok.com."
@@ -3833,11 +3963,11 @@ msgstr ""
 "Egy TikTok diák közvetlenül a TikTok.com-ról jelenít meg egy videót a "
 "bemutatódon."
 
-#: ml-slider.php:2550
+#: ml-slider.php:2557
 msgid "Create slideshows with images from a folder"
 msgstr "Készíts bemutatókat egy mappából származó képekkel"
 
-#: ml-slider.php:2554
+#: ml-slider.php:2561
 msgid ""
 "The Image Folder slide type extracts images from a specified folder and "
 "displays them as slides."
@@ -3845,7 +3975,7 @@ msgstr ""
 "A Kép Mappa diavetítési típus képeket nyer ki egy megadott mappából, és "
 "diaként jeleníti meg őket."
 
-#: ml-slider.php:2558
+#: ml-slider.php:2565
 msgid ""
 "This slide type displays images from folders in your WordPress Media "
 "Library."
@@ -3853,11 +3983,11 @@ msgstr ""
 "Ez a diavetítési típus képeket jelenít meg a WordPress Média Könyvtárban "
 "található mappákból."
 
-#: ml-slider.php:2585
+#: ml-slider.php:2592
 msgid "Create slideshows with Post Images"
 msgstr "Készíts diavetítéseket Bejegyzés Képekkel"
 
-#: ml-slider.php:2589
+#: ml-slider.php:2596
 msgid ""
 "The Post Images slide type extracts images from the current post and "
 "displays them as slides."
@@ -3865,7 +3995,7 @@ msgstr ""
 "A Bejegyzés Képek diavetítési típus képeket nyer ki az aktuális "
 "bejegyzésből, és diaként jeleníti meg őket."
 
-#: ml-slider.php:2593
+#: ml-slider.php:2600
 msgid ""
 "This slide type supports featured images, post content images, WooCommerce "
 "galleries, Advanced Custom Fields images and galleries."
@@ -3873,11 +4003,11 @@ msgstr ""
 "Ez a diavetítési típus támogatja a kiemelt képeket, bejegyzés tartalom "
 "képeit, WooCommerce galériákat, fejlett egyedi mezők képeit és galériáit."
 
-#: ml-slider.php:2620
+#: ml-slider.php:2627
 msgid "Create slideshows with your WooCommerce products"
 msgstr "Készíts diavetítéseket WooCommerce termékeiddel"
 
-#: ml-slider.php:2624
+#: ml-slider.php:2631
 msgid ""
 "With WooCommerce slides, you can build slideshows with your WooCommerce "
 "products."
@@ -3885,7 +4015,7 @@ msgstr ""
 "A WooCommerce diák segítségével diavetítéseket készíthetsz WooCommerce "
 "termékeiddel."
 
-#: ml-slider.php:2628
+#: ml-slider.php:2635
 msgid ""
 "WooCommerce slides will automatically display your products with images, "
 "text, custom fields, and much more."
@@ -3893,46 +4023,288 @@ msgstr ""
 "A WooCommerce diák automatikusan megjelenítik a termékeidet képekkel, "
 "szöveggel, egyedi mezőkkel, és még sok mással."
 
-#: ml-slider.php:2672
+#: ml-slider.php:2679
 msgid "Premium Support"
 msgstr "Prémium Támogatás"
 
-#: ml-slider.php:2678
+#: ml-slider.php:2685
 #, fuzzy
 msgid "MetaSlider Slideshow Pro"
 msgstr "MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2682
+#: ml-slider.php:2689
 msgid "Support"
 msgstr "Támogatás"
 
-#: ml-slider.php:2687
+#: ml-slider.php:2694
+#: modules/local_video/slide.php:533
 msgid "Documentation"
 msgstr "Dokumentáció"
 
-#: ml-slider.php:2691
+#: ml-slider.php:2698
 msgid "Leave a review"
 msgstr "Hagyj véleményt"
 
-#: ml-slider.php:2810
+#: ml-slider.php:2817
 msgid "Uploading..."
 msgstr "Feltöltés..."
 
-#: ml-slider.php:2817
+#: ml-slider.php:2824
 msgid "Upload Complete"
 msgstr "Feltöltés Befejezve"
 
-#: ml-slider.php:2944
+#: ml-slider.php:2951
 msgid "Import file is missing"
 msgstr "A fájl importálása hiányzik"
 
-#: ml-slider.php:3095
+#: ml-slider.php:3102
 msgid ""
 "You attempted to edit a slideshow that does not exist. Perhaps it was moved "
 "to trash?"
 msgstr ""
 "Megpróbáltál egy nem létező diavetítést szerkeszteni. Lehet, hogy a kukába "
 "került?"
+
+#: modules/local_video/helper.php:95
+#: modules/local_video/helper.php:101
+msgid "Update cover image"
+msgstr "Borítóképet frissítése"
+
+#: modules/local_video/helper.php:108
+msgid "Set cover image"
+msgstr "Borítóképet beállítása"
+
+#: modules/local_video/helper.php:159
+#: modules/local_video/slide.php:1163
+msgid "Update slide video"
+msgstr "Diavetítés videójának frissítése"
+
+#: modules/local_video/helper.php:163
+#: modules/local_video/slide.php:585
+#: modules/local_video/slide.php:1167
+msgid "Browse"
+msgstr "Böngészés"
+
+#: modules/local_video/helper.php:168
+#: modules/local_video/slide.php:1172
+msgid "Video File"
+msgstr "Videófájl"
+
+#: modules/local_video/slide.php:109
+msgid "Select replacement video"
+msgstr "Cserevideó kiválasztása"
+
+#: modules/local_video/slide.php:110
+msgid "Select replacement cover"
+msgstr "Csereborító kiválasztása"
+
+#: modules/local_video/slide.php:111
+msgid "Select replacement text track"
+msgstr "Csere szövegsáv kiválasztása"
+
+#: modules/local_video/slide.php:197
+#: modules/local_video/slide.php:2075
+msgid "Invalid nonce"
+msgstr "Érvénytelen nonce"
+
+#: modules/local_video/slide.php:218
+#: modules/local_video/slide.php:897
+#: modules/local_video/slide.php:1107
+msgid "Not supported video format"
+msgstr "Nem támogatott videóformátum"
+
+#: modules/local_video/slide.php:349
+msgid "Local Video Slide"
+msgstr "Helyi videódiavetítés"
+
+#: modules/local_video/slide.php:370
+msgid "Please update to MetaSlider Slideshow to version 3.2 or above."
+msgstr "Kérjük, frissítsen a MetaSlider Slideshow 3.2-es vagy újabb verziójára."
+
+#: modules/local_video/slide.php:415
+msgid "Cover"
+msgstr "Borító"
+
+#: modules/local_video/slide.php:419
+msgid "Text track"
+msgstr "Szövegsáv"
+
+#: modules/local_video/slide.php:476
+msgid "Which language is the source file?"
+msgstr "Melyik nyelvű a forrásfájl?"
+
+#: modules/local_video/slide.php:477
+msgid "Language label"
+msgstr "Nyelvi címke"
+
+#: modules/local_video/slide.php:482
+msgid "For example: English"
+msgstr "Például: angol"
+
+#: modules/local_video/slide.php:490
+msgid "Choose the type of text track"
+msgstr "Válassza ki a szövegsáv típusát"
+
+#: modules/local_video/slide.php:491
+msgid "Language kind"
+msgstr "Nyelvi típus"
+
+#: modules/local_video/slide.php:497
+msgid "Captions"
+msgstr "Feliratok"
+
+#: modules/local_video/slide.php:500
+msgid "Chapters"
+msgstr "Fejezetek"
+
+#: modules/local_video/slide.php:503
+msgid "Descriptions"
+msgstr "Leírások"
+
+#: modules/local_video/slide.php:509
+msgid "Subtitles"
+msgstr "Feliratok"
+
+#: modules/local_video/slide.php:517
+msgid "If the language is English, the code must be en"
+msgstr "Ha a nyelv angol, a kódnak en-nek kell lennie"
+
+#: modules/local_video/slide.php:518
+msgid "Language code"
+msgstr "Nyelvkód"
+
+#: modules/local_video/slide.php:523
+msgid "For example: en"
+msgstr "Például: en"
+
+#: modules/local_video/slide.php:576
+msgid "File must be TXT or VTT format"
+msgstr "A fájlnak TXT vagy VTT formátumúnak kell lennie"
+
+#: modules/local_video/slide.php:577
+msgid "Source"
+msgstr "Forrás"
+
+#: modules/local_video/slide.php:582
+msgid "Update slide text track"
+msgstr "Diatextus frissítése"
+
+#: modules/local_video/slide.php:956
+msgid "The cover was successfully removed."
+msgstr "A borító sikeresen eltávolítva."
+
+#: modules/local_video/slide.php:986
+msgid "The requested video does not exist. Please try again."
+msgstr "A kért videó nem létezik. Kérjük, próbálja újra."
+
+#: modules/local_video/slide.php:995
+msgid "There was an error updating the video. No previous video saved."
+msgstr "Hiba történt a videó frissítésekor. Nincs korábban mentett videó."
+
+#: modules/local_video/slide.php:1011
+msgid "The video was successfully updated."
+msgstr "A videó sikeresen frissítve lett."
+
+#: modules/local_video/slide.php:1020
+msgid "There was an error updating the video. Please try again"
+msgstr "Hiba történt a videó frissítésekor. Kérjük, próbálja újra"
+
+#: modules/local_video/slide.php:1078
+msgid "You can't add more sources to this video slide."
+msgstr "Nem adhat hozzá több forrást ehhez a videódiához."
+
+#: modules/local_video/slide.php:1094
+msgid "This slide already has a video in that format."
+msgstr "Ez a dia már tartalmaz egy videót abban a formátumban."
+
+#: modules/local_video/slide.php:1126
+msgid "The video source was successfully added."
+msgstr "A videóforrás sikeresen hozzáadva."
+
+#: modules/local_video/slide.php:1237
+msgid "This slide requires at least one video source."
+msgstr "Ez a dia legalább egy videóforrást igényel."
+
+#: modules/local_video/slide.php:1250
+msgid "The video source was successfully removed."
+msgstr "A videóforrás sikeresen eltávolítva."
+
+#: modules/local_video/slide.php:1301
+msgid "Not supported text track format"
+msgstr "Nem támogatott szöveges sávformátum"
+
+#: modules/local_video/slide.php:1343
+msgid "The requested text track does not exist. Please try again."
+msgstr "A kért szöveges sáv nem létezik. Kérjük, próbálja újra."
+
+#: modules/local_video/slide.php:1364
+msgid "The text track was successfully updated."
+msgstr "A szöveges sáv sikeresen frissítve lett."
+
+#: modules/local_video/slide.php:1373
+msgid "There was an error updating the text track. Please try again"
+msgstr "Hiba történt a szöveges sáv frissítésekor. Kérjük, próbálja újra"
+
+#: modules/local_video/slide.php:1420
+msgid "The text track was successfully removed."
+msgstr "A szöveges sáv sikeresen eltávolítva lett."
+
+#: modules/local_video/tabs/caption.php:7
+msgid ""
+"Please note that captions on videos can interfere with player controls. We "
+"recommend adding captions when \"Auto play\" is enabled, and \"Show "
+"controls\" and \"Lazy load video\" are both disabled."
+msgstr ""
+"Kérjük, vegye figyelembe, hogy a videók feliratai zavarhatják a lejátszó "
+"vezérlőit. Ajánljuk, hogy a feliratokat akkor adja hozzá, amikor az "
+"„Automatikus lejátszás” engedélyezve van, és a „Vezérlők megjelenítése” és "
+"a „Lusta videó betöltés” mindkettő le van tiltva."
+
+#: modules/local_video/tabs/general.php:50
+#: modules/local_video/tabs/general.php:52
+msgid "Add a new video source"
+msgstr "Új videóforrás hozzáadása"
+
+#: modules/local_video/tabs/general.php:55
+msgid ""
+"Adding more formats for the same video can help improve support for "
+"different platforms."
+msgstr ""
+"További formátumok hozzáadása ugyanahhoz a videóhoz javíthatja a különböző "
+"platformok támogatását."
+
+#: modules/local_video/tabs/general.php:97
+msgid "May require video to be muted"
+msgstr "Lehetséges, hogy a videónak némítva kell lennie"
+
+#: modules/local_video/tabs/general.php:137
+msgid "Fit video in container"
+msgstr "Videó illesztése a tárolóba"
+
+#: modules/local_video/tabs/general.php:150
+msgid "Fade in transition"
+msgstr "Fakításos átmenet"
+
+#: modules/local_video/tabs/general.php:152
+msgid ""
+"Fade in before video loads. Recommended when slide and slideshow Auto play "
+"are enabled, and slideshow Transition effect is fade."
+msgstr ""
+"Fakítás a videó betöltése előtt. Ajánlott, amikor a dia és a diavetítés "
+"automatikus lejátszása engedélyezve van, és a diavetítés átmeneti effektus "
+"a fakítás."
+
+#: modules/local_video/tabs/link.php:8
+msgid "Video Link URL"
+msgstr "Videó Link URL"
+
+#: modules/local_video/tabs/link.php:11
+msgid ""
+"When visitors click on your video slide, they will be taken to this URL. "
+"This may affect how user interacts with the video controls."
+msgstr ""
+"Amikor a látogatók rákattintanak a videó diára, erre az URL-re kerülnek. Ez "
+"befolyásolhatja, hogyan interakcióznak a felhasználók a videó vezérlőivel."
 
 #: themes/architekt/customize.php:16
 #: themes/architekt/customize.php:356
@@ -6828,8 +7200,8 @@ msgstr "1 dia előkészítése..."
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/dist/js/app.js:2
 #: admin/assets/js/admin.js:168
-#: admin/assets/js/admin.js:1519
-#: admin/assets/js/admin.js:1562
+#: admin/assets/js/admin.js:1554
+#: admin/assets/js/admin.js:1597
 msgid "1 slide added successfully"
 msgstr "1 dia sikeresen hozzáadva"
 
@@ -6850,6 +7222,8 @@ msgstr "Dia hozzáadása UI bezárása..."
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:314
+#: modules/local_video/assets/local_video.js:208
+#: modules/local_video/assets/local_video.js:632
 msgid "Updating slide..."
 msgstr "Dia frissítése..."
 
@@ -6870,21 +7244,22 @@ msgstr "Unsplash Könyvtár"
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:959
 msgid "Pixabay Library"
 msgstr "Pixabay Könyvtár"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1347
+#: admin/assets/js/admin.js:1382
 msgid "Crop position saved and image cropped"
 msgstr "Kivágási pozíció mentve és kép kivágva"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1364
+#: admin/assets/js/admin.js:1399
 msgid "There was an error when saving crop position or cropping the image"
 msgstr "Hiba történt a kivágási pozíció mentésekor vagy a kép kivágásakor"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1577
+#: admin/assets/js/admin.js:1612
 msgid "Device options are enabled for this slide. Adjust using the Device tab."
 msgstr ""
 "A készülék opciói engedélyezve vannak ehhez a diavetítéshez. Állítsa be a "
@@ -7306,6 +7681,40 @@ msgstr "Nincs található fotó."
 #: admin/assets/dist/js/app.js:2
 msgid "All images published on Pixabay can be used for free."
 msgstr "Minden Pixabay-on közzétett kép ingyenesen felhasználható."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Search pixabay.com videos..."
+msgstr "Keresés a pixabay.com videók között..."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s on Pixabay"
+msgstr "Videó: %s a Pixabay-on"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Video on Pixabay"
+msgstr "Videó a Pixabay-on"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Opening Pixabay Video tab..."
+msgstr "Pixabay Videó fül megnyitása..."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Pixabay Video tab closed"
+msgstr "Pixabay Videó fül bezárva"
+
+#: admin/assets/dist/js/app.js:2
+msgid "No videos found."
+msgstr "Nincsenek videók találva."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s"
+msgstr "Videó: %s"
+
+#: admin/assets/dist/js/app.js:2
+msgid "All videos published on Pixabay can be used for free."
+msgstr "A Pixabay-on közzétett összes videó ingyenesen felhasználható."
 
 #: admin/assets/dist/js/app.js:2
 msgid "Complete!"
@@ -8250,6 +8659,11 @@ msgid "Importing %s slideshows... This may take a minute"
 msgstr "Importálás %s slideshow-t... Ez egy percet is igénybe vehet"
 
 #: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Failed to import: %s"
+msgstr "Importálás nem sikerült: %s"
+
+#: admin/assets/dist/js/app.js:2
 msgid "Import successful"
 msgstr "Importálás sikeres"
 
@@ -8286,6 +8700,11 @@ msgstr "Feldolgozás..."
 #: admin/assets/dist/js/app.js:2
 msgid "Upload file"
 msgstr "Fájl feltöltése"
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Importing slideshow %1$s of %2$s (%3$s slides). This may take a minute."
+msgstr "A %1$s diának a %2$s-ból (%3$s diát) importálása. Ez eltarthat egy percig."
 
 #: admin/assets/dist/js/app.js:2
 msgid ""
@@ -8474,6 +8893,43 @@ msgstr "Beállítások oldalának megnyitása..."
 msgid "Page not found: %s"
 msgstr "Az oldal nem található: %s"
 
+#: admin/assets/js/app/slides/external/videoQuality.js:29, fuzzy
+msgid "4K"
+msgstr "4K"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:30, fuzzy
+msgid "Quad HD"
+msgstr "Quad HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:31
+msgid "Full HD"
+msgstr "Teljes HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:32, fuzzy
+msgid "HD"
+msgstr "HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:33, fuzzy
+msgid "SD"
+msgstr "SD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:45
+msgid "SD (if available)"
+msgstr "SD (ha elérhető)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:46
+msgid "HD (if available)"
+msgstr "HD (ha elérhető)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:47
+msgid "Full HD (if available)"
+msgstr "Teljes HD (ha elérhető)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:48
+#: admin/assets/js/app/slides/external/videoQuality.js:64
+msgid "Original"
+msgstr "Eredeti"
+
 #: admin/assets/js/app/tour/main.js:12
 msgid "Add a slide"
 msgstr "Diát hozzáadni"
@@ -8601,6 +9057,109 @@ msgstr "diavetítés"
 msgid "gallery"
 msgstr "galéria"
 
+#: admin/assets/js/livid-iframe.js:132
+#: modules/local_video/assets/local_video.js:46
+#: modules/local_video/assets/local_video.js:166
+#, js-format
+msgid "Preparing %s slide..."
+msgstr "Preparálás: %s diát..."
+
+#: modules/local_video/assets/local_video.js:61
+#: modules/local_video/assets/local_video.js:181
+msgid "This isn't a supported video format. Please use MP4, WebM, or MOV videos."
+msgstr ""
+"Ez nem egy támogatott videóformátum. Kérjük, használjon MP4, WebM vagy MOV "
+"videókat."
+
+#: modules/local_video/assets/local_video.js:241
+#: modules/local_video/assets/local_video.js:690
+msgid "There is an error"
+msgstr "Hiba történt"
+
+#: modules/local_video/assets/local_video.js:265
+#: modules/local_video/assets/local_video.js:741
+msgid "Video source added successfully"
+msgstr "Videóforrás sikeresen hozzáadva"
+
+#: modules/local_video/assets/local_video.js:282
+#: modules/local_video/assets/local_video.js:762
+msgid "Video updated successfully"
+msgstr "Videó sikeresen frissítve"
+
+#: modules/local_video/assets/local_video.js:324
+msgid "Create slideshows with videos hosted in your media library"
+msgstr "Készítsen diavetítéseket a média könyvtárában tárolt videókkal"
+
+#: modules/local_video/assets/local_video.js:326
+msgid "Create slideshows with images in your media library"
+msgstr "Készítsen diavetítéseket a média könyvtárában tárolt képekkel"
+
+#: modules/local_video/assets/local_video.js:328
+msgid ""
+"Layer Slides allow you to add text, colors, shortcodes and media on top of "
+"an image or video."
+msgstr ""
+"A rétegcsúszkák lehetővé teszik, hogy szöveget, színeket, rövidkódokat és "
+"médiát adjunk hozzá egy képhez vagy videóhoz."
+
+#: modules/local_video/assets/local_video.js:398
+msgid "Cover removed successfully."
+msgstr "A borító sikeresen eltávolítva."
+
+#: modules/local_video/assets/local_video.js:431
+msgid "You can't delete this video. This slide requires at least one video source."
+msgstr "Ezt a videót nem törölheti. Ez a dia legalább egy videóforrást igényel."
+
+#: modules/local_video/assets/local_video.js:462
+msgid "Video source removed successfully"
+msgstr "A videóforrás sikeresen eltávolítva"
+
+#: modules/local_video/assets/local_video.js:481
+msgid "No text track has beed selected for this slide."
+msgstr "Ehhez a diához nem lett kiválasztva szövegtrack."
+
+#: modules/local_video/assets/local_video.js:503
+msgid "There was an error removing the text track"
+msgstr "Hiba történt a szövegtrack eltávolításakor"
+
+#: modules/local_video/assets/local_video.js:520
+msgid "Text track removed successfully"
+msgstr "A szövegtrack sikeresen eltávolítva"
+
+#: modules/local_video/assets/local_video.js:546
+#, js-format
+msgid "Select Replacement %s Video"
+msgstr "Válassza ki a %s videót helyettesítésként"
+
+#: modules/local_video/assets/local_video.js:608
+#, js-format
+msgid "Please select a %s video for this source!"
+msgstr "Kérjük, válasszon egy %s videót ehhez a forráshoz!"
+
+#: modules/local_video/assets/local_video.js:702
+msgid "This isn't a supported image format. Please use JPG, PNG, or GIF images."
+msgstr ""
+"Ez nem egy támogatott képformátum. Kérjük, JPG, PNG vagy GIF képeket "
+"használjon."
+
+#: modules/local_video/assets/local_video.js:708
+msgid "This isn't a supported text track format. Please use TXT or VTT files."
+msgstr ""
+"Ez nem egy támogatott szövegtrack formátum. Kérjük, TXT vagy VTT fájlokat "
+"használjon."
+
+#: modules/local_video/assets/local_video.js:788
+msgid "Text track updated successfully"
+msgstr "A szövegtrack sikeresen frissítve"
+
+#: modules/local_video/assets/local_video.js:861
+msgid "Cover image updated successfully"
+msgstr "A borító kép sikeresen frissítve"
+
+#: modules/local_video/assets/local_video.js:906
+msgid "Duplicating the slide failed."
+msgstr "A dia másolása nem sikerült."
+
 #: admin/Notices.php:101
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
@@ -8617,7 +9176,7 @@ msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Review MetaSlider Slideshow &rarr;"
 msgstr "MetaSlider értékelése &rarr;"
 
-#: ml-slider.php:2053
+#: ml-slider.php:2103
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Select slideshow to insert into post"
@@ -8625,8 +9184,8 @@ msgstr "Válassz diavetítést a bejegyzésbe való beillesztéshez"
 
 #: admin/views/pages/parts/slider-settings.php:665
 #: admin/views/pages/parts/slider-settings.php:685
-#: admin/views/pages/parts/slider-settings.php:1420
-#: admin/views/pages/parts/slider-settings.php:1454, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1450, fuzzy
 msgctxt "Short for milliseconds"
 msgid "ms"
 msgstr "ms"
@@ -8636,7 +9195,7 @@ msgctxt "This is a keyboard shortcut."
 msgid " (Use Alt or ⌥ (Option) + P keys)"
 msgstr " (Használja az Alt vagy ⌥ (Option) + P billentyűket)"
 
-#: admin/views/pages/start.php:382
+#: admin/views/pages/start.php:383
 msgctxt "Uploader: Drop files to upload - or - Select Files"
 msgid "or"
 msgstr "vagy"

@@ -1,47 +1,57 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF;
 
-class Helper {
+class Helper
+{
+    public function get_field_edit_link(string $field_hash): ?string
+    {
+        $group = $this->get_field_group(
+            $this->parse_field_hash($field_hash)
+        );
 
-	/**
-	 * @param string $field_hash
-	 *
-	 * @return string|null
-	 */
-	public function get_field_edit_link( $field_hash ) {
-		$group = $this->get_field_group( $field_hash );
+        if (empty($group['ID'])) {
+            return null;
+        }
 
-		if ( empty( $group['ID'] ) ) {
-			return null;
-		}
+        return acf_get_field_group_edit_link($group['ID']);
+    }
 
-		return acf_get_field_group_edit_link( $group['ID'] );
-	}
+    public function parse_field_hash(string $field_hash): string
+    {
+        // Group field
+        if (str_starts_with($field_hash, 'acfgroup__')) {
+            return substr($field_hash, strlen('acfgroup__'));
+        }
 
-	/**
-	 * @param string $field_hash
-	 *
-	 * @return array|null
-	 */
-	public function get_field_group( $field_hash ) {
-		$field = acf_get_field( $field_hash );
+        return $field_hash;
+    }
 
-		if ( empty( $field['parent'] ) ) {
-			return null;
-		}
+    private function get_field_group(string $field_hash, int $depth = 0): ?array
+    {
+        if ($depth > 10) {
+            return null;
+        }
 
-		if ( ! function_exists( 'acf_get_raw_field_group' ) ) {
-			return null;
-		}
+        $field = acf_get_field($field_hash);
 
-		$group = acf_get_raw_field_group( $field['parent'] );
+        if (empty($field['parent'])) {
+            return null;
+        }
 
-		if ( ! $group ) {
-			return $this->get_field_group( $field['parent'] );
-		}
+        if (! function_exists('acf_get_raw_field_group')) {
+            return null;
+        }
 
-		return $group;
-	}
+        $group = acf_get_raw_field_group($field['parent']);
+
+        if (! $group) {
+            return $this->get_field_group((string)$field['parent'], $depth + 1);
+        }
+
+        return $group;
+    }
 
 }

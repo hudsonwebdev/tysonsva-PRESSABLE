@@ -432,6 +432,7 @@ class EM_Booking extends EM_Object{
 				}
 			}
 			// Step 3. Run filter for return value before sending emails
+			$this->flush_event_cache();
 			$this->compat_keys();
 			$return = apply_filters('em_booking_save', ( count($this->errors) == 0 ), $this, $update);
 			//Final Step: email if necessary after all the saving has been done
@@ -457,6 +458,12 @@ class EM_Booking extends EM_Object{
 		return apply_filters('em_booking_save', false, $this, false);
 	}
 	
+	/**
+	 * Drops the cached event this booking belongs to, whose bookings and spaces counts are stale as soon as one of its bookings changes.
+	 */
+	protected function flush_event_cache(){
+		EM_Event::flush_cache( array( $this->get_event_id(), $this->get_event_uid() ) );
+	}
 	
 	/**
 	 * Gets the user meta for this booking, which may reside withih the booking context or in the user meta context.
@@ -1237,6 +1244,7 @@ class EM_Booking extends EM_Object{
 				$wpdb->delete( EM_META_TABLE, array('meta_key'=>'booking-note', 'object_id' => $this->booking_id), array('%s','%d'));
 				$wpdb->delete( EM_BOOKINGS_META_TABLE, array('booking_id'=> $this->booking_id), array('%d'));
 				$this->deleted = true;
+				$this->flush_event_cache();
 				do_action('em_booking_deleted', $this);
 			}else{
 				$this->add_error(sprintf(__('%s could not be deleted', 'events-manager'), __('Booking','events-manager')));
@@ -1339,6 +1347,7 @@ class EM_Booking extends EM_Object{
 		$this->booking_status = absint($status);
 		$result = $wpdb->query($wpdb->prepare('UPDATE '.EM_BOOKINGS_TABLE.' SET booking_status=%d WHERE booking_id=%d', array($status, $this->booking_id)));
 		if($result !== false){
+			$this->flush_event_cache();
 			$this->update_meta('previous_status', $this->previous_status);
 			$this->feedback_message = sprintf(__('Booking %s.','events-manager'), $action_string);
 			$result = apply_filters('em_booking_set_status', $result, $this); // run the filter before emails go out, in case others need to hook in first
@@ -1981,7 +1990,8 @@ class EM_Booking extends EM_Object{
 	 */
 	public function date( $utc_timezone = false ){
 		if( empty($this->date) || !$this->date->valid ){
-			if( !empty($this->booking_date ) ){
+			// a zero MySQL datetime passes empty() and parses to year -0001 rather than throwing, so it has to be rejected by hand
+			if( !empty($this->booking_date) && substr($this->booking_date, 0, 4) !== '0000' ){
 			    $this->date = new EM_DateTime($this->booking_date, 'UTC');
 			}else{
 				//we retrn a date regardless but it's not based on a 'valid' booking date

@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
 
-class Menu
-{
+use WP_Term;
 
-    public function get_menu_label(int $menu_item_id): string
+class Menu extends Creatable
+{
+    public function get_label(int $menu_item_id): string
     {
         global $wpdb;
 
-        return (string)$wpdb->prepare(
-            "
+        return (string)$wpdb->get_var(
+            $wpdb->prepare(
+                "
 			SELECT t.name
 				FROM $wpdb->terms AS t
 				INNER JOIN $wpdb->term_taxonomy AS tt ON tt.term_id = t.term_id
@@ -19,17 +23,17 @@ class Menu
 				    AND menu.post_type = 'nav_menu_item'
     			WHERE menu.ID = %d
 			",
-            $menu_item_id
+                $menu_item_id
+            )
         );
     }
 
     /**
-     * @param int    $object_id
-     * @param string $object_type
+     * The `nav_menu_item` post IDs that reference the given object.
      *
-     * @return int[] Term Ids
+     * @return int[]
      */
-    public function get_ids($object_id, $object_type)
+    public function get_item_ids(int $object_id, string $object_type): array
     {
         return get_posts([
             'post_type'      => 'nav_menu_item',
@@ -39,32 +43,34 @@ class Menu
             'meta_query'     => [
                 [
                     'key'   => '_menu_item_object_id',
-                    'value' => (int)$object_id,
+                    'value' => $object_id,
                 ],
                 [
                     'key'   => '_menu_item_object',
-                    'value' => (string)$object_type,
+                    'value' => $object_type,
                 ],
             ],
         ]);
     }
 
     /**
-     * @param array $terms_ids
-     * @param array $args
+     * The `nav_menu` terms the given object is assigned to.
      *
-     * @return array
-     * @see WP_Term_Query::__construct() for available $args
+     * @return array<int|string|WP_Term> Terms, term IDs when `$args['fields']` is `ids`, or term names/slugs for other `fields` values.
+     * @see WP_Term_Query::__construct() for supported arguments.
+     *
      */
-    public function get_terms(array $terms_ids, array $args = [])
+    public function get_terms(int $object_id, string $object_type, array $args = []): array
     {
-        if ( ! $terms_ids) {
+        $object_ids = $this->get_item_ids($object_id, $object_type);
+
+        if (! $object_ids) {
             return [];
         }
 
-        $terms = wp_get_object_terms($terms_ids, 'nav_menu', $args);
+        $terms = wp_get_object_terms($object_ids, 'nav_menu', $args);
 
-        if ( ! $terms || is_wp_error($terms)) {
+        if (! $terms || is_string($terms) || is_wp_error($terms)) {
             return [];
         }
 

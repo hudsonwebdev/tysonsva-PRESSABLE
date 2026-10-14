@@ -1,27 +1,41 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Table\Filter;
 
 use AC\Column;
-use AC\ColumnRepository;
-use ACP\Sorting;
+use AC\ColumnCollection;
+use AC\ColumnIterator;
+use AC\ColumnRepository\Filter;
 
-class DisabledOriginalColumns implements ColumnRepository\Filter
+class DisabledOriginalColumns implements Filter
 {
+    private array $column_ids;
 
-    public function filter(array $columns): array
+    public function __construct(array $column_ids)
     {
-        return array_filter($columns, [$this, 'is_disabled']);
+        $this->column_ids = $column_ids;
+    }
+
+    public function filter(ColumnIterator $columns): ColumnCollection
+    {
+        return new ColumnCollection(array_filter(iterator_to_array($columns), [$this, 'is_disabled']));
     }
 
     private function is_disabled(Column $column): bool
     {
-        if ( ! $column->is_original()) {
+        // is original column and not active
+        if (! in_array((string)$column->get_id(), $this->column_ids, true)) {
             return false;
         }
 
         $setting = $column->get_setting('sort');
 
-        return $setting instanceof Sorting\Settings && ! $setting->is_active();
+        if (! $setting) {
+            return false;
+        }
+
+        return 'on' !== $setting->get_input()->get_value();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\EC\Search\Event\Field;
 
 use ACP\Query\Bindings;
@@ -8,7 +10,6 @@ use ACP\Search\Value;
 
 class MultipleOptions extends Options
 {
-
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         switch ($operator) {

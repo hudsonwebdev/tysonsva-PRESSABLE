@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-05-25T13:04:12+00:00\n"
-"PO-Revision-Date: 2026-08-28 16:44+0000\n"
+"PO-Revision-Date: 2026-09-16 16:45+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ml-slider\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -142,29 +142,42 @@ msgstr "Lue lisää"
 #: inc/slide/metaslide.image.class.php:232
 #: inc/slide/metaslide.image.class.php:286
 #: inc/slide/metaslide.image.class.php:404
-#: ml-slider.php:944
-#: ml-slider.php:1026
-#: ml-slider.php:1138
-#: ml-slider.php:2853
-#: ml-slider.php:2898
-#: ml-slider.php:2973
+#: inc/slide/metaslide.livid.class.php:334
+#: inc/slide/metaslide.livid.class.php:401
+#: inc/slide/metaslide.livid.class.php:448
+#: inc/slide/metaslide.livid.class.php:776
+#: ml-slider.php:994
+#: ml-slider.php:1076
+#: ml-slider.php:1188
+#: ml-slider.php:2860
+#: ml-slider.php:2905
+#: ml-slider.php:2980
+#: modules/local_video/slide.php:870
+#: modules/local_video/slide.php:928
+#: modules/local_video/slide.php:1036
+#: modules/local_video/slide.php:1201
+#: modules/local_video/slide.php:1274
+#: modules/local_video/slide.php:1388
 msgid "The security check failed. Please refresh the page and try again."
 msgstr "Turvatarkistus epäonnistui. Päivitä sivu ja yritä uudelleen."
 
 #: admin/Notices.php:394
 #: admin/Notices.php:642
-#: admin/routes/api.php:141
+#: admin/routes/api.php:145
 #: inc/slide/metaslide.class.php:152
 #: inc/slide/metaslide.image.class.php:135
 #: inc/slide/metaslide.image.class.php:154
 #: inc/slide/metaslide.image.class.php:240
 #: inc/slide/metaslide.image.class.php:294
-#: ml-slider.php:952
-#: ml-slider.php:1034
-#: ml-slider.php:1146
-#: ml-slider.php:2861
-#: ml-slider.php:2906
-#: ml-slider.php:2981
+#: inc/slide/metaslide.livid.class.php:342
+#: inc/slide/metaslide.livid.class.php:409
+#: inc/slide/metaslide.livid.class.php:456
+#: ml-slider.php:1002
+#: ml-slider.php:1084
+#: ml-slider.php:1196
+#: ml-slider.php:2868
+#: ml-slider.php:2913
+#: ml-slider.php:2988
 msgid "Access denied. Sorry, you do not have permission to complete this task."
 msgstr ""
 "Pääsy evätty. Anteeksi, sinulla ei ole oikeuksia tämän tehtävän "
@@ -177,12 +190,25 @@ msgstr ""
 #: inc/slide/metaslide.image.class.php:249
 #: inc/slide/metaslide.image.class.php:303
 #: inc/slide/metaslide.image.class.php:422
-#: ml-slider.php:961
-#: ml-slider.php:1043
-#: ml-slider.php:1155
-#: ml-slider.php:2870
-#: ml-slider.php:2914
-#: ml-slider.php:2990
+#: inc/slide/metaslide.livid.class.php:351
+#: inc/slide/metaslide.livid.class.php:416
+#: inc/slide/metaslide.livid.class.php:463
+#: inc/slide/metaslide.livid.class.php:470
+#: inc/slide/metaslide.livid.class.php:793
+#: ml-slider.php:1011
+#: ml-slider.php:1093
+#: ml-slider.php:1205
+#: ml-slider.php:2877
+#: ml-slider.php:2921
+#: ml-slider.php:2997
+#: modules/local_video/slide.php:209
+#: modules/local_video/slide.php:887
+#: modules/local_video/slide.php:945
+#: modules/local_video/slide.php:1057
+#: modules/local_video/slide.php:1221
+#: modules/local_video/slide.php:1291
+#: modules/local_video/slide.php:1405
+#: modules/local_video/slide.php:2091
 msgid "Bad request"
 msgstr "Virheellinen pyyntö"
 
@@ -229,6 +255,7 @@ msgid "URL"
 msgstr "URL"
 
 #: admin/Pages.php:157
+#: modules/local_video/slide.php:423
 #: themes/architekt/customize.php:511
 #: themes/bitono/customize.php:625
 #: themes/blend/customize.php:655
@@ -306,7 +333,7 @@ msgid "Tone"
 msgstr "Sävy"
 
 #: admin/Pages.php:186
-#: admin/views/pages/parts/slider-settings.php:1431
+#: admin/views/pages/parts/slider-settings.php:1427
 #: admin/views/slides/tabs/background.php:73
 #: inc/metaslider.imagestyles.class.php:463
 #: themes/architekt/customize.php:602
@@ -410,46 +437,46 @@ msgstr "Tekstin väri"
 msgid "Link Text"
 msgstr "Linkkiteksti"
 
-#: admin/routes/api.php:462
+#: admin/routes/api.php:466
 msgid "The request format was not valid."
 msgstr "Pyyntömuoto ei ollut voimassa."
 
-#: admin/routes/api.php:470
-#: admin/routes/api.php:602
+#: admin/routes/api.php:474
+#: admin/routes/api.php:606
 msgid "This slideshow is no longer available."
 msgstr "Tämä diaesitys ei ole enää saatavilla."
 
-#: admin/routes/api.php:557
+#: admin/routes/api.php:561
 msgid "Nothing to import."
 msgstr "Ei mitään tuomista."
 
-#: admin/routes/api.php:609
+#: admin/routes/api.php:613
 msgid "This was not a slideshow, so we cannot delete it."
 msgstr "Tämä ei ollut diaesitys, joten emme voi poistaa sitä."
 
-#: admin/routes/api.php:822
+#: admin/routes/api.php:826
 msgid "This was not a slideshow, so we cannot update the setting."
 msgstr "Tämä ei ollut diaesitys, joten emme voi päivittää asetusta."
 
-#: admin/routes/api.php:930
+#: admin/routes/api.php:934
 msgid "The title cannot be empty."
 msgstr "Otsikko ei voi olla tyhjää."
 
-#: admin/routes/api.php:934
-#: admin/routes/api.php:1208
+#: admin/routes/api.php:938
+#: admin/routes/api.php:1212
 #, php-format
 msgid "The field (%s) cannot be empty"
 msgstr "Kenttä (%s) ei voi olla tyhjää"
 
-#: admin/routes/api.php:1198
+#: admin/routes/api.php:1202
 msgid "Maximum Number of Custom Field in Post Feed Sliders"
 msgstr "Mukautettujen kenttien enimmäismäärä postiviestien liukusäätimissä"
 
-#: admin/routes/api.php:1242
+#: admin/routes/api.php:1246
 msgid "No video file was received by the server."
 msgstr "Palvelin ei saanut videotiedostoa."
 
-#: admin/routes/api.php:1258
+#: admin/routes/api.php:1262
 #. translators: 1: uploaded filename, 2: mime type WordPress detected, or "none"
 #, php-format
 msgid ""
@@ -459,19 +486,19 @@ msgstr ""
 "Video \"%1$s\" hylättiin ennen lataamista (tunnistettu tyyppi: %2$s). Se "
 "voi olla tuettu formaatti tai ylittää tämän palvelimen latausrajan."
 
-#: admin/routes/api.php:1260
+#: admin/routes/api.php:1264
 msgid "none"
 msgstr "ei mitään"
 
-#: admin/routes/api.php:1268
+#: admin/routes/api.php:1272
 msgid "The video could not be imported."
 msgstr "Videota ei voitu tuoda."
 
-#: admin/routes/api.php:1386
+#: admin/routes/api.php:1409
 msgid "Import slug not found"
 msgstr "Tuo slug ei löytynyt"
 
-#: admin/routes/api.php:1402
+#: admin/routes/api.php:1425
 msgid "Import data could not be processed"
 msgstr "Tuontitietoja ei voitu käsitellä"
 
@@ -480,18 +507,18 @@ msgid "We could not find any images to import."
 msgstr "Emme löytäneet kuvia tuomista varten."
 
 #: admin/slideshows/Settings.php:59
-#: inc/slider/metaslider.class.php:161
+#: inc/slider/metaslider.class.php:165
 msgid "New Slideshow"
 msgstr "Uusi diaesitys"
 
 #: admin/slideshows/Settings.php:86
-#: inc/slider/metaslider.class.php:188
+#: inc/slider/metaslider.class.php:192
 #: inc/slider/metaslider.flex.class.php:819
 msgid "Previous"
 msgstr "Edellinen"
 
 #: admin/slideshows/Settings.php:87
-#: inc/slider/metaslider.class.php:189
+#: inc/slider/metaslider.class.php:193
 #: inc/slider/metaslider.flex.class.php:820
 msgid "Next"
 msgstr "Seuraava"
@@ -516,23 +543,23 @@ msgstr "Tekstiraidan tuonti URL-osoitteesta epäonnistui: %s."
 msgid "Failed to import image from URL: %s."
 msgstr "Kuvan tuonti URL:stä epäonnistui: %s."
 
-#: admin/slideshows/Slideshows.php:1204
+#: admin/slideshows/Slideshows.php:1208
 msgid "Only http/https URLs are allowed."
 msgstr "Vain http/https-URL-osoitteet ovat sallittuja."
 
-#: admin/slideshows/Slideshows.php:1214
+#: admin/slideshows/Slideshows.php:1218
 msgid "URL does not point to an allowed file type."
 msgstr "URL ei osoita sallittuun tiedostotyyppiin."
 
-#: admin/slideshows/Slideshows.php:1224
+#: admin/slideshows/Slideshows.php:1228
 msgid "URL resolves to a disallowed address."
 msgstr "URL ratkaisee kiellettyyn osoitteeseen."
 
-#: admin/slideshows/Themes.php:60
+#: admin/slideshows/Themes.php:203
 msgid "No themes found."
 msgstr "Teemoja ei löytynyt."
 
-#: admin/slideshows/Themes.php:449
+#: admin/slideshows/Themes.php:595
 msgid ""
 "We removed your selected theme as it could not be found. Was the folder "
 "deleted?"
@@ -549,100 +576,100 @@ msgstr ""
 "Sinulla ei ole vielä diaesityksiä. Napsauta %shere%s luodaksesi uuden "
 "diaesityksen."
 
-#: admin/Table.php:184
-#: admin/Table.php:347
+#: admin/Table.php:193
+#: admin/Table.php:356
 #: inc/slide/metaslide.class.php:420
 msgid "Restore"
 msgstr "Palauta"
 
-#: admin/Table.php:185
-#: admin/Table.php:348
+#: admin/Table.php:194
+#: admin/Table.php:357
 #: inc/slide/metaslide.class.php:430
 msgid "Delete Permanently"
 msgstr "Poista pysyvästi"
 
-#: admin/Table.php:189
-#: admin/Table.php:362
+#: admin/Table.php:198
+#: admin/Table.php:371
 msgid "Trash"
 msgstr "Roskakori"
 
-#: admin/Table.php:200
+#: admin/Table.php:209
 #: admin/views/pages/parts/toolbar.php:75
 #: admin/assets/dist/js/app.js:2
 msgid "Preview"
 msgstr "Esikatselu"
 
-#: admin/Table.php:201
+#: admin/Table.php:210
 #: admin/assets/dist/js/app.js:2
 msgid "Title"
 msgstr "Otsikko"
 
-#: admin/Table.php:202
+#: admin/Table.php:211
 msgid "Type of Slides"
 msgstr "Diojen tyyppi"
 
-#: admin/Table.php:203
+#: admin/Table.php:212
 msgid "Number of Slides"
 msgstr "Diojen määrä"
 
-#: admin/Table.php:204
+#: admin/Table.php:213
 msgid "Theme"
 msgstr "Teema"
 
-#: admin/Table.php:205
+#: admin/Table.php:214
 msgid "Created"
 msgstr "Luotu"
 
-#: admin/Table.php:206
-#: admin/views/pages/parts/slider-settings.php:1694
+#: admin/Table.php:215
+#: admin/views/pages/parts/slider-settings.php:1690
 msgid "Shortcode"
 msgstr "shortcode"
 
-#: admin/Table.php:212
+#: admin/Table.php:221
 msgid "Usage"
 msgstr "Käyttö"
 
-#: admin/Table.php:361
+#: admin/Table.php:370
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: admin/Table.php:398
+#: admin/Table.php:407
 #: admin/views/pages/parts/shortcode.php:11
 msgid "Click to copy shortcode."
 msgstr "Napsauta kopioidaksesi shortcode."
 
-#: admin/Table.php:406
-#: admin/Table.php:419
-#: admin/Table.php:479
+#: admin/Table.php:415
+#: admin/Table.php:428
+#: admin/Table.php:488
 msgid "Not found."
 msgstr "Ei löytynyt."
 
-#: admin/Table.php:408
+#: admin/Table.php:417
 msgid "View Usage"
 msgstr "Näytä käyttö"
 
-#: admin/Table.php:414
+#: admin/Table.php:423
 msgid "Content Using This Slideshow"
 msgstr "Sisältö, joka käyttää tätä diaesitystä"
 
-#: admin/Table.php:456
+#: admin/Table.php:465
 msgid "Theme Setting"
 msgstr "Teeman asetukset"
 
-#: admin/Table.php:470
+#: admin/Table.php:479
 msgid "Option"
 msgstr "Valinta"
 
-#: admin/Table.php:527
-#: admin/views/pages/start.php:191
+#: admin/Table.php:536
+#: admin/views/pages/start.php:192
 msgid "All Themes"
 msgstr "Kaikki teemat"
 
-#: admin/Table.php:540
+#: admin/Table.php:549
 msgid "(No Theme)"
 msgstr "(Ei teema)"
 
-#: admin/Table.php:544
+#: admin/Table.php:553
 #: admin/views/slides/tabs/background.php:32
 #: inc/metaslider.imagestyles.class.php:388
 msgid "Filter"
@@ -659,7 +686,7 @@ msgid "(%s Weeks)"
 msgstr "( %s Viikkoa)"
 
 #: admin/views/pages/dashboard.php:8
-#: ml-slider.php:574
+#: ml-slider.php:578
 #: admin/assets/dist/js/app.js:2
 msgid "Slideshows"
 msgstr "Diaesitykset"
@@ -788,7 +815,7 @@ msgstr "Diaesityksen leveys"
 
 #: admin/views/pages/parts/slider-settings.php:90
 #: admin/views/pages/parts/slider-settings.php:103
-#: admin/views/pages/parts/slider-settings.php:926
+#: admin/views/pages/parts/slider-settings.php:922
 #: admin/views/slides/tabs/background.php:51
 #: inc/metaslider.imagestyles.class.php:407
 #: inc/metaslider.imagestyles.class.php:419, fuzzy
@@ -1120,30 +1147,30 @@ msgid "This animation is used when changing slides."
 msgstr "Tätä animaatiota käytetään diojen vaihtamisessa."
 
 #: admin/views/pages/parts/slider-settings.php:550
-#: admin/views/pages/start.php:174
+#: admin/views/pages/start.php:175
 #: inc/metaslider.imagestyles.class.php:537
 msgid "Fade"
 msgstr "Häipyminen"
 
 #: admin/views/pages/parts/slider-settings.php:554
-#: admin/views/pages/start.php:173
+#: admin/views/pages/start.php:174
 msgid "Slide"
 msgstr "Liuku"
 
 #: admin/views/pages/parts/slider-settings.php:558
-#: admin/views/pages/start.php:175
+#: admin/views/pages/start.php:176
 msgid "Zooming"
 msgstr "Zoomaus"
 
 #: admin/views/pages/parts/slider-settings.php:562
-#: admin/views/pages/start.php:176
+#: admin/views/pages/start.php:177
 #: admin/views/slides/tabs/background.php:87
 #: inc/metaslider.imagestyles.class.php:488
 msgid "Flip"
 msgstr "Kääntö"
 
 #: admin/views/pages/parts/slider-settings.php:566
-#: admin/views/pages/parts/slider-settings.php:1344
+#: admin/views/pages/parts/slider-settings.php:1340
 msgid "Random"
 msgstr "Satunnainen"
 
@@ -1265,7 +1292,7 @@ msgid "Horizontal"
 msgstr "Vaakasuora"
 
 #: admin/views/pages/parts/slider-settings.php:757
-#: admin/views/pages/start.php:178
+#: admin/views/pages/start.php:179
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:494
 msgid "Vertical"
@@ -1347,11 +1374,11 @@ msgstr ""
 "Näytä useita dioja kerralla. Diaesityksen ulostulo oletusarvoisesti käyttää "
 "100 % leveyttä ja 'Liuku' siirtymäefektiä."
 
-#: admin/views/pages/parts/slider-settings.php:903
+#: admin/views/pages/parts/slider-settings.php:899
 msgid "Loop Carousel Continuously"
 msgstr "Toista karusellia jatkuvasti"
 
-#: admin/views/pages/parts/slider-settings.php:908
+#: admin/views/pages/parts/slider-settings.php:904
 msgid ""
 "Infinite loop of slides when Carousel Mode is enabled. This option disables "
 "arrows and navigation. The slideshow width must be less than or equal to "
@@ -1361,27 +1388,27 @@ msgstr ""
 "poistaa nuolten ja navigoinnin käytöstä. Diaesityksen leveyden on oltava "
 "pienempi tai yhtä suuri kuin säiliön leveys, johon se on asetettu."
 
-#: admin/views/pages/parts/slider-settings.php:919
+#: admin/views/pages/parts/slider-settings.php:915
 msgid "Carousel Margin"
 msgstr "Karuselliväli"
 
-#: admin/views/pages/parts/slider-settings.php:922
+#: admin/views/pages/parts/slider-settings.php:918
 msgid "Pixel margin between slides in carousel."
 msgstr "Pikseliväli diojen välillä karusellissa."
 
-#: admin/views/pages/parts/slider-settings.php:936
+#: admin/views/pages/parts/slider-settings.php:932
 msgid "Display Minimum"
 msgstr "Näytön vähimmäismäärä"
 
-#: admin/views/pages/parts/slider-settings.php:938
+#: admin/views/pages/parts/slider-settings.php:934
 msgid "Minimum number of slides to be displayed at the same time in the carousel."
 msgstr "Vähimmäismäärä dioista, jotka näytetään samanaikaisesti karusellissa."
 
-#: admin/views/pages/parts/slider-settings.php:952
+#: admin/views/pages/parts/slider-settings.php:948
 msgid "Display Maximum"
 msgstr "Näytön enimmäismäärä"
 
-#: admin/views/pages/parts/slider-settings.php:954
+#: admin/views/pages/parts/slider-settings.php:950
 msgid ""
 "Maximum number of slides to be displayed at the same time in the carousel. "
 "Set to 0 to adjust automatically."
@@ -1389,11 +1416,11 @@ msgstr ""
 "Enimmäismäärä dioista, jotka näytetään samanaikaisesti karusellissa. Aseta "
 "0 säätääksesi automaattisesti."
 
-#: admin/views/pages/parts/slider-settings.php:963
+#: admin/views/pages/parts/slider-settings.php:959
 msgid "Slides to Show per Device"
 msgstr "Näytettävät diat laitetta kohti"
 
-#: admin/views/pages/parts/slider-settings.php:964
+#: admin/views/pages/parts/slider-settings.php:960
 msgid ""
 "Set an exact number of slides to show for each device width. Leave a device "
 "at 0 to use the Display Minimum/Maximum settings instead."
@@ -1402,7 +1429,7 @@ msgstr ""
 "laite arvoksi 0 käyttääksesi Näytön minimissä/maksimissa asetuksia sen "
 "sijaan."
 
-#: admin/views/pages/parts/slider-settings.php:972
+#: admin/views/pages/parts/slider-settings.php:968
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths less than %spx. Set to 0 to "
@@ -1412,8 +1439,8 @@ msgstr ""
 "Aseta arvoksi 0 käyttääksesi Näytön minimissä/maksimissa asetuksia sen "
 "sijaan."
 
-#: admin/views/pages/parts/slider-settings.php:982
-#: admin/views/pages/parts/slider-settings.php:993
+#: admin/views/pages/parts/slider-settings.php:978
+#: admin/views/pages/parts/slider-settings.php:989
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths of %1$spx to %2$spx. Set to "
@@ -1422,7 +1449,7 @@ msgstr ""
 "Tarkka määrä dioja näytettäväksi näytön leveyksillä %1$spx - %2$spx. Aseta "
 "arvoksi 0 käyttääksesi Näytön minimissä/maksimissa asetuksia sen sijaan."
 
-#: admin/views/pages/parts/slider-settings.php:1004
+#: admin/views/pages/parts/slider-settings.php:1000
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths equal to or greater than "
@@ -1432,19 +1459,19 @@ msgstr ""
 "tai suurempia kuin %spx. Aseta arvoksi 0 käyttääksesi Näytön "
 "minimissä/maksimissa asetuksia sen sijaan."
 
-#: admin/views/pages/parts/slider-settings.php:1021
+#: admin/views/pages/parts/slider-settings.php:1017
 msgid "Slides per Navigation Click"
 msgstr "Dioja navigointinapin klikkausta kohden"
 
-#: admin/views/pages/parts/slider-settings.php:1023
+#: admin/views/pages/parts/slider-settings.php:1019
 msgid "Number of slides to move when clicking next or previous."
 msgstr "Numero dioja siirtyä, kun napsautat seuraavaa tai edellistä."
 
-#: admin/views/pages/parts/slider-settings.php:1032
+#: admin/views/pages/parts/slider-settings.php:1028
 msgid "Force Height"
 msgstr "Pakotettu korkeus"
 
-#: admin/views/pages/parts/slider-settings.php:1037
+#: admin/views/pages/parts/slider-settings.php:1033
 msgid ""
 "If the slideshow looks small, force slideshow height when using Carousel "
 "mode. Please note when is enabled slides may look cropped."
@@ -1453,31 +1480,31 @@ msgstr ""
 "Karuselli-tilaa. Huomaa, että kun tämä on käytössä, diat saattavat näyttää "
 "karsituilta."
 
-#: admin/views/pages/parts/slider-settings.php:1062
+#: admin/views/pages/parts/slider-settings.php:1058
 msgid "Image Options"
 msgstr "Kuvavaihtoehdot"
 
-#: admin/views/pages/parts/slider-settings.php:1074
+#: admin/views/pages/parts/slider-settings.php:1070
 msgid "Image Crop"
 msgstr "Kuvan rajaus"
 
-#: admin/views/pages/parts/slider-settings.php:1079
+#: admin/views/pages/parts/slider-settings.php:1075
 msgid "Smart Crop"
 msgstr "Älykäs rajaus"
 
-#: admin/views/pages/parts/slider-settings.php:1086
+#: admin/views/pages/parts/slider-settings.php:1082
 msgid "Standard"
 msgstr "Vakio"
 
-#: admin/views/pages/parts/slider-settings.php:1093
+#: admin/views/pages/parts/slider-settings.php:1089
 msgid "Disabled"
 msgstr "Pois käytöstä"
 
-#: admin/views/pages/parts/slider-settings.php:1100
+#: admin/views/pages/parts/slider-settings.php:1096
 msgid "Disabled (Smart Pad)"
 msgstr "Pois käytöstä (Älykäs Pad)"
 
-#: admin/views/pages/parts/slider-settings.php:1107
+#: admin/views/pages/parts/slider-settings.php:1103
 msgid ""
 "Smart Crop ensures your responsive slides are cropped to a ratio that "
 "results in a consistent slideshow size."
@@ -1485,19 +1512,19 @@ msgstr ""
 "Älykäs rajaus varmistaa, että responsiiviset diasi rajataan suhteeseen, "
 "joka tuottaa johdonmukaisen diaesityksen koon."
 
-#: admin/views/pages/parts/slider-settings.php:1115
+#: admin/views/pages/parts/slider-settings.php:1111
 msgid "Image Crop Source"
 msgstr "Kuvan rajauksen lähde"
 
-#: admin/views/pages/parts/slider-settings.php:1120
+#: admin/views/pages/parts/slider-settings.php:1116
 msgid "Slideshow width/height"
 msgstr "Diaesityksen leveys/korkeus"
 
-#: admin/views/pages/parts/slider-settings.php:1123
+#: admin/views/pages/parts/slider-settings.php:1119
 msgid "Custom width/height (Pro)"
 msgstr "Mukautettu leveys/korkeus (Pro)"
 
-#: admin/views/pages/parts/slider-settings.php:1127
+#: admin/views/pages/parts/slider-settings.php:1123
 msgid ""
 "By default, MetaSlider Slideshow will crop images using the main width and "
 "height of the slideshow. If you want smaller images, select Custom "
@@ -1509,11 +1536,11 @@ msgstr ""
 "leveys/korkeus ja varmista, että arvot ovat pienempiä kuin pääleveys ja "
 "-korkeus."
 
-#: admin/views/pages/parts/slider-settings.php:1136
+#: admin/views/pages/parts/slider-settings.php:1132
 msgid "Image Crop Size"
 msgstr "Kuvan rajauksen koko"
 
-#: admin/views/pages/parts/slider-settings.php:1145
+#: admin/views/pages/parts/slider-settings.php:1141
 msgid ""
 "This will increase the size of the images in your slideshow. Larger images "
 "are higher quality. Smaller images load more quickly."
@@ -1521,11 +1548,11 @@ msgstr ""
 "Tämä lisää kuvien kokoa diaesityksessäsi. Suuremmat kuvat ovat "
 "korkealaatuisempia. Pienemmät kuvat latautuvat nopeammin."
 
-#: admin/views/pages/parts/slider-settings.php:1156
+#: admin/views/pages/parts/slider-settings.php:1152
 msgid "Lazy Load Images"
 msgstr "Laiska latauskuvat"
 
-#: admin/views/pages/parts/slider-settings.php:1161
+#: admin/views/pages/parts/slider-settings.php:1157
 msgid ""
 "This feature can speed up your site. MetaSlider Slideshow will only load "
 "slides when they are required by your slideshow."
@@ -1533,25 +1560,25 @@ msgstr ""
 "Tämä ominaisuus voi nopeuttaa sivustoasi. MetaSlider lataa dioja vain, kun "
 "ne ovat tarpeen diaesityksessäsi."
 
-#: admin/views/pages/parts/slider-settings.php:1177
+#: admin/views/pages/parts/slider-settings.php:1173
 #: inc/metaslider.imagestyles.class.php:96
 msgid "Image Styles"
 msgstr "Kuvatyylit"
 
-#: admin/views/pages/parts/slider-settings.php:1195
+#: admin/views/pages/parts/slider-settings.php:1191
 msgid "Layout Features"
 msgstr "Asetteluominaisuudet"
 
-#: admin/views/pages/parts/slider-settings.php:1207
+#: admin/views/pages/parts/slider-settings.php:1203
 #: admin/assets/dist/js/app.js:2
 msgid "Auto Play"
 msgstr "Automaattinen toisto"
 
-#: admin/views/pages/parts/slider-settings.php:1212
+#: admin/views/pages/parts/slider-settings.php:1208
 msgid "Transition between slides automatically."
 msgstr "Siirtyminen diojen välillä automaattisesti."
 
-#: admin/views/pages/parts/slider-settings.php:1220
+#: admin/views/pages/parts/slider-settings.php:1216
 #: themes/architekt/customize.php:615
 #: themes/bitono/customize.php:798
 #: themes/blend/customize.php:828
@@ -1573,26 +1600,26 @@ msgstr "Siirtyminen diojen välillä automaattisesti."
 msgid "Play / Pause Button"
 msgstr "Toista / Pysäytä -painike"
 
-#: admin/views/pages/parts/slider-settings.php:1225
+#: admin/views/pages/parts/slider-settings.php:1221
 msgid "This allows user to pause or resume Auto Play on the slideshow."
 msgstr ""
 "Tämä mahdollistaa käyttäjän pysäyttää tai jatkaa automaattista toistoa "
 "esityksessä."
 
-#: admin/views/pages/parts/slider-settings.php:1233
+#: admin/views/pages/parts/slider-settings.php:1229
 msgid "Show Play / Pause Button Text"
 msgstr "Näytä Toista / Pysäytä -painikkeen teksti"
 
-#: admin/views/pages/parts/slider-settings.php:1238
+#: admin/views/pages/parts/slider-settings.php:1234
 msgid "Show text options for Play / Pause Button"
 msgstr "Näytä tekstivaihtoehdot Toista / Pysäytä -painikkeelle"
 
-#: admin/views/pages/parts/slider-settings.php:1246
+#: admin/views/pages/parts/slider-settings.php:1242
 msgid "Play Text"
 msgstr "Toista-teksti"
 
-#: admin/views/pages/parts/slider-settings.php:1248
-#: admin/views/pages/parts/slider-settings.php:1261
+#: admin/views/pages/parts/slider-settings.php:1244
+#: admin/views/pages/parts/slider-settings.php:1257
 msgid ""
 "Enter text for the Play/Pause Button. Leave the field empty to use the icon "
 "only."
@@ -1600,26 +1627,26 @@ msgstr ""
 "Syötä teksti Toista/Pysäytä -painikkeelle. Jätä kenttä tyhjäksi "
 "käyttääksesi vain kuvaketta."
 
-#: admin/views/pages/parts/slider-settings.php:1259
+#: admin/views/pages/parts/slider-settings.php:1255
 msgid "Pause Text"
 msgstr "Pysäytä-teksti"
 
-#: admin/views/pages/parts/slider-settings.php:1272
+#: admin/views/pages/parts/slider-settings.php:1268
 #: themes/customize.php:34
 msgid "Progress Bar"
 msgstr "Edistymispalkki"
 
-#: admin/views/pages/parts/slider-settings.php:1277
+#: admin/views/pages/parts/slider-settings.php:1273
 msgid "Displays a visual indicator showing the time left before the next slide."
 msgstr ""
 "Näyttää visuaalisen indikaattorin, joka osoittaa jäljellä olevan ajan ennen "
 "seuraavaa diaa."
 
-#: admin/views/pages/parts/slider-settings.php:1285
+#: admin/views/pages/parts/slider-settings.php:1281
 msgid "Hover Pause"
 msgstr "Hiiren osoitin pysäyttää"
 
-#: admin/views/pages/parts/slider-settings.php:1290
+#: admin/views/pages/parts/slider-settings.php:1286
 msgid ""
 "Pause the slideshow when hovering over slider, then resume when no longer "
 "hovering."
@@ -1627,11 +1654,11 @@ msgstr ""
 "Pysäytä esitys, kun hiiren osoitin on liukusäätimen päällä, ja jatka, kun "
 "hiiren osoitin ei ole enää päällä."
 
-#: admin/views/pages/parts/slider-settings.php:1298
+#: admin/views/pages/parts/slider-settings.php:1294
 msgid "Loop"
 msgstr "Silmukka"
 
-#: admin/views/pages/parts/slider-settings.php:1300
+#: admin/views/pages/parts/slider-settings.php:1296
 msgid ""
 "If you choose \"Loop endlessly\", the slides will loop infinitely. If you "
 "choose \"Stop on first slide after looping\", the slideshow will stop on "
@@ -1643,51 +1670,51 @@ msgstr ""
 "ensimmäiselle dialle kaikkien kohteiden näyttämisen jälkeen. Jos valitset "
 "\"Pysäytä viimeisellä dialla\", diat pysähtyvät viimeiselle dialle."
 
-#: admin/views/pages/parts/slider-settings.php:1303
+#: admin/views/pages/parts/slider-settings.php:1299
 msgid "Loop Endlessly"
 msgstr "Toista loputtomasti"
 
-#: admin/views/pages/parts/slider-settings.php:1304
+#: admin/views/pages/parts/slider-settings.php:1300
 msgid "Stop On Last Slide"
 msgstr "Pysäytä viimeisellä dialla"
 
-#: admin/views/pages/parts/slider-settings.php:1305
+#: admin/views/pages/parts/slider-settings.php:1301
 msgid "Stop On First Slide After Looping"
 msgstr "Pysäytä ensimmäisellä dialla silmukan jälkeen"
 
-#: admin/views/pages/parts/slider-settings.php:1311
+#: admin/views/pages/parts/slider-settings.php:1307
 msgid "Smooth Height"
 msgstr "Sileä korkeus"
 
-#: admin/views/pages/parts/slider-settings.php:1316
+#: admin/views/pages/parts/slider-settings.php:1312
 msgid "Allow navigation to follow the slide's height smoothly."
 msgstr "Salli navigoinnin seurata dian korkeutta sujuvasti."
 
-#: admin/views/pages/parts/slider-settings.php:1324
+#: admin/views/pages/parts/slider-settings.php:1320
 msgid "Slide Order"
 msgstr "Diojen järjestys"
 
-#: admin/views/pages/parts/slider-settings.php:1329
+#: admin/views/pages/parts/slider-settings.php:1325
 msgid "Newest First"
 msgstr "Uusimmat ensin"
 
-#: admin/views/pages/parts/slider-settings.php:1332
+#: admin/views/pages/parts/slider-settings.php:1328
 msgid "Oldest First"
 msgstr "Vanhemmat ensin"
 
-#: admin/views/pages/parts/slider-settings.php:1335
+#: admin/views/pages/parts/slider-settings.php:1331
 msgid "A to Z (by filename)"
 msgstr "A:sta Ö:hön (tiedostonimen mukaan)"
 
-#: admin/views/pages/parts/slider-settings.php:1338
+#: admin/views/pages/parts/slider-settings.php:1334
 msgid "Z to A (by filename)"
 msgstr "Ö:stä A:han (tiedostonimen mukaan)"
 
-#: admin/views/pages/parts/slider-settings.php:1341
+#: admin/views/pages/parts/slider-settings.php:1337
 msgid "Drag-and-drop"
 msgstr "Vedä ja pudota"
 
-#: admin/views/pages/parts/slider-settings.php:1347
+#: admin/views/pages/parts/slider-settings.php:1343
 msgid ""
 "Select the order in which slides appear in the slideshow. This impacts the "
 "frontend view."
@@ -1695,116 +1722,116 @@ msgstr ""
 "Valitse järjestys, jossa dioja näytetään esityksessä. Tämä vaikuttaa "
 "etupään näkymään."
 
-#: admin/views/pages/parts/slider-settings.php:1355
+#: admin/views/pages/parts/slider-settings.php:1351
 msgid "Touch Swipe"
 msgstr "Kosketuspyyhkäisy"
 
-#: admin/views/pages/parts/slider-settings.php:1360
+#: admin/views/pages/parts/slider-settings.php:1356
 msgid "Allow touch swipe navigation of the slider on touch-enabled devices."
 msgstr ""
 "Salli kosketuspyyhkäisy navigointi liukusäätimessä kosketusnäytöllä "
 "varustetuissa laitteissa."
 
-#: admin/views/pages/parts/slider-settings.php:1368
+#: admin/views/pages/parts/slider-settings.php:1364
 msgid "Loading Indicator"
 msgstr "Latausindikaattori"
 
-#: admin/views/pages/parts/slider-settings.php:1373
+#: admin/views/pages/parts/slider-settings.php:1369
 msgid "Displays a visual indicator while the slideshow is loading."
 msgstr "Näyttää visuaalisen indikaattorin, kun esitys latautuu."
 
-#: admin/views/pages/parts/slider-settings.php:1381
+#: admin/views/pages/parts/slider-settings.php:1377
 msgid "Previous Text"
 msgstr "Edellinen teksti"
 
-#: admin/views/pages/parts/slider-settings.php:1383
+#: admin/views/pages/parts/slider-settings.php:1379
 msgid "Set the text for the \"previous\" direction item."
 msgstr "Aseta teksti \"edellinen\" suuntaitemälle."
 
-#: admin/views/pages/parts/slider-settings.php:1395
+#: admin/views/pages/parts/slider-settings.php:1391
 msgid "Next Text"
 msgstr "Seuraava teksti"
 
-#: admin/views/pages/parts/slider-settings.php:1397
+#: admin/views/pages/parts/slider-settings.php:1393
 msgid "Set the text for the \"next\" direction item."
 msgstr "Aseta teksti \"seuraava\" suuntaitemälle."
 
-#: admin/views/pages/parts/slider-settings.php:1414
+#: admin/views/pages/parts/slider-settings.php:1410
 msgid "Square Delay"
 msgstr "Neliön viive"
 
-#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1412
 msgid "Delay between squares in ms."
 msgstr "Viive neliöiden välillä ms:ssä."
 
-#: admin/views/pages/parts/slider-settings.php:1433
+#: admin/views/pages/parts/slider-settings.php:1429
 msgid "Opacity of title and navigation, between 0 and 1."
 msgstr "Otsikon ja navigoinnin opasiteetti, välillä 0 ja 1."
 
-#: admin/views/pages/parts/slider-settings.php:1448
+#: admin/views/pages/parts/slider-settings.php:1444
 msgid "Caption Speed"
 msgstr "Kuvatekstin nopeus"
 
-#: admin/views/pages/parts/slider-settings.php:1450
+#: admin/views/pages/parts/slider-settings.php:1446
 msgid "Set the fade in speed of the caption."
 msgstr "Aseta kuvatekstin häilyvyysnopeus."
 
-#: admin/views/pages/parts/slider-settings.php:1472
+#: admin/views/pages/parts/slider-settings.php:1468
 msgid "Container Options"
 msgstr "Säiliöasetukset"
 
-#: admin/views/pages/parts/slider-settings.php:1484
+#: admin/views/pages/parts/slider-settings.php:1480
 msgid "Container Box"
 msgstr "Kontainerilaatikko"
 
-#: admin/views/pages/parts/slider-settings.php:1489
+#: admin/views/pages/parts/slider-settings.php:1485
 msgid "Customize the slideshow's container box."
 msgstr "Mukauta diaesityksen kontainerilaatikkoa."
 
-#: admin/views/pages/parts/slider-settings.php:1495
-#: admin/views/pages/parts/slider-settings.php:1535
+#: admin/views/pages/parts/slider-settings.php:1491
+#: admin/views/pages/parts/slider-settings.php:1531
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "This feature is available in MetaSlider Slideshow Pro"
 msgstr "Tämä ominaisuus on saatavilla MetaSlider Pro:ssa"
 
-#: admin/views/pages/parts/slider-settings.php:1510
+#: admin/views/pages/parts/slider-settings.php:1506
 msgid "Watermark Options"
 msgstr "Vesileiman asetukset"
 
-#: admin/views/pages/parts/slider-settings.php:1524
+#: admin/views/pages/parts/slider-settings.php:1520
 msgid "Watermark"
 msgstr "Vesileima"
 
-#: admin/views/pages/parts/slider-settings.php:1529
+#: admin/views/pages/parts/slider-settings.php:1525
 msgid "Overlay an image (e.g. a logo) on top of the slideshow."
 msgstr "Ylitä kuva (esim. logo) diaesityksen päälle."
 
-#: admin/views/pages/parts/slider-settings.php:1550
+#: admin/views/pages/parts/slider-settings.php:1546
 msgid "Accessibility Options"
 msgstr "Esteettömyysasetukset"
 
-#: admin/views/pages/parts/slider-settings.php:1562
+#: admin/views/pages/parts/slider-settings.php:1558
 msgid "Keyboard Controls"
 msgstr "Näppäimistön ohjaimet"
 
-#: admin/views/pages/parts/slider-settings.php:1567
+#: admin/views/pages/parts/slider-settings.php:1563
 msgid "Use arrow keys to get to the next slide."
 msgstr "Käytä nuolinäppäimiä siirtyäksesi seuraavaan diaan."
 
-#: admin/views/pages/parts/slider-settings.php:1575
+#: admin/views/pages/parts/slider-settings.php:1571
 msgid "Tabindex For Navigation"
 msgstr "Tabindeksi navigointia varten"
 
-#: admin/views/pages/parts/slider-settings.php:1580
+#: admin/views/pages/parts/slider-settings.php:1576
 msgid "This helps make the slideshow navigation more accessible."
 msgstr "Tämä auttaa tekemään diaesityksen navigoinnista esteettömämpää."
 
-#: admin/views/pages/parts/slider-settings.php:1588, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1584, fuzzy
 msgid "ARIA Live"
 msgstr "ARIA Live"
 
-#: admin/views/pages/parts/slider-settings.php:1593
+#: admin/views/pages/parts/slider-settings.php:1589
 msgid ""
 "If Autoplay is enabled, this causes screen readers to announce that the "
 "slides are changing."
@@ -1812,11 +1839,11 @@ msgstr ""
 "Jos automaattinen toisto on käytössä, tämä saa ruudunlukijat ilmoittamaan, "
 "että diat vaihtuvat."
 
-#: admin/views/pages/parts/slider-settings.php:1601, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1597, fuzzy
 msgid "ARIA Current"
 msgstr "ARIA Current"
 
-#: admin/views/pages/parts/slider-settings.php:1606
+#: admin/views/pages/parts/slider-settings.php:1602
 msgid ""
 "This is used on the navigation button for the active slide. It helps screen "
 "readers understand which slide is active."
@@ -1824,15 +1851,15 @@ msgstr ""
 "Tätä käytetään aktiivisen dian navigointipainikkeessa. Se auttaa "
 "ruudunlukijoita ymmärtämään, mikä dia on aktiivinen."
 
-#: admin/views/pages/parts/slider-settings.php:1622
+#: admin/views/pages/parts/slider-settings.php:1618
 msgid "Developer Options"
 msgstr "Kehittäjäasetukset"
 
-#: admin/views/pages/parts/slider-settings.php:1634
+#: admin/views/pages/parts/slider-settings.php:1630
 msgid "CSS Classes"
 msgstr "CSS-luokat"
 
-#: admin/views/pages/parts/slider-settings.php:1636
+#: admin/views/pages/parts/slider-settings.php:1632
 msgid ""
 "Enter custom CSS classes to apply to the slider wrapper. Separate multiple "
 "classes with a space."
@@ -1840,36 +1867,36 @@ msgstr ""
 "Syötä mukautetut CSS-luokat, jotka haluat soveltaa liukusäätimen ympärille. "
 "Erottele useat luokat välilyönnillä."
 
-#: admin/views/pages/parts/slider-settings.php:1647
+#: admin/views/pages/parts/slider-settings.php:1643
 msgid "Print CSS"
 msgstr "Tulosta CSS"
 
-#: admin/views/pages/parts/slider-settings.php:1652
+#: admin/views/pages/parts/slider-settings.php:1648
 msgid "Uncheck this if you would like to include your own CSS."
 msgstr "Poista tämä valinta, jos haluat sisällyttää oman CSS:si."
 
-#: admin/views/pages/parts/slider-settings.php:1660
+#: admin/views/pages/parts/slider-settings.php:1656
 msgid "Print JS"
 msgstr "Tulosta JS"
 
-#: admin/views/pages/parts/slider-settings.php:1665
+#: admin/views/pages/parts/slider-settings.php:1661
 msgid "Uncheck this if you would like to include your own Javascript."
 msgstr "Poista tämä valinta, jos haluat sisällyttää oman JavaScriptisi."
 
-#: admin/views/pages/parts/slider-settings.php:1673
+#: admin/views/pages/parts/slider-settings.php:1669
 msgid "No Conflict Mode"
 msgstr "Ei konfliktitilaa"
 
-#: admin/views/pages/parts/slider-settings.php:1678
+#: admin/views/pages/parts/slider-settings.php:1674
 msgid "Delay adding the flexslider class to the slideshow."
 msgstr "Viivytä flexslider-luokan lisäämistä diaesitykseen."
 
-#: admin/views/pages/parts/slider-settings.php:1716
-#: ml-slider.php:1880
+#: admin/views/pages/parts/slider-settings.php:1712
+#: ml-slider.php:1930
 msgid "Trashed Slides"
 msgstr "Poistetut diat"
 
-#: admin/views/pages/parts/slider-settings.php:1726
+#: admin/views/pages/parts/slider-settings.php:1722
 msgid "View trashed slides"
 msgstr "Näytä poistetut diat"
 
@@ -1887,7 +1914,7 @@ msgid "Add a new slide"
 msgstr "Lisää uusi dia"
 
 #: admin/views/pages/parts/toolbar.php:60
-#: inc/slider/metaslider.class.php:1055
+#: inc/slider/metaslider.class.php:1065
 msgid "Add Slide"
 msgstr "Lisää dia"
 
@@ -1933,7 +1960,7 @@ msgid "Save"
 msgstr "Tallenna"
 
 #: admin/views/pages/parts/toolbar.php:155
-#: ml-slider.php:1945
+#: ml-slider.php:1995
 msgid "Return to Published Slides"
 msgstr "Paluu julkaistuille dioille"
 
@@ -1969,7 +1996,7 @@ msgid "Redirecting..."
 msgstr "Ohjataan..."
 
 #: admin/views/pages/start.php:106
-#: ml-slider.php:575
+#: ml-slider.php:579
 msgid "Quick Start"
 msgstr "Nopea aloitus"
 
@@ -1998,163 +2025,164 @@ msgid "Slide Type"
 msgstr "Diatyyppi"
 
 #: admin/views/pages/start.php:145
-#: inc/metaslider.quickstart.class.php:760
-#: ml-slider.php:798
+#: inc/metaslider.quickstart.class.php:773
+#: ml-slider.php:849
 msgid "Image"
 msgstr "Kuva"
 
-#: admin/views/pages/start.php:149
-#: inc/metaslider.quickstart.class.php:611
-#: inc/metaslider.quickstart.class.php:772
-#: ml-slider.php:842
+#: admin/views/pages/start.php:150
+#: inc/metaslider.quickstart.class.php:623
+#: inc/metaslider.quickstart.class.php:785
+#: ml-slider.php:893
 msgid "External Image"
 msgstr "Ulkoinen kuva"
 
-#: admin/views/pages/start.php:150
-#: inc/metaslider.quickstart.class.php:623
-#: inc/metaslider.quickstart.class.php:775
-#: ml-slider.php:843
+#: admin/views/pages/start.php:151
+#: inc/metaslider.quickstart.class.php:635
+#: inc/metaslider.quickstart.class.php:788
+#: ml-slider.php:894
 msgid "External Video"
 msgstr "Ulkoinen video"
 
-#: admin/views/pages/start.php:151
-#: inc/metaslider.quickstart.class.php:635
-#: inc/metaslider.quickstart.class.php:781
-#: ml-slider.php:844
+#: admin/views/pages/start.php:152
+#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:797
+#: ml-slider.php:895
 msgid "Custom HTML"
 msgstr "Mukautettu HTML"
 
-#: admin/views/pages/start.php:152
-#: inc/metaslider.quickstart.class.php:683
-#: inc/metaslider.quickstart.class.php:790
-#: ml-slider.php:845
+#: admin/views/pages/start.php:153
+#: inc/metaslider.quickstart.class.php:695
+#: inc/metaslider.quickstart.class.php:806
+#: ml-slider.php:896
 msgid "Background Color"
 msgstr "Taustaväri"
 
-#: admin/views/pages/start.php:153
-#: admin/views/pages/start.php:184
-#: ml-slider.php:848
+#: admin/views/pages/start.php:154
+#: admin/views/pages/start.php:185
+#: ml-slider.php:899
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: admin/views/pages/start.php:154
-#: inc/metaslider.quickstart.class.php:599
-#: inc/metaslider.quickstart.class.php:787
-#: ml-slider.php:849
+#: admin/views/pages/start.php:155
+#: inc/metaslider.quickstart.class.php:611
+#: inc/metaslider.quickstart.class.php:803
+#: ml-slider.php:900
 msgid "Post Feed"
 msgstr "Viesti syöte"
 
-#: admin/views/pages/start.php:155
-#: inc/metaslider.quickstart.class.php:784
-#: ml-slider.php:850
+#: admin/views/pages/start.php:156
+#: inc/metaslider.quickstart.class.php:800
+#: ml-slider.php:901
 msgid "Layer Slide"
 msgstr "Kerrosdia"
 
-#: admin/views/pages/start.php:156
-#: inc/metaslider.quickstart.class.php:575
-#: inc/metaslider.quickstart.class.php:769
-#: ml-slider.php:851
+#: admin/views/pages/start.php:157
+#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:782
+#: modules/local_video/slide.php:43
+#: modules/local_video/slide.php:82
 msgid "Local Video"
 msgstr "Paikallinen video"
 
-#: admin/views/pages/start.php:161
+#: admin/views/pages/start.php:162
 msgid "Features"
 msgstr "Ominaisuudet"
 
-#: admin/views/pages/start.php:162
+#: admin/views/pages/start.php:163
 msgid "Boxed"
 msgstr "Laatikko"
 
-#: admin/views/pages/start.php:163
+#: admin/views/pages/start.php:164
 msgid "Full-width"
 msgstr "Koko leveys"
 
-#: admin/views/pages/start.php:164
+#: admin/views/pages/start.php:165
 msgid "Carousel"
 msgstr "Karuselli"
 
-#: admin/views/pages/start.php:165
+#: admin/views/pages/start.php:166
 msgid "Thumbnail Navigation"
 msgstr "Pienkuvakkeen navigointi"
 
-#: admin/views/pages/start.php:166
+#: admin/views/pages/start.php:167
 msgid "Video Caption"
 msgstr "Videoteksti"
 
-#: admin/views/pages/start.php:167
-#: admin/views/pages/start.php:302
+#: admin/views/pages/start.php:168
+#: admin/views/pages/start.php:303
 msgid "Hero Image"
 msgstr "Hero-kuva"
 
-#: admin/views/pages/start.php:172
+#: admin/views/pages/start.php:173
 msgid "Animation Type"
 msgstr "Animaatiotyyppi"
 
-#: admin/views/pages/start.php:177, fuzzy
+#: admin/views/pages/start.php:178, fuzzy
 msgid "Ken Burns"
 msgstr "Ken Burns"
 
-#: admin/views/pages/start.php:183
+#: admin/views/pages/start.php:184
 msgid "Integration"
 msgstr "Integraatio"
 
-#: admin/views/pages/start.php:185
+#: admin/views/pages/start.php:186
 msgid "The Events Calendar"
 msgstr "Tapahtumakalenteri"
 
-#: admin/views/pages/start.php:186
-#: admin/views/pages/start.php:298
+#: admin/views/pages/start.php:187
+#: admin/views/pages/start.php:299
 msgid "WordPress Posts"
 msgstr "WordPress-postaukset"
 
-#: admin/views/pages/start.php:227
+#: admin/views/pages/start.php:228
 msgid "Free and Pro"
 msgstr "Ilmainen ja Pro"
 
-#: admin/views/pages/start.php:228
+#: admin/views/pages/start.php:229
 msgid "Free only"
 msgstr "Vain ilmainen"
 
-#: admin/views/pages/start.php:229
+#: admin/views/pages/start.php:230
 msgid "Pro only"
 msgstr "Vain Pro"
 
-#: admin/views/pages/start.php:233
+#: admin/views/pages/start.php:234
 msgid "Reset Filters"
 msgstr "Nollaa suodattimet"
 
-#: admin/views/pages/start.php:239
+#: admin/views/pages/start.php:240
 msgid "No demos match your filters."
 msgstr "Yhteensopivia demoja ei löytynyt suodattimillesi."
 
-#: admin/views/pages/start.php:322
+#: admin/views/pages/start.php:323
 #, php-format
 msgid "Create %s slideshow?"
 msgstr "Luo %s diaesitys?"
 
-#: admin/views/pages/start.php:328
+#: admin/views/pages/start.php:329
 msgid "Cancel"
 msgstr "Peruuta"
 
-#: admin/views/pages/start.php:331
+#: admin/views/pages/start.php:332
 msgid "Yes, please!"
 msgstr "Kyllä, kiitos!"
 
-#: admin/views/pages/start.php:337, fuzzy
+#: admin/views/pages/start.php:338, fuzzy
 msgid "Demo"
 msgstr "Demo"
 
-#: admin/views/pages/start.php:343
+#: admin/views/pages/start.php:344
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Get MetaSlider Slideshow Pro!"
 msgstr "MetaSlider Slideshow"
 
-#: admin/views/pages/start.php:346
+#: admin/views/pages/start.php:347
 msgid "Upgrade now to unlock this demo slideshow!"
 msgstr "Päivitä nyt ottaaksesi tämän demoesityksen käyttöön!"
 
-#: admin/views/pages/start.php:349
+#: admin/views/pages/start.php:350
 #: admin/views/pages/theme-editor.php:36
 #: admin/views/pages/upgrade.php:26
 #: admin/views/pages/upgrade.php:201
@@ -2162,19 +2190,19 @@ msgstr "Päivitä nyt ottaaksesi tämän demoesityksen käyttöön!"
 msgid "Upgrade now"
 msgstr "Päivitä nyt"
 
-#: admin/views/pages/start.php:367
+#: admin/views/pages/start.php:368
 msgid "Create a slideshow with your images"
 msgstr "Luo esitys omista kuvistasi"
 
-#: admin/views/pages/start.php:368
+#: admin/views/pages/start.php:369
 msgid "Choose your own images to start a new slideshow."
 msgstr "Valitse omat kuvasi aloittaaksesi uuden esityksen."
 
-#: admin/views/pages/start.php:374
+#: admin/views/pages/start.php:375
 msgid "Uploading images..."
 msgstr "Ladataan kuvia..."
 
-#: admin/views/pages/start.php:385
+#: admin/views/pages/start.php:386
 msgid "Open Media Library"
 msgstr "Avaa Media kirjasto"
 
@@ -2184,7 +2212,7 @@ msgid "Introducing the Theme Editor in MetaSlider Slideshow Pro"
 msgstr "Esittelyssä Teemaeditori MetaSlider Pro:ssa"
 
 #: admin/views/pages/theme-editor.php:18
-#: ml-slider.php:579
+#: ml-slider.php:583
 msgid "Theme Editor"
 msgstr "Teemaeditori"
 
@@ -2921,10 +2949,12 @@ msgstr ""
 "sovelletaan painikkeeseen."
 
 #: admin/views/slides/tabs/link.php:20
+#: modules/local_video/tabs/link.php:28
 msgid "New window"
 msgstr "Uusi ikkuna"
 
 #: admin/views/slides/tabs/link.php:22
+#: modules/local_video/tabs/link.php:30
 msgid "Open link in a new window"
 msgstr "Avaa linkki uudessa ikkunassa"
 
@@ -2944,11 +2974,66 @@ msgstr ""
 msgid "Enter text here"
 msgstr "Kirjoita teksti tähän"
 
-#: admin/views/slides/tabs/mobile.php:33
+#: admin/views/slides/tabs/livid.php:18, fuzzy
+msgid "Livid Video URL"
+msgstr "Livid Video URL"
+
+#: admin/views/slides/tabs/livid.php:19
+msgid ""
+"Paste the link to a video hosted on livid.com. We will create the embed for "
+"you."
+msgstr ""
+"Liitä linkki videoon, joka on isännöity livid.com-sivustolla. Luomme "
+"upotuksen puolestasi."
+
+#: admin/views/slides/tabs/livid.php:33
+#: modules/local_video/tabs/general.php:70
+msgid "Mute video"
+msgstr "Mykistä video"
+
+#: admin/views/slides/tabs/livid.php:47
+#: modules/local_video/tabs/general.php:82
+msgid "Show controls"
+msgstr "Näytä ohjaimet"
+
+#: admin/views/slides/tabs/livid.php:49
+msgid ""
+"Hiding the controls only works if the video is on a Livid Pro or Premium "
+"account"
+msgstr ""
+"Ohjainten piilottaminen toimii vain, jos video on Livid Pro- tai "
+"Premium-tilillä"
+
+#: admin/views/slides/tabs/livid.php:65
+#: modules/local_video/tabs/general.php:95
+msgid "Auto play"
+msgstr "Automaattinen toisto"
+
+#: admin/views/slides/tabs/livid.php:67
+msgid "May require the video to be muted"
+msgstr "Saattaa vaatia, että video on mykistetty"
+
+#: admin/views/slides/tabs/livid.php:83
+#: modules/local_video/tabs/general.php:113
+msgid "Lazy load video"
+msgstr "Laiska lataus video"
+
+#: admin/views/slides/tabs/livid.php:85
+msgid "The video only loads once a visitor clicks play"
+msgstr "Video latautuu vain, kun vierailija napsauttaa toista"
+
+#: admin/views/slides/tabs/livid.php:99
+#: modules/local_video/tabs/general.php:125
+msgid "Loop video"
+msgstr "Silmukoi video"
+
+#: admin/views/slides/tabs/mobile.php:35
+#: modules/local_video/tabs/mobile.php:22
 msgid "Hide slide on:"
 msgstr "Piilota dia:"
 
-#: admin/views/slides/tabs/mobile.php:46
+#: admin/views/slides/tabs/mobile.php:48
+#: modules/local_video/tabs/mobile.php:35
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths equal to or "
@@ -2957,7 +3042,8 @@ msgstr ""
 "Kun tämä asetus on käytössä, dia piilotetaan näytön leveyksillä, jotka ovat "
 "vähintään %spx"
 
-#: admin/views/slides/tabs/mobile.php:56
+#: admin/views/slides/tabs/mobile.php:58
+#: modules/local_video/tabs/mobile.php:45
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths of %1$spx to "
@@ -2966,11 +3052,11 @@ msgstr ""
 "Kun tämä asetus on käytössä, dia piilotetaan näytön leveyksillä %1$spx - "
 "%2$spx"
 
-#: admin/views/slides/tabs/mobile.php:72
+#: admin/views/slides/tabs/mobile.php:75
 msgid "Hide caption on:"
 msgstr "Piilota kuvateksti:"
 
-#: admin/views/slides/tabs/mobile.php:85
+#: admin/views/slides/tabs/mobile.php:88
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths equal to "
@@ -2979,7 +3065,7 @@ msgstr ""
 "Kun tämä asetus on käytössä, kuvateksti piilotetaan näytön leveyksillä, "
 "jotka ovat vähintään %spx"
 
-#: admin/views/slides/tabs/mobile.php:95
+#: admin/views/slides/tabs/mobile.php:98
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths of %1$spx "
@@ -3217,136 +3303,136 @@ msgstr "Nousevat näkökulmat"
 msgid "Sporting Spirit"
 msgstr "Urheiluhenki"
 
-#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:227
 msgid "Marathon Journey"
 msgstr "Maratonmatka"
 
-#: inc/metaslider.quickstart.class.php:227
-msgid "Cars Display"
-msgstr "Autojen näyttö"
-
 #: inc/metaslider.quickstart.class.php:239
-msgid "Watch Shop Hero"
-msgstr "Kellokaupan sankari"
-
-#: inc/metaslider.quickstart.class.php:251
-msgid "Creative Agency Hero"
-msgstr "Luovan toimiston sankari"
-
-#: inc/metaslider.quickstart.class.php:263
-msgid "Fashion Trends"
-msgstr "Muotitrendit"
-
-#: inc/metaslider.quickstart.class.php:275
-msgid "Entertainment YouTube Shorts Feed"
-msgstr "Viihde YouTube Shorts -syöte"
-
-#: inc/metaslider.quickstart.class.php:287
-msgid "Album Cover Showcase"
-msgstr "Albumin kansinäyttely"
-
-#: inc/metaslider.quickstart.class.php:299
-msgid "Business Presentation"
-msgstr "Liiketoimintapresentaatio"
-
-#: inc/metaslider.quickstart.class.php:311
-msgid "Books by Genre"
-msgstr "Kirjat genren mukaan"
-
-#: inc/metaslider.quickstart.class.php:323
-msgid "Testimonials"
-msgstr "Asiakastestimoniaalit"
-
-#: inc/metaslider.quickstart.class.php:335
-msgid "Skincare Routine Guide"
-msgstr "Ihonhoitorutiiniopas"
-
-#: inc/metaslider.quickstart.class.php:347
-msgid "Indoor Plant Selection Guide"
-msgstr "Sisäkasvien valintaopas"
-
-#: inc/metaslider.quickstart.class.php:359
-msgid "TikTok Vertical Videos"
-msgstr "TikTok-pystysuorat videot"
-
-#: inc/metaslider.quickstart.class.php:371
 msgid "Daily Routine Videos"
 msgstr "Päivittäiset rutiinivideot"
 
+#: inc/metaslider.quickstart.class.php:263
+msgid "Cars Display"
+msgstr "Autojen näyttö"
+
+#: inc/metaslider.quickstart.class.php:275
+msgid "Watch Shop Hero"
+msgstr "Kellokaupan sankari"
+
+#: inc/metaslider.quickstart.class.php:287
+msgid "Creative Agency Hero"
+msgstr "Luovan toimiston sankari"
+
+#: inc/metaslider.quickstart.class.php:299
+msgid "Fashion Trends"
+msgstr "Muotitrendit"
+
+#: inc/metaslider.quickstart.class.php:311
+msgid "Entertainment YouTube Shorts Feed"
+msgstr "Viihde YouTube Shorts -syöte"
+
+#: inc/metaslider.quickstart.class.php:323
+msgid "Album Cover Showcase"
+msgstr "Albumin kansinäyttely"
+
+#: inc/metaslider.quickstart.class.php:335
+msgid "Business Presentation"
+msgstr "Liiketoimintapresentaatio"
+
+#: inc/metaslider.quickstart.class.php:347
+msgid "Books by Genre"
+msgstr "Kirjat genren mukaan"
+
+#: inc/metaslider.quickstart.class.php:359
+msgid "Testimonials"
+msgstr "Asiakastestimoniaalit"
+
+#: inc/metaslider.quickstart.class.php:371
+msgid "Skincare Routine Guide"
+msgstr "Ihonhoitorutiiniopas"
+
 #: inc/metaslider.quickstart.class.php:383
+msgid "Indoor Plant Selection Guide"
+msgstr "Sisäkasvien valintaopas"
+
+#: inc/metaslider.quickstart.class.php:395
+msgid "TikTok Vertical Videos"
+msgstr "TikTok-pystysuorat videot"
+
+#: inc/metaslider.quickstart.class.php:407
 msgid "Coffee Brewing Guide"
 msgstr "Kahvin valmistusopas"
 
-#: inc/metaslider.quickstart.class.php:395
+#: inc/metaslider.quickstart.class.php:419
 msgid "Upcoming City Events"
 msgstr "Tulevat kaupunkitapahtumat"
 
-#: inc/metaslider.quickstart.class.php:407
+#: inc/metaslider.quickstart.class.php:431
 msgid "Product Categories"
 msgstr "Tuotekategoriat"
 
-#: inc/metaslider.quickstart.class.php:419
+#: inc/metaslider.quickstart.class.php:443
 msgid "Recent WooCommerce Products"
 msgstr "Viimeisimmät WooCommerce-tuotteet"
 
-#: inc/metaslider.quickstart.class.php:431
+#: inc/metaslider.quickstart.class.php:455
 msgid "Latest News Posts"
 msgstr "Uusimmat uutisartikkelit"
 
-#: inc/metaslider.quickstart.class.php:443
+#: inc/metaslider.quickstart.class.php:467
 msgid "Product Demo"
 msgstr "Tuoteesittely"
 
-#: inc/metaslider.quickstart.class.php:455
+#: inc/metaslider.quickstart.class.php:479
 msgid "Trending Videos"
 msgstr "Suosituimmat videot"
 
-#: inc/metaslider.quickstart.class.php:467
+#: inc/metaslider.quickstart.class.php:491
 msgid "Hotel Rooms"
 msgstr "Hotellihuoneet"
 
-#: inc/metaslider.quickstart.class.php:479
+#: inc/metaslider.quickstart.class.php:503
 msgid "Client Testimonials"
 msgstr "Asiakasarvostelut"
 
-#: inc/metaslider.quickstart.class.php:491
+#: inc/metaslider.quickstart.class.php:515
 msgid "Meet the Team"
 msgstr "Tutustu tiimiin"
 
-#: inc/metaslider.quickstart.class.php:503
+#: inc/metaslider.quickstart.class.php:527
 msgid "Curated Videos"
 msgstr "Kuraattorit videot"
 
-#: inc/metaslider.quickstart.class.php:515
+#: inc/metaslider.quickstart.class.php:539
 msgid "Natural Skincare Presentation"
 msgstr "Luonnollinen ihonhoitoesittely"
 
-#: inc/metaslider.quickstart.class.php:539
+#: inc/metaslider.quickstart.class.php:563
 msgid "YouTube Shorts Carousel"
 msgstr "YouTube Shorts -karuselli"
 
-#: inc/metaslider.quickstart.class.php:551
+#: inc/metaslider.quickstart.class.php:575
 msgid "TikTok Carousel"
 msgstr "TikTok-karuselli"
 
-#: inc/metaslider.quickstart.class.php:563
-#: ml-slider.php:839, fuzzy
+#: inc/metaslider.quickstart.class.php:587
+#: ml-slider.php:890, fuzzy
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: inc/metaslider.quickstart.class.php:587
+#: inc/metaslider.quickstart.class.php:599
 msgid "Layer Slides"
 msgstr "Kerrosliukusäätimet"
 
-#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:659
 msgid "WooCommerce Carousel"
 msgstr "WooCommerce-karuselli"
 
-#: inc/metaslider.quickstart.class.php:659
+#: inc/metaslider.quickstart.class.php:671
 msgid "Bold Motion"
 msgstr "Rohkea liike"
 
-#: inc/metaslider.quickstart.class.php:671
+#: inc/metaslider.quickstart.class.php:683
 msgid "Playful Pets"
 msgstr "Leikkisät lemmikit"
 
@@ -3379,7 +3465,7 @@ msgid "Select Slider:"
 msgstr "Valitse liukusäädin:"
 
 #: inc/metaslider.widget.class.php:126
-#: ml-slider.php:2074
+#: ml-slider.php:2124
 #: admin/assets/dist/js/app.js:2
 msgid "No slideshows found"
 msgstr "Ei diaesityksiä löydetty"
@@ -3423,6 +3509,15 @@ msgid "This isn't a valid image format. Please try again."
 msgstr "Tämä ei ole voimassa oleva kuvamuoto. Yritä uudelleen."
 
 #: inc/slide/metaslide.image.class.php:412
+#: inc/slide/metaslide.livid.class.php:784
+#: modules/local_video/slide.php:203
+#: modules/local_video/slide.php:878
+#: modules/local_video/slide.php:936
+#: modules/local_video/slide.php:1044
+#: modules/local_video/slide.php:1209
+#: modules/local_video/slide.php:1282
+#: modules/local_video/slide.php:1396
+#: modules/local_video/slide.php:2082
 msgid "Access denied"
 msgstr "Pääsy kielletty"
 
@@ -3435,10 +3530,13 @@ msgid "Warning: The image data does not exist. Please re-upload the image."
 msgstr "Varoitus: Kuvadataa ei ole olemassa. Lataa kuva uudelleen."
 
 #: inc/slide/metaslide.image.class.php:555
+#: inc/slide/metaslide.livid.class.php:875
+#: modules/local_video/slide.php:407
 msgid "General"
 msgstr "Yleinen"
 
 #: inc/slide/metaslide.image.class.php:559
+#: modules/local_video/slide.php:411
 msgid "Link"
 msgstr "Linkki"
 
@@ -3447,6 +3545,8 @@ msgid "SEO"
 msgstr "SEO"
 
 #: inc/slide/metaslide.image.class.php:578
+#: inc/slide/metaslide.livid.class.php:893
+#: modules/local_video/slide.php:438
 msgid "Device"
 msgstr "Laite"
 
@@ -3470,7 +3570,67 @@ msgstr "Lisäasetukset ovat saatavilla MetaSlider Slideshow Pro:ssa"
 msgid "View Slide Details"
 msgstr "Näytä slide-yksityiskohdat"
 
-#: inc/slider/metaslider.class.php:457
+#: inc/slide/metaslide.livid.class.php:217, fuzzy
+msgid "Livid Video"
+msgstr "Livid Video"
+
+#: inc/slide/metaslide.livid.class.php:272
+#: inc/slide/metaslide.livid.class.php:320
+#: inc/slide/metaslide.livid.class.php:364
+#: inc/slide/metaslide.livid.class.php:425
+#: inc/slide/metaslide.livid.class.php:477
+msgid "Please enter a valid link to a video hosted on livid.com."
+msgstr ""
+"Ole hyvä ja syötä voimassa oleva linkki videoon, joka on isännöity "
+"livid.com-sivustolla."
+
+#: inc/slide/metaslide.livid.class.php:278
+msgid "Create slideshows with your Livid videos"
+msgstr "Luo esitysgallerioita Livid-videoillasi"
+
+#: inc/slide/metaslide.livid.class.php:281
+msgid "Enter the URL of a Livid video:"
+msgstr "Syötä Livid-videon URL-osoite:"
+
+#: inc/slide/metaslide.livid.class.php:292
+#: ml-slider.php:850
+#: modules/local_video/slide.php:112
+#: admin/assets/dist/js/admin.js:1
+#: admin/assets/js/admin.js:218
+msgid "Add to slideshow"
+msgstr "Lisää diaesitykseen"
+
+#: inc/slide/metaslide.livid.class.php:318
+msgid "Updating the Livid video..."
+msgstr "Päivitetään Livid-videota..."
+
+#: inc/slide/metaslide.livid.class.php:319
+msgid "Livid video updated."
+msgstr "Livid-video päivitettiin."
+
+#: inc/slide/metaslide.livid.class.php:321
+msgid "We could not update the Livid video. Please check the link and try again."
+msgstr "Emme voineet päivittää Livid-videota. Tarkista linkki ja yritä uudelleen."
+
+#: inc/slide/metaslide.livid.class.php:561
+msgid "Livid video player"
+msgstr "Livid-videonsoitin"
+
+#: inc/slide/metaslide.livid.class.php:681
+#. translators: %s: Livid video URL
+#, php-format
+msgid "Livid video thumbnail - %s"
+msgstr "Livid-videon pikkukuva - %s"
+
+#: inc/slide/metaslide.livid.class.php:818
+msgid "Livid Video Slide"
+msgstr "Livid Video Dias"
+
+#: inc/slide/metaslide.livid.class.php:1011
+msgid "Play video"
+msgstr "Toista video"
+
+#: inc/slider/metaslider.class.php:461
 msgid "Edit Slideshow"
 msgstr "Muokkaa diaesitystä"
 
@@ -3482,7 +3642,7 @@ msgstr "Toista"
 msgid "Pause"
 msgstr "Pysäytä"
 
-#: ml-slider.php:267
+#: ml-slider.php:270
 #, php-format
 msgid ""
 "MetaSlider Slideshow Pro is installed but is out of date. You may update it "
@@ -3491,70 +3651,64 @@ msgstr ""
 "MetaSlider Pro on asennettu, mutta se on vanhentunut. Voit päivittää sen "
 "%shere%s. Lue lisää tästä ilmoituksesta %shere%s"
 
-#: ml-slider.php:576
+#: ml-slider.php:580
 msgid "Settings & Help"
 msgstr "Asetukset & Apua"
 
-#: ml-slider.php:580
+#: ml-slider.php:584
 msgid "Upgrade to Pro"
 msgstr "Päivitä Pro-versioon"
 
-#: ml-slider.php:610
-#: ml-slider.php:613
+#: ml-slider.php:614
+#: ml-slider.php:617
 #: themes/customize.php:20
 msgid "Slideshow"
 msgstr "Esitysgalleria"
 
-#: ml-slider.php:619
-#: ml-slider.php:622
+#: ml-slider.php:623
+#: ml-slider.php:626
 msgid "All Slideshows"
 msgstr "Kaikki diaesitykset"
 
-#: ml-slider.php:630
-#: ml-slider.php:633
+#: ml-slider.php:634
+#: ml-slider.php:637
 msgid "Create Slideshow"
 msgstr "Luo diaesitys"
 
-#: ml-slider.php:799
-#: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:218
-msgid "Add to slideshow"
-msgstr "Lisää diaesitykseen"
-
-#: ml-slider.php:840, fuzzy
+#: ml-slider.php:891, fuzzy
 msgid "YouTube"
 msgstr "YouTube"
 
-#: ml-slider.php:841, fuzzy
+#: ml-slider.php:892, fuzzy
 msgid "TikTok"
 msgstr "TikTok"
 
-#: ml-slider.php:846
+#: ml-slider.php:897
 msgid "Image Folder"
 msgstr "Kuvakansio"
 
-#: ml-slider.php:847
+#: ml-slider.php:898
 #: admin/assets/dist/js/app.js:2
 msgid "Post Images"
 msgstr "Julkaisukuvat"
 
-#: ml-slider.php:976
+#: ml-slider.php:1026
 msgid "The slide was successfully restored"
 msgstr "Dia palautettiin onnistuneesti"
 
-#: ml-slider.php:999
+#: ml-slider.php:1049
 msgid "The attempt to restore the slide failed."
 msgstr "Dian palauttamisyritys epäonnistui."
 
-#: ml-slider.php:1058
+#: ml-slider.php:1108
 msgid "The slide was successfully trashed"
 msgstr "Dia siirrettiin onnistuneesti roskakoriin"
 
-#: ml-slider.php:1170
+#: ml-slider.php:1220
 msgid "The slide was permanently deleted"
 msgstr "Dia poistettiin pysyvästi"
 
-#: ml-slider.php:1461
+#: ml-slider.php:1511
 #, php-format
 msgid ""
 "Please consider moving your slides to <b>FlexSlider</b>. We're adding all "
@@ -3564,19 +3718,19 @@ msgstr ""
 "Harkitse diojesi siirtämistä <b>FlexSlider</b>:iin. Lisäämme kaikki uudet "
 "MetaSlider-ominaisuudet tähän vaihtoehtoon. <a href=\"%s\">Löydä lisää</a>."
 
-#: ml-slider.php:1863
+#: ml-slider.php:1913
 msgid "Slide permanently deleted."
 msgstr "Dia poistettu pysyvästi."
 
-#: ml-slider.php:1866
+#: ml-slider.php:1916
 msgid "Slide restored."
 msgstr "Dia palautettu."
 
-#: ml-slider.php:1898
+#: ml-slider.php:1948
 msgid "Toggle slide reorder panel"
 msgstr "Vaihda diojen järjestelypaneeli"
 
-#: ml-slider.php:1935
+#: ml-slider.php:1985
 #, php-format
 msgid ""
 "You are viewing slides that have been trashed, which will be automatically "
@@ -3585,33 +3739,33 @@ msgstr ""
 "Näet dioja, jotka on siirretty roskakoriin, ja jotka poistetaan "
 "automaattisesti %s päivän kuluttua."
 
-#: ml-slider.php:1968
+#: ml-slider.php:2018
 msgid "Move slideshow to trash"
 msgstr "Siirrä diaesitys roskakoriin"
 
-#: ml-slider.php:2023
+#: ml-slider.php:2073
 msgid "Add slideshow"
 msgstr "Lisää diaesitys"
 
-#: ml-slider.php:2059
+#: ml-slider.php:2109
 msgid "Choose slideshow"
 msgstr "Valitse esitysgalleria"
 
-#: ml-slider.php:2069
+#: ml-slider.php:2119
 msgid "Insert slideshow"
 msgstr "Lisää esitysgalleria"
 
-#: ml-slider.php:2104
+#: ml-slider.php:2154
 msgid "Create slides by adding text, videos and more to your images"
 msgstr "Luo dioja lisäämällä tekstiä, videoita ja muuta kuviisi"
 
-#: ml-slider.php:2108
+#: ml-slider.php:2158
 msgid ""
 "With Layer slides, you can create beautiful, stylish layers of different "
 "elements."
 msgstr "Kerrosdioilla voit luoda kauniita, tyylikkäitä kerroksia eri elementeistä."
 
-#: ml-slider.php:2112
+#: ml-slider.php:2162
 msgid ""
 "You start with an image and then can add text, video, colors, animations, "
 "more images, and even shortcodes."
@@ -3619,35 +3773,34 @@ msgstr ""
 "Aloitat kuvasta ja voit sitten lisätä tekstiä, videoita, värejä, "
 "animaatioita, lisää kuvia ja jopa lyhyitä koodeja."
 
-#: ml-slider.php:2118
-#: ml-slider.php:2159
-#: ml-slider.php:2200
-#: ml-slider.php:2243
-#: ml-slider.php:2286
-#: ml-slider.php:2329
-#: ml-slider.php:2372
-#: ml-slider.php:2411
-#: ml-slider.php:2454
-#: ml-slider.php:2493
-#: ml-slider.php:2564
-#: ml-slider.php:2599
-#: ml-slider.php:2634
+#: ml-slider.php:2168
+#: ml-slider.php:2209
+#: ml-slider.php:2250
+#: ml-slider.php:2293
+#: ml-slider.php:2336
+#: ml-slider.php:2379
+#: ml-slider.php:2418
+#: ml-slider.php:2461
+#: ml-slider.php:2500
+#: ml-slider.php:2571
+#: ml-slider.php:2606
+#: ml-slider.php:2641
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Find out more about MetaSlider Slideshow Pro"
 msgstr "Lue lisää MetaSlider Pro:sta"
 
-#: ml-slider.php:2147
+#: ml-slider.php:2197
 msgid "Create slideshows with your Vimeo videos"
 msgstr "Luo esitysgallerioita Vimeo-videoillasi"
 
-#: ml-slider.php:2151
+#: ml-slider.php:2201
 msgid ""
 "With Vimeo slides, you can build beautiful slideshows with your Vimeo "
 "videos."
 msgstr "Vimeo-dioilla voit rakentaa kauniita esitysgallerioita Vimeo-videoillasi."
 
-#: ml-slider.php:2155
+#: ml-slider.php:2205
 msgid ""
 "Vimeo slides will display your videos with auto play, mute, the ability to "
 "hide controls, and much more."
@@ -3655,11 +3808,11 @@ msgstr ""
 "Vimeo-diat näyttävät videoita automaattisesti toistaen, mykistettynä, "
 "mahdollisuuden piilottaa ohjaimet ja paljon muuta."
 
-#: ml-slider.php:2188
+#: ml-slider.php:2238
 msgid "Create slideshows with your YouTube videos"
 msgstr "Luo esitysgallerioita YouTube-videoillasi"
 
-#: ml-slider.php:2192
+#: ml-slider.php:2242
 msgid ""
 "With YouTube slides, you can build beautiful slideshows with your YouTube "
 "videos."
@@ -3667,7 +3820,7 @@ msgstr ""
 "YouTube-dioilla voit rakentaa kauniita esitysgallerioita "
 "YouTube-videoillasi."
 
-#: ml-slider.php:2196
+#: ml-slider.php:2246
 msgid ""
 "YouTube slides will display your videos with auto play, mute, lazy load, "
 "the ability to hide controls, and much more."
@@ -3675,11 +3828,11 @@ msgstr ""
 "YouTube-diat näyttävät videoita automaattisesti toistaen, mykistettynä, "
 "laiskasti latautuen, mahdollisuuden piilottaa ohjaimet ja paljon muuta."
 
-#: ml-slider.php:2229
+#: ml-slider.php:2279
 msgid "Create slideshows with your posts"
 msgstr "Luo esitysgallerioita julkaisuillasi"
 
-#: ml-slider.php:2233
+#: ml-slider.php:2283
 msgid ""
 "With Post Feed slides, you can build slideshows with your latest posts, "
 "events, or WooCommerce products."
@@ -3687,7 +3840,7 @@ msgstr ""
 "Julkaisuvirran dioilla voit rakentaa esitysgallerioita uusimmista "
 "julkaisuistasi, tapahtumista tai WooCommerce-tuotteista."
 
-#: ml-slider.php:2237
+#: ml-slider.php:2287
 msgid ""
 "Post Feed slides will automatically display your posts with images, text, "
 "custom fields, and much more."
@@ -3695,11 +3848,11 @@ msgstr ""
 "Julkaisuvirran diat näyttävät automaattisesti julkaisuja kuvilla, "
 "tekstillä, mukautetuilla kentillä ja paljon muuta."
 
-#: ml-slider.php:2272
+#: ml-slider.php:2322
 msgid "Create slideshows with images stored outside of WordPress"
 msgstr "Luo esitysgallerioita kuvista, jotka on tallennettu WordPressin ulkopuolelle"
 
-#: ml-slider.php:2276
+#: ml-slider.php:2326
 msgid ""
 "With External URL slides, you can load images directly from non-WordPress "
 "sources such as CDNs or image hosts."
@@ -3707,7 +3860,7 @@ msgstr ""
 "Ulkopuolisten URL-osoitteiden dioilla voit ladata kuvia suoraan "
 "ei-WordPress-lähteistä, kuten CDN:iltä tai kuvapalvelimilta."
 
-#: ml-slider.php:2280
+#: ml-slider.php:2330
 msgid ""
 "External URL slides give you all the power of MetaSlider Slideshow, using "
 "images stored anywhere you want."
@@ -3715,33 +3868,11 @@ msgstr ""
 "Ulkopuolisten URL-osoitteiden diat antavat sinulle kaiken MetaSliderin "
 "voiman, käyttäen kuvia, jotka on tallennettu mihin tahansa haluat."
 
-#: ml-slider.php:2315
-msgid "Create slideshows with videos in your media library"
-msgstr "Luo esitysgallerioita videoista mediakirjastossasi"
-
-#: ml-slider.php:2319
-msgid ""
-"With Local Video slides, you can build beautiful slideshows with videos in "
-"your WordPress media library or searched directly from Pixabay."
-msgstr ""
-"Paikallisten videoiden dioilla voit luoda kauniita diaesityksiä videoista, "
-"jotka ovat WordPressin mediakirjastossa tai suoraan Pixabaysta haettuina."
-
-#: ml-slider.php:2323
-msgid ""
-"Local Video slides will display your MP4, WebM, and MOV videos with cover "
-"images, auto play, mute, lazy load, the ability to hide controls, and much "
-"more."
-msgstr ""
-"Paikalliset videoesitykset näyttävät MP4-, WebM- ja MOV-videoita "
-"kansikuvilla, automaattitoistolla, mykistyksellä, laiskalla latauksella, "
-"mahdollisuudella piilottaa ohjaimet ja paljon muuta."
-
-#: ml-slider.php:2358
+#: ml-slider.php:2365
 msgid "Create slideshows with videos stored outside of WordPress"
 msgstr "Luo esityksiä videoilla, jotka on tallennettu WordPressin ulkopuolelle"
 
-#: ml-slider.php:2362
+#: ml-slider.php:2369
 msgid ""
 "With External Video slides, you can add videos directly from non-WordPress "
 "sources."
@@ -3749,7 +3880,7 @@ msgstr ""
 "Ulkoisten videoesitysten avulla voit lisätä videoita suoraan "
 "ei-WordPress-lähteistä."
 
-#: ml-slider.php:2366
+#: ml-slider.php:2373
 msgid ""
 "External Video Slides will display your MP4, WebM, and MOV videos. Features "
 "include text captions, cover images, auto play, mute, lazy load, the "
@@ -3759,11 +3890,11 @@ msgstr ""
 "Ominaisuuksiin kuuluu tekstikuvatekstit, kansikuvat, automaattitoisto, "
 "mykistys, laiska lataus, mahdollisuus piilottaa ohjaimet ja paljon muuta."
 
-#: ml-slider.php:2401
+#: ml-slider.php:2408
 msgid "Create slideshows with custom HTML"
 msgstr "Luo esityksiä mukautetulla HTML:llä"
 
-#: ml-slider.php:2405
+#: ml-slider.php:2412
 msgid ""
 "With Custom HTML slides, you can design slides using images, HTML and CSS. "
 "This gives you complete control over the layout and styling."
@@ -3772,11 +3903,11 @@ msgstr ""
 "kuvia, HTML:ää ja CSS:ää. Tämä antaa sinulle täydellisen hallinnan "
 "asettelusta ja tyylittelystä."
 
-#: ml-slider.php:2444
+#: ml-slider.php:2451
 msgid "Create slides with background colors and text"
 msgstr "Luo dioja taustaväreillä ja tekstillä"
 
-#: ml-slider.php:2448
+#: ml-slider.php:2455
 msgid ""
 "With Background Color slides, you can create slides using a solid or "
 "gradient background color. Perfect for text-only slides, calls to action or "
@@ -3786,21 +3917,21 @@ msgstr ""
 "liukuväristä taustaväriä. Erinomainen tekstidioille, toimintakehotuksille "
 "tai nopeille bannereille."
 
-#: ml-slider.php:2483
+#: ml-slider.php:2490
 msgid "Create slideshows with Tiktok Videos"
 msgstr "Luo esityksiä Tiktok-videoilla"
 
-#: ml-slider.php:2487
+#: ml-slider.php:2494
 msgid ""
 "A TikTok Slide will display a video in your slideshow directly from "
 "TikTok.com."
 msgstr "TikTok-esitys näyttää videon esityksessäsi suoraan TikTok.comista."
 
-#: ml-slider.php:2550
+#: ml-slider.php:2557
 msgid "Create slideshows with images from a folder"
 msgstr "Luo esityksiä kansiossa olevilla kuvilla"
 
-#: ml-slider.php:2554
+#: ml-slider.php:2561
 msgid ""
 "The Image Folder slide type extracts images from a specified folder and "
 "displays them as slides."
@@ -3808,17 +3939,17 @@ msgstr ""
 "Kuvakansion esitystyyppi poimii kuvia määritetystä kansiosta ja näyttää ne "
 "esityksinä."
 
-#: ml-slider.php:2558
+#: ml-slider.php:2565
 msgid ""
 "This slide type displays images from folders in your WordPress Media "
 "Library."
 msgstr "Tämä esitystyyppi näyttää kuvia kansioista WordPressin media-arkistossasi."
 
-#: ml-slider.php:2585
+#: ml-slider.php:2592
 msgid "Create slideshows with Post Images"
 msgstr "Luo esityksiä postikuvilla"
 
-#: ml-slider.php:2589
+#: ml-slider.php:2596
 msgid ""
 "The Post Images slide type extracts images from the current post and "
 "displays them as slides."
@@ -3826,7 +3957,7 @@ msgstr ""
 "Postikuvat-esitystyyppi poimii kuvia nykyisestä postista ja näyttää ne "
 "esityksinä."
 
-#: ml-slider.php:2593
+#: ml-slider.php:2600
 msgid ""
 "This slide type supports featured images, post content images, WooCommerce "
 "galleries, Advanced Custom Fields images and galleries."
@@ -3834,11 +3965,11 @@ msgstr ""
 "Tämä esitystyyppi tukee esikatselukuvia, postin sisältökuvia, "
 "WooCommerce-gallerioita, Advanced Custom Fields -kuvia ja gallerioita."
 
-#: ml-slider.php:2620
+#: ml-slider.php:2627
 msgid "Create slideshows with your WooCommerce products"
 msgstr "Luo esityksiä WooCommerce-tuotteillasi"
 
-#: ml-slider.php:2624
+#: ml-slider.php:2631
 msgid ""
 "With WooCommerce slides, you can build slideshows with your WooCommerce "
 "products."
@@ -3846,7 +3977,7 @@ msgstr ""
 "WooCommerce-esitysten avulla voit rakentaa esityksiä "
 "WooCommerce-tuotteillasi."
 
-#: ml-slider.php:2628
+#: ml-slider.php:2635
 msgid ""
 "WooCommerce slides will automatically display your products with images, "
 "text, custom fields, and much more."
@@ -3854,46 +3985,291 @@ msgstr ""
 "WooCommerce-esitykset näyttävät automaattisesti tuotteesi kuvien, tekstin, "
 "mukautettujen kenttien ja paljon muun kanssa."
 
-#: ml-slider.php:2672
+#: ml-slider.php:2679
 msgid "Premium Support"
 msgstr "Premium-tuki"
 
-#: ml-slider.php:2678
+#: ml-slider.php:2685
 #, fuzzy
 msgid "MetaSlider Slideshow Pro"
 msgstr "MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2682
+#: ml-slider.php:2689
 msgid "Support"
 msgstr "Tuki"
 
-#: ml-slider.php:2687
+#: ml-slider.php:2694
+#: modules/local_video/slide.php:533
 msgid "Documentation"
 msgstr "Dokumentaatio"
 
-#: ml-slider.php:2691
+#: ml-slider.php:2698
 msgid "Leave a review"
 msgstr "Jätä arvio"
 
-#: ml-slider.php:2810
+#: ml-slider.php:2817
 msgid "Uploading..."
 msgstr "Lähetetään..."
 
-#: ml-slider.php:2817
+#: ml-slider.php:2824
 msgid "Upload Complete"
 msgstr "Lähetys valmis"
 
-#: ml-slider.php:2944
+#: ml-slider.php:2951
 msgid "Import file is missing"
 msgstr "Tuontitiedosto puuttuu"
 
-#: ml-slider.php:3095
+#: ml-slider.php:3102
 msgid ""
 "You attempted to edit a slideshow that does not exist. Perhaps it was moved "
 "to trash?"
 msgstr ""
 "Yritit muokata esitystä, jota ei ole olemassa. Ehkä se siirrettiin "
 "roskakoriin?"
+
+#: modules/local_video/helper.php:95
+#: modules/local_video/helper.php:101
+msgid "Update cover image"
+msgstr "Päivitä kansikuva"
+
+#: modules/local_video/helper.php:108
+msgid "Set cover image"
+msgstr "Aseta kansikuva"
+
+#: modules/local_video/helper.php:159
+#: modules/local_video/slide.php:1163
+msgid "Update slide video"
+msgstr "Päivitä dia-video"
+
+#: modules/local_video/helper.php:163
+#: modules/local_video/slide.php:585
+#: modules/local_video/slide.php:1167
+msgid "Browse"
+msgstr "Selaa"
+
+#: modules/local_video/helper.php:168
+#: modules/local_video/slide.php:1172
+msgid "Video File"
+msgstr "Videotiedosto"
+
+#: modules/local_video/slide.php:109
+msgid "Select replacement video"
+msgstr "Valitse korvaava video"
+
+#: modules/local_video/slide.php:110
+msgid "Select replacement cover"
+msgstr "Valitse korvaava kansi"
+
+#: modules/local_video/slide.php:111
+msgid "Select replacement text track"
+msgstr "Valitse korvaava tekstiraita"
+
+#: modules/local_video/slide.php:197
+#: modules/local_video/slide.php:2075
+msgid "Invalid nonce"
+msgstr "Virheellinen nonce"
+
+#: modules/local_video/slide.php:218
+#: modules/local_video/slide.php:897
+#: modules/local_video/slide.php:1107
+msgid "Not supported video format"
+msgstr "Tuettu videomuoto ei ole käytössä"
+
+#: modules/local_video/slide.php:349
+msgid "Local Video Slide"
+msgstr "Paikallinen videodia"
+
+#: modules/local_video/slide.php:370
+msgid "Please update to MetaSlider Slideshow to version 3.2 or above."
+msgstr "Päivitä MetaSlider Slideshow versioon 3.2 tai uudempiin."
+
+#: modules/local_video/slide.php:415
+msgid "Cover"
+msgstr "Kansi"
+
+#: modules/local_video/slide.php:419
+msgid "Text track"
+msgstr "Tekstiraita"
+
+#: modules/local_video/slide.php:476
+msgid "Which language is the source file?"
+msgstr "Mikä kieli on lähdetiedostossa?"
+
+#: modules/local_video/slide.php:477
+msgid "Language label"
+msgstr "Kielilappu"
+
+#: modules/local_video/slide.php:482
+msgid "For example: English"
+msgstr "Esimerkiksi: Englanti"
+
+#: modules/local_video/slide.php:490
+msgid "Choose the type of text track"
+msgstr "Valitse tekstiraidan tyyppi"
+
+#: modules/local_video/slide.php:491
+msgid "Language kind"
+msgstr "Kielen tyyppi"
+
+#: modules/local_video/slide.php:497
+msgid "Captions"
+msgstr "Tekstit"
+
+#: modules/local_video/slide.php:500
+msgid "Chapters"
+msgstr "Luvut"
+
+#: modules/local_video/slide.php:503
+msgid "Descriptions"
+msgstr "Kuvaukset"
+
+#: modules/local_video/slide.php:509
+msgid "Subtitles"
+msgstr "Tekstitykset"
+
+#: modules/local_video/slide.php:517
+msgid "If the language is English, the code must be en"
+msgstr "Jos kieli on englanti, koodin on oltava en"
+
+#: modules/local_video/slide.php:518
+msgid "Language code"
+msgstr "Kielikoodi"
+
+#: modules/local_video/slide.php:523
+msgid "For example: en"
+msgstr "Esimerkiksi: en"
+
+#: modules/local_video/slide.php:576
+msgid "File must be TXT or VTT format"
+msgstr "Tiedoston on oltava TXT- tai VTT-muodossa"
+
+#: modules/local_video/slide.php:577
+msgid "Source"
+msgstr "Lähde"
+
+#: modules/local_video/slide.php:582
+msgid "Update slide text track"
+msgstr "Päivitä dia tekstiraita"
+
+#: modules/local_video/slide.php:956
+msgid "The cover was successfully removed."
+msgstr "Kansikuva poistettiin onnistuneesti."
+
+#: modules/local_video/slide.php:986
+msgid "The requested video does not exist. Please try again."
+msgstr "Pyydettyä videota ei ole olemassa. Yritä uudelleen."
+
+#: modules/local_video/slide.php:995
+msgid "There was an error updating the video. No previous video saved."
+msgstr ""
+"Videon päivittämisessä tapahtui virhe. Aikaisempaa videota ei ole "
+"tallennettu."
+
+#: modules/local_video/slide.php:1011
+msgid "The video was successfully updated."
+msgstr "Video päivitettiin onnistuneesti."
+
+#: modules/local_video/slide.php:1020
+msgid "There was an error updating the video. Please try again"
+msgstr "Videon päivittämisessä tapahtui virhe. Yritä uudelleen"
+
+#: modules/local_video/slide.php:1078
+msgid "You can't add more sources to this video slide."
+msgstr "Et voi lisätä enempää lähteitä tähän videodiaan."
+
+#: modules/local_video/slide.php:1094
+msgid "This slide already has a video in that format."
+msgstr "Tässä diassa on jo video tuossa muodossa."
+
+#: modules/local_video/slide.php:1126
+msgid "The video source was successfully added."
+msgstr "Videolähde lisättiin onnistuneesti."
+
+#: modules/local_video/slide.php:1237
+msgid "This slide requires at least one video source."
+msgstr "Tämä dia vaatii vähintään yhden videolähteen."
+
+#: modules/local_video/slide.php:1250
+msgid "The video source was successfully removed."
+msgstr "Videolähde poistettiin onnistuneesti."
+
+#: modules/local_video/slide.php:1301
+msgid "Not supported text track format"
+msgstr "Ei tuettua tekstiraitamuotoa"
+
+#: modules/local_video/slide.php:1343
+msgid "The requested text track does not exist. Please try again."
+msgstr "Pyydettyä tekstiraitaa ei ole olemassa. Yritä uudelleen."
+
+#: modules/local_video/slide.php:1364
+msgid "The text track was successfully updated."
+msgstr "Tekstiraita päivitettiin onnistuneesti."
+
+#: modules/local_video/slide.php:1373
+msgid "There was an error updating the text track. Please try again"
+msgstr "Tekstiraidan päivittämisessä tapahtui virhe. Yritä uudelleen"
+
+#: modules/local_video/slide.php:1420
+msgid "The text track was successfully removed."
+msgstr "Tekstiraita poistettiin onnistuneesti."
+
+#: modules/local_video/tabs/caption.php:7
+msgid ""
+"Please note that captions on videos can interfere with player controls. We "
+"recommend adding captions when \"Auto play\" is enabled, and \"Show "
+"controls\" and \"Lazy load video\" are both disabled."
+msgstr ""
+"Huomaa, että videoiden tekstitykset voivat häiritä soittimen ohjaimia. "
+"Suosittelemme lisäämään tekstitykset, kun \"Automaattinen toisto\" on "
+"käytössä ja \"Näytä ohjaimet\" sekä \"Laiska lataus video\" ovat molemmat "
+"pois päältä."
+
+#: modules/local_video/tabs/general.php:50
+#: modules/local_video/tabs/general.php:52
+msgid "Add a new video source"
+msgstr "Lisää uusi videosyöte"
+
+#: modules/local_video/tabs/general.php:55
+msgid ""
+"Adding more formats for the same video can help improve support for "
+"different platforms."
+msgstr ""
+"Lisäämällä lisää formaatteja samaan videoon voit parantaa tukea eri "
+"alustoille."
+
+#: modules/local_video/tabs/general.php:97
+msgid "May require video to be muted"
+msgstr "Saattaa vaatia videon mykistämistä"
+
+#: modules/local_video/tabs/general.php:137
+msgid "Fit video in container"
+msgstr "Sovita video astiaan"
+
+#: modules/local_video/tabs/general.php:150
+msgid "Fade in transition"
+msgstr "Häivy sisään -siirtymä"
+
+#: modules/local_video/tabs/general.php:152
+msgid ""
+"Fade in before video loads. Recommended when slide and slideshow Auto play "
+"are enabled, and slideshow Transition effect is fade."
+msgstr ""
+"Häivy sisään ennen kuin video latautuu. Suositellaan, kun liukusäätimen ja "
+"esityksen automaattinen toisto on käytössä ja esityksen siirtymäefekti on "
+"häivy."
+
+#: modules/local_video/tabs/link.php:8
+msgid "Video Link URL"
+msgstr "Videon linkki-URL"
+
+#: modules/local_video/tabs/link.php:11
+msgid ""
+"When visitors click on your video slide, they will be taken to this URL. "
+"This may affect how user interacts with the video controls."
+msgstr ""
+"Kun kävijät napsauttavat videoesitystäsi, heidät ohjataan tähän "
+"URL-osoitteeseen. Tämä voi vaikuttaa siihen, miten käyttäjä vuorovaikuttaa "
+"videon ohjaimien kanssa."
 
 #: themes/architekt/customize.php:16
 #: themes/architekt/customize.php:356
@@ -6788,8 +7164,8 @@ msgstr "Valmistellaan 1 diaa..."
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/dist/js/app.js:2
 #: admin/assets/js/admin.js:168
-#: admin/assets/js/admin.js:1519
-#: admin/assets/js/admin.js:1562
+#: admin/assets/js/admin.js:1554
+#: admin/assets/js/admin.js:1597
 msgid "1 slide added successfully"
 msgstr "1 dia lisättiin onnistuneesti"
 
@@ -6810,6 +7186,8 @@ msgstr "Suljetaan dia lisäämisen käyttöliittymä..."
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:314
+#: modules/local_video/assets/local_video.js:208
+#: modules/local_video/assets/local_video.js:632
 msgid "Updating slide..."
 msgstr "Päivitän diaa..."
 
@@ -6830,21 +7208,22 @@ msgstr "Unsplash-kirjasto"
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:959
 msgid "Pixabay Library"
 msgstr "Pixabay-kirjasto"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1347
+#: admin/assets/js/admin.js:1382
 msgid "Crop position saved and image cropped"
 msgstr "Rajausasema tallennettu ja kuva rajattu"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1364
+#: admin/assets/js/admin.js:1399
 msgid "There was an error when saving crop position or cropping the image"
 msgstr "Tallennettaessa rajausasemaa tai rajatessa kuvaa tapahtui virhe"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1577
+#: admin/assets/js/admin.js:1612
 msgid "Device options are enabled for this slide. Adjust using the Device tab."
 msgstr "Laitteen asetukset ovat käytössä tälle dialle. Säädä Laitteen välilehdellä."
 
@@ -7264,6 +7643,40 @@ msgstr "Kuvia ei löytynyt."
 #: admin/assets/dist/js/app.js:2
 msgid "All images published on Pixabay can be used for free."
 msgstr "Kaikki Pixabay:ssa julkaistut kuvat voidaan käyttää ilmaiseksi."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Search pixabay.com videos..."
+msgstr "Etsi pixabay.com-videoita..."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s on Pixabay"
+msgstr "Video: %s Pixabayssa"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Video on Pixabay"
+msgstr "Video Pixabayssa"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Opening Pixabay Video tab..."
+msgstr "Avaamassa Pixabay Video -välilehteä..."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Pixabay Video tab closed"
+msgstr "Pixabay Video -välilehti suljettu"
+
+#: admin/assets/dist/js/app.js:2
+msgid "No videos found."
+msgstr "Ei videoita löytynyt."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s"
+msgstr "Video %s"
+
+#: admin/assets/dist/js/app.js:2
+msgid "All videos published on Pixabay can be used for free."
+msgstr "Kaikki Pixabayn julkaisemmat videot ovat käytettävissä ilmaiseksi."
 
 #: admin/assets/dist/js/app.js:2
 msgid "Complete!"
@@ -8201,6 +8614,11 @@ msgid "Importing %s slideshows... This may take a minute"
 msgstr "Tuodaan %s slideshow'ta... Tämä saattaa kestää minuutin"
 
 #: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Failed to import: %s"
+msgstr "Tuonti epäonnistui: %s"
+
+#: admin/assets/dist/js/app.js:2
 msgid "Import successful"
 msgstr "Tuo onnistui"
 
@@ -8236,6 +8654,11 @@ msgstr "Käsitellään..."
 #: admin/assets/dist/js/app.js:2
 msgid "Upload file"
 msgstr "Lataa tiedosto"
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Importing slideshow %1$s of %2$s (%3$s slides). This may take a minute."
+msgstr "Tuodaan esitystä %1$s:stä %2$s:ään (%3$s diaa). Tämä saattaa kestää hetken."
 
 #: admin/assets/dist/js/app.js:2
 msgid ""
@@ -8423,6 +8846,43 @@ msgstr "Asetussivua avataan..."
 msgid "Page not found: %s"
 msgstr "Sivua ei löytynyt: %s"
 
+#: admin/assets/js/app/slides/external/videoQuality.js:29, fuzzy
+msgid "4K"
+msgstr "4K"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:30, fuzzy
+msgid "Quad HD"
+msgstr "Quad HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:31, fuzzy
+msgid "Full HD"
+msgstr "Full HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:32, fuzzy
+msgid "HD"
+msgstr "HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:33, fuzzy
+msgid "SD"
+msgstr "SD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:45
+msgid "SD (if available)"
+msgstr "SD (jos saatavilla)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:46
+msgid "HD (if available)"
+msgstr "HD (jos saatavilla)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:47
+msgid "Full HD (if available)"
+msgstr "Full HD (jos saatavilla)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:48
+#: admin/assets/js/app/slides/external/videoQuality.js:64
+msgid "Original"
+msgstr "Alkuperäinen"
+
 #: admin/assets/js/app/tour/main.js:12
 msgid "Add a slide"
 msgstr "Lisää dia"
@@ -8552,6 +9012,103 @@ msgstr "diaesitys"
 msgid "gallery"
 msgstr "galleria"
 
+#: admin/assets/js/livid-iframe.js:132
+#: modules/local_video/assets/local_video.js:46
+#: modules/local_video/assets/local_video.js:166
+#, js-format
+msgid "Preparing %s slide..."
+msgstr "Valmistellaan %s diaa..."
+
+#: modules/local_video/assets/local_video.js:61
+#: modules/local_video/assets/local_video.js:181
+msgid "This isn't a supported video format. Please use MP4, WebM, or MOV videos."
+msgstr "Tämä ei ole tuettu videomuoto. Käytä MP4-, WebM- tai MOV-videoita."
+
+#: modules/local_video/assets/local_video.js:241
+#: modules/local_video/assets/local_video.js:690
+msgid "There is an error"
+msgstr "Tapahtui virhe"
+
+#: modules/local_video/assets/local_video.js:265
+#: modules/local_video/assets/local_video.js:741
+msgid "Video source added successfully"
+msgstr "Videolähde lisätty onnistuneesti"
+
+#: modules/local_video/assets/local_video.js:282
+#: modules/local_video/assets/local_video.js:762
+msgid "Video updated successfully"
+msgstr "Video päivitetty onnistuneesti"
+
+#: modules/local_video/assets/local_video.js:324
+msgid "Create slideshows with videos hosted in your media library"
+msgstr "Luo esityksiä videoista, jotka sijaitsevat mediakirjastossasi"
+
+#: modules/local_video/assets/local_video.js:326
+msgid "Create slideshows with images in your media library"
+msgstr "Luo esityksiä kuvista, jotka sijaitsevat mediakirjastossasi"
+
+#: modules/local_video/assets/local_video.js:328
+msgid ""
+"Layer Slides allow you to add text, colors, shortcodes and media on top of "
+"an image or video."
+msgstr ""
+"Layer Slides mahdollistavat tekstin, värejä, lyhyitä koodeja ja mediaa "
+"lisäämisen kuvan tai videon päälle."
+
+#: modules/local_video/assets/local_video.js:398
+msgid "Cover removed successfully."
+msgstr "Kansikuva poistettu onnistuneesti."
+
+#: modules/local_video/assets/local_video.js:431
+msgid "You can't delete this video. This slide requires at least one video source."
+msgstr "Et voi poistaa tätä videota. Tämä dia vaatii vähintään yhden videosisällön."
+
+#: modules/local_video/assets/local_video.js:462
+msgid "Video source removed successfully"
+msgstr "Videosisältö poistettu onnistuneesti"
+
+#: modules/local_video/assets/local_video.js:481
+msgid "No text track has beed selected for this slide."
+msgstr "Tälle dialle ei ole valittu tekstiraitaa."
+
+#: modules/local_video/assets/local_video.js:503
+msgid "There was an error removing the text track"
+msgstr "Tekstiraidan poistamisessa tapahtui virhe"
+
+#: modules/local_video/assets/local_video.js:520
+msgid "Text track removed successfully"
+msgstr "Tekstiraita poistettu onnistuneesti"
+
+#: modules/local_video/assets/local_video.js:546
+#, js-format
+msgid "Select Replacement %s Video"
+msgstr "Valitse korvaava %s video"
+
+#: modules/local_video/assets/local_video.js:608
+#, js-format
+msgid "Please select a %s video for this source!"
+msgstr "Valitsethan %s videon tälle sisällölle!"
+
+#: modules/local_video/assets/local_video.js:702
+msgid "This isn't a supported image format. Please use JPG, PNG, or GIF images."
+msgstr "Tämä ei ole tuettu kuvamuoto. Käytä JPG-, PNG- tai GIF-kuvia."
+
+#: modules/local_video/assets/local_video.js:708
+msgid "This isn't a supported text track format. Please use TXT or VTT files."
+msgstr "Tämä ei ole tuettu tekstiraidan muoto. Käytä TXT- tai VTT-tiedostoja."
+
+#: modules/local_video/assets/local_video.js:788
+msgid "Text track updated successfully"
+msgstr "Tekstiraita päivitetty onnistuneesti"
+
+#: modules/local_video/assets/local_video.js:861
+msgid "Cover image updated successfully"
+msgstr "Kansikuvapäivitetty onnistuneesti"
+
+#: modules/local_video/assets/local_video.js:906
+msgid "Duplicating the slide failed."
+msgstr "Diaa kopioidessa tapahtui virhe."
+
 #: admin/Notices.php:101
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
@@ -8568,7 +9125,7 @@ msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Review MetaSlider Slideshow &rarr;"
 msgstr "Arvostele MetaSlider &rarr;"
 
-#: ml-slider.php:2053
+#: ml-slider.php:2103
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Select slideshow to insert into post"
@@ -8576,8 +9133,8 @@ msgstr "Valitse diaesitys, jonka haluat lisätä julkaisuun"
 
 #: admin/views/pages/parts/slider-settings.php:665
 #: admin/views/pages/parts/slider-settings.php:685
-#: admin/views/pages/parts/slider-settings.php:1420
-#: admin/views/pages/parts/slider-settings.php:1454, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1450, fuzzy
 msgctxt "Short for milliseconds"
 msgid "ms"
 msgstr "ms"
@@ -8587,7 +9144,7 @@ msgctxt "This is a keyboard shortcut."
 msgid " (Use Alt or ⌥ (Option) + P keys)"
 msgstr " (Käytä Alt- tai ⌥ (Vaihtoehto) + P-näppäimiä)"
 
-#: admin/views/pages/start.php:382
+#: admin/views/pages/start.php:383
 msgctxt "Uploader: Drop files to upload - or - Select Files"
 msgid "or"
 msgstr "tai"

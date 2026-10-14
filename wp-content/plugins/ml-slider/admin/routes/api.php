@@ -99,6 +99,10 @@ class MetaSlider_Api
         add_action('wp_ajax_ms_update_global_settings', array(self::$instance, 'save_global_settings'));
         add_action('wp_ajax_ms_update_global_settings_single', array(self::$instance, 'save_global_settings_single'));
 
+        /* Ask MetaSlider help panel
+         * @since 3.113.0
+         */
+
         // Other
         add_action('wp_ajax_set_tour_status', array(self::$instance, 'set_tour_status'));
         add_action('wp_ajax_ms_get_image_ids_from_filenames', array(self::$instance, 'get_image_ids_from_file_name'));
@@ -1141,7 +1145,7 @@ class MetaSlider_Api
      * Get ids of images based on filename. Used during import
      *
      * @deprecated 3.103 - We no longer use filenames to identify images during import
-     * 
+     *
      * @param object $request The request
      */
     public function get_image_ids_from_file_name($request)
@@ -1220,7 +1224,7 @@ class MetaSlider_Api
     /**
      * Import a downloaded video file (e.g. a picked Pixabay video) and create a media
      * library attachment for it. Unlike import_images(), this never attaches the result to
-     * any slide - the client (pro's Local Video module) wires the returned attachment ID into
+     * any slide - the client (the Local Video module) wires the returned attachment ID into
      * its own postmeta/AJAX actions afterwards, since a video's postmeta model
      * (repeatable ml-slider_video_id) is slide-type specific and not something this
      * generic endpoint should know about.
@@ -1275,6 +1279,9 @@ class MetaSlider_Api
     /**
      * Import theme images
      *
+     * @since 3.113.0 Each row now reports the attachment_id it imported
+     * @since 3.113.0 A slide_type other than 'image' only imports the attachment and hands it back
+     *
      * @param object $request The request
      */
     public function import_images($request)
@@ -1283,7 +1290,7 @@ class MetaSlider_Api
             $this->deny_access();
         }
 
-        $data = $this->get_request_data($request, array('slideshow_id', 'theme_id', 'slide_id', 'image_data', 'extra'));
+        $data = $this->get_request_data($request, array('slideshow_id', 'theme_id', 'slide_id', 'slide_type', 'image_data', 'extra'));
 
         // Sanitize extra data
         if ( isset( $data['extra'] ) && is_array( $data['extra'] ) ) {
@@ -1311,6 +1318,19 @@ class MetaSlider_Api
             ), 400);
         }
 
+        // Only image slides are built here - any other new slide type (e.g. Pro's Layer Slide) is created by its own module from the attachment
+        $slide_type = empty($data['slide_type']) ? 'image' : sanitize_key($data['slide_type']);
+        if (is_null($data['slide_id']) && 'image' !== $slide_type) {
+            $attachments = array();
+            foreach ($image_ids as $image_id) {
+                $attachments[] = array(
+                    'attachment_id' => absint($image_id),
+                    'slideshow_id' => absint($data['slideshow_id'])
+                );
+            }
+            wp_send_json($attachments);
+        }
+
         $errors = array();
         $html_rows = array();
         $method = is_null($data['slide_id']) ? 'create_slide' : 'update';
@@ -1327,6 +1347,9 @@ class MetaSlider_Api
                 $row = array(
                     'slide_id' => $slide->slide_id,
                     'slideshow_id' => absint( $data['slideshow_id'] ),
+                    // Callers replacing media on an existing slide need this to keep their own
+                    // "currently selected" state in sync - e.g. the Local Video cover button
+                    'attachment_id' => absint( $image_id ),
                     'thumbnail_url_small' => $imageSlide->get_intermediate_image_src( 240 ),
                     'thumbnail_url_medium' => $imageSlide->get_intermediate_image_src( 768 ),
                     'thumbnail_url_large' => $imageSlide->get_intermediate_image_src( 1024 )

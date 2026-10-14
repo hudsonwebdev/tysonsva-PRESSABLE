@@ -2,7 +2,7 @@
 Contributors: andergmartins, htmgarcia, publishpress, stevejburge, rochdesigns
 Tags: slider, video slider, image slider, carousel slider, gallery
 Requires at least: 5.0
-Stable tag: 3.112.0
+Stable tag: 3.113.1
 Requires PHP: 7.0
 Tested up to: 7.1
 License: GPLv2 or later
@@ -12,7 +12,7 @@ Slider, gallery, carousel plugin for WordPress. Build your image slider, video s
 
 == Description ==
 
-With MetaSlider, you can create a powerful, SEO-optimized slider, slideshow, carousel, or gallery in minutes. MetaSlider is world’s #1 responsive WordPress slider plugin. MetaSlider is the best choice for image and photo sliders. [MetaSlider Slideshow Pro](https://www.metaslider.com/upgrade/) adds support for video (YouTube, Vimeo, TikTok, local, and external), layer slides, WooCommerce products, custom HTML, single post, post feed sliders and more!
+With MetaSlider, you can create a powerful, SEO-optimized slider, slideshow, carousel, or gallery in minutes. MetaSlider is world’s #1 responsive WordPress slider plugin. MetaSlider is the best choice for image and photo sliders. MetaSlider also builds video sliders from the videos in your WordPress media library. [MetaSlider Slideshow Pro](https://www.metaslider.com/upgrade/) adds support for more video sources (YouTube, Vimeo, TikTok, and external), layer slides, WooCommerce products, custom HTML, single post, post feed sliders and more!
 
 [youtube https://www.youtube.com/watch?v=zBFMhVjlGhs]
 
@@ -27,7 +27,6 @@ MetaSlider slideshows, carousels, sliders and galleries are compatible with the 
 If you’re looking for further customization, [MetaSlider Slideshow Pro](https://www.metaslider.com/upgrade/) offers even more powerful features.
 
 * **YouTube, Vimeo, and TikTok video slides**: Easily include responsive high definition YouTube, Vimeo and TikTok videos in your slideshows.
-* **Local Video slides**: You can build beautiful slideshows with videos in your WordPress media library.
 * **Layer slides**: Create CSS3 animated HTML Layer slides using the built in drag-and-drop WYSIWYG editor.
 * **Post Feed slides**: Automatically show your latest blog posts, events or WooCommerce products in your slide show.
 * **External URL slides**: Display images directly from a non-WordPress sources such as CDNs or image hosts.
@@ -52,11 +51,11 @@ Simply add the URL of your video to a [YouTube slide](https://www.metaslider.com
 
 ### Local and External Video Sliders
 
-External and Local Video Slides are included in [MetaSlider Slideshow Pro](https://www.metaslider.com/upgrade/). With Local Video Slides you can build beautiful slideshows with videos in your WordPress media library. With External Video Slides you can created slideshows with videos hosted outside of your WordPress site.
+[Local Video slides](https://www.metaslider.com/docs/introduction-to-local-video-slides/) are included in MetaSlider. With Local Video slides you can build beautiful slideshows with videos in your WordPress media library. [External Video slides](https://www.metaslider.com/docs/intro-external-video-slides/) are included in [MetaSlider Slideshow Pro](https://www.metaslider.com/upgrade/), and let you create slideshows with videos hosted outside of your WordPress site.
 
-Both [External Video slides](https://www.metaslider.com/docs/intro-external-video-slides/) and [Local Videos slides](https://www.metaslider.com/docs/introduction-to-local-video-slides/) will display your MP4, WebM, and MOV videos with cover images, auto play, mute, lazy load, the ability to hide controls, and much more.
+Both slide types display your MP4, WebM, and MOV videos with cover images, auto play, mute, lazy load, the ability to hide controls, and much more.
 
-It is possible to add [video captions](https://www.metaslider.com/docs/video-captions-for-local-videos/) to both External and Internal Video slides created with [MetaSlider Slideshow Pro](https://www.metaslider.com/upgrade/). This feature uses VTT files to add captions. There is a “CC” button in the toolbar that viewers can use to control the captions. 
+You can also add [video captions](https://www.metaslider.com/docs/video-captions-for-local-videos/) to Local Video and External Video slides. This feature uses VTT files to add captions. There is a “CC” button in the toolbar that viewers can use to control the captions.
 
 ### Post Feed Sliders
 
@@ -219,7 +218,7 @@ To change the style of MetaSlider you should override the default MetaSlider sty
 
 = How to I add captions or subtitles to MetaSlider videos? =
 
-You can add video captions to External and Internal Video Slides created with MetaSlider Slideshow Pro. This feature uses VTT files to add captions. There are four different types of VTT file supported in MetaSlider: Captions, Chapters, Descriptions, and Subtitles.
+You can add video captions to Local Video slides, and to External Video slides created with MetaSlider Slideshow Pro. This feature uses VTT files to add captions. There are four different types of VTT file supported in MetaSlider: Captions, Chapters, Descriptions, and Subtitles.
 
 [Read the guide to video captions](https://www.metaslider.com/docs/video-captions-for-external-videos/)
 

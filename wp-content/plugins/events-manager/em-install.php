@@ -33,6 +33,7 @@ function em_install() {
 			    add_action('em_ml_init', 'EM_ML::toggle_languages_index');
 		 	}else{
 		 		update_option('em_ms_global_install',1); //in case for some reason the user changes global settings in the future
+				em_migrate_ms_global_timeranges();
 		 	}
 			do_action('em_install_create_tables');
 			//New install, or Migrate?
@@ -526,6 +527,7 @@ function em_create_tickets_bookings_meta_table() {
 
 function em_add_options() {
 	global $wp_locale, $wpdb;
+	if( !class_exists("EM_Admin_Notice") ) include_once( EM_DIR . "/classes/em-admin-notices.php" ); // only loaded for admin requests otherwise, but activation can run from WP-CLI
 	$already_installed = get_option('dbem_version', false) !== false;
 	if( !$already_installed ) {
 		$advice = sprintf( __("<p>Events Manager is ready to go! It is highly recommended you read the <a href='%s'>Getting Started</a> guide on our site, as well as checking out the <a href='%s'>Settings Page</a></p>", 'events-manager'), 'https://wp-events-plugin.com/documentation/getting-started-guide/?utm_source=em&utm_medium=plugin&utm_content=installationlink&utm_campaign=plugin_links', EM_ADMIN_URL .'&amp;page=events-manager-options');
@@ -1194,7 +1196,8 @@ function em_upgrade_current_installation(){
 		update_site_option('dbem_data', $data);
 	}
 	// temp promo
-	if( time() < 1786352400 && ( version_compare($current_version, '7.4.1', '<') || !empty($data['admin-modals']['review-nudge']) ) ) {
+	//the timestamp is EM_Admin_Modals::FLASH_SALE_ENDS, that class is only loaded in admin requests
+	if( !defined('EMP_VERSION') && time() < 1791183600 && ( version_compare($current_version, '7.4.6', '<') || !empty($data['admin-modals']['review-nudge']) ) ) {
 		if( empty($data['admin-modals']) ) $data['admin-modals'] = array();
 		$data['admin-modals']['promo-popup'] = true;
 		update_site_option('dbem_data', $data);
@@ -1625,6 +1628,7 @@ function em_upgrade_current_installation(){
 		}
 
 		if( $current_version != '' && version_compare($current_version, '6.1.0.1', '<') ){
+			$flag_column_ready = true;
 			$cols = $wpdb->get_row('SELECT * FROM '. EM_BOOKINGS_TABLE . ' LIMIT 1', ARRAY_A);
 			if( is_array($cols) && !array_key_exists('booking_meta_migrated', $cols) ) {
 				$result = $wpdb->query('ALTER TABLE ' . EM_BOOKINGS_TABLE . ' ADD `booking_meta_migrated` INT(1) NULL');
@@ -1636,79 +1640,13 @@ function em_upgrade_current_installation(){
 					EM_Admin_Notices::add($EM_Admin_Notice, is_multisite());
 					global $em_do_not_finalize_upgrade;
 					$em_do_not_finalize_upgrade = true;
+					$flag_column_ready = false;
 				}
 			}
 			// atomic booking meta! for 6.1
-			// let's go through every booking and split it all up
-			$query = 'SELECT booking_id, booking_meta FROM '. EM_BOOKINGS_TABLE ." WHERE booking_meta_migrated IS NULL LIMIT 500";
-			$results = $wpdb->get_results( $query, ARRAY_A );
-			$timeout = ini_get('max_execution_time') >= 30 ? ini_get('max_execution_time') : 30;
-			while( !empty($results) ){
-				set_time_limit($timeout); // reset the timer, let it run for 30 if we keep hitting the loop, if it gets stuck inside this then let it time out
-				$migrated_bookings = $booking_meta_split = array();
-				foreach( $results as $booking ) {
-					// now we generate split meta, any meta in an array should be dealt with by corresponding plugin (e.g. Pro for form field meta)
-					if( !empty($booking['booking_meta']) ) {
-						$booking_meta = EM_Object::maybe_unserialize($booking['booking_meta']);
-						foreach( $booking_meta as $k => $v ){
-							if( is_array($v) ) {
-								// we go down one level for automated array combining
-								$prefix = '_'.$k.'_';
-								foreach( $v as $kk => $vv ){
-									$kk = $prefix . $kk;
-									if( is_array($vv) ) $vv = serialize($vv);
-									// handle emojis - copied check from wpdb
-									if ( (function_exists( 'mb_check_encoding' ) && !mb_check_encoding( $vv, 'ASCII' )) || preg_match( '/[^\x00-\x7F]/', $vv ) ) {
-										$vv = wp_encode_emoji($vv);
-									}
-									$booking_meta_split[] = $wpdb->prepare("({$booking['booking_id']}, %s, %s)", $kk, $vv);
-								}
-							}else{
-								// handle emojis - copied check from wpdb
-								if ( (function_exists( 'mb_check_encoding' ) && !mb_check_encoding( $v, 'ASCII' )) || preg_match( '/[^\x00-\x7F]/', $v ) ) {
-									$v = wp_encode_emoji($v);
-								}
-								$booking_meta_split[] = $wpdb->prepare("({$booking['booking_id']}, %s, %s)", $k, $v);
-							}
-						}
-						// insert the new split tickets and delete the old one, rinse and repeat
-					}
-					// finally update the booking again so we know it was migrated
-					$migrated_bookings[] = absint($booking['booking_id']);
-				}
-				// first check that we maybe didn't die halfway through this and there aren't others with the same ticket/bookingid combo by simply deleting these
-				$wpdb->query('DELETE FROM '. EM_BOOKINGS_META_TABLE .' WHERE booking_id IN ('. implode(',', $migrated_bookings).')');
-				// now add the batch
-				$result = $wpdb->query('INSERT INTO '. EM_BOOKINGS_META_TABLE . ' (booking_id, meta_key, meta_value) VALUES '. implode(',', $booking_meta_split) );
-				if( $result === false ){
-					$message = "<strong>Events Manager is trying to update your database, but the following error occured whilst copying booking meta to the new ".EM_BOOKINGS_META_TABLE." table:</strong>";
-					$message .= '</p><p>'.'<code>'. $wpdb->last_error .'</code>';
-					$message .= '</p><p>This may likely need some sort of intervention, please get in touch with our support for more advice, we are sorry for the inconveneince.';
-					$EM_Admin_Notice = new EM_Admin_Notice(array( 'name' => 'v6.1-booking-atomic-meta-error', 'who' => 'admin', 'where' => 'all', 'message' => $message, 'what'=>'warning' ));
-					EM_Admin_Notices::add($EM_Admin_Notice, is_multisite());
-					global $em_do_not_finalize_upgrade;
-					$em_do_not_finalize_upgrade = true;
-					break;
-				} else {
-					$result = $wpdb->query('UPDATE '. EM_BOOKINGS_TABLE . ' SET booking_meta_migrated=1 WHERE booking_id IN ('. implode(',', $migrated_bookings).')');
-					if( $result === false ){
-						$message = "<strong>Events Manager is trying to update your database, but the following error occured whilst migrating to the new ".EM_BOOKINGS_META_TABLE." table:</strong>";
-						$message .= '</p><p>'.'<code>'. $wpdb->last_error .'</code>';
-						$message .= '</p><p>This may likely need some sort of intervention, please get in touch with our support for more advice, we are sorry for the inconveneince.';
-						$EM_Admin_Notice = new EM_Admin_Notice(array( 'name' => 'v6.1-booking-atomic-meta-error', 'who' => 'admin', 'where' => 'all', 'message' => $message, 'what'=>'warning' ));
-						EM_Admin_Notices::add($EM_Admin_Notice, is_multisite());
-						global $em_do_not_finalize_upgrade;
-						$em_do_not_finalize_upgrade = true;
-						break;
-					} else {
-						$results = $wpdb->get_results($query, ARRAY_A);
-					}
-				}
+			if( $flag_column_ready && em_migrate_booking_meta() ){
+				update_option('dbem_version', '6.1.0.2'); // we don't need to make this happen again
 			}
-			$wpdb->query('ALTER TABLE '. EM_BOOKINGS_TABLE . ' DROP `booking_meta_migrated`'); // flag done
-			EM_Admin_Notices::remove('v6.1-booking-atomic-meta-error', is_multisite());
-			EM_Admin_Notices::remove('v6.1-atomic-error', is_multisite());
-			update_option('dbem_version', '6.1.0.2'); // we don't need to make this happen again
 		}
 		if( $current_version != '' && version_compare($current_version, '6.1.1', '<') ){
 			EM_Admin_Notices::remove('v6.1-atomic-error', is_multisite());
@@ -2049,6 +1987,9 @@ function em_upgrade_current_installation(){
 		if ( version_compare( $current_version, '7.4.0.2', '<' ) ) {
 			em_repair_detached_events();
 		}
+		if ( version_compare( $current_version, '7.4.4', '<' ) ) {
+			em_repair_event_defaults();
+		}
 
 		$pro_update = function() {
 			if ( defined('EMP_VERSION') && version_compare( EMP_VERSION, '3.7.2', '<' ) ) {
@@ -2062,6 +2003,154 @@ function em_upgrade_current_installation(){
 			add_action('plugins_loaded', $pro_update);
 		}
 	}
+}
+
+/**
+ * Copies this site's own em_timeranges and em_event_timeslots rows into the shared tables under MS Global, remapping their ids and the bookings that point at them.
+ * Until 7.4.6 these two tables were looked up per site but only ever created on the main site, so a subsite only has rows if its tables were created by hand. Rows already in the shared tables win, and the old tables are left in place.
+ *
+ * @return bool Whether any rows were copied.
+ */
+function em_migrate_ms_global_timeranges(){
+	global $wpdb;
+	if( !EM_MS_GLOBAL || $wpdb->prefix === $wpdb->base_prefix || get_option('em_ms_global_timeranges_migrated') ) return false;
+	//read rather than SHOW TABLES, which does not list temporary tables
+	$table_exists = function( $table ) use ( $wpdb ){
+		$suppress = $wpdb->suppress_errors();
+		$wpdb->get_results( "SELECT 1 FROM `$table` LIMIT 1" );
+		$exists = $wpdb->last_error === '';
+		$wpdb->suppress_errors( $suppress );
+		return $exists;
+	};
+	$timerange_ids = $timeslot_ids = $timeslot_events = array();
+	$old_timeranges = $wpdb->prefix . 'em_timeranges';
+	if( $table_exists( $old_timeranges ) ){
+		$shared_groups = array();
+		foreach( $wpdb->get_results( "SELECT * FROM `$old_timeranges` ORDER BY timerange_id", ARRAY_A ) as $row ){
+			$group_id = $row['timerange_group_id'];
+			if( !isset( $shared_groups[ $group_id ] ) ){
+				$shared_groups[ $group_id ] = (bool) $wpdb->get_var( $wpdb->prepare( 'SELECT timerange_id FROM ' . EM_TIMERANGES_TABLE . ' WHERE timerange_group_id=%s LIMIT 1', $group_id ) );
+			}
+			if( $shared_groups[ $group_id ] ) continue;
+			$old_id = $row['timerange_id'];
+			unset( $row['timerange_id'] );
+			if( $wpdb->insert( EM_TIMERANGES_TABLE, $row ) ){
+				$timerange_ids[ $old_id ] = $wpdb->insert_id;
+			}
+		}
+	}
+	$old_timeslots = $wpdb->prefix . 'em_event_timeslots';
+	if( $table_exists( $old_timeslots ) ){
+		$shared_events = array();
+		foreach( $wpdb->get_results( "SELECT * FROM `$old_timeslots` ORDER BY timeslot_id", ARRAY_A ) as $row ){
+			$event_id = absint( $row['event_id'] );
+			if( !isset( $shared_events[ $event_id ] ) ){
+				$shared_events[ $event_id ] = (bool) $wpdb->get_var( $wpdb->prepare( 'SELECT timeslot_id FROM ' . EM_EVENT_TIMESLOTS_TABLE . ' WHERE event_id=%d LIMIT 1', $event_id ) );
+			}
+			if( $shared_events[ $event_id ] ) continue;
+			$old_id = $row['timeslot_id'];
+			unset( $row['timeslot_id'] );
+			//a timerange that was not copied leaves the slot unlinked rather than pointing at whichever shared timerange happens to have that id
+			$row['timerange_id'] = isset( $timerange_ids[ $row['timerange_id'] ] ) ? $timerange_ids[ $row['timerange_id'] ] : 0;
+			if( $wpdb->insert( EM_EVENT_TIMESLOTS_TABLE, $row ) ){
+				$timeslot_ids[ $old_id ] = $wpdb->insert_id;
+				$timeslot_events[ $event_id ] = $event_id;
+			}
+		}
+	}
+	if( !empty( $timeslot_ids ) ){
+		//only events whose slots were just copied can be holding ids from the old table, read first so a new id is never mapped a second time
+		$bookings = $wpdb->get_results( 'SELECT booking_id, timeslot_id FROM ' . EM_BOOKINGS_TABLE . ' WHERE timeslot_id > 0 AND event_id IN (' . implode( ',', $timeslot_events ) . ')' );
+		foreach( $bookings as $booking ){
+			if( isset( $timeslot_ids[ $booking->timeslot_id ] ) ){
+				$wpdb->update( EM_BOOKINGS_TABLE, array( 'timeslot_id' => $timeslot_ids[ $booking->timeslot_id ] ), array( 'booking_id' => $booking->booking_id ), array( '%d' ), array( '%d' ) );
+			}
+		}
+	}
+	update_option( 'em_ms_global_timeranges_migrated', 1 );
+	return !empty( $timerange_ids ) || !empty( $timeslot_ids );
+}
+
+/**
+ * Migrates booking_meta into the atomic bookings meta table in batches of 500, flagging each booking with booking_meta_migrated as it goes, and drops that flag column once every booking is done.
+ * The flag column must already exist. On failure an admin notice is added and $em_do_not_finalize_upgrade is set, and the flag column is left in place so the next attempt resumes where this one stopped instead of re-migrating every booking.
+ *
+ * @return bool Whether the migration ran to completion.
+ */
+function em_migrate_booking_meta(){
+	global $wpdb, $em_do_not_finalize_upgrade;
+	// let's go through every booking and split it all up
+	$query = 'SELECT booking_id, booking_meta FROM '. EM_BOOKINGS_TABLE ." WHERE booking_meta_migrated IS NULL LIMIT 500";
+	$results = $wpdb->get_results( $query, ARRAY_A );
+	$timeout = ini_get('max_execution_time') >= 30 ? ini_get('max_execution_time') : 30;
+	while( !empty($results) ){
+		set_time_limit($timeout); // reset the timer, let it run for 30 if we keep hitting the loop, if it gets stuck inside this then let it time out
+		$migrated_bookings = $booking_meta_split = array();
+		foreach( $results as $booking ) {
+			// now we generate split meta, any meta in an array should be dealt with by corresponding plugin (e.g. Pro for form field meta)
+			if( !empty($booking['booking_meta']) ) {
+				$booking_meta = EM_Object::maybe_unserialize($booking['booking_meta']);
+				foreach( $booking_meta as $k => $v ){
+					if( is_array($v) ) {
+						// we go down one level for automated array combining
+						$prefix = '_'.$k.'_';
+						foreach( $v as $kk => $vv ){
+							$kk = $prefix . $kk;
+							if( is_array($vv) ) $vv = serialize($vv);
+							// handle emojis - copied check from wpdb
+							if ( (function_exists( 'mb_check_encoding' ) && !mb_check_encoding( $vv, 'ASCII' )) || preg_match( '/[^\x00-\x7F]/', $vv ) ) {
+								$vv = wp_encode_emoji($vv);
+							}
+							$booking_meta_split[] = $wpdb->prepare("({$booking['booking_id']}, %s, %s)", $kk, $vv);
+						}
+					}else{
+						// handle emojis - copied check from wpdb
+						if ( (function_exists( 'mb_check_encoding' ) && !mb_check_encoding( $v, 'ASCII' )) || preg_match( '/[^\x00-\x7F]/', $v ) ) {
+							$v = wp_encode_emoji($v);
+						}
+						$booking_meta_split[] = $wpdb->prepare("({$booking['booking_id']}, %s, %s)", $k, $v);
+					}
+				}
+			}
+			// finally update the booking again so we know it was migrated
+			$migrated_bookings[] = absint($booking['booking_id']);
+		}
+		if( empty($migrated_bookings) ){
+			// nothing readable in this batch, so stop rather than re-running the same query or dropping the flag column while rows are unmigrated
+			return false;
+		}
+		// first check that we maybe didn't die halfway through this and there aren't others with the same ticket/bookingid combo by simply deleting these
+		$wpdb->query('DELETE FROM '. EM_BOOKINGS_META_TABLE .' WHERE booking_id IN ('. implode(',', $migrated_bookings).')');
+		// now add the batch, a batch whose bookings all had empty meta has nothing to insert but must still be flagged as migrated or the same rows come back forever
+		$result = true;
+		if( !empty($booking_meta_split) ){
+			$result = $wpdb->query('INSERT INTO '. EM_BOOKINGS_META_TABLE . ' (booking_id, meta_key, meta_value) VALUES '. implode(',', $booking_meta_split) );
+		}
+		if( $result === false ){
+			$message = "<strong>Events Manager is trying to update your database, but the following error occured whilst copying booking meta to the new ".EM_BOOKINGS_META_TABLE." table:</strong>";
+			$message .= '</p><p>'.'<code>'. $wpdb->last_error .'</code>';
+			$message .= '</p><p>This may likely need some sort of intervention, please get in touch with our support for more advice, we are sorry for the inconveneince.';
+			$EM_Admin_Notice = new EM_Admin_Notice(array( 'name' => 'v6.1-booking-atomic-meta-error', 'who' => 'admin', 'where' => 'all', 'message' => $message, 'what'=>'warning' ));
+			EM_Admin_Notices::add($EM_Admin_Notice, is_multisite());
+			$em_do_not_finalize_upgrade = true;
+			return false;
+		}
+		$result = $wpdb->query('UPDATE '. EM_BOOKINGS_TABLE . ' SET booking_meta_migrated=1 WHERE booking_id IN ('. implode(',', $migrated_bookings).')');
+		if( $result === false ){
+			$message = "<strong>Events Manager is trying to update your database, but the following error occured whilst migrating to the new ".EM_BOOKINGS_META_TABLE." table:</strong>";
+			$message .= '</p><p>'.'<code>'. $wpdb->last_error .'</code>';
+			$message .= '</p><p>This may likely need some sort of intervention, please get in touch with our support for more advice, we are sorry for the inconveneince.';
+			$EM_Admin_Notice = new EM_Admin_Notice(array( 'name' => 'v6.1-booking-atomic-meta-error', 'who' => 'admin', 'where' => 'all', 'message' => $message, 'what'=>'warning' ));
+			EM_Admin_Notices::add($EM_Admin_Notice, is_multisite());
+			$em_do_not_finalize_upgrade = true;
+			return false;
+		}
+		$results = $wpdb->get_results($query, ARRAY_A);
+	}
+	$wpdb->query('ALTER TABLE '. EM_BOOKINGS_TABLE . ' DROP `booking_meta_migrated`'); // flag done
+	EM_Admin_Notices::remove('v6.1-booking-atomic-meta-error', is_multisite());
+	EM_Admin_Notices::remove('v6.1-atomic-error', is_multisite());
+	return true;
 }
 
 function em_repair_detached_events(){
@@ -2081,6 +2170,39 @@ function em_repair_detached_events(){
 		JOIN {$wpdb->postmeta} pm ON pm.post_id = e.post_id AND pm.meta_key = '_event_type' AND pm.meta_value = 'single'
 		SET e.recurrence_id = NULL, e.recurrence_set_id = NULL, e.event_type = 'single'
 		WHERE e.event_type = 'recurrence'". $blog_cond
+	);
+}
+
+/**
+ * Fills in event_archetype and event_type on rows where a programmatic save (imports, the REST API, add-ons) left them empty.
+ */
+function em_repair_event_defaults(){
+	global $wpdb;
+	//$wpdb->insert() writes an explicit NULL over the column default when the property was never set, and a NULL archetype or type is filtered out of every event listing
+	$blog_cond = '';
+	if ( EM_MS_GLOBAL ) {
+		//main-site rows may carry NULL/0 blog_id in the shared table (the em_migrate_datetime_timezones convention); subsites stay strict so another blog's rows are left to that blog
+		if ( is_main_site() ) {
+			$blog_cond = $wpdb->prepare(' AND (e.blog_id = %d OR e.blog_id IS NULL OR e.blog_id = 0)', get_current_blog_id());
+		} else {
+			$blog_cond = $wpdb->prepare(' AND e.blog_id = %d', get_current_blog_id());
+		}
+	}
+	//the post type is the archetype, except for repeating CPTs which have no direct equivalent and fall through to the base archetype below
+	$wpdb->query(
+		"UPDATE ". EM_EVENTS_TABLE ." e
+		JOIN {$wpdb->posts} p ON p.ID = e.post_id
+		SET e.event_archetype = p.post_type
+		WHERE ( e.event_archetype IS NULL OR e.event_archetype = '' ) AND p.post_type NOT LIKE '%-recurring' AND p.post_type NOT LIKE '%-repeating'". $blog_cond
+	);
+	$wpdb->query( $wpdb->prepare(
+		"UPDATE ". EM_EVENTS_TABLE ." e SET e.event_archetype = %s WHERE ( e.event_archetype IS NULL OR e.event_archetype = '' )". $blog_cond,
+		EM_POST_TYPE_EVENT
+	) );
+	$wpdb->query(
+		"UPDATE ". EM_EVENTS_TABLE ." e
+		SET e.event_type = CASE WHEN e.post_id IS NULL AND e.recurrence_set_id IS NOT NULL THEN 'recurrence' ELSE 'single' END
+		WHERE ( e.event_type IS NULL OR e.event_type = '' )". $blog_cond
 	);
 }
 

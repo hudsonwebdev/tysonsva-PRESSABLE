@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\View;
 
-trait PlaceholderTrait {
-
-	public function set_placeholder( $placeholder ) {
-		$this->set( 'placeholder', (string) $placeholder );
-
-		return $this;
-	}
+trait PlaceholderTrait
+{
+    /**
+     * @return static
+     */
+    public function set_placeholder(string $placeholder): self
+    {
+        return $this->set('placeholder', $placeholder);
+    }
 
 }

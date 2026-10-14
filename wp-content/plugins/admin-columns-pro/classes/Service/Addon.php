@@ -4,62 +4,40 @@ declare(strict_types=1);
 
 namespace ACP\Service;
 
+use AC;
 use AC\Registerable;
-use ACP\AddonFactory;
-use ACP\Settings\General\IntegrationStatus;
+use ACP\AddonCollection;
 
 final class Addon implements Registerable
 {
+    private AddonCollection $addons;
 
-    private $addons;
+    private AC\Storage\Repository\IntegrationStatus $status;
 
-    private $addon_factory;
-
-    private $integration_status;
-
-    public function __construct(array $addons, AddonFactory $addon_factory, IntegrationStatus $integration_status)
-    {
+    public function __construct(
+        AddonCollection $addons,
+        AC\Storage\Repository\IntegrationStatus $status
+    ) {
         $this->addons = $addons;
-        $this->addon_factory = $addon_factory;
-        $this->integration_status = $integration_status;
+        $this->status = $status;
     }
 
     public function register(): void
     {
-        $deactivate = [];
-
         foreach ($this->addons as $addon) {
-            $filename = sprintf('%1$s%2$s/%1$s%2$s.php', 'ac-addon-', $addon);
-
-            if (is_plugin_active($filename)) {
-                $deactivate[] = $filename;
+            if (! $this->is_active($addon->get_id())) {
+                continue;
             }
-        }
 
-        // Reload to prevent duplicate loading of functions and classes
-        if ($deactivate) {
-            deactivate_plugins($deactivate);
-
-            $protocol = is_ssl() ? 'https' : 'http';
-            $url = $protocol . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
-            wp_redirect($url);
-            exit;
-        }
-
-        foreach ($this->addons as $addon) {
-            if ($this->is_active($addon)) {
-                $this->addon_factory->create($addon)
-                                    ->register();
-            }
+            $addon->register();
         }
     }
 
-    private function is_active(string $addon): bool
+    private function is_active(string $id): bool
     {
-        $is_active = $this->integration_status->is_active(sprintf('ac-addon-%s', $addon));
+        $is_active = $this->status->is_active(sprintf('ac-addon-%s', $id));
 
-        return apply_filters('acp/addon/' . $addon . '/active', $is_active);
+        return (bool)apply_filters('acp/addon/' . $id . '/active', $is_active);
     }
 
 }

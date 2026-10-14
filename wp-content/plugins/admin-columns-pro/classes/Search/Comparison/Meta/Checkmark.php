@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Meta;
 
 use AC\Helper\Select\Options;
@@ -8,10 +10,8 @@ use ACP\Search\Comparison\Values;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Checkmark extends Meta
-    implements Values
+class Checkmark extends Meta implements Values
 {
-
     public function __construct(string $meta_key)
     {
         $operators = new Operators([

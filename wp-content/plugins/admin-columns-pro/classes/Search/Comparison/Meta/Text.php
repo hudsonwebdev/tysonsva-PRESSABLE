@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Meta;
 
 use ACP\Search\Comparison\Meta;
@@ -7,7 +9,6 @@ use ACP\Search\Operators;
 
 class Text extends Meta
 {
-
     public function __construct(string $meta_key)
     {
         $operators = new Operators([

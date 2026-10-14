@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order\Customer;
 
-use ACA\WC\Search;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
 class UserId extends UserField
 {
-
     public function __construct()
     {
         parent::__construct(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service\Post;
 
 use ACP\Editing\Service\BasicStorage;
@@ -8,7 +10,6 @@ use ACP\Editing\View;
 
 class ContentWysiwyg extends BasicStorage
 {
-
     public function __construct()
     {
         parent::__construct(new Storage\Post\Field('post_content'));

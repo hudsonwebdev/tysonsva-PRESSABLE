@@ -9,7 +9,6 @@ use ACP\Sorting\Model\WarningAware;
 
 class EstimateReadingTime extends FieldFormat implements WarningAware
 {
-
     public function __construct()
     {
         parent::__construct('post_content', new FormatValue\WordCount());

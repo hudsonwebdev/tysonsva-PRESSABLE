@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\JetEngine\Field;
 
-trait MultipleTrait {
-
-	public function is_multiple() {
-		return isset( $this->settings['is_multiple'] ) && $this->settings['is_multiple'];
-	}
+trait MultipleTrait
+{
+    public function is_multiple(): bool
+    {
+        return isset($this->settings['is_multiple']) && $this->settings['is_multiple'];
+    }
 
 }

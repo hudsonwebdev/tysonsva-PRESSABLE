@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use AC;
@@ -10,7 +12,6 @@ use WC_Payment_Gateway;
 
 class PaymentMethod extends Comparison\Meta implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([

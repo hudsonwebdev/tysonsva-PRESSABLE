@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
-use ACP\Helper\Select;
 use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class AuthorMeta extends Comparison
 {
-
-    private $meta_key;
+    private string $meta_key;
 
     public function __construct(string $meta_key)
     {
@@ -48,7 +49,7 @@ class AuthorMeta extends Comparison
             $this->meta_key
         );
 
-        $alias = $bindings->get_unique_alias('umsq');
+        $alias = AliasGenerator::generate_from_class(static::class);
         $bindings->join("JOIN($subquery) as $alias on $wpdb->posts.post_author = $alias.ID");
 
         return $bindings;

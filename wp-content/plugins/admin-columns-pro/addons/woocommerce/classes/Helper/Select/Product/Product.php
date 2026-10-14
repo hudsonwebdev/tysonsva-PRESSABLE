@@ -1,26 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Helper\Select\Product;
 
 use AC\ApplyFilter\QueryTotalNumber;
 use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
-use ACP\Helper\Select;
 use WP_Query;
 
-class Product extends ArrayIterator
-    implements Paginated
+class Product extends ArrayIterator implements Paginated
 {
+    protected WP_Query $query;
 
-    /**
-     * @var WP_Query
-     */
-    protected $query;
-
-    /**
-     * @var array
-     */
-    protected $search_fields = [];
+    protected array $search_fields = [];
 
     public function __construct(array $args = [])
     {
@@ -64,7 +57,7 @@ class Product extends ArrayIterator
         remove_filter('posts_search', __FUNCTION__);
 
         // Empty search
-        if ( ! $search_where) {
+        if (! $search_where) {
             return $search_where;
         }
 

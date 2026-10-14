@@ -24,19 +24,78 @@ class Helpers {
     }
 
     public static function sanitize_for_excel( $input ) {
+        $input               = (string) $input;
         $dangerousCharacters = array( '=', '+', '-', '@', '|' );
 
-        if ( empty( $input ) || !is_string( $input ) ) {
-            return '';
-        }
+        // Strip leading whitespace and formula sigils repeatedly, e.g. " \t =1+1".
+        while ( '' !== $input ) {
+            $trimmed = ltrim( $input, " \t\r\n\0\x0B" );
 
-        while ( strlen( $input ) > 0 && in_array( $input[0], $dangerousCharacters ) ) {
-            $input = substr( $input, 1 );
+            if ( $trimmed !== $input ) {
+                $input = $trimmed;
+                continue;
+            }
+
+            if ( in_array( $input[0], $dangerousCharacters, true ) ) {
+                $input = substr( $input, 1 );
+                continue;
+            }
+
+            break;
         }
 
         return $input;
     }
 
+    /**
+     * Serialize a value as a single RFC 4180 CSV field.
+     *
+     * Formula sigils are removed first, then the value is quoted with any
+     * embedded double quote doubled so it can never terminate the field early.
+     */
+    public static function escape_csv_field( $input ) {
+        return '"' . str_replace( '"', '""', self::sanitize_for_excel( $input ) ) . '"';
+    }
+
+    /**
+     * Whether the current user may edit every supplied object.
+     *
+     * The whole batch is validated before any caller mutates anything, so a
+     * request mixing authorized and unauthorized IDs is rejected atomically.
+     *
+     * @param array|int   $ids                Object IDs.
+     * @param string|null $expected_post_type Required post type, or null to accept any.
+     * @return bool
+     */
+    public static function canEditObjects( $ids, $expected_post_type = null ) {
+        $ids = array_map( 'intval', (array) $ids );
+
+        if ( count( $ids ) === 0 ) {
+            return false;
+        }
+
+        foreach ( $ids as $id ) {
+            if ( $id <= 0 ) {
+                return false;
+            }
+
+            $post = get_post( $id );
+
+            if ( ! $post ) {
+                return false;
+            }
+
+            if ( null !== $expected_post_type && $post->post_type !== $expected_post_type ) {
+                return false;
+            }
+
+            if ( ! current_user_can( 'edit_post', $id ) ) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public static function sanitize_intval_array( $var ) {
         if ( is_array( $var ) ) {
@@ -185,21 +244,104 @@ class Helpers {
         // Return the formatted string
         return $values_string;
     }
-    public static function backupFileBird() {
+    const BACKUP_META_OPTION = 'fbv_backups_meta';
+
+    public static function backupOptionLike() {
+        global $wpdb;
+        return $wpdb->esc_like( 'filebird_backup_' ) . '%';
+    }
+
+    /**
+     * Snapshot the folder structure into an option.
+     *
+     * @param string $type auto | manual | before_import | before_restore
+     * @param string $note Shown next to the backup, e.g. the imported file's name.
+     */
+    public static function backupFileBird( $type = 'auto', $note = '' ) {
         global $wpdb;
 		$keep = 29;
-		$count_backup = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->options} WHERE `option_name` LIKE 'filebird_backup_%'" );
-		if( $count_backup > $keep ) {
-			$wpdb->query( "DELETE FROM {$wpdb->options} WHERE `option_name` LIKE 'filebird_backup_%' ORDER BY `option_id` ASC LIMIT " . (int)($count_backup - $keep) );
+		$count_backup = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->options} WHERE `option_name` LIKE %s", self::backupOptionLike() ) );
+		// Make room for the one about to be added, so no more than $keep are ever stored.
+		if( $count_backup >= $keep ) {
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->options} WHERE `option_name` LIKE %s ORDER BY `option_id` ASC LIMIT %d", self::backupOptionLike(), (int)($count_backup - $keep + 1) ) );
 		}
 		$folders = FolderModel::exportAll();
         $now = time();
-        $id = date( 'Y_m_d_H_i_s', $now );
+        // The id is a timestamp, so two backups in the same second (e.g. Backup Now right before an import) would overwrite each other.
+        while ( false !== get_option( 'filebird_backup_' . gmdate( 'Y_m_d_H_i_s', $now ), false ) ) {
+            $now++;
+        }
+        $id = gmdate( 'Y_m_d_H_i_s', $now );
 
-        $format_from_wp_settings = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
-        $name = wp_date( $format_from_wp_settings, $now );
+        $name = self::backupName( $id );
 		update_option( 'filebird_backup_' . $id, $folders, false );
-        return compact( 'id', 'name' );
+
+        $meta = array_merge(
+            array(
+                'type'       => $type,
+                'note'       => sanitize_text_field( $note ),
+                'post_types' => self::enabledPostTypes(),
+            ),
+            self::countBackupRows( $folders )
+        );
+        $all_meta = self::getBackupsMeta();
+        $all_meta[ $id ] = $meta;
+        update_option( self::BACKUP_META_OPTION, $all_meta, false );
+
+        return array_merge( compact( 'id', 'name' ), $meta );
+    }
+
+    /** A backup's date in the site's date and time format; the id is the UTC time it was made (Y_m_d_H_i_s). */
+    public static function backupName( $id ) {
+        $date = \DateTime::createFromFormat( 'Y_m_d_H_i_s', $id, new \DateTimeZone( 'UTC' ) );
+        if ( ! $date ) {
+            return $id;
+        }
+        return wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $date->getTimestamp() );
+    }
+
+    /** Meta of the backups that still exist, keyed by backup id. */
+    public static function getBackupsMeta() {
+        global $wpdb;
+        $meta = get_option( self::BACKUP_META_OPTION, array() );
+        if ( ! is_array( $meta ) ) {
+            $meta = array();
+        }
+        $ids = array_map(
+            function( $option_name ) {
+                return substr( $option_name, strlen( 'filebird_backup_' ) );
+            },
+            $wpdb->get_col( $wpdb->prepare( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s", self::backupOptionLike() ) )
+        );
+        return array_intersect_key( $meta, array_flip( $ids ) );
+    }
+
+    /** Post types that have FileBird folders turned on. */
+    public static function enabledPostTypes() {
+        return array_values( array_filter( explode( ',', (string) get_option( 'fbv_enabled_posttype', '' ) ) ) );
+    }
+
+    /** How many folders and filed items a backup holds. */
+    public static function countBackupRows( $rows ) {
+        $folders = 0;
+        $files   = 0;
+        foreach ( (array) $rows as $row ) {
+            $folders++;
+            if ( ! empty( $row['attachment_ids'] ) ) {
+                $files += count( explode( '|', $row['attachment_ids'] ) );
+            }
+        }
+        return compact( 'folders', 'files' );
+    }
+
+    /**
+     * Normalize a site URL so http/https, www and a trailing slash don't make the same site look different.
+     */
+    public static function siteKey( $url ) {
+        $url = strtolower( trim( (string) $url ) );
+        $url = preg_replace( '#^[a-z]+://#', '', $url );
+        $url = preg_replace( '#^www\.#', '', $url );
+        return untrailingslashit( $url );
     }
 
     public static function getExcludedPostTypes() {

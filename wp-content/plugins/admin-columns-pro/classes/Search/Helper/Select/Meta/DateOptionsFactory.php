@@ -10,10 +10,9 @@ use DateTime;
 
 class DateOptionsFactory
 {
+    private Query $meta_query;
 
-    private $meta_query;
-
-    private $date_format;
+    private string $date_format;
 
     public function __construct(Query $meta_query, string $date_format = 'Y-m-d')
     {
@@ -35,7 +34,7 @@ class DateOptionsFactory
         foreach ($this->meta_query->get() as $meta_value) {
             $date = DateTime::createFromFormat($this->date_format, $meta_value);
 
-            if ( ! $date) {
+            if (! $date) {
                 continue;
             }
 

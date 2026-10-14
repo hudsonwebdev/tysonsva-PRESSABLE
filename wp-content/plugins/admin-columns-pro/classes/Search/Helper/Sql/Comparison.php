@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Helper\Sql;
 
 use ACP\Search\Value;
+use ACP\Sql\Identifier;
 
 class Comparison extends Statement
 {
+    protected string $column;
 
-    protected $column;
-
-    protected $operator;
+    protected string $operator;
 
     public function __construct(string $column, string $operator, Value $value)
     {
@@ -25,15 +27,12 @@ class Comparison extends Statement
     {
         return sprintf(
             '%s %s ?',
-            $this->column,
+            Identifier::quote($this->column),
             $this->operator
         );
     }
 
-    /**
-     * @return string
-     */
-    public function __invoke()
+    public function __invoke(): string
     {
         return $this->prepare();
     }

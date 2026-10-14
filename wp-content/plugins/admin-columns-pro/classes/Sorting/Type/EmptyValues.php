@@ -1,22 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Type;
 
 use LogicException;
 
 class EmptyValues
 {
-
     public const NULL = null;
     public const EMPTY_STRING = '';
     public const ZERO = 0;
     public const LTE_ZERO = -1;
 
-    private $values;
+    private array $values;
 
     public function __construct(array $values)
     {
-        if ( ! self::is_valid($values)) {
+        if (! self::is_valid($values)) {
             throw new LogicException('Invalid values.');
         }
 

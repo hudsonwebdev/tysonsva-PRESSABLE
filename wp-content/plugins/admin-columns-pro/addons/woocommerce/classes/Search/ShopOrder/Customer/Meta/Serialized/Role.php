@@ -1,27 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder\Customer\Meta\Serialized;
 
 use AC;
 use AC\Helper\Select\Options;
 use ACA\WC\Search\ShopOrder\Customer\Meta\Serialized;
 
-class Role extends Serialized {
+class Role extends Serialized
+{
+    private array $roles;
 
-	/** @var array */
-	private $roles;
+    public function __construct(array $roles)
+    {
+        $this->roles = $roles;
 
-	public function __construct( $roles ) {
-		$this->roles = $roles;
+        parent::__construct('wp_capabilities');
+    }
 
-		parent::__construct( 'wp_capabilities' );
-	}
-
-	/**
-	 * @return Options
-	 */
-	public function get_values(): Options {
-		return AC\Helper\Select\Options::create_from_array( $this->roles );
-	}
+    public function get_values(): Options
+    {
+        return AC\Helper\Select\Options::create_from_array($this->roles);
+    }
 
 }

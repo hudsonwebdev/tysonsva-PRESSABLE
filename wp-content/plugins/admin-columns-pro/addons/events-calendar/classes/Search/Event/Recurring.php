@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\EC\Search\Event;
 
 use AC;
@@ -8,10 +10,10 @@ use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class Recurring extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -28,7 +30,7 @@ class Recurring extends Comparison implements Comparison\Values
         $not_recur = 's:5:"rules";a:0:{}s:10:"exclusions";a:0:{}';
 
         $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('ecrec');
+        $alias = AliasGenerator::generate_from_class(static::class);
         $bindings->join(
             " JOIN {$wpdb->postmeta} as {$alias} ON {$wpdb->posts}.ID = {$alias}.post_id AND {$alias}.meta_key = '_EventRecurrence'"
         );
@@ -40,7 +42,7 @@ class Recurring extends Comparison implements Comparison\Values
         $where = "{$alias}.meta_value {$join_type} '%$not_recur%'";
 
         if ('yes' !== $value->get_value()) {
-            $where .= " OR ${alias}.meta_value = ''";
+            $where .= " OR {$alias}.meta_value = ''";
         }
 
         $bindings->where('(' . $where . ')');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\JetEngine\Editing\Service;
 
 use ACP;
@@ -8,8 +10,7 @@ use ACP\Editing\View;
 
 abstract class Relationship extends ACP\Editing\Service\BasicStorage implements ACP\Editing\PaginatedOptions
 {
-
-    private $multiple;
+    private bool $multiple;
 
     public function __construct(Editing\Storage $storage, bool $multiple)
     {

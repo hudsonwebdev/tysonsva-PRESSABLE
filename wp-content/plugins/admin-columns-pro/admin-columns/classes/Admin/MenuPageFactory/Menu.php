@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin\MenuPageFactory;
 
 use AC\Admin\Admin;
@@ -8,7 +10,6 @@ use AC\Capabilities;
 
 class Menu implements MenuPageFactory
 {
-
     public function create(array $args = []): string
     {
         return add_menu_page(
@@ -16,7 +17,7 @@ class Menu implements MenuPageFactory
             __('Admin Columns', 'codepress-admin-columns'),
             Capabilities::MANAGE,
             Admin::NAME,
-            null,
+            '',
             $args['icon'] ?? null,
             $args['position'] ?? null
         );

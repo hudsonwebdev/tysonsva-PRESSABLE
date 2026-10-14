@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use AC;
@@ -7,10 +9,8 @@ use AC\Helper\Select\Options;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 
-class IsCustomer extends Comparison\Meta
-    implements Comparison\Values
+class IsCustomer extends Comparison\Meta implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators(

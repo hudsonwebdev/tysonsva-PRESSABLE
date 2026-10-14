@@ -6,7 +6,6 @@ namespace ACP\Sorting\Model\Post;
 
 class PageTemplate extends MetaMapping
 {
-
     public function __construct(string $post_type, string $meta_key)
     {
         parent::__construct($meta_key, $this->get_sorted_fields($post_type));
@@ -14,9 +13,13 @@ class PageTemplate extends MetaMapping
 
     private function get_sorted_fields(string $post_type): array
     {
+        if (! function_exists('get_page_templates')) {
+            return [];
+        }
+
         $templates = get_page_templates(null, $post_type);
 
-        if ( ! $templates) {
+        if (! $templates) {
             return [];
         }
 

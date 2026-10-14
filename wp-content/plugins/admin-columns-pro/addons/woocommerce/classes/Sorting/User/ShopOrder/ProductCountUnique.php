@@ -1,21 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Sorting\User\ShopOrder;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
-use ACP\Sorting\Model\SqlTrait;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Expression\Comparison;
 
-class ProductCountUnique implements QueryBindings
+class ProductCountUnique extends Base
 {
+    private ?array $status;
 
-    use SqlTrait;
-
-    private $status;
-
-    public function __construct(array $status = null)
+    public function __construct(?array $status = null)
     {
         if (null === $status) {
             $status = ['wc-completed'];
@@ -24,27 +23,24 @@ class ProductCountUnique implements QueryBindings
         $this->status = $status;
     }
 
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
 
-        $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('pcount');
-
         $where = $this->status
-            ? sprintf("AND acsort_posts.post_status IN ( %s )", $this->esc_sql_array($this->status))
+            ? "AND " . Comparison::in('acsort_posts.post_status', $this->status)
             : '';
 
         $bindings->join(
-            " 
-            LEFT JOIN $wpdb->postmeta AS acsort_postmeta ON acsort_postmeta.meta_value = $wpdb->users.ID 
+            "
+            LEFT JOIN $wpdb->postmeta AS acsort_postmeta ON acsort_postmeta.meta_value = $wpdb->users.ID
                 AND acsort_postmeta.meta_key = '_customer_user'
             LEFT JOIN $wpdb->posts AS acsort_posts ON acsort_postmeta.post_id = acsort_posts.ID
                 AND acsort_posts.post_type = 'shop_order'
                 $where
-            LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS acsort_orderitems ON acsort_orderitems.order_id = acsort_posts.ID 
+            LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS acsort_orderitems ON acsort_orderitems.order_id = acsort_posts.ID
                 AND acsort_orderitems.order_item_type = 'line_item'
-            LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS $alias ON acsort_orderitems.order_item_id = $alias.order_item_id 
+            LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS $alias ON acsort_orderitems.order_item_id = $alias.order_item_id
                 AND $alias.meta_key = '_product_id'
 		"
         );
@@ -52,8 +48,6 @@ class ProductCountUnique implements QueryBindings
         $bindings->order_by(
             SqlOrderByFactory::create_with_count("DISTINCT $alias.meta_value", (string)$order)
         );
-
-        return $bindings;
     }
 
 }

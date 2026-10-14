@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Product;
 
 use AC;
@@ -9,10 +11,8 @@ use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Sale extends Comparison
-    implements Comparison\Values
+class Sale extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -59,10 +59,11 @@ class Sale extends Comparison
     {
         global $wpdb;
 
-        $on_sale_products = wc_get_product_ids_on_sale();
+        $on_sale_products = array_map('absint', wc_get_product_ids_on_sale());
         $operator = ('onsale' === $value->get_value()) ? 'IN' : 'NOT IN';
 
-        return sprintf("{$wpdb->posts}.ID {$operator} ( %s )", implode(',', $on_sale_products));
+        // No post has ID zero, so a shop without any sale still yields valid SQL.
+        return sprintf("{$wpdb->posts}.ID {$operator} ( %s )", implode(',', $on_sale_products ?: [0]));
     }
 
 }

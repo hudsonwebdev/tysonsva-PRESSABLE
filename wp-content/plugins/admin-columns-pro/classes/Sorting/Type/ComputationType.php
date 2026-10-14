@@ -11,7 +11,6 @@ use LogicException;
  */
 class ComputationType
 {
-
     public const AVG = 'AVG';
     public const COUNT = 'COUNT';
     public const MIN = 'MIN';
@@ -19,11 +18,11 @@ class ComputationType
     public const ROUND = 'ROUND';
     public const SUM = 'SUM';
 
-    private $value;
+    private string $value;
 
     public function __construct(string $value)
     {
-        if ( ! self::is_valid($value)) {
+        if (! self::is_valid($value)) {
             throw new LogicException('Invalid Computation type.');
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Product\ShopOrder;
 
 use ACP\Query\Bindings;
@@ -7,10 +9,10 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class OrderCount extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -27,8 +29,8 @@ class OrderCount extends Comparison
         global $wpdb;
 
         $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('wc_oim');
-        $join_alias = $bindings->get_unique_alias('product');
+        $alias = AliasGenerator::generate_from_class(static::class);
+        $join_alias = AliasGenerator::generate('product');
 
         $sub_query = "
 			SELECT {$alias}.meta_value AS product_id, COUNT( 1 ) as order_count

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace ACP\ConditionalFormat;
 
-use ACP\Expression\ComparisonOperators;
-use ACP\Expression\DateOperators;
-use ACP\Expression\Exception\OperatorNotFoundException;
-use ACP\Expression\StringOperators;
+use AC\Expression\ComparisonOperators;
+use AC\Expression\DateOperators;
+use AC\Expression\Exception\OperatorNotFoundException;
+use AC\Expression\RangeOperators;
+use AC\Expression\StringOperators;
 
 final class Operators
 {
-
     private const LABEL = 'label';
     private const TYPE = 'type';
     private const OPERATOR = 'operator';
@@ -22,7 +22,7 @@ final class Operators
 
     public function get_group(string $operator): string
     {
-        if ( ! $this->has_operator($operator)) {
+        if (! $this->has_operator($operator)) {
             throw new OperatorNotFoundException($operator);
         }
 
@@ -58,7 +58,7 @@ final class Operators
 
         if ($operator_groups === null) {
             $operator_groups = [
-                StringOperators::class     => [
+                StringOperators::class => [
                     [
                         self::OPERATOR => StringOperators::CONTAINS,
                         self::LABEL    => _x('Contains', 'operator', 'codepress-admin-columns'),
@@ -102,31 +102,31 @@ final class Operators
                         self::LABEL    => _x('Greater Than or Equal', 'operator', 'codepress-admin-columns'),
                     ],
                     [
-                        self::OPERATOR => ComparisonOperators::BETWEEN,
+                        self::OPERATOR => RangeOperators::BETWEEN,
                         self::TYPE     => self::TYPE_BETWEEN,
                         self::LABEL    => _x('Between', 'operator', 'codepress-admin-columns'),
                     ],
                     [
-                        self::OPERATOR => ComparisonOperators::NOT_BETWEEN,
+                        self::OPERATOR => RangeOperators::NOT_BETWEEN,
                         self::TYPE     => self::TYPE_BETWEEN,
                         self::LABEL    => _x('Not Between', 'operator', 'codepress-admin-columns'),
                     ],
                 ],
-                DateOperators::class       => [
+                DateOperators::class => [
                     [
-                        self::OPERATOR => DateOperators::DATE_IS,
+                        self::OPERATOR => 'date_is',
                         self::LABEL    => _x('Date is', 'operator', 'codepress-admin-columns'),
                     ],
                     [
-                        self::OPERATOR => DateOperators::DATE_IS_AFTER,
+                        self::OPERATOR => 'date_is_after',
                         self::LABEL    => _x('Date is After', 'operator', 'codepress-admin-columns'),
                     ],
                     [
-                        self::OPERATOR => DateOperators::DATE_IS_BEFORE,
+                        self::OPERATOR => 'date_is_before',
                         self::LABEL    => _x('Date is Before', 'operator', 'codepress-admin-columns'),
                     ],
                     [
-                        self::OPERATOR => DateOperators::DATE_BETWEEN,
+                        self::OPERATOR => 'date_between',
                         self::LABEL    => _x('Date Between', 'operator', 'codepress-admin-columns'),
                     ],
                     [
@@ -161,7 +161,7 @@ final class Operators
 
             foreach ($operator_groups as $group => $operators) {
                 foreach ($operators as $k => $definition) {
-                    if ( ! isset($definition[self::TYPE])) {
+                    if (! isset($definition[self::TYPE])) {
                         $operator_groups[$group][$k][self::TYPE] = self::TYPE_SINGLE;
                     }
                 }

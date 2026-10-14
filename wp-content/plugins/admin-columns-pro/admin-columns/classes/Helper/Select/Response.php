@@ -1,31 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper\Select;
 
-final class Response {
+final class Response
+{
+    private Options $options;
 
-	/**
-	 * @var Options
-	 */
-	private $options;
+    private bool $more;
 
-	/**
-	 * @var bool
-	 */
-	private $more;
+    public function __construct(Options $options, bool $more = false)
+    {
+        $this->options = $options;
+        $this->more = $more;
+    }
 
-	public function __construct( Options $options, bool $more = false ) {
-		$this->options = $options;
-		$this->more = $more;
-	}
-
-	public function __invoke() {
-		return [
-			'results'    => ArrayMapper::map( $this->options ),
-			'pagination' => [
-				'more' => $this->more,
-			],
-		];
-	}
+    public function __invoke(): array
+    {
+        return [
+            'results'    => ArrayMapper::map($this->options),
+            'pagination' => [
+                'more' => $this->more,
+            ],
+        ];
+    }
 
 }

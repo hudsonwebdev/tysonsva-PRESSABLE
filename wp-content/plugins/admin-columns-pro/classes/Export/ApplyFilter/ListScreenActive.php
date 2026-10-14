@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Export\ApplyFilter;
 
 use AC\ListScreen;
 
 class ListScreenActive
 {
-
-    private $list_screen;
+    private ListScreen $list_screen;
 
     public function __construct(ListScreen $list_screen)
     {
@@ -16,7 +17,7 @@ class ListScreenActive
 
     public function apply_filters(bool $is_active): bool
     {
-        return (bool)apply_filters('acp/export/is_active', $is_active, $this->list_screen);
+        return (bool)apply_filters('ac/export/is_active', $is_active, $this->list_screen);
     }
 
 }

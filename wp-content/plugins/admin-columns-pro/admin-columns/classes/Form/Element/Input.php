@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Form\Element;
 
 use AC\Form\Element;
 
 class Input extends Element
 {
-
-    protected function is_valid_type($type)
+    protected function is_valid_type(string $type): bool
     {
         $valid_types = [
             'hidden',
@@ -34,23 +35,18 @@ class Input extends Element
         return sprintf($template, $this->get_attributes_as_string($attributes), $this->render_description());
     }
 
-    public function get_type()
+    public function get_type(): string
     {
         $type = $this->get_attribute('type');
 
-        if ( ! $type) {
+        if (! $type) {
             return 'text';
         }
 
         return strtolower($type);
     }
 
-    /**
-     * @param string $type
-     *
-     * @return $this
-     */
-    public function set_type($type)
+    public function set_type(string $type): self
     {
         if ($this->is_valid_type($type)) {
             $this->set_attribute('type', $type);

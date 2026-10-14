@@ -8,8 +8,7 @@ use RuntimeException;
 
 final class UnserializeException extends RuntimeException
 {
-
-    private $data;
+    private string $data;
 
     public function __construct(string $data)
     {

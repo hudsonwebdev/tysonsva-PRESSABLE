@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\JetEngine\Field\Type;
 
 use ACA\JetEngine\Field\DefaultValue;
 use ACA\JetEngine\Field\DefaultValueTrait;
 use ACA\JetEngine\Field\Field;
 
-class Wysiwyg extends Field implements DefaultValue {
+final class Wysiwyg extends Field implements DefaultValue
+{
+    use DefaultValueTrait;
 
-	const TYPE = 'wysiwyg';
-
-	use DefaultValueTrait;
+    public const TYPE = 'wysiwyg';
 }

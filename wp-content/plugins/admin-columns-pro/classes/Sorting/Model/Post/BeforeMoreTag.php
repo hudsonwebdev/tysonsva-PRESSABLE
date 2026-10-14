@@ -10,7 +10,6 @@ use ACP\Sorting\Type\Order;
 
 class BeforeMoreTag implements QueryBindings
 {
-
     public function create_query_bindings(Order $order): Bindings
     {
         global $wpdb;

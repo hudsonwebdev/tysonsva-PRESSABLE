@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\BP\Search\Profile;
 
 use AC\Helper\Select\Options;
-use ACA\BP\Helper\Select;
 use ACA\BP\Search;
 use ACP\Query\Bindings;
 use ACP\Search\Comparison\RemoteValues;
@@ -14,7 +15,6 @@ use DateTime;
 
 class Date extends Search\Profile implements RemoteValues
 {
-
     public function __construct($meta_key)
     {
         $operators = new Operators([
@@ -61,7 +61,7 @@ class Date extends Search\Profile implements RemoteValues
         foreach ($wpdb->get_col($sql) as $value) {
             $date = DateTime::createFromFormat('Ym', $value);
 
-            if ( ! $date) {
+            if (! $date) {
                 continue;
             }
 

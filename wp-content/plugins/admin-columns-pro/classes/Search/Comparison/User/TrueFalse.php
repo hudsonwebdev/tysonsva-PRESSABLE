@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\User;
 
 use ACP\Search\Comparison;
@@ -9,7 +11,6 @@ use ACP\Search\Value;
 
 class TrueFalse extends Comparison\Meta
 {
-
     public function __construct(string $meta_key)
     {
         $operators = new Operators([

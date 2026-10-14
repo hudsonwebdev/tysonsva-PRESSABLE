@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Query\Bindings;
@@ -10,7 +12,6 @@ use ACP\Sorting\Type\Order;
 
 class FieldFormat implements QueryBindings
 {
-
     use PostResultsTrait;
 
     public function __construct(string $db_column, FormatValue $formatter)

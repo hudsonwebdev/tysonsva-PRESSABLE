@@ -1,29 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\API;
 
+use LogicException;
 use WP_Error;
 
 class Response
 {
+    private ?object $body = null;
 
-    /**
-     * @var object
-     */
-    private $body;
+    private ?WP_Error $error = null;
 
-    /**
-     * @var WP_Error
-     */
-    private $error;
-
-    public function get_body()
+    public function get_body(): ?object
     {
         return $this->body;
     }
 
     public function get_error(): WP_Error
     {
+        if (! $this->error instanceof WP_Error) {
+            throw new LogicException('Use has_error().');
+        }
+
         return $this->error;
     }
 
@@ -48,8 +48,15 @@ class Response
         return $self;
     }
 
+    public function has($key): bool
+    {
+        return isset($this->body->{$key});
+    }
+
     /**
      * Access properties from the body
+     *
+     * @return mixed
      */
     public function get($key)
     {

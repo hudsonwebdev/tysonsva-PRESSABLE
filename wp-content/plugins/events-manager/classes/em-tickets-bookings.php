@@ -138,7 +138,7 @@ class EM_Tickets_Bookings extends EM_Object implements Iterator, Countable, Arra
 		$sql_parts = EM_Bookings::get_sql( $args );
 		$conditions = $orderbys =  $joins =  $fields = array();
 		// quick search hack, if we're looking for what is formatted as a ticket uuid then circumvent searching the bookings
-		if( preg_match('/^[a-zA-Z0-9]{32}$/', $args['search']) ) {
+		if( preg_match('/^[a-zA-Z0-9]{32}$/D', $args['search']) ) {
 			unset($sql_parts['data']['conditions']['search']);
 			$conditions['search'] = "ticket_uuid = '{$args['search']}'";
 			$sql_parts['statement']['where'] = 'WHERE ' . implode(' AND ', $sql_parts['data']['conditions'] ); // recreate conditions without search

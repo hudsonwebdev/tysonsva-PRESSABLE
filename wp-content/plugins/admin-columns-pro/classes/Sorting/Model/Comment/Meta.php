@@ -10,15 +10,15 @@ use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
 class Meta implements QueryBindings
 {
+    private string $meta_key;
 
-    private $meta_key;
+    protected DataType $data_type;
 
-    protected $data_type;
-
-    public function __construct(string $meta_key, DataType $data_type = null)
+    public function __construct(string $meta_key, ?DataType $data_type = null)
     {
         $this->meta_key = $meta_key;
         $this->data_type = $data_type ?: new DataType(DataType::STRING);
@@ -31,10 +31,10 @@ class Meta implements QueryBindings
         $bindings = new Bindings();
 
         $bindings->join(
-            $wpdb->prepare(
-                "LEFT JOIN $wpdb->commentmeta AS acsort_commentmeta ON $wpdb->comments.comment_ID = acsort_commentmeta.comment_id AND acsort_commentmeta.meta_key = %s",
-                $this->meta_key
-            )
+            Join::left($wpdb->commentmeta, 'acsort_commentmeta')
+                ->on("$wpdb->comments.comment_ID", '=', 'acsort_commentmeta.comment_id')
+                ->on('acsort_commentmeta.meta_key', '=', $wpdb->prepare('%s', $this->meta_key))
+                ->get_sql()
         );
         $bindings->group_by("$wpdb->comments.comment_ID");
         $bindings->order_by(
@@ -52,7 +52,6 @@ class Meta implements QueryBindings
             [
                 'cast_type' => (string)CastType::create_from_data_type($this->data_type),
             ]
-
         );
     }
 

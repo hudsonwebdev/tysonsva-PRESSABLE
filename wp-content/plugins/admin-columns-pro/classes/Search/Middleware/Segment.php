@@ -8,19 +8,16 @@ use AC;
 use AC\Middleware;
 use AC\Table\TableFormView;
 use ACP\Search\DefaultSegmentTrait;
-use ACP\Search\SegmentRepository;
 
 final class Segment implements Middleware
 {
-
     use DefaultSegmentTrait;
 
-    private $list_screen;
+    private AC\ListScreen $list_screen;
 
-    public function __construct(AC\ListScreen $list_screen, SegmentRepository\Database $segment_repository)
+    public function __construct(AC\ListScreen $list_screen)
     {
         $this->list_screen = $list_screen;
-        $this->segment_repository = $segment_repository;
     }
 
     public function handle(AC\Request $request): void
@@ -42,7 +39,7 @@ final class Segment implements Middleware
 
         $segment = $this->get_default_segment($this->list_screen);
 
-        if ( ! $segment) {
+        if (! $segment) {
             return;
         }
 

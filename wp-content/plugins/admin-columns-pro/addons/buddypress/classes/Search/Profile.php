@@ -1,41 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\BP\Search;
 
-use ACA\BP\Helper\Select;
 use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Labels;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class Profile extends Comparison
 {
+    protected int $field;
 
-    /**
-     * @var string
-     */
-    protected $field;
-
-    /**
-     * Profile constructor.
-     *
-     * @param Operators $operators
-     * @param string    $db_field
-     * @param string    $value
-     * @param Labels    $labels
-     */
-    public function __construct($operators, $db_field, $value, $labels = null)
+    public function __construct(Operators $operators, int $db_field, string $value, ?Labels $labels = null)
     {
         $this->field = $db_field;
 
         parent::__construct($operators, $value, $labels);
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb, $bp;
@@ -45,7 +32,7 @@ class Profile extends Comparison
         }
 
         $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('bpx');
+        $alias = AliasGenerator::generate_from_class(static::class);
 
         $where = ComparisonFactory::create(
             $alias . '.value',
@@ -62,13 +49,13 @@ class Profile extends Comparison
         return $bindings;
     }
 
-    private function create_empty_bindings()
+    private function create_empty_bindings(): Bindings
     {
         global $wpdb, $bp;
 
         $bindings = new Bindings();
-        $alias_first = $bindings->get_unique_alias('bpxp1');
-        $alias_second = $bindings->get_unique_alias('bpxp2');
+        $alias_first = AliasGenerator::generate_from_class(static::class);
+        $alias_second = AliasGenerator::generate('bpxp2');
 
         $join = " LEFT JOIN {$bp->profile->table_name_data} AS {$alias_first} ON ( {$wpdb->users}.ID = {$alias_first}.user_id )";
         $join .= $wpdb->prepare(" AND {$alias_first}.field_id = %d", $this->field);

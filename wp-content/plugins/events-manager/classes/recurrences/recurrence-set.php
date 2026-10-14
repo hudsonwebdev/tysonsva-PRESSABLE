@@ -981,6 +981,8 @@ class Recurrence_Set extends EM_Object {
 
 						//Make template event index, post, and meta (we change event dates, timestamps, rsvp dates and other recurrence-relative info whilst saving each event recurrence)
 						list( $event, $post_fields, $meta_fields ) = $this->get_recurrence_saving_fields();
+						// post_name is overwritten with the dated slug on every iteration below, so the un-dated base has to be kept separately
+						$base_post_name = $post_fields['post_name'] ?? '';
 						$recurring_date_format = apply_filters( 'em_event_save_events_format', 'Y-m-d' );
 						// modify some field values we don't need for a recreation
 						$event['event_date_created'] = current_time( 'mysql' ); //since the recurrences are recreated
@@ -1012,7 +1014,7 @@ class Recurrence_Set extends EM_Object {
 								//set post slug, which may need to be sanitized for length as we pre/postfix a date for uniqueness
 								if ( $EM_Event->is_repeating() ) {
 									$event_slug_date = $EM_DateTime->format( $recurring_date_format );
-									$event_slug = $this->sanitize_recurrence_slug( $post_fields['post_name'], $event_slug_date );
+									$event_slug = $this->sanitize_recurrence_slug( $base_post_name, $event_slug_date );
 									$event_slug = apply_filters( 'em_event_save_events_recurrence_slug', $event_slug . '-' . $event_slug_date, $event_slug, $event_slug_date, $day, $EM_Event, $this ); //use this instead
 									$post_fields['post_name'] = $event['event_slug'] = apply_filters( 'em_event_save_events_slug', $event_slug, $post_fields, $day, $matching_days, $EM_Event, $this ); //deprecated filter
 								}
@@ -1752,8 +1754,8 @@ class Recurrence_Set extends EM_Object {
 		$result = true;
 		foreach ( $this->get_recurrences() as $recurrence ) {
 			$event_id = $recurrence['event_id'];
-			// Delete bookings associated with the event
-			$EM_Bookings = new EM_Bookings( $event_id );
+			// EM_Bookings only recognizes an EM_Event object or an array of bookings, not a bare event id
+			$EM_Bookings = new EM_Bookings( em_get_event( $event_id ) );
 			if ( !$EM_Bookings->delete() ) {
 				$this->add_error( esc_html__( 'There was a problem deleting bookings for the event.', 'events-manager' ) );
 				$result = false;

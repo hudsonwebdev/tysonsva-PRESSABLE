@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use ACP;
@@ -11,7 +13,6 @@ use ACP\Search\Value;
 
 class BeforeMoreTag extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AC\Admin\Colors\Shipped;
@@ -9,8 +10,7 @@ use AC\Admin\Colors\Type\Color;
 
 final class ColorParser
 {
-
-    private $file;
+    private string $file;
 
     public function __construct(string $file)
     {
@@ -22,7 +22,7 @@ final class ColorParser
         $collection = new ColorCollection();
         $contents = file_get_contents($this->file);
 
-        if ( ! $contents) {
+        if (! $contents) {
             return $collection;
         }
 

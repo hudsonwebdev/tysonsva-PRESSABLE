@@ -1,33 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\FieldGroup;
 
-use AC\ListScreen;
-use ACA\ACF\FieldGroup;
+use AC;
+use AC\Acf\FieldGroup\Location;
+use ACA\WC;
 use ACP;
 
-final class QueryFactory {
+final class QueryFactory extends AC\Acf\FieldGroup\QueryFactory
+{
+    public function create(AC\TableScreen $table_screen): ?AC\Acf\FieldGroup\Query
+    {
+        if ($table_screen instanceof ACP\TableScreen\Taxonomy) {
+            return new Location\Taxonomy();
+        }
 
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return Query|null
-	 */
-	public function create( ListScreen $list_screen ) {
-		switch ( true ) {
-			case $list_screen instanceof ACP\ListScreen\Media:
-				return new FieldGroup\Location\Media();
-			case $list_screen instanceof ACP\ListScreen\Post:
-				return new FieldGroup\Location\Post( $list_screen->get_post_type() );
-			case $list_screen instanceof ACP\ListScreen\User:
-				return new FieldGroup\Location\User();
-			case $list_screen instanceof ACP\ListScreen\Taxonomy:
-				return new FieldGroup\Location\Taxonomy();
-			case $list_screen instanceof ACP\ListScreen\Comment:
-				return new FieldGroup\Location\Comment();
-		}
+        if ($table_screen instanceof WC\TableScreen\Order) {
+            return new Location\Post('shop_order');
+        }
 
-		return null;
-	}
+        return parent::create($table_screen);
+    }
 
 }

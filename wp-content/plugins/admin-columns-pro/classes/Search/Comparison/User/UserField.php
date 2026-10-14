@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\User;
 
 use ACP\Query\Bindings;
@@ -9,7 +11,6 @@ use ACP\Search\Value;
 
 abstract class UserField extends Comparison
 {
-
     abstract protected function get_field(): string;
 
     protected function create_query_bindings(string $operator, Value $value): Bindings

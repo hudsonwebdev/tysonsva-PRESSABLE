@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service;
 
 use ACP\Editing\Service;
@@ -10,29 +12,19 @@ use RuntimeException;
 
 class DateTime implements Service
 {
+    public const FORMAT = 'Y-m-d H:i:s';
 
-    const FORMAT = 'Y-m-d H:i:s';
+    private View\DateTime $view;
 
-    /**
-     * @var View\DateTime
-     */
-    private $view;
+    private Storage $storage;
 
-    /**
-     * @var Storage
-     */
-    private $storage;
+    protected string $date_format;
 
-    /**
-     * @var string
-     */
-    protected $date_format;
-
-    public function __construct(View\DateTime $view, Storage $storage, $date_format = self::FORMAT)
+    public function __construct(View\DateTime $view, Storage $storage, ?string $date_format = null)
     {
         $this->view = $view;
         $this->storage = $storage;
-        $this->date_format = (string)$date_format;
+        $this->date_format = $date_format ?? self::FORMAT;
     }
 
     public function get_view(string $context): ?View
@@ -44,8 +36,8 @@ class DateTime implements Service
     {
         if ($data) {
             $date_time = PhpDateTime::createFromFormat(self::FORMAT, $data);
-            
-            if ( ! $date_time) {
+
+            if (! $date_time) {
                 throw new RuntimeException(__("Invalid date provided"));
             }
             $data = $date_time->format($this->date_format);
@@ -58,7 +50,7 @@ class DateTime implements Service
     {
         $value = $this->storage->get($id);
 
-        if ( ! $value) {
+        if (! $value) {
             return false;
         }
 

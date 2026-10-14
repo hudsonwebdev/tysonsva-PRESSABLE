@@ -1,42 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Storage\Comment;
 
 use ACP\Editing\Storage;
 use RuntimeException;
 
-class Field implements Storage {
+class Field implements Storage
+{
+    private string $field;
 
-	/**
-	 * @var string
-	 */
-	private $field;
+    public function __construct(string $field)
+    {
+        $this->field = $field;
+    }
 
-	public function __construct( $field ) {
-		$this->field = (string) $field;
-	}
+    public function get(int $id)
+    {
+        $comment = get_comment($id);
 
-	public function get( int $id ) {
-		$comment = get_comment( $id );
+        return $comment && property_exists($comment, $this->field)
+            ? $comment->{$this->field}
+            : null;
+    }
 
-		return property_exists( $comment, $this->field )
-			? $comment->{$this->field}
-			: null;
-	}
+    public function update(int $id, $data): bool
+    {
+        $args = [
+            'comment_ID' => $id,
+            $this->field => $data,
+        ];
 
-	public function update( int $id, $data ): bool {
-		$args = [
-			'comment_ID' => $id,
-			$this->field => $data,
-		];
+        $result = wp_update_comment($args);
 
-		$result = wp_update_comment( $args );
+        if (is_wp_error($result)) {
+            throw new RuntimeException($result->get_error_message());
+        }
 
-		if ( is_wp_error( $result ) ) {
-			throw new RuntimeException( $result->get_error_message() );
-		}
-
-		return is_int( $result ) && $result > 0;
-	}
+        return is_int($result) && $result > 0;
+    }
 
 }

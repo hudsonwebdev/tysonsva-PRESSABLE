@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Meta;
 
 use AC\Helper\Select\Options\Paginated;
 use AC\Meta\Query;
-use ACP\Helper\Select;
 use ACP\Helper\Select\Post\LabelFormatter\PostTitle;
 use ACP\Helper\Select\Post\PaginatedFactory;
 use ACP\Search\Comparison\Meta;
@@ -14,25 +15,23 @@ use ACP\Search\Operators;
 use ACP\Search\Value;
 use WP_Term;
 
-class Post extends Meta
-    implements SearchableValues
+class Post extends Meta implements SearchableValues
 {
-
-    protected $post_types;
+    protected array $post_types;
 
     /**
      * @var WP_Term[]
      */
-    protected $terms;
+    protected array $terms;
 
-    protected $query;
+    protected ?Query $query;
 
     public function __construct(
         string $meta_key,
         array $post_types = [],
         array $terms = [],
-        Labels $labels = null,
-        Query $query = null
+        ?Labels $labels = null,
+        ?Query $query = null
     ) {
         $this->post_types = $post_types;
         $this->terms = $terms;
@@ -67,7 +66,9 @@ class Post extends Meta
 
     protected function get_post__in(): array
     {
-        return $this->query->get();
+        return $this->query
+            ? $this->query->get()
+            : [];
     }
 
     public function get_values(string $search, int $page): Paginated

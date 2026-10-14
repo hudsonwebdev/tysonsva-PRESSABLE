@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Message;
 
 use AC\Message;
@@ -7,21 +9,13 @@ use AC\View;
 
 class Plugin extends Message
 {
+    protected string $plugin_basename;
 
-    protected $plugin_basename;
-
-    protected $icon;
-
-    public function __construct(string $message, string $plugin_basename, string $type = null)
+    public function __construct(string $message, string $plugin_basename, ?string $type = null)
     {
-        if (null === $type) {
-            $type = self::WARNING;
-        }
-
-        parent::__construct($message, $type);
+        parent::__construct($message, $type ?? self::WARNING);
 
         $this->plugin_basename = $plugin_basename;
-        $this->icon = $this->get_icon_by_current_type();
     }
 
     public function register(): void
@@ -54,7 +48,7 @@ class Plugin extends Message
 
         $data = [
             'plugin_basename' => $this->plugin_basename,
-            'icon'            => $this->icon,
+            'icon'            => $this->get_icon_by_current_type(),
             'class'           => $class,
             'message'         => $this->message,
             'type'            => $this->type,
@@ -67,10 +61,7 @@ class Plugin extends Message
         return $view->render();
     }
 
-    /**
-     * @return string
-     */
-    protected function get_icon_by_current_type()
+    protected function get_icon_by_current_type(): string
     {
         $mapping = [
             self::SUCCESS => '\f147', // yes
@@ -79,18 +70,7 @@ class Plugin extends Message
             self::INFO    => '\f14c', // info outline
         ];
 
-        if ( ! isset($mapping[$this->type])) {
-            return false;
-        }
-
-        return $mapping[$this->type];
-    }
-
-    public function set_icon(string $icon): self
-    {
-        $this->icon = $icon;
-
-        return $this;
+        return $mapping[$this->type] ?? '';
     }
 
 }

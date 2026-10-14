@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Query\Bindings;
@@ -8,10 +10,10 @@ use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\QueryBuilder;
 
 class Shortcodes implements WarningAware, QueryBindings
 {
-
     use PostResultsTrait;
 
     public function __construct()
@@ -37,7 +39,9 @@ class Shortcodes implements WarningAware, QueryBindings
         $ids = [];
 
         foreach ($this->get_query_results() as $row) {
-            $ids[$row->id] = $this->formatter->format_value($row->value);
+            $ids[$row->id] = $this->formatter
+                ? $this->formatter->format_value($row->value)
+                : $row->value;
         }
 
         $ids = array_filter($ids);
@@ -51,27 +55,18 @@ class Shortcodes implements WarningAware, QueryBindings
     {
         global $wpdb;
 
-        $where = '';
+        $query = QueryBuilder::for($wpdb->posts)
+            ->select_columns(["$wpdb->posts.ID AS id", "$wpdb->posts.post_content AS value"])
+            ->where("$wpdb->posts.post_type", '=', $this->get_var_post_type())
+            ->and_where_raw("$wpdb->posts.post_content LIKE '%[%'")
+            ->and_where_raw("$wpdb->posts.post_content LIKE '%]%'");
 
         $status = $this->get_var_post_status();
-
         if ($status) {
-            $where = $wpdb->prepare("\nAND $wpdb->posts.post_status = %s", $status);
+            $query->and_where("$wpdb->posts.post_status", '=', $status);
         }
 
-        $sql = $wpdb->prepare(
-            "
-            SELECT $wpdb->posts.ID AS id, $wpdb->posts.post_content AS value
-            FROM $wpdb->posts
-            WHERE $wpdb->posts.post_type = %s
-                AND $wpdb->posts.post_content LIKE '%[%' 
-                AND $wpdb->posts.post_content LIKE '%]%'
-                $where
-            ",
-            $this->get_var_post_type()
-        );
-
-        return $wpdb->get_results($sql);
+        return $wpdb->get_results($query->get_sql());
     }
 
 }

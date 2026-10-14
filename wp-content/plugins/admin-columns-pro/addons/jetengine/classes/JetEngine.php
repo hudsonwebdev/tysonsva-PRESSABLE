@@ -1,27 +1,41 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\JetEngine;
 
 use AC;
-use AC\Registerable;
+use AC\DI\Container;
 use AC\Services;
+use ACP\Addon;
+use ACP\AdminColumnsPro;
 use ACP\Service\IntegrationStatus;
 
-class JetEngine implements Registerable
+final class JetEngine implements Addon
 {
+    private AC\Asset\Location $location;
 
-    private $location;
+    private Container $container;
 
-    public function __construct(AC\Asset\Location\Absolute $location)
+    public function __construct(Container $container)
     {
-        $this->location = $location;
+        $this->container = $container;
+        $this->location = $container->get(AdminColumnsPro::class)->get_addon_location($this->get_id());
+    }
+
+    public function get_id(): string
+    {
+        return 'jetengine';
     }
 
     public function register(): void
     {
-        if ( ! class_exists('Jet_Engine', false) || ! $this->check_minimum_jet_engine_version()) {
+        if (! class_exists('Jet_Engine', false) || ! $this->check_minimum_jet_engine_version()) {
             return;
         }
+
+        AC\ColumnFactories\Aggregate::add($this->container->get(ColumnFactories\MetaFactory::class));
+        AC\ColumnFactories\Aggregate::add($this->container->get(ColumnFactories\RelationFactory::class));
 
         $this->create_services()->register();
     }
@@ -29,11 +43,7 @@ class JetEngine implements Registerable
     private function create_services(): Services
     {
         return new Services([
-            new Service\Admin($this->location),
-            new Service\ColumnInstantiate(),
-            new Service\ColumnGroups(),
-            new Service\RelationalColumns(),
-            new Service\MetaColumns(),
+            new Service\ColumnGroups($this->location),
             new IntegrationStatus('ac-addon-jetengine'),
         ]);
     }

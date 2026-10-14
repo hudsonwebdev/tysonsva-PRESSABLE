@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-05-25T13:04:12+00:00\n"
-"PO-Revision-Date: 2026-08-28 16:44+0000\n"
+"PO-Revision-Date: 2026-09-16 16:45+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ml-slider\n"
 "Language: cs_CZ\n"
@@ -144,29 +144,42 @@ msgstr "Přečíst více"
 #: inc/slide/metaslide.image.class.php:232
 #: inc/slide/metaslide.image.class.php:286
 #: inc/slide/metaslide.image.class.php:404
-#: ml-slider.php:944
-#: ml-slider.php:1026
-#: ml-slider.php:1138
-#: ml-slider.php:2853
-#: ml-slider.php:2898
-#: ml-slider.php:2973
+#: inc/slide/metaslide.livid.class.php:334
+#: inc/slide/metaslide.livid.class.php:401
+#: inc/slide/metaslide.livid.class.php:448
+#: inc/slide/metaslide.livid.class.php:776
+#: ml-slider.php:994
+#: ml-slider.php:1076
+#: ml-slider.php:1188
+#: ml-slider.php:2860
+#: ml-slider.php:2905
+#: ml-slider.php:2980
+#: modules/local_video/slide.php:870
+#: modules/local_video/slide.php:928
+#: modules/local_video/slide.php:1036
+#: modules/local_video/slide.php:1201
+#: modules/local_video/slide.php:1274
+#: modules/local_video/slide.php:1388
 msgid "The security check failed. Please refresh the page and try again."
 msgstr "Kontrola zabezpečení selhala. Prosím, obnovte stránku a zkuste to znovu."
 
 #: admin/Notices.php:394
 #: admin/Notices.php:642
-#: admin/routes/api.php:141
+#: admin/routes/api.php:145
 #: inc/slide/metaslide.class.php:152
 #: inc/slide/metaslide.image.class.php:135
 #: inc/slide/metaslide.image.class.php:154
 #: inc/slide/metaslide.image.class.php:240
 #: inc/slide/metaslide.image.class.php:294
-#: ml-slider.php:952
-#: ml-slider.php:1034
-#: ml-slider.php:1146
-#: ml-slider.php:2861
-#: ml-slider.php:2906
-#: ml-slider.php:2981
+#: inc/slide/metaslide.livid.class.php:342
+#: inc/slide/metaslide.livid.class.php:409
+#: inc/slide/metaslide.livid.class.php:456
+#: ml-slider.php:1002
+#: ml-slider.php:1084
+#: ml-slider.php:1196
+#: ml-slider.php:2868
+#: ml-slider.php:2913
+#: ml-slider.php:2988
 msgid "Access denied. Sorry, you do not have permission to complete this task."
 msgstr "Přístup odepřen. Omlouváme se, nemáte oprávnění k dokončení této úlohy."
 
@@ -177,12 +190,25 @@ msgstr "Přístup odepřen. Omlouváme se, nemáte oprávnění k dokončení t�
 #: inc/slide/metaslide.image.class.php:249
 #: inc/slide/metaslide.image.class.php:303
 #: inc/slide/metaslide.image.class.php:422
-#: ml-slider.php:961
-#: ml-slider.php:1043
-#: ml-slider.php:1155
-#: ml-slider.php:2870
-#: ml-slider.php:2914
-#: ml-slider.php:2990
+#: inc/slide/metaslide.livid.class.php:351
+#: inc/slide/metaslide.livid.class.php:416
+#: inc/slide/metaslide.livid.class.php:463
+#: inc/slide/metaslide.livid.class.php:470
+#: inc/slide/metaslide.livid.class.php:793
+#: ml-slider.php:1011
+#: ml-slider.php:1093
+#: ml-slider.php:1205
+#: ml-slider.php:2877
+#: ml-slider.php:2921
+#: ml-slider.php:2997
+#: modules/local_video/slide.php:209
+#: modules/local_video/slide.php:887
+#: modules/local_video/slide.php:945
+#: modules/local_video/slide.php:1057
+#: modules/local_video/slide.php:1221
+#: modules/local_video/slide.php:1291
+#: modules/local_video/slide.php:1405
+#: modules/local_video/slide.php:2091
 msgid "Bad request"
 msgstr "Špatný požadavek"
 
@@ -229,6 +255,7 @@ msgid "URL"
 msgstr "URL"
 
 #: admin/Pages.php:157
+#: modules/local_video/slide.php:423
 #: themes/architekt/customize.php:511
 #: themes/bitono/customize.php:625
 #: themes/blend/customize.php:655
@@ -306,7 +333,7 @@ msgid "Tone"
 msgstr "Tón"
 
 #: admin/Pages.php:186
-#: admin/views/pages/parts/slider-settings.php:1431
+#: admin/views/pages/parts/slider-settings.php:1427
 #: admin/views/slides/tabs/background.php:73
 #: inc/metaslider.imagestyles.class.php:463
 #: themes/architekt/customize.php:602
@@ -410,46 +437,46 @@ msgstr "Barva textu"
 msgid "Link Text"
 msgstr "Text odkazu"
 
-#: admin/routes/api.php:462
+#: admin/routes/api.php:466
 msgid "The request format was not valid."
 msgstr "Formát požadavku nebyl platný."
 
-#: admin/routes/api.php:470
-#: admin/routes/api.php:602
+#: admin/routes/api.php:474
+#: admin/routes/api.php:606
 msgid "This slideshow is no longer available."
 msgstr "Tento slideshow již není k dispozici."
 
-#: admin/routes/api.php:557
+#: admin/routes/api.php:561
 msgid "Nothing to import."
 msgstr "Není co importovat."
 
-#: admin/routes/api.php:609
+#: admin/routes/api.php:613
 msgid "This was not a slideshow, so we cannot delete it."
 msgstr "Toto nebyl slideshow, takže ho nemůžeme smazat."
 
-#: admin/routes/api.php:822
+#: admin/routes/api.php:826
 msgid "This was not a slideshow, so we cannot update the setting."
 msgstr "Toto nebyl slideshow, takže nemůžeme aktualizovat nastavení."
 
-#: admin/routes/api.php:930
+#: admin/routes/api.php:934
 msgid "The title cannot be empty."
 msgstr "Název nemůže být prázdný."
 
-#: admin/routes/api.php:934
-#: admin/routes/api.php:1208
+#: admin/routes/api.php:938
+#: admin/routes/api.php:1212
 #, php-format
 msgid "The field (%s) cannot be empty"
 msgstr "Pole (%s) nemůže být prázdné"
 
-#: admin/routes/api.php:1198
+#: admin/routes/api.php:1202
 msgid "Maximum Number of Custom Field in Post Feed Sliders"
 msgstr "Maximální počet vlastních polí v posuvnících příspěvků"
 
-#: admin/routes/api.php:1242
+#: admin/routes/api.php:1246
 msgid "No video file was received by the server."
 msgstr "Žádný video soubor nebyl serverem přijat."
 
-#: admin/routes/api.php:1258
+#: admin/routes/api.php:1262
 #. translators: 1: uploaded filename, 2: mime type WordPress detected, or "none"
 #, php-format
 msgid ""
@@ -459,19 +486,19 @@ msgstr ""
 "Video \"%1$s\" bylo odmítnuto před nahráním (detekovaný typ: %2$s). Může to "
 "být nepodporovaný formát nebo překračuje limit nahrávání tohoto serveru."
 
-#: admin/routes/api.php:1260
+#: admin/routes/api.php:1264
 msgid "none"
 msgstr "žádný"
 
-#: admin/routes/api.php:1268
+#: admin/routes/api.php:1272
 msgid "The video could not be imported."
 msgstr "Video se nepodařilo importovat."
 
-#: admin/routes/api.php:1386
+#: admin/routes/api.php:1409
 msgid "Import slug not found"
 msgstr "Importní slug nebyl nalezen"
 
-#: admin/routes/api.php:1402
+#: admin/routes/api.php:1425
 msgid "Import data could not be processed"
 msgstr "Importní data nemohla být zpracována"
 
@@ -480,18 +507,18 @@ msgid "We could not find any images to import."
 msgstr "Nenašli jsme žádné obrázky k importu."
 
 #: admin/slideshows/Settings.php:59
-#: inc/slider/metaslider.class.php:161
+#: inc/slider/metaslider.class.php:165
 msgid "New Slideshow"
 msgstr "Nový slideshow"
 
 #: admin/slideshows/Settings.php:86
-#: inc/slider/metaslider.class.php:188
+#: inc/slider/metaslider.class.php:192
 #: inc/slider/metaslider.flex.class.php:819
 msgid "Previous"
 msgstr "Předchozí"
 
 #: admin/slideshows/Settings.php:87
-#: inc/slider/metaslider.class.php:189
+#: inc/slider/metaslider.class.php:193
 #: inc/slider/metaslider.flex.class.php:820
 msgid "Next"
 msgstr "Další"
@@ -516,23 +543,23 @@ msgstr "Nepodařilo se importovat textovou stopu z URL: %s."
 msgid "Failed to import image from URL: %s."
 msgstr "Nepodařilo se importovat obrázek z URL: %s."
 
-#: admin/slideshows/Slideshows.php:1204
+#: admin/slideshows/Slideshows.php:1208
 msgid "Only http/https URLs are allowed."
 msgstr "Povolené jsou pouze URL adresy http/https."
 
-#: admin/slideshows/Slideshows.php:1214
+#: admin/slideshows/Slideshows.php:1218
 msgid "URL does not point to an allowed file type."
 msgstr "URL neodkazuje na povolený typ souboru."
 
-#: admin/slideshows/Slideshows.php:1224
+#: admin/slideshows/Slideshows.php:1228
 msgid "URL resolves to a disallowed address."
 msgstr "URL odkazuje na nepovolenou adresu."
 
-#: admin/slideshows/Themes.php:60
+#: admin/slideshows/Themes.php:203
 msgid "No themes found."
 msgstr "Žádné motivy nebyly nalezeny."
 
-#: admin/slideshows/Themes.php:449
+#: admin/slideshows/Themes.php:595
 msgid ""
 "We removed your selected theme as it could not be found. Was the folder "
 "deleted?"
@@ -549,100 +576,100 @@ msgstr ""
 "Zatím nemáte žádné prezentace. Klikněte %shere%s pro vytvoření nové "
 "prezentace."
 
-#: admin/Table.php:184
-#: admin/Table.php:347
+#: admin/Table.php:193
+#: admin/Table.php:356
 #: inc/slide/metaslide.class.php:420
 msgid "Restore"
 msgstr "Obnovit"
 
-#: admin/Table.php:185
-#: admin/Table.php:348
+#: admin/Table.php:194
+#: admin/Table.php:357
 #: inc/slide/metaslide.class.php:430
 msgid "Delete Permanently"
 msgstr "Trvale smazat"
 
-#: admin/Table.php:189
-#: admin/Table.php:362
+#: admin/Table.php:198
+#: admin/Table.php:371
 msgid "Trash"
 msgstr "Koš"
 
-#: admin/Table.php:200
+#: admin/Table.php:209
 #: admin/views/pages/parts/toolbar.php:75
 #: admin/assets/dist/js/app.js:2
 msgid "Preview"
 msgstr "Náhled"
 
-#: admin/Table.php:201
+#: admin/Table.php:210
 #: admin/assets/dist/js/app.js:2
 msgid "Title"
 msgstr "Název"
 
-#: admin/Table.php:202
+#: admin/Table.php:211
 msgid "Type of Slides"
 msgstr "Typ snímků"
 
-#: admin/Table.php:203
+#: admin/Table.php:212
 msgid "Number of Slides"
 msgstr "Počet snímků"
 
-#: admin/Table.php:204
+#: admin/Table.php:213
 msgid "Theme"
 msgstr "Motiv"
 
-#: admin/Table.php:205
+#: admin/Table.php:214
 msgid "Created"
 msgstr "Vytvořeno"
 
-#: admin/Table.php:206
-#: admin/views/pages/parts/slider-settings.php:1694
+#: admin/Table.php:215
+#: admin/views/pages/parts/slider-settings.php:1690
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: admin/Table.php:212
+#: admin/Table.php:221
 msgid "Usage"
 msgstr "Použití"
 
-#: admin/Table.php:361
+#: admin/Table.php:370
 msgid "Edit"
 msgstr "Upravit"
 
-#: admin/Table.php:398
+#: admin/Table.php:407
 #: admin/views/pages/parts/shortcode.php:11
 msgid "Click to copy shortcode."
 msgstr "Klikněte pro zkopírování shortcode."
 
-#: admin/Table.php:406
-#: admin/Table.php:419
-#: admin/Table.php:479
+#: admin/Table.php:415
+#: admin/Table.php:428
+#: admin/Table.php:488
 msgid "Not found."
 msgstr "Nalezeno nebylo."
 
-#: admin/Table.php:408
+#: admin/Table.php:417
 msgid "View Usage"
 msgstr "Zobrazit použití"
 
-#: admin/Table.php:414
+#: admin/Table.php:423
 msgid "Content Using This Slideshow"
 msgstr "Obsah používající tuto prezentaci"
 
-#: admin/Table.php:456
+#: admin/Table.php:465
 msgid "Theme Setting"
 msgstr "Nastavení motivu"
 
-#: admin/Table.php:470
+#: admin/Table.php:479
 msgid "Option"
 msgstr "Možnost"
 
-#: admin/Table.php:527
-#: admin/views/pages/start.php:191
+#: admin/Table.php:536
+#: admin/views/pages/start.php:192
 msgid "All Themes"
 msgstr "Všechny motivy"
 
-#: admin/Table.php:540
+#: admin/Table.php:549
 msgid "(No Theme)"
 msgstr "(Žádný motiv)"
 
-#: admin/Table.php:544
+#: admin/Table.php:553
 #: admin/views/slides/tabs/background.php:32
 #: inc/metaslider.imagestyles.class.php:388
 msgid "Filter"
@@ -659,7 +686,7 @@ msgid "(%s Weeks)"
 msgstr "( %s Týdny)"
 
 #: admin/views/pages/dashboard.php:8
-#: ml-slider.php:574
+#: ml-slider.php:578
 #: admin/assets/dist/js/app.js:2
 msgid "Slideshows"
 msgstr "Prezentace"
@@ -791,7 +818,7 @@ msgstr "Šířka prezentace"
 
 #: admin/views/pages/parts/slider-settings.php:90
 #: admin/views/pages/parts/slider-settings.php:103
-#: admin/views/pages/parts/slider-settings.php:926
+#: admin/views/pages/parts/slider-settings.php:922
 #: admin/views/slides/tabs/background.php:51
 #: inc/metaslider.imagestyles.class.php:407
 #: inc/metaslider.imagestyles.class.php:419, fuzzy
@@ -1122,30 +1149,30 @@ msgid "This animation is used when changing slides."
 msgstr "Tato animace se používá při přechodu mezi snímky."
 
 #: admin/views/pages/parts/slider-settings.php:550
-#: admin/views/pages/start.php:174
+#: admin/views/pages/start.php:175
 #: inc/metaslider.imagestyles.class.php:537
 msgid "Fade"
 msgstr "Zeslabení"
 
 #: admin/views/pages/parts/slider-settings.php:554
-#: admin/views/pages/start.php:173
+#: admin/views/pages/start.php:174
 msgid "Slide"
 msgstr "Posun"
 
 #: admin/views/pages/parts/slider-settings.php:558
-#: admin/views/pages/start.php:175
+#: admin/views/pages/start.php:176
 msgid "Zooming"
 msgstr "Přiblížení"
 
 #: admin/views/pages/parts/slider-settings.php:562
-#: admin/views/pages/start.php:176
+#: admin/views/pages/start.php:177
 #: admin/views/slides/tabs/background.php:87
 #: inc/metaslider.imagestyles.class.php:488
 msgid "Flip"
 msgstr "Otáčení"
 
 #: admin/views/pages/parts/slider-settings.php:566
-#: admin/views/pages/parts/slider-settings.php:1344
+#: admin/views/pages/parts/slider-settings.php:1340
 msgid "Random"
 msgstr "Náhodné"
 
@@ -1268,7 +1295,7 @@ msgid "Horizontal"
 msgstr "Horizontální"
 
 #: admin/views/pages/parts/slider-settings.php:757
-#: admin/views/pages/start.php:178
+#: admin/views/pages/start.php:179
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:494
 msgid "Vertical"
@@ -1350,11 +1377,11 @@ msgstr ""
 "Zobrazit více snímků najednou. Výstup prezentace se ve výchozím nastavení "
 "nastaví na 100% šířku a efekt přechodu 'Snímání'."
 
-#: admin/views/pages/parts/slider-settings.php:903
+#: admin/views/pages/parts/slider-settings.php:899
 msgid "Loop Carousel Continuously"
 msgstr "Nepřetržité smyčkové karusely"
 
-#: admin/views/pages/parts/slider-settings.php:908
+#: admin/views/pages/parts/slider-settings.php:904
 msgid ""
 "Infinite loop of slides when Carousel Mode is enabled. This option disables "
 "arrows and navigation. The slideshow width must be less than or equal to "
@@ -1364,27 +1391,27 @@ msgstr ""
 "zakáže šipky a navigaci. Šířka prezentace musí být menší nebo rovna šířce "
 "kontejneru, do kterého je vložena."
 
-#: admin/views/pages/parts/slider-settings.php:919
+#: admin/views/pages/parts/slider-settings.php:915
 msgid "Carousel Margin"
 msgstr "Okraj karuselu"
 
-#: admin/views/pages/parts/slider-settings.php:922
+#: admin/views/pages/parts/slider-settings.php:918
 msgid "Pixel margin between slides in carousel."
 msgstr "Pixelový okraj mezi snímky v karuselu."
 
-#: admin/views/pages/parts/slider-settings.php:936
+#: admin/views/pages/parts/slider-settings.php:932
 msgid "Display Minimum"
 msgstr "Minimální zobrazení"
 
-#: admin/views/pages/parts/slider-settings.php:938
+#: admin/views/pages/parts/slider-settings.php:934
 msgid "Minimum number of slides to be displayed at the same time in the carousel."
 msgstr "Minimální počet snímků, které mají být zobrazeny zároveň v karuselu."
 
-#: admin/views/pages/parts/slider-settings.php:952
+#: admin/views/pages/parts/slider-settings.php:948
 msgid "Display Maximum"
 msgstr "Maximální zobrazení"
 
-#: admin/views/pages/parts/slider-settings.php:954
+#: admin/views/pages/parts/slider-settings.php:950
 msgid ""
 "Maximum number of slides to be displayed at the same time in the carousel. "
 "Set to 0 to adjust automatically."
@@ -1392,11 +1419,11 @@ msgstr ""
 "Maximální počet snímků, které mají být zobrazeny zároveň v karuselu. "
 "Nastavte na 0 pro automatické přizpůsobení."
 
-#: admin/views/pages/parts/slider-settings.php:963
+#: admin/views/pages/parts/slider-settings.php:959
 msgid "Slides to Show per Device"
 msgstr "Počet snímků na zařízení"
 
-#: admin/views/pages/parts/slider-settings.php:964
+#: admin/views/pages/parts/slider-settings.php:960
 msgid ""
 "Set an exact number of slides to show for each device width. Leave a device "
 "at 0 to use the Display Minimum/Maximum settings instead."
@@ -1405,7 +1432,7 @@ msgstr ""
 "zařízení. Zanechte zařízení na 0, abyste místo toho použili nastavení "
 "minimálního/maximálního zobrazení."
 
-#: admin/views/pages/parts/slider-settings.php:972
+#: admin/views/pages/parts/slider-settings.php:968
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths less than %spx. Set to 0 to "
@@ -1415,8 +1442,8 @@ msgstr ""
 "než %spx. Nastavte na 0, abyste místo toho použili minimální/maximální "
 "zobrazení."
 
-#: admin/views/pages/parts/slider-settings.php:982
-#: admin/views/pages/parts/slider-settings.php:993
+#: admin/views/pages/parts/slider-settings.php:978
+#: admin/views/pages/parts/slider-settings.php:989
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths of %1$spx to %2$spx. Set to "
@@ -1426,7 +1453,7 @@ msgstr ""
 "do %2$spx. Nastavte na 0, abyste místo toho použili minimální/maximální "
 "zobrazení."
 
-#: admin/views/pages/parts/slider-settings.php:1004
+#: admin/views/pages/parts/slider-settings.php:1000
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths equal to or greater than "
@@ -1436,19 +1463,19 @@ msgstr ""
 "nebo větších než %spx. Nastavte na 0, abyste místo toho použili "
 "minimální/maximální zobrazení."
 
-#: admin/views/pages/parts/slider-settings.php:1021
+#: admin/views/pages/parts/slider-settings.php:1017
 msgid "Slides per Navigation Click"
 msgstr "Snímky na kliknutí na navigaci"
 
-#: admin/views/pages/parts/slider-settings.php:1023
+#: admin/views/pages/parts/slider-settings.php:1019
 msgid "Number of slides to move when clicking next or previous."
 msgstr "Počet snímků, které se mají posunout při kliknutí na další nebo předchozí."
 
-#: admin/views/pages/parts/slider-settings.php:1032
+#: admin/views/pages/parts/slider-settings.php:1028
 msgid "Force Height"
 msgstr "Síla výšky"
 
-#: admin/views/pages/parts/slider-settings.php:1037
+#: admin/views/pages/parts/slider-settings.php:1033
 msgid ""
 "If the slideshow looks small, force slideshow height when using Carousel "
 "mode. Please note when is enabled slides may look cropped."
@@ -1457,31 +1484,31 @@ msgstr ""
 "režimu Carousel. Vezměte prosím na vědomí, že pokud je povoleno, mohou se "
 "snímky zdát oříznuté."
 
-#: admin/views/pages/parts/slider-settings.php:1062
+#: admin/views/pages/parts/slider-settings.php:1058
 msgid "Image Options"
 msgstr "Možnosti obrázku"
 
-#: admin/views/pages/parts/slider-settings.php:1074
+#: admin/views/pages/parts/slider-settings.php:1070
 msgid "Image Crop"
 msgstr "Oříznout obrázek"
 
-#: admin/views/pages/parts/slider-settings.php:1079
+#: admin/views/pages/parts/slider-settings.php:1075
 msgid "Smart Crop"
 msgstr "Inteligentní oříznutí"
 
-#: admin/views/pages/parts/slider-settings.php:1086
+#: admin/views/pages/parts/slider-settings.php:1082
 msgid "Standard"
 msgstr "Standardní"
 
-#: admin/views/pages/parts/slider-settings.php:1093
+#: admin/views/pages/parts/slider-settings.php:1089
 msgid "Disabled"
 msgstr "Zakázáno"
 
-#: admin/views/pages/parts/slider-settings.php:1100
+#: admin/views/pages/parts/slider-settings.php:1096
 msgid "Disabled (Smart Pad)"
 msgstr "Zakázáno (Inteligentní pad)"
 
-#: admin/views/pages/parts/slider-settings.php:1107
+#: admin/views/pages/parts/slider-settings.php:1103
 msgid ""
 "Smart Crop ensures your responsive slides are cropped to a ratio that "
 "results in a consistent slideshow size."
@@ -1489,19 +1516,19 @@ msgstr ""
 "Inteligentní oříznutí zajišťuje, že vaše responzivní snímky jsou oříznuty "
 "na poměr, který výsledně dává konzistentní velikost prezentace."
 
-#: admin/views/pages/parts/slider-settings.php:1115
+#: admin/views/pages/parts/slider-settings.php:1111
 msgid "Image Crop Source"
 msgstr "Zdroj oříznutí obrázku"
 
-#: admin/views/pages/parts/slider-settings.php:1120
+#: admin/views/pages/parts/slider-settings.php:1116
 msgid "Slideshow width/height"
 msgstr "Šířka/výška prezentace"
 
-#: admin/views/pages/parts/slider-settings.php:1123
+#: admin/views/pages/parts/slider-settings.php:1119
 msgid "Custom width/height (Pro)"
 msgstr "Vlastní šířka/výška (Pro)"
 
-#: admin/views/pages/parts/slider-settings.php:1127
+#: admin/views/pages/parts/slider-settings.php:1123
 msgid ""
 "By default, MetaSlider Slideshow will crop images using the main width and "
 "height of the slideshow. If you want smaller images, select Custom "
@@ -1512,11 +1539,11 @@ msgstr ""
 "prezentace. Pokud chcete menší obrázky, vyberte Vlastní šířku/výšku a "
 "ujistěte se, že hodnoty jsou menší než hlavní šířka a výška."
 
-#: admin/views/pages/parts/slider-settings.php:1136
+#: admin/views/pages/parts/slider-settings.php:1132
 msgid "Image Crop Size"
 msgstr "Velikost oříznutí obrázku"
 
-#: admin/views/pages/parts/slider-settings.php:1145
+#: admin/views/pages/parts/slider-settings.php:1141
 msgid ""
 "This will increase the size of the images in your slideshow. Larger images "
 "are higher quality. Smaller images load more quickly."
@@ -1524,11 +1551,11 @@ msgstr ""
 "To zvýší velikost obrázků ve vaší prezentaci. Větší obrázky mají vyšší "
 "kvalitu. Menší obrázky se načítají rychleji."
 
-#: admin/views/pages/parts/slider-settings.php:1156
+#: admin/views/pages/parts/slider-settings.php:1152
 msgid "Lazy Load Images"
 msgstr "Pomalé načítání obrázků"
 
-#: admin/views/pages/parts/slider-settings.php:1161
+#: admin/views/pages/parts/slider-settings.php:1157
 msgid ""
 "This feature can speed up your site. MetaSlider Slideshow will only load "
 "slides when they are required by your slideshow."
@@ -1536,25 +1563,25 @@ msgstr ""
 "Tato funkce může urychlit váš web. MetaSlider načte snímky pouze tehdy, "
 "když jsou vyžadovány vaší prezentací."
 
-#: admin/views/pages/parts/slider-settings.php:1177
+#: admin/views/pages/parts/slider-settings.php:1173
 #: inc/metaslider.imagestyles.class.php:96
 msgid "Image Styles"
 msgstr "Styly obrázků"
 
-#: admin/views/pages/parts/slider-settings.php:1195
+#: admin/views/pages/parts/slider-settings.php:1191
 msgid "Layout Features"
 msgstr "Funkce rozložení"
 
-#: admin/views/pages/parts/slider-settings.php:1207
+#: admin/views/pages/parts/slider-settings.php:1203
 #: admin/assets/dist/js/app.js:2
 msgid "Auto Play"
 msgstr "Automatické přehrávání"
 
-#: admin/views/pages/parts/slider-settings.php:1212
+#: admin/views/pages/parts/slider-settings.php:1208
 msgid "Transition between slides automatically."
 msgstr "Přechod mezi snímky automaticky."
 
-#: admin/views/pages/parts/slider-settings.php:1220
+#: admin/views/pages/parts/slider-settings.php:1216
 #: themes/architekt/customize.php:615
 #: themes/bitono/customize.php:798
 #: themes/blend/customize.php:828
@@ -1576,26 +1603,26 @@ msgstr "Přechod mezi snímky automaticky."
 msgid "Play / Pause Button"
 msgstr "Tlačítko Přehrát / Pozastavit"
 
-#: admin/views/pages/parts/slider-settings.php:1225
+#: admin/views/pages/parts/slider-settings.php:1221
 msgid "This allows user to pause or resume Auto Play on the slideshow."
 msgstr ""
 "Toto umožňuje uživateli pozastavit nebo obnovit automatické přehrávání "
 "prezentace."
 
-#: admin/views/pages/parts/slider-settings.php:1233
+#: admin/views/pages/parts/slider-settings.php:1229
 msgid "Show Play / Pause Button Text"
 msgstr "Zobrazit text tlačítka Přehrát / Pozastavit"
 
-#: admin/views/pages/parts/slider-settings.php:1238
+#: admin/views/pages/parts/slider-settings.php:1234
 msgid "Show text options for Play / Pause Button"
 msgstr "Zobrazit textové možnosti pro tlačítko Přehrát / Pozastavit"
 
-#: admin/views/pages/parts/slider-settings.php:1246
+#: admin/views/pages/parts/slider-settings.php:1242
 msgid "Play Text"
 msgstr "Text pro Přehrát"
 
-#: admin/views/pages/parts/slider-settings.php:1248
-#: admin/views/pages/parts/slider-settings.php:1261
+#: admin/views/pages/parts/slider-settings.php:1244
+#: admin/views/pages/parts/slider-settings.php:1257
 msgid ""
 "Enter text for the Play/Pause Button. Leave the field empty to use the icon "
 "only."
@@ -1603,24 +1630,24 @@ msgstr ""
 "Zadejte text pro tlačítko Přehrát/Pozastavit. Nechte pole prázdné, pokud "
 "chcete použít pouze ikonu."
 
-#: admin/views/pages/parts/slider-settings.php:1259
+#: admin/views/pages/parts/slider-settings.php:1255
 msgid "Pause Text"
 msgstr "Text pro Pozastavit"
 
-#: admin/views/pages/parts/slider-settings.php:1272
+#: admin/views/pages/parts/slider-settings.php:1268
 #: themes/customize.php:34
 msgid "Progress Bar"
 msgstr "Progresivní lišta"
 
-#: admin/views/pages/parts/slider-settings.php:1277
+#: admin/views/pages/parts/slider-settings.php:1273
 msgid "Displays a visual indicator showing the time left before the next slide."
 msgstr "Zobrazuje vizuální indikátor ukazující zbývající čas do dalšího snímku."
 
-#: admin/views/pages/parts/slider-settings.php:1285
+#: admin/views/pages/parts/slider-settings.php:1281
 msgid "Hover Pause"
 msgstr "Pozastavit při najetí"
 
-#: admin/views/pages/parts/slider-settings.php:1290
+#: admin/views/pages/parts/slider-settings.php:1286
 msgid ""
 "Pause the slideshow when hovering over slider, then resume when no longer "
 "hovering."
@@ -1628,11 +1655,11 @@ msgstr ""
 "Pozastavte prezentaci při najetí na posuvník, poté obnovte, když už na něm "
 "nebudete."
 
-#: admin/views/pages/parts/slider-settings.php:1298
+#: admin/views/pages/parts/slider-settings.php:1294
 msgid "Loop"
 msgstr "Smyčka"
 
-#: admin/views/pages/parts/slider-settings.php:1300
+#: admin/views/pages/parts/slider-settings.php:1296
 msgid ""
 "If you choose \"Loop endlessly\", the slides will loop infinitely. If you "
 "choose \"Stop on first slide after looping\", the slideshow will stop on "
@@ -1644,51 +1671,51 @@ msgstr ""
 "zastaví na prvním snímku po zobrazení všech položek. Pokud zvolíte "
 "\"Zastavit na posledním snímku\", snímky se zastaví na posledním snímku."
 
-#: admin/views/pages/parts/slider-settings.php:1303
+#: admin/views/pages/parts/slider-settings.php:1299
 msgid "Loop Endlessly"
 msgstr "Smyčka bez konce"
 
-#: admin/views/pages/parts/slider-settings.php:1304
+#: admin/views/pages/parts/slider-settings.php:1300
 msgid "Stop On Last Slide"
 msgstr "Zastavit na posledním snímku"
 
-#: admin/views/pages/parts/slider-settings.php:1305
+#: admin/views/pages/parts/slider-settings.php:1301
 msgid "Stop On First Slide After Looping"
 msgstr "Zastavit na prvním snímku po smyčce"
 
-#: admin/views/pages/parts/slider-settings.php:1311
+#: admin/views/pages/parts/slider-settings.php:1307
 msgid "Smooth Height"
 msgstr "Hladká výška"
 
-#: admin/views/pages/parts/slider-settings.php:1316
+#: admin/views/pages/parts/slider-settings.php:1312
 msgid "Allow navigation to follow the slide's height smoothly."
 msgstr "Umožnit navigaci, aby hladce sledovala výšku snímku."
 
-#: admin/views/pages/parts/slider-settings.php:1324
+#: admin/views/pages/parts/slider-settings.php:1320
 msgid "Slide Order"
 msgstr "Pořadí snímků"
 
-#: admin/views/pages/parts/slider-settings.php:1329
+#: admin/views/pages/parts/slider-settings.php:1325
 msgid "Newest First"
 msgstr "Nejnovější nejdříve"
 
-#: admin/views/pages/parts/slider-settings.php:1332
+#: admin/views/pages/parts/slider-settings.php:1328
 msgid "Oldest First"
 msgstr "Nejstarší nejdříve"
 
-#: admin/views/pages/parts/slider-settings.php:1335
+#: admin/views/pages/parts/slider-settings.php:1331
 msgid "A to Z (by filename)"
 msgstr "A do Z (podle názvu souboru)"
 
-#: admin/views/pages/parts/slider-settings.php:1338
+#: admin/views/pages/parts/slider-settings.php:1334
 msgid "Z to A (by filename)"
 msgstr "Z do A (podle názvu souboru)"
 
-#: admin/views/pages/parts/slider-settings.php:1341
+#: admin/views/pages/parts/slider-settings.php:1337
 msgid "Drag-and-drop"
 msgstr "Přetáhnout a pustit"
 
-#: admin/views/pages/parts/slider-settings.php:1347
+#: admin/views/pages/parts/slider-settings.php:1343
 msgid ""
 "Select the order in which slides appear in the slideshow. This impacts the "
 "frontend view."
@@ -1696,114 +1723,114 @@ msgstr ""
 "Vyberte pořadí, ve kterém se snímky zobrazují v prezentaci. To ovlivňuje "
 "zobrazení na frontend."
 
-#: admin/views/pages/parts/slider-settings.php:1355
+#: admin/views/pages/parts/slider-settings.php:1351
 msgid "Touch Swipe"
 msgstr "Dotykové přejetí"
 
-#: admin/views/pages/parts/slider-settings.php:1360
+#: admin/views/pages/parts/slider-settings.php:1356
 msgid "Allow touch swipe navigation of the slider on touch-enabled devices."
 msgstr "Povolit navigaci přejetím po posuvníku na zařízeních s dotykovým ovládáním."
 
-#: admin/views/pages/parts/slider-settings.php:1368
+#: admin/views/pages/parts/slider-settings.php:1364
 msgid "Loading Indicator"
 msgstr "Indikátor načítání"
 
-#: admin/views/pages/parts/slider-settings.php:1373
+#: admin/views/pages/parts/slider-settings.php:1369
 msgid "Displays a visual indicator while the slideshow is loading."
 msgstr "Zobrazuje vizuální indikátor, zatímco se prezentace načítá."
 
-#: admin/views/pages/parts/slider-settings.php:1381
+#: admin/views/pages/parts/slider-settings.php:1377
 msgid "Previous Text"
 msgstr "Předchozí text"
 
-#: admin/views/pages/parts/slider-settings.php:1383
+#: admin/views/pages/parts/slider-settings.php:1379
 msgid "Set the text for the \"previous\" direction item."
 msgstr "Nastavte text pro položku směru \"předchozí\"."
 
-#: admin/views/pages/parts/slider-settings.php:1395
+#: admin/views/pages/parts/slider-settings.php:1391
 msgid "Next Text"
 msgstr "Další text"
 
-#: admin/views/pages/parts/slider-settings.php:1397
+#: admin/views/pages/parts/slider-settings.php:1393
 msgid "Set the text for the \"next\" direction item."
 msgstr "Nastavte text pro položku směru \"další\"."
 
-#: admin/views/pages/parts/slider-settings.php:1414
+#: admin/views/pages/parts/slider-settings.php:1410
 msgid "Square Delay"
 msgstr "Zpoždění čtverce"
 
-#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1412
 msgid "Delay between squares in ms."
 msgstr "Zpoždění mezi čtverci v ms."
 
-#: admin/views/pages/parts/slider-settings.php:1433
+#: admin/views/pages/parts/slider-settings.php:1429
 msgid "Opacity of title and navigation, between 0 and 1."
 msgstr "Průhlednost názvu a navigace, mezi 0 a 1."
 
-#: admin/views/pages/parts/slider-settings.php:1448
+#: admin/views/pages/parts/slider-settings.php:1444
 msgid "Caption Speed"
 msgstr "Rychlost popisku"
 
-#: admin/views/pages/parts/slider-settings.php:1450
+#: admin/views/pages/parts/slider-settings.php:1446
 msgid "Set the fade in speed of the caption."
 msgstr "Nastavte rychlost vyblednutí popisku."
 
-#: admin/views/pages/parts/slider-settings.php:1472
+#: admin/views/pages/parts/slider-settings.php:1468
 msgid "Container Options"
 msgstr "Možnosti kontejneru"
 
-#: admin/views/pages/parts/slider-settings.php:1484
+#: admin/views/pages/parts/slider-settings.php:1480
 msgid "Container Box"
 msgstr "Kontejnerové okno"
 
-#: admin/views/pages/parts/slider-settings.php:1489
+#: admin/views/pages/parts/slider-settings.php:1485
 msgid "Customize the slideshow's container box."
 msgstr "Přizpůsobte kontejnerové okno slideshow."
 
-#: admin/views/pages/parts/slider-settings.php:1495
-#: admin/views/pages/parts/slider-settings.php:1535
+#: admin/views/pages/parts/slider-settings.php:1491
+#: admin/views/pages/parts/slider-settings.php:1531
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "This feature is available in MetaSlider Slideshow Pro"
 msgstr "Tato funkce je k dispozici v MetaSlider Pro"
 
-#: admin/views/pages/parts/slider-settings.php:1510
+#: admin/views/pages/parts/slider-settings.php:1506
 msgid "Watermark Options"
 msgstr "Možnosti vodoznaku"
 
-#: admin/views/pages/parts/slider-settings.php:1524
+#: admin/views/pages/parts/slider-settings.php:1520
 msgid "Watermark"
 msgstr "Vodoznak"
 
-#: admin/views/pages/parts/slider-settings.php:1529
+#: admin/views/pages/parts/slider-settings.php:1525
 msgid "Overlay an image (e.g. a logo) on top of the slideshow."
 msgstr "Překrýt obrázek (např. logo) na vrcholu slideshow."
 
-#: admin/views/pages/parts/slider-settings.php:1550
+#: admin/views/pages/parts/slider-settings.php:1546
 msgid "Accessibility Options"
 msgstr "Možnosti přístupnosti"
 
-#: admin/views/pages/parts/slider-settings.php:1562
+#: admin/views/pages/parts/slider-settings.php:1558
 msgid "Keyboard Controls"
 msgstr "Ovládání klávesnicí"
 
-#: admin/views/pages/parts/slider-settings.php:1567
+#: admin/views/pages/parts/slider-settings.php:1563
 msgid "Use arrow keys to get to the next slide."
 msgstr "Použijte šipkové klávesy pro přechod na další snímek."
 
-#: admin/views/pages/parts/slider-settings.php:1575
+#: admin/views/pages/parts/slider-settings.php:1571
 msgid "Tabindex For Navigation"
 msgstr "Tabindex pro navigaci"
 
-#: admin/views/pages/parts/slider-settings.php:1580
+#: admin/views/pages/parts/slider-settings.php:1576
 msgid "This helps make the slideshow navigation more accessible."
 msgstr "To pomáhá učinit navigaci slideshow přístupnější."
 
-#: admin/views/pages/parts/slider-settings.php:1588, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1584, fuzzy
 msgid "ARIA Live"
 msgstr "ARIA Live"
 
-#: admin/views/pages/parts/slider-settings.php:1593
+#: admin/views/pages/parts/slider-settings.php:1589
 msgid ""
 "If Autoplay is enabled, this causes screen readers to announce that the "
 "slides are changing."
@@ -1811,11 +1838,11 @@ msgstr ""
 "Pokud je povoleno automatické přehrávání, způsobí to, že čtečky obrazovky "
 "oznámí, že se snímky mění."
 
-#: admin/views/pages/parts/slider-settings.php:1601, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1597, fuzzy
 msgid "ARIA Current"
 msgstr "ARIA Current"
 
-#: admin/views/pages/parts/slider-settings.php:1606
+#: admin/views/pages/parts/slider-settings.php:1602
 msgid ""
 "This is used on the navigation button for the active slide. It helps screen "
 "readers understand which slide is active."
@@ -1823,15 +1850,15 @@ msgstr ""
 "To se používá na navigačním tlačítku pro aktivní snímek. Pomáhá čtečkám "
 "obrazovky pochopit, který snímek je aktivní."
 
-#: admin/views/pages/parts/slider-settings.php:1622
+#: admin/views/pages/parts/slider-settings.php:1618
 msgid "Developer Options"
 msgstr "Možnosti vývojáře"
 
-#: admin/views/pages/parts/slider-settings.php:1634
+#: admin/views/pages/parts/slider-settings.php:1630
 msgid "CSS Classes"
 msgstr "CSS třídy"
 
-#: admin/views/pages/parts/slider-settings.php:1636
+#: admin/views/pages/parts/slider-settings.php:1632
 msgid ""
 "Enter custom CSS classes to apply to the slider wrapper. Separate multiple "
 "classes with a space."
@@ -1839,36 +1866,36 @@ msgstr ""
 "Zadejte vlastní CSS třídy, které se použijí na obal slideru. Oddělte více "
 "tříd mezerou."
 
-#: admin/views/pages/parts/slider-settings.php:1647
+#: admin/views/pages/parts/slider-settings.php:1643
 msgid "Print CSS"
 msgstr "Tisk CSS"
 
-#: admin/views/pages/parts/slider-settings.php:1652
+#: admin/views/pages/parts/slider-settings.php:1648
 msgid "Uncheck this if you would like to include your own CSS."
 msgstr "Zrušte zaškrtnutí, pokud chcete zahrnout vlastní CSS."
 
-#: admin/views/pages/parts/slider-settings.php:1660
+#: admin/views/pages/parts/slider-settings.php:1656
 msgid "Print JS"
 msgstr "Tisk JS"
 
-#: admin/views/pages/parts/slider-settings.php:1665
+#: admin/views/pages/parts/slider-settings.php:1661
 msgid "Uncheck this if you would like to include your own Javascript."
 msgstr "Zrušte zaškrtnutí, pokud chcete zahrnout vlastní Javascript."
 
-#: admin/views/pages/parts/slider-settings.php:1673
+#: admin/views/pages/parts/slider-settings.php:1669
 msgid "No Conflict Mode"
 msgstr "Režim bez konfliktů"
 
-#: admin/views/pages/parts/slider-settings.php:1678
+#: admin/views/pages/parts/slider-settings.php:1674
 msgid "Delay adding the flexslider class to the slideshow."
 msgstr "Zpoždění při přidávání třídy flexslider do prezentace."
 
-#: admin/views/pages/parts/slider-settings.php:1716
-#: ml-slider.php:1880
+#: admin/views/pages/parts/slider-settings.php:1712
+#: ml-slider.php:1930
 msgid "Trashed Slides"
 msgstr "Odstraněné snímky"
 
-#: admin/views/pages/parts/slider-settings.php:1726
+#: admin/views/pages/parts/slider-settings.php:1722
 msgid "View trashed slides"
 msgstr "Zobrazit odstraněné snímky"
 
@@ -1886,7 +1913,7 @@ msgid "Add a new slide"
 msgstr "Přidat nový snímek"
 
 #: admin/views/pages/parts/toolbar.php:60
-#: inc/slider/metaslider.class.php:1055
+#: inc/slider/metaslider.class.php:1065
 msgid "Add Slide"
 msgstr "Přidat snímek"
 
@@ -1930,7 +1957,7 @@ msgid "Save"
 msgstr "Uložit"
 
 #: admin/views/pages/parts/toolbar.php:155
-#: ml-slider.php:1945
+#: ml-slider.php:1995
 msgid "Return to Published Slides"
 msgstr "Vrátit se k publikovaným snímkům"
 
@@ -1966,7 +1993,7 @@ msgid "Redirecting..."
 msgstr "Přesměrování..."
 
 #: admin/views/pages/start.php:106
-#: ml-slider.php:575
+#: ml-slider.php:579
 msgid "Quick Start"
 msgstr "Rychlý start"
 
@@ -1995,163 +2022,164 @@ msgid "Slide Type"
 msgstr "Typ snímku"
 
 #: admin/views/pages/start.php:145
-#: inc/metaslider.quickstart.class.php:760
-#: ml-slider.php:798
+#: inc/metaslider.quickstart.class.php:773
+#: ml-slider.php:849
 msgid "Image"
 msgstr "Obrázek"
 
-#: admin/views/pages/start.php:149
-#: inc/metaslider.quickstart.class.php:611
-#: inc/metaslider.quickstart.class.php:772
-#: ml-slider.php:842
+#: admin/views/pages/start.php:150
+#: inc/metaslider.quickstart.class.php:623
+#: inc/metaslider.quickstart.class.php:785
+#: ml-slider.php:893
 msgid "External Image"
 msgstr "Externí obrázek"
 
-#: admin/views/pages/start.php:150
-#: inc/metaslider.quickstart.class.php:623
-#: inc/metaslider.quickstart.class.php:775
-#: ml-slider.php:843
+#: admin/views/pages/start.php:151
+#: inc/metaslider.quickstart.class.php:635
+#: inc/metaslider.quickstart.class.php:788
+#: ml-slider.php:894
 msgid "External Video"
 msgstr "Externí video"
 
-#: admin/views/pages/start.php:151
-#: inc/metaslider.quickstart.class.php:635
-#: inc/metaslider.quickstart.class.php:781
-#: ml-slider.php:844
+#: admin/views/pages/start.php:152
+#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:797
+#: ml-slider.php:895
 msgid "Custom HTML"
 msgstr "Vlastní HTML"
 
-#: admin/views/pages/start.php:152
-#: inc/metaslider.quickstart.class.php:683
-#: inc/metaslider.quickstart.class.php:790
-#: ml-slider.php:845
+#: admin/views/pages/start.php:153
+#: inc/metaslider.quickstart.class.php:695
+#: inc/metaslider.quickstart.class.php:806
+#: ml-slider.php:896
 msgid "Background Color"
 msgstr "Barva pozadí"
 
-#: admin/views/pages/start.php:153
-#: admin/views/pages/start.php:184
-#: ml-slider.php:848
+#: admin/views/pages/start.php:154
+#: admin/views/pages/start.php:185
+#: ml-slider.php:899
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: admin/views/pages/start.php:154
-#: inc/metaslider.quickstart.class.php:599
-#: inc/metaslider.quickstart.class.php:787
-#: ml-slider.php:849
+#: admin/views/pages/start.php:155
+#: inc/metaslider.quickstart.class.php:611
+#: inc/metaslider.quickstart.class.php:803
+#: ml-slider.php:900
 msgid "Post Feed"
 msgstr "Příspěvek s obsahem"
 
-#: admin/views/pages/start.php:155
-#: inc/metaslider.quickstart.class.php:784
-#: ml-slider.php:850
+#: admin/views/pages/start.php:156
+#: inc/metaslider.quickstart.class.php:800
+#: ml-slider.php:901
 msgid "Layer Slide"
 msgstr "Snímek vrstvy"
 
-#: admin/views/pages/start.php:156
-#: inc/metaslider.quickstart.class.php:575
-#: inc/metaslider.quickstart.class.php:769
-#: ml-slider.php:851
+#: admin/views/pages/start.php:157
+#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:782
+#: modules/local_video/slide.php:43
+#: modules/local_video/slide.php:82
 msgid "Local Video"
 msgstr "Místní video"
 
-#: admin/views/pages/start.php:161
+#: admin/views/pages/start.php:162
 msgid "Features"
 msgstr "Funkce"
 
-#: admin/views/pages/start.php:162
+#: admin/views/pages/start.php:163
 msgid "Boxed"
 msgstr "Rámovaný"
 
-#: admin/views/pages/start.php:163
+#: admin/views/pages/start.php:164
 msgid "Full-width"
 msgstr "Na celou šířku"
 
-#: admin/views/pages/start.php:164
+#: admin/views/pages/start.php:165
 msgid "Carousel"
 msgstr "Karusel"
 
-#: admin/views/pages/start.php:165
+#: admin/views/pages/start.php:166
 msgid "Thumbnail Navigation"
 msgstr "Navigace podle miniatur"
 
-#: admin/views/pages/start.php:166
+#: admin/views/pages/start.php:167
 msgid "Video Caption"
 msgstr "Popis videa"
 
-#: admin/views/pages/start.php:167
-#: admin/views/pages/start.php:302
+#: admin/views/pages/start.php:168
+#: admin/views/pages/start.php:303
 msgid "Hero Image"
 msgstr "Hlavní obrázek"
 
-#: admin/views/pages/start.php:172
+#: admin/views/pages/start.php:173
 msgid "Animation Type"
 msgstr "Typ animace"
 
-#: admin/views/pages/start.php:177, fuzzy
+#: admin/views/pages/start.php:178, fuzzy
 msgid "Ken Burns"
 msgstr "Ken Burns"
 
-#: admin/views/pages/start.php:183
+#: admin/views/pages/start.php:184
 msgid "Integration"
 msgstr "Integrace"
 
-#: admin/views/pages/start.php:185
+#: admin/views/pages/start.php:186
 msgid "The Events Calendar"
 msgstr "Kalendář událostí"
 
-#: admin/views/pages/start.php:186
-#: admin/views/pages/start.php:298
+#: admin/views/pages/start.php:187
+#: admin/views/pages/start.php:299
 msgid "WordPress Posts"
 msgstr "Příspěvky WordPress"
 
-#: admin/views/pages/start.php:227
+#: admin/views/pages/start.php:228
 msgid "Free and Pro"
 msgstr "Zdarma a Pro"
 
-#: admin/views/pages/start.php:228
+#: admin/views/pages/start.php:229
 msgid "Free only"
 msgstr "Pouze zdarma"
 
-#: admin/views/pages/start.php:229
+#: admin/views/pages/start.php:230
 msgid "Pro only"
 msgstr "Pouze Pro"
 
-#: admin/views/pages/start.php:233
+#: admin/views/pages/start.php:234
 msgid "Reset Filters"
 msgstr "Resetovat filtry"
 
-#: admin/views/pages/start.php:239
+#: admin/views/pages/start.php:240
 msgid "No demos match your filters."
 msgstr "Žádné ukázky neodpovídají vašim filtrům."
 
-#: admin/views/pages/start.php:322
+#: admin/views/pages/start.php:323
 #, php-format
 msgid "Create %s slideshow?"
 msgstr "Vytvořit %s prezentaci?"
 
-#: admin/views/pages/start.php:328
+#: admin/views/pages/start.php:329
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: admin/views/pages/start.php:331
+#: admin/views/pages/start.php:332
 msgid "Yes, please!"
 msgstr "Ano, prosím!"
 
-#: admin/views/pages/start.php:337
+#: admin/views/pages/start.php:338
 msgid "Demo"
 msgstr "Ukázka"
 
-#: admin/views/pages/start.php:343
+#: admin/views/pages/start.php:344
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Get MetaSlider Slideshow Pro!"
 msgstr "MetaSlider Slideshow"
 
-#: admin/views/pages/start.php:346
+#: admin/views/pages/start.php:347
 msgid "Upgrade now to unlock this demo slideshow!"
 msgstr "Aktualizujte nyní, abyste odemkli tuto ukázkovou prezentaci!"
 
-#: admin/views/pages/start.php:349
+#: admin/views/pages/start.php:350
 #: admin/views/pages/theme-editor.php:36
 #: admin/views/pages/upgrade.php:26
 #: admin/views/pages/upgrade.php:201
@@ -2159,19 +2187,19 @@ msgstr "Aktualizujte nyní, abyste odemkli tuto ukázkovou prezentaci!"
 msgid "Upgrade now"
 msgstr "Aktualizujte nyní"
 
-#: admin/views/pages/start.php:367
+#: admin/views/pages/start.php:368
 msgid "Create a slideshow with your images"
 msgstr "Vytvořte prezentaci s vašimi obrázky"
 
-#: admin/views/pages/start.php:368
+#: admin/views/pages/start.php:369
 msgid "Choose your own images to start a new slideshow."
 msgstr "Vyberte si vlastní obrázky, abyste začali novou prezentaci."
 
-#: admin/views/pages/start.php:374
+#: admin/views/pages/start.php:375
 msgid "Uploading images..."
 msgstr "Nahrávání obrázků..."
 
-#: admin/views/pages/start.php:385
+#: admin/views/pages/start.php:386
 msgid "Open Media Library"
 msgstr "Otevřít Knihovnu médií"
 
@@ -2181,7 +2209,7 @@ msgid "Introducing the Theme Editor in MetaSlider Slideshow Pro"
 msgstr "Představujeme editor motivů v MetaSlider Pro"
 
 #: admin/views/pages/theme-editor.php:18
-#: ml-slider.php:579
+#: ml-slider.php:583
 msgid "Theme Editor"
 msgstr "Editor motivů"
 
@@ -2917,10 +2945,12 @@ msgstr ""
 "na tlačítko."
 
 #: admin/views/slides/tabs/link.php:20
+#: modules/local_video/tabs/link.php:28
 msgid "New window"
 msgstr "Nové okno"
 
 #: admin/views/slides/tabs/link.php:22
+#: modules/local_video/tabs/link.php:30
 msgid "Open link in a new window"
 msgstr "Otevřít odkaz v novém okně"
 
@@ -2940,11 +2970,64 @@ msgstr ""
 msgid "Enter text here"
 msgstr "Zadejte text sem"
 
-#: admin/views/slides/tabs/mobile.php:33
+#: admin/views/slides/tabs/livid.php:18, fuzzy
+msgid "Livid Video URL"
+msgstr "Livid Video URL"
+
+#: admin/views/slides/tabs/livid.php:19
+msgid ""
+"Paste the link to a video hosted on livid.com. We will create the embed for "
+"you."
+msgstr "Vložte odkaz na video hostované na livid.com. Vytvoříme pro vás embed."
+
+#: admin/views/slides/tabs/livid.php:33
+#: modules/local_video/tabs/general.php:70
+msgid "Mute video"
+msgstr "Ztlumit video"
+
+#: admin/views/slides/tabs/livid.php:47
+#: modules/local_video/tabs/general.php:82
+msgid "Show controls"
+msgstr "Zobrazit ovládací prvky"
+
+#: admin/views/slides/tabs/livid.php:49
+msgid ""
+"Hiding the controls only works if the video is on a Livid Pro or Premium "
+"account"
+msgstr ""
+"Skrýt ovládací prvky funguje pouze, pokud je video na účtu Livid Pro nebo "
+"Premium"
+
+#: admin/views/slides/tabs/livid.php:65
+#: modules/local_video/tabs/general.php:95
+msgid "Auto play"
+msgstr "Automatické přehrávání"
+
+#: admin/views/slides/tabs/livid.php:67
+msgid "May require the video to be muted"
+msgstr "Může vyžadovat, aby bylo video ztlumeno"
+
+#: admin/views/slides/tabs/livid.php:83
+#: modules/local_video/tabs/general.php:113
+msgid "Lazy load video"
+msgstr "Zpožděné načítání videa"
+
+#: admin/views/slides/tabs/livid.php:85
+msgid "The video only loads once a visitor clicks play"
+msgstr "Video se načte pouze po kliknutí na přehrát"
+
+#: admin/views/slides/tabs/livid.php:99
+#: modules/local_video/tabs/general.php:125
+msgid "Loop video"
+msgstr "Opakovat video"
+
+#: admin/views/slides/tabs/mobile.php:35
+#: modules/local_video/tabs/mobile.php:22
 msgid "Hide slide on:"
 msgstr "Skrýt snímek na:"
 
-#: admin/views/slides/tabs/mobile.php:46
+#: admin/views/slides/tabs/mobile.php:48
+#: modules/local_video/tabs/mobile.php:35
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths equal to or "
@@ -2953,7 +3036,8 @@ msgstr ""
 "Pokud je tato možnost povolena, tento nastavení skryje snímek na šířkách "
 "obrazovky rovných nebo větších než %spx"
 
-#: admin/views/slides/tabs/mobile.php:56
+#: admin/views/slides/tabs/mobile.php:58
+#: modules/local_video/tabs/mobile.php:45
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths of %1$spx to "
@@ -2962,11 +3046,11 @@ msgstr ""
 "Pokud je tato možnost povolena, tento nastavení skryje snímek na šířkách "
 "obrazovky od %1$spx do %2$spx"
 
-#: admin/views/slides/tabs/mobile.php:72
+#: admin/views/slides/tabs/mobile.php:75
 msgid "Hide caption on:"
 msgstr "Skrýt popis na:"
 
-#: admin/views/slides/tabs/mobile.php:85
+#: admin/views/slides/tabs/mobile.php:88
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths equal to "
@@ -2975,7 +3059,7 @@ msgstr ""
 "Pokud je tato možnost povolena, tento nastavení skryje popis na šířkách "
 "obrazovky rovných nebo větších než %spx"
 
-#: admin/views/slides/tabs/mobile.php:95
+#: admin/views/slides/tabs/mobile.php:98
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths of %1$spx "
@@ -3213,136 +3297,136 @@ msgstr "Vynořující se perspektivy"
 msgid "Sporting Spirit"
 msgstr "Sportovní duch"
 
-#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:227
 msgid "Marathon Journey"
 msgstr "Maratónská cesta"
 
-#: inc/metaslider.quickstart.class.php:227
-msgid "Cars Display"
-msgstr "Zobrazení aut"
-
 #: inc/metaslider.quickstart.class.php:239
-msgid "Watch Shop Hero"
-msgstr "Hrdina obchodu s hodinkami"
-
-#: inc/metaslider.quickstart.class.php:251
-msgid "Creative Agency Hero"
-msgstr "Hrdina kreativní agentury"
-
-#: inc/metaslider.quickstart.class.php:263
-msgid "Fashion Trends"
-msgstr "Módní trendy"
-
-#: inc/metaslider.quickstart.class.php:275
-msgid "Entertainment YouTube Shorts Feed"
-msgstr "Krátké videa na YouTube o zábavě"
-
-#: inc/metaslider.quickstart.class.php:287
-msgid "Album Cover Showcase"
-msgstr "Ukázka obalu alba"
-
-#: inc/metaslider.quickstart.class.php:299
-msgid "Business Presentation"
-msgstr "Obchodní prezentace"
-
-#: inc/metaslider.quickstart.class.php:311
-msgid "Books by Genre"
-msgstr "Knihy podle žánru"
-
-#: inc/metaslider.quickstart.class.php:323
-msgid "Testimonials"
-msgstr "Reference"
-
-#: inc/metaslider.quickstart.class.php:335
-msgid "Skincare Routine Guide"
-msgstr "Průvodce péčí o pleť"
-
-#: inc/metaslider.quickstart.class.php:347
-msgid "Indoor Plant Selection Guide"
-msgstr "Průvodce výběrem pokojových rostlin"
-
-#: inc/metaslider.quickstart.class.php:359
-msgid "TikTok Vertical Videos"
-msgstr "Vertikální videa na TikToku"
-
-#: inc/metaslider.quickstart.class.php:371
 msgid "Daily Routine Videos"
 msgstr "Videá denní rutiny"
 
+#: inc/metaslider.quickstart.class.php:263
+msgid "Cars Display"
+msgstr "Zobrazení aut"
+
+#: inc/metaslider.quickstart.class.php:275
+msgid "Watch Shop Hero"
+msgstr "Hrdina obchodu s hodinkami"
+
+#: inc/metaslider.quickstart.class.php:287
+msgid "Creative Agency Hero"
+msgstr "Hrdina kreativní agentury"
+
+#: inc/metaslider.quickstart.class.php:299
+msgid "Fashion Trends"
+msgstr "Módní trendy"
+
+#: inc/metaslider.quickstart.class.php:311
+msgid "Entertainment YouTube Shorts Feed"
+msgstr "Krátké videa na YouTube o zábavě"
+
+#: inc/metaslider.quickstart.class.php:323
+msgid "Album Cover Showcase"
+msgstr "Ukázka obalu alba"
+
+#: inc/metaslider.quickstart.class.php:335
+msgid "Business Presentation"
+msgstr "Obchodní prezentace"
+
+#: inc/metaslider.quickstart.class.php:347
+msgid "Books by Genre"
+msgstr "Knihy podle žánru"
+
+#: inc/metaslider.quickstart.class.php:359
+msgid "Testimonials"
+msgstr "Reference"
+
+#: inc/metaslider.quickstart.class.php:371
+msgid "Skincare Routine Guide"
+msgstr "Průvodce péčí o pleť"
+
 #: inc/metaslider.quickstart.class.php:383
+msgid "Indoor Plant Selection Guide"
+msgstr "Průvodce výběrem pokojových rostlin"
+
+#: inc/metaslider.quickstart.class.php:395
+msgid "TikTok Vertical Videos"
+msgstr "Vertikální videa na TikToku"
+
+#: inc/metaslider.quickstart.class.php:407
 msgid "Coffee Brewing Guide"
 msgstr "Průvodce přípravou kávy"
 
-#: inc/metaslider.quickstart.class.php:395
+#: inc/metaslider.quickstart.class.php:419
 msgid "Upcoming City Events"
 msgstr "Nadcházející městské akce"
 
-#: inc/metaslider.quickstart.class.php:407
+#: inc/metaslider.quickstart.class.php:431
 msgid "Product Categories"
 msgstr "Kategorie produktů"
 
-#: inc/metaslider.quickstart.class.php:419
+#: inc/metaslider.quickstart.class.php:443
 msgid "Recent WooCommerce Products"
 msgstr "Nedávné produkty WooCommerce"
 
-#: inc/metaslider.quickstart.class.php:431
+#: inc/metaslider.quickstart.class.php:455
 msgid "Latest News Posts"
 msgstr "Nejnovější příspěvky zpráv"
 
-#: inc/metaslider.quickstart.class.php:443
+#: inc/metaslider.quickstart.class.php:467
 msgid "Product Demo"
 msgstr "Ukázka produktu"
 
-#: inc/metaslider.quickstart.class.php:455
+#: inc/metaslider.quickstart.class.php:479
 msgid "Trending Videos"
 msgstr "Trendy videa"
 
-#: inc/metaslider.quickstart.class.php:467
+#: inc/metaslider.quickstart.class.php:491
 msgid "Hotel Rooms"
 msgstr "Hotelové pokoje"
 
-#: inc/metaslider.quickstart.class.php:479
+#: inc/metaslider.quickstart.class.php:503
 msgid "Client Testimonials"
 msgstr "Reference klientů"
 
-#: inc/metaslider.quickstart.class.php:491
+#: inc/metaslider.quickstart.class.php:515
 msgid "Meet the Team"
 msgstr "Seznamte se s týmem"
 
-#: inc/metaslider.quickstart.class.php:503
+#: inc/metaslider.quickstart.class.php:527
 msgid "Curated Videos"
 msgstr "Kurátorovaná videa"
 
-#: inc/metaslider.quickstart.class.php:515
+#: inc/metaslider.quickstart.class.php:539
 msgid "Natural Skincare Presentation"
 msgstr "Prezentace přírodní péče o pleť"
 
-#: inc/metaslider.quickstart.class.php:539
+#: inc/metaslider.quickstart.class.php:563
 msgid "YouTube Shorts Carousel"
 msgstr "Karusel YouTube Shorts"
 
-#: inc/metaslider.quickstart.class.php:551
+#: inc/metaslider.quickstart.class.php:575
 msgid "TikTok Carousel"
 msgstr "Karusel TikTok"
 
-#: inc/metaslider.quickstart.class.php:563
-#: ml-slider.php:839, fuzzy
+#: inc/metaslider.quickstart.class.php:587
+#: ml-slider.php:890, fuzzy
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: inc/metaslider.quickstart.class.php:587
+#: inc/metaslider.quickstart.class.php:599
 msgid "Layer Slides"
 msgstr "Snímky vrstev"
 
-#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:659
 msgid "WooCommerce Carousel"
 msgstr "Karusel WooCommerce"
 
-#: inc/metaslider.quickstart.class.php:659
+#: inc/metaslider.quickstart.class.php:671
 msgid "Bold Motion"
 msgstr "Odvážný pohyb"
 
-#: inc/metaslider.quickstart.class.php:671
+#: inc/metaslider.quickstart.class.php:683
 msgid "Playful Pets"
 msgstr "Hraví mazlíčci"
 
@@ -3375,7 +3459,7 @@ msgid "Select Slider:"
 msgstr "Vyberte posuvník:"
 
 #: inc/metaslider.widget.class.php:126
-#: ml-slider.php:2074
+#: ml-slider.php:2124
 #: admin/assets/dist/js/app.js:2
 msgid "No slideshows found"
 msgstr "Žádné prezentace nenalezeny"
@@ -3419,6 +3503,15 @@ msgid "This isn't a valid image format. Please try again."
 msgstr "Toto není platný formát obrázku. Zkuste to prosím znovu."
 
 #: inc/slide/metaslide.image.class.php:412
+#: inc/slide/metaslide.livid.class.php:784
+#: modules/local_video/slide.php:203
+#: modules/local_video/slide.php:878
+#: modules/local_video/slide.php:936
+#: modules/local_video/slide.php:1044
+#: modules/local_video/slide.php:1209
+#: modules/local_video/slide.php:1282
+#: modules/local_video/slide.php:1396
+#: modules/local_video/slide.php:2082
 msgid "Access denied"
 msgstr "Přístup odepřen"
 
@@ -3431,10 +3524,13 @@ msgid "Warning: The image data does not exist. Please re-upload the image."
 msgstr "Upozornění: Data obrázku neexistují. Prosím, znovu nahrajte obrázek."
 
 #: inc/slide/metaslide.image.class.php:555
+#: inc/slide/metaslide.livid.class.php:875
+#: modules/local_video/slide.php:407
 msgid "General"
 msgstr "Obecné"
 
 #: inc/slide/metaslide.image.class.php:559
+#: modules/local_video/slide.php:411
 msgid "Link"
 msgstr "Odkaz"
 
@@ -3443,6 +3539,8 @@ msgid "SEO"
 msgstr "SEO"
 
 #: inc/slide/metaslide.image.class.php:578
+#: inc/slide/metaslide.livid.class.php:893
+#: modules/local_video/slide.php:438
 msgid "Device"
 msgstr "Zařízení"
 
@@ -3466,7 +3564,67 @@ msgstr "Pokročilé nastavení jsou k dispozici v MetaSlider Slideshow Pro"
 msgid "View Slide Details"
 msgstr "Zobrazit podrobnosti o snímku"
 
-#: inc/slider/metaslider.class.php:457
+#: inc/slide/metaslide.livid.class.php:217, fuzzy
+msgid "Livid Video"
+msgstr "Livid Video"
+
+#: inc/slide/metaslide.livid.class.php:272
+#: inc/slide/metaslide.livid.class.php:320
+#: inc/slide/metaslide.livid.class.php:364
+#: inc/slide/metaslide.livid.class.php:425
+#: inc/slide/metaslide.livid.class.php:477
+msgid "Please enter a valid link to a video hosted on livid.com."
+msgstr "Zadejte platný odkaz na video hostované na livid.com."
+
+#: inc/slide/metaslide.livid.class.php:278
+msgid "Create slideshows with your Livid videos"
+msgstr "Vytvářejte prezentace se svými Livid videi"
+
+#: inc/slide/metaslide.livid.class.php:281
+msgid "Enter the URL of a Livid video:"
+msgstr "Zadejte URL adresu Livid videa:"
+
+#: inc/slide/metaslide.livid.class.php:292
+#: ml-slider.php:850
+#: modules/local_video/slide.php:112
+#: admin/assets/dist/js/admin.js:1
+#: admin/assets/js/admin.js:218
+msgid "Add to slideshow"
+msgstr "Přidat do prezentace"
+
+#: inc/slide/metaslide.livid.class.php:318
+msgid "Updating the Livid video..."
+msgstr "Aktualizuji Livid video..."
+
+#: inc/slide/metaslide.livid.class.php:319
+msgid "Livid video updated."
+msgstr "Livid video bylo aktualizováno."
+
+#: inc/slide/metaslide.livid.class.php:321
+msgid "We could not update the Livid video. Please check the link and try again."
+msgstr ""
+"Nepodařilo se aktualizovat Livid video. Zkontrolujte odkaz a zkuste to "
+"znovu."
+
+#: inc/slide/metaslide.livid.class.php:561
+msgid "Livid video player"
+msgstr "Přehrávač Livid videa"
+
+#: inc/slide/metaslide.livid.class.php:681
+#. translators: %s: Livid video URL
+#, php-format
+msgid "Livid video thumbnail - %s"
+msgstr "Miniatura Livid videa - %s"
+
+#: inc/slide/metaslide.livid.class.php:818, fuzzy
+msgid "Livid Video Slide"
+msgstr "Livid Video Slide"
+
+#: inc/slide/metaslide.livid.class.php:1011
+msgid "Play video"
+msgstr "Přehrát video"
+
+#: inc/slider/metaslider.class.php:461
 msgid "Edit Slideshow"
 msgstr "Upravit prezentaci"
 
@@ -3478,7 +3636,7 @@ msgstr "Přehrát"
 msgid "Pause"
 msgstr "Pauza"
 
-#: ml-slider.php:267
+#: ml-slider.php:270
 #, php-format
 msgid ""
 "MetaSlider Slideshow Pro is installed but is out of date. You may update it "
@@ -3487,70 +3645,64 @@ msgstr ""
 "MetaSlider Pro je nainstalován, ale je zastaralý. Můžete ho aktualizovat "
 "%shere%s. Další informace o této zprávě %shere%s"
 
-#: ml-slider.php:576
+#: ml-slider.php:580
 msgid "Settings & Help"
 msgstr "Nastavení & Nápověda"
 
-#: ml-slider.php:580
+#: ml-slider.php:584
 msgid "Upgrade to Pro"
 msgstr "Přejít na Pro"
 
-#: ml-slider.php:610
-#: ml-slider.php:613
+#: ml-slider.php:614
+#: ml-slider.php:617
 #: themes/customize.php:20
 msgid "Slideshow"
 msgstr "Prezentace obrázků"
 
-#: ml-slider.php:619
-#: ml-slider.php:622
+#: ml-slider.php:623
+#: ml-slider.php:626
 msgid "All Slideshows"
 msgstr "Všechny prezentace"
 
-#: ml-slider.php:630
-#: ml-slider.php:633
+#: ml-slider.php:634
+#: ml-slider.php:637
 msgid "Create Slideshow"
 msgstr "Vytvořit prezentaci"
 
-#: ml-slider.php:799
-#: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:218
-msgid "Add to slideshow"
-msgstr "Přidat do prezentace"
-
-#: ml-slider.php:840, fuzzy
+#: ml-slider.php:891, fuzzy
 msgid "YouTube"
 msgstr "YouTube"
 
-#: ml-slider.php:841, fuzzy
+#: ml-slider.php:892, fuzzy
 msgid "TikTok"
 msgstr "TikTok"
 
-#: ml-slider.php:846
+#: ml-slider.php:897
 msgid "Image Folder"
 msgstr "Složka obrázků"
 
-#: ml-slider.php:847
+#: ml-slider.php:898
 #: admin/assets/dist/js/app.js:2
 msgid "Post Images"
 msgstr "Obrázky příspěvků"
 
-#: ml-slider.php:976
+#: ml-slider.php:1026
 msgid "The slide was successfully restored"
 msgstr "Snímek byl úspěšně obnoven"
 
-#: ml-slider.php:999
+#: ml-slider.php:1049
 msgid "The attempt to restore the slide failed."
 msgstr "Pokusu o obnovení snímku se nezdařil."
 
-#: ml-slider.php:1058
+#: ml-slider.php:1108
 msgid "The slide was successfully trashed"
 msgstr "Snímek byl úspěšně přesunut do koše"
 
-#: ml-slider.php:1170
+#: ml-slider.php:1220
 msgid "The slide was permanently deleted"
 msgstr "Snímek byl trvale smazán"
 
-#: ml-slider.php:1461
+#: ml-slider.php:1511
 #, php-format
 msgid ""
 "Please consider moving your slides to <b>FlexSlider</b>. We're adding all "
@@ -3560,19 +3712,19 @@ msgstr ""
 "Zvažte přesunutí svých snímků do <b>FlexSlider</b>. Přidáváme všechny nové "
 "funkce MetaSlider k této možnosti. <a href=\"%s\">Zjistit více</a>."
 
-#: ml-slider.php:1863
+#: ml-slider.php:1913
 msgid "Slide permanently deleted."
 msgstr "Snímek trvale smazán."
 
-#: ml-slider.php:1866
+#: ml-slider.php:1916
 msgid "Slide restored."
 msgstr "Snímek obnoven."
 
-#: ml-slider.php:1898
+#: ml-slider.php:1948
 msgid "Toggle slide reorder panel"
 msgstr "Přepnout panel pro přeuspořádání snímků"
 
-#: ml-slider.php:1935
+#: ml-slider.php:1985
 #, php-format
 msgid ""
 "You are viewing slides that have been trashed, which will be automatically "
@@ -3581,33 +3733,33 @@ msgstr ""
 "Zobrazujete snímky, které byly přesunuty do koše, které budou automaticky "
 "smazány za %s dní."
 
-#: ml-slider.php:1968
+#: ml-slider.php:2018
 msgid "Move slideshow to trash"
 msgstr "Přesunout prezentaci do koše"
 
-#: ml-slider.php:2023
+#: ml-slider.php:2073
 msgid "Add slideshow"
 msgstr "Přidat prezentaci"
 
-#: ml-slider.php:2059
+#: ml-slider.php:2109
 msgid "Choose slideshow"
 msgstr "Vyberte prezentaci"
 
-#: ml-slider.php:2069
+#: ml-slider.php:2119
 msgid "Insert slideshow"
 msgstr "Vložte prezentaci"
 
-#: ml-slider.php:2104
+#: ml-slider.php:2154
 msgid "Create slides by adding text, videos and more to your images"
 msgstr "Vytvořte snímky přidáním textu, videí a dalších prvků k vašim obrázkům"
 
-#: ml-slider.php:2108
+#: ml-slider.php:2158
 msgid ""
 "With Layer slides, you can create beautiful, stylish layers of different "
 "elements."
 msgstr "S vrstvami snímků můžete vytvořit krásné, stylové vrstvy různých prvků."
 
-#: ml-slider.php:2112
+#: ml-slider.php:2162
 msgid ""
 "You start with an image and then can add text, video, colors, animations, "
 "more images, and even shortcodes."
@@ -3615,35 +3767,34 @@ msgstr ""
 "Začnete s obrázkem a poté můžete přidat text, video, barvy, animace, další "
 "obrázky a dokonce i zkrácené kódy."
 
-#: ml-slider.php:2118
-#: ml-slider.php:2159
-#: ml-slider.php:2200
-#: ml-slider.php:2243
-#: ml-slider.php:2286
-#: ml-slider.php:2329
-#: ml-slider.php:2372
-#: ml-slider.php:2411
-#: ml-slider.php:2454
-#: ml-slider.php:2493
-#: ml-slider.php:2564
-#: ml-slider.php:2599
-#: ml-slider.php:2634
+#: ml-slider.php:2168
+#: ml-slider.php:2209
+#: ml-slider.php:2250
+#: ml-slider.php:2293
+#: ml-slider.php:2336
+#: ml-slider.php:2379
+#: ml-slider.php:2418
+#: ml-slider.php:2461
+#: ml-slider.php:2500
+#: ml-slider.php:2571
+#: ml-slider.php:2606
+#: ml-slider.php:2641
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Find out more about MetaSlider Slideshow Pro"
 msgstr "Zjistěte více o MetaSlider Pro"
 
-#: ml-slider.php:2147
+#: ml-slider.php:2197
 msgid "Create slideshows with your Vimeo videos"
 msgstr "Vytvářejte prezentace se svými videi Vimeo"
 
-#: ml-slider.php:2151
+#: ml-slider.php:2201
 msgid ""
 "With Vimeo slides, you can build beautiful slideshows with your Vimeo "
 "videos."
 msgstr "Se snímky Vimeo můžete vytvářet krásné prezentace se svými videi Vimeo."
 
-#: ml-slider.php:2155
+#: ml-slider.php:2205
 msgid ""
 "Vimeo slides will display your videos with auto play, mute, the ability to "
 "hide controls, and much more."
@@ -3651,17 +3802,17 @@ msgstr ""
 "Snímky Vimeo zobrazí vaše videa s automatickým přehráváním, ztlumením, "
 "možností skrýt ovládací prvky a mnohem více."
 
-#: ml-slider.php:2188
+#: ml-slider.php:2238
 msgid "Create slideshows with your YouTube videos"
 msgstr "Vytvářejte prezentace se svými videi YouTube"
 
-#: ml-slider.php:2192
+#: ml-slider.php:2242
 msgid ""
 "With YouTube slides, you can build beautiful slideshows with your YouTube "
 "videos."
 msgstr "Se snímky YouTube můžete vytvářet krásné prezentace se svými videi YouTube."
 
-#: ml-slider.php:2196
+#: ml-slider.php:2246
 msgid ""
 "YouTube slides will display your videos with auto play, mute, lazy load, "
 "the ability to hide controls, and much more."
@@ -3669,11 +3820,11 @@ msgstr ""
 "Snímky YouTube zobrazí vaše videa s automatickým přehráváním, ztlumením, "
 "načítáním na pozadí, možností skrýt ovládací prvky a mnohem více."
 
-#: ml-slider.php:2229
+#: ml-slider.php:2279
 msgid "Create slideshows with your posts"
 msgstr "Vytvářejte prezentace se svými příspěvky"
 
-#: ml-slider.php:2233
+#: ml-slider.php:2283
 msgid ""
 "With Post Feed slides, you can build slideshows with your latest posts, "
 "events, or WooCommerce products."
@@ -3681,7 +3832,7 @@ msgstr ""
 "Se snímky z příspěvků můžete vytvářet prezentace se svými nejnovějšími "
 "příspěvky, událostmi nebo produkty WooCommerce."
 
-#: ml-slider.php:2237
+#: ml-slider.php:2287
 msgid ""
 "Post Feed slides will automatically display your posts with images, text, "
 "custom fields, and much more."
@@ -3689,11 +3840,11 @@ msgstr ""
 "Snímky z příspěvků automaticky zobrazí vaše příspěvky s obrázky, textem, "
 "vlastními poli a mnohem více."
 
-#: ml-slider.php:2272
+#: ml-slider.php:2322
 msgid "Create slideshows with images stored outside of WordPress"
 msgstr "Vytvářejte prezentace s obrázky uloženými mimo WordPress"
 
-#: ml-slider.php:2276
+#: ml-slider.php:2326
 msgid ""
 "With External URL slides, you can load images directly from non-WordPress "
 "sources such as CDNs or image hosts."
@@ -3701,7 +3852,7 @@ msgstr ""
 "Se snímky externího URL můžete načítat obrázky přímo z ne-WordPress zdrojů, "
 "jako jsou CDN nebo hostitelé obrázků."
 
-#: ml-slider.php:2280
+#: ml-slider.php:2330
 msgid ""
 "External URL slides give you all the power of MetaSlider Slideshow, using "
 "images stored anywhere you want."
@@ -3709,39 +3860,17 @@ msgstr ""
 "Snímky externího URL vám dávají veškerou sílu MetaSlider, s použitím "
 "obrázků uložených kdekoli chcete."
 
-#: ml-slider.php:2315
-msgid "Create slideshows with videos in your media library"
-msgstr "Vytvářejte prezentace s videi ve vaší knihovně médií"
-
-#: ml-slider.php:2319
-msgid ""
-"With Local Video slides, you can build beautiful slideshows with videos in "
-"your WordPress media library or searched directly from Pixabay."
-msgstr ""
-"S místními video snímky můžete vytvářet krásné prezentace s videi ve vaší "
-"WordPress mediální knihovně nebo vyhledávanými přímo z Pixabay."
-
-#: ml-slider.php:2323
-msgid ""
-"Local Video slides will display your MP4, WebM, and MOV videos with cover "
-"images, auto play, mute, lazy load, the ability to hide controls, and much "
-"more."
-msgstr ""
-"Místní video snímky budou zobrazovat vaše videa MP4, WebM a MOV s obalovými "
-"obrázky, automatickým přehráváním, ztlumením, lazy load, možností skrýt "
-"ovládací prvky a mnohem více."
-
-#: ml-slider.php:2358
+#: ml-slider.php:2365
 msgid "Create slideshows with videos stored outside of WordPress"
 msgstr "Vytvořte prezentace se videi uloženými mimo WordPress"
 
-#: ml-slider.php:2362
+#: ml-slider.php:2369
 msgid ""
 "With External Video slides, you can add videos directly from non-WordPress "
 "sources."
 msgstr "S externími video snímky můžete přidávat videa přímo z ne-WordPress zdrojů."
 
-#: ml-slider.php:2366
+#: ml-slider.php:2373
 msgid ""
 "External Video Slides will display your MP4, WebM, and MOV videos. Features "
 "include text captions, cover images, auto play, mute, lazy load, the "
@@ -3751,11 +3880,11 @@ msgstr ""
 "funkce patří textové popisky, obalové obrázky, automatické přehrávání, "
 "ztlumení, lazy load, možnost skrýt ovládací prvky a mnohem více."
 
-#: ml-slider.php:2401
+#: ml-slider.php:2408
 msgid "Create slideshows with custom HTML"
 msgstr "Vytvořte prezentace s vlastním HTML"
 
-#: ml-slider.php:2405
+#: ml-slider.php:2412
 msgid ""
 "With Custom HTML slides, you can design slides using images, HTML and CSS. "
 "This gives you complete control over the layout and styling."
@@ -3763,11 +3892,11 @@ msgstr ""
 "S vlastním HTML snímky můžete navrhovat snímky pomocí obrázků, HTML a CSS. "
 "To vám dává úplnou kontrolu nad rozvržením a stylováním."
 
-#: ml-slider.php:2444
+#: ml-slider.php:2451
 msgid "Create slides with background colors and text"
 msgstr "Vytvořit snímky s barvami pozadí a textem"
 
-#: ml-slider.php:2448
+#: ml-slider.php:2455
 msgid ""
 "With Background Color slides, you can create slides using a solid or "
 "gradient background color. Perfect for text-only slides, calls to action or "
@@ -3777,21 +3906,21 @@ msgstr ""
 "gradientní barvy pozadí. Ideální pro snímky pouze s textem, výzvy k akci "
 "nebo rychlé bannery."
 
-#: ml-slider.php:2483
+#: ml-slider.php:2490
 msgid "Create slideshows with Tiktok Videos"
 msgstr "Vytvořte prezentace s TikTok videi"
 
-#: ml-slider.php:2487
+#: ml-slider.php:2494
 msgid ""
 "A TikTok Slide will display a video in your slideshow directly from "
 "TikTok.com."
 msgstr "Snímek TikTok zobrazí video ve vaší prezentaci přímo z TikTok.com."
 
-#: ml-slider.php:2550
+#: ml-slider.php:2557
 msgid "Create slideshows with images from a folder"
 msgstr "Vytvořte prezentace s obrázky z adresáře"
 
-#: ml-slider.php:2554
+#: ml-slider.php:2561
 msgid ""
 "The Image Folder slide type extracts images from a specified folder and "
 "displays them as slides."
@@ -3799,7 +3928,7 @@ msgstr ""
 "Typ snímku Image Folder extrahuje obrázky z určeného adresáře a zobrazuje "
 "je jako snímky."
 
-#: ml-slider.php:2558
+#: ml-slider.php:2565
 msgid ""
 "This slide type displays images from folders in your WordPress Media "
 "Library."
@@ -3807,11 +3936,11 @@ msgstr ""
 "Tento typ snímku zobrazuje obrázky z adresářů ve vaší WordPress knihovně "
 "médií."
 
-#: ml-slider.php:2585
+#: ml-slider.php:2592
 msgid "Create slideshows with Post Images"
 msgstr "Vytvořte prezentace s obrázky příspěvků"
 
-#: ml-slider.php:2589
+#: ml-slider.php:2596
 msgid ""
 "The Post Images slide type extracts images from the current post and "
 "displays them as slides."
@@ -3819,7 +3948,7 @@ msgstr ""
 "Typ snímku Post Images extrahuje obrázky z aktuálního příspěvku a zobrazuje "
 "je jako snímky."
 
-#: ml-slider.php:2593
+#: ml-slider.php:2600
 msgid ""
 "This slide type supports featured images, post content images, WooCommerce "
 "galleries, Advanced Custom Fields images and galleries."
@@ -3827,11 +3956,11 @@ msgstr ""
 "Tento typ snímku podporuje doporučené obrázky, obrázky obsahu příspěvků, "
 "galerie WooCommerce, obrázky a galerie z pokročilých vlastních polí."
 
-#: ml-slider.php:2620
+#: ml-slider.php:2627
 msgid "Create slideshows with your WooCommerce products"
 msgstr "Vytvořte prezentace se svými produkty WooCommerce"
 
-#: ml-slider.php:2624
+#: ml-slider.php:2631
 msgid ""
 "With WooCommerce slides, you can build slideshows with your WooCommerce "
 "products."
@@ -3839,7 +3968,7 @@ msgstr ""
 "S WooCommerce snímky můžete vytvářet prezentace se svými produkty "
 "WooCommerce."
 
-#: ml-slider.php:2628
+#: ml-slider.php:2635
 msgid ""
 "WooCommerce slides will automatically display your products with images, "
 "text, custom fields, and much more."
@@ -3847,46 +3976,287 @@ msgstr ""
 "WooCommerce snímky automaticky zobrazí vaše produkty s obrázky, textem, "
 "vlastními poli a mnohem více."
 
-#: ml-slider.php:2672
+#: ml-slider.php:2679
 msgid "Premium Support"
 msgstr "Prémiová podpora"
 
-#: ml-slider.php:2678
+#: ml-slider.php:2685
 #, fuzzy
 msgid "MetaSlider Slideshow Pro"
 msgstr "MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2682
+#: ml-slider.php:2689
 msgid "Support"
 msgstr "Podpora"
 
-#: ml-slider.php:2687
+#: ml-slider.php:2694
+#: modules/local_video/slide.php:533
 msgid "Documentation"
 msgstr "Dokumentace"
 
-#: ml-slider.php:2691
+#: ml-slider.php:2698
 msgid "Leave a review"
 msgstr "Zanechat recenzi"
 
-#: ml-slider.php:2810
+#: ml-slider.php:2817
 msgid "Uploading..."
 msgstr "Nahrávání..."
 
-#: ml-slider.php:2817
+#: ml-slider.php:2824
 msgid "Upload Complete"
 msgstr "Nahrávání dokončeno"
 
-#: ml-slider.php:2944
+#: ml-slider.php:2951
 msgid "Import file is missing"
 msgstr "Importovaný soubor chybí"
 
-#: ml-slider.php:3095
+#: ml-slider.php:3102
 msgid ""
 "You attempted to edit a slideshow that does not exist. Perhaps it was moved "
 "to trash?"
 msgstr ""
 "Pokusili jste se upravit prezentaci, která neexistuje. Možná byla přesunuta "
 "do koše?"
+
+#: modules/local_video/helper.php:95
+#: modules/local_video/helper.php:101
+msgid "Update cover image"
+msgstr "Aktualizovat obrázek na pozadí"
+
+#: modules/local_video/helper.php:108
+msgid "Set cover image"
+msgstr "Nastavit obrázek na pozadí"
+
+#: modules/local_video/helper.php:159
+#: modules/local_video/slide.php:1163
+msgid "Update slide video"
+msgstr "Aktualizovat video snímku"
+
+#: modules/local_video/helper.php:163
+#: modules/local_video/slide.php:585
+#: modules/local_video/slide.php:1167
+msgid "Browse"
+msgstr "Procházet"
+
+#: modules/local_video/helper.php:168
+#: modules/local_video/slide.php:1172
+msgid "Video File"
+msgstr "Video soubor"
+
+#: modules/local_video/slide.php:109
+msgid "Select replacement video"
+msgstr "Vybrat náhradní video"
+
+#: modules/local_video/slide.php:110
+msgid "Select replacement cover"
+msgstr "Vybrat náhradní obrázek"
+
+#: modules/local_video/slide.php:111
+msgid "Select replacement text track"
+msgstr "Vybrat náhradní textovou stopu"
+
+#: modules/local_video/slide.php:197
+#: modules/local_video/slide.php:2075
+msgid "Invalid nonce"
+msgstr "Neplatný nonce"
+
+#: modules/local_video/slide.php:218
+#: modules/local_video/slide.php:897
+#: modules/local_video/slide.php:1107
+msgid "Not supported video format"
+msgstr "Nepodporovaný formát videa"
+
+#: modules/local_video/slide.php:349
+msgid "Local Video Slide"
+msgstr "Místní video snímku"
+
+#: modules/local_video/slide.php:370
+msgid "Please update to MetaSlider Slideshow to version 3.2 or above."
+msgstr "Prosím, aktualizujte na verzi MetaSlider Slideshow 3.2 nebo vyšší."
+
+#: modules/local_video/slide.php:415
+msgid "Cover"
+msgstr "Obrázek na pozadí"
+
+#: modules/local_video/slide.php:419
+msgid "Text track"
+msgstr "Textová stopa"
+
+#: modules/local_video/slide.php:476
+msgid "Which language is the source file?"
+msgstr "Jaký jazyk má zdrojový soubor?"
+
+#: modules/local_video/slide.php:477
+msgid "Language label"
+msgstr "Jazyková značka"
+
+#: modules/local_video/slide.php:482
+msgid "For example: English"
+msgstr "Například: angličtina"
+
+#: modules/local_video/slide.php:490
+msgid "Choose the type of text track"
+msgstr "Vyberte typ textové stopy"
+
+#: modules/local_video/slide.php:491
+msgid "Language kind"
+msgstr "Typ jazyka"
+
+#: modules/local_video/slide.php:497
+msgid "Captions"
+msgstr "Titulky"
+
+#: modules/local_video/slide.php:500
+msgid "Chapters"
+msgstr "Kapitoly"
+
+#: modules/local_video/slide.php:503
+msgid "Descriptions"
+msgstr "Popisy"
+
+#: modules/local_video/slide.php:509
+msgid "Subtitles"
+msgstr "Titulky"
+
+#: modules/local_video/slide.php:517
+msgid "If the language is English, the code must be en"
+msgstr "Pokud je jazyk angličtina, kód musí být en"
+
+#: modules/local_video/slide.php:518
+msgid "Language code"
+msgstr "Kód jazyka"
+
+#: modules/local_video/slide.php:523
+msgid "For example: en"
+msgstr "Například: en"
+
+#: modules/local_video/slide.php:576
+msgid "File must be TXT or VTT format"
+msgstr "Soubor musí být ve formátu TXT nebo VTT"
+
+#: modules/local_video/slide.php:577
+msgid "Source"
+msgstr "Zdroj"
+
+#: modules/local_video/slide.php:582
+msgid "Update slide text track"
+msgstr "Aktualizovat textovou stopu snímku"
+
+#: modules/local_video/slide.php:956
+msgid "The cover was successfully removed."
+msgstr "Obal byl úspěšně odstraněn."
+
+#: modules/local_video/slide.php:986
+msgid "The requested video does not exist. Please try again."
+msgstr "Požadované video neexistuje. Zkuste to prosím znovu."
+
+#: modules/local_video/slide.php:995
+msgid "There was an error updating the video. No previous video saved."
+msgstr "Při aktualizaci videa došlo k chybě. Žádné předchozí video nebylo uloženo."
+
+#: modules/local_video/slide.php:1011
+msgid "The video was successfully updated."
+msgstr "Video bylo úspěšně aktualizováno."
+
+#: modules/local_video/slide.php:1020
+msgid "There was an error updating the video. Please try again"
+msgstr "Při aktualizaci videa došlo k chybě. Zkuste to prosím znovu"
+
+#: modules/local_video/slide.php:1078
+msgid "You can't add more sources to this video slide."
+msgstr "Nemůžete přidat více zdrojů k tomuto snímku videa."
+
+#: modules/local_video/slide.php:1094
+msgid "This slide already has a video in that format."
+msgstr "Tento snímek již má video v tomto formátu."
+
+#: modules/local_video/slide.php:1126
+msgid "The video source was successfully added."
+msgstr "Video zdroj byl úspěšně přidán."
+
+#: modules/local_video/slide.php:1237
+msgid "This slide requires at least one video source."
+msgstr "Tento snímek vyžaduje alespoň jeden video zdroj."
+
+#: modules/local_video/slide.php:1250
+msgid "The video source was successfully removed."
+msgstr "Video zdroj byl úspěšně odstraněn."
+
+#: modules/local_video/slide.php:1301
+msgid "Not supported text track format"
+msgstr "Formát textové stopy není podporován"
+
+#: modules/local_video/slide.php:1343
+msgid "The requested text track does not exist. Please try again."
+msgstr "Požadovaná textová stopa neexistuje. Zkuste to prosím znovu."
+
+#: modules/local_video/slide.php:1364
+msgid "The text track was successfully updated."
+msgstr "Textová stopa byla úspěšně aktualizována."
+
+#: modules/local_video/slide.php:1373
+msgid "There was an error updating the text track. Please try again"
+msgstr "Při aktualizaci textové stopy došlo k chybě. Zkuste to prosím znovu"
+
+#: modules/local_video/slide.php:1420
+msgid "The text track was successfully removed."
+msgstr "Textová stopa byla úspěšně odstraněna."
+
+#: modules/local_video/tabs/caption.php:7
+msgid ""
+"Please note that captions on videos can interfere with player controls. We "
+"recommend adding captions when \"Auto play\" is enabled, and \"Show "
+"controls\" and \"Lazy load video\" are both disabled."
+msgstr ""
+"Vezměte prosím na vědomí, že titulky ve videích mohou narušovat ovládací "
+"prvky přehrávače. Doporučujeme přidávat titulky, když je povolen "
+"\"Automatické přehrávání\" a \"Zobrazit ovládací prvky\" a \"Pomalé "
+"načítání videa\" jsou oba vypnuté."
+
+#: modules/local_video/tabs/general.php:50
+#: modules/local_video/tabs/general.php:52
+msgid "Add a new video source"
+msgstr "Přidat nový video zdroj"
+
+#: modules/local_video/tabs/general.php:55
+msgid ""
+"Adding more formats for the same video can help improve support for "
+"different platforms."
+msgstr ""
+"Přidání více formátů pro stejné video může pomoci zlepšit podporu pro různé "
+"platformy."
+
+#: modules/local_video/tabs/general.php:97
+msgid "May require video to be muted"
+msgstr "Může vyžadovat ztlumení videa"
+
+#: modules/local_video/tabs/general.php:137
+msgid "Fit video in container"
+msgstr "Přizpůsobit video kontejneru"
+
+#: modules/local_video/tabs/general.php:150
+msgid "Fade in transition"
+msgstr "Přechod s vyblednutím"
+
+#: modules/local_video/tabs/general.php:152
+msgid ""
+"Fade in before video loads. Recommended when slide and slideshow Auto play "
+"are enabled, and slideshow Transition effect is fade."
+msgstr ""
+"Fade in před načtením videa. Doporučeno, když je povoleno automatické "
+"přehrávání snímků a efekt přechodu slideshow je fade."
+
+#: modules/local_video/tabs/link.php:8
+msgid "Video Link URL"
+msgstr "URL odkazu na video"
+
+#: modules/local_video/tabs/link.php:11
+msgid ""
+"When visitors click on your video slide, they will be taken to this URL. "
+"This may affect how user interacts with the video controls."
+msgstr ""
+"Když návštěvníci kliknou na váš video snímek, budou přesměrováni na tuto "
+"URL. To může ovlivnit, jak uživatel interaguje s ovládacími prvky videa."
 
 #: themes/architekt/customize.php:16
 #: themes/architekt/customize.php:356
@@ -6761,8 +7131,8 @@ msgstr "Připravuje se 1 snímek..."
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/dist/js/app.js:2
 #: admin/assets/js/admin.js:168
-#: admin/assets/js/admin.js:1519
-#: admin/assets/js/admin.js:1562
+#: admin/assets/js/admin.js:1554
+#: admin/assets/js/admin.js:1597
 msgid "1 slide added successfully"
 msgstr "1 snímek byl úspěšně přidán"
 
@@ -6783,6 +7153,8 @@ msgstr "Zavírá se uživatelské rozhraní pro přidání snímku..."
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:314
+#: modules/local_video/assets/local_video.js:208
+#: modules/local_video/assets/local_video.js:632
 msgid "Updating slide..."
 msgstr "Aktualizuji snímek..."
 
@@ -6803,21 +7175,22 @@ msgstr "Knihovna Unsplash"
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:959
 msgid "Pixabay Library"
 msgstr "Pixabay Knihovna"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1347
+#: admin/assets/js/admin.js:1382
 msgid "Crop position saved and image cropped"
 msgstr "Pozice oříznutí byla uložena a obrázek oříznut"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1364
+#: admin/assets/js/admin.js:1399
 msgid "There was an error when saving crop position or cropping the image"
 msgstr "Při ukládání pozice oříznutí nebo oříznutí obrázku došlo k chybě"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1577
+#: admin/assets/js/admin.js:1612
 msgid "Device options are enabled for this slide. Adjust using the Device tab."
 msgstr ""
 "Možnosti zařízení jsou pro tento snímek povoleny. Upravte pomocí karty "
@@ -7239,6 +7612,40 @@ msgstr "Nebyly nalezeny žádné fotografie."
 #: admin/assets/dist/js/app.js:2
 msgid "All images published on Pixabay can be used for free."
 msgstr "Všechny obrázky publikované na Pixabay lze používat zdarma."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Search pixabay.com videos..."
+msgstr "Hledat videa na pixabay.com..."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s on Pixabay"
+msgstr "Video od %s na Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Video on Pixabay"
+msgstr "Video na Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Opening Pixabay Video tab..."
+msgstr "Otevírám kartu videa Pixabay..."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Pixabay Video tab closed"
+msgstr "Karta videa Pixabay byla zavřena"
+
+#: admin/assets/dist/js/app.js:2
+msgid "No videos found."
+msgstr "Žádná videa nebyla nalezena."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s"
+msgstr "Video od %s"
+
+#: admin/assets/dist/js/app.js:2
+msgid "All videos published on Pixabay can be used for free."
+msgstr "Všechny videa publikovaná na Pixabay lze používat zdarma."
 
 #: admin/assets/dist/js/app.js:2
 msgid "Complete!"
@@ -8170,6 +8577,11 @@ msgid "Importing %s slideshows... This may take a minute"
 msgstr "Importuji %s slideshow... To může chvíli trvat"
 
 #: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Failed to import: %s"
+msgstr "Import se nezdařil: %s"
+
+#: admin/assets/dist/js/app.js:2
 msgid "Import successful"
 msgstr "Import úspěšný"
 
@@ -8205,6 +8617,11 @@ msgstr "Zpracovávám..."
 #: admin/assets/dist/js/app.js:2
 msgid "Upload file"
 msgstr "Nahrát soubor"
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Importing slideshow %1$s of %2$s (%3$s slides). This may take a minute."
+msgstr "Importuji slideshow %1$s z %2$s (%3$s snímků). Může to chvíli trvat."
 
 #: admin/assets/dist/js/app.js:2
 msgid ""
@@ -8391,6 +8808,43 @@ msgstr "Otevírám stránku nastavení..."
 msgid "Page not found: %s"
 msgstr "Stránka nebyla nalezena: %s"
 
+#: admin/assets/js/app/slides/external/videoQuality.js:29, fuzzy
+msgid "4K"
+msgstr "4K"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:30, fuzzy
+msgid "Quad HD"
+msgstr "Quad HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:31, fuzzy
+msgid "Full HD"
+msgstr "Full HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:32, fuzzy
+msgid "HD"
+msgstr "HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:33, fuzzy
+msgid "SD"
+msgstr "SD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:45
+msgid "SD (if available)"
+msgstr "SD (pokud je k dispozici)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:46
+msgid "HD (if available)"
+msgstr "HD (pokud je k dispozici)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:47
+msgid "Full HD (if available)"
+msgstr "Full HD (pokud je k dispozici)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:48
+#: admin/assets/js/app/slides/external/videoQuality.js:64
+msgid "Original"
+msgstr "Originál"
+
 #: admin/assets/js/app/tour/main.js:12
 msgid "Add a slide"
 msgstr "Přidat snímek"
@@ -8520,6 +8974,109 @@ msgstr "prezentace"
 msgid "gallery"
 msgstr "galerie"
 
+#: admin/assets/js/livid-iframe.js:132
+#: modules/local_video/assets/local_video.js:46
+#: modules/local_video/assets/local_video.js:166
+#, js-format
+msgid "Preparing %s slide..."
+msgstr "Připravuji snímek %s..."
+
+#: modules/local_video/assets/local_video.js:61
+#: modules/local_video/assets/local_video.js:181
+msgid "This isn't a supported video format. Please use MP4, WebM, or MOV videos."
+msgstr ""
+"Toto není podporovaný formát videa. Použijte prosím videa ve formátu MP4, "
+"WebM nebo MOV."
+
+#: modules/local_video/assets/local_video.js:241
+#: modules/local_video/assets/local_video.js:690
+msgid "There is an error"
+msgstr "Došlo k chybě"
+
+#: modules/local_video/assets/local_video.js:265
+#: modules/local_video/assets/local_video.js:741
+msgid "Video source added successfully"
+msgstr "Zdroj videa byl úspěšně přidán"
+
+#: modules/local_video/assets/local_video.js:282
+#: modules/local_video/assets/local_video.js:762
+msgid "Video updated successfully"
+msgstr "Video bylo úspěšně aktualizováno"
+
+#: modules/local_video/assets/local_video.js:324
+msgid "Create slideshows with videos hosted in your media library"
+msgstr "Vytvářejte slideshow s videi uloženými ve vaší mediální knihovně"
+
+#: modules/local_video/assets/local_video.js:326
+msgid "Create slideshows with images in your media library"
+msgstr "Vytvářejte slideshow s obrázky ve vaší mediální knihovně"
+
+#: modules/local_video/assets/local_video.js:328
+msgid ""
+"Layer Slides allow you to add text, colors, shortcodes and media on top of "
+"an image or video."
+msgstr ""
+"Snímky vrstev umožňují přidávat text, barvy, zkrácené kódy a média na "
+"obrázek nebo video."
+
+#: modules/local_video/assets/local_video.js:398
+msgid "Cover removed successfully."
+msgstr "Obal byl úspěšně odstraněn."
+
+#: modules/local_video/assets/local_video.js:431
+msgid "You can't delete this video. This slide requires at least one video source."
+msgstr "Toto video nelze smazat. Tento snímek vyžaduje alespoň jeden zdroj videa."
+
+#: modules/local_video/assets/local_video.js:462
+msgid "Video source removed successfully"
+msgstr "Zdroj videa byl úspěšně odstraněn"
+
+#: modules/local_video/assets/local_video.js:481
+msgid "No text track has beed selected for this slide."
+msgstr "Pro tento snímek nebyla vybrána žádná textová stopa."
+
+#: modules/local_video/assets/local_video.js:503
+msgid "There was an error removing the text track"
+msgstr "Při odstraňování textové stopy došlo k chybě"
+
+#: modules/local_video/assets/local_video.js:520
+msgid "Text track removed successfully"
+msgstr "Textová stopa byla úspěšně odstraněna"
+
+#: modules/local_video/assets/local_video.js:546
+#, js-format
+msgid "Select Replacement %s Video"
+msgstr "Vyberte náhradní %s video"
+
+#: modules/local_video/assets/local_video.js:608
+#, js-format
+msgid "Please select a %s video for this source!"
+msgstr "Prosím vyberte %s video pro tento zdroj!"
+
+#: modules/local_video/assets/local_video.js:702
+msgid "This isn't a supported image format. Please use JPG, PNG, or GIF images."
+msgstr ""
+"Toto není podporovaný formát obrázku. Používejte prosím obrázky ve "
+"formátech JPG, PNG nebo GIF."
+
+#: modules/local_video/assets/local_video.js:708
+msgid "This isn't a supported text track format. Please use TXT or VTT files."
+msgstr ""
+"Toto není podporovaný formát textové stopy. Používejte prosím soubory TXT "
+"nebo VTT."
+
+#: modules/local_video/assets/local_video.js:788
+msgid "Text track updated successfully"
+msgstr "Textová stopa byla úspěšně aktualizována"
+
+#: modules/local_video/assets/local_video.js:861
+msgid "Cover image updated successfully"
+msgstr "Obrázek obalu byl úspěšně aktualizován"
+
+#: modules/local_video/assets/local_video.js:906
+msgid "Duplicating the slide failed."
+msgstr "Duplikování snímku se nezdařilo."
+
 #: admin/Notices.php:101
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
@@ -8536,7 +9093,7 @@ msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Review MetaSlider Slideshow &rarr;"
 msgstr "Ohodnoťte MetaSlider &rarr;"
 
-#: ml-slider.php:2053
+#: ml-slider.php:2103
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Select slideshow to insert into post"
@@ -8544,8 +9101,8 @@ msgstr "Vyberte prezentaci k vložení do příspěvku"
 
 #: admin/views/pages/parts/slider-settings.php:665
 #: admin/views/pages/parts/slider-settings.php:685
-#: admin/views/pages/parts/slider-settings.php:1420
-#: admin/views/pages/parts/slider-settings.php:1454, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1450, fuzzy
 msgctxt "Short for milliseconds"
 msgid "ms"
 msgstr "ms"
@@ -8555,7 +9112,7 @@ msgctxt "This is a keyboard shortcut."
 msgid " (Use Alt or ⌥ (Option) + P keys)"
 msgstr " (Použijte klávesy Alt nebo ⌥ (Option) + P)"
 
-#: admin/views/pages/start.php:382
+#: admin/views/pages/start.php:383
 msgctxt "Uploader: Drop files to upload - or - Select Files"
 msgid "or"
 msgstr "nebo"

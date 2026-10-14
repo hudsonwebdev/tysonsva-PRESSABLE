@@ -17,11 +17,11 @@ $items = $this->items;
 					class="acu-block acu-w-full acu-object-cover">
 
 				<div class="ac-image-buttons acu-absolute acu-gap-3  acu-bottom-3 acu-left-3 acu-right-3 acu-flex acu-justify-center">
-					<a class="ac-image-button" target="_blank" href="<?= $item['edit_url'] ?>"><?= __('Edit') ?></a>
-					<a class="ac-image-button" download href="<?= $item['img_src'] ?>"><?= __('Download') ?></a>
+					<a class="ac-image-button" target="_blank" href="<?= esc_url($item['edit_url']) ?>"><?= __('Edit') ?></a>
+					<a class="ac-image-button" download href="<?= esc_url($item['img_src']) ?>"><?= __('Download') ?></a>
 				</div>
 			</div>
-			<div class="ac-image-meta acu-p-2">
+			<div class="ac-image-meta">
 				<div class="acu-font-bold acu-mb-1"><?= $item['filename'] ?? '' ?></div>
 				<div class="acu-flex acu-gap-[20px]">
 					<span>

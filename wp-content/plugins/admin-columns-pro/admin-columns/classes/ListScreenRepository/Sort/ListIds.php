@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListScreenRepository\Sort;
 
 use AC\ListScreenCollection;
@@ -7,8 +9,7 @@ use AC\ListScreenRepository\Sort;
 
 class ListIds implements Sort
 {
-
-    private $list_ids;
+    private array $list_ids;
 
     public function __construct(array $list_ids = [])
     {
@@ -17,22 +18,20 @@ class ListIds implements Sort
 
     public function sort(ListScreenCollection $list_screens): ListScreenCollection
     {
-        if ( ! $list_screens->count()) {
+        if (! $list_screens->count()) {
             return $list_screens;
         }
 
         $lists = [];
 
         foreach ($list_screens as $list_screen) {
-            if ($list_screen->has_id()) {
-                $lists[(string)$list_screen->get_id()] = $list_screen;
-            }
+            $lists[(string)$list_screen->get_id()] = $list_screen;
         }
 
         $ordered = new ListScreenCollection();
 
         foreach (array_unique($this->list_ids) as $list_id) {
-            if ( ! isset($lists[$list_id])) {
+            if (! isset($lists[$list_id])) {
                 continue;
             }
 

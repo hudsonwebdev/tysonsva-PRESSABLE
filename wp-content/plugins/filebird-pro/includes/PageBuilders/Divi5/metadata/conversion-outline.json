@@ -1,0 +1,50 @@
+{
+  "advanced": {
+    "admin_label": "module.meta.adminLabel",
+    "animation": "module.decoration.animation",
+    "background": "module.decoration.background",
+    "borders": {
+      "default": "module.decoration.border",
+      "image": "image.decoration.border"
+    },
+    "box_shadow": {
+      "default": "module.decoration.boxShadow",
+      "image": "image.decoration.boxShadow"
+    },
+    "disabled_on": "module.decoration.disabledOn",
+    "display_conditions": "module.decoration.conditions",
+    "filters": {
+      "default": "module.decoration.filters",
+      "child_filters": "image.decoration.filters"
+    },
+    "height": "module.decoration.sizing",
+    "margin_padding": "module.decoration.spacing",
+    "max_width": "module.decoration.sizing",
+    "module": "module.advanced.htmlAttributes",
+    "overflow": "module.decoration.overflow",
+    "position_fields": "module.decoration.position",
+    "scroll": "module.decoration.scroll",
+    "sticky": "module.decoration.sticky",
+    "transform": "module.decoration.transform",
+    "transition": "module.decoration.transition",
+    "z_index": "module.decoration.zIndex"
+  },
+  "css": {
+    "after": "css.*.after",
+    "before": "css.*.before",
+    "free_form": "css.*.freeForm",
+    "main_element": "css.*.mainElement"
+  },
+  "module": {
+    "folders": "module.advanced.folders.*",
+    "layout": "module.advanced.layout.*",
+    "columns": "module.advanced.columns.*",
+    "crop": "module.advanced.crop.*",
+    "crop_ratio": "module.advanced.cropRatio.*",
+    "lightbox": "module.advanced.lightbox.*",
+    "link_to": "module.advanced.linkTo.*",
+    "size": "module.advanced.size.*",
+    "orderby": "module.advanced.orderby.*",
+    "order": "module.advanced.order.*"
+  }
+}

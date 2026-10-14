@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order;
 
-use ACA\WC\Search;
 use ACP;
 use ACP\Query\Bindings;
 use ACP\Search\Operators;
@@ -10,7 +11,6 @@ use ACP\Search\Value;
 
 class Total extends ACP\Search\Comparison
 {
-
     public function __construct()
     {
         parent::__construct(

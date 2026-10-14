@@ -14,20 +14,19 @@ use ACP\Sorting\Type\Order;
 
 class FieldFormat implements QueryBindings
 {
+    protected string $field;
 
-    protected $field;
+    protected FormatValue $formatter;
 
-    protected $formatter;
+    protected ?int $value_length;
 
-    protected $value_length;
-
-    protected $data_type;
+    protected ?DataType $data_type;
 
     public function __construct(
         string $field,
         FormatValue $formatter,
-        DataType $data_type = null,
-        int $value_length = null
+        ?DataType $data_type = null,
+        ?int $value_length = null
     ) {
         $this->field = $field;
         $this->formatter = $formatter;
@@ -70,17 +69,13 @@ class FieldFormat implements QueryBindings
     {
         global $wpdb;
 
-        $field = $this->value_length
-            ? sprintf("LEFT( cc.%s, %s )", esc_sql($this->field), $this->value_length)
-            : sprintf("cc.%s", esc_sql($this->field));
+        $field = "cc.`" . esc_sql($this->field) . "`";
 
-        $sql = sprintf(
-            "
-			SELECT cc.comment_ID AS id, %s AS value 
-			FROM $wpdb->comments AS cc
-		",
-            $field
-        );
+        if ($this->value_length) {
+            $field = "LEFT( $field, $this->value_length )";
+        }
+
+        $sql = "SELECT cc.comment_ID AS id, $field AS value FROM $wpdb->comments AS cc";
 
         $status = $this->get_comment_status();
 
@@ -90,7 +85,7 @@ class FieldFormat implements QueryBindings
 
         $results = $wpdb->get_results($sql);
 
-        if ( ! $results) {
+        if (! $results) {
             return [];
         }
 

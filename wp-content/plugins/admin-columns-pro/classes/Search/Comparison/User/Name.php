@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\User;
 
 use ACP\Query\Bindings;
@@ -10,21 +12,16 @@ use ACP\Search\Value;
 
 class Name extends Comparison
 {
+    private array $meta_keys;
 
-    /**
-     * @var array
-     */
-    private $meta_keys;
-
-    /**
-     * @param array $meta_keys
-     */
     public function __construct(array $meta_keys)
     {
         $operators = new Operators([
             Operators::CONTAINS,
             Operators::BEGINS_WITH,
             Operators::ENDS_WITH,
+            Operators::IS_EMPTY,
+            Operators::NOT_IS_EMPTY,
         ]);
 
         $this->meta_keys = $meta_keys;
@@ -42,10 +39,10 @@ class Name extends Comparison
         return $bindings;
     }
 
-    protected function get_meta_query($operator, Value $value)
+    protected function get_meta_query($operator, Value $value): array
     {
         $meta_query = [
-            'relation' => 'OR',
+            'relation' => Operators::IS_EMPTY === $operator ? 'AND' : 'OR',
         ];
 
         foreach ($this->meta_keys as $key) {

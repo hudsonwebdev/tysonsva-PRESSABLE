@@ -9,7 +9,6 @@ use AC\Helper\Select\Options\Paginated;
 
 class PaginatedFactory
 {
-
     public function create(string $field, string $search, int $page): Paginated
     {
         $query = new Query(
@@ -22,7 +21,7 @@ class PaginatedFactory
 
         $values = $query->get();
 
-        $options = array_combine($values, $values);
+        $options = $values ? array_combine($values, $values) : [];
 
         return new Paginated(
             $query,

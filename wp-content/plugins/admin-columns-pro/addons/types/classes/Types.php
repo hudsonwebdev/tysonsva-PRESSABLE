@@ -1,31 +1,47 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\Types;
 
 use AC;
-use AC\Registerable;
+use AC\DI\Container;
 use AC\Services;
+use ACP\Addon;
+use ACP\AdminColumnsPro;
 use ACP\Service\IntegrationStatus;
 
-final class Types implements Registerable
+final class Types implements Addon
 {
+    private AC\Asset\Location $location;
 
-    private $location;
+    private Container $container;
 
-    public function __construct(AC\Asset\Location\Absolute $location)
+    public function __construct(Container $container)
     {
-        $this->location = $location;
+        $this->container = $container;
+        $this->location = $container->get(AdminColumnsPro::class)->get_addon_location($this->get_id());
+    }
+
+    public function get_id(): string
+    {
+        return 'types';
     }
 
     public function register(): void
     {
-        if ( ! $this->has_minimum_required_types()) {
+        if (! $this->has_minimum_required_types()) {
             return;
         }
 
-        if ( ! $this->load_types_api()) {
+        if (! $this->load_types_api()) {
             return;
         }
+
+        AC\ColumnFactories\Aggregate::add($this->container->get(ColumnFactories\TypesFieldFactory::class));
+        AC\ColumnFactories\Aggregate::add($this->container->get(ColumnFactories\RelationFactory::class));
+        AC\ColumnFactories\Aggregate::add($this->container->get(ColumnFactories\IntermediaryRelationFactory::class));
+        AC\ColumnFactories\Aggregate::add($this->container->get(ColumnFactories\TypesDeprecatedFactory::class));
 
         $this->create_services()->register();
     }
@@ -33,8 +49,7 @@ final class Types implements Registerable
     private function create_services(): Services
     {
         return new Services([
-            new Service\Columns(),
-            new Service\Scripts($this->location),
+            new Service\Columns($this->location),
             new IntegrationStatus('ac-addon-types'),
         ]);
     }
@@ -43,7 +58,7 @@ final class Types implements Registerable
     {
         $min_required_types_version = '3.4';
 
-        return ! ( ! class_exists('Types_Main', false) ||
+        return ! (! class_exists('Types_Main', false) ||
                    ! defined('TYPES_VERSION') ||
                    version_compare(TYPES_VERSION, $min_required_types_version, '<='));
     }
@@ -53,12 +68,12 @@ final class Types implements Registerable
      */
     private function load_types_api(): bool
     {
-        if ( ! defined('WPCF_EMBEDDED_TOOLSET_ABSPATH')) {
+        if (! defined('WPCF_EMBEDDED_TOOLSET_ABSPATH')) {
             return false;
         }
 
         $calls = [
-            WPCF_EMBEDDED_TOOLSET_ABSPATH . '/types/embedded/frontend.php'        => [
+            WPCF_EMBEDDED_TOOLSET_ABSPATH . '/types/embedded/frontend.php' => [
                 'types_render_termmeta',
                 'types_render_field',
                 'types_render_usermeta',
@@ -71,14 +86,14 @@ final class Types implements Registerable
         ];
 
         foreach ($calls as $file => $functions) {
-            if ( ! is_readable($file)) {
+            if (! is_readable($file)) {
                 return false;
             }
 
             require_once $file;
 
             foreach ($functions as $function) {
-                if ( ! function_exists($function)) {
+                if (! function_exists($function)) {
                     return false;
                 }
             }

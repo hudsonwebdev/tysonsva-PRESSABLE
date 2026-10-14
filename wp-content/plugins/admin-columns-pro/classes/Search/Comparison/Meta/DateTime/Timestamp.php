@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Meta\DateTime;
 
 use AC\Helper\Select\Options;
@@ -13,8 +15,7 @@ use ACP\Search\Value;
 
 class Timestamp extends Meta implements RemoteValues
 {
-
-    private $value_factory;
+    private DateOptionsFactory $value_factory;
 
     public function __construct(string $meta_key, Query $query)
     {
@@ -28,7 +29,7 @@ class Timestamp extends Meta implements RemoteValues
             Operators::TODAY,
             Operators::PAST,
             Operators::FUTURE,
-            Operators::BETWEEN,
+            Operators::WITHIN_DAYS,
             Operators::IS_EMPTY,
             Operators::NOT_IS_EMPTY,
             Operators::LT_DAYS_AGO,
@@ -101,11 +102,6 @@ class Timestamp extends Meta implements RemoteValues
         );
     }
 
-    /**
-     * @param string $value
-     *
-     * @return int
-     */
     private function to_time($value): int
     {
         return (int)strtotime($value);

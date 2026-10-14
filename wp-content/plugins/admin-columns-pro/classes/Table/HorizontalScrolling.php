@@ -1,25 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Table;
 
 use AC;
 use AC\Asset;
+use AC\Asset\Location;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
+use AC\Preferences\SiteFactory;
 use AC\Registerable;
 use AC\Type\ListScreenId;
+use ACP\AdminColumnsPro;
+use InvalidArgumentException;
 
 class HorizontalScrolling implements Registerable
 {
+    private Storage $storage;
 
-    private $storage;
+    private Location $location;
 
-    private $location;
-
-    public function __construct(Storage $storage, Asset\Location\Absolute $location)
+    public function __construct(Storage $storage, AdminColumnsPro $plugin)
     {
         $this->storage = $storage;
-        $this->location = $location;
+        $this->location = $plugin->get_location();
     }
 
     public function register(): void
@@ -30,56 +35,65 @@ class HorizontalScrolling implements Registerable
         add_action('wp_ajax_acp_update_table_option_overflow', [$this, 'update_table_option_overflow']);
     }
 
-    public function preferences(): AC\Preferences\Site
+    public function preferences(): AC\Preferences\Preference
     {
-        return new AC\Preferences\Site('show_overflow_table');
+        return (new SiteFactory())->create('show_overflow_table');
     }
 
     public function update_table_option_overflow(): void
     {
         check_ajax_referer('ac-ajax');
 
-        $list_id = filter_input(INPUT_POST, 'layout');
-
-        if ( ! ListScreenId::is_valid_id($list_id)) {
+        try {
+            $list_screen = $this->storage->find(
+                new ListScreenId(
+                    (string)filter_input(INPUT_POST, 'layout')
+                )
+            );
+        } catch (InvalidArgumentException $e) {
             wp_send_json_error('Invalid list id.');
         }
 
-        $list_screen = $this->storage->find(new ListScreenId($list_id));
-
-        if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+        if (! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
             wp_send_json_error('Invalid list screen.');
         }
 
-        $this->preferences()->set($list_screen->get_storage_key(), 'true' === filter_input(INPUT_POST, 'value'));
+        $this->preferences()->save(
+            $list_screen->get_table_id() . $list_screen->get_id(),
+            'true' === filter_input(INPUT_POST, 'value')
+        );
 
         wp_send_json_success();
     }
 
     private function is_overflow_table(ListScreen $list_screen): bool
     {
-        $preference = $this->preferences()->get(
-            $list_screen->get_storage_key()
-        );
+        if ($this->is_forced_on($list_screen)) {
+            $preference = true;
+        } else {
+            $preference = $this->preferences()->find(
+                $list_screen->get_table_id() . $list_screen->get_id()
+            );
 
-        // Load the list screen preference when user has not yet set their own preference.
-        if (null === $preference) {
-            $preference = 'on' === $list_screen->get_preference('horizontal_scrolling');
+            // Load the list screen preference when user has not yet set their own preference.
+            if (null === $preference) {
+                $preference = 'on' === $list_screen->get_preference('horizontal_scrolling');
+            }
         }
 
-        return (bool)apply_filters('acp/horizontal_scrolling/enable', $preference, $list_screen);
+        return (bool)apply_filters('ac/horizontal_scrolling/enable', $preference, $list_screen);
     }
 
-    public function delete_overflow_preference(ListScreen $list_screen): void
+    private function is_forced_on(ListScreen $list_screen): bool
     {
-        $this->preferences()->delete($list_screen->get_storage_key());
+        return in_array($list_screen->get_preference('wrapping'), ['clip', 'auto'], true);
     }
 
     public function register_screen_option(AC\Table\Screen $table): void
     {
         $list_screen = $table->get_list_screen();
 
-        if ( ! $list_screen->get_settings()) {
+        if (! $list_screen) {
             return;
         }
 
@@ -91,22 +105,24 @@ class HorizontalScrolling implements Registerable
             $label = sprintf('%s (%s)', $label, __('hold down SHIFT key', 'codepress-admin-columns'));
         }
 
-        $check_box->set_id('acp_overflow_list_screen_table')
-                  ->set_options([
-                      'yes' => $label,
-                  ])
-                  ->set_value($this->is_overflow_table($table->get_list_screen()) ? 'yes' : '');
+        $check_box->set_disabled($this->is_forced_on($list_screen));
+        $check_box
+            ->set_id('acp_overflow_list_screen_table')
+            ->set_options([
+                'yes' => $label,
+            ])
+            ->set_value($this->is_overflow_table($list_screen) ? 'yes' : '');
 
         $table->register_screen_option($check_box);
     }
 
     private function is_windows_browser(): bool
     {
-        if ( ! isset($_SERVER['HTTP_USER_AGENT'])) {
+        if (! isset($_SERVER['HTTP_USER_AGENT'])) {
             return false;
         }
 
-        return (bool)preg_match('(win|microsoft)', strtolower($_SERVER['HTTP_USER_AGENT']));
+        return (bool)preg_match('(win|microsoft)', strtolower((string)$_SERVER['HTTP_USER_AGENT']));
     }
 
     public function scripts(): void
@@ -122,15 +138,11 @@ class HorizontalScrolling implements Registerable
         ]);
     }
 
-    /**
-     * @param string          $classes
-     * @param AC\Table\Screen $table
-     *
-     * @return string
-     */
     public function add_horizontal_scrollable_class($classes, $table)
     {
-        if ($this->is_overflow_table($table->get_list_screen())) {
+        $list_screen = $table->get_list_screen();
+
+        if ($list_screen && $this->is_overflow_table($list_screen)) {
             $classes .= ' acp-overflow-table';
         }
 

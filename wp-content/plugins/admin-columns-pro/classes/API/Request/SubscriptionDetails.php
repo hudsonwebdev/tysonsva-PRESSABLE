@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\API\Request;
 
-use AC\Integration;
-use AC\IntegrationRepository;
+use AC\Integration\IntegrationRepository;
+use AC\Plugin\Version;
 use ACP\API\Request;
 use ACP\Type\ActivationToken;
 use ACP\Type\SiteUrl;
@@ -13,8 +15,7 @@ use ACP\Type\SiteUrl;
  */
 class SubscriptionDetails extends Request
 {
-
-    public function __construct(SiteUrl $site_url, ActivationToken $activation_token, IntegrationRepository $repository)
+    public function __construct(SiteUrl $site_url, ActivationToken $activation_token, IntegrationRepository $repository, Version $version)
     {
         $args = [
             'command'        => 'subscription_details',
@@ -23,11 +24,8 @@ class SubscriptionDetails extends Request
 
         $args[$activation_token->get_type()] = $activation_token->get_token();
 
-        /**
-         * @var Integration $integration
-         */
         foreach ($repository->find_all_active() as $integration) {
-            $args['meta'][$integration->get_slug()] = ACP_VERSION;
+            $args['meta'][$integration->get_slug()] = (string)$version;
         }
 
         parent::__construct($args);

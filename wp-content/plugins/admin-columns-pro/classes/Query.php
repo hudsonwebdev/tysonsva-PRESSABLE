@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP;
 
 use AC\Registerable;
@@ -8,11 +10,10 @@ use LogicException;
 
 abstract class Query implements Registerable
 {
-
     /**
      * @var Bindings[]
      */
-    protected $bindings;
+    protected array $bindings;
 
     /**
      * @param Bindings[] $bindings
@@ -30,7 +31,7 @@ abstract class Query implements Registerable
     private function validate_bindings(): void
     {
         foreach ($this->bindings as $bindings) {
-            if ( ! $bindings instanceof Bindings) {
+            if (! $bindings instanceof Bindings) {
                 throw new LogicException('Expected Bindings object.');
             }
         }

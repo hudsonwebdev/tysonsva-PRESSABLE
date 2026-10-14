@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder\Address;
 
 use AC;
@@ -7,10 +9,8 @@ use AC\Helper\Select\Options;
 use ACP;
 use ACP\Search\Comparison;
 
-class Country extends Comparison\Meta
-    implements Comparison\RemoteValues
+class Country extends Comparison\Meta implements Comparison\RemoteValues
 {
-
     public function __construct($meta_key)
     {
         $operators = new ACP\Search\Operators(

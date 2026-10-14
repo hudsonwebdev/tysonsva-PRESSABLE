@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Storage;
 
-final class OptionFactory implements KeyValueFactory
+class OptionFactory implements OptionDataFactory
 {
-
-    public function create(string $key): KeyValuePair
+    public function create(string $key): OptionData
     {
         return new Option($key);
     }

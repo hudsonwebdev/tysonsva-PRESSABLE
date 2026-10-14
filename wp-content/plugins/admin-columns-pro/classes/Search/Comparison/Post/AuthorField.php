@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
-use ACP\Helper\Select;
 use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class AuthorField extends Comparison
 {
-
-    private $field;
+    private string $field;
 
     public function __construct(string $field)
     {
@@ -41,7 +42,7 @@ class AuthorField extends Comparison
         );
 
         $subquery = $wpdb->prepare("SELECT u.ID FROM $wpdb->users AS u WHERE {$where()}");
-        $alias = $bindings->get_unique_alias('usq');
+        $alias = AliasGenerator::generate_from_class(static::class);
         $bindings->join("JOIN($subquery) as $alias on $wpdb->posts.post_author = $alias.ID");
 
         return $bindings;

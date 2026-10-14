@@ -14,7 +14,7 @@ if (! defined('ABSPATH')) {
  * Available on the built-in Image slide type and, when Pro is active, every
  * Pro slide type whose markup renders a real image: Gradient, WooCommerce
  * Product, Post Feed, Image Folder, Post Images, External Image, Layer
- * (HTML Overlay), and the YouTube/Vimeo/TikTok video slides (styling their
+ * (HTML Overlay), and the Livid/YouTube/Vimeo/TikTok video slides (styling their
  * lazy-load poster image — the uploaded/featured thumbnail shown before the
  * video loads; nothing to style once lazy load is off, since no image is
  * rendered at all). Local/external video and Custom HTML aren't included —

@@ -10,13 +10,13 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class Addresses extends Comparison
 {
+    private string $field;
 
-    private $field;
-
-    private $address_type;
+    private AddressType $address_type;
 
     public function __construct(string $field, AddressType $address_type)
     {
@@ -42,7 +42,7 @@ class Addresses extends Comparison
         global $wpdb;
 
         $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('addresses');
+        $alias = AliasGenerator::generate_from_class(static::class);
 
         $bindings->join(
             sprintf(
@@ -57,13 +57,13 @@ class Addresses extends Comparison
         $field = sprintf("%s.%s", $alias, esc_sql($this->field));
 
         switch ($operator) {
-            case Operators::NOT_IS_EMPTY :
+            case Operators::NOT_IS_EMPTY:
                 $where = sprintf("%s is NOT NULL", $field);
                 break;
-            case Operators::IS_EMPTY :
+            case Operators::IS_EMPTY:
                 $where = sprintf("%s is NULL", $field);
                 break;
-            default :
+            default:
                 $where = ComparisonFactory::create(
                     $field,
                     $operator,

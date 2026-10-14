@@ -573,7 +573,11 @@ document.addEventListener('DOMContentLoaded', () => em_setup_scripts( document )
 const setupListTable = function( listTable ) {
 	// handle checks of multiple items using shift
 	const checkboxes = listTable.querySelectorAll( 'tbody .check-column input[type="checkbox"]' );
-	const listTableForm = listTable.querySelector('form.em-list-table-form');
+	// The export and settings modals carry the same form class, so match the main form only.
+	const listTableForm = listTable.querySelector('form.em-list-table-form:not(.em-list-table-export-form):not(.em-list-table-settings-form)');
+	if ( !listTableForm ) {
+		return;
+	}
 	let lastChecked;
 
 	//Pagination link clicks
@@ -663,11 +667,11 @@ const setupListTable = function( listTable ) {
 				somethingSelected ? el.classList.remove('disabled') : el.classList.add('disabled', true);
 			});
 			lastChecked = e.target;
-		} else if ( e.target.closest('tbody td.column-primary') ) {
+		} else if ( e.target.closest('tbody .column-primary') ) {
 			// handle row expand/collapse
 			if ( e.target.matches('a[href],button:not(.toggle-row)') ) return true; // allow links to pass
 			e.preventDefault();
-			let rowExpandTrigger = e.target.closest('td.column-primary');
+			let rowExpandTrigger = e.target.closest('.column-primary');
 			let row = rowExpandTrigger.closest('tr');
 			if( row.classList.contains('expanded') ) {
 				row.classList.remove('expanded');
@@ -923,7 +927,7 @@ const setupListTable = function( listTable ) {
 
 	/* ----------------- Row/Bulk Action Handlers ----------------- */
 
-	const actionMessages = JSON.parse( listTableForm.dataset.actionMessages );
+	const actionMessages = listTableForm.dataset.actionMessages ? JSON.parse( listTableForm.dataset.actionMessages ) : {};
 	let isBulkAction = false;
 
 	listTable.addEventListener('click', function( e ) {
@@ -1079,7 +1083,7 @@ let listTableRowAction = function( tr, formData, upstream = false ){
 		tr.classList.add('faded-out');
 		if ( formData.get('row_action') === 'delete' ) {
 			// the text provided is the icon, nothing else
-			tr.querySelectorAll('th.check-column input[type="checkbox"], .em-list-table-actions').forEach( el => el.remove() );
+			tr.querySelectorAll('.check-column input[type="checkbox"], .em-list-table-actions').forEach( el => el.remove() );
 			let td = tr.querySelector('.column-primary');
 			let wrapper = document.createElement('div');
 			wrapper.innerHTML = html;
@@ -1103,7 +1107,7 @@ const setupListTableExtras = function( listTable ) {
 		action.setAttribute('aria-label', action.innerText);
 	});
 	// remove tooltips within tooltips in cell tooltips
-	listTable.querySelectorAll('td .em-list-table-col-tooltip .em-list-table-col-tooltip').forEach( (subtip) => {
+	listTable.querySelectorAll('tbody .em-list-table-col-tooltip .em-list-table-col-tooltip').forEach( (subtip) => {
 		subtip.querySelectorAll('.em-tooltip').forEach( el => el.remove() );
 		subtip.querySelectorAll('.em-tooltip-content').forEach( el => el.classList.remove('hidden') );
 	});
@@ -1124,10 +1128,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.querySelectorAll('.em_obj div.tablenav').forEach( function( tablenav ){
 		let em_obj = tablenav.closest('.em_obj');
 		em_obj.classList.add('em-list-table','legacy', 'frontend');
-		em_obj.querySelector('& > form').classList.add('em-list-table-form');
+		em_obj.querySelector('& > form')?.classList.add('em-list-table-form');
 	});
-	// find tables
-	document.querySelectorAll('.em-list-table').forEach( listTable => setupListTable(listTable) );
+	// find tables, one table failing to set up should not leave the rest of the page unwired
+	document.querySelectorAll('.em-list-table').forEach( function( listTable ) {
+		try {
+			setupListTable( listTable );
+		} catch ( error ) {
+			console.error( error );
+		}
+	});
 });
 
 // add extra setup to bookings list table
@@ -1743,24 +1753,7 @@ function em_setup_timepicker( container ){
 		if ( e.target.matches('input.em-time-end') ) {
 			let end = jQuery(e.target);
 			e.target.dataset.seconds = end.val() ? end.em_timepicker('getSecondsFromMidnight') : '';
-			let start = end.prevAll('.em-time-start');
-			let wrapper = e.target.closest('.event-form-when, .em-time-range');
-			let start_date_element = wrapper.querySelector('.em-date-end');
-			let end_date_element = wrapper.querySelector('.em-date-start');
-			let start_date = start_date_element ? start_date_element.value : '';
-			let end_date = end_date_element ? end_date_element.value : '';
-			if ( start.val() ) {
-				let hasError = start.em_timepicker('getTime') > end.em_timepicker('getTime') && (!end_date || start_date === end_date);
-				e.target.classList.toggle('error', hasError);
-			}
-			if (end_date_element) {
-				wrapper.querySelectorAll('.em-time-all-day').forEach(function (checkbox) {
-					checkbox.checked = false;
-					checkbox.indeterminate = false;
-				});
-			}
-		} else if ( e.target.matches('.em-date-end') ) {
-			jQuery(e.target.closest('.event-form-when')).find('.em-time-end').trigger('change');
+			em_validate_end_time( e.target );
 		} else if ( e.target.matches('input.em-time-all-day') ) {
 			e.currentTarget.querySelectorAll('.em-time-input').forEach(function (input) {
 				input.readOnly = e.target.checked;
@@ -1772,8 +1765,43 @@ function em_setup_timepicker( container ){
 			}
 		}
 	}) );
+	// Re-validate on either date changing, so that a multi-day event no longer flags an end time earlier than its start time.
+	wrap.find('input[name="event_start_date"], input[name="event_end_date"]').off('change.em_timepicker').on('change.em_timepicker', function () {
+		jQuery(this).closest('.event-form-when').find('.em-time-range input.em-time-end').each( function () {
+			em_validate_end_time( this );
+		});
+	});
 	// listen to and dispatch the event
 	wrap.find(".em-time-range input.em-time-end").on('change', retargetEvent );
+}
+
+/**
+ * Flags an end time that falls before its start time, which is only an error when the event starts and ends on the same day.
+ * Global because the timeranges editor clears the error class off a whole editor and has to put this one back.
+ *
+ * @param {HTMLInputElement} el
+ */
+function em_validate_end_time( el ) {
+	let range = el.closest('.em-time-range');
+	let start = jQuery( range ? range.querySelector('input.em-time-start') : null );
+	let end = jQuery(el);
+	if ( !start.val() ) {
+		return;
+	}
+	if ( !end.val() ) {
+		el.classList.remove('error');
+		return;
+	}
+	// Ticket availability dates its own range, everything else is dated by the event.
+	let range_dates = range ? range.querySelectorAll('input[type="date"]') : [];
+	let dates_wrapper = el.closest('.event-form-when');
+	let start_date_element = range_dates.length === 2 ? range_dates[0] : ( dates_wrapper ? dates_wrapper.querySelector('input[name="event_start_date"]') : null );
+	let end_date_element = range_dates.length === 2 ? range_dates[1] : ( dates_wrapper ? dates_wrapper.querySelector('input[name="event_end_date"]') : null );
+	let start_date = start_date_element ? start_date_element.value : '';
+	let end_date = end_date_element ? end_date_element.value : '';
+	// A recurrence set crosses midnight on its duration in days rather than a date range, and reconciles its own times.
+	let hasError = !el.closest('.em-recurrence-set') && start.em_timepicker('getTime') > end.em_timepicker('getTime') && ( !end_date || start_date === end_date );
+	el.classList.toggle('error', hasError);
 }
 
 function em_unsetup_timepicker( container ) {

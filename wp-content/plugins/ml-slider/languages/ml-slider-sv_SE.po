@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-05-25T13:04:12+00:00\n"
-"PO-Revision-Date: 2026-08-28 16:46+0000\n"
+"PO-Revision-Date: 2026-09-16 16:45+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ml-slider\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -148,29 +148,42 @@ msgstr "Läs mer"
 #: inc/slide/metaslide.image.class.php:232
 #: inc/slide/metaslide.image.class.php:286
 #: inc/slide/metaslide.image.class.php:404
-#: ml-slider.php:944
-#: ml-slider.php:1026
-#: ml-slider.php:1138
-#: ml-slider.php:2853
-#: ml-slider.php:2898
-#: ml-slider.php:2973
+#: inc/slide/metaslide.livid.class.php:334
+#: inc/slide/metaslide.livid.class.php:401
+#: inc/slide/metaslide.livid.class.php:448
+#: inc/slide/metaslide.livid.class.php:776
+#: ml-slider.php:994
+#: ml-slider.php:1076
+#: ml-slider.php:1188
+#: ml-slider.php:2860
+#: ml-slider.php:2905
+#: ml-slider.php:2980
+#: modules/local_video/slide.php:870
+#: modules/local_video/slide.php:928
+#: modules/local_video/slide.php:1036
+#: modules/local_video/slide.php:1201
+#: modules/local_video/slide.php:1274
+#: modules/local_video/slide.php:1388
 msgid "The security check failed. Please refresh the page and try again."
 msgstr "Säkerhetskontrollen misslyckades. Uppdatera sidan och försök igen."
 
 #: admin/Notices.php:394
 #: admin/Notices.php:642
-#: admin/routes/api.php:141
+#: admin/routes/api.php:145
 #: inc/slide/metaslide.class.php:152
 #: inc/slide/metaslide.image.class.php:135
 #: inc/slide/metaslide.image.class.php:154
 #: inc/slide/metaslide.image.class.php:240
 #: inc/slide/metaslide.image.class.php:294
-#: ml-slider.php:952
-#: ml-slider.php:1034
-#: ml-slider.php:1146
-#: ml-slider.php:2861
-#: ml-slider.php:2906
-#: ml-slider.php:2981
+#: inc/slide/metaslide.livid.class.php:342
+#: inc/slide/metaslide.livid.class.php:409
+#: inc/slide/metaslide.livid.class.php:456
+#: ml-slider.php:1002
+#: ml-slider.php:1084
+#: ml-slider.php:1196
+#: ml-slider.php:2868
+#: ml-slider.php:2913
+#: ml-slider.php:2988
 msgid "Access denied. Sorry, you do not have permission to complete this task."
 msgstr "Åtkomst nekad. Du har inte behörighet att slutföra denna uppgift."
 
@@ -181,12 +194,25 @@ msgstr "Åtkomst nekad. Du har inte behörighet att slutföra denna uppgift."
 #: inc/slide/metaslide.image.class.php:249
 #: inc/slide/metaslide.image.class.php:303
 #: inc/slide/metaslide.image.class.php:422
-#: ml-slider.php:961
-#: ml-slider.php:1043
-#: ml-slider.php:1155
-#: ml-slider.php:2870
-#: ml-slider.php:2914
-#: ml-slider.php:2990
+#: inc/slide/metaslide.livid.class.php:351
+#: inc/slide/metaslide.livid.class.php:416
+#: inc/slide/metaslide.livid.class.php:463
+#: inc/slide/metaslide.livid.class.php:470
+#: inc/slide/metaslide.livid.class.php:793
+#: ml-slider.php:1011
+#: ml-slider.php:1093
+#: ml-slider.php:1205
+#: ml-slider.php:2877
+#: ml-slider.php:2921
+#: ml-slider.php:2997
+#: modules/local_video/slide.php:209
+#: modules/local_video/slide.php:887
+#: modules/local_video/slide.php:945
+#: modules/local_video/slide.php:1057
+#: modules/local_video/slide.php:1221
+#: modules/local_video/slide.php:1291
+#: modules/local_video/slide.php:1405
+#: modules/local_video/slide.php:2091
 msgid "Bad request"
 msgstr "Felaktig begäran"
 
@@ -233,6 +259,7 @@ msgid "URL"
 msgstr "URL"
 
 #: admin/Pages.php:157
+#: modules/local_video/slide.php:423
 #: themes/architekt/customize.php:511
 #: themes/bitono/customize.php:625
 #: themes/blend/customize.php:655
@@ -310,7 +337,7 @@ msgid "Tone"
 msgstr "Ton"
 
 #: admin/Pages.php:186
-#: admin/views/pages/parts/slider-settings.php:1431
+#: admin/views/pages/parts/slider-settings.php:1427
 #: admin/views/slides/tabs/background.php:73
 #: inc/metaslider.imagestyles.class.php:463
 #: themes/architekt/customize.php:602
@@ -414,46 +441,46 @@ msgstr "Textfärg"
 msgid "Link Text"
 msgstr "Länktext"
 
-#: admin/routes/api.php:462
+#: admin/routes/api.php:466
 msgid "The request format was not valid."
 msgstr "Förfrågans format var ogiltigt."
 
-#: admin/routes/api.php:470
-#: admin/routes/api.php:602
+#: admin/routes/api.php:474
+#: admin/routes/api.php:606
 msgid "This slideshow is no longer available."
 msgstr "Detta bildspel är inte längre tillgängligt."
 
-#: admin/routes/api.php:557
+#: admin/routes/api.php:561
 msgid "Nothing to import."
 msgstr "Inget att importera."
 
-#: admin/routes/api.php:609
+#: admin/routes/api.php:613
 msgid "This was not a slideshow, so we cannot delete it."
 msgstr "Det här var inte ett bildspel, så vi kan inte ta bort det."
 
-#: admin/routes/api.php:822
+#: admin/routes/api.php:826
 msgid "This was not a slideshow, so we cannot update the setting."
 msgstr "Det här var inte ett bildspel, så vi kan inte uppdatera inställningen."
 
-#: admin/routes/api.php:930
+#: admin/routes/api.php:934
 msgid "The title cannot be empty."
 msgstr "Rubriken kan inte vara tomt."
 
-#: admin/routes/api.php:934
-#: admin/routes/api.php:1208
+#: admin/routes/api.php:938
+#: admin/routes/api.php:1212
 #, php-format
 msgid "The field (%s) cannot be empty"
 msgstr "Fältet (%s) kan inte vara tomt"
 
-#: admin/routes/api.php:1198
+#: admin/routes/api.php:1202
 msgid "Maximum Number of Custom Field in Post Feed Sliders"
 msgstr "Maximalt antal anpassade fält i inläggsflödesbildspel"
 
-#: admin/routes/api.php:1242
+#: admin/routes/api.php:1246
 msgid "No video file was received by the server."
 msgstr "Ingen videofil mottogs av servern."
 
-#: admin/routes/api.php:1258
+#: admin/routes/api.php:1262
 #. translators: 1: uploaded filename, 2: mime type WordPress detected, or "none"
 #, php-format
 msgid ""
@@ -463,19 +490,19 @@ msgstr ""
 "Videon \"%1$s\" avvisades innan uppladdning (upptäckt typ: %2$s). Det kan "
 "vara ett icke-stödd format eller överskrida denna servers uppladdningsgräns."
 
-#: admin/routes/api.php:1260
+#: admin/routes/api.php:1264
 msgid "none"
 msgstr "ingen"
 
-#: admin/routes/api.php:1268
+#: admin/routes/api.php:1272
 msgid "The video could not be imported."
 msgstr "Videon kunde inte importeras."
 
-#: admin/routes/api.php:1386
+#: admin/routes/api.php:1409
 msgid "Import slug not found"
 msgstr "Importslug kunde inte hittas"
 
-#: admin/routes/api.php:1402
+#: admin/routes/api.php:1425
 msgid "Import data could not be processed"
 msgstr "Importdata kunde inte bearbetas"
 
@@ -484,18 +511,18 @@ msgid "We could not find any images to import."
 msgstr "Vi hittade inga bilder att importera."
 
 #: admin/slideshows/Settings.php:59
-#: inc/slider/metaslider.class.php:161
+#: inc/slider/metaslider.class.php:165
 msgid "New Slideshow"
 msgstr "Nytt bildspel"
 
 #: admin/slideshows/Settings.php:86
-#: inc/slider/metaslider.class.php:188
+#: inc/slider/metaslider.class.php:192
 #: inc/slider/metaslider.flex.class.php:819
 msgid "Previous"
 msgstr "Föregående"
 
 #: admin/slideshows/Settings.php:87
-#: inc/slider/metaslider.class.php:189
+#: inc/slider/metaslider.class.php:193
 #: inc/slider/metaslider.flex.class.php:820
 msgid "Next"
 msgstr "Nästa"
@@ -520,23 +547,23 @@ msgstr "Misslyckades med att importera textspår från URL: %s."
 msgid "Failed to import image from URL: %s."
 msgstr "Misslyckades med att importera bild från URL: %s."
 
-#: admin/slideshows/Slideshows.php:1204
+#: admin/slideshows/Slideshows.php:1208
 msgid "Only http/https URLs are allowed."
 msgstr "Endast http/https-URL:er är tillåtet."
 
-#: admin/slideshows/Slideshows.php:1214
+#: admin/slideshows/Slideshows.php:1218
 msgid "URL does not point to an allowed file type."
 msgstr "URL:en pekar inte på en tillåten filtyp."
 
-#: admin/slideshows/Slideshows.php:1224
+#: admin/slideshows/Slideshows.php:1228
 msgid "URL resolves to a disallowed address."
 msgstr "URL:en löses till en otillåten adress."
 
-#: admin/slideshows/Themes.php:60
+#: admin/slideshows/Themes.php:203
 msgid "No themes found."
 msgstr "Inga teman hittades."
 
-#: admin/slideshows/Themes.php:449
+#: admin/slideshows/Themes.php:595
 msgid ""
 "We removed your selected theme as it could not be found. Was the folder "
 "deleted?"
@@ -553,100 +580,100 @@ msgstr "Du har inga raderade bildspel."
 msgid "You don't have any slideshows yet. Click %shere%s to create a new slideshow."
 msgstr "Du har inga bildspel än. Klicka %shär%s för att skapa ett nytt bildspel."
 
-#: admin/Table.php:184
-#: admin/Table.php:347
+#: admin/Table.php:193
+#: admin/Table.php:356
 #: inc/slide/metaslide.class.php:420
 msgid "Restore"
 msgstr "Återställ"
 
-#: admin/Table.php:185
-#: admin/Table.php:348
+#: admin/Table.php:194
+#: admin/Table.php:357
 #: inc/slide/metaslide.class.php:430
 msgid "Delete Permanently"
 msgstr "Ta bort permanent"
 
-#: admin/Table.php:189
-#: admin/Table.php:362
+#: admin/Table.php:198
+#: admin/Table.php:371
 msgid "Trash"
 msgstr "Papperskorg"
 
-#: admin/Table.php:200
+#: admin/Table.php:209
 #: admin/views/pages/parts/toolbar.php:75
 #: admin/assets/dist/js/app.js:2
 msgid "Preview"
 msgstr "Förhandsgranska"
 
-#: admin/Table.php:201
+#: admin/Table.php:210
 #: admin/assets/dist/js/app.js:2
 msgid "Title"
 msgstr "Titel"
 
-#: admin/Table.php:202
+#: admin/Table.php:211
 msgid "Type of Slides"
 msgstr "Typ av bilder"
 
-#: admin/Table.php:203
+#: admin/Table.php:212
 msgid "Number of Slides"
 msgstr "Antal bilder"
 
-#: admin/Table.php:204
+#: admin/Table.php:213
 msgid "Theme"
 msgstr "Tema"
 
-#: admin/Table.php:205
+#: admin/Table.php:214
 msgid "Created"
 msgstr "Skapad"
 
-#: admin/Table.php:206
-#: admin/views/pages/parts/slider-settings.php:1694
+#: admin/Table.php:215
+#: admin/views/pages/parts/slider-settings.php:1690
 msgid "Shortcode"
 msgstr "Snabbkod"
 
-#: admin/Table.php:212
+#: admin/Table.php:221
 msgid "Usage"
 msgstr "Användning"
 
-#: admin/Table.php:361
+#: admin/Table.php:370
 msgid "Edit"
 msgstr "Redigera"
 
-#: admin/Table.php:398
+#: admin/Table.php:407
 #: admin/views/pages/parts/shortcode.php:11
 msgid "Click to copy shortcode."
 msgstr "Klicka för att kopiera kortkod."
 
-#: admin/Table.php:406
-#: admin/Table.php:419
-#: admin/Table.php:479
+#: admin/Table.php:415
+#: admin/Table.php:428
+#: admin/Table.php:488
 msgid "Not found."
 msgstr "Hittades inte."
 
-#: admin/Table.php:408
+#: admin/Table.php:417
 msgid "View Usage"
 msgstr "Visa användning"
 
-#: admin/Table.php:414
+#: admin/Table.php:423
 msgid "Content Using This Slideshow"
 msgstr "Innehåll som använder detta bildspel"
 
-#: admin/Table.php:456
+#: admin/Table.php:465
 msgid "Theme Setting"
 msgstr "Temainställningar"
 
-#: admin/Table.php:470
+#: admin/Table.php:479
 msgid "Option"
 msgstr "Alternativ"
 
-#: admin/Table.php:527
-#: admin/views/pages/start.php:191
+#: admin/Table.php:536
+#: admin/views/pages/start.php:192
 msgid "All Themes"
 msgstr "Alla teman"
 
-#: admin/Table.php:540
+#: admin/Table.php:549
 msgid "(No Theme)"
 msgstr "(Inget tema)"
 
-#: admin/Table.php:544
+#: admin/Table.php:553
 #: admin/views/slides/tabs/background.php:32
 #: inc/metaslider.imagestyles.class.php:388, fuzzy
 msgid "Filter"
@@ -663,7 +690,7 @@ msgid "(%s Weeks)"
 msgstr "(%s veckor)"
 
 #: admin/views/pages/dashboard.php:8
-#: ml-slider.php:574
+#: ml-slider.php:578
 #: admin/assets/dist/js/app.js:2
 msgid "Slideshows"
 msgstr "Bildspel"
@@ -792,7 +819,7 @@ msgstr "Bildspelets bredd"
 
 #: admin/views/pages/parts/slider-settings.php:90
 #: admin/views/pages/parts/slider-settings.php:103
-#: admin/views/pages/parts/slider-settings.php:926
+#: admin/views/pages/parts/slider-settings.php:922
 #: admin/views/slides/tabs/background.php:51
 #: inc/metaslider.imagestyles.class.php:407
 #: inc/metaslider.imagestyles.class.php:419, fuzzy
@@ -1124,30 +1151,30 @@ msgid "This animation is used when changing slides."
 msgstr "Denna animation används när bilder byts."
 
 #: admin/views/pages/parts/slider-settings.php:550
-#: admin/views/pages/start.php:174
+#: admin/views/pages/start.php:175
 #: inc/metaslider.imagestyles.class.php:537
 msgid "Fade"
 msgstr "Tona"
 
 #: admin/views/pages/parts/slider-settings.php:554
-#: admin/views/pages/start.php:173
+#: admin/views/pages/start.php:174
 msgid "Slide"
 msgstr "Bild"
 
 #: admin/views/pages/parts/slider-settings.php:558
-#: admin/views/pages/start.php:175
+#: admin/views/pages/start.php:176
 msgid "Zooming"
 msgstr "Zoomande"
 
 #: admin/views/pages/parts/slider-settings.php:562
-#: admin/views/pages/start.php:176
+#: admin/views/pages/start.php:177
 #: admin/views/slides/tabs/background.php:87
 #: inc/metaslider.imagestyles.class.php:488
 msgid "Flip"
 msgstr "Vänd"
 
 #: admin/views/pages/parts/slider-settings.php:566
-#: admin/views/pages/parts/slider-settings.php:1344
+#: admin/views/pages/parts/slider-settings.php:1340
 msgid "Random"
 msgstr "Slumpat"
 
@@ -1270,7 +1297,7 @@ msgid "Horizontal"
 msgstr "Horisontell"
 
 #: admin/views/pages/parts/slider-settings.php:757
-#: admin/views/pages/start.php:178
+#: admin/views/pages/start.php:179
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:494
 msgid "Vertical"
@@ -1352,11 +1379,11 @@ msgstr ""
 "Visa flera bilder samtidigt. Utdata från bildspelet kommer som standard att "
 "använda 100% bredd och 'Bild' övergångseffekt."
 
-#: admin/views/pages/parts/slider-settings.php:903
+#: admin/views/pages/parts/slider-settings.php:899
 msgid "Loop Carousel Continuously"
 msgstr "Loopa karusell kontinuerligt"
 
-#: admin/views/pages/parts/slider-settings.php:908
+#: admin/views/pages/parts/slider-settings.php:904
 msgid ""
 "Infinite loop of slides when Carousel Mode is enabled. This option disables "
 "arrows and navigation. The slideshow width must be less than or equal to "
@@ -1366,27 +1393,27 @@ msgstr ""
 "inaktiverar pilar och navigering. Bildspelets bredd måste vara mindre än "
 "eller lika med bredden på containern där det är insatt."
 
-#: admin/views/pages/parts/slider-settings.php:919
+#: admin/views/pages/parts/slider-settings.php:915
 msgid "Carousel Margin"
 msgstr "Karusellmarginal"
 
-#: admin/views/pages/parts/slider-settings.php:922
+#: admin/views/pages/parts/slider-settings.php:918
 msgid "Pixel margin between slides in carousel."
 msgstr "Marginal i pixlar mellan bilder i karusellen."
 
-#: admin/views/pages/parts/slider-settings.php:936
+#: admin/views/pages/parts/slider-settings.php:932
 msgid "Display Minimum"
 msgstr "Visa minimum"
 
-#: admin/views/pages/parts/slider-settings.php:938
+#: admin/views/pages/parts/slider-settings.php:934
 msgid "Minimum number of slides to be displayed at the same time in the carousel."
 msgstr "Minimalt antal bilder som ska visas samtidigt i karusellen."
 
-#: admin/views/pages/parts/slider-settings.php:952
+#: admin/views/pages/parts/slider-settings.php:948
 msgid "Display Maximum"
 msgstr "Visa maximum"
 
-#: admin/views/pages/parts/slider-settings.php:954
+#: admin/views/pages/parts/slider-settings.php:950
 msgid ""
 "Maximum number of slides to be displayed at the same time in the carousel. "
 "Set to 0 to adjust automatically."
@@ -1394,11 +1421,11 @@ msgstr ""
 "Maximalt antal bilder som ska visas samtidigt i karusellen. Ställ in på 0 "
 "för att justera automatiskt."
 
-#: admin/views/pages/parts/slider-settings.php:963
+#: admin/views/pages/parts/slider-settings.php:959
 msgid "Slides to Show per Device"
 msgstr "Antal bilder att visa per enhet"
 
-#: admin/views/pages/parts/slider-settings.php:964
+#: admin/views/pages/parts/slider-settings.php:960
 msgid ""
 "Set an exact number of slides to show for each device width. Leave a device "
 "at 0 to use the Display Minimum/Maximum settings instead."
@@ -1406,7 +1433,7 @@ msgstr ""
 "Ange ett exakt antal bilder att visa för varje enhetsbredd. Lämna en enhet "
 "på 0 för att använda inställningarna för minimi/maximi."
 
-#: admin/views/pages/parts/slider-settings.php:972
+#: admin/views/pages/parts/slider-settings.php:968
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths less than %spx. Set to 0 to "
@@ -1415,8 +1442,8 @@ msgstr ""
 "Exakt antal bilder att visa på skärmbredder mindre än %spx. Ställ in på 0 "
 "för att använda inställningarna för minimi/maximi istället."
 
-#: admin/views/pages/parts/slider-settings.php:982
-#: admin/views/pages/parts/slider-settings.php:993
+#: admin/views/pages/parts/slider-settings.php:978
+#: admin/views/pages/parts/slider-settings.php:989
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths of %1$spx to %2$spx. Set to "
@@ -1425,7 +1452,7 @@ msgstr ""
 "Exakt antal bilder att visa på skärmbredder från %1$spx till %2$spx. Ställ "
 "in på 0 för att använda inställningarna för minimi/maximi istället."
 
-#: admin/views/pages/parts/slider-settings.php:1004
+#: admin/views/pages/parts/slider-settings.php:1000
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths equal to or greater than "
@@ -1434,19 +1461,19 @@ msgstr ""
 "Exakt antal bilder att visa på skärmbredder lika med eller större än %spx. "
 "Ställ in på 0 för att använda inställningarna för minimi/maximi istället."
 
-#: admin/views/pages/parts/slider-settings.php:1021
+#: admin/views/pages/parts/slider-settings.php:1017
 msgid "Slides per Navigation Click"
 msgstr "Bilder per navigeringsklick"
 
-#: admin/views/pages/parts/slider-settings.php:1023
+#: admin/views/pages/parts/slider-settings.php:1019
 msgid "Number of slides to move when clicking next or previous."
 msgstr "Antal bilder att flytta när du klickar på nästa eller föregående."
 
-#: admin/views/pages/parts/slider-settings.php:1032
+#: admin/views/pages/parts/slider-settings.php:1028
 msgid "Force Height"
 msgstr "Tvinga höjd"
 
-#: admin/views/pages/parts/slider-settings.php:1037
+#: admin/views/pages/parts/slider-settings.php:1033
 msgid ""
 "If the slideshow looks small, force slideshow height when using Carousel "
 "mode. Please note when is enabled slides may look cropped."
@@ -1455,31 +1482,31 @@ msgstr ""
 "karusellläge. Observera att när detta är aktiverat kan bilderna se beskurna "
 "ut."
 
-#: admin/views/pages/parts/slider-settings.php:1062
+#: admin/views/pages/parts/slider-settings.php:1058
 msgid "Image Options"
 msgstr "Bildalternativ"
 
-#: admin/views/pages/parts/slider-settings.php:1074
+#: admin/views/pages/parts/slider-settings.php:1070
 msgid "Image Crop"
 msgstr "Bildbeskärning"
 
-#: admin/views/pages/parts/slider-settings.php:1079
+#: admin/views/pages/parts/slider-settings.php:1075
 msgid "Smart Crop"
 msgstr "Smart beskärning"
 
-#: admin/views/pages/parts/slider-settings.php:1086, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1082, fuzzy
 msgid "Standard"
 msgstr "Standard"
 
-#: admin/views/pages/parts/slider-settings.php:1093
+#: admin/views/pages/parts/slider-settings.php:1089
 msgid "Disabled"
 msgstr "Inaktiverad"
 
-#: admin/views/pages/parts/slider-settings.php:1100
+#: admin/views/pages/parts/slider-settings.php:1096
 msgid "Disabled (Smart Pad)"
 msgstr "Inaktiverad (Smart Pad)"
 
-#: admin/views/pages/parts/slider-settings.php:1107
+#: admin/views/pages/parts/slider-settings.php:1103
 msgid ""
 "Smart Crop ensures your responsive slides are cropped to a ratio that "
 "results in a consistent slideshow size."
@@ -1487,19 +1514,19 @@ msgstr ""
 "Smart beskärning säkerställer att dina responsiva bilder beskärs till ett "
 "förhållande som ger en konsekvent storlek på bildspelet."
 
-#: admin/views/pages/parts/slider-settings.php:1115
+#: admin/views/pages/parts/slider-settings.php:1111
 msgid "Image Crop Source"
 msgstr "Bildbeskärningskälla"
 
-#: admin/views/pages/parts/slider-settings.php:1120
+#: admin/views/pages/parts/slider-settings.php:1116
 msgid "Slideshow width/height"
 msgstr "Bildspelets bredd/höjd"
 
-#: admin/views/pages/parts/slider-settings.php:1123
+#: admin/views/pages/parts/slider-settings.php:1119
 msgid "Custom width/height (Pro)"
 msgstr "Anpassad bredd/höjd (Pro)"
 
-#: admin/views/pages/parts/slider-settings.php:1127
+#: admin/views/pages/parts/slider-settings.php:1123
 msgid ""
 "By default, MetaSlider Slideshow will crop images using the main width and "
 "height of the slideshow. If you want smaller images, select Custom "
@@ -1510,11 +1537,11 @@ msgstr ""
 "huvudbredd och höjd. Om du vill ha mindre bilder, välj Anpassad bredd/höjd "
 "och se till att värdena är mindre än huvudbredden och höjden."
 
-#: admin/views/pages/parts/slider-settings.php:1136
+#: admin/views/pages/parts/slider-settings.php:1132
 msgid "Image Crop Size"
 msgstr "Bildbeskärningsstorlek"
 
-#: admin/views/pages/parts/slider-settings.php:1145
+#: admin/views/pages/parts/slider-settings.php:1141
 msgid ""
 "This will increase the size of the images in your slideshow. Larger images "
 "are higher quality. Smaller images load more quickly."
@@ -1522,11 +1549,11 @@ msgstr ""
 "Detta kommer att öka storleken på bilderna i ditt bildspel. Större bilder "
 "har högre kvalitet. Mindre bilder laddas snabbare."
 
-#: admin/views/pages/parts/slider-settings.php:1156
+#: admin/views/pages/parts/slider-settings.php:1152
 msgid "Lazy Load Images"
 msgstr "Uppskjuten inläsning av bilder"
 
-#: admin/views/pages/parts/slider-settings.php:1161
+#: admin/views/pages/parts/slider-settings.php:1157
 msgid ""
 "This feature can speed up your site. MetaSlider Slideshow will only load "
 "slides when they are required by your slideshow."
@@ -1534,25 +1561,25 @@ msgstr ""
 "Denna funktion kan snabba upp din webbplats. MetaSlider kommer endast att "
 "ladda bilder när de behövs av ditt bildspel."
 
-#: admin/views/pages/parts/slider-settings.php:1177
+#: admin/views/pages/parts/slider-settings.php:1173
 #: inc/metaslider.imagestyles.class.php:96
 msgid "Image Styles"
 msgstr "Bildstilar"
 
-#: admin/views/pages/parts/slider-settings.php:1195
+#: admin/views/pages/parts/slider-settings.php:1191
 msgid "Layout Features"
 msgstr "Layoutfunktioner"
 
-#: admin/views/pages/parts/slider-settings.php:1207
+#: admin/views/pages/parts/slider-settings.php:1203
 #: admin/assets/dist/js/app.js:2
 msgid "Auto Play"
 msgstr "Autospela"
 
-#: admin/views/pages/parts/slider-settings.php:1212
+#: admin/views/pages/parts/slider-settings.php:1208
 msgid "Transition between slides automatically."
 msgstr "Övergång mellan bilder automatiskt."
 
-#: admin/views/pages/parts/slider-settings.php:1220
+#: admin/views/pages/parts/slider-settings.php:1216
 #: themes/architekt/customize.php:615
 #: themes/bitono/customize.php:798
 #: themes/blend/customize.php:828
@@ -1574,26 +1601,26 @@ msgstr "Övergång mellan bilder automatiskt."
 msgid "Play / Pause Button"
 msgstr "Spela / Pausa-knapp"
 
-#: admin/views/pages/parts/slider-settings.php:1225
+#: admin/views/pages/parts/slider-settings.php:1221
 msgid "This allows user to pause or resume Auto Play on the slideshow."
 msgstr ""
 "Detta gör att användaren kan pausa eller återuppta automatisk uppspelning "
 "av bildspelet."
 
-#: admin/views/pages/parts/slider-settings.php:1233
+#: admin/views/pages/parts/slider-settings.php:1229
 msgid "Show Play / Pause Button Text"
 msgstr "Visa text för Spela / Pausa-knapp"
 
-#: admin/views/pages/parts/slider-settings.php:1238
+#: admin/views/pages/parts/slider-settings.php:1234
 msgid "Show text options for Play / Pause Button"
 msgstr "Visa textalternativ för Spela / Pausa-knapp"
 
-#: admin/views/pages/parts/slider-settings.php:1246
+#: admin/views/pages/parts/slider-settings.php:1242
 msgid "Play Text"
 msgstr "Spela text"
 
-#: admin/views/pages/parts/slider-settings.php:1248
-#: admin/views/pages/parts/slider-settings.php:1261
+#: admin/views/pages/parts/slider-settings.php:1244
+#: admin/views/pages/parts/slider-settings.php:1257
 msgid ""
 "Enter text for the Play/Pause Button. Leave the field empty to use the icon "
 "only."
@@ -1601,24 +1628,24 @@ msgstr ""
 "Ange text för Spela/Pausa-knappen. Lämna fältet tomt för att endast använda "
 "ikonen."
 
-#: admin/views/pages/parts/slider-settings.php:1259
+#: admin/views/pages/parts/slider-settings.php:1255
 msgid "Pause Text"
 msgstr "Pausa text"
 
-#: admin/views/pages/parts/slider-settings.php:1272
+#: admin/views/pages/parts/slider-settings.php:1268
 #: themes/customize.php:34
 msgid "Progress Bar"
 msgstr "Förloppsindikator"
 
-#: admin/views/pages/parts/slider-settings.php:1277
+#: admin/views/pages/parts/slider-settings.php:1273
 msgid "Displays a visual indicator showing the time left before the next slide."
 msgstr "Visar en visuell indikator som visar tiden kvar till nästa bild."
 
-#: admin/views/pages/parts/slider-settings.php:1285
+#: admin/views/pages/parts/slider-settings.php:1281
 msgid "Hover Pause"
 msgstr "Gör paus när markören befinner sig över objektet"
 
-#: admin/views/pages/parts/slider-settings.php:1290
+#: admin/views/pages/parts/slider-settings.php:1286
 msgid ""
 "Pause the slideshow when hovering over slider, then resume when no longer "
 "hovering."
@@ -1626,11 +1653,11 @@ msgstr ""
 "Gör paus i bildvisningen när markören befinner sig över bildspelet, "
 "återuppta därefter."
 
-#: admin/views/pages/parts/slider-settings.php:1298, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1294, fuzzy
 msgid "Loop"
 msgstr "Loop"
 
-#: admin/views/pages/parts/slider-settings.php:1300
+#: admin/views/pages/parts/slider-settings.php:1296
 msgid ""
 "If you choose \"Loop endlessly\", the slides will loop infinitely. If you "
 "choose \"Stop on first slide after looping\", the slideshow will stop on "
@@ -1642,51 +1669,51 @@ msgstr ""
 "stanna på den första bilden efter att ha visat alla objekt. Om du väljer "
 "\"Stanna på sista bild\", kommer bilderna att stanna på den sista bilden."
 
-#: admin/views/pages/parts/slider-settings.php:1303
+#: admin/views/pages/parts/slider-settings.php:1299
 msgid "Loop Endlessly"
 msgstr "Loopa oändligt"
 
-#: admin/views/pages/parts/slider-settings.php:1304
+#: admin/views/pages/parts/slider-settings.php:1300
 msgid "Stop On Last Slide"
 msgstr "Stanna på sista bild"
 
-#: admin/views/pages/parts/slider-settings.php:1305
+#: admin/views/pages/parts/slider-settings.php:1301
 msgid "Stop On First Slide After Looping"
 msgstr "Stanna på första bild efter looping"
 
-#: admin/views/pages/parts/slider-settings.php:1311
+#: admin/views/pages/parts/slider-settings.php:1307
 msgid "Smooth Height"
 msgstr "Mjuk höjd"
 
-#: admin/views/pages/parts/slider-settings.php:1316
+#: admin/views/pages/parts/slider-settings.php:1312
 msgid "Allow navigation to follow the slide's height smoothly."
 msgstr "Tillåt navigering att följa bildens höjd mjukt."
 
-#: admin/views/pages/parts/slider-settings.php:1324
+#: admin/views/pages/parts/slider-settings.php:1320
 msgid "Slide Order"
 msgstr "Bildordning"
 
-#: admin/views/pages/parts/slider-settings.php:1329
+#: admin/views/pages/parts/slider-settings.php:1325
 msgid "Newest First"
 msgstr "Nyast först"
 
-#: admin/views/pages/parts/slider-settings.php:1332
+#: admin/views/pages/parts/slider-settings.php:1328
 msgid "Oldest First"
 msgstr "Äldsta först"
 
-#: admin/views/pages/parts/slider-settings.php:1335
+#: admin/views/pages/parts/slider-settings.php:1331
 msgid "A to Z (by filename)"
 msgstr "A till Ö (efter filnamn)"
 
-#: admin/views/pages/parts/slider-settings.php:1338
+#: admin/views/pages/parts/slider-settings.php:1334
 msgid "Z to A (by filename)"
 msgstr "Ö till A (efter filnamn)"
 
-#: admin/views/pages/parts/slider-settings.php:1341
+#: admin/views/pages/parts/slider-settings.php:1337
 msgid "Drag-and-drop"
 msgstr "Dra och släpp"
 
-#: admin/views/pages/parts/slider-settings.php:1347
+#: admin/views/pages/parts/slider-settings.php:1343
 msgid ""
 "Select the order in which slides appear in the slideshow. This impacts the "
 "frontend view."
@@ -1694,114 +1721,114 @@ msgstr ""
 "Välj ordningen i vilken bilder visas i bildspelet. Detta påverkar front-end "
 "visningen."
 
-#: admin/views/pages/parts/slider-settings.php:1355
+#: admin/views/pages/parts/slider-settings.php:1351
 msgid "Touch Swipe"
 msgstr "Touch-svep"
 
-#: admin/views/pages/parts/slider-settings.php:1360
+#: admin/views/pages/parts/slider-settings.php:1356
 msgid "Allow touch swipe navigation of the slider on touch-enabled devices."
 msgstr "Tillåt touch-svep navigering av slidern på touch-aktiverade enheter."
 
-#: admin/views/pages/parts/slider-settings.php:1368
+#: admin/views/pages/parts/slider-settings.php:1364
 msgid "Loading Indicator"
 msgstr "Laddningsindikator"
 
-#: admin/views/pages/parts/slider-settings.php:1373
+#: admin/views/pages/parts/slider-settings.php:1369
 msgid "Displays a visual indicator while the slideshow is loading."
 msgstr "Visar en visuell indikator medan bildspelet laddas."
 
-#: admin/views/pages/parts/slider-settings.php:1381
+#: admin/views/pages/parts/slider-settings.php:1377
 msgid "Previous Text"
 msgstr "Föregående text"
 
-#: admin/views/pages/parts/slider-settings.php:1383
+#: admin/views/pages/parts/slider-settings.php:1379
 msgid "Set the text for the \"previous\" direction item."
 msgstr "Ange texten för elementet i riktning \"föregående\"."
 
-#: admin/views/pages/parts/slider-settings.php:1395
+#: admin/views/pages/parts/slider-settings.php:1391
 msgid "Next Text"
 msgstr "Nästa text"
 
-#: admin/views/pages/parts/slider-settings.php:1397
+#: admin/views/pages/parts/slider-settings.php:1393
 msgid "Set the text for the \"next\" direction item."
 msgstr "Ange texten för elementet i riktning \"nästa\"."
 
-#: admin/views/pages/parts/slider-settings.php:1414
+#: admin/views/pages/parts/slider-settings.php:1410
 msgid "Square Delay"
 msgstr "Fördröjning av fyrkanter"
 
-#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1412
 msgid "Delay between squares in ms."
 msgstr "Fördröjning mellan kvadrater i ms."
 
-#: admin/views/pages/parts/slider-settings.php:1433
+#: admin/views/pages/parts/slider-settings.php:1429
 msgid "Opacity of title and navigation, between 0 and 1."
 msgstr "Opacitet för titel och navigering, mellan 0 och 1."
 
-#: admin/views/pages/parts/slider-settings.php:1448
+#: admin/views/pages/parts/slider-settings.php:1444
 msgid "Caption Speed"
 msgstr "Hastighet för bildtexter"
 
-#: admin/views/pages/parts/slider-settings.php:1450
+#: admin/views/pages/parts/slider-settings.php:1446
 msgid "Set the fade in speed of the caption."
 msgstr "Ställ in infade-hastigheten för texten."
 
-#: admin/views/pages/parts/slider-settings.php:1472
+#: admin/views/pages/parts/slider-settings.php:1468
 msgid "Container Options"
 msgstr "Behållaralternativ"
 
-#: admin/views/pages/parts/slider-settings.php:1484
+#: admin/views/pages/parts/slider-settings.php:1480
 msgid "Container Box"
 msgstr "Behållarbox"
 
-#: admin/views/pages/parts/slider-settings.php:1489
+#: admin/views/pages/parts/slider-settings.php:1485
 msgid "Customize the slideshow's container box."
 msgstr "Anpassa bildspelets behållarbox."
 
-#: admin/views/pages/parts/slider-settings.php:1495
-#: admin/views/pages/parts/slider-settings.php:1535
+#: admin/views/pages/parts/slider-settings.php:1491
+#: admin/views/pages/parts/slider-settings.php:1531
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "This feature is available in MetaSlider Slideshow Pro"
 msgstr "Denna funktion är tillgänglig i MetaSlider Pro"
 
-#: admin/views/pages/parts/slider-settings.php:1510
+#: admin/views/pages/parts/slider-settings.php:1506
 msgid "Watermark Options"
 msgstr "Vattenmärkesalternativ"
 
-#: admin/views/pages/parts/slider-settings.php:1524
+#: admin/views/pages/parts/slider-settings.php:1520
 msgid "Watermark"
 msgstr "Vattenmärke"
 
-#: admin/views/pages/parts/slider-settings.php:1529
+#: admin/views/pages/parts/slider-settings.php:1525
 msgid "Overlay an image (e.g. a logo) on top of the slideshow."
 msgstr "Överlagra en bild (t.ex. en logotyp) ovanpå bildspelet."
 
-#: admin/views/pages/parts/slider-settings.php:1550
+#: admin/views/pages/parts/slider-settings.php:1546
 msgid "Accessibility Options"
 msgstr "Tillgänglighetsalternativ"
 
-#: admin/views/pages/parts/slider-settings.php:1562
+#: admin/views/pages/parts/slider-settings.php:1558
 msgid "Keyboard Controls"
 msgstr "Tangentbordskontroller"
 
-#: admin/views/pages/parts/slider-settings.php:1567
+#: admin/views/pages/parts/slider-settings.php:1563
 msgid "Use arrow keys to get to the next slide."
 msgstr "Använd piltangenterna för att komma till nästa bild."
 
-#: admin/views/pages/parts/slider-settings.php:1575
+#: admin/views/pages/parts/slider-settings.php:1571
 msgid "Tabindex For Navigation"
 msgstr "Tabindex för navigering"
 
-#: admin/views/pages/parts/slider-settings.php:1580
+#: admin/views/pages/parts/slider-settings.php:1576
 msgid "This helps make the slideshow navigation more accessible."
 msgstr "Detta hjälper till att göra bildspelsnavigeringen mer tillgänglig."
 
-#: admin/views/pages/parts/slider-settings.php:1588, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1584, fuzzy
 msgid "ARIA Live"
 msgstr "ARIA Live"
 
-#: admin/views/pages/parts/slider-settings.php:1593
+#: admin/views/pages/parts/slider-settings.php:1589
 msgid ""
 "If Autoplay is enabled, this causes screen readers to announce that the "
 "slides are changing."
@@ -1809,11 +1836,11 @@ msgstr ""
 "Om Autoplay är aktiverat, gör detta att skärmläsare meddelar att bilderna "
 "ändras."
 
-#: admin/views/pages/parts/slider-settings.php:1601, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1597, fuzzy
 msgid "ARIA Current"
 msgstr "ARIA Current"
 
-#: admin/views/pages/parts/slider-settings.php:1606
+#: admin/views/pages/parts/slider-settings.php:1602
 msgid ""
 "This is used on the navigation button for the active slide. It helps screen "
 "readers understand which slide is active."
@@ -1821,15 +1848,15 @@ msgstr ""
 "Detta används på navigeringsknappen för den aktiva bilden. Det hjälper "
 "skärmläsare att förstå vilken bild som är aktiv."
 
-#: admin/views/pages/parts/slider-settings.php:1622
+#: admin/views/pages/parts/slider-settings.php:1618
 msgid "Developer Options"
 msgstr "Utvecklaralternativ"
 
-#: admin/views/pages/parts/slider-settings.php:1634
+#: admin/views/pages/parts/slider-settings.php:1630
 msgid "CSS Classes"
 msgstr "CSS-klasser"
 
-#: admin/views/pages/parts/slider-settings.php:1636
+#: admin/views/pages/parts/slider-settings.php:1632
 msgid ""
 "Enter custom CSS classes to apply to the slider wrapper. Separate multiple "
 "classes with a space."
@@ -1837,36 +1864,36 @@ msgstr ""
 "Skriv in anpassade CSS-klasser som ska tillämpas på slider-wrappern. "
 "Separera flera klasser med ett mellanslag."
 
-#: admin/views/pages/parts/slider-settings.php:1647
+#: admin/views/pages/parts/slider-settings.php:1643
 msgid "Print CSS"
 msgstr "Skriv ut CSS"
 
-#: admin/views/pages/parts/slider-settings.php:1652
+#: admin/views/pages/parts/slider-settings.php:1648
 msgid "Uncheck this if you would like to include your own CSS."
 msgstr "Avmarkera detta om du vill inkludera din egen CSS."
 
-#: admin/views/pages/parts/slider-settings.php:1660
+#: admin/views/pages/parts/slider-settings.php:1656
 msgid "Print JS"
 msgstr "Skriv ut JS"
 
-#: admin/views/pages/parts/slider-settings.php:1665
+#: admin/views/pages/parts/slider-settings.php:1661
 msgid "Uncheck this if you would like to include your own Javascript."
 msgstr "Avmarkera detta om du vill inkludera din egen Javascript."
 
-#: admin/views/pages/parts/slider-settings.php:1673
+#: admin/views/pages/parts/slider-settings.php:1669
 msgid "No Conflict Mode"
 msgstr "Konfliktskyddat läge"
 
-#: admin/views/pages/parts/slider-settings.php:1678
+#: admin/views/pages/parts/slider-settings.php:1674
 msgid "Delay adding the flexslider class to the slideshow."
 msgstr "Fördröj att lägga till flexslider-klassen till bildspelet."
 
-#: admin/views/pages/parts/slider-settings.php:1716
-#: ml-slider.php:1880
+#: admin/views/pages/parts/slider-settings.php:1712
+#: ml-slider.php:1930
 msgid "Trashed Slides"
 msgstr "Bilder i papperskorgen"
 
-#: admin/views/pages/parts/slider-settings.php:1726
+#: admin/views/pages/parts/slider-settings.php:1722
 msgid "View trashed slides"
 msgstr "Visa bilder i papperskorgen"
 
@@ -1884,7 +1911,7 @@ msgid "Add a new slide"
 msgstr "Lägg till en ny bild"
 
 #: admin/views/pages/parts/toolbar.php:60
-#: inc/slider/metaslider.class.php:1055
+#: inc/slider/metaslider.class.php:1065
 msgid "Add Slide"
 msgstr "Lägg till bild"
 
@@ -1930,7 +1957,7 @@ msgid "Save"
 msgstr "Spara"
 
 #: admin/views/pages/parts/toolbar.php:155
-#: ml-slider.php:1945
+#: ml-slider.php:1995
 msgid "Return to Published Slides"
 msgstr "Återgå till publicerade bilder"
 
@@ -1966,7 +1993,7 @@ msgid "Redirecting..."
 msgstr "Omdirigerar …"
 
 #: admin/views/pages/start.php:106
-#: ml-slider.php:575
+#: ml-slider.php:579
 msgid "Quick Start"
 msgstr "Snabbstart"
 
@@ -1995,163 +2022,164 @@ msgid "Slide Type"
 msgstr "Bildtyp"
 
 #: admin/views/pages/start.php:145
-#: inc/metaslider.quickstart.class.php:760
-#: ml-slider.php:798
+#: inc/metaslider.quickstart.class.php:773
+#: ml-slider.php:849
 msgid "Image"
 msgstr "Bild"
 
-#: admin/views/pages/start.php:149
-#: inc/metaslider.quickstart.class.php:611
-#: inc/metaslider.quickstart.class.php:772
-#: ml-slider.php:842
+#: admin/views/pages/start.php:150
+#: inc/metaslider.quickstart.class.php:623
+#: inc/metaslider.quickstart.class.php:785
+#: ml-slider.php:893
 msgid "External Image"
 msgstr "Extern bild"
 
-#: admin/views/pages/start.php:150
-#: inc/metaslider.quickstart.class.php:623
-#: inc/metaslider.quickstart.class.php:775
-#: ml-slider.php:843
+#: admin/views/pages/start.php:151
+#: inc/metaslider.quickstart.class.php:635
+#: inc/metaslider.quickstart.class.php:788
+#: ml-slider.php:894
 msgid "External Video"
 msgstr "Extern video"
 
-#: admin/views/pages/start.php:151
-#: inc/metaslider.quickstart.class.php:635
-#: inc/metaslider.quickstart.class.php:781
-#: ml-slider.php:844
+#: admin/views/pages/start.php:152
+#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:797
+#: ml-slider.php:895
 msgid "Custom HTML"
 msgstr "Anpassad HTML"
 
-#: admin/views/pages/start.php:152
-#: inc/metaslider.quickstart.class.php:683
-#: inc/metaslider.quickstart.class.php:790
-#: ml-slider.php:845
+#: admin/views/pages/start.php:153
+#: inc/metaslider.quickstart.class.php:695
+#: inc/metaslider.quickstart.class.php:806
+#: ml-slider.php:896
 msgid "Background Color"
 msgstr "Bakgrundsfärg"
 
-#: admin/views/pages/start.php:153
-#: admin/views/pages/start.php:184
-#: ml-slider.php:848
+#: admin/views/pages/start.php:154
+#: admin/views/pages/start.php:185
+#: ml-slider.php:899
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: admin/views/pages/start.php:154
-#: inc/metaslider.quickstart.class.php:599
-#: inc/metaslider.quickstart.class.php:787
-#: ml-slider.php:849
+#: admin/views/pages/start.php:155
+#: inc/metaslider.quickstart.class.php:611
+#: inc/metaslider.quickstart.class.php:803
+#: ml-slider.php:900
 msgid "Post Feed"
 msgstr "Inläggsflöde"
 
-#: admin/views/pages/start.php:155
-#: inc/metaslider.quickstart.class.php:784
-#: ml-slider.php:850
+#: admin/views/pages/start.php:156
+#: inc/metaslider.quickstart.class.php:800
+#: ml-slider.php:901
 msgid "Layer Slide"
 msgstr "Bild med skikt"
 
-#: admin/views/pages/start.php:156
-#: inc/metaslider.quickstart.class.php:575
-#: inc/metaslider.quickstart.class.php:769
-#: ml-slider.php:851
+#: admin/views/pages/start.php:157
+#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:782
+#: modules/local_video/slide.php:43
+#: modules/local_video/slide.php:82
 msgid "Local Video"
 msgstr "Lokal video"
 
-#: admin/views/pages/start.php:161
+#: admin/views/pages/start.php:162
 msgid "Features"
 msgstr "Funktioner"
 
-#: admin/views/pages/start.php:162
+#: admin/views/pages/start.php:163
 msgid "Boxed"
 msgstr "Inramad"
 
-#: admin/views/pages/start.php:163
+#: admin/views/pages/start.php:164
 msgid "Full-width"
 msgstr "Full bredd"
 
-#: admin/views/pages/start.php:164
+#: admin/views/pages/start.php:165
 msgid "Carousel"
 msgstr "Karusell"
 
-#: admin/views/pages/start.php:165
+#: admin/views/pages/start.php:166
 msgid "Thumbnail Navigation"
 msgstr "Tumnagelnavigering"
 
-#: admin/views/pages/start.php:166
+#: admin/views/pages/start.php:167
 msgid "Video Caption"
 msgstr "Videotext"
 
-#: admin/views/pages/start.php:167
-#: admin/views/pages/start.php:302
+#: admin/views/pages/start.php:168
+#: admin/views/pages/start.php:303
 msgid "Hero Image"
 msgstr "Hero-bild"
 
-#: admin/views/pages/start.php:172
+#: admin/views/pages/start.php:173
 msgid "Animation Type"
 msgstr "Animationstyp"
 
-#: admin/views/pages/start.php:177, fuzzy
+#: admin/views/pages/start.php:178, fuzzy
 msgid "Ken Burns"
 msgstr "Ken Burns"
 
-#: admin/views/pages/start.php:183, fuzzy
+#: admin/views/pages/start.php:184, fuzzy
 msgid "Integration"
 msgstr "Integration"
 
-#: admin/views/pages/start.php:185
+#: admin/views/pages/start.php:186
 msgid "The Events Calendar"
 msgstr "Evenemangskalendern"
 
-#: admin/views/pages/start.php:186
-#: admin/views/pages/start.php:298
+#: admin/views/pages/start.php:187
+#: admin/views/pages/start.php:299
 msgid "WordPress Posts"
 msgstr "WordPress-inlägg"
 
-#: admin/views/pages/start.php:227
+#: admin/views/pages/start.php:228
 msgid "Free and Pro"
 msgstr "Gratis och Pro"
 
-#: admin/views/pages/start.php:228
+#: admin/views/pages/start.php:229
 msgid "Free only"
 msgstr "Endast gratis"
 
-#: admin/views/pages/start.php:229
+#: admin/views/pages/start.php:230
 msgid "Pro only"
 msgstr "Endast Pro"
 
-#: admin/views/pages/start.php:233
+#: admin/views/pages/start.php:234
 msgid "Reset Filters"
 msgstr "Återställ filter"
 
-#: admin/views/pages/start.php:239
+#: admin/views/pages/start.php:240
 msgid "No demos match your filters."
 msgstr "Inga demonstrationer matchar dina filter."
 
-#: admin/views/pages/start.php:322
+#: admin/views/pages/start.php:323
 #, php-format
 msgid "Create %s slideshow?"
 msgstr "Skapa %s bildspel?"
 
-#: admin/views/pages/start.php:328
+#: admin/views/pages/start.php:329
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: admin/views/pages/start.php:331
+#: admin/views/pages/start.php:332
 msgid "Yes, please!"
 msgstr "Ja tack!"
 
-#: admin/views/pages/start.php:337, fuzzy
+#: admin/views/pages/start.php:338, fuzzy
 msgid "Demo"
 msgstr "Demo"
 
-#: admin/views/pages/start.php:343
+#: admin/views/pages/start.php:344
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Get MetaSlider Slideshow Pro!"
 msgstr "MetaSlider Slideshow"
 
-#: admin/views/pages/start.php:346
+#: admin/views/pages/start.php:347
 msgid "Upgrade now to unlock this demo slideshow!"
 msgstr "Uppgradera nu för att låsa upp denna demovisning!"
 
-#: admin/views/pages/start.php:349
+#: admin/views/pages/start.php:350
 #: admin/views/pages/theme-editor.php:36
 #: admin/views/pages/upgrade.php:26
 #: admin/views/pages/upgrade.php:201
@@ -2159,19 +2187,19 @@ msgstr "Uppgradera nu för att låsa upp denna demovisning!"
 msgid "Upgrade now"
 msgstr "Uppgradera nu"
 
-#: admin/views/pages/start.php:367
+#: admin/views/pages/start.php:368
 msgid "Create a slideshow with your images"
 msgstr "Skapa ett bildspel med dina bilder"
 
-#: admin/views/pages/start.php:368
+#: admin/views/pages/start.php:369
 msgid "Choose your own images to start a new slideshow."
 msgstr "Välj dina egna bilder för att starta ett nytt bildspel."
 
-#: admin/views/pages/start.php:374
+#: admin/views/pages/start.php:375
 msgid "Uploading images..."
 msgstr "Laddar upp bilder …"
 
-#: admin/views/pages/start.php:385
+#: admin/views/pages/start.php:386
 msgid "Open Media Library"
 msgstr "Öppna mediabibliotek"
 
@@ -2181,7 +2209,7 @@ msgid "Introducing the Theme Editor in MetaSlider Slideshow Pro"
 msgstr "Vi introducerar Tema-redigeraren i MetaSlider Pro"
 
 #: admin/views/pages/theme-editor.php:18
-#: ml-slider.php:579
+#: ml-slider.php:583
 msgid "Theme Editor"
 msgstr "Temaredigerare"
 
@@ -2920,10 +2948,12 @@ msgstr ""
 "knappen."
 
 #: admin/views/slides/tabs/link.php:20
+#: modules/local_video/tabs/link.php:28
 msgid "New window"
 msgstr "Nytt fönster"
 
 #: admin/views/slides/tabs/link.php:22
+#: modules/local_video/tabs/link.php:30
 msgid "Open link in a new window"
 msgstr "Öppna länk i ett nytt fönster"
 
@@ -2943,11 +2973,66 @@ msgstr ""
 msgid "Enter text here"
 msgstr "Ange text här"
 
-#: admin/views/slides/tabs/mobile.php:33
+#: admin/views/slides/tabs/livid.php:18
+msgid "Livid Video URL"
+msgstr "Livid Video-URL"
+
+#: admin/views/slides/tabs/livid.php:19
+msgid ""
+"Paste the link to a video hosted on livid.com. We will create the embed for "
+"you."
+msgstr ""
+"Klistra in länken till en video som är hostad på livid.com. Vi kommer att "
+"skapa inbäddningen åt dig."
+
+#: admin/views/slides/tabs/livid.php:33
+#: modules/local_video/tabs/general.php:70
+msgid "Mute video"
+msgstr "Dämpa video"
+
+#: admin/views/slides/tabs/livid.php:47
+#: modules/local_video/tabs/general.php:82
+msgid "Show controls"
+msgstr "Visa kontroller"
+
+#: admin/views/slides/tabs/livid.php:49
+msgid ""
+"Hiding the controls only works if the video is on a Livid Pro or Premium "
+"account"
+msgstr ""
+"Att dölja kontrollerna fungerar endast om videon finns på ett Livid Pro- "
+"eller Premiumkonto"
+
+#: admin/views/slides/tabs/livid.php:65
+#: modules/local_video/tabs/general.php:95
+msgid "Auto play"
+msgstr "Auto spela"
+
+#: admin/views/slides/tabs/livid.php:67
+msgid "May require the video to be muted"
+msgstr "Kan kräva att videon är dämpad"
+
+#: admin/views/slides/tabs/livid.php:83
+#: modules/local_video/tabs/general.php:113, fuzzy
+msgid "Lazy load video"
+msgstr "Lazy load video"
+
+#: admin/views/slides/tabs/livid.php:85
+msgid "The video only loads once a visitor clicks play"
+msgstr "Videon laddas endast när en besökare klickar på spela"
+
+#: admin/views/slides/tabs/livid.php:99
+#: modules/local_video/tabs/general.php:125
+msgid "Loop video"
+msgstr "Loopa video"
+
+#: admin/views/slides/tabs/mobile.php:35
+#: modules/local_video/tabs/mobile.php:22
 msgid "Hide slide on:"
 msgstr "Dölj slide på:"
 
-#: admin/views/slides/tabs/mobile.php:46
+#: admin/views/slides/tabs/mobile.php:48
+#: modules/local_video/tabs/mobile.php:35
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths equal to or "
@@ -2956,7 +3041,8 @@ msgstr ""
 "När denna inställning är aktiverad kommer den att dölja sliden på "
 "skärmstorlekar lika med eller större än %spx"
 
-#: admin/views/slides/tabs/mobile.php:56
+#: admin/views/slides/tabs/mobile.php:58
+#: modules/local_video/tabs/mobile.php:45
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths of %1$spx to "
@@ -2965,11 +3051,11 @@ msgstr ""
 "När denna inställning är aktiverad kommer den att dölja sliden på "
 "skärmstorlekar från %1$spx till %2$spx"
 
-#: admin/views/slides/tabs/mobile.php:72
+#: admin/views/slides/tabs/mobile.php:75
 msgid "Hide caption on:"
 msgstr "Dölj bildtext på:"
 
-#: admin/views/slides/tabs/mobile.php:85
+#: admin/views/slides/tabs/mobile.php:88
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths equal to "
@@ -2978,7 +3064,7 @@ msgstr ""
 "När denna inställning är aktiverad kommer den att dölja bildtexten på "
 "skärmstorlekar lika med eller större än %spx"
 
-#: admin/views/slides/tabs/mobile.php:95
+#: admin/views/slides/tabs/mobile.php:98
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths of %1$spx "
@@ -3216,136 +3302,136 @@ msgstr "Framväxande Perspektiv"
 msgid "Sporting Spirit"
 msgstr "Sportig anda"
 
-#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:227
 msgid "Marathon Journey"
 msgstr "Marathonresa"
 
-#: inc/metaslider.quickstart.class.php:227
-msgid "Cars Display"
-msgstr "Bilar Visning"
-
 #: inc/metaslider.quickstart.class.php:239
-msgid "Watch Shop Hero"
-msgstr "Klockbutikens Hjälte"
-
-#: inc/metaslider.quickstart.class.php:251
-msgid "Creative Agency Hero"
-msgstr "Kreativ Byrå Hjälte"
-
-#: inc/metaslider.quickstart.class.php:263
-msgid "Fashion Trends"
-msgstr "Mode Trender"
-
-#: inc/metaslider.quickstart.class.php:275
-msgid "Entertainment YouTube Shorts Feed"
-msgstr "Underhållning YouTube Shorts Flöde"
-
-#: inc/metaslider.quickstart.class.php:287
-msgid "Album Cover Showcase"
-msgstr "Albumomslag Utställning"
-
-#: inc/metaslider.quickstart.class.php:299
-msgid "Business Presentation"
-msgstr "Affärspresentation"
-
-#: inc/metaslider.quickstart.class.php:311
-msgid "Books by Genre"
-msgstr "Böcker efter Genre"
-
-#: inc/metaslider.quickstart.class.php:323
-msgid "Testimonials"
-msgstr "Omdömen"
-
-#: inc/metaslider.quickstart.class.php:335
-msgid "Skincare Routine Guide"
-msgstr "Hudvårdsrutin Guider"
-
-#: inc/metaslider.quickstart.class.php:347
-msgid "Indoor Plant Selection Guide"
-msgstr "Inomhusväxt Urvalsguide"
-
-#: inc/metaslider.quickstart.class.php:359
-msgid "TikTok Vertical Videos"
-msgstr "TikTok Vertikala Videor"
-
-#: inc/metaslider.quickstart.class.php:371
 msgid "Daily Routine Videos"
 msgstr "Dagliga Rutinvideor"
 
+#: inc/metaslider.quickstart.class.php:263
+msgid "Cars Display"
+msgstr "Bilar Visning"
+
+#: inc/metaslider.quickstart.class.php:275
+msgid "Watch Shop Hero"
+msgstr "Klockbutikens Hjälte"
+
+#: inc/metaslider.quickstart.class.php:287
+msgid "Creative Agency Hero"
+msgstr "Kreativ Byrå Hjälte"
+
+#: inc/metaslider.quickstart.class.php:299
+msgid "Fashion Trends"
+msgstr "Mode Trender"
+
+#: inc/metaslider.quickstart.class.php:311
+msgid "Entertainment YouTube Shorts Feed"
+msgstr "Underhållning YouTube Shorts Flöde"
+
+#: inc/metaslider.quickstart.class.php:323
+msgid "Album Cover Showcase"
+msgstr "Albumomslag Utställning"
+
+#: inc/metaslider.quickstart.class.php:335
+msgid "Business Presentation"
+msgstr "Affärspresentation"
+
+#: inc/metaslider.quickstart.class.php:347
+msgid "Books by Genre"
+msgstr "Böcker efter Genre"
+
+#: inc/metaslider.quickstart.class.php:359
+msgid "Testimonials"
+msgstr "Omdömen"
+
+#: inc/metaslider.quickstart.class.php:371
+msgid "Skincare Routine Guide"
+msgstr "Hudvårdsrutin Guider"
+
 #: inc/metaslider.quickstart.class.php:383
+msgid "Indoor Plant Selection Guide"
+msgstr "Inomhusväxt Urvalsguide"
+
+#: inc/metaslider.quickstart.class.php:395
+msgid "TikTok Vertical Videos"
+msgstr "TikTok Vertikala Videor"
+
+#: inc/metaslider.quickstart.class.php:407
 msgid "Coffee Brewing Guide"
 msgstr "Kaffe Bryggningsguide"
 
-#: inc/metaslider.quickstart.class.php:395
+#: inc/metaslider.quickstart.class.php:419
 msgid "Upcoming City Events"
 msgstr "Kommande Stads Evenemang"
 
-#: inc/metaslider.quickstart.class.php:407
+#: inc/metaslider.quickstart.class.php:431
 msgid "Product Categories"
 msgstr "Produktkategorier"
 
-#: inc/metaslider.quickstart.class.php:419
+#: inc/metaslider.quickstart.class.php:443
 msgid "Recent WooCommerce Products"
 msgstr "Nyligen WooCommerce Produkter"
 
-#: inc/metaslider.quickstart.class.php:431
+#: inc/metaslider.quickstart.class.php:455
 msgid "Latest News Posts"
 msgstr "Senaste Nyhetsinlägg"
 
-#: inc/metaslider.quickstart.class.php:443
+#: inc/metaslider.quickstart.class.php:467
 msgid "Product Demo"
 msgstr "Produktdemo"
 
-#: inc/metaslider.quickstart.class.php:455
+#: inc/metaslider.quickstart.class.php:479
 msgid "Trending Videos"
 msgstr "Trenderande Videor"
 
-#: inc/metaslider.quickstart.class.php:467
+#: inc/metaslider.quickstart.class.php:491
 msgid "Hotel Rooms"
 msgstr "Hotellrum"
 
-#: inc/metaslider.quickstart.class.php:479
+#: inc/metaslider.quickstart.class.php:503
 msgid "Client Testimonials"
 msgstr "Kundutlåtanden"
 
-#: inc/metaslider.quickstart.class.php:491
+#: inc/metaslider.quickstart.class.php:515
 msgid "Meet the Team"
 msgstr "Möt teamet"
 
-#: inc/metaslider.quickstart.class.php:503
+#: inc/metaslider.quickstart.class.php:527
 msgid "Curated Videos"
 msgstr "Kuraterade Videor"
 
-#: inc/metaslider.quickstart.class.php:515
+#: inc/metaslider.quickstart.class.php:539
 msgid "Natural Skincare Presentation"
 msgstr "Naturlig Hudvårdspresentation"
 
-#: inc/metaslider.quickstart.class.php:539
+#: inc/metaslider.quickstart.class.php:563
 msgid "YouTube Shorts Carousel"
 msgstr "YouTube Shorts Karusell"
 
-#: inc/metaslider.quickstart.class.php:551
+#: inc/metaslider.quickstart.class.php:575
 msgid "TikTok Carousel"
 msgstr "TikTok-karusell"
 
-#: inc/metaslider.quickstart.class.php:563
-#: ml-slider.php:839, fuzzy
+#: inc/metaslider.quickstart.class.php:587
+#: ml-slider.php:890, fuzzy
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: inc/metaslider.quickstart.class.php:587
+#: inc/metaslider.quickstart.class.php:599
 msgid "Layer Slides"
 msgstr "Lagerbilder"
 
-#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:659
 msgid "WooCommerce Carousel"
 msgstr "WooCommerce Karusell"
 
-#: inc/metaslider.quickstart.class.php:659
+#: inc/metaslider.quickstart.class.php:671
 msgid "Bold Motion"
 msgstr "Djärv Rörelse"
 
-#: inc/metaslider.quickstart.class.php:671
+#: inc/metaslider.quickstart.class.php:683
 msgid "Playful Pets"
 msgstr "Lekfulla husdjur"
 
@@ -3379,7 +3465,7 @@ msgid "Select Slider:"
 msgstr "Välj bildspel:"
 
 #: inc/metaslider.widget.class.php:126
-#: ml-slider.php:2074
+#: ml-slider.php:2124
 #: admin/assets/dist/js/app.js:2
 msgid "No slideshows found"
 msgstr "Inga bildspel hittade"
@@ -3423,6 +3509,15 @@ msgid "This isn't a valid image format. Please try again."
 msgstr "Detta är inte ett giltigt bildformat. Försök igen."
 
 #: inc/slide/metaslide.image.class.php:412
+#: inc/slide/metaslide.livid.class.php:784
+#: modules/local_video/slide.php:203
+#: modules/local_video/slide.php:878
+#: modules/local_video/slide.php:936
+#: modules/local_video/slide.php:1044
+#: modules/local_video/slide.php:1209
+#: modules/local_video/slide.php:1282
+#: modules/local_video/slide.php:1396
+#: modules/local_video/slide.php:2082
 msgid "Access denied"
 msgstr "Åtkomst nekad"
 
@@ -3435,10 +3530,13 @@ msgid "Warning: The image data does not exist. Please re-upload the image."
 msgstr "Varning: Bilddata finns inte. Ladda upp bilden igen."
 
 #: inc/slide/metaslide.image.class.php:555
+#: inc/slide/metaslide.livid.class.php:875
+#: modules/local_video/slide.php:407
 msgid "General"
 msgstr "Allmänt"
 
 #: inc/slide/metaslide.image.class.php:559
+#: modules/local_video/slide.php:411
 msgid "Link"
 msgstr "Länk"
 
@@ -3447,6 +3545,8 @@ msgid "SEO"
 msgstr "SEO"
 
 #: inc/slide/metaslide.image.class.php:578
+#: inc/slide/metaslide.livid.class.php:893
+#: modules/local_video/slide.php:438
 msgid "Device"
 msgstr "Enhet"
 
@@ -3470,7 +3570,67 @@ msgstr "Avancerade inställningar finns tillgängliga i MetaSlider Slideshow Pro
 msgid "View Slide Details"
 msgstr "Visa slideinformation"
 
-#: inc/slider/metaslider.class.php:457
+#: inc/slide/metaslide.livid.class.php:217, fuzzy
+msgid "Livid Video"
+msgstr "Livid Video"
+
+#: inc/slide/metaslide.livid.class.php:272
+#: inc/slide/metaslide.livid.class.php:320
+#: inc/slide/metaslide.livid.class.php:364
+#: inc/slide/metaslide.livid.class.php:425
+#: inc/slide/metaslide.livid.class.php:477
+msgid "Please enter a valid link to a video hosted on livid.com."
+msgstr "Vänligen ange en giltig länk till en video som är hostad på livid.com."
+
+#: inc/slide/metaslide.livid.class.php:278
+msgid "Create slideshows with your Livid videos"
+msgstr "Skapa bildspel med dina Livid-videor"
+
+#: inc/slide/metaslide.livid.class.php:281
+msgid "Enter the URL of a Livid video:"
+msgstr "Ange URL:en till en Livid-video:"
+
+#: inc/slide/metaslide.livid.class.php:292
+#: ml-slider.php:850
+#: modules/local_video/slide.php:112
+#: admin/assets/dist/js/admin.js:1
+#: admin/assets/js/admin.js:218
+msgid "Add to slideshow"
+msgstr "Lägg till i bildspelet"
+
+#: inc/slide/metaslide.livid.class.php:318
+msgid "Updating the Livid video..."
+msgstr "Uppdaterar Livid-videon..."
+
+#: inc/slide/metaslide.livid.class.php:319
+msgid "Livid video updated."
+msgstr "Livid-videon har uppdaterats."
+
+#: inc/slide/metaslide.livid.class.php:321
+msgid "We could not update the Livid video. Please check the link and try again."
+msgstr ""
+"Vi kunde inte uppdatera Livid-videon. Vänligen kontrollera länken och "
+"försök igen."
+
+#: inc/slide/metaslide.livid.class.php:561
+msgid "Livid video player"
+msgstr "Livid videospelare"
+
+#: inc/slide/metaslide.livid.class.php:681
+#. translators: %s: Livid video URL
+#, php-format
+msgid "Livid video thumbnail - %s"
+msgstr "Livid videominiatyr - %s"
+
+#: inc/slide/metaslide.livid.class.php:818
+msgid "Livid Video Slide"
+msgstr "Livid Video-slide"
+
+#: inc/slide/metaslide.livid.class.php:1011
+msgid "Play video"
+msgstr "Spela video"
+
+#: inc/slider/metaslider.class.php:461
 msgid "Edit Slideshow"
 msgstr "Redigera bildspel"
 
@@ -3482,7 +3642,7 @@ msgstr "Spela"
 msgid "Pause"
 msgstr "Pausa"
 
-#: ml-slider.php:267
+#: ml-slider.php:270
 #, php-format
 msgid ""
 "MetaSlider Slideshow Pro is installed but is out of date. You may update it "
@@ -3491,70 +3651,64 @@ msgstr ""
 "MetaSlider Pro är installerad men är föråldrad. Du kan uppdatera den "
 "%shär%s. Lär dig mer om denna avisering %shär%s"
 
-#: ml-slider.php:576
+#: ml-slider.php:580
 msgid "Settings & Help"
 msgstr "Inställningar och hjälp"
 
-#: ml-slider.php:580
+#: ml-slider.php:584
 msgid "Upgrade to Pro"
 msgstr "Uppgradera till Pro"
 
-#: ml-slider.php:610
-#: ml-slider.php:613
+#: ml-slider.php:614
+#: ml-slider.php:617
 #: themes/customize.php:20
 msgid "Slideshow"
 msgstr "Bildspel"
 
-#: ml-slider.php:619
-#: ml-slider.php:622
+#: ml-slider.php:623
+#: ml-slider.php:626
 msgid "All Slideshows"
 msgstr "Alla bildspel"
 
-#: ml-slider.php:630
-#: ml-slider.php:633
+#: ml-slider.php:634
+#: ml-slider.php:637
 msgid "Create Slideshow"
 msgstr "Skapa bildspel"
 
-#: ml-slider.php:799
-#: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:218
-msgid "Add to slideshow"
-msgstr "Lägg till i bildspelet"
-
-#: ml-slider.php:840, fuzzy
+#: ml-slider.php:891, fuzzy
 msgid "YouTube"
 msgstr "YouTube"
 
-#: ml-slider.php:841, fuzzy
+#: ml-slider.php:892, fuzzy
 msgid "TikTok"
 msgstr "TikTok"
 
-#: ml-slider.php:846
+#: ml-slider.php:897
 msgid "Image Folder"
 msgstr "Bildmapp"
 
-#: ml-slider.php:847
+#: ml-slider.php:898
 #: admin/assets/dist/js/app.js:2
 msgid "Post Images"
 msgstr "Inläggsbilder"
 
-#: ml-slider.php:976
+#: ml-slider.php:1026
 msgid "The slide was successfully restored"
 msgstr "Bilden har återskapats"
 
-#: ml-slider.php:999
+#: ml-slider.php:1049
 msgid "The attempt to restore the slide failed."
 msgstr "Försöket att återställa bilden misslyckades."
 
-#: ml-slider.php:1058
+#: ml-slider.php:1108
 msgid "The slide was successfully trashed"
 msgstr "Bilden har lagts i papperskorgen"
 
-#: ml-slider.php:1170
+#: ml-slider.php:1220
 msgid "The slide was permanently deleted"
 msgstr "Bildspelet raderades permanent"
 
-#: ml-slider.php:1461
+#: ml-slider.php:1511
 #, php-format
 msgid ""
 "Please consider moving your slides to <b>FlexSlider</b>. We're adding all "
@@ -3565,19 +3719,19 @@ msgstr ""
 "till alla nya MetaSlider-funktioner till detta alternativ. <a "
 "href=\"%s\">Läs mer</a>."
 
-#: ml-slider.php:1863
+#: ml-slider.php:1913
 msgid "Slide permanently deleted."
 msgstr "Bildspelet raderades permanent."
 
-#: ml-slider.php:1866
+#: ml-slider.php:1916
 msgid "Slide restored."
 msgstr "Bild återställt."
 
-#: ml-slider.php:1898
+#: ml-slider.php:1948
 msgid "Toggle slide reorder panel"
 msgstr "Växla panel för ordning av bilder"
 
-#: ml-slider.php:1935
+#: ml-slider.php:1985
 #, php-format
 msgid ""
 "You are viewing slides that have been trashed, which will be automatically "
@@ -3586,35 +3740,35 @@ msgstr ""
 "Du ser bilder som har slängts, vilka automatiskt kommer att raderas om %s "
 "dagar."
 
-#: ml-slider.php:1968
+#: ml-slider.php:2018
 msgid "Move slideshow to trash"
 msgstr "Flytta bildspel till papperskorg"
 
-#: ml-slider.php:2023
+#: ml-slider.php:2073
 msgid "Add slideshow"
 msgstr "Lägg till bildspel"
 
-#: ml-slider.php:2059
+#: ml-slider.php:2109
 msgid "Choose slideshow"
 msgstr "Välj bildspel"
 
-#: ml-slider.php:2069
+#: ml-slider.php:2119
 msgid "Insert slideshow"
 msgstr "Infoga bildspel"
 
-#: ml-slider.php:2104
+#: ml-slider.php:2154
 msgid "Create slides by adding text, videos and more to your images"
 msgstr ""
 "Skapa bildspel genom att lägga till text, videoklipp och mer till dina "
 "bilder"
 
-#: ml-slider.php:2108
+#: ml-slider.php:2158
 msgid ""
 "With Layer slides, you can create beautiful, stylish layers of different "
 "elements."
 msgstr "Med lagerbilder kan du skapa vackra, stiliga lager av olika element."
 
-#: ml-slider.php:2112
+#: ml-slider.php:2162
 msgid ""
 "You start with an image and then can add text, video, colors, animations, "
 "more images, and even shortcodes."
@@ -3622,35 +3776,34 @@ msgstr ""
 "Du börjar med en bild och kan sedan lägga till text, video, färger, "
 "animationer, fler bilder och till och med kortkoder."
 
-#: ml-slider.php:2118
-#: ml-slider.php:2159
-#: ml-slider.php:2200
-#: ml-slider.php:2243
-#: ml-slider.php:2286
-#: ml-slider.php:2329
-#: ml-slider.php:2372
-#: ml-slider.php:2411
-#: ml-slider.php:2454
-#: ml-slider.php:2493
-#: ml-slider.php:2564
-#: ml-slider.php:2599
-#: ml-slider.php:2634
+#: ml-slider.php:2168
+#: ml-slider.php:2209
+#: ml-slider.php:2250
+#: ml-slider.php:2293
+#: ml-slider.php:2336
+#: ml-slider.php:2379
+#: ml-slider.php:2418
+#: ml-slider.php:2461
+#: ml-slider.php:2500
+#: ml-slider.php:2571
+#: ml-slider.php:2606
+#: ml-slider.php:2641
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Find out more about MetaSlider Slideshow Pro"
 msgstr "Ta reda på mer om MetaSlider Pro"
 
-#: ml-slider.php:2147
+#: ml-slider.php:2197
 msgid "Create slideshows with your Vimeo videos"
 msgstr "Skapa bildspel med dina Vimeo-videoklipp"
 
-#: ml-slider.php:2151
+#: ml-slider.php:2201
 msgid ""
 "With Vimeo slides, you can build beautiful slideshows with your Vimeo "
 "videos."
 msgstr "Med Vimeo-bilder kan du bygga vackra bildspel med dina Vimeo-videoklipp."
 
-#: ml-slider.php:2155
+#: ml-slider.php:2205
 msgid ""
 "Vimeo slides will display your videos with auto play, mute, the ability to "
 "hide controls, and much more."
@@ -3658,17 +3811,17 @@ msgstr ""
 "Vimeo-bilder visar dina videor med automatisk uppspelning, ljud av, "
 "möjligheten att dölja kontroller och mycket mer."
 
-#: ml-slider.php:2188
+#: ml-slider.php:2238
 msgid "Create slideshows with your YouTube videos"
 msgstr "Skapa bildspel med dina YouTube-videoklipp"
 
-#: ml-slider.php:2192
+#: ml-slider.php:2242
 msgid ""
 "With YouTube slides, you can build beautiful slideshows with your YouTube "
 "videos."
 msgstr "Med YouTube-bilder kan du bygga vackra bildspel med dina YouTube-videoklipp."
 
-#: ml-slider.php:2196
+#: ml-slider.php:2246
 msgid ""
 "YouTube slides will display your videos with auto play, mute, lazy load, "
 "the ability to hide controls, and much more."
@@ -3676,11 +3829,11 @@ msgstr ""
 "YouTube-bilder visar dina videor med automatisk uppspelning, ljud av, lat "
 "laddning, möjligheten att dölja kontroller och mycket mer."
 
-#: ml-slider.php:2229
+#: ml-slider.php:2279
 msgid "Create slideshows with your posts"
 msgstr "Skapa bildspel med dina inlägg"
 
-#: ml-slider.php:2233
+#: ml-slider.php:2283
 msgid ""
 "With Post Feed slides, you can build slideshows with your latest posts, "
 "events, or WooCommerce products."
@@ -3688,7 +3841,7 @@ msgstr ""
 "Med Post Feed-bilder kan du bygga bildspel med dina senaste inlägg, "
 "evenemang eller WooCommerce-produkter."
 
-#: ml-slider.php:2237
+#: ml-slider.php:2287
 msgid ""
 "Post Feed slides will automatically display your posts with images, text, "
 "custom fields, and much more."
@@ -3696,11 +3849,11 @@ msgstr ""
 "Post Feed-bilder visar automatiskt dina inlägg med bilder, text, anpassade "
 "fält och mycket mer."
 
-#: ml-slider.php:2272
+#: ml-slider.php:2322
 msgid "Create slideshows with images stored outside of WordPress"
 msgstr "Skapa bildspel med bilder lagrade utanför WordPress"
 
-#: ml-slider.php:2276
+#: ml-slider.php:2326
 msgid ""
 "With External URL slides, you can load images directly from non-WordPress "
 "sources such as CDNs or image hosts."
@@ -3708,7 +3861,7 @@ msgstr ""
 "Med externa URL-bilder kan du ladda bilder direkt från "
 "icke-WordPress-källor som CDN:er eller bildvärdar."
 
-#: ml-slider.php:2280
+#: ml-slider.php:2330
 msgid ""
 "External URL slides give you all the power of MetaSlider Slideshow, using "
 "images stored anywhere you want."
@@ -3716,33 +3869,11 @@ msgstr ""
 "Externa URL-bilder ger dig all kraft av MetaSlider, med bilder lagrade var "
 "som helst du vill."
 
-#: ml-slider.php:2315
-msgid "Create slideshows with videos in your media library"
-msgstr "Skapa bildspel med videoklipp i ditt mediabibliotek"
-
-#: ml-slider.php:2319
-msgid ""
-"With Local Video slides, you can build beautiful slideshows with videos in "
-"your WordPress media library or searched directly from Pixabay."
-msgstr ""
-"Med lokala videobilder kan du bygga vackra bildspel med videor i ditt "
-"WordPress mediebibliotek eller söka direkt från Pixabay."
-
-#: ml-slider.php:2323
-msgid ""
-"Local Video slides will display your MP4, WebM, and MOV videos with cover "
-"images, auto play, mute, lazy load, the ability to hide controls, and much "
-"more."
-msgstr ""
-"Lokala videobilder visar dina MP4-, WebM- och MOV-videor med omslagsbilder, "
-"automatisk uppspelning, ljudavstängning, lat laddning, möjlighet att dölja "
-"kontroller och mycket mer."
-
-#: ml-slider.php:2358
+#: ml-slider.php:2365
 msgid "Create slideshows with videos stored outside of WordPress"
 msgstr "Skapa bildspel med videoklipp lagrade utanför WordPress"
 
-#: ml-slider.php:2362
+#: ml-slider.php:2369
 msgid ""
 "With External Video slides, you can add videos directly from non-WordPress "
 "sources."
@@ -3750,7 +3881,7 @@ msgstr ""
 "Med externa videobilder kan du lägga till videor direkt från "
 "icke-WordPress-källor."
 
-#: ml-slider.php:2366
+#: ml-slider.php:2373
 msgid ""
 "External Video Slides will display your MP4, WebM, and MOV videos. Features "
 "include text captions, cover images, auto play, mute, lazy load, the "
@@ -3761,11 +3892,11 @@ msgstr ""
 "ljudavstängning, lat laddning, möjlighet att dölja kontroller och mycket "
 "mer."
 
-#: ml-slider.php:2401
+#: ml-slider.php:2408
 msgid "Create slideshows with custom HTML"
 msgstr "Skapa bildspel med anpassad HTML"
 
-#: ml-slider.php:2405
+#: ml-slider.php:2412
 msgid ""
 "With Custom HTML slides, you can design slides using images, HTML and CSS. "
 "This gives you complete control over the layout and styling."
@@ -3773,11 +3904,11 @@ msgstr ""
 "Med anpassade HTML-bilder kan du designa bilder med bilder, HTML och CSS. "
 "Detta ger dig fullständig kontroll över layouten och stilen."
 
-#: ml-slider.php:2444
+#: ml-slider.php:2451
 msgid "Create slides with background colors and text"
 msgstr "Skapa slides med bakgrundsfärger och text"
 
-#: ml-slider.php:2448
+#: ml-slider.php:2455
 msgid ""
 "With Background Color slides, you can create slides using a solid or "
 "gradient background color. Perfect for text-only slides, calls to action or "
@@ -3787,11 +3918,11 @@ msgstr ""
 "bakgrundsfärg. Perfekt för textbaserade slides, uppmaningar till handling "
 "eller snabba banners."
 
-#: ml-slider.php:2483
+#: ml-slider.php:2490
 msgid "Create slideshows with Tiktok Videos"
 msgstr "Skapa bildspel med TikTok-videoklipp"
 
-#: ml-slider.php:2487
+#: ml-slider.php:2494
 msgid ""
 "A TikTok Slide will display a video in your slideshow directly from "
 "TikTok.com."
@@ -3799,11 +3930,11 @@ msgstr ""
 "En TikTok-bild kommer att visa en video i ditt bildspel direkt från "
 "TikTok.com."
 
-#: ml-slider.php:2550
+#: ml-slider.php:2557
 msgid "Create slideshows with images from a folder"
 msgstr "Skapa bildspel med bilder från en mapp"
 
-#: ml-slider.php:2554
+#: ml-slider.php:2561
 msgid ""
 "The Image Folder slide type extracts images from a specified folder and "
 "displays them as slides."
@@ -3811,17 +3942,17 @@ msgstr ""
 "Bildmappens bildtyp extraherar bilder från en angiven mapp och visar dem "
 "som bilder."
 
-#: ml-slider.php:2558
+#: ml-slider.php:2565
 msgid ""
 "This slide type displays images from folders in your WordPress Media "
 "Library."
 msgstr "Denna bildtyp visar bilder från mappar i ditt WordPress-mediebibliotek."
 
-#: ml-slider.php:2585
+#: ml-slider.php:2592
 msgid "Create slideshows with Post Images"
 msgstr "Skapa bildspel med inläggsbilder"
 
-#: ml-slider.php:2589
+#: ml-slider.php:2596
 msgid ""
 "The Post Images slide type extracts images from the current post and "
 "displays them as slides."
@@ -3829,7 +3960,7 @@ msgstr ""
 "Bildtypen för inläggsbilder extraherar bilder från det aktuella inlägget "
 "och visar dem som bilder."
 
-#: ml-slider.php:2593
+#: ml-slider.php:2600
 msgid ""
 "This slide type supports featured images, post content images, WooCommerce "
 "galleries, Advanced Custom Fields images and galleries."
@@ -3837,17 +3968,17 @@ msgstr ""
 "Denna bildtyp stöder utvalda bilder, bilder från inläggsinnehåll, "
 "WooCommerce-gallerier, bilder och gallerier från avancerade anpassade fält."
 
-#: ml-slider.php:2620
+#: ml-slider.php:2627
 msgid "Create slideshows with your WooCommerce products"
 msgstr "Skapa bildspel med dina WooCommerce-produkter"
 
-#: ml-slider.php:2624
+#: ml-slider.php:2631
 msgid ""
 "With WooCommerce slides, you can build slideshows with your WooCommerce "
 "products."
 msgstr "Med WooCommerce-bilder kan du skapa bildspel med dina WooCommerce-produkter."
 
-#: ml-slider.php:2628
+#: ml-slider.php:2635
 msgid ""
 "WooCommerce slides will automatically display your products with images, "
 "text, custom fields, and much more."
@@ -3855,46 +3986,288 @@ msgstr ""
 "WooCommerce-bilder visar automatiskt dina produkter med bilder, text, "
 "anpassade fält och mycket mer."
 
-#: ml-slider.php:2672
+#: ml-slider.php:2679
 msgid "Premium Support"
 msgstr "Premiumsupport"
 
-#: ml-slider.php:2678
+#: ml-slider.php:2685
 #, fuzzy
 msgid "MetaSlider Slideshow Pro"
 msgstr "MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2682, fuzzy
+#: ml-slider.php:2689, fuzzy
 msgid "Support"
 msgstr "Support"
 
-#: ml-slider.php:2687
+#: ml-slider.php:2694
+#: modules/local_video/slide.php:533
 msgid "Documentation"
 msgstr "Dokumentation"
 
-#: ml-slider.php:2691
+#: ml-slider.php:2698
 msgid "Leave a review"
 msgstr "Lämna en recension"
 
-#: ml-slider.php:2810
+#: ml-slider.php:2817
 msgid "Uploading..."
 msgstr "Laddar upp …"
 
-#: ml-slider.php:2817
+#: ml-slider.php:2824
 msgid "Upload Complete"
 msgstr "Uppladdning slutförd"
 
-#: ml-slider.php:2944
+#: ml-slider.php:2951
 msgid "Import file is missing"
 msgstr "Importfil saknas"
 
-#: ml-slider.php:3095
+#: ml-slider.php:3102
 msgid ""
 "You attempted to edit a slideshow that does not exist. Perhaps it was moved "
 "to trash?"
 msgstr ""
 "Du försökte redigera en bildspel som inte finns. Kanske har den flyttats "
 "till papperskorgen?"
+
+#: modules/local_video/helper.php:95
+#: modules/local_video/helper.php:101
+msgid "Update cover image"
+msgstr "Uppdatera omslagsbild"
+
+#: modules/local_video/helper.php:108
+msgid "Set cover image"
+msgstr "Ställ in omslagsbild"
+
+#: modules/local_video/helper.php:159
+#: modules/local_video/slide.php:1163
+msgid "Update slide video"
+msgstr "Uppdatera bildvideo"
+
+#: modules/local_video/helper.php:163
+#: modules/local_video/slide.php:585
+#: modules/local_video/slide.php:1167
+msgid "Browse"
+msgstr "Bläddra"
+
+#: modules/local_video/helper.php:168
+#: modules/local_video/slide.php:1172
+msgid "Video File"
+msgstr "Videofil"
+
+#: modules/local_video/slide.php:109
+msgid "Select replacement video"
+msgstr "Välj ersättningsvideo"
+
+#: modules/local_video/slide.php:110
+msgid "Select replacement cover"
+msgstr "Välj ersättningsomslag"
+
+#: modules/local_video/slide.php:111
+msgid "Select replacement text track"
+msgstr "Välj ersättningstextspår"
+
+#: modules/local_video/slide.php:197
+#: modules/local_video/slide.php:2075
+msgid "Invalid nonce"
+msgstr "Ogiltig nonce"
+
+#: modules/local_video/slide.php:218
+#: modules/local_video/slide.php:897
+#: modules/local_video/slide.php:1107
+msgid "Not supported video format"
+msgstr "Ej stödd videoformat"
+
+#: modules/local_video/slide.php:349
+msgid "Local Video Slide"
+msgstr "Lokal video slide"
+
+#: modules/local_video/slide.php:370
+msgid "Please update to MetaSlider Slideshow to version 3.2 or above."
+msgstr "Vänligen uppdatera till MetaSlider Slideshow till version 3.2 eller högre."
+
+#: modules/local_video/slide.php:415
+msgid "Cover"
+msgstr "Omslag"
+
+#: modules/local_video/slide.php:419
+msgid "Text track"
+msgstr "Textspår"
+
+#: modules/local_video/slide.php:476
+msgid "Which language is the source file?"
+msgstr "Vilket språk är källfilen?"
+
+#: modules/local_video/slide.php:477
+msgid "Language label"
+msgstr "Språklapp"
+
+#: modules/local_video/slide.php:482
+msgid "For example: English"
+msgstr "Till exempel: Engelska"
+
+#: modules/local_video/slide.php:490
+msgid "Choose the type of text track"
+msgstr "Välj typ av textspår"
+
+#: modules/local_video/slide.php:491
+msgid "Language kind"
+msgstr "Språktyp"
+
+#: modules/local_video/slide.php:497
+msgid "Captions"
+msgstr "Textning"
+
+#: modules/local_video/slide.php:500
+msgid "Chapters"
+msgstr "Kapitel"
+
+#: modules/local_video/slide.php:503
+msgid "Descriptions"
+msgstr "Beskrivningar"
+
+#: modules/local_video/slide.php:509
+msgid "Subtitles"
+msgstr "Undertexter"
+
+#: modules/local_video/slide.php:517
+msgid "If the language is English, the code must be en"
+msgstr "Om språket är engelska, måste koden vara en"
+
+#: modules/local_video/slide.php:518
+msgid "Language code"
+msgstr "Språkkod"
+
+#: modules/local_video/slide.php:523
+msgid "For example: en"
+msgstr "Till exempel: en"
+
+#: modules/local_video/slide.php:576
+msgid "File must be TXT or VTT format"
+msgstr "Fil måste vara i TXT- eller VTT-format"
+
+#: modules/local_video/slide.php:577
+msgid "Source"
+msgstr "Källa"
+
+#: modules/local_video/slide.php:582
+msgid "Update slide text track"
+msgstr "Uppdatera textspår för bild"
+
+#: modules/local_video/slide.php:956
+msgid "The cover was successfully removed."
+msgstr "Omslaget har tagits bort framgångsrikt."
+
+#: modules/local_video/slide.php:986
+msgid "The requested video does not exist. Please try again."
+msgstr "Den begärda videon finns inte. Vänligen försök igen."
+
+#: modules/local_video/slide.php:995
+msgid "There was an error updating the video. No previous video saved."
+msgstr "Det uppstod ett fel vid uppdatering av videon. Ingen tidigare video sparad."
+
+#: modules/local_video/slide.php:1011
+msgid "The video was successfully updated."
+msgstr "Videon har uppdaterats framgångsrikt."
+
+#: modules/local_video/slide.php:1020
+msgid "There was an error updating the video. Please try again"
+msgstr "Det uppstod ett fel vid uppdatering av videon. Vänligen försök igen"
+
+#: modules/local_video/slide.php:1078
+msgid "You can't add more sources to this video slide."
+msgstr "Du kan inte lägga till fler källor till denna videobild."
+
+#: modules/local_video/slide.php:1094
+msgid "This slide already has a video in that format."
+msgstr "Denna bild har redan en video i det formatet."
+
+#: modules/local_video/slide.php:1126
+msgid "The video source was successfully added."
+msgstr "Videokällan har lagts till framgångsrikt."
+
+#: modules/local_video/slide.php:1237
+msgid "This slide requires at least one video source."
+msgstr "Denna bild kräver minst en videokälla."
+
+#: modules/local_video/slide.php:1250
+msgid "The video source was successfully removed."
+msgstr "Videokällan har tagits bort framgångsrikt."
+
+#: modules/local_video/slide.php:1301
+msgid "Not supported text track format"
+msgstr "Inte stödd textspårformat"
+
+#: modules/local_video/slide.php:1343
+msgid "The requested text track does not exist. Please try again."
+msgstr "Det begärda textspåret finns inte. Vänligen försök igen."
+
+#: modules/local_video/slide.php:1364
+msgid "The text track was successfully updated."
+msgstr "Textspåret har uppdaterats framgångsrikt."
+
+#: modules/local_video/slide.php:1373
+msgid "There was an error updating the text track. Please try again"
+msgstr "Det uppstod ett fel vid uppdatering av textspåret. Vänligen försök igen"
+
+#: modules/local_video/slide.php:1420
+msgid "The text track was successfully removed."
+msgstr "Textspåret har tagits bort framgångsrikt."
+
+#: modules/local_video/tabs/caption.php:7
+msgid ""
+"Please note that captions on videos can interfere with player controls. We "
+"recommend adding captions when \"Auto play\" is enabled, and \"Show "
+"controls\" and \"Lazy load video\" are both disabled."
+msgstr ""
+"Observera att undertexter på videor kan störa spelarkontroller. Vi "
+"rekommenderar att lägga till undertexter när \"Automatisk uppspelning\" är "
+"aktiverad, och \"Visa kontroller\" samt \"Ladda videon lat\" är båda "
+"avstängda."
+
+#: modules/local_video/tabs/general.php:50
+#: modules/local_video/tabs/general.php:52
+msgid "Add a new video source"
+msgstr "Lägg till en ny videokälla"
+
+#: modules/local_video/tabs/general.php:55
+msgid ""
+"Adding more formats for the same video can help improve support for "
+"different platforms."
+msgstr ""
+"Att lägga till fler format för samma video kan hjälpa till att förbättra "
+"stödet för olika plattformar."
+
+#: modules/local_video/tabs/general.php:97
+msgid "May require video to be muted"
+msgstr "Kan kräva att videon är avstängd"
+
+#: modules/local_video/tabs/general.php:137
+msgid "Fit video in container"
+msgstr "Anpassa video i behållare"
+
+#: modules/local_video/tabs/general.php:150
+msgid "Fade in transition"
+msgstr "Fade in övergång"
+
+#: modules/local_video/tabs/general.php:152
+msgid ""
+"Fade in before video loads. Recommended when slide and slideshow Auto play "
+"are enabled, and slideshow Transition effect is fade."
+msgstr ""
+"Fade in innan videon laddas. Rekommenderas när bildspel och bildspels "
+"automatisk uppspelning är aktiverade, och bildspelsövergångseffekten är "
+"fade."
+
+#: modules/local_video/tabs/link.php:8
+msgid "Video Link URL"
+msgstr "Videolänk URL"
+
+#: modules/local_video/tabs/link.php:11
+msgid ""
+"When visitors click on your video slide, they will be taken to this URL. "
+"This may affect how user interacts with the video controls."
+msgstr ""
+"När besökare klickar på din videoslide kommer de att tas till denna URL. "
+"Detta kan påverka hur användaren interagerar med videokontrollerna."
 
 #: themes/architekt/customize.php:16
 #: themes/architekt/customize.php:356
@@ -6775,8 +7148,8 @@ msgstr "Förbereder 1 bild..."
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/dist/js/app.js:2
 #: admin/assets/js/admin.js:168
-#: admin/assets/js/admin.js:1519
-#: admin/assets/js/admin.js:1562
+#: admin/assets/js/admin.js:1554
+#: admin/assets/js/admin.js:1597
 msgid "1 slide added successfully"
 msgstr "1 bild tillagd framgångsrikt"
 
@@ -6797,6 +7170,8 @@ msgstr "Stänger användargränssnittet för att lägga till bild..."
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:314
+#: modules/local_video/assets/local_video.js:208
+#: modules/local_video/assets/local_video.js:632
 msgid "Updating slide..."
 msgstr "Uppdaterar bild..."
 
@@ -6817,23 +7192,24 @@ msgstr "Unsplash-bibliotek"
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:959
 msgid "Pixabay Library"
 msgstr "Pixabay-biblioteket"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1347
+#: admin/assets/js/admin.js:1382
 msgid "Crop position saved and image cropped"
 msgstr "Beskärningsposition sparad och bild beskuren"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1364
+#: admin/assets/js/admin.js:1399
 msgid "There was an error when saving crop position or cropping the image"
 msgstr ""
 "Det uppstod ett fel vid sparande av beskärningsposition eller beskärning av "
 "bilden"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1577
+#: admin/assets/js/admin.js:1612
 msgid "Device options are enabled for this slide. Adjust using the Device tab."
 msgstr ""
 "Enhetsalternativ är aktiverade för denna bild. Justera med hjälp av fliken "
@@ -7257,6 +7633,40 @@ msgstr "Inga foton hittades."
 #: admin/assets/dist/js/app.js:2
 msgid "All images published on Pixabay can be used for free."
 msgstr "Alla bilder publicerade på Pixabay kan användas gratis."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Search pixabay.com videos..."
+msgstr "Sök pixabay.com videor..."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s on Pixabay"
+msgstr "Video av %s på Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Video on Pixabay"
+msgstr "Video på Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Opening Pixabay Video tab..."
+msgstr "Öppnar fliken Pixabay Video..."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Pixabay Video tab closed"
+msgstr "Fliken Pixabay Video stängd"
+
+#: admin/assets/dist/js/app.js:2
+msgid "No videos found."
+msgstr "Inga videor hittades."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s"
+msgstr "Video av %s"
+
+#: admin/assets/dist/js/app.js:2
+msgid "All videos published on Pixabay can be used for free."
+msgstr "Alla videor som publiceras på Pixabay kan användas gratis."
 
 #: admin/assets/dist/js/app.js:2
 msgid "Complete!"
@@ -8195,6 +8605,11 @@ msgid "Importing %s slideshows... This may take a minute"
 msgstr "Importerar %s bildspel... Detta kan ta en minut"
 
 #: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Failed to import: %s"
+msgstr "Misslyckades med att importera: %s"
+
+#: admin/assets/dist/js/app.js:2
 msgid "Import successful"
 msgstr "Importen lyckades"
 
@@ -8231,6 +8646,11 @@ msgstr "Behandlar..."
 #: admin/assets/dist/js/app.js:2
 msgid "Upload file"
 msgstr "Ladda upp fil"
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Importing slideshow %1$s of %2$s (%3$s slides). This may take a minute."
+msgstr "Importerar bildspel %1$s av %2$s (%3$s bilder). Det kan ta en minut."
 
 #: admin/assets/dist/js/app.js:2
 msgid ""
@@ -8419,6 +8839,43 @@ msgstr "Öppnar inställningssidan..."
 msgid "Page not found: %s"
 msgstr "Sidan hittades inte: %s"
 
+#: admin/assets/js/app/slides/external/videoQuality.js:29, fuzzy
+msgid "4K"
+msgstr "4K"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:30, fuzzy
+msgid "Quad HD"
+msgstr "Quad HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:31, fuzzy
+msgid "Full HD"
+msgstr "Full HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:32, fuzzy
+msgid "HD"
+msgstr "HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:33, fuzzy
+msgid "SD"
+msgstr "SD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:45
+msgid "SD (if available)"
+msgstr "SD (om tillgängligt)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:46
+msgid "HD (if available)"
+msgstr "HD (om tillgängligt)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:47
+msgid "Full HD (if available)"
+msgstr "Full HD (om tillgängligt)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:48
+#: admin/assets/js/app/slides/external/videoQuality.js:64, fuzzy
+msgid "Original"
+msgstr "Original"
+
 #: admin/assets/js/app/tour/main.js:12
 msgid "Add a slide"
 msgstr "Lägg till en bild"
@@ -8548,6 +9005,107 @@ msgstr "bildspel"
 msgid "gallery"
 msgstr "galleri"
 
+#: admin/assets/js/livid-iframe.js:132
+#: modules/local_video/assets/local_video.js:46
+#: modules/local_video/assets/local_video.js:166
+#, js-format
+msgid "Preparing %s slide..."
+msgstr "Förbereder %s bild..."
+
+#: modules/local_video/assets/local_video.js:61
+#: modules/local_video/assets/local_video.js:181
+msgid "This isn't a supported video format. Please use MP4, WebM, or MOV videos."
+msgstr ""
+"Detta är inte ett stödd videoformat. Vänligen använd MP4, WebM eller MOV "
+"videor."
+
+#: modules/local_video/assets/local_video.js:241
+#: modules/local_video/assets/local_video.js:690
+msgid "There is an error"
+msgstr "Det finns ett fel"
+
+#: modules/local_video/assets/local_video.js:265
+#: modules/local_video/assets/local_video.js:741
+msgid "Video source added successfully"
+msgstr "Videokälla tillagd framgångsrikt"
+
+#: modules/local_video/assets/local_video.js:282
+#: modules/local_video/assets/local_video.js:762
+msgid "Video updated successfully"
+msgstr "Video uppdaterad framgångsrikt"
+
+#: modules/local_video/assets/local_video.js:324
+msgid "Create slideshows with videos hosted in your media library"
+msgstr "Skapa bildspel med videor som finns i ditt mediebibliotek"
+
+#: modules/local_video/assets/local_video.js:326
+msgid "Create slideshows with images in your media library"
+msgstr "Skapa bildspel med bilder i ditt mediebibliotek"
+
+#: modules/local_video/assets/local_video.js:328
+msgid ""
+"Layer Slides allow you to add text, colors, shortcodes and media on top of "
+"an image or video."
+msgstr ""
+"Lagerbilder låter dig lägga till text, färger, kortkoder och media ovanpå "
+"en bild eller video."
+
+#: modules/local_video/assets/local_video.js:398
+msgid "Cover removed successfully."
+msgstr "Omslaget har tagits bort framgångsrikt."
+
+#: modules/local_video/assets/local_video.js:431
+msgid "You can't delete this video. This slide requires at least one video source."
+msgstr "Du kan inte ta bort den här videon. Denna bild kräver minst en videokälla."
+
+#: modules/local_video/assets/local_video.js:462
+msgid "Video source removed successfully"
+msgstr "Videokällan har tagits bort framgångsrikt"
+
+#: modules/local_video/assets/local_video.js:481
+msgid "No text track has beed selected for this slide."
+msgstr "Ingen textspår har valts för denna bild."
+
+#: modules/local_video/assets/local_video.js:503
+msgid "There was an error removing the text track"
+msgstr "Det uppstod ett fel vid borttagning av textspåret"
+
+#: modules/local_video/assets/local_video.js:520
+msgid "Text track removed successfully"
+msgstr "Textspåret har tagits bort framgångsrikt"
+
+#: modules/local_video/assets/local_video.js:546
+#, js-format
+msgid "Select Replacement %s Video"
+msgstr "Välj ersättning %s video"
+
+#: modules/local_video/assets/local_video.js:608
+#, js-format
+msgid "Please select a %s video for this source!"
+msgstr "Vänligen välj en %s video för denna källa!"
+
+#: modules/local_video/assets/local_video.js:702
+msgid "This isn't a supported image format. Please use JPG, PNG, or GIF images."
+msgstr ""
+"Detta är inte ett stödd bildformat. Vänligen använd JPG, PNG eller "
+"GIF-bilder."
+
+#: modules/local_video/assets/local_video.js:708
+msgid "This isn't a supported text track format. Please use TXT or VTT files."
+msgstr "Detta är inte ett stödd textspårformat. Vänligen använd TXT eller VTT-filer."
+
+#: modules/local_video/assets/local_video.js:788
+msgid "Text track updated successfully"
+msgstr "Textspåret har uppdaterats framgångsrikt"
+
+#: modules/local_video/assets/local_video.js:861
+msgid "Cover image updated successfully"
+msgstr "Omslagsbilden har uppdaterats framgångsrikt"
+
+#: modules/local_video/assets/local_video.js:906
+msgid "Duplicating the slide failed."
+msgstr "Duplicering av bilden misslyckades."
+
 #: admin/Notices.php:101
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
@@ -8564,7 +9122,7 @@ msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Review MetaSlider Slideshow &rarr;"
 msgstr "Recensera MetaSlider Slideshow &rarr;"
 
-#: ml-slider.php:2053
+#: ml-slider.php:2103
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Select slideshow to insert into post"
@@ -8572,8 +9130,8 @@ msgstr "Välj bildspel att infoga i inlägget"
 
 #: admin/views/pages/parts/slider-settings.php:665
 #: admin/views/pages/parts/slider-settings.php:685
-#: admin/views/pages/parts/slider-settings.php:1420
-#: admin/views/pages/parts/slider-settings.php:1454, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1450, fuzzy
 msgctxt "Short for milliseconds"
 msgid "ms"
 msgstr "ms"
@@ -8583,7 +9141,7 @@ msgctxt "This is a keyboard shortcut."
 msgid " (Use Alt or ⌥ (Option) + P keys)"
 msgstr " (Använd Alt eller ⌥ (Alternativ) + P tangenter)"
 
-#: admin/views/pages/start.php:382
+#: admin/views/pages/start.php:383
 msgctxt "Uploader: Drop files to upload - or - Select Files"
 msgid "or"
 msgstr "eller"

@@ -1,20 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Type\Activation;
 
 use LogicException;
 
 final class RenewalMethod
 {
+    private const METHOD_AUTO = 'auto';
+    private const METHOD_MANUAL = 'manual';
 
-    public const METHOD_AUTO = 'auto';
-    public const METHOD_MANUAL = 'manual';
+    private string $method;
 
-    private $method;
-
-    public function __construct($method)
+    public function __construct(string $method)
     {
-        if ( ! self::is_valid($method)) {
+        if (! self::is_valid($method)) {
             throw new LogicException('Invalid renewal method.');
         }
 
@@ -36,7 +37,7 @@ final class RenewalMethod
         return $this->method;
     }
 
-    public static function is_valid($method): bool
+    public static function is_valid(string $method): bool
     {
         return in_array($method, [self::METHOD_AUTO, self::METHOD_MANUAL], true);
     }

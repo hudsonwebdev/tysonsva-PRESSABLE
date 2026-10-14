@@ -1,19 +1,11 @@
 <?php
 
-namespace AC\ApplyFilter;
+declare(strict_types=1);
 
-use AC;
+namespace AC\ApplyFilter;
 
 class ValidVideoMimetypes
 {
-
-    private $column;
-
-    public function __construct(AC\Column $column)
-    {
-        $this->column = $column;
-    }
-
     public function apply_filters(): array
     {
         return (array)apply_filters(
@@ -22,8 +14,7 @@ class ValidVideoMimetypes
                 'video/mp4',
                 'video/webm',
                 'video/quicktime',
-            ],
-            $this->column
+            ]
         );
     }
 

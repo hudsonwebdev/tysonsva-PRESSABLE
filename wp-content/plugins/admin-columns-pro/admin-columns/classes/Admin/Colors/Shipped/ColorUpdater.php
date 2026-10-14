@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AC\Admin\Colors\Shipped;
@@ -8,12 +9,11 @@ use AC\Admin\Colors\Storage\OptionFactory;
 
 final class ColorUpdater
 {
+    private ColorParser $shipped_color_parser;
 
-    private $shipped_color_parser;
+    private ColorRepository $color_repository;
 
-    private $color_repository;
-
-    private $option_factory;
+    private OptionFactory $option_factory;
 
     public function __construct(
         ColorParser $shipped_color_parser,

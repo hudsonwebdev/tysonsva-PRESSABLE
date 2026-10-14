@@ -11,15 +11,15 @@ use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
 class OperationalData implements QueryBindings
 {
+    private string $field;
 
-    private $field;
+    private ?DataType $data_type;
 
-    private $data_type;
-
-    public function __construct(string $field, DataType $data_type = null)
+    public function __construct(string $field, ?DataType $data_type = null)
     {
         $this->field = $field;
         $this->data_type = $data_type;
@@ -35,11 +35,9 @@ class OperationalData implements QueryBindings
         $table_operational_data = $wpdb->prefix . OrderOperationalData::TABLE;
 
         $bindings->join(
-            sprintf(
-                "LEFT JOIN %s AS acsort_od ON acsort_od.order_id = %s.id",
-                esc_sql($table_operational_data),
-                esc_sql($table_orders)
-            )
+            Join::left($table_operational_data, 'acsort_od')
+                ->on('acsort_od.order_id', '=', "$table_orders.id")
+                ->get_sql()
         );
 
         $bindings->order_by(

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Scheme;
 
 interface Orders
 {
-
     public const TABLE = 'wc_orders';
 
     public const DATE_CREATED_GMT = 'date_created_gmt';

@@ -6,17 +6,17 @@ namespace ACA\WC\Sorting\Order;
 
 use ACA\WC\Type\AddressType;
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 use InvalidArgumentException;
 
-class AddressField implements QueryBindings
+class AddressField extends Base
 {
+    private string $address_field;
 
-    private $address_field;
-
-    private $address_type;
+    private AddressType $address_type;
 
     public function __construct(string $address_field, AddressType $address_type)
     {
@@ -33,23 +33,18 @@ class AddressField implements QueryBindings
         }
     }
 
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
-
-        $bindings = new Bindings();
-
-        $alias = $bindings->get_unique_alias('wcs_aaf');
 
         $table_orders = $wpdb->prefix . 'wc_orders';
         $table_addresses = $wpdb->prefix . 'wc_order_addresses';
 
         $bindings->join(
-            $wpdb->prepare(
-                "\nLEFT JOIN $table_addresses AS $alias ON $alias.order_id = $table_orders.id 
-                    AND $alias.address_type = %s",
-                (string)$this->address_type
-            )
+            Join::left($table_addresses, $alias)
+                ->on("$alias.order_id", '=', "$table_orders.id")
+                ->on("$alias.address_type", '=', $wpdb->prepare('%s', (string)$this->address_type))
+                ->get_sql()
         );
 
         $bindings->order_by(
@@ -58,8 +53,6 @@ class AddressField implements QueryBindings
                 (string)$order
             )
         );
-
-        return $bindings;
     }
 
 }

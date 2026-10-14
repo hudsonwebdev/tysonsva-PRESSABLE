@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\RequestHandler\Ajax;
 
 use AC;
@@ -7,7 +9,6 @@ use AC\RequestAjaxHandler;
 
 class Permalinks implements RequestAjaxHandler
 {
-
     public function handle(): void
     {
         $request = new AC\Request();

@@ -1,34 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Query;
+
+use ACP\Sql\AliasGenerator;
 
 class Bindings
 {
+    protected string $where = '';
+
+    protected string $join = '';
+
+    protected string $group_by = '';
+
+    protected string $order_by = '';
+
+    protected string $limits = '';
+
+    protected array $meta_query = [];
+
+    protected string $fields = '';
 
     /**
-     * @var int[]
+     * @deprecated 7.1 Use AliasGenerator::generate() instead.
      */
-    private static $aliases = [];
-
-    protected $where = '';
-
-    protected $join = '';
-
-    protected $group_by = '';
-
-    protected $order_by = '';
-
-    protected $limits = '';
-
-    protected $meta_query = [];
-
     public function get_unique_alias(string $column): string
     {
-        if ( ! isset(self::$aliases[$column])) {
-            self::$aliases[$column] = 0;
-        }
+        _deprecated_function(__FUNCTION__, '7.1', 'AliasGenerator::generate()');
 
-        return $column . '_ac' . self::$aliases[$column]++;
+        return AliasGenerator::generate($column);
     }
 
     public function get_where(): string
@@ -39,6 +40,17 @@ class Bindings
     public function where(string $where): self
     {
         $this->where = $where;
+
+        return $this;
+    }
+
+    public function and_where(string $where): self
+    {
+        if (! $this->where) {
+            return $this->where($where);
+        }
+
+        $this->where .= "\nAND " . $where;
 
         return $this;
     }
@@ -101,6 +113,18 @@ class Bindings
         $this->meta_query = $args;
 
         return $this;
+    }
+
+    public function fields(string $fields): self
+    {
+        $this->fields = $fields;
+
+        return $this;
+    }
+
+    public function get_fields(): string
+    {
+        return $this->fields;
     }
 
 }

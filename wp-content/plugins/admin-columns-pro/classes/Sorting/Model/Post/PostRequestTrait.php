@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Post;
 
 trait PostRequestTrait
 {
-
     public function get_var_post_type(): string
     {
         global $current_screen;

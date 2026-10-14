@@ -1,29 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Sorting\ShopOrder;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class OrderWeight implements QueryBindings
+class OrderWeight extends Base
 {
-
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
-
-        $bindings = new Bindings();
-
-        $alias = $bindings->get_unique_alias('weight');
 
         $sub_query = "
 			SELECT ID, SUM(total) as orderweight
 			FROM (
 				SELECT woi.order_id AS ID, woim2.meta_value*pm.meta_value AS total
 				FROM {$wpdb->prefix}woocommerce_order_items AS woi
-				LEFT JOIN ( 
+				LEFT JOIN (
 					SELECT order_item_id, meta_value AS product_id FROM (
 						SELECT * FROM {$wpdb->prefix}woocommerce_order_itemmeta
 						WHERE meta_key = '_product_id' OR meta_key = '_variation_id'
@@ -39,13 +37,15 @@ class OrderWeight implements QueryBindings
 			GROUP BY total_order_weight.ID
 		";
 
-        $bindings->join("LEFT JOIN ( $sub_query ) AS $alias ON $wpdb->posts.ID = $alias.ID");
+        $bindings->join(
+            Join::left_subquery($sub_query, $alias)
+                ->on("$wpdb->posts.ID", '=', "$alias.ID")
+                ->get_sql()
+        );
         $bindings->group_by("$wpdb->posts.ID");
         $bindings->order_by(
             SqlOrderByFactory::create("$alias.orderweight", (string)$order)
         );
-
-        return $bindings;
     }
 
 }

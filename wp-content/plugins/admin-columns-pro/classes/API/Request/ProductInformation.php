@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\API\Request;
 
 use ACP\API\Request;
@@ -9,7 +11,6 @@ use ACP\API\Request;
  */
 class ProductInformation extends Request
 {
-
     public function __construct(string $plugin_name)
     {
         parent::__construct([

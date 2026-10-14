@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\FormatValue;
 
 use ACP\Sorting\FormatValue;
 
 class Roles implements FormatValue
 {
-
     private function get_role_label(string $capability): ?string
     {
         static $labels = [];
 
-        if ( ! isset($labels[$capability])) {
+        if (! isset($labels[$capability])) {
             $labels[$capability] = $this->get_translated_role_label($capability);
         }
 
@@ -24,7 +25,7 @@ class Roles implements FormatValue
 
         $role = $wp_roles->roles[$capability]['name'] ?? null;
 
-        if ( ! $role) {
+        if (! $role) {
             return null;
         }
 
@@ -35,7 +36,7 @@ class Roles implements FormatValue
     {
         $caps = maybe_unserialize($value);
 
-        if ( ! $caps || ! is_array($caps)) {
+        if (! $caps || ! is_array($caps)) {
             return false;
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison;
 
 use ACP\Query\Bindings;
@@ -11,14 +13,13 @@ use ACP\Search\Value;
 
 class Meta extends Comparison
 {
-
-    protected $meta_key;
+    protected string $meta_key;
 
     public function __construct(
         Operators $operators,
         string $meta_key,
-        string $value_type = null,
-        Labels $labels = null
+        ?string $value_type = null,
+        ?Labels $labels = null
     ) {
         parent::__construct($operators, $value_type, $labels);
 

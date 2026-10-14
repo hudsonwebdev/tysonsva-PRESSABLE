@@ -5,22 +5,19 @@ declare(strict_types=1);
 namespace ACP\Sorting\Model\User;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
-use ACP\Sorting\Model\SqlTrait;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class MaxPostDate implements QueryBindings
+class MaxPostDate extends Base
 {
+    private string $post_type;
 
-    use SqlTrait;
+    private array $post_stati;
 
-    private $post_type;
-
-    private $post_stati;
-
-    private $oldest_post;
+    private bool $oldest_post;
 
     public function __construct(string $post_type, array $post_stati = [], bool $oldest_post = false)
     {
@@ -29,26 +26,23 @@ class MaxPostDate implements QueryBindings
         $this->oldest_post = $oldest_post;
     }
 
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
 
-        $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('max');
+        $join = Join::left($wpdb->posts, $alias)
+            ->on("$wpdb->users.ID", '=', "$alias.post_author");
 
-        $join = $wpdb->prepare(
-            " 
-            LEFT JOIN $wpdb->posts AS $alias ON $wpdb->users.ID = $alias.post_author
-                AND $alias.post_type = %s
-            ",
-            $this->post_type
-        );
-
-        if ($this->post_stati) {
-            $join .= "AND $alias.post_status IN (" . $this->esc_sql_array($this->post_stati) . ")";
+        if ($this->post_type !== 'any') {
+            $join->on("$alias.post_type", '=', $wpdb->prepare('%s', $this->post_type));
         }
 
-        $bindings->join($join);
+        if ($this->post_stati) {
+            $placeholders = implode(', ', array_fill(0, count($this->post_stati), '%s'));
+            $join->on("$alias.post_status", 'IN', '(' . $wpdb->prepare($placeholders, $this->post_stati) . ')');
+        }
+
+        $bindings->join($join->get_sql());
         $bindings->group_by("$wpdb->users.ID");
         $bindings->order_by(
             SqlOrderByFactory::create_with_computation(
@@ -57,8 +51,6 @@ class MaxPostDate implements QueryBindings
                 (string)$order
             )
         );
-
-        return $bindings;
     }
 
 }

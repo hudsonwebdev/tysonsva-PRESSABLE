@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Comment;
 
-use AC\Settings\FormatValue;
+use AC\FormatterCollection;
 use ACP;
 use ACP\Sorting\Model\WarningAware;
 
-class Author extends FieldFormat implements WarningAware {
-
-	public function __construct( FormatValue $formatter ) {
-		parent::__construct( 'user_id', new ACP\Sorting\FormatValue\SettingFormatter( $formatter ) );
-	}
+class Author extends FieldFormat implements WarningAware
+{
+    public function __construct(FormatterCollection $formatters)
+    {
+        parent::__construct('user_id', new ACP\Sorting\FormatValue\SettingFormatter($formatters));
+    }
 
 }

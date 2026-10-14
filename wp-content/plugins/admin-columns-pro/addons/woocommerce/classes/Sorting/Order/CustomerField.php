@@ -5,41 +5,35 @@ declare(strict_types=1);
 namespace ACA\WC\Sorting\Order;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class CustomerField implements QueryBindings
+class CustomerField extends Base
 {
+    private string $field;
 
-    private $field;
+    protected DataType $data_type;
 
-    protected $data_type;
-
-    public function __construct(string $field, DataType $data_type = null)
+    public function __construct(string $field, ?DataType $data_type = null)
     {
         $this->field = $field;
         $this->data_type = $data_type ?: new DataType(DataType::STRING);
     }
 
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
-
-        $bindings = new Bindings();
-
-        $alias = $bindings->get_unique_alias('wcs_cf');
 
         $table_orders = $wpdb->prefix . 'wc_orders';
         $table_customer = $wpdb->prefix . 'wc_customer_lookup';
 
         $bindings->join(
-            sprintf(
-                "\nLEFT JOIN %s AS $alias ON $alias.user_id = %s.customer_id",
-                esc_sql($table_customer),
-                esc_sql($table_orders)
-            )
+            Join::left($table_customer, $alias)
+                ->on("$alias.user_id", '=', "$table_orders.customer_id")
+                ->get_sql()
         );
 
         $bindings->order_by(
@@ -51,8 +45,6 @@ class CustomerField implements QueryBindings
                 ]
             )
         );
-
-        return $bindings;
     }
 
     protected function get_empty_values(): array

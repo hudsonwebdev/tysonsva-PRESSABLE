@@ -6,40 +6,39 @@ namespace ACP\Check;
 
 use AC\Ajax;
 use AC\Capabilities;
-use AC\Entity\Plugin;
+use AC\Helper\WpDateFormat;
 use AC\Message;
 use AC\Registerable;
 use AC\Screen;
 use AC\Storage;
-use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
+use ACP;
 use ACP\Access\ActivationStorage;
 use ACP\ActivationTokenFactory;
-use ACP\Entity;
-use ACP\Type\SiteUrl;
+use ACP\AdminColumnsPro;
+use ACP\Type\Url\AccountFactory;
 use DateTime;
 
 class Expired implements Registerable
 {
+    private AdminColumnsPro $plugin;
 
-    private $plugin;
+    private ActivationTokenFactory $activation_token_factory;
 
-    private $activation_token_factory;
+    private ActivationStorage $activation_storage;
 
-    private $activation_storage;
-
-    private $site_url;
+    private AccountFactory $account_url_factory;
 
     public function __construct(
-        Plugin $plugin,
+        AdminColumnsPro $plugin,
         ActivationTokenFactory $activation_token_factory,
         ActivationStorage $activation_storage,
-        SiteUrl $site_url
+        AccountFactory $account_url_factory
     ) {
         $this->plugin = $plugin;
         $this->activation_token_factory = $activation_token_factory;
         $this->activation_storage = $activation_storage;
-        $this->site_url = $site_url;
+        $this->account_url_factory = $account_url_factory;
     }
 
     public function register(): void
@@ -49,14 +48,14 @@ class Expired implements Registerable
         $this->get_ajax_handler()->register();
     }
 
-    private function is_activation_expired(Entity\Activation $activation): bool
+    private function is_activation_expired(ACP\Type\Activation $activation): bool
     {
-        if ( ! $activation->is_expired() ||
-             ! $activation->get_expiry_date()->exists()) {
+        if (! $activation->is_expired() ||
+             ! $activation->has_expiry_date()) {
             return false;
         }
 
-        // Prevent overlap with auto renewal payments and message
+        // Prevent overlap with auto-renewal payments and message
         if ($activation->is_auto_renewal() &&
             $activation->is_expired() &&
             $activation->get_expiry_date()->get_expired_seconds() < (7 * DAY_IN_SECONDS)) {
@@ -66,7 +65,7 @@ class Expired implements Registerable
         return true;
     }
 
-    private function get_activation(): ?Entity\Activation
+    private function get_activation(): ?ACP\Type\Activation
     {
         $token = $this->activation_token_factory->create();
 
@@ -77,13 +76,13 @@ class Expired implements Registerable
 
     public function display(Screen $screen): void
     {
-        if ( ! $screen->has_screen() || ! current_user_can(Capabilities::MANAGE)) {
+        if (! $screen->has_screen() || ! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
         switch (true) {
             // Inline message on plugin page
-            case $screen->is_plugin_screen() :
+            case $screen->is_plugin_screen():
                 $activation = $this->get_activation();
 
                 if ($activation && $this->is_activation_expired($activation)) {
@@ -97,8 +96,8 @@ class Expired implements Registerable
 
                 return;
 
-            // Permanent displayed on settings page
-            case $screen->is_admin_screen() :
+                // Permanent displayed on settings page
+            case $screen->is_admin_screen():
                 $activation = $this->get_activation();
 
                 if ($activation && $this->is_activation_expired($activation)) {
@@ -111,8 +110,8 @@ class Expired implements Registerable
 
                 return;
 
-            // Dismissible on list table
-            case $screen->is_list_screen() && $this->get_dismiss_option()->is_expired() :
+                // Dismissible on list table
+            case $screen->is_table_screen() && $this->get_dismiss_option()->is_expired():
                 $activation = $this->get_activation();
 
                 if ($activation && $this->is_activation_expired($activation)) {
@@ -130,15 +129,14 @@ class Expired implements Registerable
 
     private function get_message(DateTime $expiration_date): string
     {
-        $expired_on = ac_format_date(get_option('date_format'), $expiration_date->getTimestamp());
+        $expired_on = (string)wp_date(
+            WpDateFormat::date(),
+            $expiration_date->getTimestamp(),
+            // uses wp_timezone() to convert the date to the user's timezone
+            wp_timezone()
+        );
 
-        $activation_token = $this->activation_token_factory->create();
-        $url = new UtmTags(new Site(Site::PAGE_ACCOUNT_SUBSCRIPTIONS), 'expired');
-
-        if ($activation_token) {
-            $url = $url->with_arg($activation_token->get_type(), $activation_token->get_token())
-                       ->with_arg('site_url', $this->site_url->get_url());
-        }
+        $url = new UtmTags($this->account_url_factory->create(), 'expired');
 
         return sprintf(
             __(

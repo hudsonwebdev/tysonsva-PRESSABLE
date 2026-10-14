@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order;
 
 use AC\Helper\Select\Options;
-use ACA\WC\Search;
 use ACP;
 use ACP\Query\Bindings;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class ReturningCustomer extends ACP\Search\Comparison implements ACP\Search\Comparison\Values
 {
-
     public function __construct()
     {
         parent::__construct(
@@ -22,12 +23,12 @@ class ReturningCustomer extends ACP\Search\Comparison implements ACP\Search\Comp
         );
     }
 
-    protected function create_query_bindings($operator, Value $value): ACP\Query\Bindings
+    protected function create_query_bindings(string $operator, Value $value): ACP\Query\Bindings
     {
         global $wpdb;
 
         $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('stats');
+        $alias = AliasGenerator::generate_from_class(static::class);
 
         $bindings->join(
             "

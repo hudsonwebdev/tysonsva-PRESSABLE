@@ -1,0 +1,43 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ACP\TableScreen\RelatedRepository;
+
+use AC\Table\TableScreenCollection;
+use AC\TableScreenFactory;
+use AC\Type\TableId;
+
+trait TableTrait
+{
+    private ?TableScreenFactory $table_screen_factory = null;
+
+    protected function set_table_screen_factory(TableScreenFactory $table_screen_factory): void
+    {
+        $this->table_screen_factory = $table_screen_factory;
+    }
+
+    public function find_all(TableId $table_id): TableScreenCollection
+    {
+        $table_screens = new TableScreenCollection();
+
+        if (null === $this->table_screen_factory) {
+            return $table_screens;
+        }
+
+        $keys = $this->get_keys();
+
+        if (! $keys->contains($table_id)) {
+            return $table_screens;
+        }
+
+        foreach ($keys as $key) {
+            if ($this->table_screen_factory->can_create($key)) {
+                $table_screens->add($this->table_screen_factory->create($key));
+            }
+        }
+
+        return $table_screens;
+    }
+
+}

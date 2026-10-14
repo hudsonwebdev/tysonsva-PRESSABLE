@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\RequestHandler\Query;
 
 use AC\Request;
@@ -9,13 +11,9 @@ use ACP\Editing\Response;
 use WP_Post;
 use WP_Query;
 
-final class Post implements RequestHandler
+class Post implements RequestHandler
 {
-
-    /**
-     * @var Request
-     */
-    private $request;
+    private Request $request;
 
     public function handle(Request $request)
     {
@@ -24,24 +22,18 @@ final class Post implements RequestHandler
         $this->register();
     }
 
-    private function register()
+    private function register(): void
     {
         add_action('pre_get_posts', [$this, 'set_query_vars'], PHP_INT_MAX - 100);
         add_filter('the_posts', [$this, 'send'], 10, 2);
     }
 
-    /**
-     * @return int
-     */
-    private function get_rows_per_iteration()
+    private function get_rows_per_iteration(): int
     {
         return (new RowsPerIteration($this->request))->apply_filters(2000);
     }
 
-    /**
-     * @return int
-     */
-    protected function get_offset()
+    protected function get_offset(): int
     {
         $page = (int)$this->request->filter('ac_page', 1, FILTER_SANITIZE_NUMBER_INT);
 
@@ -56,7 +48,7 @@ final class Post implements RequestHandler
      */
     public function send($posts, WP_Query $query)
     {
-        if ( ! $query->is_main_query()) {
+        if (! $query->is_main_query()) {
             return $posts;
         }
 
@@ -66,12 +58,9 @@ final class Post implements RequestHandler
         $response->success();
     }
 
-    /**
-     * @param WP_Query $query
-     */
-    public function set_query_vars(WP_Query $query)
+    public function set_query_vars(WP_Query $query): void
     {
-        if ( ! $query->is_main_query()) {
+        if (! $query->is_main_query()) {
             return;
         }
 

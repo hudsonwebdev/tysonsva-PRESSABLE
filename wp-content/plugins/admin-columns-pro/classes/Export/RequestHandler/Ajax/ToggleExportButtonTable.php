@@ -7,12 +7,12 @@ namespace ACP\Export\RequestHandler\Ajax;
 use AC\Nonce;
 use AC\Request;
 use AC\RequestAjaxHandler;
+use AC\Type\TableId;
 use ACP\Export\UserPreference;
 
-class ToggleExportButtonTable implements RequestAjaxHandler
+final class ToggleExportButtonTable implements RequestAjaxHandler
 {
-
-    private $preference;
+    private UserPreference\ShowExportButton $preference;
 
     public function __construct()
     {
@@ -23,21 +23,21 @@ class ToggleExportButtonTable implements RequestAjaxHandler
     {
         $request = new Request();
 
-        if ( ! (new Nonce\Ajax())->verify($request)) {
+        if (! (new Nonce\Ajax())->verify($request)) {
             wp_send_json_error('invalid nonce');
         }
 
         $list_key = (string)$request->filter('list_screen');
 
-        if ( ! $list_key) {
+        if (! $list_key) {
             wp_send_json_error('invalid list screen');
         }
 
         $is_active = 'true' === $request->filter('value');
 
-        $this->preference->set(
-            $list_key,
-            (int)$is_active
+        $this->preference->set_status(
+            new TableId($list_key),
+            $is_active
         );
 
         wp_send_json_success();

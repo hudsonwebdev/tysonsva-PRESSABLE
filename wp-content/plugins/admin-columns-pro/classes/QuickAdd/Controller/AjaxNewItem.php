@@ -6,18 +6,19 @@ namespace ACP\QuickAdd\Controller;
 
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
+use AC\PostType;
 use AC\Registerable;
 use AC\Request;
 use AC\Type\ListScreenId;
 use ACP\QuickAdd\Model;
+use InvalidArgumentException;
 use RuntimeException;
 
 class AjaxNewItem implements Registerable
 {
+    private Storage $storage;
 
-    private $storage;
-
-    protected $request;
+    protected Request $request;
 
     public function __construct(Storage $storage, Request $request)
     {
@@ -34,8 +35,9 @@ class AjaxNewItem implements Registerable
 
     public function register_hooks(ListScreen $list_screen)
     {
+        $table_screen = $list_screen->get_table_screen();
         switch (true) {
-            case $list_screen instanceof ListScreen\Post:
+            case $table_screen instanceof PostType:
                 add_action('edit_posts_per_page', [$this, 'handle_request']);
                 break;
         }
@@ -48,21 +50,31 @@ class AjaxNewItem implements Registerable
 
     public function handle_request(): void
     {
-        if ( ! wp_verify_nonce($this->request->get('_ajax_nonce'), 'ac-ajax')) {
+        if (! wp_verify_nonce($this->request->get('_ajax_nonce'), 'ac-ajax')) {
             return;
         }
 
         $response = new JsonResponse();
 
-        $list_screen = $this->storage->find(new ListScreenId($this->request->get('layout')));
-
-        if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+        try {
+            $list_screen = $this->storage->find(
+                new ListScreenId(
+                    (string)$this->request->get('layout')
+                )
+            );
+        } catch (InvalidArgumentException $e) {
             $response->error();
         }
 
-        $model = Model\Factory::create($list_screen);
+        if (! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+            $response->error();
+        }
 
-        if ( ! $model || ! $model->has_permission(wp_get_current_user())) {
+        $table_screen = $list_screen->get_table_screen();
+
+        $model = Model\Factory::create($table_screen);
+
+        if (! $model || ! $model->has_permission(wp_get_current_user())) {
             $response->error();
         }
 
@@ -71,11 +83,12 @@ class AjaxNewItem implements Registerable
         } catch (RuntimeException $e) {
             $response->set_message($e->getMessage())
                      ->error();
+            exit;
         }
 
-        do_action('acp/quick_add/saved', $id, $list_screen);
+        do_action('ac/quick_add/saved', $id, $list_screen);
 
-        $response->create_from_list_screen($list_screen, $id)
+        $response->create_from_table_screen($table_screen, $id)
                  ->success();
     }
 

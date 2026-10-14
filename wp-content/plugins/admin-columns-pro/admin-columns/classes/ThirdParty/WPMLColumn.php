@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ThirdParty;
 
 /**
@@ -7,12 +9,11 @@ namespace AC\ThirdParty;
  */
 class WPMLColumn
 {
+    public const COLUMN_NAME = 'icl_translations';
 
-    const COLUMN_NAME = 'icl_translations';
+    private ?string $column = null;
 
-    private $column;
-
-    function __construct(string $post_type)
+    public function __construct(string $post_type)
     {
         add_filter(
             "manage_{$post_type}_posts_columns",
@@ -29,7 +30,7 @@ class WPMLColumn
     public function store_wpml_column($columns)
     {
         if (empty($this->column) && isset($columns[self::COLUMN_NAME])) {
-            $this->column = $columns[self::COLUMN_NAME];
+            $this->column = (string)$columns[self::COLUMN_NAME];
         }
 
         return $columns;

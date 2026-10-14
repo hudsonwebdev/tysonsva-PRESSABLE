@@ -1,107 +1,73 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Editing\EditValue\Product;
 
-class Price {
+class Price
+{
+    private string $type;
 
-	/**
-	 * @var string
-	 */
-	private $type;
+    private string $price_type;
 
-	/**
-	 * @var string
-	 */
-	private $price_type;
+    private float $price;
 
-	/**
-	 * @var string
-	 */
-	private $price;
+    private float $percentage;
 
-	/**
-	 * @var string
-	 */
-	private $percentage;
+    private bool $rounding;
 
-	/**
-	 * @var bool
-	 */
-	private $rounding;
+    private string $rounding_type = '';
 
-	/**
-	 * @var string
-	 */
-	private $rounding_type;
+    private int $rounding_decimals = 0;
 
-	/**
-	 * @var int
-	 */
-	private $rounding_decimals;
+    public function __construct(array $value)
+    {
+        $this->type = (string)($value['type'] ?? '');
+        $this->price_type = (string)($value['price']['type'] ?? '');
+        $this->price = (float)($value['price']['value'] ?? 0);
 
-	/**
-	 * @param array $value
-	 */
-	public function __construct( $value ) {
-		$this->type = $value['type'];
-		$this->price_type = $value['price']['type'];
-		$this->price = $value['price']['value'];
-		$this->percentage = (float) $value['price']['value'];
-		$this->rounding = $value['rounding']['active'] === 'true';
+        $this->percentage = (float)($value['price']['value'] ?? 0);
+        $this->rounding = $value['rounding']['active'] === 'true';
 
-		if ( $this->rounding ) {
-			$this->rounding_type = $value['rounding']['type'];
-			$this->rounding_decimals = absint( $value['rounding']['decimals'] );
-		}
-	}
+        if ($this->rounding) {
+            $this->rounding_type = (string)($value['rounding']['type'] ?? '');
+            $this->rounding_decimals = absint($value['rounding']['decimals']);
+        }
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_type() {
-		return $this->type;
-	}
+    public function get_type(): string
+    {
+        return $this->type;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_price_type() {
-		return $this->price_type;
-	}
+    public function get_price_type(): string
+    {
+        return $this->price_type;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_price() {
-		return $this->price;
-	}
+    public function get_price(): float
+    {
+        return $this->price;
+    }
 
-	/**
-	 * @return float
-	 */
-	public function get_percentage() {
-		return $this->percentage;
-	}
+    public function get_percentage(): float
+    {
+        return $this->percentage;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function is_rounded() {
-		return $this->rounding;
-	}
+    public function is_rounded(): bool
+    {
+        return $this->rounding;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_rounding_type() {
-		return $this->rounding_type;
-	}
+    public function get_rounding_type(): string
+    {
+        return $this->rounding_type;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function get_rounding_decimals() {
-		return $this->rounding_decimals;
-	}
+    public function get_rounding_decimals(): int
+    {
+        return $this->rounding_decimals;
+    }
 
 }

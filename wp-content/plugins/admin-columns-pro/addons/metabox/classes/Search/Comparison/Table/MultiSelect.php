@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\MetaBox\Search\Comparison\Table;
 
 use ACP;
@@ -7,7 +9,6 @@ use ACP\Search\Value;
 
 class MultiSelect extends Select
 {
-
     use MultiMapTrait;
 
     protected function get_subquery(string $operator, Value $value): string

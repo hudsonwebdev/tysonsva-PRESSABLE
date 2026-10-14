@@ -1,20 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP;
 
-use AC\Asset\Location\Absolute;
+use AC\Asset\Location;
 use AC\Registerable;
 
 class Localize implements Registerable
 {
-
     private const TEXTDOMAIN = 'codepress-admin-columns';
 
-    private $location;
+    private Location $location;
 
-    public function __construct(Absolute $location)
+    public function __construct(AdminColumnsPro $plugin)
     {
-        $this->location = $location;
+        $this->location = $plugin->get_location();
     }
 
     public function register(): void

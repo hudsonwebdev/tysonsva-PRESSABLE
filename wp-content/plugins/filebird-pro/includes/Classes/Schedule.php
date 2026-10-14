@@ -2,6 +2,7 @@
 namespace FileBird\Classes;
 
 use enshrined\svgSanitize\Helper;
+use FileBird\Model\SettingModel;
 
 defined( 'ABSPATH' ) || exit;
 class Schedule {
@@ -14,8 +15,24 @@ class Schedule {
 		if ( ! wp_next_scheduled( 'filebird_remove_zip_files' ) ) {
 			wp_schedule_event( time(), 'daily', 'filebird_remove_zip_files' );
 		}
-		if ( ! wp_next_scheduled( 'filebird_every_12_hours_jobs' ) ) {
-			wp_schedule_event( time(), 'twicedaily', 'filebird_every_12_hours_jobs' );
+		self::syncBackupSchedule();
+	}
+
+	/** Whether folders are backed up automatically every 12 hours. */
+	public static function isAutoBackupEnabled() {
+		return apply_filters( 'fbv_enable_auto_backup', (bool) SettingModel::getInstance()->get( 'auto_backup' ) );
+	}
+
+	/** Keep the backup cron event in sync with the setting. */
+	public static function syncBackupSchedule() {
+		$scheduled = wp_next_scheduled( 'filebird_every_12_hours_jobs' );
+
+		if ( self::isAutoBackupEnabled() ) {
+			if ( ! $scheduled ) {
+				wp_schedule_event( time(), 'twicedaily', 'filebird_every_12_hours_jobs' );
+			}
+		} elseif ( $scheduled ) {
+			wp_clear_scheduled_hook( 'filebird_every_12_hours_jobs' );
 		}
 	}
 
@@ -41,6 +58,9 @@ class Schedule {
 		update_option( 'filebird_saved_downloads', $saved_downloads );
 	}
 	public function backupFileBird() {
+		if ( ! self::isAutoBackupEnabled() ) {
+			return;
+		}
 		Helpers::backupFileBird();
 	}
 }

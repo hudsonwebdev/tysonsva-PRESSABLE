@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use AC;
@@ -9,10 +11,8 @@ use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Sticky extends Comparison
-    implements Comparison\Values
+class Sticky extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -33,8 +33,13 @@ class Sticky extends Comparison
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         $bindings = new Bindings\Post();
+        $where = $this->get_where($value);
 
-        return $bindings->where($this->get_where($value));
+        if ($where === false) {
+            return $bindings;
+        }
+
+        return $bindings->where($where);
     }
 
     /**
@@ -46,16 +51,14 @@ class Sticky extends Comparison
     {
         global $wpdb;
 
-        $stickies = get_option('sticky_posts');
+        $stickies = get_option('sticky_posts', []);
 
         $is_sticky = '1' === $value->get_value();
 
-        if ( ! $stickies && $is_sticky) {
-            return "{$wpdb->posts}.ID = 0"; // Show no results
-        }
-
-        if ( ! $stickies) {
-            return false;
+        if (! is_array($stickies) || ! $stickies) {
+            return $is_sticky
+                ? "{$wpdb->posts}.ID = 0"
+                : false;
         }
 
         $ids = array_filter(array_map('intval', $stickies));

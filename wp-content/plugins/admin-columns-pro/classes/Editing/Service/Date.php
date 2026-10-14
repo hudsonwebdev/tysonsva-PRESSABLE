@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service;
 
 use ACP\Editing\Service;
@@ -9,25 +11,15 @@ use DateTime;
 
 class Date implements Service
 {
+    public const FORMAT = 'Y-m-d';
 
-    const FORMAT = 'Y-m-d';
+    private View\Date $view;
 
-    /**
-     * @var View\Date
-     */
-    private $view;
+    private Storage $storage;
 
-    /**
-     * @var Storage
-     */
-    private $storage;
+    protected string $date_format;
 
-    /**
-     * @var string
-     */
-    protected $date_format;
-
-    public function __construct(View\Date $view, Storage $storage, $date_format = self::FORMAT)
+    public function __construct(View\Date $view, Storage $storage, string $date_format = self::FORMAT)
     {
         $this->view = $view;
         $this->storage = $storage;
@@ -41,7 +33,7 @@ class Date implements Service
 
     public function get_value(int $id)
     {
-        $value = DateTime::createFromFormat($this->date_format, $this->storage->get($id));
+        $value = DateTime::createFromFormat($this->date_format, (string)$this->storage->get($id));
 
         return $value
             ? $value->format(self::FORMAT)
@@ -53,8 +45,8 @@ class Date implements Service
         $value = $data;
 
         if ($value) {
-            $timestamp = ac_helper()->date->strtotime($value);
-            $date_time = $timestamp ? DateTime::createFromFormat('U', $timestamp) : null;
+            $timestamp = strtotime($value);
+            $date_time = $timestamp ? DateTime::createFromFormat('U', (string)$timestamp) : null;
 
             $value = $date_time
                 ? $date_time->format($this->date_format)

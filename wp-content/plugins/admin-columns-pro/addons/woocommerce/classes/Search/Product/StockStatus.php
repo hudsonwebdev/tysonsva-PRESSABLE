@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Product;
 
 use AC;
@@ -8,11 +10,10 @@ use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
-class StockStatus extends Comparison
-    implements Comparison\Values
+class StockStatus extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -28,11 +29,11 @@ class StockStatus extends Comparison
 
         $bindings = new Bindings();
 
-        if ( ! in_array($value->get_value(), ['instock', 'outofstock', 'onbackorder'], true)) {
+        if (! in_array($value->get_value(), ['instock', 'outofstock', 'onbackorder'], true)) {
             return $bindings;
         }
 
-        $alias_pml = $bindings->get_unique_alias('pml_stock');
+        $alias_pml = AliasGenerator::generate_from_class(static::class);
 
         return $bindings->join(
             "LEFT JOIN {$wpdb->prefix}wc_product_meta_lookup AS $alias_pml 

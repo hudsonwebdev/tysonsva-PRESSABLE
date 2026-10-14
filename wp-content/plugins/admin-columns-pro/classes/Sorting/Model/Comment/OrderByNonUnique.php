@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Comment;
 
 use ACP\Query\Bindings;
@@ -8,8 +10,7 @@ use ACP\Sorting\Type\Order;
 
 class OrderByNonUnique implements QueryBindings
 {
-
-    private $order_by;
+    private string $order_by;
 
     public function __construct(string $orderby)
     {

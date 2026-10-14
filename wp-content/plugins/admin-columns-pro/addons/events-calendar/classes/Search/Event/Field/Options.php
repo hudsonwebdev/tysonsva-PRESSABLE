@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\EC\Search\Event\Field;
 
 use AC;
@@ -7,14 +9,9 @@ use ACP\Search\Comparison\Meta;
 use ACP\Search\Comparison\Values;
 use ACP\Search\Operators;
 
-class Options extends Meta
-    implements Values
+class Options extends Meta implements Values
 {
-
-    /**
-     * @var array
-     */
-    private $options;
+    private array $options;
 
     public function __construct(string $meta_key, array $options)
     {

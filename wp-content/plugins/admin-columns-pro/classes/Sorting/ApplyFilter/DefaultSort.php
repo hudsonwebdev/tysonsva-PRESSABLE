@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\ApplyFilter;
 
 use AC\ListScreen;
@@ -10,40 +12,34 @@ use ACP\Sorting\Type\SortType;
  */
 class DefaultSort
 {
+    private ListScreen $list_screen;
 
-    /**
-     * @var ListScreen
-     */
-    private $list_screen;
-
-    /**
-     * @param ListScreen $list_screen
-     */
     public function __construct(ListScreen $list_screen)
     {
         $this->list_screen = $list_screen;
     }
 
-    public function apply_filters(SortType $sort_type = null): ?SortType
+    public function apply_filters(?SortType $sort_type = null): ?SortType
     {
-        $args = $sort_type instanceof SortType
+        $args = $sort_type
             ? $this->create_args($sort_type)
             : [];
 
         /**
-         * @param array $args [ 0 => (string) $column_name, 1 => (bool) $descending ]
+         * @param array      $args [ 0 => (string) $column_name, 1 => (bool) $descending ]
+         * @param ListScreen $this ->list_screen
          */
-        $args = apply_filters('acp/sorting/default', $args, $this->list_screen);
+        $args = apply_filters('ac/sorting/default', $args, $this->list_screen);
 
         $order_by = $this->parse_order_by($args);
 
-        if ( ! $order_by) {
+        if (null === $order_by || ! SortType::validate($order_by)) {
             return null;
         }
 
         return new SortType(
             $order_by,
-            $this->parse_order($args)
+            $this->is_descending($args)
         );
     }
 
@@ -51,7 +47,7 @@ class DefaultSort
     {
         return [
             $sort_type->get_order_by(),
-            'desc' === $sort_type->get_order(),
+            $sort_type->is_descending(),
         ];
     }
 
@@ -62,11 +58,9 @@ class DefaultSort
             : null;
     }
 
-    private function parse_order($args): string
+    private function is_descending($args): bool
     {
-        return is_array($args) && isset($args[1]) && $args[1]
-            ? 'desc'
-            : 'asc';
+        return is_array($args) && isset($args[1]) && $args[1];
     }
 
 }

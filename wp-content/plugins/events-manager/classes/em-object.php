@@ -125,8 +125,8 @@ class EM_Object {
 			//Near
 			if( !empty($array['near']) ){
 				if( is_array($array['near']) ){
-					$array = self::clean_id_atts($array,array('naer'));
-				}elseif( is_string($array['near']) && preg_match('/^( ?[\-0-9\.]+ ?,?)+$/', $array['near']) ){
+					$array = self::clean_id_atts($array,array('near'));
+				}elseif( is_string($array['near']) && preg_match('/^( ?[\-0-9\.]+ ?,?)+$/D', $array['near']) ){
 					$array['near'] = explode(',',$array['near']);
 				}else{
 					//assume it's a string to geocode, not supported yet
@@ -208,20 +208,20 @@ class EM_Object {
 			$defaults['year'] = preg_match($year_regex, $defaults['year']) ? $defaults['year']:'';
 		}
 		//Deal with scope and date searches
-		if ( !is_array($defaults['scope']) && preg_match ( "/^([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})?,([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})?$/", $defaults['scope'] ) ) {
+		if ( !is_array($defaults['scope']) && preg_match ( "/^([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})?,([0-9]{4}-[0-9]{1,2}-[0-9]{1,2})?$/D", $defaults['scope'] ) ) {
 			//This is to become an array, so let's split it up
 			$defaults['scope'] = explode(',', $defaults['scope']);
 		}
 		if( is_array($defaults['scope']) ){
 			//looking for a date range here, so we'll verify the dates validate, if not get the default.
-			if ( empty($defaults['scope'][0]) || !preg_match("/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/", $defaults['scope'][0]) ){
+			if ( empty($defaults['scope'][0]) || !preg_match("/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/D", $defaults['scope'][0]) ){
 				$defaults['scope'][0] = '';
 			}
-			if( empty($defaults['scope'][1]) || !preg_match("/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/", $defaults['scope'][1]) ) {
+			if( empty($defaults['scope'][1]) || !preg_match("/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/D", $defaults['scope'][1]) ) {
 				$defaults['scope'][1] = '';
 			}
 			if( empty($defaults['scope'][0]) && empty($defaults['scope'][1]) ){
-				if( !empty($defaults['scope']['name']) ) {
+				if( !empty($defaults['scope']['name']) && !is_array($defaults['scope']['name']) ) {
 					$defaults['scope'] = $defaults['scope']['name'];
 				}else{
 					$defaults['scope'] = $super_defaults['scope'];
@@ -255,7 +255,7 @@ class EM_Object {
 		$defaults['limit'] = (is_numeric($defaults['limit'])) ? $defaults['limit']:$super_defaults['limit'];
 		$defaults['offset'] = (is_numeric($defaults['offset'])) ? $defaults['offset']:$super_defaults['offset'];
 		if( $defaults['recurring'] !== null ) $defaults['recurring'] = $defaults['recurring'] === 'include' ?  $defaults['recurring']:($defaults['recurring'] == true);
-		$defaults['search'] = ($defaults['search']) ? trim($defaults['search']):false;
+		$defaults['search'] = ( is_scalar($defaults['search']) && $defaults['search'] ) ? trim((string) $defaults['search']) : false;
 		//Calculate offset if event page is set
 		if($defaults['page'] > 1){
 			$defaults['offset'] = $defaults['limit'] * ($defaults['page']-1);	
@@ -432,12 +432,12 @@ class EM_Object {
 			if ( $timezone_scope ) {
 				// get the blog timezone
 				// get dates in UTC time
-				$date_start = EM_DateTime::create( $scope[0], $timezone_scope )->getDate('UTC');
-				$date_end = EM_DateTime::create( $scope[0], $timezone_scope )->getDate('UTC');
+				$date_start = !empty($scope[0]) ? EM_DateTime::create( $scope[0], $timezone_scope )->getDate('UTC') : '';
+				$date_end = !empty($scope[1]) ? EM_DateTime::create( $scope[1], $timezone_scope )->getDate('UTC') : '';
 			} else {
-				//This is an array, let's split it up
-				$date_start = $scope[0];
-				$date_end = $scope[1];
+				//This is an array, let's split it up. Only validated dates may reach the CAST() clauses below, since they are concatenated into the query rather than prepared.
+				$date_start = ( !empty($scope[0]) && preg_match("/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/D", $scope[0]) ) ? $scope[0] : '';
+				$date_end = ( !empty($scope[1]) && preg_match("/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/D", $scope[1]) ) ? $scope[1] : '';
 			}
 			if( !empty($date_start) && empty($date_end) ){
 				//do a from till infinity
@@ -458,7 +458,7 @@ class EM_Object {
 				}
 				//$conditions['scope'] = " ( ( $event_start_col <= CAST('$date_end' AS $cast) AND $event_end_col >= CAST('$date_start' AS $cast) ) OR ($event_start_col BETWEEN CAST('$date_start' AS $cast) AND CAST('$date_end' AS $cast)) OR ($event_end_col BETWEEN CAST('$date_start' AS $cast) AND CAST('$date_end' AS $cast)) )";
 			}
-		} elseif ( preg_match ( "/^[0-9]{4}-[0-9]{2}-[0-9]{1,2}$/", $scope ) ) {
+		} elseif ( preg_match ( "/^[0-9]{4}-[0-9]{2}-[0-9]{1,2}$/D", $scope ) ) {
 			//Scope can also be a specific date. However, if 'day', 'month', or 'year' are set, that will take precedence
 			if ( $timezone_scope ) {
 				// get dates in UTC time
@@ -569,7 +569,9 @@ class EM_Object {
 			$distance = !empty($args['near_distance']) && is_numeric($args['near_distance']) ? absint($args['near_distance']) : absint( em_get_option( 'dbem_search_form_geo_units',25, $args['event_archetype'] ) );
 			if( empty($args['near_unit']) ) $args['near_unit'] = em_get_option( 'dbem_search_form_geo_distance','mi', $args['event_archetype'] );
 			$unit = ( !empty($args['near_unit']) && $args['near_unit'] == 'km' ) ? 6371 /* kilometers */ : 3959 /* miles */;
-			$conditions['near'] = "( $unit * acos( cos( radians({$args['near'][0]}) ) * cos( radians( location_latitude ) ) * cos( radians( location_longitude ) - radians({$args['near'][1]}) ) + sin( radians({$args['near'][0]}) ) * sin( radians( location_latitude ) ) ) ) < $distance";
+			$near_lat = (float) $args['near'][0];
+			$near_lng = (float) $args['near'][1];
+			$conditions['near'] = "( $unit * acos( cos( radians($near_lat) ) * cos( radians( location_latitude ) ) * cos( radians( location_longitude ) - radians($near_lng) ) + sin( radians($near_lat) ) * sin( radians( location_latitude ) ) ) ) < $distance";
 		}else{
 			//country lookup and cleanup
 			if( !empty($args['country']) ){
@@ -841,7 +843,7 @@ class EM_Object {
 			$scope = array($date_start,$date_end); //just modify the scope here
 		}
 		//No date requested, so let's look at scope
-		if ( is_array($scope) || preg_match( "/^[0-9]{4}-[0-9]{2}-[0-9]{2},[0-9]{4}-[0-9]{2}-[0-9]{2}$/", $scope ) ) {
+		if ( is_array($scope) || preg_match( "/^[0-9]{4}-[0-9]{2}-[0-9]{2},[0-9]{4}-[0-9]{2}-[0-9]{2}$/D", $scope ) ) {
 			if( !is_array($scope) ) $scope = explode(',',$scope);
 			if( !empty($scope[0]) ){
 				$EM_DateTime = new EM_DateTime($scope[0]); //create default time in blog timezone
@@ -854,7 +856,7 @@ class EM_Object {
 					$query[] = array( 'key' => '_event_end_date', 'value' => $start_date, 'compare' => '>=', 'type' => 'DATE' );
 				}
 			}
-		}elseif ( $scope == 'today' || $scope == 'tomorrow' || preg_match ( "/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/", $scope ) ) {
+		}elseif ( $scope == 'today' || $scope == 'tomorrow' || preg_match ( "/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/D", $scope ) ) {
 			$EM_DateTime = new EM_DateTime($scope); //create default time in blog timezone
 			if( em_get_option('dbem_events_current_are_past', $args['event_archetype'] ) && $wp_query->query_vars['post_type'] != 'event-recurring' ){
 				$query[] = array( 'key' => '_event_start_date', 'value' => $EM_DateTime->getDate() );
@@ -927,15 +929,15 @@ class EM_Object {
 			$countries = em_get_countries();
 			//we can accept country codes or names
 			if( in_array($args['country'], $countries) ){
-				//we have a country name, 
-				$country = $countries[$args['country']]."'";	
+				//we have a country name
+				$country = array_search($args['country'], $countries);
 			}elseif( array_key_exists($args['country'], $countries) ){
 				//we have a country code
 				$country = $args['country'];					
 			}
 			if(!empty($country)){
 				//get loc ids
-				$ids = $wpdb->get_col("SELECT post_id FROM ".$wpdb->postmeta." WHERE meta_key='_location_country' AND meta_value='$country'");
+				$ids = $wpdb->get_col( $wpdb->prepare("SELECT post_id FROM ".$wpdb->postmeta." WHERE meta_key='_location_country' AND meta_value=%s", $country) );
 				$query[] = array( 'key' => '_location_id', 'value' => $ids, 'compare' => 'IN' );
 			}
 		}
@@ -1529,7 +1531,7 @@ class EM_Object {
 						$array[$key] = (int) $string;
 					}elseif( self::array_is_numeric($string) ){
 						$array[$key] = $string;
-					}elseif( $string && !is_array($string) && preg_match('/^( ?[\-0-9] ?,?)+$/', $string) ){
+					}elseif( $string && !is_array($string) && preg_match('/^( ?[\-0-9] ?,?)+$/D', $string) ){
 					    $array[$key] = explode(',', str_replace(' ','',$string));
 					}else{
 						//No format we accept

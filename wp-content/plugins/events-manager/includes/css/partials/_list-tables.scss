@@ -258,7 +258,7 @@ $frontend: true !default;
 				pointer-events: none;
 				cursor: not-allowed;
 
-				td:not(.check-column) {
+				:is(td,th):not(.check-column) {
 					opacity: 0.5;
 				}
 
@@ -281,7 +281,7 @@ $frontend: true !default;
 			}
 		}
 
-		td.column-primary {
+		:is(td,th).column-primary {
 			.em-list-table-row-responsive-meta {
 				display: none;
 				visibility: hidden;
@@ -386,12 +386,18 @@ $frontend: true !default;
 				}
 			}
 
-			td {
+			td, tbody th.column-primary {
 				padding: 11px 12px !important;
+			}
 
-				&.column-primary {
-					text-wrap: nowrap;
-				}
+			td.column-primary, tbody th.column-primary {
+				text-wrap: nowrap;
+			}
+		} @else {
+			// WP 7.1 renders the primary cell as th, which wp-admin only sizes when it is a td.
+			tbody th.column-primary {
+				font-size: 13px;
+				line-height: 1.5em;
 			}
 		}
 
@@ -625,7 +631,8 @@ $frontend: true !default;
 		}
 
 		.wp-list-table {
-			tr:not(.inline-edit-row):not(.no-items) td:not(.check-column) {
+			tr:not(.inline-edit-row):not(.no-items) td:not(.check-column),
+			tbody tr:not(.inline-edit-row):not(.no-items) th.column-primary {
 				position: relative;
 				clear: both;
 				width: auto !important;
@@ -635,11 +642,22 @@ $frontend: true !default;
 				content: '';
 			}
 
+			// table-layout is fixed, so column width comes from the header cell, not the one below. EM renders both as td, not th, so neither may be qualified by element. 96px is what the checkbox, the row-actions trigger and the edit icon need side by side at 400px.
+			thead .check-column {
+				width: 96px;
+			}
+
+			// WP 7.1 lays narrow list table rows out as flex and makes every td of an expanded row a block, whereas this layout relies on table rows with the check column kept as a cell.
+			tr:not(.hidden) {
+				display: table-row;
+			}
+
 			tbody {
-				th.check-column {
-					width: 77px;
+				.check-column {
+					display: table-cell !important;
+					width: 96px;
 				}
-				td:not(.check-column) {
+				:is(td,th):not(.check-column) {
 					display: block !important;
 					overflow: hidden;
 
@@ -663,7 +681,7 @@ $frontend: true !default;
 				}
 
 				tr.expanded {
-					td.column-primary {
+					:is(td,th).column-primary {
 						// primary col border shouldn't be shown if there's no responsive meta
 						&:not(:has(.em-list-table-row-responsive-meta)) {
 							margin-bottom: 0 !important;
@@ -673,7 +691,7 @@ $frontend: true !default;
 					}
 				}
 
-				td.column-primary {
+				:is(td,th).column-primary {
 
 					&:not(:has(.em-list-table-row-responsive-meta)) {
 						.primary-column-content {
@@ -730,7 +748,7 @@ $frontend: true !default;
 					td:not(:first-child, .column-primary) {
 						display: block !important;
 					}
-					td.column-primary {
+					:is(td,th).column-primary {
 						margin: 0 13px 10px 11px !important;
 						padding-left: 0 !important;
 						padding-right: 0 !important;

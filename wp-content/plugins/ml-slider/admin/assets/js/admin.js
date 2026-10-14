@@ -810,10 +810,24 @@ window.jQuery(function ($) {
         }
     ]
 
-    // Let addons (e.g. Pro's video-only Pixabay module) register extra tabs. Read at call-time
-    // (not here, at parse-time) so it doesn't matter whether this script or the addon's runs first
+    // Let addons register extra tabs. Read at call-time (not here, at parse-time) so it
+    // doesn't matter whether this script or the addon's runs first
+    // Drop tabs an addon registers for a source that's already built in here - MetaSlider
+    // Slideshow Pro 2.60.0 and older push their own 'pixabayvideo' tab, which would
+    // otherwise be appended a second time alongside ours
+    var dedupe_api_tabs = function (tabs) {
+        var seen = {}
+        return tabs.filter(function (tab) {
+            if (seen[tab.source]) {
+                return false
+            }
+            seen[tab.source] = true
+            return true
+        })
+    }
+
     var get_image_api_tabs = function () {
-        return image_api_tabs.concat(window.metaslider.image_api_tabs || [])
+        return dedupe_api_tabs(image_api_tabs.concat(window.metaslider.image_api_tabs || []))
     }
 
     var get_image_api_tab_selector = function () {
@@ -851,24 +865,37 @@ window.jQuery(function ($) {
         $(window).trigger('metaslider/initialize_external_api', {
             'selector': '#image-api-container'
         })
+    }
 
-        // Discard these
-        delete window.metaslider.slide_id
-        delete window.metaslider.slide_type
+    /**
+     * Marks the native router tab ("Upload files"/"Media Library") for whatever the frame is
+     * showing. Called after external API tabs are removed, since those are plain <a>s the
+     * router doesn't track, so removing an active one leaves no tab marked at all.
+     *
+     * @since 3.113.0
+     *
+     * @return void
+     */
+    var restore_native_router_tab = function () {
+        var frame = wp.media.frames.file_frame
+        var router = frame && frame.router && frame.router.get()
+        var mode = frame && frame.content && frame.content.mode()
+
+        if (router && router.select && mode) {
+            router.select(mode)
+        }
     }
 
     var add_image_apis = window.metaslider.add_image_apis = function (slide_type, slide_id, show_external_apis = true) {
 
         var APP = window.metaslider.app.MetaSlider;
 
-        // This is the pro layer screen (not currently used)
-        if ($('.media-menu-item.active:contains("Layer")').length) {
-            // If this is the layer slide screen and pro isnt installed, exit
-            if (!window.metaslider.pro_supports_imports) {
-                return
-            }
+        // Pro's "Add Slide > Layer Slide" screen (its 'insert-html' media-frame state) - matched by id, not by its translatable label
+        var is_layer_screen = $('.media-menu-item.active').is('#menu-item-insert-html')
+        if (is_layer_screen && !window.metaslider.pro_supports_imports) {
+            return
         }
-        window.metaslider.slide_type = 'layer'
+        window.metaslider.slide_type = is_layer_screen ? 'layer' : 'image'
 
         // If slide type is set then override the above because we're just updating an image
         if (slide_type) {
@@ -913,22 +940,30 @@ window.jQuery(function ($) {
         $('.toplevel_page_metaslider').off('click', get_image_api_tab_selector(), image_api_events)
         $(get_image_api_tab_selector()).remove()
 
-        // Since we will destroy the container each time we should add the active class to whatever is first
-        $('.media-frame-router .media-router > a').first().trigger('click')
+        // Discard these only once the modal closes: re-opening an API tab after a native one rebuilds the component from them
+        delete window.metaslider.slide_id
+        delete window.metaslider.slide_type
+
+        // The removed tabs may have been the active one, so put the mark back on a native tab
+        restore_native_router_tab()
     }
 
     /**
-     * External VIDEO API tabs. Only ever invoked by pro's Local Video module when picking a
+     * External VIDEO API tabs. Only ever invoked by the Local Video module when picking a
      * slide's main video source - a parallel, video-scoped version of add_image_apis() above.
-     * There are no built-in video tabs in the free plugin - addons (e.g. Pro's Pixabay module)
-     * register their own via window.metaslider.video_api_tabs.
      */
-    var video_api_tabs = []
+    var video_api_tabs = [
+        {
+            source: 'pixabayvideo',
+            className: 'pixabayvideo-tab',
+            label: function () { return window.metaslider.app.MetaSlider.__('Pixabay Library', 'ml-slider') }
+        }
+    ]
 
     // Read at call-time (not here, at parse-time) so it doesn't matter whether this script or
     // the addon's runs first
     var get_video_api_tabs = function () {
-        return video_api_tabs.concat(window.metaslider.video_api_tabs || [])
+        return dedupe_api_tabs(video_api_tabs.concat(window.metaslider.video_api_tabs || []))
     }
 
     var get_video_api_tab_selector = function () {
@@ -950,8 +985,8 @@ window.jQuery(function ($) {
         get_video_api_tabs().forEach(function (tab) {
             $('.media-frame-router .media-router').append('<a href="#" data-source="' + tab.source + '" class="text-black hover:text-blue-dark ' + tab.className + ' media-menu-item">' + ( APP && tab.label() ) + '</a>')
         })
-        // Nothing registered any video tabs (e.g. Pro not active) - an empty delegated selector
-        // would throw on every click that bubbles up, so skip binding entirely
+        // An empty delegated selector would throw on every click that bubbles up, so only
+        // bind when something actually registered a tab
         if (video_api_tab_selector) {
             $('.toplevel_page_metaslider').on('click', video_api_tab_selector, image_api_events)
         }
@@ -986,8 +1021,8 @@ window.jQuery(function ($) {
         }
         $(video_api_tab_selector).remove()
 
-        // Since we will destroy the container each time we should add the active class to whatever is first
-        $('.media-frame-router .media-router > a').first().trigger('click')
+        // The removed tabs may have been the active one, so put the mark back on a native tab
+        restore_native_router_tab()
     }
 
     /**

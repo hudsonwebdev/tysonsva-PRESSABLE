@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\User;
 
 use AC;
@@ -10,10 +12,8 @@ use ACP\Search\Helper\MetaQuery\SerializedComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Role extends Meta
-    implements Values
+class Role extends Meta implements Values
 {
-
     public function __construct(string $meta_key)
     {
         $operators = new Operators([

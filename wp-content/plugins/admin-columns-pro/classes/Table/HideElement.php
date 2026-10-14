@@ -1,12 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Table;
 
-interface HideElement {
-
-	/**
-	 * @return void
-	 */
-	public function hide();
+interface HideElement
+{
+    public function hide(): void;
 
 }

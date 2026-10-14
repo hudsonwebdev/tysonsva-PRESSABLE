@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Product;
 
 use ACP\Query\Bindings;
@@ -9,7 +11,6 @@ use ACP\Search\Value;
 
 class Coupons extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -57,7 +58,7 @@ class Coupons extends Comparison
             ],
         ]);
 
-        if ( ! $coupons) {
+        if (! $coupons) {
             return [];
         }
 

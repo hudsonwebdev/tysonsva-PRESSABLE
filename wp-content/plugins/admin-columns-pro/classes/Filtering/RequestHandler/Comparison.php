@@ -9,21 +9,23 @@ use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\RequestAjaxHandler;
 use AC\Response;
+use AC\Type\ColumnId;
 use AC\Type\ListScreenId;
+use ACP;
+use ACP\Filtering;
 use ACP\Filtering\ApplyFilter\CacheDuration;
 use ACP\Filtering\OptionsFactory;
 use ACP\Search;
-use ACP\Search\Searchable;
 use DomainException;
+use InvalidArgumentException;
 
 class Comparison implements RequestAjaxHandler
 {
+    private Request $request;
 
-    private $request;
+    private Storage $storage;
 
-    private $storage;
-
-    private $options_factory;
+    private OptionsFactory $options_factory;
 
     public function __construct(Request $request, Storage $storage, OptionsFactory $options_factory)
     {
@@ -38,45 +40,47 @@ class Comparison implements RequestAjaxHandler
 
         $response = new Response\Json();
 
-        $list_id = $this->request->get('layout');
-
-        if ( ! ListScreenId::is_valid_id($list_id)) {
+        try {
+            $list_screen = $this->storage->find(
+                new ListScreenId(
+                    (string)$this->request->get('layout')
+                )
+            );
+        } catch (InvalidArgumentException $e) {
             $response->error();
         }
 
-        $list_screen = $this->storage->find(new ListScreenId($list_id));
-
-        if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+        if (! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
             $response->error();
         }
 
-        $column = $list_screen->get_column_by_name(
-            (string)$this->request->filter('column', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS)
-        );
+        $column_id = (string)$this->request->filter('column', null, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if ( ! $column instanceof Searchable) {
+        $column = $list_screen->get_column(new ColumnId($column_id));
+
+        if (! $column instanceof ACP\Column) {
             $response->error();
         }
 
         $comparison = $column->search();
 
         switch (true) {
-            case $comparison instanceof Search\Comparison\RemoteValues :
+            case $comparison instanceof Search\Comparison\RemoteValues:
                 $response->set_header(
                     'Cache-Control',
-                    'max-age=' . $this->get_cache_duraction_in_seconds($comparison)
+                    'max-age=' . $this->get_cache_duration_in_seconds($comparison)
                 );
                 $options = $this->options_factory->create_by_remote($comparison);
                 $has_more = false;
 
                 break;
-            case $comparison instanceof Search\Comparison\SearchableValues :
+            case $comparison instanceof Search\Comparison\SearchableValues:
                 $search_term = $this->request->filter('searchterm', '');
 
                 if ('' === $search_term) {
                     $response->set_header(
                         'Cache-Control',
-                        'max-age=' . $this->get_cache_duraction_in_seconds($comparison)
+                        'max-age=' . $this->get_cache_duration_in_seconds($comparison)
                     );
                 }
 
@@ -90,18 +94,24 @@ class Comparison implements RequestAjaxHandler
                 $has_more = ! $paginated->is_last_page();
 
                 break;
-            default :
+            default:
                 throw new DomainException('Invalid Comparison type found.');
         }
 
         $select = new AC\Helper\Select\Response($options, $has_more);
+        $select_response = $select();
+
+        $select_response['results'] = (new Filtering\ApplyFilter\SelectOptions(
+            $column->get_context(),
+            $list_screen
+        ))->apply_filters($select_response['results']);
 
         $response
-            ->set_parameters($select())
+            ->set_parameters($select_response)
             ->success();
     }
 
-    private function get_cache_duraction_in_seconds(Search\Comparison $comparison): int
+    private function get_cache_duration_in_seconds(Search\Comparison $comparison): int
     {
         return (new CacheDuration($comparison))->apply_filters(300);
     }

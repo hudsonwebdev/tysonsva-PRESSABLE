@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use AC\Helper\Select\Options;
@@ -9,8 +11,7 @@ use ACP\Search\Operators;
 
 abstract class Date extends Comparison\Date implements Comparison\RemoteValues
 {
-
-    private $value_factory;
+    private DateOptionsFactory $value_factory;
 
     public function __construct()
     {

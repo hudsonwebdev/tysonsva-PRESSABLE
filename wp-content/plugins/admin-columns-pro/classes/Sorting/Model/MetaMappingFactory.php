@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model;
 
 use AC\MetaType;
@@ -9,19 +11,18 @@ use AC\MetaType;
  */
 class MetaMappingFactory
 {
-
     public function create(string $meta_type, string $meta_key, array $fields)
     {
         switch ($meta_type) {
-            case MetaType::POST :
+            case MetaType::POST:
                 return new Post\MetaMapping($meta_key, $fields);
-            case MetaType::USER :
+            case MetaType::USER:
                 return new User\MetaMapping($meta_key, $fields);
-            case MetaType::COMMENT :
+            case MetaType::COMMENT:
                 return new Comment\MetaMapping($meta_key, $fields);
-            case MetaType::TERM :
+            case MetaType::TERM:
                 return new Taxonomy\MetaMapping($meta_key, $fields);
-            default :
+            default:
                 return null;
         }
     }

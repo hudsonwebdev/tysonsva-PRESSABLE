@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order\Date;
 
 use AC\Helper\Select\Options;
 use ACA\WC\Helper\Order\DateOptionsFactory;
 use ACA\WC\Scheme\Orders;
-use ACA\WC\Search;
 use ACA\WC\Search\LabelFormatter\DateMonth;
 use ACP;
 use ACP\Query\Bindings;
@@ -15,7 +16,6 @@ use ACP\Search\Value;
 
 class CreatedDate extends ACP\Search\Comparison implements ACP\Search\Comparison\RemoteValues
 {
-
     use WcDateValueTrait;
 
     public function __construct()

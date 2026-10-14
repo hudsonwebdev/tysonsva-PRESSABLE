@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\ConditionalFormat;
 
+use AC\Setting\Config;
 use ACP\ConditionalFormat\Formatter\FilterHtmlFormatter;
 use ACP\ConditionalFormat\Formatter\StringFormatter;
 
 trait FilteredHtmlFormatTrait
 {
-
-    public function conditional_format(): ?FormattableConfig
+    protected function get_conditional_format(Config $config): ?FormattableConfig
     {
         return new FormattableConfig(
             new FilterHtmlFormatter(new StringFormatter())

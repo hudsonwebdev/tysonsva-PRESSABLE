@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Product;
 
 use ACA\WC\Helper\Select;
@@ -8,10 +10,8 @@ use ACP\Search\Helper\MetaQuery\SerializedComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Upsells extends Comparison\Meta
-    implements Comparison\SearchableValues
+class Upsells extends Comparison\Meta implements Comparison\SearchableValues
 {
-
     use Select\ProductValuesTrait;
 
     public function __construct()

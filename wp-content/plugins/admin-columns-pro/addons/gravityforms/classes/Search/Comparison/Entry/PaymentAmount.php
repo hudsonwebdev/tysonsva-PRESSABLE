@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\GravityForms\Search\Comparison\Entry;
 
 use ACA\GravityForms\Search\Query\Bindings;
@@ -9,7 +11,6 @@ use ACP\Search\Value;
 
 class PaymentAmount extends ACP\Search\Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([

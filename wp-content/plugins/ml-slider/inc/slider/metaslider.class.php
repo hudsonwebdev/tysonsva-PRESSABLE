@@ -17,6 +17,10 @@ class MetaSlider
     public $slides = array(); // slides belonging to this slider
     public $settings = array(); // slider settings
 
+    // Memoized result of get_javascript_parameters() - some of its filters remove
+    // themselves after running, so a second call would silently lose their output.
+    private $javascript_parameters = null;
+
     /**
      * Constructor
      *
@@ -755,6 +759,10 @@ class MetaSlider
      */
     private function get_javascript_parameters()
     {
+        if (null !== $this->javascript_parameters) {
+            return $this->javascript_parameters;
+        }
+
         $options = array();
 
         // construct an array of all parameters
@@ -788,7 +796,9 @@ class MetaSlider
             }
         }
 
-        return implode(",\n                ", $pairs);
+        $this->javascript_parameters = implode(",\n                ", $pairs);
+
+        return $this->javascript_parameters;
     }
 
 

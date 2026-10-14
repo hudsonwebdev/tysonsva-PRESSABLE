@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use AC;
@@ -9,11 +11,10 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
-class PostType extends Comparison
-    implements Comparison\Values
+class PostType extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -30,7 +31,7 @@ class PostType extends Comparison
 
         $bindings = new Bindings();
 
-        $alias = $bindings->get_unique_alias('pst');
+        $alias = AliasGenerator::generate_from_class(static::class);
 
         $where = ComparisonFactory::create(
             "$alias.post_type",
@@ -51,8 +52,8 @@ class PostType extends Comparison
     private function get_post_types(): array
     {
         $post_types = [];
-        foreach (get_post_types([], 'object') as $post_type) {
-            if ( ! post_type_supports($post_type->name, 'comments')) {
+        foreach (get_post_types([], 'objects') as $post_type) {
+            if (! post_type_supports($post_type->name, 'comments')) {
                 continue;
             }
 

@@ -8,10 +8,10 @@ use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\EmptyValues;
+use ACP\Sql\Identifier;
 
 class SqlOrderByFactory
 {
-
     public static function create_with_computation(
         ComputationType $computation,
         string $field,
@@ -30,7 +30,10 @@ class SqlOrderByFactory
             $empty_values[] = 0;
         }
 
-        return self::create($field, $order, ['empty_values' => $empty_values]);
+        return self::create($field, $order, [
+            'quote'        => false,
+            'empty_values' => $empty_values,
+        ]);
     }
 
     public static function create_with_count(string $field, string $order): string
@@ -57,7 +60,7 @@ class SqlOrderByFactory
         string $field,
         array $values,
         string $order,
-        DataType $data_type = null
+        ?DataType $data_type = null
     ): string {
         if (null === $data_type) {
             $data_type = new DataType(DataType::STRING);
@@ -65,7 +68,7 @@ class SqlOrderByFactory
 
         $values = self::sanitize_values($values, $data_type);
 
-        if ( ! $values) {
+        if (! $values) {
             return '';
         }
 
@@ -88,9 +91,9 @@ class SqlOrderByFactory
     private static function esc_sql_values(array $values, DataType $data_type): array
     {
         switch ($data_type->get_value()) {
-            case DataType::NUMERIC :
+            case DataType::NUMERIC:
                 return array_map('esc_sql', $values);
-            default :
+            default:
                 return array_map([__CLASS__, 'wrap_single_quote'], array_map('esc_sql', $values));
         }
     }
@@ -98,17 +101,23 @@ class SqlOrderByFactory
     private static function sanitize_values(array $values, DataType $data_type): array
     {
         switch ($data_type->get_value()) {
-            case DataType::NUMERIC :
+            case DataType::NUMERIC:
                 return array_filter($values, 'is_int');
-            default :
+            default:
                 return array_filter($values, 'is_scalar');
         }
     }
 
-    public static function create_with_concat(array $fields, string $order, CastType $cast_type = null): string
+    // TODO David maybe this is better as an expression instead of named constructor?
+    /**
+     * @param array<string> $fields
+     */
+    public static function create_with_concat(array $fields, string $order, ?CastType $cast_type = null): string
     {
         $field = sprintf('CONCAT(%s)', implode(', ', $fields));
-        $args = [];
+        $args = [
+            'quote' => false,
+        ];
 
         if ($cast_type !== null) {
             $args['cast_type'] = (string)$cast_type;
@@ -117,30 +126,29 @@ class SqlOrderByFactory
         return self::create($field, $order, $args);
     }
 
-    /**
-     * Reserved keywords needs to be wrapped in backticks (e.g. when a field is named 'key')
-     */
-    private static function wrap_backticks(string $field): string
-    {
-        return str_contains($field, '`')
-            ? $field
-            : sprintf("`%s`", $field);
-    }
-
     public static function create(string $field, string $order, array $args = []): string
     {
-        $empty_values = new EmptyValues($args['empty_values'] ?? [null, '']);
+        $args = array_merge([
+            'empty_values' => [null, ''],
+            'cast_type'    => null,
+            'esc_sql'      => true,
+            'quote'        => true,
+        ], $args);
 
-        $cast_type = isset($args['cast_type'])
-            ? new CastType($args['cast_type'])
-            : null;
+        $empty_values = new EmptyValues($args['empty_values']);
+        $cast_type = $args['cast_type'] ? new CastType($args['cast_type']) : null;
 
-        $esc_sql = (bool)($args['esc_sql'] ?? true);
-
-        if ($esc_sql) {
+        // TODO David check when required call-wise and if it aligns with quote
+        if ($args['esc_sql']) {
             $field = (string)esc_sql($field);
         }
 
+        // TODO David make sure callers implement this properly
+        if ($args['quote']) {
+            $field = Identifier::quote($field);
+        }
+
+        // TODO David check if there is alignment with generic SQL Cast expression
         $order_by = sprintf(
             '%s %s',
             $cast_type ? sprintf("CAST( %s AS %s )", $field, $cast_type) : $field,
@@ -166,7 +174,7 @@ class SqlOrderByFactory
             $when_parts[] = sprintf('WHEN %s <= 0 THEN 1', $field);
         }
 
-        if ( ! $when_parts) {
+        if (! $when_parts) {
             return $order_by;
         }
 

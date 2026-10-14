@@ -1,40 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Post\Author;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class UserMeta implements QueryBindings
+class UserMeta extends Base
 {
+    private string $meta_key;
 
-    private $meta_key;
+    protected DataType $data_type;
 
-    protected $data_type;
-
-    public function __construct(string $meta_key, DataType $data_type = null)
+    public function __construct(string $meta_key, ?DataType $data_type = null)
     {
         $this->meta_key = $meta_key;
         $this->data_type = $data_type ?: new DataType(DataType::STRING);
     }
 
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
 
-        $bindings = new Bindings();
-
-        $alias = $bindings->get_unique_alias('usermeta');
-
         $bindings->join(
-            $wpdb->prepare(
-                "INNER JOIN $wpdb->usermeta AS $alias ON $wpdb->posts.post_author = $alias.user_id AND $alias.meta_key = %s",
-                $this->meta_key
-            )
+            Join::inner($wpdb->usermeta, $alias)
+                ->on("$wpdb->posts.post_author", '=', "$alias.user_id")
+                ->on("$alias.meta_key", '=', $wpdb->prepare('%s', $this->meta_key))
+                ->get_sql()
         );
         $bindings->order_by(
             SqlOrderByFactory::create(
@@ -45,8 +43,6 @@ class UserMeta implements QueryBindings
                 ]
             )
         );
-
-        return $bindings;
     }
 
     private function get_cast_type(): ?CastType

@@ -5,27 +5,25 @@ declare(strict_types=1);
 namespace ACP\Sorting\Model\Comment;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class Response implements QueryBindings
+class Response extends Base
 {
-
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
 
-        $bindings = new Bindings();
-
-        $alias = $bindings->get_unique_alias('response');
-
-        $bindings->join("INNER JOIN $wpdb->posts $alias ON $alias.ID = $wpdb->comments.comment_post_ID ");
+        $bindings->join(
+            Join::inner($wpdb->posts, $alias)
+                ->on("$alias.ID", '=', "$wpdb->comments.comment_post_ID")
+                ->get_sql()
+        );
         $bindings->order_by(
             SqlOrderByFactory::create("$alias.post_title ", (string)$order)
         );
-
-        return $bindings;
     }
 
 }

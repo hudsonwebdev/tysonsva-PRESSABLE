@@ -1116,6 +1116,10 @@ class MetaSlider_Slideshows
         }
         $settings = new MetaSlider_Slideshow_Settings($slideshow_id);
 
+        // get_single() returns a WP_Error when the setting is missing, so guard before casting to int.
+        $width = $settings->get_single('width');
+        $preview_width = is_numeric($width) && (int) $width > 0 ? (int) $width : 700;
+
         try {
             ob_start();
 
@@ -1144,7 +1148,7 @@ class MetaSlider_Slideshows
             }
             #preview-container {
                 min-height: 100%;
-                max-width: <?php echo (int) $settings->get_single('width') > 0 ? (int) $settings->get_single('width') : 700; ?>px;
+                max-width: <?php echo (int) $preview_width; ?>px;
                 margin: 0 auto;
                 display: -webkit-box;
                 display: -ms-flexbox;

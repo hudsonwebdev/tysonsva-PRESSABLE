@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Editing\Order;
 
 use ACP;
@@ -8,13 +10,12 @@ use WC_Payment_Gateway;
 
 class PaymentMethod implements ACP\Editing\Service
 {
-
     public function get_view(string $context): ?View
     {
         return new ACP\Editing\View\Select($this->get_payment_methods());
     }
 
-    private function get_payment_methods()
+    private function get_payment_methods(): array
     {
         $payment_gateways = WC()->payment_gateways()->payment_gateways();
         $options = [];
@@ -28,7 +29,7 @@ class PaymentMethod implements ACP\Editing\Service
         return $options;
     }
 
-    public function get_value(int $id)
+    public function get_value(int $id): string
     {
         return wc_get_order($id)->get_payment_method();
     }

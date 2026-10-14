@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\GravityForms\Query;
 
 use ACP;
 
 final class Entry extends ACP\Query
 {
-
     public function register(): void
     {
         add_filter('gform_gf_query_sql', [$this, 'parse_search_query']);

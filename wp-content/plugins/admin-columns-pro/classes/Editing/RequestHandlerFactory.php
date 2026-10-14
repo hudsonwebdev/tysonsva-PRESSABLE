@@ -1,37 +1,84 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing;
 
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\Type\ListScreenId;
 use ACP\Editing;
+use InvalidArgumentException;
 
-class RequestHandlerFactory {
+class RequestHandlerFactory
+{
+    private Storage $storage;
 
-	private $storage;
+    private Strategy\AggregateFactory $aggregate_factory;
 
-	public function __construct( Storage $storage ) {
-		$this->storage = $storage;
-	}
+    private BulkDelete\AggregateFactory $aggregate_factory_delete;
 
-	public function create( Request $request ): ?RequestHandler {
-		switch ( $request->get( 'method' ) ) {
-			case 'bulk-deletable-rows' :
-				$list_screen = $this->storage->find( new ListScreenId( $request->get( 'layout' ) ) );
+    public function __construct(
+        Storage $storage,
+        Editing\Strategy\AggregateFactory $aggregate_factory,
+        Editing\BulkDelete\AggregateFactory $aggregate_factory_delete
+    ) {
+        $this->storage = $storage;
+        $this->aggregate_factory = $aggregate_factory;
+        $this->aggregate_factory_delete = $aggregate_factory_delete;
+    }
 
-				return $list_screen instanceof Editing\BulkDelete\ListScreen
-					? $list_screen->deletable()->get_query_request_handler()
-					: null;
-			case 'bulk-editable-rows' :
-				$list_screen = $this->storage->find( new ListScreenId( $request->get( 'layout' ) ) );
+    public function create(Request $request): ?RequestHandler
+    {
+        switch ($request->get('method')) {
+            case 'bulk-deletable-rows' :
+                try {
+                    $list_screen = $this->storage->find(
+                        new ListScreenId(
+                            (string)$request->get('layout')
+                        )
+                    );
+                } catch (InvalidArgumentException $e) {
+                    return null;
+                }
 
-				return $list_screen instanceof Editing\ListScreen
-					? $list_screen->editing()->get_query_request_handler()
-					: null;
-			default:
-				return null;
-		}
-	}
+                if (! $list_screen) {
+                    return null;
+                }
+
+                $strategy = $this->aggregate_factory_delete->create($list_screen->get_table_screen());
+
+                if (! $strategy) {
+                    return null;
+                }
+
+                return $strategy->get_query_request_handler();
+
+            case 'bulk-editable-rows' :
+                try {
+                    $list_screen = $this->storage->find(
+                        new ListScreenId(
+                            (string)$request->get('layout')
+                        )
+                    );
+                } catch (InvalidArgumentException $e) {
+                    return null;
+                }
+
+                if (! $list_screen) {
+                    return null;
+                }
+
+                $strategy = $this->aggregate_factory->create($list_screen->get_table_screen());
+
+                if (! $strategy) {
+                    return null;
+                }
+
+                return $strategy->get_query_request_handler();
+            default:
+                return null;
+        }
+    }
 
 }

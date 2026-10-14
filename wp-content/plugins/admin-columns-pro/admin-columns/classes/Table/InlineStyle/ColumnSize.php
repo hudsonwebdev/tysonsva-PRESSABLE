@@ -1,94 +1,83 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Table\InlineStyle;
 
 use AC\ColumnSize\ListStorage;
 use AC\ColumnSize\UserStorage;
 use AC\ListScreen;
-use AC\Renderable;
+use AC\Type\ColumnId;
 use AC\Type\ColumnWidth;
+use AC\Type\TableId;
+use AC\View;
 
-class ColumnSize implements Renderable
+class ColumnSize
 {
+    private ListStorage $list_storage;
 
-    /**
-     * @var ListScreen
-     */
-    private $list_screen;
+    private UserStorage $user_storage;
 
-    /**
-     * @var ListStorage
-     */
-    private $list_storage;
-
-    /**
-     * @var UserStorage
-     */
-    private $user_storage;
-
-    public function __construct(ListScreen $list_screen, ListStorage $list_storage, UserStorage $user_storage)
+    public function __construct(ListStorage $list_storage, UserStorage $user_storage)
     {
-        $this->list_screen = $list_screen;
         $this->list_storage = $list_storage;
         $this->user_storage = $user_storage;
     }
 
-    private function render_style($column_name, ColumnWidth $column_width, $type)
+    public function render(ListScreen $list_screen): string
     {
-        $css_width = $column_width->get_value() . $column_width->get_unit();
-
-        $css = sprintf(
-            '.ac-%1$s .wrap table th.column-%2$s, .ac-%1$s .wrap table td.column-%2$s   { width: %3$s !important; }',
-            esc_attr($this->list_screen->get_key()),
-            esc_attr($column_name),
-            $css_width
-        );
-
-        $css .= sprintf(
-            'body.acp-overflow-table.ac-%1$s .wrap th.column-%2$s, body.acp-overflow-table.ac-%1$s .wrap td.column-%2$s { min-width: %3$s !important; max-width: %3$s !important }',
-            esc_attr($this->list_screen->get_key()),
-            esc_attr($column_name),
-            $css_width
-        );
-
-        $id = sprintf(
-            'ac-column-size-%s-%s',
-            $type,
-            $column_name
-        );
-
-        ob_start();
-        ?>
-		<style id="<?= $id ?>">
-			@media screen and (min-width: 783px) {
-			<?= $css ?>
-			}
-		</style>
-        <?php
-        return ob_get_clean();
-    }
-
-    public function render(): string
-    {
-        if ( ! $this->list_screen->get_settings()) {
+        // auto-width is not supported with wrapping
+        if ('auto' === $list_screen->get_preference('wrapping')) {
             return '';
         }
 
         $html = '';
+        $table_id = $list_screen->get_table_id();
 
-        foreach ($this->list_screen->get_columns() as $column) {
-            $width = $this->list_storage->get($this->list_screen, $column->get_name());
-            if ($width) {
-                $html .= $this->render_style($column->get_name(), $width, 'list');
-            }
+        foreach ($list_screen->get_columns() as $column) {
+            $column_id = $column->get_id();
+            $list_width = $this->list_storage->get($column);
+            $user_width = $this->user_storage->get($list_screen->get_id(), $column_id);
 
-            $width = $this->user_storage->get($this->list_screen->get_id(), $column->get_name());
-            if ($width) {
-                $html .= $this->render_style($column->get_name(), $width, 'user');
+            $html .= $this->render_base_style($table_id, $column_id, $list_width);
+
+            if ($user_width) {
+                $html .= $this->render_user_style($table_id, $column_id, $user_width);
             }
         }
 
         return $html;
+    }
+
+    private function render_base_style(TableId $table_id, ColumnId $column_id, ?ColumnWidth $list_width): string
+    {
+        $view = new View([
+            'table_id'   => (string)$table_id,
+            'column_id'  => (string)$column_id,
+            'list_width' => $this->format_width($list_width),
+        ]);
+
+        return $view->set_template('table/column-size')->render();
+    }
+
+    private function render_user_style(TableId $table_id, ColumnId $column_id, ColumnWidth $user_width): string
+    {
+        $view = new View([
+            'table_id'   => (string)$table_id,
+            'column_id'  => (string)$column_id,
+            'user_width' => $this->format_width($user_width),
+        ]);
+
+        return $view->set_template('table/column-size-user')->render();
+    }
+
+    private function format_width(?ColumnWidth $width): ?string
+    {
+        if (! $width) {
+            return null;
+        }
+
+        return $width->get_value() . $width->get_unit();
     }
 
 }

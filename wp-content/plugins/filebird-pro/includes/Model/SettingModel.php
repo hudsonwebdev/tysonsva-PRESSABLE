@@ -1,6 +1,7 @@
 <?php
 namespace FileBird\Model;
 
+use FileBird\Classes\Schedule;
 use FileBird\Utils\Singleton;
 
 defined( 'ABSPATH' ) || exit;
@@ -28,7 +29,8 @@ class SettingModel {
 			'show_breadcrumb'     => true,
 			'folder_counter_type' => 'counter_file_in_folder',
 			'theme'               => 'default',
-            'enable_cache_optimization' => false
+            'enable_cache_optimization' => false,
+            'auto_backup'         => true,
         );
     }
 
@@ -76,6 +78,7 @@ class SettingModel {
         if ( array_key_exists( $key, $this->default_settings ) ) {
             $this->settings[ $key ] = $value;
             update_option( self::SETTING_KEY, $this->settings );
+            Schedule::syncBackupSchedule();
             return true;
         }
         return false;
@@ -85,6 +88,7 @@ class SettingModel {
 		$settings       = array_intersect_key( $settings, $this->default_settings );
 		$this->settings = array_merge( $this->settings, $settings );
 		update_option( self::SETTING_KEY, $this->settings );
+		Schedule::syncBackupSchedule();
 	}
 
     public function getAllSettings() {

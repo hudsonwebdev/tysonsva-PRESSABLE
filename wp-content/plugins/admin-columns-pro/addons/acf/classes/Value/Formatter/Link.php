@@ -1,27 +1,41 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Value\Formatter;
 
-use ACA\ACF\Value\Formatter;
+use AC\Exception\ValueNotFoundException;
+use AC\Formatter;
+use AC\Helper;
+use AC\Type\Value;
 
-class Link extends Formatter {
+class Link implements Formatter
+{
+    public function format(Value $value)
+    {
+        $link = $value->get_value();
 
-	public function format( $link, $id = null ) {
-		if( empty( $link ) ){
-			return $this->column->get_empty_char();
-		}
+        if (empty($link)) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
 
-		$label = $link['title'];
+        $url = $link['url'] ?? null;
 
-		if ( ! $label ) {
-			$label = str_replace( [ 'http://', 'https://' ], '', $link['url'] );
-		}
+        if (! $url) {
+            throw ValueNotFoundException::from_id($value->get_id());
+        }
 
-		if ( '_blank' === $link['target'] ) {
-			$label .= '<span class="dashicons dashicons-external" style="font-size: 1em;"></span>';
-		}
+        $label = $link['title'] ?? null;
 
-		return ac_helper()->html->link( $link['url'], $label );
-	}
+        if (! $label) {
+            $label = str_replace(['http://', 'https://'], '', (string)$url);
+        }
+
+        if ('_blank' === ($link['target'] ?? '')) {
+            $label .= '<span class="dashicons dashicons-external" style="font-size: 1em;"></span>';
+        }
+
+        return $value->with_value(Helper\Html::create()->link((string)$url, $label));
+    }
 
 }

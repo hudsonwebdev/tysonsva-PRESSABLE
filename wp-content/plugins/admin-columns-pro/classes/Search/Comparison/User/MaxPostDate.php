@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\User;
 
 use ACP\Query\Bindings;
@@ -8,29 +10,17 @@ use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Labels;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\Expression;
 
 class MaxPostDate extends Comparison
 {
+    private string $post_type;
 
-    /**
-     * @var string
-     */
-    private $post_type;
+    private array $post_stati;
 
-    /**
-     * @var array
-     */
-    private $post_stati;
+    private bool $oldest_post;
 
-    /**
-     * @var bool
-     */
-    private $oldest_post;
-
-    /**
-     * @param string $post_type ;
-     */
-    public function __construct($post_type, array $post_stati = [], $oldest_post = false)
+    public function __construct(string $post_type, array $post_stati = [], bool $oldest_post = false)
     {
         $operators = new Operators([
             Operators::BETWEEN,
@@ -48,7 +38,8 @@ class MaxPostDate extends Comparison
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;
-        $alias = uniqid('acs', false);
+
+        $alias = uniqid('acs');
         $comparison = ComparisonFactory::create("$alias.date", $operator, $value)->prepare();
 
         $min_or_max = $this->oldest_post
@@ -59,7 +50,7 @@ class MaxPostDate extends Comparison
 						SELECT post_author, {$min_or_max}(post_date) AS date
 						FROM {$wpdb->posts}
 						WHERE post_type = '" . esc_sql($this->post_type) . "'
-						AND post_status IN( " . $this->esc_sql_array($this->post_stati) . " )
+						AND " . Expression\Comparison::in('post_status', $this->post_stati) . "
 						GROUP BY post_author
 					) as $alias
 					WHERE $comparison
@@ -69,11 +60,6 @@ class MaxPostDate extends Comparison
         $bindings->where(sprintf("{$wpdb->users}.ID IN( %s)", $sub_query));
 
         return $bindings;
-    }
-
-    private function esc_sql_array($array)
-    {
-        return sprintf("'%s'", implode("','", array_map('esc_sql', $array)));
     }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model;
 
 use AC\MetaType;
@@ -10,19 +12,18 @@ use ACP\Sorting\Type\DataType;
  */
 class MetaFactory
 {
-
-    public function create(string $meta_type, string $meta_key, DataType $data_type = null)
+    public function create(MetaType $meta_type, string $meta_key, ?DataType $data_type = null): ?QueryBindings
     {
-        switch ($meta_type) {
-            case MetaType::POST :
+        switch ((string)$meta_type) {
+            case MetaType::POST:
                 return new Post\Meta($meta_key, $data_type);
-            case MetaType::USER :
+            case MetaType::USER:
                 return new User\Meta($meta_key, $data_type);
-            case MetaType::COMMENT :
+            case MetaType::COMMENT:
                 return new Comment\Meta($meta_key, $data_type);
-            case MetaType::TERM :
+            case MetaType::TERM:
                 return new Taxonomy\Meta($meta_key, $data_type);
-            default :
+            default:
                 return null;
         }
     }

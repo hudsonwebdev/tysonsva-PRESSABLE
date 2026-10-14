@@ -5,30 +5,24 @@ declare(strict_types=1);
 namespace ACA\WC\Sorting\Order;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class CustomerFullname implements QueryBindings
+class CustomerFullname extends Base
 {
-
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
-
-        $bindings = new Bindings();
-
-        $alias = $bindings->get_unique_alias('wcs_cf');
 
         $table_orders = $wpdb->prefix . 'wc_orders';
         $table_customer = $wpdb->prefix . 'wc_customer_lookup';
 
         $bindings->join(
-            sprintf(
-                "\nLEFT JOIN %s AS $alias ON $alias.user_id = %s.customer_id",
-                esc_sql($table_customer),
-                esc_sql($table_orders)
-            )
+            Join::left($table_customer, $alias)
+                ->on("$alias.user_id", '=', "$table_orders.customer_id")
+                ->get_sql()
         );
 
         $bindings->order_by(
@@ -40,8 +34,6 @@ class CustomerFullname implements QueryBindings
                 (string)$order
             )
         );
-
-        return $bindings;
     }
 
 }

@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-05-25T13:04:12+00:00\n"
-"PO-Revision-Date: 2026-08-28 16:45+0000\n"
+"PO-Revision-Date: 2026-09-16 16:45+0000\n"
 "X-Generator: Poedit 3.2.2\n"
 "X-Domain: ml-slider\n"
 "% 10 == 0) ? 2 : 3)));\n"
@@ -145,29 +145,42 @@ msgstr "קרא עוד"
 #: inc/slide/metaslide.image.class.php:232
 #: inc/slide/metaslide.image.class.php:286
 #: inc/slide/metaslide.image.class.php:404
-#: ml-slider.php:944
-#: ml-slider.php:1026
-#: ml-slider.php:1138
-#: ml-slider.php:2853
-#: ml-slider.php:2898
-#: ml-slider.php:2973
+#: inc/slide/metaslide.livid.class.php:334
+#: inc/slide/metaslide.livid.class.php:401
+#: inc/slide/metaslide.livid.class.php:448
+#: inc/slide/metaslide.livid.class.php:776
+#: ml-slider.php:994
+#: ml-slider.php:1076
+#: ml-slider.php:1188
+#: ml-slider.php:2860
+#: ml-slider.php:2905
+#: ml-slider.php:2980
+#: modules/local_video/slide.php:870
+#: modules/local_video/slide.php:928
+#: modules/local_video/slide.php:1036
+#: modules/local_video/slide.php:1201
+#: modules/local_video/slide.php:1274
+#: modules/local_video/slide.php:1388
 msgid "The security check failed. Please refresh the page and try again."
 msgstr "בדיקת האבטחה נכשלה. אנא רענן את הדף ונסה שוב."
 
 #: admin/Notices.php:394
 #: admin/Notices.php:642
-#: admin/routes/api.php:141
+#: admin/routes/api.php:145
 #: inc/slide/metaslide.class.php:152
 #: inc/slide/metaslide.image.class.php:135
 #: inc/slide/metaslide.image.class.php:154
 #: inc/slide/metaslide.image.class.php:240
 #: inc/slide/metaslide.image.class.php:294
-#: ml-slider.php:952
-#: ml-slider.php:1034
-#: ml-slider.php:1146
-#: ml-slider.php:2861
-#: ml-slider.php:2906
-#: ml-slider.php:2981
+#: inc/slide/metaslide.livid.class.php:342
+#: inc/slide/metaslide.livid.class.php:409
+#: inc/slide/metaslide.livid.class.php:456
+#: ml-slider.php:1002
+#: ml-slider.php:1084
+#: ml-slider.php:1196
+#: ml-slider.php:2868
+#: ml-slider.php:2913
+#: ml-slider.php:2988
 msgid "Access denied. Sorry, you do not have permission to complete this task."
 msgstr "גישה נדחתה. סליחה, אין לך הרשאה להשלים משימה זו."
 
@@ -178,12 +191,25 @@ msgstr "גישה נדחתה. סליחה, אין לך הרשאה להשלים מ�
 #: inc/slide/metaslide.image.class.php:249
 #: inc/slide/metaslide.image.class.php:303
 #: inc/slide/metaslide.image.class.php:422
-#: ml-slider.php:961
-#: ml-slider.php:1043
-#: ml-slider.php:1155
-#: ml-slider.php:2870
-#: ml-slider.php:2914
-#: ml-slider.php:2990
+#: inc/slide/metaslide.livid.class.php:351
+#: inc/slide/metaslide.livid.class.php:416
+#: inc/slide/metaslide.livid.class.php:463
+#: inc/slide/metaslide.livid.class.php:470
+#: inc/slide/metaslide.livid.class.php:793
+#: ml-slider.php:1011
+#: ml-slider.php:1093
+#: ml-slider.php:1205
+#: ml-slider.php:2877
+#: ml-slider.php:2921
+#: ml-slider.php:2997
+#: modules/local_video/slide.php:209
+#: modules/local_video/slide.php:887
+#: modules/local_video/slide.php:945
+#: modules/local_video/slide.php:1057
+#: modules/local_video/slide.php:1221
+#: modules/local_video/slide.php:1291
+#: modules/local_video/slide.php:1405
+#: modules/local_video/slide.php:2091
 msgid "Bad request"
 msgstr "בקשה לא תקפה"
 
@@ -230,6 +256,7 @@ msgid "URL"
 msgstr "כתובת URL"
 
 #: admin/Pages.php:157
+#: modules/local_video/slide.php:423
 #: themes/architekt/customize.php:511
 #: themes/bitono/customize.php:625
 #: themes/blend/customize.php:655
@@ -305,7 +332,7 @@ msgid "Tone"
 msgstr "גוונים"
 
 #: admin/Pages.php:186
-#: admin/views/pages/parts/slider-settings.php:1431
+#: admin/views/pages/parts/slider-settings.php:1427
 #: admin/views/slides/tabs/background.php:73
 #: inc/metaslider.imagestyles.class.php:463
 #: themes/architekt/customize.php:602
@@ -409,46 +436,46 @@ msgstr "צבע הטקסט"
 msgid "Link Text"
 msgstr "טקסט קישור"
 
-#: admin/routes/api.php:462
+#: admin/routes/api.php:466
 msgid "The request format was not valid."
 msgstr "פורמט הבקשה לא היה תקף."
 
-#: admin/routes/api.php:470
-#: admin/routes/api.php:602
+#: admin/routes/api.php:474
+#: admin/routes/api.php:606
 msgid "This slideshow is no longer available."
 msgstr "המצגת הזו כבר אינה זמינה."
 
-#: admin/routes/api.php:557
+#: admin/routes/api.php:561
 msgid "Nothing to import."
 msgstr "אין דבר לייבא."
 
-#: admin/routes/api.php:609
+#: admin/routes/api.php:613
 msgid "This was not a slideshow, so we cannot delete it."
 msgstr "זה לא היה מצגת, ולכן אנחנו לא יכולים למחוק את זה."
 
-#: admin/routes/api.php:822
+#: admin/routes/api.php:826
 msgid "This was not a slideshow, so we cannot update the setting."
 msgstr "זה לא היה מצגת, ולכן אנחנו לא יכולים לעדכן את ההגדרה."
 
-#: admin/routes/api.php:930
+#: admin/routes/api.php:934
 msgid "The title cannot be empty."
 msgstr "הכותרת לא יכולה להיות ריקה."
 
-#: admin/routes/api.php:934
-#: admin/routes/api.php:1208
+#: admin/routes/api.php:938
+#: admin/routes/api.php:1212
 #, php-format
 msgid "The field (%s) cannot be empty"
 msgstr "השדה (%s) לא יכול להיות ריק"
 
-#: admin/routes/api.php:1198
+#: admin/routes/api.php:1202
 msgid "Maximum Number of Custom Field in Post Feed Sliders"
 msgstr "מספר מקסימלי של custom field במצגות פוסט"
 
-#: admin/routes/api.php:1242
+#: admin/routes/api.php:1246
 msgid "No video file was received by the server."
 msgstr "לא התקבל קובץ וידאו על ידי השרת."
 
-#: admin/routes/api.php:1258
+#: admin/routes/api.php:1262
 #. translators: 1: uploaded filename, 2: mime type WordPress detected, or "none"
 #, php-format
 msgid ""
@@ -458,19 +485,19 @@ msgstr ""
 "הוידאו \"%1$s\" נדחה לפני ההעלאה (סוג מזוהה: %2$s). ייתכן שהוא בפורמט לא "
 "נתמך או חורג מהמגבלה של השרת הזה להעלאה."
 
-#: admin/routes/api.php:1260
+#: admin/routes/api.php:1264
 msgid "none"
 msgstr "אין"
 
-#: admin/routes/api.php:1268
+#: admin/routes/api.php:1272
 msgid "The video could not be imported."
 msgstr "לא ניתן לייבא את הוידאו."
 
-#: admin/routes/api.php:1386
+#: admin/routes/api.php:1409
 msgid "Import slug not found"
 msgstr "שגיאה: לא נמצא slug לייבוא"
 
-#: admin/routes/api.php:1402
+#: admin/routes/api.php:1425
 msgid "Import data could not be processed"
 msgstr "נתוני ייבוא לא יכולים להיות מעובדים"
 
@@ -479,18 +506,18 @@ msgid "We could not find any images to import."
 msgstr "לא הצלחנו למצוא תמונות לייבוא."
 
 #: admin/slideshows/Settings.php:59
-#: inc/slider/metaslider.class.php:161
+#: inc/slider/metaslider.class.php:165
 msgid "New Slideshow"
 msgstr "מצגת חדשה"
 
 #: admin/slideshows/Settings.php:86
-#: inc/slider/metaslider.class.php:188
+#: inc/slider/metaslider.class.php:192
 #: inc/slider/metaslider.flex.class.php:819
 msgid "Previous"
 msgstr "קודם"
 
 #: admin/slideshows/Settings.php:87
-#: inc/slider/metaslider.class.php:189
+#: inc/slider/metaslider.class.php:193
 #: inc/slider/metaslider.flex.class.php:820
 msgid "Next"
 msgstr "הבא"
@@ -515,23 +542,23 @@ msgstr "נכשל בייבוא מסלול טקסט מ-URL: %s."
 msgid "Failed to import image from URL: %s."
 msgstr "נכשל בייבוא תמונה מ-URL: %s."
 
-#: admin/slideshows/Slideshows.php:1204
+#: admin/slideshows/Slideshows.php:1208
 msgid "Only http/https URLs are allowed."
 msgstr "רק כתובות URL של http/https מותרות."
 
-#: admin/slideshows/Slideshows.php:1214
+#: admin/slideshows/Slideshows.php:1218
 msgid "URL does not point to an allowed file type."
 msgstr "כתובת ה-URL אינה מפנה לסוג קובץ מותר."
 
-#: admin/slideshows/Slideshows.php:1224
+#: admin/slideshows/Slideshows.php:1228
 msgid "URL resolves to a disallowed address."
 msgstr "כתובת ה-URL פותרת לכתובת שאינה מורשית."
 
-#: admin/slideshows/Themes.php:60
+#: admin/slideshows/Themes.php:203
 msgid "No themes found."
 msgstr "לא נמצאו תבניות."
 
-#: admin/slideshows/Themes.php:449
+#: admin/slideshows/Themes.php:595
 msgid ""
 "We removed your selected theme as it could not be found. Was the folder "
 "deleted?"
@@ -546,100 +573,100 @@ msgstr "אין לך מצגות שנמחקו."
 msgid "You don't have any slideshows yet. Click %shere%s to create a new slideshow."
 msgstr "אין לך עדיין מצגות. לחץ %shere%s כדי ליצור מצגת חדשה."
 
-#: admin/Table.php:184
-#: admin/Table.php:347
+#: admin/Table.php:193
+#: admin/Table.php:356
 #: inc/slide/metaslide.class.php:420
 msgid "Restore"
 msgstr "שחזור"
 
-#: admin/Table.php:185
-#: admin/Table.php:348
+#: admin/Table.php:194
+#: admin/Table.php:357
 #: inc/slide/metaslide.class.php:430
 msgid "Delete Permanently"
 msgstr "מחק לצמיתות"
 
-#: admin/Table.php:189
-#: admin/Table.php:362
+#: admin/Table.php:198
+#: admin/Table.php:371
 msgid "Trash"
 msgstr "זבל"
 
-#: admin/Table.php:200
+#: admin/Table.php:209
 #: admin/views/pages/parts/toolbar.php:75
 #: admin/assets/dist/js/app.js:2
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
-#: admin/Table.php:201
+#: admin/Table.php:210
 #: admin/assets/dist/js/app.js:2
 msgid "Title"
 msgstr "כותרת"
 
-#: admin/Table.php:202
+#: admin/Table.php:211
 msgid "Type of Slides"
 msgstr "סוג שקפים"
 
-#: admin/Table.php:203
+#: admin/Table.php:212
 msgid "Number of Slides"
 msgstr "מספר שקפים"
 
-#: admin/Table.php:204
+#: admin/Table.php:213
 msgid "Theme"
 msgstr "נושא"
 
-#: admin/Table.php:205
+#: admin/Table.php:214
 msgid "Created"
 msgstr "נוצר"
 
-#: admin/Table.php:206
-#: admin/views/pages/parts/slider-settings.php:1694
+#: admin/Table.php:215
+#: admin/views/pages/parts/slider-settings.php:1690
 msgid "Shortcode"
 msgstr "קיצור קוד"
 
-#: admin/Table.php:212
+#: admin/Table.php:221
 msgid "Usage"
 msgstr "שימוש"
 
-#: admin/Table.php:361
+#: admin/Table.php:370
 msgid "Edit"
 msgstr "ערוך"
 
-#: admin/Table.php:398
+#: admin/Table.php:407
 #: admin/views/pages/parts/shortcode.php:11
 msgid "Click to copy shortcode."
 msgstr "לחץ כדי להעתיק shortcode."
 
-#: admin/Table.php:406
-#: admin/Table.php:419
-#: admin/Table.php:479
+#: admin/Table.php:415
+#: admin/Table.php:428
+#: admin/Table.php:488
 msgid "Not found."
 msgstr "לא נמצא."
 
-#: admin/Table.php:408
+#: admin/Table.php:417
 msgid "View Usage"
 msgstr "צפה בשימוש"
 
-#: admin/Table.php:414
+#: admin/Table.php:423
 msgid "Content Using This Slideshow"
 msgstr "תוכן המשתמש במצגת זו"
 
-#: admin/Table.php:456
+#: admin/Table.php:465
 msgid "Theme Setting"
 msgstr "הגדרות נושא"
 
-#: admin/Table.php:470
+#: admin/Table.php:479
 msgid "Option"
 msgstr "אפשרות"
 
-#: admin/Table.php:527
-#: admin/views/pages/start.php:191
+#: admin/Table.php:536
+#: admin/views/pages/start.php:192
 msgid "All Themes"
 msgstr "כל הנושאים"
 
-#: admin/Table.php:540
+#: admin/Table.php:549
 msgid "(No Theme)"
 msgstr "(אין נושא)"
 
-#: admin/Table.php:544
+#: admin/Table.php:553
 #: admin/views/slides/tabs/background.php:32
 #: inc/metaslider.imagestyles.class.php:388
 msgid "Filter"
@@ -656,7 +683,7 @@ msgid "(%s Weeks)"
 msgstr "(שבועות %s)"
 
 #: admin/views/pages/dashboard.php:8
-#: ml-slider.php:574
+#: ml-slider.php:578
 #: admin/assets/dist/js/app.js:2
 msgid "Slideshows"
 msgstr "מצגות"
@@ -790,7 +817,7 @@ msgstr "רוחב מצגת השקופיות"
 
 #: admin/views/pages/parts/slider-settings.php:90
 #: admin/views/pages/parts/slider-settings.php:103
-#: admin/views/pages/parts/slider-settings.php:926
+#: admin/views/pages/parts/slider-settings.php:922
 #: admin/views/slides/tabs/background.php:51
 #: inc/metaslider.imagestyles.class.php:407
 #: inc/metaslider.imagestyles.class.php:419
@@ -1101,30 +1128,30 @@ msgid "This animation is used when changing slides."
 msgstr "אנימציה זו משמשת בעת שינוי שקפים."
 
 #: admin/views/pages/parts/slider-settings.php:550
-#: admin/views/pages/start.php:174
+#: admin/views/pages/start.php:175
 #: inc/metaslider.imagestyles.class.php:537
 msgid "Fade"
 msgstr "עמעום"
 
 #: admin/views/pages/parts/slider-settings.php:554
-#: admin/views/pages/start.php:173
+#: admin/views/pages/start.php:174
 msgid "Slide"
 msgstr "תמונה"
 
 #: admin/views/pages/parts/slider-settings.php:558
-#: admin/views/pages/start.php:175
+#: admin/views/pages/start.php:176
 msgid "Zooming"
 msgstr "זום"
 
 #: admin/views/pages/parts/slider-settings.php:562
-#: admin/views/pages/start.php:176
+#: admin/views/pages/start.php:177
 #: admin/views/slides/tabs/background.php:87
 #: inc/metaslider.imagestyles.class.php:488
 msgid "Flip"
 msgstr "הפיכה"
 
 #: admin/views/pages/parts/slider-settings.php:566
-#: admin/views/pages/parts/slider-settings.php:1344
+#: admin/views/pages/parts/slider-settings.php:1340
 msgid "Random"
 msgstr "אקראי"
 
@@ -1246,7 +1273,7 @@ msgid "Horizontal"
 msgstr "אופקית"
 
 #: admin/views/pages/parts/slider-settings.php:757
-#: admin/views/pages/start.php:178
+#: admin/views/pages/start.php:179
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:494
 msgid "Vertical"
@@ -1325,11 +1352,11 @@ msgstr ""
 "הצג מספר שקפים בו-זמנית. תצוגת המצגת תשתמש כברירת מחדל ברוחב של 100% ואפקט "
 "המעבר 'שקף'."
 
-#: admin/views/pages/parts/slider-settings.php:903
+#: admin/views/pages/parts/slider-settings.php:899
 msgid "Loop Carousel Continuously"
 msgstr "לולאת קרוסלה באופן רציף"
 
-#: admin/views/pages/parts/slider-settings.php:908
+#: admin/views/pages/parts/slider-settings.php:904
 msgid ""
 "Infinite loop of slides when Carousel Mode is enabled. This option disables "
 "arrows and navigation. The slideshow width must be less than or equal to "
@@ -1338,27 +1365,27 @@ msgstr ""
 "לולאה אינסופית של שקפים כאשר מצב קרוסלה מופעל. אפשרות זו משביתת חצים "
 "וניווט. רוחב המצגת חייב להיות פחות או שווה לרוחב הקונטיינר שבו היא הוכנסה."
 
-#: admin/views/pages/parts/slider-settings.php:919
+#: admin/views/pages/parts/slider-settings.php:915
 msgid "Carousel Margin"
 msgstr "שוליים של קרוסלה"
 
-#: admin/views/pages/parts/slider-settings.php:922
+#: admin/views/pages/parts/slider-settings.php:918
 msgid "Pixel margin between slides in carousel."
 msgstr "המרווח בפיקסלים בין שקופיות בקרוסלה."
 
-#: admin/views/pages/parts/slider-settings.php:936
+#: admin/views/pages/parts/slider-settings.php:932
 msgid "Display Minimum"
 msgstr "תצוגה מינימלית"
 
-#: admin/views/pages/parts/slider-settings.php:938
+#: admin/views/pages/parts/slider-settings.php:934
 msgid "Minimum number of slides to be displayed at the same time in the carousel."
 msgstr "מספר מינימלי של שקפים שית displayed באותו זמן בקרוסלה."
 
-#: admin/views/pages/parts/slider-settings.php:952
+#: admin/views/pages/parts/slider-settings.php:948
 msgid "Display Maximum"
 msgstr "תצוגה מקסימלית"
 
-#: admin/views/pages/parts/slider-settings.php:954
+#: admin/views/pages/parts/slider-settings.php:950
 msgid ""
 "Maximum number of slides to be displayed at the same time in the carousel. "
 "Set to 0 to adjust automatically."
@@ -1366,11 +1393,11 @@ msgstr ""
 "מספר מקסימלי של שקפים שית displayed באותו זמן בקרוסלה. הגדר ל-0 כדי להתאים "
 "אוטומטית."
 
-#: admin/views/pages/parts/slider-settings.php:963
+#: admin/views/pages/parts/slider-settings.php:959
 msgid "Slides to Show per Device"
 msgstr "שקפים להציג לכל מכשיר"
 
-#: admin/views/pages/parts/slider-settings.php:964
+#: admin/views/pages/parts/slider-settings.php:960
 msgid ""
 "Set an exact number of slides to show for each device width. Leave a device "
 "at 0 to use the Display Minimum/Maximum settings instead."
@@ -1378,7 +1405,7 @@ msgstr ""
 "קבע מספר מדויק של שקפים להציג לכל רוחב מכשיר. השאר מכשיר על 0 כדי להשתמש "
 "בהגדרות מינימום/מקסימום תצוגה במקום."
 
-#: admin/views/pages/parts/slider-settings.php:972
+#: admin/views/pages/parts/slider-settings.php:968
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths less than %spx. Set to 0 to "
@@ -1387,8 +1414,8 @@ msgstr ""
 "מספר מדויק של שקפים להציג על רוחבי מסך פחות מ-%spx. קבע ל-0 כדי להשתמש "
 "במינימום/מקסימום תצוגה במקום."
 
-#: admin/views/pages/parts/slider-settings.php:982
-#: admin/views/pages/parts/slider-settings.php:993
+#: admin/views/pages/parts/slider-settings.php:978
+#: admin/views/pages/parts/slider-settings.php:989
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths of %1$spx to %2$spx. Set to "
@@ -1397,7 +1424,7 @@ msgstr ""
 "מספר מדויק של שקפים להציג על רוחבי מסך של %1$spx עד %2$spx. קבע ל-0 כדי "
 "להשתמש במינימום/מקסימום תצוגה במקום."
 
-#: admin/views/pages/parts/slider-settings.php:1004
+#: admin/views/pages/parts/slider-settings.php:1000
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths equal to or greater than "
@@ -1406,19 +1433,19 @@ msgstr ""
 "מספר מדויק של שקפים להציג על רוחבי מסך שווים או גדולים מ-%spx. קבע ל-0 כדי "
 "להשתמש במינימום/מקסימום תצוגה במקום."
 
-#: admin/views/pages/parts/slider-settings.php:1021
+#: admin/views/pages/parts/slider-settings.php:1017
 msgid "Slides per Navigation Click"
 msgstr "שקפים לכל לחיצה על ניווט"
 
-#: admin/views/pages/parts/slider-settings.php:1023
+#: admin/views/pages/parts/slider-settings.php:1019
 msgid "Number of slides to move when clicking next or previous."
 msgstr "מספר השקפים להעביר בעת לחיצה על הבא או הקודם."
 
-#: admin/views/pages/parts/slider-settings.php:1032
+#: admin/views/pages/parts/slider-settings.php:1028
 msgid "Force Height"
 msgstr "גובה כפוי"
 
-#: admin/views/pages/parts/slider-settings.php:1037
+#: admin/views/pages/parts/slider-settings.php:1033
 msgid ""
 "If the slideshow looks small, force slideshow height when using Carousel "
 "mode. Please note when is enabled slides may look cropped."
@@ -1426,49 +1453,49 @@ msgstr ""
 "אם המצגת נראית קטנה, כפוף את גובה המצגת בעת שימוש במצב קרוסלה. שים לב "
 "שכשהאפשרות הזו מופעלת, השקפים עשויים להיראות מחולקים."
 
-#: admin/views/pages/parts/slider-settings.php:1062
+#: admin/views/pages/parts/slider-settings.php:1058
 msgid "Image Options"
 msgstr "אפשרויות תמונה"
 
-#: admin/views/pages/parts/slider-settings.php:1074
+#: admin/views/pages/parts/slider-settings.php:1070
 msgid "Image Crop"
 msgstr "חיתוך תמונה"
 
-#: admin/views/pages/parts/slider-settings.php:1079
+#: admin/views/pages/parts/slider-settings.php:1075
 msgid "Smart Crop"
 msgstr "חיתוך חכם"
 
-#: admin/views/pages/parts/slider-settings.php:1086
+#: admin/views/pages/parts/slider-settings.php:1082
 msgid "Standard"
 msgstr "סטנדרטי"
 
-#: admin/views/pages/parts/slider-settings.php:1093
+#: admin/views/pages/parts/slider-settings.php:1089
 msgid "Disabled"
 msgstr "מושבת"
 
-#: admin/views/pages/parts/slider-settings.php:1100
+#: admin/views/pages/parts/slider-settings.php:1096
 msgid "Disabled (Smart Pad)"
 msgstr "מושבת (פטנט חכם)"
 
-#: admin/views/pages/parts/slider-settings.php:1107
+#: admin/views/pages/parts/slider-settings.php:1103
 msgid ""
 "Smart Crop ensures your responsive slides are cropped to a ratio that "
 "results in a consistent slideshow size."
 msgstr "חיתוך חכם מבטיח ששקפים רספונסיביים שלך ייחתכו ביחס שמביא לגודל מצגת אחיד."
 
-#: admin/views/pages/parts/slider-settings.php:1115
+#: admin/views/pages/parts/slider-settings.php:1111
 msgid "Image Crop Source"
 msgstr "מקור חיתוך תמונה"
 
-#: admin/views/pages/parts/slider-settings.php:1120
+#: admin/views/pages/parts/slider-settings.php:1116
 msgid "Slideshow width/height"
 msgstr "רוחב/גובה מצגת"
 
-#: admin/views/pages/parts/slider-settings.php:1123
+#: admin/views/pages/parts/slider-settings.php:1119
 msgid "Custom width/height (Pro)"
 msgstr "רוחב/גובה מותאם אישית (פרו)"
 
-#: admin/views/pages/parts/slider-settings.php:1127
+#: admin/views/pages/parts/slider-settings.php:1123
 msgid ""
 "By default, MetaSlider Slideshow will crop images using the main width and "
 "height of the slideshow. If you want smaller images, select Custom "
@@ -1479,11 +1506,11 @@ msgstr ""
 "אתה רוצה תמונות קטנות יותר, בחר רוחב/גובה מותאם אישית ודא שהערכים קטנים "
 "מהרוחב והגובה הראשיים."
 
-#: admin/views/pages/parts/slider-settings.php:1136
+#: admin/views/pages/parts/slider-settings.php:1132
 msgid "Image Crop Size"
 msgstr "גודל חיתוך תמונה"
 
-#: admin/views/pages/parts/slider-settings.php:1145
+#: admin/views/pages/parts/slider-settings.php:1141
 msgid ""
 "This will increase the size of the images in your slideshow. Larger images "
 "are higher quality. Smaller images load more quickly."
@@ -1491,11 +1518,11 @@ msgstr ""
 "זה יגדיל את גודל התמונות במצגת שלך. תמונות גדולות יותר הן באיכות גבוהה "
 "יותר. תמונות קטנות יותר נטענות מהר יותר."
 
-#: admin/views/pages/parts/slider-settings.php:1156
+#: admin/views/pages/parts/slider-settings.php:1152
 msgid "Lazy Load Images"
 msgstr "טעינה עצלה של תמונות"
 
-#: admin/views/pages/parts/slider-settings.php:1161
+#: admin/views/pages/parts/slider-settings.php:1157
 msgid ""
 "This feature can speed up your site. MetaSlider Slideshow will only load "
 "slides when they are required by your slideshow."
@@ -1503,25 +1530,25 @@ msgstr ""
 "תכונה זו יכולה להאיץ את האתר שלך. MetaSlider יטען שקפים רק כאשר הם נדרשים "
 "על ידי המצגת שלך."
 
-#: admin/views/pages/parts/slider-settings.php:1177
+#: admin/views/pages/parts/slider-settings.php:1173
 #: inc/metaslider.imagestyles.class.php:96
 msgid "Image Styles"
 msgstr "סגנונות תמונה"
 
-#: admin/views/pages/parts/slider-settings.php:1195
+#: admin/views/pages/parts/slider-settings.php:1191
 msgid "Layout Features"
 msgstr "תכונות פריסה"
 
-#: admin/views/pages/parts/slider-settings.php:1207
+#: admin/views/pages/parts/slider-settings.php:1203
 #: admin/assets/dist/js/app.js:2
 msgid "Auto Play"
 msgstr "ניגון אוטומטי"
 
-#: admin/views/pages/parts/slider-settings.php:1212
+#: admin/views/pages/parts/slider-settings.php:1208
 msgid "Transition between slides automatically."
 msgstr "מעבר בין שקפים אוטומטית."
 
-#: admin/views/pages/parts/slider-settings.php:1220
+#: admin/views/pages/parts/slider-settings.php:1216
 #: themes/architekt/customize.php:615
 #: themes/bitono/customize.php:798
 #: themes/blend/customize.php:828
@@ -1543,57 +1570,57 @@ msgstr "מעבר בין שקפים אוטומטית."
 msgid "Play / Pause Button"
 msgstr "כפתור ניגון / הפסקה"
 
-#: admin/views/pages/parts/slider-settings.php:1225
+#: admin/views/pages/parts/slider-settings.php:1221
 msgid "This allows user to pause or resume Auto Play on the slideshow."
 msgstr "זה מאפשר למשתמש להפסיק או להמשיך את הניגון האוטומטי במצגת."
 
-#: admin/views/pages/parts/slider-settings.php:1233
+#: admin/views/pages/parts/slider-settings.php:1229
 msgid "Show Play / Pause Button Text"
 msgstr "הצג טקסט כפתור ניגון / הפסקה"
 
-#: admin/views/pages/parts/slider-settings.php:1238
+#: admin/views/pages/parts/slider-settings.php:1234
 msgid "Show text options for Play / Pause Button"
 msgstr "הצג אפשרויות טקסט עבור כפתור ניגון / הפסקה"
 
-#: admin/views/pages/parts/slider-settings.php:1246
+#: admin/views/pages/parts/slider-settings.php:1242
 msgid "Play Text"
 msgstr "טקסט ניגון"
 
-#: admin/views/pages/parts/slider-settings.php:1248
-#: admin/views/pages/parts/slider-settings.php:1261
+#: admin/views/pages/parts/slider-settings.php:1244
+#: admin/views/pages/parts/slider-settings.php:1257
 msgid ""
 "Enter text for the Play/Pause Button. Leave the field empty to use the icon "
 "only."
 msgstr "הכנס טקסט עבור כפתור ניגון/הפסקה. השאר את השדה ריק כדי להשתמש רק באייקון."
 
-#: admin/views/pages/parts/slider-settings.php:1259
+#: admin/views/pages/parts/slider-settings.php:1255
 msgid "Pause Text"
 msgstr "טקסט הפסקה"
 
-#: admin/views/pages/parts/slider-settings.php:1272
+#: admin/views/pages/parts/slider-settings.php:1268
 #: themes/customize.php:34
 msgid "Progress Bar"
 msgstr "שורת התקדמות"
 
-#: admin/views/pages/parts/slider-settings.php:1277
+#: admin/views/pages/parts/slider-settings.php:1273
 msgid "Displays a visual indicator showing the time left before the next slide."
 msgstr "מציג אינדיקטור חזותי המראה את הזמן שנותר לפני השקף הבא."
 
-#: admin/views/pages/parts/slider-settings.php:1285
+#: admin/views/pages/parts/slider-settings.php:1281
 msgid "Hover Pause"
 msgstr "השהיית ריחוף"
 
-#: admin/views/pages/parts/slider-settings.php:1290
+#: admin/views/pages/parts/slider-settings.php:1286
 msgid ""
 "Pause the slideshow when hovering over slider, then resume when no longer "
 "hovering."
 msgstr "עצור את הצגת השקופיות בעת ריחוף עכבר והמשך לאחר שכבר לא ירחף."
 
-#: admin/views/pages/parts/slider-settings.php:1298
+#: admin/views/pages/parts/slider-settings.php:1294
 msgid "Loop"
 msgstr "לולאה"
 
-#: admin/views/pages/parts/slider-settings.php:1300
+#: admin/views/pages/parts/slider-settings.php:1296
 msgid ""
 "If you choose \"Loop endlessly\", the slides will loop infinitely. If you "
 "choose \"Stop on first slide after looping\", the slideshow will stop on "
@@ -1604,188 +1631,188 @@ msgstr ""
 "בשקף הראשון לאחר הלולאה\", המצגת תפסיק בשקף הראשון לאחר הצגת כל הפריטים. אם "
 "תבחר \"להפסיק בשקף האחרון\", השקפים יעצרו בשקף האחרון."
 
-#: admin/views/pages/parts/slider-settings.php:1303
+#: admin/views/pages/parts/slider-settings.php:1299
 msgid "Loop Endlessly"
 msgstr "לולאה אינסופית"
 
-#: admin/views/pages/parts/slider-settings.php:1304
+#: admin/views/pages/parts/slider-settings.php:1300
 msgid "Stop On Last Slide"
 msgstr "עצור בשקף האחרון"
 
-#: admin/views/pages/parts/slider-settings.php:1305
+#: admin/views/pages/parts/slider-settings.php:1301
 msgid "Stop On First Slide After Looping"
 msgstr "עצור בשקף הראשון לאחר חזרה"
 
-#: admin/views/pages/parts/slider-settings.php:1311
+#: admin/views/pages/parts/slider-settings.php:1307
 msgid "Smooth Height"
 msgstr "גובה חלק"
 
-#: admin/views/pages/parts/slider-settings.php:1316
+#: admin/views/pages/parts/slider-settings.php:1312
 msgid "Allow navigation to follow the slide's height smoothly."
 msgstr "אפשר ניווט שיעקוב אחרי גובה השקף בצורה חלקה."
 
-#: admin/views/pages/parts/slider-settings.php:1324
+#: admin/views/pages/parts/slider-settings.php:1320
 msgid "Slide Order"
 msgstr "סדר שקפים"
 
-#: admin/views/pages/parts/slider-settings.php:1329
+#: admin/views/pages/parts/slider-settings.php:1325
 msgid "Newest First"
 msgstr "החדש ביותר ראשון"
 
-#: admin/views/pages/parts/slider-settings.php:1332
+#: admin/views/pages/parts/slider-settings.php:1328
 msgid "Oldest First"
 msgstr "הישן ביותר ראשון"
 
-#: admin/views/pages/parts/slider-settings.php:1335
+#: admin/views/pages/parts/slider-settings.php:1331
 msgid "A to Z (by filename)"
 msgstr "א' עד ת' (לפי שם קובץ)"
 
-#: admin/views/pages/parts/slider-settings.php:1338
+#: admin/views/pages/parts/slider-settings.php:1334
 msgid "Z to A (by filename)"
 msgstr "ת' עד א' (לפי שם קובץ)"
 
-#: admin/views/pages/parts/slider-settings.php:1341
+#: admin/views/pages/parts/slider-settings.php:1337
 msgid "Drag-and-drop"
 msgstr "גרור והשאר"
 
-#: admin/views/pages/parts/slider-settings.php:1347
+#: admin/views/pages/parts/slider-settings.php:1343
 msgid ""
 "Select the order in which slides appear in the slideshow. This impacts the "
 "frontend view."
 msgstr "בחר את הסדר שבו השקפים מופיעים במצגת. זה משפיע על התצוגה בחזית."
 
-#: admin/views/pages/parts/slider-settings.php:1355
+#: admin/views/pages/parts/slider-settings.php:1351
 msgid "Touch Swipe"
 msgstr "מגע החלקה"
 
-#: admin/views/pages/parts/slider-settings.php:1360
+#: admin/views/pages/parts/slider-settings.php:1356
 msgid "Allow touch swipe navigation of the slider on touch-enabled devices."
 msgstr "אפשר ניווט החלקה במגע של הסליידר במכשירים עם מסך מגע."
 
-#: admin/views/pages/parts/slider-settings.php:1368
+#: admin/views/pages/parts/slider-settings.php:1364
 msgid "Loading Indicator"
 msgstr "סמן טעינה"
 
-#: admin/views/pages/parts/slider-settings.php:1373
+#: admin/views/pages/parts/slider-settings.php:1369
 msgid "Displays a visual indicator while the slideshow is loading."
 msgstr "מציג סמן חזותי בזמן שהמצגת נטענת."
 
-#: admin/views/pages/parts/slider-settings.php:1381
+#: admin/views/pages/parts/slider-settings.php:1377
 msgid "Previous Text"
 msgstr "טקסט קודם"
 
-#: admin/views/pages/parts/slider-settings.php:1383
+#: admin/views/pages/parts/slider-settings.php:1379
 msgid "Set the text for the \"previous\" direction item."
 msgstr "הגדר את הטקסט עבור פריט הכיוון \"קודם\"."
 
-#: admin/views/pages/parts/slider-settings.php:1395
+#: admin/views/pages/parts/slider-settings.php:1391
 msgid "Next Text"
 msgstr "טקסט הבא"
 
-#: admin/views/pages/parts/slider-settings.php:1397
+#: admin/views/pages/parts/slider-settings.php:1393
 msgid "Set the text for the \"next\" direction item."
 msgstr "הגדר את הטקסט עבור פריט הכיוון \"בא״"
 
-#: admin/views/pages/parts/slider-settings.php:1414
+#: admin/views/pages/parts/slider-settings.php:1410
 msgid "Square Delay"
 msgstr "עיכוב ריבועי"
 
-#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1412
 msgid "Delay between squares in ms."
 msgstr "השהיה בין ריבועים במילישניות."
 
-#: admin/views/pages/parts/slider-settings.php:1433
+#: admin/views/pages/parts/slider-settings.php:1429
 msgid "Opacity of title and navigation, between 0 and 1."
 msgstr "שקיפות של הכותרת והניווט, בין 0 ל-1."
 
-#: admin/views/pages/parts/slider-settings.php:1448
+#: admin/views/pages/parts/slider-settings.php:1444
 msgid "Caption Speed"
 msgstr "מהירות כותרת"
 
-#: admin/views/pages/parts/slider-settings.php:1450
+#: admin/views/pages/parts/slider-settings.php:1446
 msgid "Set the fade in speed of the caption."
 msgstr "קבע את מהירות ההבהוב של הכותרת."
 
-#: admin/views/pages/parts/slider-settings.php:1472
+#: admin/views/pages/parts/slider-settings.php:1468
 msgid "Container Options"
 msgstr "אפשרויות מיכל"
 
-#: admin/views/pages/parts/slider-settings.php:1484
+#: admin/views/pages/parts/slider-settings.php:1480
 msgid "Container Box"
 msgstr "תיבת מיכל"
 
-#: admin/views/pages/parts/slider-settings.php:1489
+#: admin/views/pages/parts/slider-settings.php:1485
 msgid "Customize the slideshow's container box."
 msgstr "התאם אישית את תיבת המיכל של המצגת."
 
-#: admin/views/pages/parts/slider-settings.php:1495
-#: admin/views/pages/parts/slider-settings.php:1535
+#: admin/views/pages/parts/slider-settings.php:1491
+#: admin/views/pages/parts/slider-settings.php:1531
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "This feature is available in MetaSlider Slideshow Pro"
 msgstr "תכונה זו זמינה ב-MetaSlider Pro"
 
-#: admin/views/pages/parts/slider-settings.php:1510
+#: admin/views/pages/parts/slider-settings.php:1506
 msgid "Watermark Options"
 msgstr "אפשרויות סימן מים"
 
-#: admin/views/pages/parts/slider-settings.php:1524
+#: admin/views/pages/parts/slider-settings.php:1520
 msgid "Watermark"
 msgstr "סימן מים"
 
-#: admin/views/pages/parts/slider-settings.php:1529
+#: admin/views/pages/parts/slider-settings.php:1525
 msgid "Overlay an image (e.g. a logo) on top of the slideshow."
 msgstr "הנח תמונה (למשל לוגו) מעל השקופית."
 
-#: admin/views/pages/parts/slider-settings.php:1550
+#: admin/views/pages/parts/slider-settings.php:1546
 msgid "Accessibility Options"
 msgstr "אפשרויות נגישות"
 
-#: admin/views/pages/parts/slider-settings.php:1562
+#: admin/views/pages/parts/slider-settings.php:1558
 msgid "Keyboard Controls"
 msgstr "בקרות מקלדת"
 
-#: admin/views/pages/parts/slider-settings.php:1567
+#: admin/views/pages/parts/slider-settings.php:1563
 msgid "Use arrow keys to get to the next slide."
 msgstr "השתמש במקשי חצים כדי לעבור לשקף הבא."
 
-#: admin/views/pages/parts/slider-settings.php:1575
+#: admin/views/pages/parts/slider-settings.php:1571
 msgid "Tabindex For Navigation"
 msgstr "Tabindex עבור ניווט"
 
-#: admin/views/pages/parts/slider-settings.php:1580
+#: admin/views/pages/parts/slider-settings.php:1576
 msgid "This helps make the slideshow navigation more accessible."
 msgstr "זה עוזר להפוך את ניווט המצגת לנגיש יותר."
 
-#: admin/views/pages/parts/slider-settings.php:1588
+#: admin/views/pages/parts/slider-settings.php:1584
 msgid "ARIA Live"
 msgstr "ARIA חי"
 
-#: admin/views/pages/parts/slider-settings.php:1593
+#: admin/views/pages/parts/slider-settings.php:1589
 msgid ""
 "If Autoplay is enabled, this causes screen readers to announce that the "
 "slides are changing."
 msgstr "אם הפעלה אוטומטית מופעלת, זה גורם לקוראי מסך להודיע שהשקפים משתנים."
 
-#: admin/views/pages/parts/slider-settings.php:1601
+#: admin/views/pages/parts/slider-settings.php:1597
 msgid "ARIA Current"
 msgstr "ARIA נוכחי"
 
-#: admin/views/pages/parts/slider-settings.php:1606
+#: admin/views/pages/parts/slider-settings.php:1602
 msgid ""
 "This is used on the navigation button for the active slide. It helps screen "
 "readers understand which slide is active."
 msgstr "זה משמש על כפתור הניווט לשקף הפעיל. זה עוזר לקוראי מסך להבין איזה שקף פעיל."
 
-#: admin/views/pages/parts/slider-settings.php:1622
+#: admin/views/pages/parts/slider-settings.php:1618
 msgid "Developer Options"
 msgstr "אפשרויות מפתחים"
 
-#: admin/views/pages/parts/slider-settings.php:1634
+#: admin/views/pages/parts/slider-settings.php:1630
 msgid "CSS Classes"
 msgstr "מחלקות CSS"
 
-#: admin/views/pages/parts/slider-settings.php:1636
+#: admin/views/pages/parts/slider-settings.php:1632
 msgid ""
 "Enter custom CSS classes to apply to the slider wrapper. Separate multiple "
 "classes with a space."
@@ -1793,36 +1820,36 @@ msgstr ""
 "הזן מחלקות CSS מותאמות אישית שיחולו על מעטפת הסליידר. הפרד בין מחלקות "
 "מרובות באמצעות רווח."
 
-#: admin/views/pages/parts/slider-settings.php:1647
+#: admin/views/pages/parts/slider-settings.php:1643
 msgid "Print CSS"
 msgstr "הדפס CSS"
 
-#: admin/views/pages/parts/slider-settings.php:1652
+#: admin/views/pages/parts/slider-settings.php:1648
 msgid "Uncheck this if you would like to include your own CSS."
 msgstr "בטל את הסימון אם תרצה לכלול את ה-CSS שלך."
 
-#: admin/views/pages/parts/slider-settings.php:1660
+#: admin/views/pages/parts/slider-settings.php:1656
 msgid "Print JS"
 msgstr "הדפס JS"
 
-#: admin/views/pages/parts/slider-settings.php:1665
+#: admin/views/pages/parts/slider-settings.php:1661
 msgid "Uncheck this if you would like to include your own Javascript."
 msgstr "בטל את הסימון אם תרצה לכלול את ה-Javascript שלך."
 
-#: admin/views/pages/parts/slider-settings.php:1673
+#: admin/views/pages/parts/slider-settings.php:1669
 msgid "No Conflict Mode"
 msgstr "מצב ללא קונפליקט"
 
-#: admin/views/pages/parts/slider-settings.php:1678
+#: admin/views/pages/parts/slider-settings.php:1674
 msgid "Delay adding the flexslider class to the slideshow."
 msgstr "דחה את הוספת מחלקת flexslider למצגת."
 
-#: admin/views/pages/parts/slider-settings.php:1716
-#: ml-slider.php:1880
+#: admin/views/pages/parts/slider-settings.php:1712
+#: ml-slider.php:1930
 msgid "Trashed Slides"
 msgstr "שקפים שנמחקו"
 
-#: admin/views/pages/parts/slider-settings.php:1726
+#: admin/views/pages/parts/slider-settings.php:1722
 msgid "View trashed slides"
 msgstr "צפה בשקפים שנמחקו"
 
@@ -1840,7 +1867,7 @@ msgid "Add a new slide"
 msgstr "הוסף שקף חדש"
 
 #: admin/views/pages/parts/toolbar.php:60
-#: inc/slider/metaslider.class.php:1055
+#: inc/slider/metaslider.class.php:1065
 msgid "Add Slide"
 msgstr "הוספת תמונה"
 
@@ -1884,7 +1911,7 @@ msgid "Save"
 msgstr "שמור"
 
 #: admin/views/pages/parts/toolbar.php:155
-#: ml-slider.php:1945
+#: ml-slider.php:1995
 msgid "Return to Published Slides"
 msgstr "חזור לשקפים שפורסמו"
 
@@ -1920,7 +1947,7 @@ msgid "Redirecting..."
 msgstr "מופנה מחדש..."
 
 #: admin/views/pages/start.php:106
-#: ml-slider.php:575
+#: ml-slider.php:579
 msgid "Quick Start"
 msgstr "התחלה מהירה"
 
@@ -1949,163 +1976,164 @@ msgid "Slide Type"
 msgstr "סוג שקופית"
 
 #: admin/views/pages/start.php:145
-#: inc/metaslider.quickstart.class.php:760
-#: ml-slider.php:798
+#: inc/metaslider.quickstart.class.php:773
+#: ml-slider.php:849
 msgid "Image"
 msgstr "תמונה"
 
-#: admin/views/pages/start.php:149
-#: inc/metaslider.quickstart.class.php:611
-#: inc/metaslider.quickstart.class.php:772
-#: ml-slider.php:842
+#: admin/views/pages/start.php:150
+#: inc/metaslider.quickstart.class.php:623
+#: inc/metaslider.quickstart.class.php:785
+#: ml-slider.php:893
 msgid "External Image"
 msgstr "תמונה חיצונית"
 
-#: admin/views/pages/start.php:150
-#: inc/metaslider.quickstart.class.php:623
-#: inc/metaslider.quickstart.class.php:775
-#: ml-slider.php:843
+#: admin/views/pages/start.php:151
+#: inc/metaslider.quickstart.class.php:635
+#: inc/metaslider.quickstart.class.php:788
+#: ml-slider.php:894
 msgid "External Video"
 msgstr "וידאו חיצוני"
 
-#: admin/views/pages/start.php:151
-#: inc/metaslider.quickstart.class.php:635
-#: inc/metaslider.quickstart.class.php:781
-#: ml-slider.php:844
+#: admin/views/pages/start.php:152
+#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:797
+#: ml-slider.php:895
 msgid "Custom HTML"
 msgstr "HTML מותאם אישית"
 
-#: admin/views/pages/start.php:152
-#: inc/metaslider.quickstart.class.php:683
-#: inc/metaslider.quickstart.class.php:790
-#: ml-slider.php:845
+#: admin/views/pages/start.php:153
+#: inc/metaslider.quickstart.class.php:695
+#: inc/metaslider.quickstart.class.php:806
+#: ml-slider.php:896
 msgid "Background Color"
 msgstr "צבע רקע"
 
-#: admin/views/pages/start.php:153
-#: admin/views/pages/start.php:184
-#: ml-slider.php:848
+#: admin/views/pages/start.php:154
+#: admin/views/pages/start.php:185
+#: ml-slider.php:899
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: admin/views/pages/start.php:154
-#: inc/metaslider.quickstart.class.php:599
-#: inc/metaslider.quickstart.class.php:787
-#: ml-slider.php:849
+#: admin/views/pages/start.php:155
+#: inc/metaslider.quickstart.class.php:611
+#: inc/metaslider.quickstart.class.php:803
+#: ml-slider.php:900
 msgid "Post Feed"
 msgstr "פיד פוסטים"
 
-#: admin/views/pages/start.php:155
-#: inc/metaslider.quickstart.class.php:784
-#: ml-slider.php:850
+#: admin/views/pages/start.php:156
+#: inc/metaslider.quickstart.class.php:800
+#: ml-slider.php:901
 msgid "Layer Slide"
 msgstr "שקופית שכבה"
 
-#: admin/views/pages/start.php:156
-#: inc/metaslider.quickstart.class.php:575
-#: inc/metaslider.quickstart.class.php:769
-#: ml-slider.php:851
+#: admin/views/pages/start.php:157
+#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:782
+#: modules/local_video/slide.php:43
+#: modules/local_video/slide.php:82
 msgid "Local Video"
 msgstr "וידאו מקומי"
 
-#: admin/views/pages/start.php:161
+#: admin/views/pages/start.php:162
 msgid "Features"
 msgstr "תכונות"
 
-#: admin/views/pages/start.php:162
+#: admin/views/pages/start.php:163
 msgid "Boxed"
 msgstr "מוקף"
 
-#: admin/views/pages/start.php:163
+#: admin/views/pages/start.php:164
 msgid "Full-width"
 msgstr "ברוחב מלא"
 
-#: admin/views/pages/start.php:164
+#: admin/views/pages/start.php:165
 msgid "Carousel"
 msgstr "קרוסלה"
 
-#: admin/views/pages/start.php:165
+#: admin/views/pages/start.php:166
 msgid "Thumbnail Navigation"
 msgstr "ניווט תמונות ממוזערות"
 
-#: admin/views/pages/start.php:166
+#: admin/views/pages/start.php:167
 msgid "Video Caption"
 msgstr "כיתוב וידאו"
 
-#: admin/views/pages/start.php:167
-#: admin/views/pages/start.php:302
+#: admin/views/pages/start.php:168
+#: admin/views/pages/start.php:303
 msgid "Hero Image"
 msgstr "תמונת גיבור"
 
-#: admin/views/pages/start.php:172
+#: admin/views/pages/start.php:173
 msgid "Animation Type"
 msgstr "סוג אנימציה"
 
-#: admin/views/pages/start.php:177
+#: admin/views/pages/start.php:178
 msgid "Ken Burns"
 msgstr "קן בורנס"
 
-#: admin/views/pages/start.php:183
+#: admin/views/pages/start.php:184
 msgid "Integration"
 msgstr "אינטגרציה"
 
-#: admin/views/pages/start.php:185
+#: admin/views/pages/start.php:186
 msgid "The Events Calendar"
 msgstr "לוח השנה של האירועים"
 
-#: admin/views/pages/start.php:186
-#: admin/views/pages/start.php:298
+#: admin/views/pages/start.php:187
+#: admin/views/pages/start.php:299
 msgid "WordPress Posts"
 msgstr "פוסטים של WordPress"
 
-#: admin/views/pages/start.php:227
+#: admin/views/pages/start.php:228
 msgid "Free and Pro"
 msgstr "חינם ופרו"
 
-#: admin/views/pages/start.php:228
+#: admin/views/pages/start.php:229
 msgid "Free only"
 msgstr "רק חינם"
 
-#: admin/views/pages/start.php:229
+#: admin/views/pages/start.php:230
 msgid "Pro only"
 msgstr "רק פרו"
 
-#: admin/views/pages/start.php:233
+#: admin/views/pages/start.php:234
 msgid "Reset Filters"
 msgstr "איפוס מסננים"
 
-#: admin/views/pages/start.php:239
+#: admin/views/pages/start.php:240
 msgid "No demos match your filters."
 msgstr "אין דמואים התואמים את המסננים שלך."
 
-#: admin/views/pages/start.php:322
+#: admin/views/pages/start.php:323
 #, php-format
 msgid "Create %s slideshow?"
 msgstr "ליצור מצגת %s?"
 
-#: admin/views/pages/start.php:328
+#: admin/views/pages/start.php:329
 msgid "Cancel"
 msgstr "לבטל"
 
-#: admin/views/pages/start.php:331
+#: admin/views/pages/start.php:332
 msgid "Yes, please!"
 msgstr "כן, בבקשה!"
 
-#: admin/views/pages/start.php:337
+#: admin/views/pages/start.php:338
 msgid "Demo"
 msgstr "דמו"
 
-#: admin/views/pages/start.php:343
+#: admin/views/pages/start.php:344
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Get MetaSlider Slideshow Pro!"
 msgstr "MetaSlider Slideshow"
 
-#: admin/views/pages/start.php:346
+#: admin/views/pages/start.php:347
 msgid "Upgrade now to unlock this demo slideshow!"
 msgstr "שדרגו עכשיו כדי לפתוח את המצגת הדמו הזאת!"
 
-#: admin/views/pages/start.php:349
+#: admin/views/pages/start.php:350
 #: admin/views/pages/theme-editor.php:36
 #: admin/views/pages/upgrade.php:26
 #: admin/views/pages/upgrade.php:201
@@ -2113,19 +2141,19 @@ msgstr "שדרגו עכשיו כדי לפתוח את המצגת הדמו הזא�
 msgid "Upgrade now"
 msgstr "שדרגו עכשיו"
 
-#: admin/views/pages/start.php:367
+#: admin/views/pages/start.php:368
 msgid "Create a slideshow with your images"
 msgstr "צרו מצגת עם התמונות שלכם"
 
-#: admin/views/pages/start.php:368
+#: admin/views/pages/start.php:369
 msgid "Choose your own images to start a new slideshow."
 msgstr "בחרו את התמונות שלכם כדי להתחיל מצגת חדשה."
 
-#: admin/views/pages/start.php:374
+#: admin/views/pages/start.php:375
 msgid "Uploading images..."
 msgstr "מעלה תמונות..."
 
-#: admin/views/pages/start.php:385
+#: admin/views/pages/start.php:386
 msgid "Open Media Library"
 msgstr "פתח את ספריית המדיה"
 
@@ -2135,7 +2163,7 @@ msgid "Introducing the Theme Editor in MetaSlider Slideshow Pro"
 msgstr "הצגת עורך התבניות ב- MetaSlider Pro"
 
 #: admin/views/pages/theme-editor.php:18
-#: ml-slider.php:579
+#: ml-slider.php:583
 msgid "Theme Editor"
 msgstr "עורך תבניות"
 
@@ -2855,10 +2883,12 @@ msgstr ""
 "לך כפתור בתבנית, הקישור ייושם על הכפתור."
 
 #: admin/views/slides/tabs/link.php:20
+#: modules/local_video/tabs/link.php:28
 msgid "New window"
 msgstr "חלון חדש"
 
 #: admin/views/slides/tabs/link.php:22
+#: modules/local_video/tabs/link.php:30
 msgid "Open link in a new window"
 msgstr "פתח קישור בחלון חדש"
 
@@ -2878,11 +2908,62 @@ msgstr ""
 msgid "Enter text here"
 msgstr "הקלד טקסט כאן"
 
-#: admin/views/slides/tabs/mobile.php:33
+#: admin/views/slides/tabs/livid.php:18
+msgid "Livid Video URL"
+msgstr "כתובת ה-URL של וידאו ליווויד"
+
+#: admin/views/slides/tabs/livid.php:19
+msgid ""
+"Paste the link to a video hosted on livid.com. We will create the embed for "
+"you."
+msgstr "הדבק את הקישור לוידאו שמאוחסן ב-livid.com. אנו ניצור עבורך את ההטמעה."
+
+#: admin/views/slides/tabs/livid.php:33
+#: modules/local_video/tabs/general.php:70
+msgid "Mute video"
+msgstr "השקטה של הוידאו"
+
+#: admin/views/slides/tabs/livid.php:47
+#: modules/local_video/tabs/general.php:82
+msgid "Show controls"
+msgstr "הצג בקרות"
+
+#: admin/views/slides/tabs/livid.php:49
+msgid ""
+"Hiding the controls only works if the video is on a Livid Pro or Premium "
+"account"
+msgstr "הסתרת הבקרות פועלת רק אם הוידאו נמצא בחשבון ליווויד פרו או פרימיום"
+
+#: admin/views/slides/tabs/livid.php:65
+#: modules/local_video/tabs/general.php:95
+msgid "Auto play"
+msgstr "נגן אוטומטי"
+
+#: admin/views/slides/tabs/livid.php:67
+msgid "May require the video to be muted"
+msgstr "עשוי לדרוש שהוידאו יהיה מושתק"
+
+#: admin/views/slides/tabs/livid.php:83
+#: modules/local_video/tabs/general.php:113
+msgid "Lazy load video"
+msgstr "הטעינת הוידאו באיטיות"
+
+#: admin/views/slides/tabs/livid.php:85
+msgid "The video only loads once a visitor clicks play"
+msgstr "הוידאו נטען רק כאשר מבקר לוחץ על הפעל"
+
+#: admin/views/slides/tabs/livid.php:99
+#: modules/local_video/tabs/general.php:125
+msgid "Loop video"
+msgstr "לולאת וידאו"
+
+#: admin/views/slides/tabs/mobile.php:35
+#: modules/local_video/tabs/mobile.php:22
 msgid "Hide slide on:"
 msgstr "הסתיר שקף ב:"
 
-#: admin/views/slides/tabs/mobile.php:46
+#: admin/views/slides/tabs/mobile.php:48
+#: modules/local_video/tabs/mobile.php:35
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths equal to or "
@@ -2891,18 +2972,19 @@ msgstr ""
 "כאשר אפשרות זו פעילה, ההגדרה תסתיר את השקף ברוחבי מסך השווים או גדולים "
 "מ-%spx"
 
-#: admin/views/slides/tabs/mobile.php:56
+#: admin/views/slides/tabs/mobile.php:58
+#: modules/local_video/tabs/mobile.php:45
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths of %1$spx to "
 "%2$spx"
 msgstr "כאשר אפשרות זו פעילה, ההגדרה תסתיר את השקף ברוחבי מסך של %1$spx עד %2$spx"
 
-#: admin/views/slides/tabs/mobile.php:72
+#: admin/views/slides/tabs/mobile.php:75
 msgid "Hide caption on:"
 msgstr "הסתיר כותרת ב:"
 
-#: admin/views/slides/tabs/mobile.php:85
+#: admin/views/slides/tabs/mobile.php:88
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths equal to "
@@ -2911,7 +2993,7 @@ msgstr ""
 "כאשר אפשרות זו פעילה, ההגדרה תסתיר את הכותרת ברוחבי מסך השווים או גדולים "
 "מ-%spx"
 
-#: admin/views/slides/tabs/mobile.php:95
+#: admin/views/slides/tabs/mobile.php:98
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths of %1$spx "
@@ -3145,136 +3227,136 @@ msgstr "פרספקטיבות מתהוות"
 msgid "Sporting Spirit"
 msgstr "רוח ספורטיבית"
 
-#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:227
 msgid "Marathon Journey"
 msgstr "מסע מרתון"
 
-#: inc/metaslider.quickstart.class.php:227
-msgid "Cars Display"
-msgstr "תצוגת רכבים"
-
 #: inc/metaslider.quickstart.class.php:239
-msgid "Watch Shop Hero"
-msgstr "גיבור חנות השעונים"
-
-#: inc/metaslider.quickstart.class.php:251
-msgid "Creative Agency Hero"
-msgstr "גיבור סוכנות יצירתית"
-
-#: inc/metaslider.quickstart.class.php:263
-msgid "Fashion Trends"
-msgstr "טרנדים אופנתיים"
-
-#: inc/metaslider.quickstart.class.php:275
-msgid "Entertainment YouTube Shorts Feed"
-msgstr "פיד סרטוני YouTube לבידור"
-
-#: inc/metaslider.quickstart.class.php:287
-msgid "Album Cover Showcase"
-msgstr "תצוגת עטיפות אלבומים"
-
-#: inc/metaslider.quickstart.class.php:299
-msgid "Business Presentation"
-msgstr "מצגת עסקית"
-
-#: inc/metaslider.quickstart.class.php:311
-msgid "Books by Genre"
-msgstr "ספרים לפי ז'אנר"
-
-#: inc/metaslider.quickstart.class.php:323
-msgid "Testimonials"
-msgstr "המלצות"
-
-#: inc/metaslider.quickstart.class.php:335
-msgid "Skincare Routine Guide"
-msgstr "מדריך לשגרת טיפוח עור"
-
-#: inc/metaslider.quickstart.class.php:347
-msgid "Indoor Plant Selection Guide"
-msgstr "מדריך לבחירת צמחים פנימיים"
-
-#: inc/metaslider.quickstart.class.php:359
-msgid "TikTok Vertical Videos"
-msgstr "סרטוני TikTok אנכיים"
-
-#: inc/metaslider.quickstart.class.php:371
 msgid "Daily Routine Videos"
 msgstr "סרטוני שגרה יומית"
 
+#: inc/metaslider.quickstart.class.php:263
+msgid "Cars Display"
+msgstr "תצוגת רכבים"
+
+#: inc/metaslider.quickstart.class.php:275
+msgid "Watch Shop Hero"
+msgstr "גיבור חנות השעונים"
+
+#: inc/metaslider.quickstart.class.php:287
+msgid "Creative Agency Hero"
+msgstr "גיבור סוכנות יצירתית"
+
+#: inc/metaslider.quickstart.class.php:299
+msgid "Fashion Trends"
+msgstr "טרנדים אופנתיים"
+
+#: inc/metaslider.quickstart.class.php:311
+msgid "Entertainment YouTube Shorts Feed"
+msgstr "פיד סרטוני YouTube לבידור"
+
+#: inc/metaslider.quickstart.class.php:323
+msgid "Album Cover Showcase"
+msgstr "תצוגת עטיפות אלבומים"
+
+#: inc/metaslider.quickstart.class.php:335
+msgid "Business Presentation"
+msgstr "מצגת עסקית"
+
+#: inc/metaslider.quickstart.class.php:347
+msgid "Books by Genre"
+msgstr "ספרים לפי ז'אנר"
+
+#: inc/metaslider.quickstart.class.php:359
+msgid "Testimonials"
+msgstr "המלצות"
+
+#: inc/metaslider.quickstart.class.php:371
+msgid "Skincare Routine Guide"
+msgstr "מדריך לשגרת טיפוח עור"
+
 #: inc/metaslider.quickstart.class.php:383
+msgid "Indoor Plant Selection Guide"
+msgstr "מדריך לבחירת צמחים פנימיים"
+
+#: inc/metaslider.quickstart.class.php:395
+msgid "TikTok Vertical Videos"
+msgstr "סרטוני TikTok אנכיים"
+
+#: inc/metaslider.quickstart.class.php:407
 msgid "Coffee Brewing Guide"
 msgstr "מדריך לחליטת קפה"
 
-#: inc/metaslider.quickstart.class.php:395
+#: inc/metaslider.quickstart.class.php:419
 msgid "Upcoming City Events"
 msgstr "אירועים בעיר הקרובים"
 
-#: inc/metaslider.quickstart.class.php:407
+#: inc/metaslider.quickstart.class.php:431
 msgid "Product Categories"
 msgstr "קטגוריות מוצרים"
 
-#: inc/metaslider.quickstart.class.php:419
+#: inc/metaslider.quickstart.class.php:443
 msgid "Recent WooCommerce Products"
 msgstr "מוצרים אחרונים ב-WooCommerce"
 
-#: inc/metaslider.quickstart.class.php:431
+#: inc/metaslider.quickstart.class.php:455
 msgid "Latest News Posts"
 msgstr "פוסטים אחרונים של חדשות"
 
-#: inc/metaslider.quickstart.class.php:443
+#: inc/metaslider.quickstart.class.php:467
 msgid "Product Demo"
 msgstr "הדגמת מוצר"
 
-#: inc/metaslider.quickstart.class.php:455
+#: inc/metaslider.quickstart.class.php:479
 msgid "Trending Videos"
 msgstr "סרטונים פופולריים"
 
-#: inc/metaslider.quickstart.class.php:467
+#: inc/metaslider.quickstart.class.php:491
 msgid "Hotel Rooms"
 msgstr "חדרי מלון"
 
-#: inc/metaslider.quickstart.class.php:479
+#: inc/metaslider.quickstart.class.php:503
 msgid "Client Testimonials"
 msgstr "עדויות לקוחות"
 
-#: inc/metaslider.quickstart.class.php:491
+#: inc/metaslider.quickstart.class.php:515
 msgid "Meet the Team"
 msgstr "הכירו את הצוות"
 
-#: inc/metaslider.quickstart.class.php:503
+#: inc/metaslider.quickstart.class.php:527
 msgid "Curated Videos"
 msgstr "וידאוים שנבחרו בעדינות"
 
-#: inc/metaslider.quickstart.class.php:515
+#: inc/metaslider.quickstart.class.php:539
 msgid "Natural Skincare Presentation"
 msgstr "מצגת טיפוח עור טבעי"
 
-#: inc/metaslider.quickstart.class.php:539
+#: inc/metaslider.quickstart.class.php:563
 msgid "YouTube Shorts Carousel"
 msgstr "קרוסלת YouTube Shorts"
 
-#: inc/metaslider.quickstart.class.php:551
+#: inc/metaslider.quickstart.class.php:575
 msgid "TikTok Carousel"
 msgstr "קרוסלת TikTok"
 
-#: inc/metaslider.quickstart.class.php:563
-#: ml-slider.php:839, fuzzy
+#: inc/metaslider.quickstart.class.php:587
+#: ml-slider.php:890, fuzzy
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: inc/metaslider.quickstart.class.php:587
+#: inc/metaslider.quickstart.class.php:599
 msgid "Layer Slides"
 msgstr "שקפים בשכבות"
 
-#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:659
 msgid "WooCommerce Carousel"
 msgstr "קרוסלת WooCommerce"
 
-#: inc/metaslider.quickstart.class.php:659
+#: inc/metaslider.quickstart.class.php:671
 msgid "Bold Motion"
 msgstr "תנועה מודגשת"
 
-#: inc/metaslider.quickstart.class.php:671
+#: inc/metaslider.quickstart.class.php:683
 msgid "Playful Pets"
 msgstr "חיות מחמד משחקיות"
 
@@ -3307,7 +3389,7 @@ msgid "Select Slider:"
 msgstr "בחירת מצגת:"
 
 #: inc/metaslider.widget.class.php:126
-#: ml-slider.php:2074
+#: ml-slider.php:2124
 #: admin/assets/dist/js/app.js:2
 msgid "No slideshows found"
 msgstr "לא נמצאו מצגות"
@@ -3351,6 +3433,15 @@ msgid "This isn't a valid image format. Please try again."
 msgstr "זה אינו פורמט תמונה חוקי. אנא נסה שוב."
 
 #: inc/slide/metaslide.image.class.php:412
+#: inc/slide/metaslide.livid.class.php:784
+#: modules/local_video/slide.php:203
+#: modules/local_video/slide.php:878
+#: modules/local_video/slide.php:936
+#: modules/local_video/slide.php:1044
+#: modules/local_video/slide.php:1209
+#: modules/local_video/slide.php:1282
+#: modules/local_video/slide.php:1396
+#: modules/local_video/slide.php:2082
 msgid "Access denied"
 msgstr "גישה נדחתה"
 
@@ -3363,10 +3454,13 @@ msgid "Warning: The image data does not exist. Please re-upload the image."
 msgstr "אזהרה: נתוני התמונה אינם קיימים. אנא העלה מחדש את התמונה."
 
 #: inc/slide/metaslide.image.class.php:555
+#: inc/slide/metaslide.livid.class.php:875
+#: modules/local_video/slide.php:407
 msgid "General"
 msgstr "כללי"
 
 #: inc/slide/metaslide.image.class.php:559
+#: modules/local_video/slide.php:411
 msgid "Link"
 msgstr "קישור"
 
@@ -3375,6 +3469,8 @@ msgid "SEO"
 msgstr "SEO"
 
 #: inc/slide/metaslide.image.class.php:578
+#: inc/slide/metaslide.livid.class.php:893
+#: modules/local_video/slide.php:438
 msgid "Device"
 msgstr "מכשיר"
 
@@ -3398,7 +3494,65 @@ msgstr "הגדרות מתקדמות זמינות ב-MetaSlider Slideshow Pro"
 msgid "View Slide Details"
 msgstr "הצג פרטי שקופית"
 
-#: inc/slider/metaslider.class.php:457
+#: inc/slide/metaslide.livid.class.php:217
+msgid "Livid Video"
+msgstr "וידאו ליווויד"
+
+#: inc/slide/metaslide.livid.class.php:272
+#: inc/slide/metaslide.livid.class.php:320
+#: inc/slide/metaslide.livid.class.php:364
+#: inc/slide/metaslide.livid.class.php:425
+#: inc/slide/metaslide.livid.class.php:477
+msgid "Please enter a valid link to a video hosted on livid.com."
+msgstr "אנא הכנס קישור תקף לוידאו שמאוחסן ב-livid.com."
+
+#: inc/slide/metaslide.livid.class.php:278
+msgid "Create slideshows with your Livid videos"
+msgstr "צור מצגות עם הוידאוים שלך מליווויד"
+
+#: inc/slide/metaslide.livid.class.php:281
+msgid "Enter the URL of a Livid video:"
+msgstr "הכנס את כתובת ה-URL של וידאו ליווויד:"
+
+#: inc/slide/metaslide.livid.class.php:292
+#: ml-slider.php:850
+#: modules/local_video/slide.php:112
+#: admin/assets/dist/js/admin.js:1
+#: admin/assets/js/admin.js:218
+msgid "Add to slideshow"
+msgstr "הוסף למצגת שקופיות"
+
+#: inc/slide/metaslide.livid.class.php:318
+msgid "Updating the Livid video..."
+msgstr "מעודכן הוידאו ליווויד..."
+
+#: inc/slide/metaslide.livid.class.php:319
+msgid "Livid video updated."
+msgstr "הוידאו ליווויד עודכן."
+
+#: inc/slide/metaslide.livid.class.php:321
+msgid "We could not update the Livid video. Please check the link and try again."
+msgstr "לא הצלחנו לעדכן את הוידאו ליווויד. אנא בדוק את הקישור ונסה שוב."
+
+#: inc/slide/metaslide.livid.class.php:561
+msgid "Livid video player"
+msgstr "נגן הוידאו ליווויד"
+
+#: inc/slide/metaslide.livid.class.php:681
+#. translators: %s: Livid video URL
+#, php-format
+msgid "Livid video thumbnail - %s"
+msgstr "תמונה ממוזערת של וידאו ליווויד - %s"
+
+#: inc/slide/metaslide.livid.class.php:818
+msgid "Livid Video Slide"
+msgstr "שקף וידאו ליווויד"
+
+#: inc/slide/metaslide.livid.class.php:1011
+msgid "Play video"
+msgstr "נגן וידאו"
+
+#: inc/slider/metaslider.class.php:461
 msgid "Edit Slideshow"
 msgstr "ערוך מצגת שקופיות"
 
@@ -3410,7 +3564,7 @@ msgstr "נגן"
 msgid "Pause"
 msgstr "להפסיק"
 
-#: ml-slider.php:267
+#: ml-slider.php:270
 #, php-format
 msgid ""
 "MetaSlider Slideshow Pro is installed but is out of date. You may update it "
@@ -3419,70 +3573,64 @@ msgstr ""
 "MetaSlider Pro מותקן אך אינו מעודכן. אתה יכול לעדכן אותו %shere%s. למד עוד "
 "על הודעה זו %shere%s"
 
-#: ml-slider.php:576
+#: ml-slider.php:580
 msgid "Settings & Help"
 msgstr "הגדרות & עזרה"
 
-#: ml-slider.php:580
+#: ml-slider.php:584
 msgid "Upgrade to Pro"
 msgstr "שדרג ל-Pro"
 
-#: ml-slider.php:610
-#: ml-slider.php:613
+#: ml-slider.php:614
+#: ml-slider.php:617
 #: themes/customize.php:20
 msgid "Slideshow"
 msgstr "מצגת שקפים"
 
-#: ml-slider.php:619
-#: ml-slider.php:622
+#: ml-slider.php:623
+#: ml-slider.php:626
 msgid "All Slideshows"
 msgstr "כל מצגות השקופיות"
 
-#: ml-slider.php:630
-#: ml-slider.php:633
+#: ml-slider.php:634
+#: ml-slider.php:637
 msgid "Create Slideshow"
 msgstr "צור מצגת שקופיות"
 
-#: ml-slider.php:799
-#: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:218
-msgid "Add to slideshow"
-msgstr "הוסף למצגת שקופיות"
-
-#: ml-slider.php:840, fuzzy
+#: ml-slider.php:891, fuzzy
 msgid "YouTube"
 msgstr "YouTube"
 
-#: ml-slider.php:841, fuzzy
+#: ml-slider.php:892, fuzzy
 msgid "TikTok"
 msgstr "TikTok"
 
-#: ml-slider.php:846
+#: ml-slider.php:897
 msgid "Image Folder"
 msgstr "תיקיית תמונות"
 
-#: ml-slider.php:847
+#: ml-slider.php:898
 #: admin/assets/dist/js/app.js:2
 msgid "Post Images"
 msgstr "תמונות פוסט"
 
-#: ml-slider.php:976
+#: ml-slider.php:1026
 msgid "The slide was successfully restored"
 msgstr "השקף שוחזר בהצלחה"
 
-#: ml-slider.php:999
+#: ml-slider.php:1049
 msgid "The attempt to restore the slide failed."
 msgstr "הניסיון לשחזר את השקף נכשל."
 
-#: ml-slider.php:1058
+#: ml-slider.php:1108
 msgid "The slide was successfully trashed"
 msgstr "השקף הושלך בהצלחה"
 
-#: ml-slider.php:1170
+#: ml-slider.php:1220
 msgid "The slide was permanently deleted"
 msgstr "השקף נמחק לצמיתות"
 
-#: ml-slider.php:1461
+#: ml-slider.php:1511
 #, php-format
 msgid ""
 "Please consider moving your slides to <b>FlexSlider</b>. We're adding all "
@@ -3492,52 +3640,52 @@ msgstr ""
 "אנא שקול להעביר את השקפים שלך ל<b>FlexSlider</b>. אנו מוסיפים את כל תכונות "
 "ה-MetaSlider החדשות לאפשרות זו. <a href=\"%s\">לגלות עוד</a>."
 
-#: ml-slider.php:1863
+#: ml-slider.php:1913
 msgid "Slide permanently deleted."
 msgstr "השקף נמחק לצמיתות."
 
-#: ml-slider.php:1866
+#: ml-slider.php:1916
 msgid "Slide restored."
 msgstr "השקף שוחזר."
 
-#: ml-slider.php:1898
+#: ml-slider.php:1948
 msgid "Toggle slide reorder panel"
 msgstr "הפעל/כבה את לוח סדר השקפים"
 
-#: ml-slider.php:1935
+#: ml-slider.php:1985
 #, php-format
 msgid ""
 "You are viewing slides that have been trashed, which will be automatically "
 "deleted in %s days."
 msgstr "אתה צופה בשקפים שהושלכו, אשר יימחקו אוטומטית בעוד %s ימים."
 
-#: ml-slider.php:1968
+#: ml-slider.php:2018
 msgid "Move slideshow to trash"
 msgstr "העבר את מצגת השקפים לפח"
 
-#: ml-slider.php:2023
+#: ml-slider.php:2073
 msgid "Add slideshow"
 msgstr "הוסף מצגת שקפים"
 
-#: ml-slider.php:2059
+#: ml-slider.php:2109
 msgid "Choose slideshow"
 msgstr "בחר מצגת"
 
-#: ml-slider.php:2069
+#: ml-slider.php:2119
 msgid "Insert slideshow"
 msgstr "הכנס מצגת שקפים"
 
-#: ml-slider.php:2104
+#: ml-slider.php:2154
 msgid "Create slides by adding text, videos and more to your images"
 msgstr "צור שקפים על ידי הוספת טקסט, סרטונים ועוד לתמונות שלך"
 
-#: ml-slider.php:2108
+#: ml-slider.php:2158
 msgid ""
 "With Layer slides, you can create beautiful, stylish layers of different "
 "elements."
 msgstr "עם שכבות השקפים, אתה יכול ליצור שכבות יפות ואלגנטיות של אלמנטים שונים."
 
-#: ml-slider.php:2112
+#: ml-slider.php:2162
 msgid ""
 "You start with an image and then can add text, video, colors, animations, "
 "more images, and even shortcodes."
@@ -3545,35 +3693,34 @@ msgstr ""
 "אתה מתחיל עם תמונה ואז יכול להוסיף טקסט, וידאו, צבעים, אנימציות, תמונות "
 "נוספות ואפילו קודים קצרים."
 
-#: ml-slider.php:2118
-#: ml-slider.php:2159
-#: ml-slider.php:2200
-#: ml-slider.php:2243
-#: ml-slider.php:2286
-#: ml-slider.php:2329
-#: ml-slider.php:2372
-#: ml-slider.php:2411
-#: ml-slider.php:2454
-#: ml-slider.php:2493
-#: ml-slider.php:2564
-#: ml-slider.php:2599
-#: ml-slider.php:2634
+#: ml-slider.php:2168
+#: ml-slider.php:2209
+#: ml-slider.php:2250
+#: ml-slider.php:2293
+#: ml-slider.php:2336
+#: ml-slider.php:2379
+#: ml-slider.php:2418
+#: ml-slider.php:2461
+#: ml-slider.php:2500
+#: ml-slider.php:2571
+#: ml-slider.php:2606
+#: ml-slider.php:2641
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Find out more about MetaSlider Slideshow Pro"
 msgstr "גלו עוד על MetaSlider Pro"
 
-#: ml-slider.php:2147
+#: ml-slider.php:2197
 msgid "Create slideshows with your Vimeo videos"
 msgstr "צור מצגות שקפים עם סרטוני Vimeo שלך"
 
-#: ml-slider.php:2151
+#: ml-slider.php:2201
 msgid ""
 "With Vimeo slides, you can build beautiful slideshows with your Vimeo "
 "videos."
 msgstr "עם שקפי Vimeo, אתה יכול לבנות מצגות שקפים יפות עם סרטוני Vimeo שלך."
 
-#: ml-slider.php:2155
+#: ml-slider.php:2205
 msgid ""
 "Vimeo slides will display your videos with auto play, mute, the ability to "
 "hide controls, and much more."
@@ -3581,17 +3728,17 @@ msgstr ""
 "שקפי Vimeo יציגו את הסרטונים שלך עם הפעלה אוטומטית, השתקה, היכולת להסתיר "
 "פקדים, ועוד הרבה יותר."
 
-#: ml-slider.php:2188
+#: ml-slider.php:2238
 msgid "Create slideshows with your YouTube videos"
 msgstr "צור מצגות שקפים עם סרטוני YouTube שלך"
 
-#: ml-slider.php:2192
+#: ml-slider.php:2242
 msgid ""
 "With YouTube slides, you can build beautiful slideshows with your YouTube "
 "videos."
 msgstr "עם שקופיות YouTube, אתה יכול לבנות מצגות יפות עם סרטוני YouTube שלך."
 
-#: ml-slider.php:2196
+#: ml-slider.php:2246
 msgid ""
 "YouTube slides will display your videos with auto play, mute, lazy load, "
 "the ability to hide controls, and much more."
@@ -3599,11 +3746,11 @@ msgstr ""
 "שקופיות YouTube יציגו את הסרטונים שלך עם הפעלה אוטומטית, השתקה, טעינה עצלה, "
 "היכולת להסתיר פקדים, והרבה יותר."
 
-#: ml-slider.php:2229
+#: ml-slider.php:2279
 msgid "Create slideshows with your posts"
 msgstr "צור מצגות עם הפוסטים שלך"
 
-#: ml-slider.php:2233
+#: ml-slider.php:2283
 msgid ""
 "With Post Feed slides, you can build slideshows with your latest posts, "
 "events, or WooCommerce products."
@@ -3611,7 +3758,7 @@ msgstr ""
 "עם שקופיות פיד פוסטים, אתה יכול לבנות מצגות עם הפוסטים, האירועים או המוצרים "
 "האחרונים שלך מ-WooCommerce."
 
-#: ml-slider.php:2237
+#: ml-slider.php:2287
 msgid ""
 "Post Feed slides will automatically display your posts with images, text, "
 "custom fields, and much more."
@@ -3619,11 +3766,11 @@ msgstr ""
 "שקופיות פיד פוסטים יציגו באופן אוטומטי את הפוסטים שלך עם תמונות, טקסט, שדות "
 "מותאמים אישית, והרבה יותר."
 
-#: ml-slider.php:2272
+#: ml-slider.php:2322
 msgid "Create slideshows with images stored outside of WordPress"
 msgstr "צור מצגות עם תמונות המאוחסנות מחוץ ל-WordPress"
 
-#: ml-slider.php:2276
+#: ml-slider.php:2326
 msgid ""
 "With External URL slides, you can load images directly from non-WordPress "
 "sources such as CDNs or image hosts."
@@ -3631,7 +3778,7 @@ msgstr ""
 "עם שקופיות URL חיצוני, אתה יכול לטעון תמונות ישירות ממקורות שאינם WordPress "
 "כמו CDNs או מארחי תמונות."
 
-#: ml-slider.php:2280
+#: ml-slider.php:2330
 msgid ""
 "External URL slides give you all the power of MetaSlider Slideshow, using "
 "images stored anywhere you want."
@@ -3639,32 +3786,11 @@ msgstr ""
 "שקופיות URL חיצוני נותנות לך את כל הכוח של MetaSlider, באמצעות תמונות "
 "המאוחסנות בכל מקום שתרצה."
 
-#: ml-slider.php:2315
-msgid "Create slideshows with videos in your media library"
-msgstr "צור מצגות עם סרטונים בספריית המדיה שלך"
-
-#: ml-slider.php:2319
-msgid ""
-"With Local Video slides, you can build beautiful slideshows with videos in "
-"your WordPress media library or searched directly from Pixabay."
-msgstr ""
-"עם שקפים של וידאו מקומי, אתה יכול לבנות שקפים יפים עם וידאו בספריית המדיה "
-"של WordPress שלך או לחפש ישירות מ-Pixabay."
-
-#: ml-slider.php:2323
-msgid ""
-"Local Video slides will display your MP4, WebM, and MOV videos with cover "
-"images, auto play, mute, lazy load, the ability to hide controls, and much "
-"more."
-msgstr ""
-"שקופיות סרטון מקומי יציגו את סרטוני MP4, WebM ו-MOV שלך עם תמונות כיסוי, "
-"הפעלה אוטומטית, השתקה, טעינה עצלה, היכולת להסתיר פקדים, והרבה יותר."
-
-#: ml-slider.php:2358
+#: ml-slider.php:2365
 msgid "Create slideshows with videos stored outside of WordPress"
 msgstr "צור מצגות עם סרטונים המאוחסנים מחוץ ל-WordPress"
 
-#: ml-slider.php:2362
+#: ml-slider.php:2369
 msgid ""
 "With External Video slides, you can add videos directly from non-WordPress "
 "sources."
@@ -3672,7 +3798,7 @@ msgstr ""
 "עם שקופיות סרטון חיצוני, אתה יכול להוסיף סרטונים ישירות ממקורות שאינם "
 "WordPress."
 
-#: ml-slider.php:2366
+#: ml-slider.php:2373
 msgid ""
 "External Video Slides will display your MP4, WebM, and MOV videos. Features "
 "include text captions, cover images, auto play, mute, lazy load, the "
@@ -3682,11 +3808,11 @@ msgstr ""
 "כתוביות טקסט, תמונות כיסוי, הפעלה אוטומטית, השתקה, טעינה עצלה, היכולת "
 "להסתיר פקדים, והרבה יותר."
 
-#: ml-slider.php:2401
+#: ml-slider.php:2408
 msgid "Create slideshows with custom HTML"
 msgstr "צור מצגות עם HTML מותאם אישית"
 
-#: ml-slider.php:2405
+#: ml-slider.php:2412
 msgid ""
 "With Custom HTML slides, you can design slides using images, HTML and CSS. "
 "This gives you complete control over the layout and styling."
@@ -3694,11 +3820,11 @@ msgstr ""
 "עם שקופיות HTML מותאם אישית, אתה יכול לעצב שקופיות באמצעות תמונות, HTML "
 "ו-CSS. זה נותן לך שליטה מלאה על העיצוב והסגנון."
 
-#: ml-slider.php:2444
+#: ml-slider.php:2451
 msgid "Create slides with background colors and text"
 msgstr "צור שקפים עם צבעי רקע וטקסט"
 
-#: ml-slider.php:2448
+#: ml-slider.php:2455
 msgid ""
 "With Background Color slides, you can create slides using a solid or "
 "gradient background color. Perfect for text-only slides, calls to action or "
@@ -3707,43 +3833,43 @@ msgstr ""
 "עם שקפים בצבע רקע, תוכל ליצור שקפים תוך שימוש בצבע רקע אחיד או צבע רקע "
 "גרדיאנט. מושלם לשקפים עם טקסט בלבד, קריאות לפעולה או באנרים מהירים."
 
-#: ml-slider.php:2483
+#: ml-slider.php:2490
 msgid "Create slideshows with Tiktok Videos"
 msgstr "צור מצגות עם סרטוני TikTok"
 
-#: ml-slider.php:2487
+#: ml-slider.php:2494
 msgid ""
 "A TikTok Slide will display a video in your slideshow directly from "
 "TikTok.com."
 msgstr "שקופית TikTok תציג סרטון במצגת שלך ישירות מ-TikTok.com."
 
-#: ml-slider.php:2550
+#: ml-slider.php:2557
 msgid "Create slideshows with images from a folder"
 msgstr "צור מצגות עם תמונות מקובץ"
 
-#: ml-slider.php:2554
+#: ml-slider.php:2561
 msgid ""
 "The Image Folder slide type extracts images from a specified folder and "
 "displays them as slides."
 msgstr "סוג שקופית תיק תמונה שולף תמונות מקובץ ספציפי ומציג אותן כשקופיות."
 
-#: ml-slider.php:2558
+#: ml-slider.php:2565
 msgid ""
 "This slide type displays images from folders in your WordPress Media "
 "Library."
 msgstr "סוג שקף זה מציג תמונות מתוך תיקיות בספריית המדיה של WordPress שלך."
 
-#: ml-slider.php:2585
+#: ml-slider.php:2592
 msgid "Create slideshows with Post Images"
 msgstr "צור מצגות עם תמונות פוסט"
 
-#: ml-slider.php:2589
+#: ml-slider.php:2596
 msgid ""
 "The Post Images slide type extracts images from the current post and "
 "displays them as slides."
 msgstr "סוג שקף תמונות הפוסט שואב תמונות מהפוסט הנוכחי ומציג אותן כשקפים."
 
-#: ml-slider.php:2593
+#: ml-slider.php:2600
 msgid ""
 "This slide type supports featured images, post content images, WooCommerce "
 "galleries, Advanced Custom Fields images and galleries."
@@ -3751,17 +3877,17 @@ msgstr ""
 "סוג שקף זה תומך בתמונות מוצגות, תמונות תוכן פוסט, גלריות WooCommerce, "
 "תמונות וגלריות של שדות מותאמים אישית."
 
-#: ml-slider.php:2620
+#: ml-slider.php:2627
 msgid "Create slideshows with your WooCommerce products"
 msgstr "צור מצגות עם מוצרי WooCommerce שלך"
 
-#: ml-slider.php:2624
+#: ml-slider.php:2631
 msgid ""
 "With WooCommerce slides, you can build slideshows with your WooCommerce "
 "products."
 msgstr "עם שקפי WooCommerce, תוכל לבנות מצגות עם מוצרי WooCommerce שלך."
 
-#: ml-slider.php:2628
+#: ml-slider.php:2635
 msgid ""
 "WooCommerce slides will automatically display your products with images, "
 "text, custom fields, and much more."
@@ -3769,44 +3895,282 @@ msgstr ""
 "שקפי WooCommerce יציגו אוטומטית את המוצרים שלך עם תמונות, טקסט, שדות "
 "מותאמים אישית ועוד הרבה יותר."
 
-#: ml-slider.php:2672
+#: ml-slider.php:2679
 msgid "Premium Support"
 msgstr "תמיכה פרימיום"
 
-#: ml-slider.php:2678
+#: ml-slider.php:2685
 #, fuzzy
 msgid "MetaSlider Slideshow Pro"
 msgstr "MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2682
+#: ml-slider.php:2689
 msgid "Support"
 msgstr "תמיכה"
 
-#: ml-slider.php:2687
+#: ml-slider.php:2694
+#: modules/local_video/slide.php:533
 msgid "Documentation"
 msgstr "תיעוד"
 
-#: ml-slider.php:2691
+#: ml-slider.php:2698
 msgid "Leave a review"
 msgstr "השאר ביקורת"
 
-#: ml-slider.php:2810
+#: ml-slider.php:2817
 msgid "Uploading..."
 msgstr "מעלה..."
 
-#: ml-slider.php:2817
+#: ml-slider.php:2824
 msgid "Upload Complete"
 msgstr "העלאה הושלמה"
 
-#: ml-slider.php:2944
+#: ml-slider.php:2951
 msgid "Import file is missing"
 msgstr "קובץ הייבוא חסר"
 
-#: ml-slider.php:3095
+#: ml-slider.php:3102
 msgid ""
 "You attempted to edit a slideshow that does not exist. Perhaps it was moved "
 "to trash?"
 msgstr "ניסית לערוך מצגת שאינה קיימת. אולי היא הועברה לפח?"
+
+#: modules/local_video/helper.php:95
+#: modules/local_video/helper.php:101
+msgid "Update cover image"
+msgstr "עדכן תמונת כיסוי"
+
+#: modules/local_video/helper.php:108
+msgid "Set cover image"
+msgstr "קבע תמונת כיסוי"
+
+#: modules/local_video/helper.php:159
+#: modules/local_video/slide.php:1163
+msgid "Update slide video"
+msgstr "עדכן וידאו שקף"
+
+#: modules/local_video/helper.php:163
+#: modules/local_video/slide.php:585
+#: modules/local_video/slide.php:1167
+msgid "Browse"
+msgstr "דפדף"
+
+#: modules/local_video/helper.php:168
+#: modules/local_video/slide.php:1172
+msgid "Video File"
+msgstr "קובץ וידאו"
+
+#: modules/local_video/slide.php:109
+msgid "Select replacement video"
+msgstr "בחר וידאו חלופי"
+
+#: modules/local_video/slide.php:110
+msgid "Select replacement cover"
+msgstr "בחר כיסוי חלופי"
+
+#: modules/local_video/slide.php:111
+msgid "Select replacement text track"
+msgstr "בחר מסלול טקסט חלופי"
+
+#: modules/local_video/slide.php:197
+#: modules/local_video/slide.php:2075
+msgid "Invalid nonce"
+msgstr "נונס לא חוקי"
+
+#: modules/local_video/slide.php:218
+#: modules/local_video/slide.php:897
+#: modules/local_video/slide.php:1107
+msgid "Not supported video format"
+msgstr "פורמט וידאו לא נתמך"
+
+#: modules/local_video/slide.php:349
+msgid "Local Video Slide"
+msgstr "שקף וידאו מקומי"
+
+#: modules/local_video/slide.php:370
+msgid "Please update to MetaSlider Slideshow to version 3.2 or above."
+msgstr "אנא עדכן ל-MetaSlider Slideshow לגרסה 3.2 או גבוהה יותר."
+
+#: modules/local_video/slide.php:415
+msgid "Cover"
+msgstr "תמונה מכסה"
+
+#: modules/local_video/slide.php:419
+msgid "Text track"
+msgstr "מסלול טקסט"
+
+#: modules/local_video/slide.php:476
+msgid "Which language is the source file?"
+msgstr "איזו שפה היא הקובץ המקורי?"
+
+#: modules/local_video/slide.php:477
+msgid "Language label"
+msgstr "תווית שפה"
+
+#: modules/local_video/slide.php:482
+msgid "For example: English"
+msgstr "למשל: אנגלית"
+
+#: modules/local_video/slide.php:490
+msgid "Choose the type of text track"
+msgstr "בחר את סוג מסלול הטקסט"
+
+#: modules/local_video/slide.php:491
+msgid "Language kind"
+msgstr "סוג שפה"
+
+#: modules/local_video/slide.php:497
+msgid "Captions"
+msgstr "כותרות"
+
+#: modules/local_video/slide.php:500
+msgid "Chapters"
+msgstr "פרקים"
+
+#: modules/local_video/slide.php:503
+msgid "Descriptions"
+msgstr "תיאורים"
+
+#: modules/local_video/slide.php:509
+msgid "Subtitles"
+msgstr "כתוביות"
+
+#: modules/local_video/slide.php:517
+msgid "If the language is English, the code must be en"
+msgstr "אם השפה היא אנגלית, הקוד חייב להיות en"
+
+#: modules/local_video/slide.php:518
+msgid "Language code"
+msgstr "קוד שפה"
+
+#: modules/local_video/slide.php:523
+msgid "For example: en"
+msgstr "למשל: en"
+
+#: modules/local_video/slide.php:576
+msgid "File must be TXT or VTT format"
+msgstr "הקובץ חייב להיות בפורמט TXT או VTT"
+
+#: modules/local_video/slide.php:577
+msgid "Source"
+msgstr "מקור"
+
+#: modules/local_video/slide.php:582
+msgid "Update slide text track"
+msgstr "עדכן את מסלול טקסט השקף"
+
+#: modules/local_video/slide.php:956
+msgid "The cover was successfully removed."
+msgstr "העטיפה הוסרה בהצלחה."
+
+#: modules/local_video/slide.php:986
+msgid "The requested video does not exist. Please try again."
+msgstr "הוידאו המבוקש אינו קיים. אנא נסו שוב."
+
+#: modules/local_video/slide.php:995
+msgid "There was an error updating the video. No previous video saved."
+msgstr "אירעה שגיאה בעדכון הוידאו. לא נשמר וידאו קודם."
+
+#: modules/local_video/slide.php:1011
+msgid "The video was successfully updated."
+msgstr "הוידאו עודכן בהצלחה."
+
+#: modules/local_video/slide.php:1020
+msgid "There was an error updating the video. Please try again"
+msgstr "אירעה שגיאה בעדכון הוידאו. אנא נסו שוב"
+
+#: modules/local_video/slide.php:1078
+msgid "You can't add more sources to this video slide."
+msgstr "אינך יכול להוסיף יותר מקורות לשקף הוידאו הזה."
+
+#: modules/local_video/slide.php:1094
+msgid "This slide already has a video in that format."
+msgstr "לשקף הזה כבר יש וידאו בפורמט הזה."
+
+#: modules/local_video/slide.php:1126
+msgid "The video source was successfully added."
+msgstr "מקור הוידאו נוסף בהצלחה."
+
+#: modules/local_video/slide.php:1237
+msgid "This slide requires at least one video source."
+msgstr "השקף הזה דורש לפחות מקור וידאו אחד."
+
+#: modules/local_video/slide.php:1250
+msgid "The video source was successfully removed."
+msgstr "מקור הוידאו הוסר בהצלחה."
+
+#: modules/local_video/slide.php:1301
+msgid "Not supported text track format"
+msgstr "פורמט מסלול טקסט לא נתמך"
+
+#: modules/local_video/slide.php:1343
+msgid "The requested text track does not exist. Please try again."
+msgstr "מסלול הטקסט המבוקש אינו קיים. אנא נסה שוב."
+
+#: modules/local_video/slide.php:1364
+msgid "The text track was successfully updated."
+msgstr "מסלול הטקסט עודכן בהצלחה."
+
+#: modules/local_video/slide.php:1373
+msgid "There was an error updating the text track. Please try again"
+msgstr "הייתה שגיאה בעדכון מסלול הטקסט. אנא נסה שוב"
+
+#: modules/local_video/slide.php:1420
+msgid "The text track was successfully removed."
+msgstr "מסלול הטקסט הוסרה בהצלחה."
+
+#: modules/local_video/tabs/caption.php:7
+msgid ""
+"Please note that captions on videos can interfere with player controls. We "
+"recommend adding captions when \"Auto play\" is enabled, and \"Show "
+"controls\" and \"Lazy load video\" are both disabled."
+msgstr ""
+"שימו לב שהכיתובים בווידאו יכולים להפריע לפקדי הנגן. אנו ממליצים להוסיף "
+"כיתובים כאשר \"ניגון אוטומטי\" מופעל, ו\"להראות פקדים\" ו\"טעינת ווידאו "
+"באטיות\" מושבתים."
+
+#: modules/local_video/tabs/general.php:50
+#: modules/local_video/tabs/general.php:52
+msgid "Add a new video source"
+msgstr "הוסף מקור ווידאו חדש"
+
+#: modules/local_video/tabs/general.php:55
+msgid ""
+"Adding more formats for the same video can help improve support for "
+"different platforms."
+msgstr "הוספת יותר פורמטים לאותו ווידאו יכולה לשפר את התמיכה בפלטפורמות שונות."
+
+#: modules/local_video/tabs/general.php:97
+msgid "May require video to be muted"
+msgstr "עשוי לדרוש שהווידאו יהיה מושתק"
+
+#: modules/local_video/tabs/general.php:137
+msgid "Fit video in container"
+msgstr "התאם את הווידאו למיכל"
+
+#: modules/local_video/tabs/general.php:150
+msgid "Fade in transition"
+msgstr "מעבר בהדרגה"
+
+#: modules/local_video/tabs/general.php:152
+msgid ""
+"Fade in before video loads. Recommended when slide and slideshow Auto play "
+"are enabled, and slideshow Transition effect is fade."
+msgstr ""
+"מעבר בהדרגה לפני שהווידאו נטען. מומלץ כאשר ניגון אוטומטי של שקפים ומצגת "
+"מופעלים, ואפקט המעבר של המצגת הוא מעבר בהדרגה."
+
+#: modules/local_video/tabs/link.php:8
+msgid "Video Link URL"
+msgstr "URL של קישור ווידאו"
+
+#: modules/local_video/tabs/link.php:11
+msgid ""
+"When visitors click on your video slide, they will be taken to this URL. "
+"This may affect how user interacts with the video controls."
+msgstr ""
+"כאשר מבקרים לוחצים על שקף הווידאו שלך, הם יועברו ל-URL הזה. זה עשוי להשפיע "
+"על האופן שבו המשתמש מת interacts עם פקדי הווידאו."
 
 #: themes/architekt/customize.php:16
 #: themes/architekt/customize.php:356
@@ -6648,8 +7012,8 @@ msgstr "מתכונן לשקף 1..."
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/dist/js/app.js:2
 #: admin/assets/js/admin.js:168
-#: admin/assets/js/admin.js:1519
-#: admin/assets/js/admin.js:1562
+#: admin/assets/js/admin.js:1554
+#: admin/assets/js/admin.js:1597
 msgid "1 slide added successfully"
 msgstr "שקף 1 נוסף בהצלחה"
 
@@ -6670,6 +7034,8 @@ msgstr "סוגר את ממשק הוספת שקף..."
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:314
+#: modules/local_video/assets/local_video.js:208
+#: modules/local_video/assets/local_video.js:632
 msgid "Updating slide..."
 msgstr "מעודכן שקף..."
 
@@ -6690,21 +7056,22 @@ msgstr "ספריית Unsplash"
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:959
 msgid "Pixabay Library"
 msgstr "ספריית Pixabay"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1347
+#: admin/assets/js/admin.js:1382
 msgid "Crop position saved and image cropped"
 msgstr "מיקום החיתוך נשמר והתמונה נחתכה"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1364
+#: admin/assets/js/admin.js:1399
 msgid "There was an error when saving crop position or cropping the image"
 msgstr "אירעה שגיאה בעת שמירת מיקום החיתוך או חיתוך התמונה"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1577
+#: admin/assets/js/admin.js:1612
 msgid "Device options are enabled for this slide. Adjust using the Device tab."
 msgstr "אפשרויות המכשיר מופעלות עבור שקף זה. כוונן באמצעות לשונית המכשיר."
 
@@ -7116,6 +7483,40 @@ msgstr "לא נמצאו תמונות."
 #: admin/assets/dist/js/app.js:2
 msgid "All images published on Pixabay can be used for free."
 msgstr "כל התמונות שפורסמו ב-Pixabay ניתן להשתמש בהן בחינם."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Search pixabay.com videos..."
+msgstr "חפש ווידאו pixabay.com..."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s on Pixabay"
+msgstr "ווידאו של %s ב-Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Video on Pixabay"
+msgstr "ווידאו ב-Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Opening Pixabay Video tab..."
+msgstr "פותח את לשונית הווידאו של Pixabay..."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Pixabay Video tab closed"
+msgstr "לשונית הווידאו של Pixabay נסגרה"
+
+#: admin/assets/dist/js/app.js:2
+msgid "No videos found."
+msgstr "לא נמצאו ווידאוים."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s"
+msgstr "וידאו של %s"
+
+#: admin/assets/dist/js/app.js:2
+msgid "All videos published on Pixabay can be used for free."
+msgstr "כל הוידאו שפורסמו בפיקסביי ניתן להשתמש בהם בחינם."
 
 #: admin/assets/dist/js/app.js:2
 msgid "Complete!"
@@ -8028,6 +8429,11 @@ msgid "Importing %s slideshows... This may take a minute"
 msgstr "מייבא %s מצגות... זה עשוי לקחת דקה"
 
 #: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Failed to import: %s"
+msgstr "נכשל בייבוא: %s"
+
+#: admin/assets/dist/js/app.js:2
 msgid "Import successful"
 msgstr "ייבוא הצליח"
 
@@ -8063,6 +8469,11 @@ msgstr "מעבד..."
 #: admin/assets/dist/js/app.js:2
 msgid "Upload file"
 msgstr "העלה קובץ"
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Importing slideshow %1$s of %2$s (%3$s slides). This may take a minute."
+msgstr "מייבא מצגת %1$s מתוך %2$s (%3$s שקפים). זה עשוי לקחת דקה."
 
 #: admin/assets/dist/js/app.js:2
 msgid ""
@@ -8242,6 +8653,43 @@ msgstr "פopening דף ההגדרות..."
 msgid "Page not found: %s"
 msgstr "הדף לא נמצא: %s"
 
+#: admin/assets/js/app/slides/external/videoQuality.js:29, fuzzy
+msgid "4K"
+msgstr "4K"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:30, fuzzy
+msgid "Quad HD"
+msgstr "Quad HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:31, fuzzy
+msgid "Full HD"
+msgstr "Full HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:32, fuzzy
+msgid "HD"
+msgstr "HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:33, fuzzy
+msgid "SD"
+msgstr "SD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:45
+msgid "SD (if available)"
+msgstr "SD (אם זמין)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:46
+msgid "HD (if available)"
+msgstr "HD (אם זמין)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:47
+msgid "Full HD (if available)"
+msgstr "Full HD (אם זמין)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:48
+#: admin/assets/js/app/slides/external/videoQuality.js:64
+msgid "Original"
+msgstr "מקורי"
+
 #: admin/assets/js/app/tour/main.js:12
 msgid "Add a slide"
 msgstr "הוסף שקף"
@@ -8367,6 +8815,101 @@ msgstr "מצגת"
 msgid "gallery"
 msgstr "גלריה"
 
+#: admin/assets/js/livid-iframe.js:132
+#: modules/local_video/assets/local_video.js:46
+#: modules/local_video/assets/local_video.js:166
+#, js-format
+msgid "Preparing %s slide..."
+msgstr "מכין שקף %s..."
+
+#: modules/local_video/assets/local_video.js:61
+#: modules/local_video/assets/local_video.js:181
+msgid "This isn't a supported video format. Please use MP4, WebM, or MOV videos."
+msgstr "זה לא פורמט וידאו נתמך. אנא השתמש בוידאו MP4, WebM, או MOV."
+
+#: modules/local_video/assets/local_video.js:241
+#: modules/local_video/assets/local_video.js:690
+msgid "There is an error"
+msgstr "יש שגיאה"
+
+#: modules/local_video/assets/local_video.js:265
+#: modules/local_video/assets/local_video.js:741
+msgid "Video source added successfully"
+msgstr "מקור הוידאו נוספה בהצלחה"
+
+#: modules/local_video/assets/local_video.js:282
+#: modules/local_video/assets/local_video.js:762
+msgid "Video updated successfully"
+msgstr "הוידאו עודכן בהצלחה"
+
+#: modules/local_video/assets/local_video.js:324
+msgid "Create slideshows with videos hosted in your media library"
+msgstr "צור מצגות עם וידאו הממוקמים בספריית המדיה שלך"
+
+#: modules/local_video/assets/local_video.js:326
+msgid "Create slideshows with images in your media library"
+msgstr "צור מצגות עם תמונות בספריית המדיה שלך"
+
+#: modules/local_video/assets/local_video.js:328
+msgid ""
+"Layer Slides allow you to add text, colors, shortcodes and media on top of "
+"an image or video."
+msgstr "שקפי שכבות מאפשרים לך להוסיף טקסט, צבעים, קוד קצר ומדיה מעל לתמונה או וידאו."
+
+#: modules/local_video/assets/local_video.js:398
+msgid "Cover removed successfully."
+msgstr "הכיסוי הוסר בהצלחה."
+
+#: modules/local_video/assets/local_video.js:431
+msgid "You can't delete this video. This slide requires at least one video source."
+msgstr "אינך יכול למחוק את הוידאו הזה. השקף הזה דורש לפחות מקור וידאו אחד."
+
+#: modules/local_video/assets/local_video.js:462
+msgid "Video source removed successfully"
+msgstr "מקור הוידאו הוסר בהצלחה"
+
+#: modules/local_video/assets/local_video.js:481
+msgid "No text track has beed selected for this slide."
+msgstr "לא נבחרה מסילת טקסט עבור שקף זה."
+
+#: modules/local_video/assets/local_video.js:503
+msgid "There was an error removing the text track"
+msgstr "הייתה שגיאה בהסרת מסילת הטקסט"
+
+#: modules/local_video/assets/local_video.js:520
+msgid "Text track removed successfully"
+msgstr "מסילת הטקסט הוסרה בהצלחה"
+
+#: modules/local_video/assets/local_video.js:546
+#, js-format
+msgid "Select Replacement %s Video"
+msgstr "בחר וידאו חלופי %s"
+
+#: modules/local_video/assets/local_video.js:608
+#, js-format
+msgid "Please select a %s video for this source!"
+msgstr "אנא בחר וידאו %s עבור מקור זה!"
+
+#: modules/local_video/assets/local_video.js:702
+msgid "This isn't a supported image format. Please use JPG, PNG, or GIF images."
+msgstr "זה לא פורמט תמונה נתמך. אנא השתמש בתמונות JPG, PNG או GIF."
+
+#: modules/local_video/assets/local_video.js:708
+msgid "This isn't a supported text track format. Please use TXT or VTT files."
+msgstr "זה לא פורמט מסילת טקסט נתמך. אנא השתמש בקבצי TXT או VTT."
+
+#: modules/local_video/assets/local_video.js:788
+msgid "Text track updated successfully"
+msgstr "מסילת הטקסט עודכנה בהצלחה"
+
+#: modules/local_video/assets/local_video.js:861
+msgid "Cover image updated successfully"
+msgstr "תמונת הכיסוי עודכנה בהצלחה"
+
+#: modules/local_video/assets/local_video.js:906
+msgid "Duplicating the slide failed."
+msgstr "שכפול השקף נכשל."
+
 #: admin/Notices.php:101
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
@@ -8381,7 +8924,7 @@ msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Review MetaSlider Slideshow &rarr;"
 msgstr "סקור את MetaSlider &rarr;"
 
-#: ml-slider.php:2053
+#: ml-slider.php:2103
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Select slideshow to insert into post"
@@ -8389,8 +8932,8 @@ msgstr "בחר מצגת להכניס לפוסט"
 
 #: admin/views/pages/parts/slider-settings.php:665
 #: admin/views/pages/parts/slider-settings.php:685
-#: admin/views/pages/parts/slider-settings.php:1420
-#: admin/views/pages/parts/slider-settings.php:1454, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1450, fuzzy
 msgctxt "Short for milliseconds"
 msgid "ms"
 msgstr "ms"
@@ -8400,7 +8943,7 @@ msgctxt "This is a keyboard shortcut."
 msgid " (Use Alt or ⌥ (Option) + P keys)"
 msgstr " (השתמש במקשים Alt או ⌥ (Option) + P)"
 
-#: admin/views/pages/start.php:382
+#: admin/views/pages/start.php:383
 msgctxt "Uploader: Drop files to upload - or - Select Files"
 msgid "or"
 msgstr "או"

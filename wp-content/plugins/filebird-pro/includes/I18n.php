@@ -50,7 +50,6 @@ class I18n {
 			'folder_name_placeholder'           => __( 'Folder name...', 'filebird' ),
 			'enter_folder_name_placeholder'     => __( 'Enter folder name...', 'filebird' ),
 			'are_you_sure_delete'               => __( 'Are you sure you want to delete', 'filebird' ),
-			'are_you_sure'                      => __( 'Are you sure?', 'filebird' ),
 			'all_files_will_move'               => __( 'Those files will be moved to <strong>Uncategorized</strong> folder.', 'filebird' ),
 			'editing_warning'                   => __( 'You are editing another folder! Please complete the task first!', 'filebird' ),
 			'sort_folders'                      => __( 'Sort Folders', 'filebird' ),
@@ -148,6 +147,10 @@ class I18n {
 			'turn_off_for_7_days'               => __( 'Turn off for 7 days', 'filebird' ),
 			'collapse'                          => __( 'Collapse', 'filebird' ),
 			'expand'                            => __( 'Expand', 'filebird' ),
+			'folders_panel'                     => __( 'Folders panel', 'filebird' ),
+			'default_folders'                   => __( 'Default folders', 'filebird' ),
+			'search_folders'                    => __( 'Search folders', 'filebird' ),
+			'breadcrumb'                        => __( 'Breadcrumb', 'filebird' ),
 			'uploaded'                          => __( 'Uploaded', 'filebird' ),
 			'lessThanAMin'                      => __( 'Less than a min', 'filebird' ),
 			'totalSize'                         => __( 'Total size', 'filebird' ),
@@ -165,7 +168,6 @@ class I18n {
 			'generated'                         => __( 'Generated!', 'filebird' ),
 			'imported'                          => __( 'Imported!', 'filebird' ),
 			'please_try_again'                  => __( 'Please try again.', 'filebird' ),
-			'successfully_exported'             => __( 'Successfully exported!', 'filebird' ),
 			'successfully_imported'             => __( 'Successfully imported!', 'filebird' ),
 			'active_to_use_feature'             => __( 'Please activate FileBird license to use this feature.', 'filebird' ),
 			'all_folders'                       => __( 'All folders', 'filebird' ),
@@ -210,9 +212,12 @@ class I18n {
 			'reset_count_desc'                  => __( 'Recount the number of files in each folder. Use this if folder counts are out of sync with your media library.', 'filebird' ),
 			'clear_all_data'                    => __( 'Clear All Data', 'filebird' ),
 			'clear'                             => __( 'Clear', 'filebird' ),
+			'clear_all_data_confirm_title'      => __( 'Clear all FileBird data?', 'filebird' ),
+			'clear_all_data_confirm'            => __( 'This deletes every folder for every user, including post type folders. Your media files stay in the library, and your backups are kept so you can restore the folders later.', 'filebird' ),
+			'generate_api_key_confirm_title'    => __( 'Generate a new API key?', 'filebird' ),
+			'generate_api_key_confirm'          => __( 'Anything using the current key will stop working until you give it the new one.', 'filebird' ),
 			'clear_all_data_desc'               => __(
-                 'This action will delete all FileBird data, FileBird settings and bring you back to
-			WordPress default media library.',
+                 'Delete every FileBird folder and go back to the default WordPress media library. Your media files, settings and backups are kept.',
                 'filebird'
                 ),
 			'import_folders_desc'               => __(
@@ -222,37 +227,54 @@ class I18n {
                 ),
 			'contact_support'                   => __( 'Contact Support', 'filebird' ),
 			'import'                            => __( 'Import', 'filebird' ),
-			'export_csv'                        => __( 'Export CSV', 'filebird' ),
-			'export_csv_now'                    => __( 'Export Now', 'filebird' ),
-			'export_csv_desc'                   => __( 'The current folder structure will be exported.', 'filebird' ),
-			'export_csv_post_types_desc'        => __( 'For post types, only the ones that are enabled will be exported.', 'filebird' ),
- 			'import_csv'                        => __( 'Import CSV', 'filebird' ),
 			'import_csv_desc'                   => __(
-                    'Choose FileBird CSV file to import.
-                <br />
-                (Please check to make sure that there is no duplicated name. The current folder
-                structure is preserved.)
-                <a
-                  href="https://ninjateam.gitbook.io/filebird/settings/import-and-export-folder-structure"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Learn more
-                </a>
-                <br />',
-                    'filebird'
-                    ),
-			'backup' 							=> __( 'Backup', 'filebird' ),
+				'Upload a CSV you downloaded from the backups above, from this site or another site that uses FileBird. <a href="https://ninjateam.gitbook.io/filebird/settings/import-and-export-folder-structure" target="_blank" rel="noopener noreferrer">Learn more</a>',
+				'filebird'
+			),
+			'backup_and_restore'                => __( 'Backup & Restore', 'filebird' ),
+			'restore_from_file'                 => __( 'Restore from a file', 'filebird' ),
+			'import_folders'                    => __( 'Import folders', 'filebird' ),
+			'import_csv_summary'                => __( 'This file has %1$s folders and %2$s files.', 'filebird' ),
+			'import_source_same'                => __( 'This file was exported from this site.', 'filebird' ),
+			'import_source_other'               => __( 'This file was exported from <strong>%s</strong>. Files on this site have different IDs, so putting them into these folders would mix them up. Choose "Another site" unless this site is a copy of that one, for example moved from staging.', 'filebird' ),
+			'import_source_unknown'             => __( 'This file was exported by an older FileBird version, so it does not say which site it came from. Please choose below.', 'filebird' ),
+			'import_origin_label'               => __( 'Where is this file from?', 'filebird' ),
+			'import_origin_this'                => __( 'This site', 'filebird' ),
+			'import_origin_this_desc'           => __( 'Restore the folders for the users who made them, and put the files back into them.', 'filebird' ),
+			'import_origin_other'               => __( 'Another site', 'filebird' ),
+			'import_origin_other_desc'          => __( 'Create the folders in your folder tree. Your files stay where they are.', 'filebird' ),
+			'import_tree_label'                 => __( 'Folders to import', 'filebird' ),
+			'import_mode_label'                 => __( 'Your current folders', 'filebird' ),
+			'import_mode_merge'                 => __( 'Keep them', 'filebird' ),
+			'import_mode_merge_desc'            => __( 'Folders with the same name in the same place are reused. Other folders are left alone.', 'filebird' ),
+			'import_mode_replace'               => __( 'Replace them', 'filebird' ),
+			'import_mode_replace_desc'          => __( 'Delete the folders you are importing into first, so they end up exactly like the file. Media files are not deleted.', 'filebird' ),
+			'import_backup_note'                => __( 'FileBird backs up your current folders before importing, so you can undo it from the backups above.', 'filebird' ),
+			'import_replace_confirm'            => __( 'Delete your current folders and replace them with the folders in this file? They are backed up first, and media files are not deleted.', 'filebird' ),
+			'backup' 							=> __( 'Backups', 'filebird' ),
 			'backup_now' 						=> __( 'Backup Now', 'filebird' ),
 			'auto_backup' 						=> __( 'Auto Backup', 'filebird' ),
 			'autobackup_desc' 					=> __(
-				'FileBird will automatically backup your folder structure every 12 hours. You can download and restore the backup anytime.',
+				'FileBird saves a copy of your folders about every 12 hours and right before every import or restore, keeping the 29 most recent. Restore one to put your folders and files back the way they were.',
 				'filebird'
 				),
-			'view_backups'			 			=> __( 'View your auto backups.', 'filebird' ),
 			'successfully_backup' 				=> __( 'Successfully backed up!', 'filebird' ),
+			'no_backups'                        => __( 'No backups yet.', 'filebird' ),
+			'show_all_backups'                  => __( 'Show all %s backups', 'filebird' ),
+			'show_fewer_backups'                => __( 'Show fewer', 'filebird' ),
+			'backup_type_auto'                  => __( 'Auto', 'filebird' ),
+			'backup_type_manual'                => __( 'Manual', 'filebird' ),
+			'backup_type_before_import'         => __( 'Before import', 'filebird' ),
+			'backup_type_before_restore'        => __( 'Before restore', 'filebird' ),
+			'backup_note_before_import'         => __( 'made before importing %s', 'filebird' ),
+			'backup_note_before_restore'        => __( 'made before restoring the backup from %s', 'filebird' ),
+			'backup_counts'                     => __( '%1$s folders · %2$s files', 'filebird' ),
+			'restore'                           => __( 'Restore', 'filebird' ),
+			'restore_confirm_title'             => __( 'Restore this backup?', 'filebird' ),
+			'import_replace_confirm_title'      => __( 'Replace your folders?', 'filebird' ),
+			'replace'                           => __( 'Replace', 'filebird' ),
+			'restore_confirm'                   => __( 'Replace all your FileBird folders with the backup from %s? Your current folders are backed up first, so you can undo this. Media files are not deleted.', 'filebird' ),
 			'download_file'                     => __( 'Download File', 'filebird' ),
-			'choose_user_folder'                => __( 'Choose user folder:', 'filebird' ),
 			'which_post_types_do_you_want'      => __( 'Which post types do you want to use with FileBird?', 'filebird' ),
 			'display_folder_id'                 => __( 'Display folder ID', 'filebird' ),
 			'hide_folder_id'                    => __( 'Hide folder ID', 'filebird' ),
@@ -297,12 +319,11 @@ class I18n {
 			'cannot_move_to_all_files'          => __( 'All Files is not a folder', 'filebird' ),
 			'activation'                        => __( 'Activation', 'filebird' ),
 			'tools'                             => __( 'Tools', 'filebird' ),
-			'import_export'                     => __( 'Import/Export', 'filebird' ),
+			'import_export'                     => __( 'Backup & Import', 'filebird' ),
 			'document_library'                  => __( 'Document Library', 'filebird' ),
 			'enable_cache_optimization'         => __( 'Enable cache optimization', 'filebird' ),
 			'select_theme'                      => __( 'Select theme', 'filebird' ),
 			'by'                                => __( 'By', 'filebird' ),
-			'no_folders_export'                 => __( 'There are no folders to export.', 'filebird' ),
 			'searching_folder_api'              => __( 'Switch from using JavaScript to using an API for better performance', 'filebird' ),
 			'searching_folder_recommended'      => __( '(Recommended for those websites managing over 30,000 folders)', 'filebird' ),
 			'select_post_types_scan'            => __( 'Select post types to scan', 'filebird' ),
@@ -310,7 +331,6 @@ class I18n {
 			'enable_search_api'                 => __( 'Enable searching for folder names using API', 'filebird' ),
 			'importing'                         => __( 'Importing', 'filebird' ),
 			'search'                            => __( 'Search', 'filebird' ),
-			'folders_for_media_library'         => __( 'Folders for media library', 'filebird' ),
 			'folders_for_post_types'            => __( 'Folders for post types', 'filebird' ),
 			'collapse_all'                      => __( 'Collapse all', 'filebird' ),
 			'expand_all'                        => __( 'Expand all', 'filebird' ),
@@ -319,6 +339,8 @@ class I18n {
 			'duplicate_folder'                  => __( 'Duplicate Folder', 'filebird' ),
 			'folder_duplicated'                 => __( 'Folder duplicated!', 'filebird' ),
 			'duplicating_folder'                => __( 'Duplicating folder...', 'filebird' ),
+			'enable_auto_backup'                => __( 'Automatically back up folder structure', 'filebird' ),
+			'auto_backup_desc'                  => __( 'FileBird saves a snapshot of your folder structure about every 12 hours, keeping the 29 most recent ones. WordPress runs it when your site has visitors, so the timing can drift. Turn this off if you do not want these backups stored in your database.', 'filebird' ),
 
 		);
 		return $translation;

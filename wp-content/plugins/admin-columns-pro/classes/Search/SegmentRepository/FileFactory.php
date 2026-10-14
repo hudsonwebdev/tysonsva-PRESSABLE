@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace ACP\Search\SegmentRepository;
 
-use ACP\Search\Storage;
-use ACP\Storage\AbstractDecoderFactory;
+use ACP\Storage\CompositeDecoderFactory;
 use ACP\Storage\Directory;
 use ACP\Storage\EncoderFactory;
 use ACP\Storage\Serializer;
 
 final class FileFactory
 {
-
     public function create(
         Directory $directory,
-        AbstractDecoderFactory $abstract_decoder_factory,
+        CompositeDecoderFactory $abstract_decoder_factory,
         EncoderFactory $encoder_factory,
         Serializer $serializer
     ): File {

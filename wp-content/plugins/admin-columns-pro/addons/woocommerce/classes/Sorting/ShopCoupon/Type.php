@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Sorting\ShopCoupon;
 
 use ACP\Sorting\Model\Post\MetaMapping;
 
 class Type extends MetaMapping
 {
-
     public function __construct()
     {
         parent::__construct('discount_type', $this->get_sorted_fields());

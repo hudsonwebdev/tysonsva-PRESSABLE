@@ -1,5 +1,369 @@
 == Changelog ==
 
+= 7.1.7 =
+Release Date: October 6th, 2026
+
+* [Fixed] After updating the plugin, WordPress kept reporting that an update was available.
+* [Fixed] WooCommerce: filtering products on Sale broke when nothing was on sale.
+* [Fixed] WooCommerce: filtering the Customer column on User Nicename found nothing.
+* [Fixed] Links can now be added in the WYSIWYG editor when editing inline.
+* [Fixed] The value modal now sanitizes its content, like the table does.
+* [Fixed] PHP 8.4 and newer showed deprecation notices.
+
+= 7.1.6 =
+Release Date: September 22nd, 2026
+
+* [Added] WooCommerce: the Coupons Used column on the Orders and Subscriptions tables can now be used with Smart Filtering, to find the orders a coupon was applied to.
+* [Fixed] Sorting on a WordPress column such as Title did nothing on a table that was never opened in the Admin Columns settings.
+* [Fixed] All table features stopped working when a column name contained a percent encoded character, which happens with Hebrew and other non-Latin scripts.
+* [Fixed] A table row held the Quick Edit data twice, which could make a plugin double a field value.
+* [Fixed] A column with Sortable set to No could still sort the table.
+* [Fixed] A column that another plugin makes sortable lost its sorting.
+* [Fixed] ACF: columns were lost when upgrading from version 5.
+
+= 7.1.5 =
+Release Date: September 8th, 2026
+
+* [Fixed] The Users table could take minutes to load when the site cannot reach api.wordpress.org.
+* [Fixed] Export: a file could be incomplete, or contain the wrong terms on a taxonomy table, while the export reported success.
+* [Fixed] The item count next to the pagination on the Comments table was wrong when sorting on a Custom Field column, or when a filter on a custom field was active.
+* [Fixed] Column resizing did not work on right-to-left sites: the drag handle sat on the wrong edge and the column resized in the opposite direction.
+* [Fixed] Dragging a column to another position on a right-to-left site dropped it on the opposite side.
+* [Fixed] The horizontal scroll bar did not scroll the table on right-to-left sites, and its handle started at the wrong end.
+* [Fixed] Gravity Forms: exporting a Name, Address or checkbox column produced an empty cell, and a Multi Select column exported raw JSON instead of the selected choices.
+
+= 7.1.4 =
+Release Date: August 28th, 2026
+
+* [Added] Custom Field column: the counting field type is split into "Number of Values", which counts the values within one custom field and no longer always shows 1, and "Number of Fields", which counts how often the field is stored and is the sortable one of the two. Existing columns become "Number of Values".
+* [Added] Gravity Forms: filter `ac/gravityforms/use_form_default_columns` to stop using the form's own default column selection, so the entries table starts with every available column.
+* [Fixed] Smart Filtering on the Post Format column returned no results.
+* [Fixed] Gravity Forms: the entries table could not be scrolled horizontally.
+* [Fixed] Custom Field column: a Date field set to "Auto Detect" showed an empty cell on the Parent column, the WooCommerce Product column and the Data Sources post column.
+* [Fixed] A fatal error occurred when the property of a Parent column, a WooCommerce Product column or a Data Sources post column was set to a custom field with the Color, Date, HTML or True / False field type.
+* [Fixed] WooCommerce: the Products table could exhaust the PHP memory limit or take minutes to load on large catalogs, because the Attributes column read the attributes of every product on every page load, once for each attribute column in the table.
+* [Fixed] WooCommerce: the "Show Single" setting of the Attributes column listed each custom attribute once per product instead of once.
+
+= 7.1.3 =
+Release Date: August 20th, 2026
+
+* [Fixed] PHP warnings "Undefined property: stdClass::$plugin" appeared in the error log on every update check, because the plugin update entry was missing fields that WordPress expects.
+* [Fixed] WooCommerce: the Products Sold column could show too low a number, because a refund was subtracted even when the order it belongs to was not part of the selected order statuses.
+* [Fixed] CSV export: values containing an @, such as email addresses, were prefixed with a tab character, and fields were not quoted correctly when a custom delimiter or a line break was used.
+* [Fixed] MetaBox: a cloneable group column skipped clone rows without a value, so the remaining rows no longer lined up with the rows in the other columns. Empty rows are shown as a dash again.
+* [Fixed] Gravity Forms: the entries screen of a form showed a fatal error when one of its checkbox fields had "show values" enabled with the value of a choice left blank. Inline editing is now skipped for such a choice, because a checkbox without a value cannot be stored by Gravity Forms.
+* [Fixed] MetaBox: the export of a cloneable group column separated the clone rows with a comma, which made them indistinguishable from commas within a value. Clone rows are separated with a pipe again, and an unchecked checkbox is exported as 0.
+* [Fixed] Row selection, the value modal and the responsive table layout broke on WordPress 7.1, because the primary column is now rendered as a table header cell and the checkbox column as a table cell.
+* [Fixed] Inline editing showed no edit buttons and bulk selection did not register the selected rows on WordPress 7.1, because the primary column is now rendered as a table header cell and the checkbox column as a table cell.
+
+= 7.1.2 =
+Release Date: August 10th, 2026
+
+* [Added] MetaBox: the separator between clone rows of a cloneable group can now be selected.
+* [Improved] Parent column: filtering and inline editing now support parents from other post types.
+* [Fixed] WooCommerce: Order Notes column set to show the latest note of a specific type (e.g. Notes to Customer) could appear blank when a note of another type was added more recently.
+* [Fixed] Export of the Roles column on the Users table failed when a user had a role with a numeric name.
+* [Fixed] Inline editing the Roles column could remove a user's role when that role had a numeric name.
+* [Fixed] WooCommerce: the Product Taxonomy column and its filter listed every attribute value of a variable product instead of the value of the purchased variation.
+
+= 7.1.1 =
+Release Date: July 8th, 2026
+
+* [Added] Filter `ac/metric/enable` to force Metrics on or off per list table, and `ac/metric/enable/default` to change the default (opt-in) while keeping the per-table setting.
+* [Added] WooCommerce: Grouped Products column now has a Display setting to show either a product count (opening a modal) or a configurable list of product properties.
+* [Updated] Small UI improvements for Metrics
+* [Updated] Better support for WordPress 7.0 styling on the media table
+* [Fixed] Resolved a fatal error during import of Datasource Serialized field types.
+* [Fixed] WooCommerce: Export of the Total column on the Orders (HPOS) table returned an empty value.
+
+= 7.1 =
+Release Date: June 30th, 2026
+
+* [Added] Metrics: display calculations such as sum, average, min, max, count, and percentages for your columns in the table footer.
+* [Added] Custom List Tables: turn your own custom database tables into fully featured admin tables with columns, sorting, filtering, segments, inline editing, export, and metrics.
+* [Added] Export now supports JSON and XLSX formats in addition to CSV
+* [Added] Multisite: Post Count column now supports time period filtering (last week, month, quarter, year, or custom days).
+* [Added] WooCommerce: Added Product Reviews as a customizable admin table with filtering, segments, export, and metrics support.
+* [Added] WooCommerce: Smart filter on the Order Product column now supports filtering by Product ID (numeric operators) and SKU (text operators) when those properties are displayed.
+* [Improved] New automatic column width handling with smoother horizontal scrolling and sticky headers and columns.
+* [Improved] Refreshed the Pro interface (smart filtering, conditional formatting, buttons, and modals) to align with the new WordPress 7 design.
+* [Improved] Modernized the codebase with strict types, PHPStan type safety, and PSR-12 coding standards.
+* [Updated] The minimum version required to run Admin Columns Pro is now WordPress 6.2.
+* [Fixed] Hide WordPress' built-in category and post format dropdowns when a Taxonomy column is configured to prevent smart filter conflicts.
+* [Fixed] BuddyPress: Fatal error when filtering or inline-editing the Groups column on BuddyBoss Platform sites.
+* [Fixed] Gravity Forms: Entry list no longer shows every field as a column after Admin Columns is disabled. The default column set now matches Gravity Forms' own smart defaults.
+
+= 7.0.20 =
+Release Date: June 16th, 2026
+
+* [Fixed] Editing: the Gallery inline editor no longer gets stuck on "Loading…" when a gallery image is missing.
+* [Fixed] JavaScript error on the table item count in locales using an apostrophe thousands separator.
+* [Added] WooCommerce: Product Details column added to the subscriptions list table
+
+= 7.0.19 =
+Release Date: May 29th, 2026
+
+* [Added] Media: New "Used in Post Content" column that detects which posts reference an image in their content, with True/False and Count display options.
+* [Added] WooCommerce: New "Used in Product Gallery" media column that detects which products reference an image in their product gallery, with True/False and Count display options.
+* [Improved] Media: The "Used as Featured Image" column now shows the count as a link that opens a modal listing the referencing posts, with a per-post-type summary.
+* [Improved] Media: Renamed the "Featured Image" column to "Used as Featured Image" to better reflect what it shows.
+* [Fixed] Hotfixed WordPress 7.0 styling issues
+* [Fixed] Hardened custom field value deserialization to improve validation of serialized data handling.
+
+= 7.0.18 =
+Release Date: May 19th, 2026
+
+* [Fixed] Conditionals: selected users now display by name after a page refresh instead of by ID.
+* [Fixed] SEOPress: prevented loading the Redirects table screen when the SEOPress redirect post type is not registered.
+* [Fixed] Fixed a fatal error caused by the Gutenberg Blocks column in Block Structure mode.
+* [Improved] The "Show edit columns" setting now also applies to the WP Admin Bar.
+
+= 7.0.17 =
+Release Date: May 11th, 2026
+
+* [Fixed] ACF: WYSIWYG fields now exports the raw value instead of the sanitized value
+* [Fixed] Yoast: Error in the SEO Title column
+* [Fixed] Reinit Inline Edit after Quick Edit action
+* [Fixed] Material icons failing to render when CSS bundlers concatenated stylesheets due to a missing trailing semicolon after the `@layer` declaration in `acui.css`.
+* [Fixed] Gutenberg Blocks column in Block Structure mode causing a fatal error for layouts saved in older versions.
+* [Updated] Axios updated to the latest version.
+
+= 7.0.16 =
+Release Date: April 17th, 2026
+
+* [Fixed] Fixed a critical error on sites where the PHP mbstring extension is not available.
+* [Fixed] Fixed a UI issue in the ACF field settings tab where inline scripts interfered with the page rendering.
+
+= 7.0.15 =
+Release Date: April 14th, 2026
+
+* [Improved] The ac/export/render filter now fires for all exported values, including empty ones
+* [Added] ACF: Field settings tab to add fields as admin columns directly from the field group editor.
+* [Fixed] WooCommerce: The product select box on the Product Variation table is searchable again
+* [Fixed] ACF: Group fields can now be edited inline even when no value has been saved yet
+
+= 7.0.13 =
+Release Date: March 30th, 2026
+
+* [Added] WooCommerce: New Fulfillment Time column for orders showing time between creation and completion.
+* [Added] WooCommerce: New Days Since Last Sale column for products to identify stale inventory.
+* [Added] WooCommerce: New Stock Value column for products showing price multiplied by stock quantity.
+* [Added] WooCommerce: New Average Order Value column for users showing average spend per order.
+* [Added] WooCommerce: New Days Since Last Order column for users to identify at-risk customers.
+* [Added] WooCommerce: Sorting support for Product Orders and Average Order Interval columns.
+* [Added] WooCommerce: Products Sold and Total Revenue columns now support time period filtering (last week, month, quarter, year, or custom days), sorting, and search.
+* [Added] WooCommerce: Total Revenue column now includes an order status filter.
+* [Added] ACF: Time Picker column now supports display format settings with ACF, WordPress, and custom time formats.
+* [Added] Word Count columns now support Before & After text to prepend or append custom text around the count.
+* [Added] Custom field column settings now display the meta key for reference.
+* [Added] Added grey as a color option for conditional formatting.
+* [Added] Core: ACF field settings tab to add fields as admin columns directly from the field group editor.
+* [Added] Core: Column editor now scrolls to the opened column when linked from ACF field settings.
+* [Added] Core: ACF date save format option for custom field date columns.
+* [Improved] WooCommerce: Coupon Orders column now displays order details in a modal with date, products, and totals.
+* [Improved] Redesigned integration notices with contextual suggestions on ACF, WooCommerce, Gravity Forms, and Events Calendar screens.
+* [Improved] Updated integration addon descriptions with clearer feature highlights and tooltips.
+* [Improved] Refreshed column settings sidebar with updated review and support panels.
+* [Improved] File columns now group attachments by file type and display multiple filenames separated by commas.
+* [Improved] Improved Before & After display options UI.
+* [Fixed] ACF: Fixed select fields with optgroups not displaying values and causing PHP warnings in sorting, search, and editing.
+* [Fixed] WooCommerce: Fixed product statistics not displaying on legacy (non-HPOS) order screens.
+* [Fixed] JetEngine: Fixed select fields not displaying options with "0" as the value.
+* [Fixed] Fixed the post link option not appearing for most property types in the Comment Post column.
+* [Fixed] Fixed the post link option now not appearing in the User First Post and Last Post columns.
+* [Fixed] Fixed a potential error in user property columns when the display setting has not been saved yet.
+* [Fixed] Fixed export errors being silently saved as files instead of showing an error message.
+* [Fixed] Fixed "Default" option duplicating in the primary column preference dropdown.
+* [Fixed] Fixed template creation showing a success notification even when it failed.
+* [Fixed] Fixed conditional formatting not being available for automatically detected custom field date columns.
+* [Fixed] Fixed media custom field columns not supporting multiple file uploads.
+* [Fixed] Fixed the remove button not appearing for non-image media files in inline editing.
+* [Fixed] Fixed user search in table view conditionals not working with multi-word names.
+
+= 7.0.12 =
+Release Date: March 16th, 2026
+
+* [Added] New "Auto Detect" option for the date save format setting.
+* [Added] New hooks `ac/search/select/options` and `ac/filtering/select/options` to customize dropdown options.
+* [Added] ACF: File field now supports file display settings with preview mode (images, video, audio) and link options (view, download, edit).
+* [Added] ACF: File field now supports multiple file uploads.
+* [Added] MetaBox: File fields now support file display and link settings.
+* [Added] New `ac/init` action hook for accessing the DI container after plugin initialization.
+* [Improved] Improved license activation reliability when the API proxy is unavailable.
+* [Improved] Export table data is now accessible for programmatic use.
+* [Improved] The Title Only column on the Media list table now displays both the post title and the filename.
+* [Improved] Before/After text settings now correctly apply to ID columns.
+* [Fixed] Fixed potential errors when displaying columns for deleted posts, users, or terms.
+* [Fixed] Fixed dropdown menus closing unexpectedly when clicked.
+* [Fixed] MetaBox: Fixed a switch-case syntax error in the Relationship field for taxonomy screens.
+* [Fixed] MetaBox: Fixed taxonomy sorting when term IDs contain commas.
+* [Fixed] Resolved errors and deprecation warnings when running on PHP 8.4.
+
+= 7.0.11 =
+Release Date: March 2nd, 2026
+
+* [Added] WooCommerce Product Property now falls back to the parent product when a variation has no value.
+* [Added] ACF: Added filtering support for Checkbox and Button Group field types inside Repeater fields.
+* [Added] Toolset: Added support for the Map field type.
+* [Fixed] `ac/editing/saved` hook for Bulk Edit now uses the correct and the same params as Inline Edit.
+* [Fixed] ACF date fields are now formatted without timezone modification.
+* [Fixed] Correctly assign a UTC timezone for `wp_date()` usages.
+* [Fixed] Jetengine Switcher field showed an incorrect `true` value.
+* [Fixed] WooCommerce Shipping column now works with multi currencies.
+* [Fixed] WooCommerce Order Notes column now only shows the latest notes instead of all.
+* [Fixed] WooCommerce: Fixed product ratings sorting.
+* [Fixed] Events Calendar: Fixed inline editing for events being affected by The Events Calendar's post limit override.
+* [Fixed] BuddyPress: Fixed multiple issues; incorrect table screen detection, activity count filtering, and a double-save in group editing.
+* [Fixed] MetaBox: Fixed the Relationship field not working correctly for user-based post types.
+* [Fixed] Bulk Delete: Fixed a potential fatal error when the post type object cannot be resolved.
+* [Fixed] Bulk Delete: Error message for a locked post now gracefully handles an unknown locking user.
+* [Improved] Columns no longer open during column reordering.
+* [Improved] Significantly improved performance of the list screen settings decoder.
+* [Improved] Applied output escaping across templates for better security hardening.
+* [Deprecated] Deprecated the HTML::more() helper method.
+
+= 7.0.10 =
+Release Date: February 16th, 2026
+
+* [Fixed] Fixed an issue where child terms in hierarchical taxonomies were excluded from filtered results when no sorting was applied
+* [Fixed] Fixed an error in the Yoast Primary Taxonomy column.
+* [Fixed] Toolset types legacy relationship fields could trigger an error.
+* [Added] Implemented missing Editing feature for some Events Calendar columns
+* [Added] Added the `do_action('ac/export/data')` hook for customizing exported CSV data.
+* [Added] WooCommerce add-on: Exclude the stock count when the quantity is zero during product stock export.
+* [Added] Reintroduced the WooCommerce Product Details column to the Orders table.
+* [Added] MetaBox support for the "Switch" field type
+* [Improved] Restored the post display settings for the ACF page link field
+* [Improved] String limit setting added to Media Caption column
+* [Deprecated] Deprecated the Admin Columns helper function 'ac_helper'.
+* [Deprecated] Removed the hook `ac/column/types/pro` in favor of `ac/column/types`.
+
+= 7.0.9 =
+Release Date: February 4th, 2026
+
+* [Fixed] Various code optimizations and minor improvements, including stricter type handling.
+* [Fixed] Jetengine: Gallery field now works correctly with different value formats
+* [Fixed] Gravity Forms: we will explicitly cast the `GF_FIELD->isRequired()' result to a boolean
+* [Fixed] Gravity Forms: fixed an issue with products column
+* [Fixed] Added the missing bulk delete feature to the media list table
+* [Improved] Bulk deleting WooCommerce products will now also delete the lookup table contents related to a given product
+
+= 7.0.8 =
+Release Date: February 2nd, 2026
+
+* [Fixed] Filtering by Past and Future dates for ACF columns caused an error.
+* [Fixed] Fixed an error with the MetaBox relationship field not storing its relation (e.g. post) correctly
+* [Fixed] Resolved an issue where original WordPress default columns were stored incorrectly.
+* [Fixed] Fixed an issue where images in custom field columns did not always display correctly, depending on how they were stored.
+* [Added] Added support for the ACF date format for date custom fields.
+* [Added] Added a setting for image, media, post, and user custom fields to control the number of items displayed.
+* [Improved] Renamed and reordered the date format settings for custom field column to make the stored date format clearer (with an improved tooltip).
+
+= 7.0.7 =
+Release Date: January 30th, 2026
+
+* [Fixed] The ACF "flexible content" column gave a fatal error when used inside a ACF group field.
+* [Fixed] WooCommerce HPOS Unsupported Fields gave a fatal error on the table.
+* [Fixed] WooCommerce Coupon Code formatter gave an error for coupons that don't exist anymore
+* [Fixed] Beaver Builder add-on: the category column will link to the correct post-type when using the "filter by term" setting
+* [Improved] WooCommerce Stock Quantity now sorts better on numeric values.
+* [Added] The ACF group column has an "Edit field" link in the extra action section of the column setting
+
+= 7.0.6 =
+Release Date: January 28th, 2026
+
+* [Fixed] Prevented a fatal error when retrieving the total items count if $wp_list_table is not a WP_List_Table instance.
+* [Fixed] Fixed a WordPress VIP icon font issue.
+* [Improved] Optimized performance and memory usage when retrieving table views.
+* [Improved] The value rendering hook now also triggers when the value is empty.
+
+= 7.0.5 =
+Release Date: January 27th, 2026
+
+* [Fixed] Errors affecting date columns from some third-party plugins
+* [Fixed] Incorrect values returned by Toolset Select fields
+* [Fixed] The `EditorColumns` URI was incorrectly added to the WP_Admin_Bar object which could cause an error
+* [Updates] WooCommerce Order column now export custom order number instead of just the ID
+* [Improved] FileStorage performance and optimization
+* [Improved] Added get_post_type and get_meta_type methods to the CustomFieldContext class
+
+= 7.0.4 =
+Release Date: January 21st, 2026
+
+* [Added] WooCommerce Last Active column for the user table
+* [Fixed] Default WordPress and third-party columns that no longer displayed values
+* [Fixed] Gravity Forms checkbox null value error
+* [Fixed] Fixed PHP 8.4 deprecation warnings
+* [Fixed] File Storage updater now supports older file formats
+* [Fixed] Deprecated column type error in Pods
+* [Fixed] Media Library Assistant export error
+* [Fixed] User link setting linking to the wrong page
+
+= 7.0.3 =
+Release Date: January 16th, 2026
+
+* [Fixed] Smart Filtering on Taxonomies did not work when filtering was disabled
+* [Fixed] Better fix for the Media table
+* [Updated] Changed namespace for formatters from `ACP\Value\Formatter` to `ACP\Formatter`
+
+= 7.0.2 =
+Release Date: January 14th, 2026
+
+* [Fixed] Fatal error in WPML string translations
+* [Fixed] Error on the Media table when Grid view is active
+
+= 7.0.1 =
+Release Date: January 13th, 2026
+
+* [Fixed] Skip unsupported (unrenderable) ACF Fields that could throw a fatal error
+* [Fixed] Replaced variable `$column` with `$context` in the 'ac/editing/saved' hook
+* [Fixed] The get_hash() method in the ACF Field class will always return a `string`
+* [Deprecated] Deprecated AC\ListScreen::get_singular_label()
+* [Deprecated] Deprecated AC\Table\Button::set_text()
+
+= 7.0 =
+Release Date: January 12th, 2025
+
+* [Breaking Changes] Custom columns created for versions below 7.0 are no longer compatible and must be rewritten. Please read [Upgrading from v6 to v7](https://docs.admincolumns.com/article/117-how-to-upgrade-from-v6-to-v7)
+* [Breaking Changes] Many hooks have been renamed or modified to fit the new architecture and to prevent fatal errors.
+* [Improved] Completely new design and interface for the settings pages.
+* [Added] Conditional Formatting now supports applying rules for all users (Global Conditional Formatting).
+* [Added] New integration with Rank Math SEO.
+* [Added] New integration with SEOPress.
+* [Added] New Tools page to manage templates.
+* [Added] New Tools page to help set up File Storage.
+* [Added] ACF: Field-type columns now organize under their respective ACF Field Groups.
+* [Improved] Exporting table contents to CSV is faster
+* [Improved] Global Conditional Formatting is now also saved in File Storage
+* [Improved] Table views can now be toggled (enable/disable)
+* [Improved] Added support for composite editing modals (e.g., editing First and Last name together in one modal).
+* [Improved] More columns now support the extended value feature, providing richer and more detailed previews.
+* [Improved] ACF: The field type columns are now grouped by ACF Group.
+* [Improved] JetEngine: Column type keys are now prefixed to prevent conflicts with default columns.
+* [Improved] Toolset Types: Fully reworked column setup. Now one column per field instead of a single "Types" column. The upgrade script will update all existing configurations.
+* [Improved] Pods: Fully reworked column setup. Now one column per field instead of a single "Pods" column. The upgrade script will update all existing configurations.
+* [Updated] Free version numbering jumped ahead to 7.0 to align with the Pro version.
+
+= 6.4.23 =
+Release Date: September 22nd, 2025
+
+* [Improved] Author column can now also search on related meta (Custom Fields)
+* [Improved] Post Parent column is now always available for Post Type list tables
+* [Improved] Condition Formatting File Size column now works in Kb
+* [Improved] More translatable strings for Bulk Edit scripts
+* [Improved] Added backward compatibility layer in preparation for the upcoming 7.0 release
+* [Updated] Admin Columns Core to version 4.7.18
+
+= 6.4.22 =
+Release Date: August 27th, 2025
+
+* [Fixed] Security fixes (Axios update)
+* [Improved] Support filtering when WooCommerce Analytics is disabled. (HPOS Products)
+* [Improved] Improved conditional formatting for File Size column.
+* [Improved] More flexible way to resolve ACF location rules
+* [Improved] More translatable string for WC Editing modals
+* [Updated] Admin Columns Core to version 4.7.17
+
 = 6.4.21 =
 Release Date: July 28th, 2025
 

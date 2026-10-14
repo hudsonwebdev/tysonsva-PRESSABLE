@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace ACP\ConditionalFormat\Formatter;
 
-use AC\Column;
 use ACP\ConditionalFormat\Formatter;
 use InvalidArgumentException;
 
-abstract class BaseFormatter implements Formatter
+class BaseFormatter implements Formatter
 {
-
-    private $type;
+    private string $type;
 
     public function __construct(string $type)
     {
@@ -29,7 +27,7 @@ abstract class BaseFormatter implements Formatter
             self::STRING,
         ];
 
-        if ( ! in_array($this->type, $valid_types, true)) {
+        if (! in_array($this->type, $valid_types, true)) {
             throw new InvalidArgumentException(sprintf('Invalid value type (%s) for formatting.', $this->type));
         }
     }
@@ -39,7 +37,7 @@ abstract class BaseFormatter implements Formatter
         return $this->type;
     }
 
-    public function format(string $value, $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, string $operator_group): string
     {
         return $value;
     }

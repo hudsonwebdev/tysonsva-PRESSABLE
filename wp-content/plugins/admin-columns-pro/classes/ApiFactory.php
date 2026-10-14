@@ -4,36 +4,28 @@ declare(strict_types=1);
 
 namespace ACP;
 
-use AC\Entity\Plugin;
-use AC\Type\Url\Site;
+use ACP\Access\Platform;
 
 class ApiFactory
 {
+    private AdminColumnsPro $plugin;
 
-    private $plugin;
-
-    public function __construct(Plugin $plugin)
+    public function __construct(AdminColumnsPro $plugin)
     {
         $this->plugin = $plugin;
     }
 
     public function create(): API
     {
-        $api = new API();
-        $api->set_url(Site::URL)
+        $api = new API($this->plugin->get_version());
+        $api
+            ->set_url('https://www.admincolumns.com')
             ->set_proxy('https://api.admincolumns.com')
             ->set_request_meta($this->get_meta());
 
         do_action('acp/api', $api);
 
         return $api;
-    }
-
-    private function is_local(): bool
-    {
-        $ip = $_SERVER['REMOTE_ADDR'] ?? null;
-
-        return in_array($ip, ['127.0.0.1', '::1'], true);
     }
 
     private function get_meta(): array
@@ -44,7 +36,7 @@ class ApiFactory
             'is_network'  => $this->plugin->is_network_active(),
         ];
 
-        if ($this->is_local()) {
+        if (Platform::is_local()) {
             $meta['ip'] = '127.0.0.1';
         }
 

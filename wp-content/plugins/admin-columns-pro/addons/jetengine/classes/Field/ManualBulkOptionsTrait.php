@@ -9,7 +9,6 @@ use Jet_Engine\Meta_Boxes\Option_Sources\Manual_Bulk_Options;
 
 trait ManualBulkOptionsTrait
 {
-
     public function has_manual_bulk_options(): bool
     {
         return isset($this->settings['options_source']) && $this->settings['options_source'] === 'manual_bulk';
@@ -17,7 +16,7 @@ trait ManualBulkOptionsTrait
 
     public function get_manual_bulk_options(): array
     {
-        if ( ! class_exists(Manual_Bulk_Options::class)) {
+        if (! class_exists(Manual_Bulk_Options::class)) {
             return [];
         }
 

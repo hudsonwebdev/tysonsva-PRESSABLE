@@ -1,19 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Sorting\User\ShopOrder;
 
 use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
-use ACP\Sorting\Model\SqlTrait;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Expression\Comparison;
 
 class TotalSales implements QueryBindings
 {
-
-    use SqlTrait;
-
-    private $status;
+    private array $status;
 
     public function __construct(array $status = ['wc-completed'])
     {
@@ -27,7 +26,7 @@ class TotalSales implements QueryBindings
         $bindings = new Bindings();
 
         $status_where = ! empty($this->status)
-            ? sprintf("\nAND acsort_posts.post_status IN ( %s )", $this->esc_sql_array($this->status))
+            ? "\nAND " . Comparison::in('acsort_posts.post_status', $this->status)
             : '';
 
         $sub_query = "

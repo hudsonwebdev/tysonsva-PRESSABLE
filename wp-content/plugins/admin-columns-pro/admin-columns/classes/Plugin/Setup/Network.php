@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin\Setup;
 
 use AC\Plugin\InstallCollection;
@@ -10,12 +12,11 @@ use AC\Storage\SiteOption;
 
 final class Network extends Setup
 {
-
     public function __construct(
         SiteOption $storage,
         Version $version,
-        InstallCollection $installers,
-        UpdateCollection $updates
+        ?InstallCollection $installers = null,
+        ?UpdateCollection $updates = null
     ) {
         parent::__construct($storage, $version, $installers, $updates);
     }

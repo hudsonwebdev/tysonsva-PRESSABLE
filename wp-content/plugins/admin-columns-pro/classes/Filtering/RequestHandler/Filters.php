@@ -4,33 +4,32 @@ declare(strict_types=1);
 
 namespace ACP\Filtering\RequestHandler;
 
+use AC\Column\ColumnLabelTrait;
 use AC\ListScreen;
 use AC\Message;
 use AC\Message\Notice;
 use AC\Request;
+use AC\Type\ColumnId;
+use ACP\Column;
 use ACP\Filtering\EmptyOptions;
-use ACP\Filtering\FilterableDateSetting;
 use ACP\Query\Bindings;
-use ACP\QueryFactory;
+use ACP\Query\QueryRegistry;
 use ACP\Search\Comparison;
-use ACP\Search\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 use Exception;
 
 class Filters
 {
+    use ColumnLabelTrait;
 
     public const KEY = 'acp_filter';
 
-    private $list_screen;
+    private ListScreen $list_screen;
 
-    private $comparison_factory;
-
-    public function __construct(ListScreen $list_screen, ComparisonFactory $comparison_factory)
+    public function __construct(ListScreen $list_screen)
     {
         $this->list_screen = $list_screen;
-        $this->comparison_factory = $comparison_factory;
     }
 
     private function is_request(Request $request): bool
@@ -40,26 +39,23 @@ class Filters
 
     public function handle(Request $request): void
     {
-        if ( ! $this->is_request($request)) {
+        if (! $this->is_request($request)) {
             return;
         }
 
         $filters = $request->filter(self::KEY, [], FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
-        if ( ! $filters) {
+        if (! $filters) {
             return;
         }
 
         $bindings = $this->create_bindings($filters);
 
-        if ( ! $bindings) {
+        if (! $bindings) {
             return;
         }
 
-        QueryFactory::create(
-            $this->list_screen->get_query_type(),
-            $bindings
-        )->register();
+        QueryRegistry::create($this->list_screen->get_table_screen(), $bindings)->register();
     }
 
     private function use_operator_contains(Comparison $comparison): bool
@@ -70,21 +66,21 @@ class Filters
                $comparison->get_operators()->search(Operators::CONTAINS);
     }
 
-    private function create_bindings_by_column(string $column_name, $request_value): ?Bindings
+    private function create_bindings_by_column(ColumnId $column_id, $request_value): ?Bindings
     {
         if ('' === $request_value) {
             return null;
         }
 
-        $column = $this->list_screen->get_column_by_name($column_name);
+        $column = $this->list_screen->get_column($column_id);
 
-        if ( ! $column) {
+        if (! $column instanceof Column) {
             return null;
         }
 
-        $comparison = $this->comparison_factory->create($column);
+        $comparison = $column->search();
 
-        if ( ! $comparison) {
+        if (! $comparison) {
             return null;
         }
 
@@ -94,8 +90,10 @@ class Filters
             ? Operators::CONTAINS
             : Operators::EQ;
 
-        if ($column instanceof FilterableDateSetting && null !== $column->get_filtering_date_setting()) {
-            switch ($column->get_filtering_date_setting()) {
+        $filter_format = $column->get_setting('filter_format');
+
+        if ($filter_format) {
+            switch ($filter_format->get_input()->get_value()) {
                 case '':
                 case 'daily':
                     return $comparison->get_query_bindings(Operators::EQ, $value);
@@ -116,7 +114,6 @@ class Filters
             }
         }
 
-        // TODO David Is this the place to fetch all Numeric Range comparisons?
         if (is_array($value->get_value())) {
             return $this->get_query_bindings_range($value, $comparison);
         }
@@ -154,13 +151,16 @@ class Filters
 
         foreach ($filters as $column_name => $value) {
             try {
-                $binding = $this->create_bindings_by_column((string)$column_name, $value);
+                $binding = $this->create_bindings_by_column(
+                    new ColumnId((string)$column_name),
+                    $value
+                );
             } catch (Exception $e) {
                 $this->display_notice($column_name, $e->getMessage());
                 continue;
             }
 
-            if ( ! $binding) {
+            if (! $binding) {
                 continue;
             }
 
@@ -172,10 +172,10 @@ class Filters
 
     private function display_notice(string $column_name, string $message): void
     {
-        $column = $this->list_screen->get_column_by_name($column_name);
+        $column = $this->list_screen->get_column(new ColumnId($column_name));
 
         $label = $column
-            ? $column->get_custom_label()
+            ? $this->get_column_label($column)
             : $column_name;
 
         $message = sprintf('Filter %s: %s', sprintf('<strong>%s</strong>', $label), $message);

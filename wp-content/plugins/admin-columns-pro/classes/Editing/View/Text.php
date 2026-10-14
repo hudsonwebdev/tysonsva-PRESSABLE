@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\View;
 
 use ACP\Editing\View;
 
 class Text extends View implements Placeholder, MaxLength
 {
-
     use MaxlengthTrait;
     use PlaceholderTrait;
 

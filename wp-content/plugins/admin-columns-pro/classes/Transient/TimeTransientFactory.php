@@ -6,7 +6,6 @@ namespace ACP\Transient;
 
 class TimeTransientFactory
 {
-
     public static function create_update_check(): TimeTransient
     {
         return new TimeTransient('acp_periodic_update_plugins_check', HOUR_IN_SECONDS * 12);
@@ -21,5 +20,4 @@ class TimeTransientFactory
     {
         return new TimeTransient('acp_periodic_license_check', DAY_IN_SECONDS);
     }
-
 }

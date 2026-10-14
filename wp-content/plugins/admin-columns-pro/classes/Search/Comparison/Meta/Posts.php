@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Meta;
 
 use AC\Meta\Query;
-use ACA\ACF\Search\UnserializedValuesTrait;
 use ACP\Search\Helper\MetaQuery\SerializedComparisonFactory;
 use ACP\Search\Labels;
 use ACP\Search\Operators;
@@ -11,20 +12,16 @@ use ACP\Search\Value;
 
 class Posts extends Post
 {
-
     use UnserializedValuesTrait;
 
-    /**
-     * @var string
-     */
-    private $serialize_type;
+    private string $serialize_type;
 
     public function __construct(
         string $meta_key,
         array $post_types = [],
         array $terms = [],
-        Query $query = null,
-        $serialize_type = Value::STRING
+        ?Query $query = null,
+        string $serialize_type = Value::STRING
     ) {
         parent::__construct(
             $meta_key,

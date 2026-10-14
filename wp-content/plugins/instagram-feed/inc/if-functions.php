@@ -195,6 +195,89 @@ function sbi_add_resized_image_data($instagram_feed, $feed_id)
 add_action('sbi_before_feed_end', 'sbi_add_resized_image_data', 10, 2);
 
 /**
+ * Creates the locator token baked into logged-out feed HTML (data-locatornonce).
+ *
+ * An HMAC over the same action string the old WordPress nonce used, so it still
+ * binds a request's atts (via the transient name) to a feed the site actually
+ * rendered, but it never expires, so full-page-cached HTML keeps working
+ * (SMASH-1630, AgDR-9002). Only minted for logged-out renders, which are what
+ * page caches serve; logged-in renders keep the user-bound, expiring nonce.
+ *
+ * @param int|string $post_id        ID of the post the feed was rendered on, or 'unknown'.
+ * @param string     $transient_name Transient name of the rendered feed.
+ *
+ * @return string
+ */
+function sbi_create_locator_token($post_id, $transient_name)
+{
+	$action = 'sbi-locator-nonce-' . $post_id . '-' . $transient_name;
+
+	return hash_hmac('sha256', 'sbi-locator-token|' . $action, sbi_get_locator_token_key());
+}
+
+/**
+ * Returns the plugin-scoped key the locator token HMAC is signed with.
+ *
+ * The key is a subkey derived from core's nonce salt: NONCE_KEY and NONCE_SALT
+ * in the default wp-config.php, or, on installs without them, core's own
+ * nonce_key / nonce_salt options, which core already creates the first time
+ * any nonce is made. The plugin therefore triggers no write anywhere, so there
+ * is no first-render race. The derived subkey plus the 'sbi-locator-token|'
+ * message prefix keep these tokens distinct from core nonces, which use a
+ * different construction and algorithm.
+ *
+ * To revoke every issued token, set sbi_locator_token_epoch to a NEW value
+ * (e.g. `wp option update sbi_locator_token_epoch <random>`) or rotate the
+ * wp-config.php salts. Deleting the option reverts to the default epoch and so
+ * re-validates tokens minted before the first change; do not revoke by
+ * deleting it. Any scalar epoch is used as a string (an integer set via
+ * update_option() still revokes).
+ *
+ * @return string
+ */
+function sbi_get_locator_token_key()
+{
+	static $key = null;
+
+	if (null !== $key) {
+		return $key;
+	}
+
+	$epoch = get_option('sbi_locator_token_epoch', '');
+	$epoch = is_scalar($epoch) ? (string) $epoch : '';
+
+	$key = hash_hmac('sha256', 'sbi-locator-key|' . $epoch, wp_salt('nonce'));
+
+	return $key;
+}
+
+/**
+ * Verifies a locator token submitted with a feed AJAX request.
+ *
+ * Accepts the non-expiring HMAC token, and falls back to a WordPress nonce for
+ * HTML that was cached before the token replaced it.
+ *
+ * @param mixed      $token          Submitted token.
+ * @param int|string $post_id        ID of the post the feed was rendered on, or 'unknown'.
+ * @param string     $transient_name Transient name of the requested feed.
+ *
+ * @return bool
+ */
+function sbi_verify_locator_token($token, $post_id, $transient_name)
+{
+	if (!is_string($token) || '' === $token) {
+		return false;
+	}
+
+	if (hash_equals(sbi_create_locator_token($post_id, $transient_name), $token)) {
+		return true;
+	}
+
+	// Legacy: HTML cached before this change still carries a WordPress nonce.
+	return false !== wp_verify_nonce($token, 'sbi-locator-nonce-' . $post_id . '-' . $transient_name);
+}
+
+/**
  * Called after the load more button is clicked using admin-ajax.php.
  * Resembles "display_instagram"
  */
@@ -218,7 +301,7 @@ function sbi_get_next_post_set()
 	$transient_name = $instagram_feed_settings->get_transient_name();
 
 	$nonce = isset($_POST['locator_nonce']) ? sanitize_text_field(wp_unslash($_POST['locator_nonce'])) : '';
-	if (!wp_verify_nonce($nonce, 'sbi-locator-nonce-' . $post_id . '-' . $transient_name) || $transient_name !== $feed_id) {
+	if (!sbi_verify_locator_token($nonce, $post_id, $transient_name) || $transient_name !== $feed_id) {
 		wp_send_json_error('nonce check failed, details do not match');
 	}
 
@@ -361,7 +444,7 @@ function sbi_process_submitted_resize_ids()
 	$settings = $instagram_feed_settings->get_settings();
 
 	$nonce = isset($_POST['locator_nonce']) ? sanitize_text_field(wp_unslash($_POST['locator_nonce'])) : '';
-	if (!wp_verify_nonce($nonce, 'sbi-locator-nonce-' . $post_id . '-' . $transient_name) || $transient_name !== $feed_id) {
+	if (!sbi_verify_locator_token($nonce, $post_id, $transient_name) || $transient_name !== $feed_id) {
 		wp_send_json_error('nonce check failed, details do not match');
 	}
 
@@ -421,7 +504,7 @@ function sbi_do_locator()
 	$transient_name = $instagram_feed_settings->get_transient_name();
 
 	$nonce = isset($_POST['locator_nonce']) ? sanitize_text_field(wp_unslash($_POST['locator_nonce'])) : '';
-	if (!wp_verify_nonce($nonce, 'sbi-locator-nonce-' . $post_id . '-' . $transient_name)) {
+	if (!sbi_verify_locator_token($nonce, $post_id, $transient_name)) {
 		wp_send_json_error('nonce check failed');
 	}
 
@@ -1241,8 +1324,11 @@ function sb_instagram_clear_page_caches()
 /**
  * Registers the local design-tokens stylesheet so consumer styles can
  * declare it as a dependency. Hooked at priority 1 on both the frontend
- * and admin enqueue actions so the handle is always available before
- * any consumer style registers.
+ * and admin enqueue actions, and also called directly by
+ * sb_instagram_scripts_enqueue() — those two hooks alone do not cover
+ * every pass that registers consumer styles (notably the block editor's
+ * iframed canvas asset list and REST editor-settings requests), so the
+ * handle must also be registered where it is consumed.
  *
  * The file is a snapshot of @smashballoons/tokens (npm) — see
  * assets/tokens/sb-tokens-local.css for the version pin and migration
@@ -1287,6 +1373,14 @@ function sb_instagram_scripts_enqueue($enqueue = false)
 	} else {
 		wp_register_script('sbi_scripts', trailingslashit(SBI_PLUGIN_URL) . $js_file, array('jquery'), SBIVER, true);
 	}
+
+	// The design-tokens handle is a hard dependency of sbi_styles below, so it
+	// must be registered here rather than relying solely on the priority 1
+	// enqueue hooks: the block editor builds its iframed canvas asset list (and
+	// serves REST editor-settings requests) before/without admin_enqueue_scripts,
+	// and an unregistered dependency makes WP_Dependencies silently drop
+	// sbi_styles. wp_register_style() is idempotent, so the hooks stay harmless.
+	sb_instagram_register_tokens_local_style();
 
 	if (isset($sb_instagram_settings['enqueue_css_in_shortcode']) && $sb_instagram_settings['enqueue_css_in_shortcode']) {
 		wp_register_style('sbi_styles', trailingslashit(SBI_PLUGIN_URL) . $css_file, array('sbi-tokens-local'), SBIVER);

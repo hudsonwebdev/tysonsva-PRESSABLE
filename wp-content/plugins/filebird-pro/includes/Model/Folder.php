@@ -102,6 +102,44 @@ class Folder {
 			return $created_by == 0;
 		}
 	}
+	/**
+	 * Whether $candidate_parent_id is $node_id itself or one of its descendants.
+	 *
+	 * Walking up from the proposed parent is enough: if we reach $node_id the
+	 * move would close a cycle. A visited set keeps the walk finite even when
+	 * the stored tree already contains one.
+	 *
+	 * @param int $node_id             Folder being moved.
+	 * @param int $candidate_parent_id Proposed new parent (0 for root).
+	 * @return bool
+	 */
+	public static function isSelfOrDescendant( $node_id, $candidate_parent_id ) {
+		global $wpdb;
+
+		$node_id = (int) $node_id;
+		$current = (int) $candidate_parent_id;
+		$seen    = array();
+
+		while ( $current > 0 ) {
+			if ( $current === $node_id ) {
+				return true;
+			}
+
+			if ( isset( $seen[ $current ] ) ) {
+				// Pre-existing cycle; refuse to build on top of it.
+				return true;
+			}
+
+			$seen[ $current ] = true;
+
+			$current = (int) $wpdb->get_var(
+				$wpdb->prepare( "SELECT `parent` FROM {$wpdb->prefix}fbv WHERE `id` = %d", $current )
+			);
+		}
+
+		return false;
+	}
+
 	public static function updateAuthor( $from_author, $to_author ) {
 		global $wpdb;
 		$wpdb->update(
@@ -305,7 +343,11 @@ class Folder {
         return self::countAttachments( $lang );
     }
 
-	public static function setFoldersForPosts( $post_ids, $folder_ids, $has_action = true ) {
+	/**
+	 * @param int|null $owner Whose folders the posts leave (a post sits in at most one folder per owner).
+	 *                        Defaults to the folders the current user sees.
+	 */
+	public static function setFoldersForPosts( $post_ids, $folder_ids, $has_action = true, $owner = null ) {
 		global $wpdb;
 		if ( ! is_array( $post_ids ) ) {
 			$post_ids = array( $post_ids );
@@ -313,14 +355,13 @@ class Folder {
 		if ( ! is_array( $folder_ids ) ) {
 			$folder_ids = array( $folder_ids );
 		}
-		$user_has_own_folder = SettingModel::getInstance()->get( 'user_mode' ) === '1';
-		$current_user_id     = get_current_user_id();
+		$owner = null === $owner ? self::currentOwner() : (int) $owner;
 
 		foreach ( $folder_ids as $k => $folder_id ) {
 			$folder_id = (int) $folder_id;
 			foreach ( $post_ids as $k2 => $post_id ) {
 				do_action( 'fbv_before_setting_folder', (int) $post_id, $folder_id );
-				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}fbv_attachment_folder WHERE `attachment_id` = %d AND `folder_id` IN (SELECT `id` FROM {$wpdb->prefix}fbv WHERE `created_by` = %d)", (int) $post_id, $user_has_own_folder ? $current_user_id : 0 ) );
+				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}fbv_attachment_folder WHERE `attachment_id` = %d AND `folder_id` IN (SELECT `id` FROM {$wpdb->prefix}fbv WHERE `created_by` = %d)", (int) $post_id, $owner ) );
 				if ( $folder_id > 0 ) {
 					$wpdb->insert(
 						self::getTable( self::$relation_table ),
@@ -340,15 +381,14 @@ class Folder {
 			clean_post_cache( $post_ids[0] );
 		}
 	}
-	public static function detail( $name, $parent ) {
+	public static function currentOwner() {
+		return SettingModel::getInstance()->get( 'user_mode' ) === '1' ? get_current_user_id() : 0;
+	}
+
+	public static function detail( $name, $parent, $owner = null ) {
 		global $wpdb;
-		$name                = wp_kses_post( $name );
-		$user_has_own_folder = SettingModel::getInstance()->get( 'user_mode' ) === '1';
-		if ( $user_has_own_folder ) {
-			$created = get_current_user_id();
-		} else {
-			$created = 0;
-		}
+		$name    = wp_kses_post( $name );
+		$created = null === $owner ? self::currentOwner() : (int) $owner;
 		return $wpdb->get_row(
             $wpdb->prepare(
 			"SELECT * FROM {$wpdb->prefix}fbv WHERE `name` = %s AND `parent` = %d AND `created_by` = %d",
@@ -466,6 +506,27 @@ class Folder {
 		$wpdb->query( "DELETE FROM {$wpdb->prefix}fbv_attachment_folder" );
 		do_action( 'fbv_after_delete_all' );
 	}
+
+	/**
+	 * Delete every media folder of one owner (0 is the shared tree). Files stay in the library.
+	 */
+	public static function deleteByOwner( $owner ) {
+		global $wpdb;
+		$ids = array_map( 'intval', $wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}fbv WHERE created_by = %d", (int) $owner ) ) );
+		if ( empty( $ids ) ) {
+			return;
+		}
+		$in = implode( ',', $ids );
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}fbv_attachment_folder WHERE folder_id IN ($in)" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}fbv WHERE id IN ($in)" );
+		// phpcs:enable
+
+		$folder_colors = get_option( 'fbv_folder_colors', array() );
+		if ( is_array( $folder_colors ) && array_intersect_key( $folder_colors, array_flip( $ids ) ) ) {
+			update_option( 'fbv_folder_colors', array_diff_key( $folder_colors, array_flip( $ids ) ) );
+		}
+	}
 	public static function deleteFolderAndItsChildren( $id ) {
 		global $wpdb;
 		$wpdb->delete( self::getTable( self::$folder_table ), array( 'id' => $id ), array( '%d' ) );
@@ -484,10 +545,14 @@ class Folder {
 		}
 	}
 
-	public static function newFolder( $name, $parent = 0 ) {
+	/**
+	 * @param int $id Reuse this id when it is free, so a restored folder keeps the id galleries and shortcodes point at.
+	 */
+	public static function newFolder( $name, $parent = 0, $owner = null, $id = 0 ) {
 		global $wpdb;
 
-		$ord = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(ord) FROM {$wpdb->prefix}fbv WHERE parent = %d AND created_by = %d", $parent, apply_filters( 'fbv_folder_created_by', 0 ) ) );
+		$owner = null === $owner ? apply_filters( 'fbv_folder_created_by', 0 ) : (int) $owner;
+		$ord   = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(ord) FROM {$wpdb->prefix}fbv WHERE parent = %d AND created_by = %d", $parent, $owner ) );
 
 		$name = sanitize_text_field( wp_kses_post( Helpers::sanitize_for_excel( $name ) ) );
 
@@ -495,9 +560,12 @@ class Folder {
 			'name'       => $name,
 			'parent'     => $parent,
 			'type'       => 0,
-			'created_by' => apply_filters( 'fbv_folder_created_by', 0 ),
+			'created_by' => $owner,
 			'ord'        => is_null( $ord ) ? 0 : ( intval( $ord ) + 1 ),
 		);
+		if ( $id > 0 && ! self::isFolderExist( $id ) ) {
+			$data['id'] = (int) $id;
+		}
 
 		$inserted = $wpdb->insert( self::getTable( self::$folder_table ), $data );
 
@@ -521,10 +589,10 @@ class Folder {
         return false;
 	}
 
-	public static function newOrGet( $name, $parent, $return_id_if_exist = true ) {
-		$check = self::detail( $name, $parent );
+	public static function newOrGet( $name, $parent, $return_id_if_exist = true, $owner = null, $id = 0 ) {
+		$check = self::detail( $name, $parent, $owner );
 		if ( is_null( $check ) ) {
-			return self::newFolder( $name, $parent );
+			return self::newFolder( $name, $parent, $owner, $id );
 		} else {
 			return $return_id_if_exist ? array( 'id' => (int) $check->id ) : false;
 		}
@@ -657,14 +725,19 @@ class Folder {
 
 		$folders       = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}fbv", ARRAY_A );
 		$attachmentIds = $wpdb->get_results( "SELECT folder_id, GROUP_CONCAT(attachment_id SEPARATOR '|') as attachment_ids FROM {$wpdb->prefix}fbv_attachment_folder GROUP BY (folder_id)", OBJECT_K );
+		$folderColors  = get_option( 'fbv_folder_colors', array() );
+		// File IDs only mean something on the site they came from, so every row says which site that is.
+		$site = Helpers::escape_csv_field( home_url() );
 		foreach ( $folders as $key => $folder ) {
-			$folder['name'] = '"' . Helpers::sanitize_for_excel( $folder['name'] ) . '"';
+			$folder['name'] = Helpers::escape_csv_field( $folder['name'] );
 			if ( isset( $folder ) && isset( $attachmentIds[ $folder['id'] ] ) ) {
 				$folder['attachment_ids'] = $attachmentIds[ $folder['id'] ]->attachment_ids ? $attachmentIds[ $folder['id'] ]->attachment_ids : '';
 			} else {
 				$folder['attachment_ids'] = '';
 			}
 			$folder['post_type'] = 'attachment';
+			$folder['site']      = $site;
+			$folder['color']     = is_array( $folderColors ) && ! empty( $folderColors[ $folder['id'] ] ) ? $folderColors[ $folder['id'] ] : '';
 			$folders[$key] = $folder;
 		}
 
@@ -703,14 +776,16 @@ class Folder {
 				$attachment_ids = is_array( $posts ) ? implode( '|', $posts ) : '';
 
 				$folder['id'] = $term->term_id;
-				$folder['name'] = '"' . Helpers::sanitize_for_excel( $term->name ) . '"';
+				$folder['name'] = Helpers::escape_csv_field( $term->name );
 				$folder['parent'] = $term->parent;
 				$folder['type'] = 0;
 				$folder['ord'] = get_term_meta( $term->term_id, 'fbv_tax_order', true );
 				$folder['created_by'] = get_term_meta( $term->term_id, 'fbv_author', true );
 				$folder['attachment_ids'] = $attachment_ids;
 				$folder['post_type'] = $postType;
-				
+				$folder['site'] = $site;
+				$folder['color'] = '';
+
 				$folders[] = $folder;
 			}
 		}

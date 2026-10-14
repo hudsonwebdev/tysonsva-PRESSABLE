@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Storage\User;
 
 use ACP\Editing\Storage;
 
 class DisplayName implements Storage
 {
-
     public function get($id): string
     {
-        return (string)ac_helper()->user->get_user_field('display_name', $id);
+        $user = get_userdata($id);
+
+        return $user ? ($user->display_name ?? '') : '';
     }
 
     public function update(int $id, $data): bool
@@ -21,7 +24,7 @@ class DisplayName implements Storage
         $result = $wpdb->update(
             $wpdb->users,
             ['display_name' => $data],
-            ['ID' => $id],
+            ['ID'           => $id],
             ['%s'],
             ['%d']
         );

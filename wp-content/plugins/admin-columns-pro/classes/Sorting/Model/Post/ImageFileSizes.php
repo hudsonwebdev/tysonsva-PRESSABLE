@@ -10,15 +10,13 @@ use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\QueryBuilder;
 
 class ImageFileSizes implements QueryBindings, WarningAware
 {
-
     use PostRequestTrait;
 
-    private $post_type;
-
-    private $format_value;
+    private ContentTotalImageSize $format_value;
 
     public function __construct()
     {
@@ -55,23 +53,17 @@ class ImageFileSizes implements QueryBindings, WarningAware
     {
         global $wpdb;
 
-        $sql = $wpdb->prepare(
-            "
-            SELECT $wpdb->posts.ID AS id, $wpdb->posts.post_content as content 
-            FROM $wpdb->posts
-            WHERE $wpdb->posts.post_type = %s
-                AND $wpdb->posts.post_content LIKE '%<img%'
-            ",
-            $this->get_var_post_type()
-        );
+        $query = QueryBuilder::for($wpdb->posts)
+            ->select_columns(["$wpdb->posts.ID AS id", "$wpdb->posts.post_content AS content"])
+            ->where("$wpdb->posts.post_type", '=', $this->get_var_post_type())
+            ->and_where_raw("$wpdb->posts.post_content LIKE '%<img%'");
 
         $status = $this->get_var_post_status();
-
         if ($status) {
-            $sql .= $wpdb->prepare("\nAND $wpdb->posts.post_status = %s", $status);
+            $query->and_where("$wpdb->posts.post_status", '=', $status);
         }
 
-        return $wpdb->get_results($sql);
+        return $wpdb->get_results($query->get_sql());
     }
 
 }

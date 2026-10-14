@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\Types\Search;
 
 use AC;
@@ -10,16 +12,11 @@ use ACP\Search\Helper\MetaQuery\SerializedComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Checkboxes extends ACP\Search\Comparison\Meta
-    implements Comparison\Values
+class Checkboxes extends ACP\Search\Comparison\Meta implements Comparison\Values
 {
+    private array $options;
 
-    /**
-     * @var array options
-     */
-    private $options;
-
-    public function __construct(string $meta_key, array $options, string $value_type = null)
+    public function __construct(string $meta_key, array $options, ?string $value_type = null)
     {
         $this->options = $options;
 

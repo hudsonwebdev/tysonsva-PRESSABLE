@@ -7,6 +7,7 @@ use DeliciousBrains\WPMDB\Common\Http\Http;
 use DeliciousBrains\WPMDB\Common\Transfers\Files\Chunker;
 use DeliciousBrains\WPMDB\Common\Transfers\Files\Util;
 use DeliciousBrains\WPMDB\Pro\Transfers\Sender;
+use WP_Error;
 
 /**
  * Class Payload
@@ -112,7 +113,7 @@ class Payload
      * @param array  $state_data
      * @param string $bottleneck
      *
-     * @return resource|array
+     * @return resource|array|WP_Error
      */
     public function create_payload($file_list, $state_data, $bottleneck)
     {
@@ -134,6 +135,17 @@ class Payload
         $chunks   = 0;
 
         foreach ($file_list as $key => $file) {
+			if ( ! $this->filesystem->is_site_file($file['absolute_path']) ) {
+				// Don't reveal the file path in the response. This is a
+				// security-cautious approach that prevents malicious bulk
+				// file requests being able to reveal which directories exist.
+				error_log('Denying migration of a file outside of WordPress directories: ' . $file['absolute_path']);
+				return new WP_Error(
+					'wpmdb_non_site_file_requested_for_payload',
+					__('Unable to migrate file - check debug log for details.', 'wp-migrate-db')
+				);
+			}
+
             // Info on fopen() stream
             $fstat = fstat($handle);
 
@@ -418,6 +430,11 @@ class Payload
     {
         $dest = $this->assemble_filepath_from_payload($state_data, $meta);
 
+		if ( ! $this->filesystem->is_site_file($dest) ) {
+			$msg = __('Filepath is invalid', 'wp-migrate-db');
+            throw new \Exception($msg);
+		}
+
         $dirname = \dirname($dest);
 
         if (!is_dir($dirname)) {
@@ -438,12 +455,32 @@ class Payload
             $mode = 'w';
         }
 
-        if (file_exists($dest) && !is_writable($dest)) {
+        // A new file needs a writable directory. An existing file is truncated in place,
+        // so a writable file in a read-only directory is still a valid destination.
+        $dest_exists = file_exists($dest);
+
+        if (!$dest_exists && !wp_is_writable($dirname)) {
+            $msg = sprintf(__('The `%s` directory is not writable, please check the file permissions of the parent folder and ensure the web server can write to this folder.', 'wp-migrate-db'), $dirname);
+            throw new \Exception($msg);
+        }
+
+        if ($dest_exists && !wp_is_writable($dest)) {
             $msg = sprintf(__('The `%s` file is not writable, please check the file permissions of the parent folder and ensure the web server can read from and write to this file.', 'wp-migrate-db'), $dest);
             throw new \Exception($msg);
         }
 
         $handle = fopen($dest, $mode);
+
+        if (false === $handle) {
+            $last_error = error_get_last();
+            $reason     = !empty($last_error['message']) ? $last_error['message'] : __('unknown error', 'wp-migrate-db');
+            $msg        = sprintf(
+                __('Could not open file for writing: %1$s. Reason: %2$s', 'wp-migrate-db'),
+                $dest,
+                $reason
+            );
+            throw new \Exception($msg);
+        }
 
         return array($dest, $handle);
     }

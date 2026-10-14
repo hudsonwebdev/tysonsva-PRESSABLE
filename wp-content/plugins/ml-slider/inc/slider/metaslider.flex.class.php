@@ -526,14 +526,14 @@ class MetaFlexSlider extends MetaSlider
                     }
                     $('body').attr('data-msdevice', device);
                     return device;
-                }
+                };
                 jQuery(document).ready(function($){
                     var ms_initDeviceType = function (callback) {
                         var device = ms_deviceType() || null;
                         if (typeof callback === 'function') {
                             callback(device);
                         }
-                    }
+                    };
                     $(window).on('resize', function () {
                         ms_deviceType();
                     });

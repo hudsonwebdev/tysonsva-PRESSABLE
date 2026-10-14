@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Taxonomy;
 
 use ACP\Query\Bindings;
@@ -10,7 +12,6 @@ use ACP\Search\Value;
 
 class ID extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([

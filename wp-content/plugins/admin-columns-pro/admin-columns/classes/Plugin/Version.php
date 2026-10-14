@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin;
 
 final class Version
 {
-
     private string $value;
 
     public function __construct(string $version)
@@ -38,7 +39,7 @@ final class Version
     }
 
     /**
-     * Less than
+     * Lesser than
      */
     public function is_lt(Version $version): bool
     {
@@ -46,7 +47,7 @@ final class Version
     }
 
     /**
-     * Greater than or equal
+     * Greater than or Equal
      */
     public function is_gte(Version $version): bool
     {
@@ -54,7 +55,7 @@ final class Version
     }
 
     /**
-     * Less than or equal
+     * Lesser than or Equal
      */
     public function is_lte(Version $version): bool
     {
@@ -76,7 +77,7 @@ final class Version
         return str_contains($this->value, 'beta');
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->value;
     }

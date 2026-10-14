@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Taxonomy;
 
 use AC\Helper\Select\Options;
@@ -8,11 +10,11 @@ use ACP\Search\Comparison;
 use ACP\Search\Comparison\RemoteValues;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use WP_Term;
 
 class ParentTerm extends Comparison implements RemoteValues
 {
-
-    private $taxonomy;
+    private string $taxonomy;
 
     public function __construct(string $taxonomy)
     {
@@ -23,9 +25,11 @@ class ParentTerm extends Comparison implements RemoteValues
 
     public function format_label(string $value): string
     {
-        $term = get_term($value, $this->taxonomy);
+        $term = get_term((int)$value, $this->taxonomy);
 
-        return $term->name ?? $value;
+        return $term instanceof WP_Term
+            ? $term->name
+            : $value;
     }
 
     protected function create_query_bindings(string $operator, Value $value): Bindings

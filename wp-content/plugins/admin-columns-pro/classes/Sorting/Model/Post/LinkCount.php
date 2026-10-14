@@ -11,8 +11,7 @@ use ACP\Sorting\Type\Order;
 
 class LinkCount implements QueryBindings
 {
-
-    private $domains;
+    private array $domains;
 
     public function __construct(array $domains)
     {
@@ -26,7 +25,7 @@ class LinkCount implements QueryBindings
                 $this->get_sql_field(),
                 (string)$order,
                 [
-                    'esc_sql' => false,
+                    'esc_sql'      => false,
                     'empty_values' => [0],
                 ]
             )

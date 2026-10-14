@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service\Post;
 
 use AC\Helper\Select\Options;
@@ -11,7 +13,6 @@ use ACP\Helper\Select;
 
 class PostType extends BasicStorage implements RemoteOptions
 {
-
     public function __construct()
     {
         parent::__construct(new Storage\Post\PostType());
@@ -22,7 +23,7 @@ class PostType extends BasicStorage implements RemoteOptions
         return new View\RemoteSelect();
     }
 
-    public function get_remote_options(int $id = null): Options
+    public function get_remote_options(?int $id = null): Options
     {
         return (new Select\OptionsFactory\PostType())->create();
     }

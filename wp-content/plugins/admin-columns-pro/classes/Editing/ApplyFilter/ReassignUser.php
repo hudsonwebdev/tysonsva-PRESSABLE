@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\ApplyFilter;
 
 class ReassignUser
 {
-
     /**
      * Reassign posts and links to new User ID.
      */

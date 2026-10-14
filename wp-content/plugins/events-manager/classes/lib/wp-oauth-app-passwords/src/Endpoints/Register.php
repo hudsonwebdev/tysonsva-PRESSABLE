@@ -17,6 +17,18 @@ class Register {
 			return new \WP_Error( 'registration_not_supported', __( 'Dynamic client registration is disabled.', 'wp-oauth-app-passwords' ), array( 'status' => 403 ) );
 		}
 
+		// Registration is open, so bound it per address; the registry is also capped and de-duplicated, but a cap alone still lets one host churn through it.
+		$limit = (int) apply_filters( 'pixelite_oauth_registration_rate_limit', 10 );
+		$ip    = isset( $_SERVER['REMOTE_ADDR'] ) ? (string) $_SERVER['REMOTE_ADDR'] : '';
+		if ( $limit > 0 && '' !== $ip ) {
+			$key   = 'pixelite_oauth_reg_' . md5( $ip );
+			$count = (int) get_transient( $key );
+			if ( $count >= $limit ) {
+				return new \WP_Error( 'too_many_requests', __( 'Too many client registrations from this address. Try again later.', 'wp-oauth-app-passwords' ), array( 'status' => 429 ) );
+			}
+			set_transient( $key, $count + 1, HOUR_IN_SECONDS );
+		}
+
 		$body = $request->get_json_params();
 		if ( ! is_array( $body ) ) {
 			$body = $request->get_params();
@@ -31,7 +43,7 @@ class Register {
 		$client = Clients::register( array(
 			'name'          => (string) ( $body['client_name'] ?? '' ),
 			'redirect_uris' => $redirect_uris,
-			'scopes'        => isset( $body['scope'] ) ? explode( ' ', (string) $body['scope'] ) : array( Server::default_scope() ),
+			'scopes'        => explode( ' ', Server::normalize_scope( (string) ( $body['scope'] ?? '' ) ) ),
 			'dynamic'       => true,
 		) );
 

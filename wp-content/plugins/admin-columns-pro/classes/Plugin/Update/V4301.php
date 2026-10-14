@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Plugin\Update;
 
 use AC\Plugin\Update;
@@ -13,8 +15,7 @@ use RecursiveIteratorIterator;
 
 class V4301 extends Update
 {
-
-    private $plugin_dir;
+    private string $plugin_dir;
 
     public function __construct(string $plugin_dir)
     {
@@ -63,7 +64,7 @@ class V4301 extends Update
             ],
         ]);
 
-        if ( ! $user_ids) {
+        if (! $user_ids) {
             return [];
         }
 
@@ -82,7 +83,7 @@ class V4301 extends Update
             $phase = get_user_meta($user_id, $phase_key, true);
             $timeout = get_user_meta($user_id, $timeout_key, true);
 
-            if ( ! $timeout) {
+            if (! $timeout) {
                 $timeout = time();
             }
 

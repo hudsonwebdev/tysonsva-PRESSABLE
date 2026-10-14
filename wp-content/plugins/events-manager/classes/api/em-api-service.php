@@ -18,6 +18,8 @@ class Service {
 		$total = (int) \EM_Events::$num_rows_found;
 		$items = array();
 		foreach ( $events as $EM_Event ) {
+			// The query layer only knows about event_status/event_private, so a password-protected event still matches here and would be serialized with its raw content.
+			if ( $EM_Event->password_required() ) continue;
 			$items[] = static::prepare_event( $EM_Event, $params['context'] ?? 'view' );
 		}
 		return array(
@@ -372,7 +374,10 @@ class Service {
 			return Utils::error( 'em_api_event_forbidden', __( 'You do not have permission to view this event.', 'events-manager' ), 403 );
 		}
 		$items = array();
+		$can_manage = $EM_Event->can_manage( 'manage_bookings', 'manage_others_bookings' );
 		foreach ( $EM_Event->get_tickets( true ) as $EM_Ticket ) {
+			// Readers get what the booking form would show them; hidden and unavailable tickets are a manager's view.
+			if ( !$can_manage && !$EM_Ticket->is_displayable() ) continue;
 			$items[] = static::prepare_ticket( $EM_Ticket, $params['context'] ?? 'view' );
 		}
 		return array(
@@ -386,6 +391,9 @@ class Service {
 		if ( is_wp_error( $EM_Ticket ) ) return $EM_Ticket;
 		if ( !static::can_read_event( $EM_Ticket->get_event(), $context ) ) {
 			return Utils::error( 'em_api_ticket_forbidden', __( 'You do not have permission to view this ticket.', 'events-manager' ), 403 );
+		}
+		if ( !$EM_Ticket->can_manage() && !$EM_Ticket->is_displayable() ) {
+			return Utils::error( 'em_api_ticket_not_found', __( 'Ticket not found.', 'events-manager' ), 404 );
 		}
 		return static::prepare_ticket( $EM_Ticket, $context );
 	}
@@ -420,7 +428,12 @@ class Service {
 		if ( !$EM_Ticket->can_manage() ) {
 			return Utils::object_error( 'em_api_ticket_forbidden', $EM_Ticket, __( 'You do not have permission to update this ticket.', 'events-manager' ), 403 );
 		}
-		$EM_Ticket->get_post( Utils::normalize_input( $data ) );
+		$data = Utils::normalize_input( $data );
+		// An update keeps the identifiers of the record we actually authorised. EM_Ticket::get_post() reads ticket_id and event_id straight off this array, so a body carrying someone else's ticket_id re-points the UPDATE at their row, and save()'s own can_manage() re-resolves through the body's event_id, which an event the caller owns satisfies. The creation handler above strips these for the same reason.
+		unset( $data['id'] );
+		$data['ticket_id'] = $EM_Ticket->ticket_id;
+		$data['event_id'] = $EM_Ticket->event_id;
+		$EM_Ticket->get_post( $data );
 		if ( !$EM_Ticket->save() ) {
 			return Utils::object_error( 'em_api_ticket_save_failed', $EM_Ticket, __( 'Ticket could not be saved.', 'events-manager' ), 400 );
 		}
@@ -456,6 +469,7 @@ class Service {
 		$locations = \EM_Locations::get( $args );
 		$items = array();
 		foreach ( $locations as $EM_Location ) {
+			if ( $EM_Location->password_required() ) continue;
 			$items[] = static::prepare_location( $EM_Location, $params['context'] ?? 'view' );
 		}
 		return array(
@@ -682,6 +696,10 @@ class Service {
 		$args = Utils::collection_args( $params, Utils::pick_search_args( $params, $accepted ) );
 		if ( !current_user_can( 'manage_others_bookings' ) && !current_user_can( 'manage_bookings' ) ) {
 			$args['person'] = get_current_user_id();
+			$args['owner'] = get_current_user_id();
+		} else {
+			// EM_Bookings::get_default_search() scopes to the current user's own events unless owner is passed explicitly, so a manager with no owner override would otherwise only see their own bookings.
+			$args['owner'] = false;
 		}
 		if ( !empty( $params['event_id'] ) && empty( $args['event'] ) ) {
 			$args['event'] = $params['event_id'];
@@ -1000,6 +1018,10 @@ class Service {
 		if ( $context === 'edit' ) {
 			return $EM_Event->can_manage( 'edit_events', 'edit_others_events' );
 		}
+		// A password-protected post stays published, so the checks below would otherwise wave it through and to_api() would hand back the raw post_content the password exists to withhold.
+		if ( $EM_Event->password_required() ) {
+			return false;
+		}
 		if ( $EM_Event->is_published() && empty( $EM_Event->event_private ) ) {
 			return true;
 		}
@@ -1012,6 +1034,9 @@ class Service {
 	protected static function can_read_location( $EM_Location, $context = 'view' ) {
 		if ( $context === 'edit' ) {
 			return $EM_Location->can_manage( 'edit_locations', 'edit_others_locations' );
+		}
+		if ( $EM_Location->password_required() ) {
+			return false;
 		}
 		if ( $EM_Location->is_published() && empty( $EM_Location->location_private ) ) {
 			return true;
@@ -1098,6 +1123,10 @@ class Service {
 			'order' => $EM_Ticket->ticket_order === null ? null : absint( $EM_Ticket->ticket_order ),
 			'bookings_count' => $EM_Ticket->ticket_id ? absint( $EM_Ticket->get_bookings_count() ) : 0,
 		);
+		if ( !$EM_Ticket->can_manage() ) {
+			// Booking counters and the member role list are management data; the booking form shows a reader none of it.
+			unset( $api['members_roles'], $api['reserved_spaces'], $api['pending_spaces'], $api['bookings_count'] );
+		}
 		if ( $context === 'edit' ) {
 			$api['meta'] = is_array( $EM_Ticket->ticket_meta ) ? $EM_Ticket->ticket_meta : array();
 			$api['permissions'] = array(
@@ -1407,8 +1436,17 @@ class Service {
 		if ( !current_user_can( 'upload_files' ) ) {
 			return Utils::error( 'em_api_media_forbidden', __( 'You do not have permission to upload media.', 'events-manager' ), 403 );
 		}
+		// `post_id` lands on the attachment as post_parent, here and inside the sideload/upload helpers resolve_attachment_id() calls, so the caller has to be able to edit whatever they are attaching to.
+		if ( !empty( $data['post_id'] ) && !current_user_can( 'edit_post', absint( $data['post_id'] ) ) ) {
+			return Utils::error( 'em_api_media_parent_forbidden', __( 'You do not have permission to attach media to that post.', 'events-manager' ), 403 );
+		}
+		$supplied_attachment = !empty( $data['id'] ) || !empty( $data['attachment_id'] );
 		$attachment_id = static::resolve_attachment_id( $data );
 		if ( is_wp_error( $attachment_id ) ) return $attachment_id;
+		// `upload_files` authorises adding a file, not editing one somebody else added. An attachment we created below is owned by the caller and needs no further check, but one they passed in by ID does.
+		if ( $supplied_attachment && !current_user_can( 'edit_post', $attachment_id ) ) {
+			return Utils::error( 'em_api_media_edit_forbidden', __( 'You do not have permission to edit this attachment.', 'events-manager' ), 403 );
+		}
 		// Optional post-upload metadata.
 		$post_update = array( 'ID' => $attachment_id );
 		if ( !empty( $data['title'] ) ) $post_update['post_title'] = sanitize_text_field( $data['title'] );
@@ -1547,12 +1585,24 @@ class Service {
 	 * Confirms every address the host resolves to is publicly routable, guarding source_url sideloads against SSRF to loopback, private, reserved or link-local ranges (notably the 169.254.0.0/16 cloud-metadata range that wp_http_validate_url permits).
 	 */
 	protected static function is_public_url( $url ) {
+		$scheme = strtolower( (string) wp_parse_url( $url, PHP_URL_SCHEME ) );
+		if ( !in_array( $scheme, array( 'http', 'https' ), true ) ) {
+			return false;
+		}
 		$host = wp_parse_url( $url, PHP_URL_HOST );
-		if ( empty( $host ) ) {
+		if ( empty( $host ) || strtolower( $host ) === 'localhost' ) {
 			return false;
 		}
 		$host = trim( $host, '[]' );
-		$ips  = filter_var( $host, FILTER_VALIDATE_IP ) ? array( $host ) : gethostbynamel( $host );
+		if ( filter_var( $host, FILTER_VALIDATE_IP ) ) {
+			$ips = array( $host );
+		} else {
+			// gethostbynamel() is IPv4-only, so an AAAA-only name pointing at a private address would otherwise pass.
+			$ips = (array) gethostbynamel( $host );
+			foreach ( (array) @dns_get_record( $host, DNS_AAAA ) as $record ) {
+				if ( !empty( $record['ipv6'] ) ) $ips[] = $record['ipv6'];
+			}
+		}
 		if ( empty( $ips ) ) {
 			return false;
 		}

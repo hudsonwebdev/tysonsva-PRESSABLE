@@ -1,26 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\BP\Search\User;
 
 use AC;
 use AC\Helper\Select\Options;
 use AC\MetaType;
-use ACA\BP\Helper\Select;
 use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
-class MemberTypes extends Comparison
-    implements Comparison\Values
+class MemberTypes extends Comparison implements Comparison\Values
 {
+    private array $options;
 
-    /**
-     * @var array
-     */
-    private $options;
-
-    public function get_meta_type()
+    public function get_meta_type(): string
     {
         return MetaType::USER;
     }
@@ -41,13 +38,13 @@ class MemberTypes extends Comparison
         global $wpdb;
         $bindings = new Bindings();
 
-        $member_type = get_term_by('slug', $value->get_value(), 'bp_member_type');
+        $member_type = get_term_by('slug', (string)$value->get_value(), 'bp_member_type');
 
-        if ( ! $member_type) {
+        if (! $member_type) {
             return $bindings;
         }
 
-        $alias = $bindings->get_unique_alias('tr');
+        $alias = AliasGenerator::generate_from_class(static::class);
         $sql = $wpdb->prepare(
             "INNER JOIN wp_term_relationships as {$alias} ON {$alias}.object_id = ID AND {$alias}.term_taxonomy_id=%d",
             $member_type->term_id

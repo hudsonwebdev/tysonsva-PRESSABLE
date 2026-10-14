@@ -5,30 +5,27 @@ declare(strict_types=1);
 namespace ACA\WC\Sorting\User;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class TotalSales implements QueryBindings
+class TotalSales extends Base
 {
-
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
 
-        $bindings = new Bindings();
-
-        $statuses = array_map('esc_sql', wc_get_is_paid_statuses());
-        $statuses_sql = "( 'wc-" . implode("','wc-", $statuses) . "' )";
-
-        $alias = $bindings->get_unique_alias('total_sales');
+        $statuses = array_map(static fn ($s) => 'wc-' . $s, wc_get_is_paid_statuses());
+        $placeholders = implode(', ', array_fill(0, count($statuses), '%s'));
+        $statuses_in = '(' . $wpdb->prepare($placeholders, $statuses) . ')';
 
         $bindings->join(
-            " 
-            LEFT JOIN {$wpdb->prefix}wc_orders AS $alias ON $alias.customer_id = $wpdb->users.ID
-                AND $alias.status IN $statuses_sql
-            "
+            Join::left("{$wpdb->prefix}wc_orders", $alias)
+                ->on("$alias.customer_id", '=', "$wpdb->users.ID")
+                ->on("$alias.status", 'IN', $statuses_in)
+                ->get_sql()
         );
 
         $bindings->group_by("$wpdb->users.ID");
@@ -40,8 +37,6 @@ class TotalSales implements QueryBindings
                 (string)$order
             )
         );
-
-        return $bindings;
     }
 
 }

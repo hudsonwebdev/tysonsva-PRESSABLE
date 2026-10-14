@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use ACP\Query\Bindings;
@@ -10,7 +12,6 @@ use ACP\Search\Value;
 
 class Ancestors extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([

@@ -1,48 +1,60 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Type;
 
 use AC\Helper\Select\Option;
+use InvalidArgumentException;
 
-final class ToggleOptions {
+final class ToggleOptions
+{
+    private Option $disabled;
 
-	/**
-	 * @var Option
-	 */
-	private $disabled;
+    private Option $enabled;
 
-	/**
-	 * @var Option
-	 */
-	private $enabled;
+    public function __construct(Option $disabled, Option $enabled)
+    {
+        $this->disabled = $disabled;
+        $this->enabled = $enabled;
 
-	public function __construct( Option $disabled, Option $enabled ) {
-		$this->disabled = $disabled;
-		$this->enabled = $enabled;
-	}
+        $this->validate();
+    }
 
-	/**
-	 * @return Option
-	 */
-	public function get_enabled() {
-		return $this->enabled;
-	}
+    private function validate(): void
+    {
+        if ((string)$this->disabled->get_value() === (string)$this->enabled->get_value()) {
+            throw new InvalidArgumentException('Values for enabled and disabled cannot be the same.');
+        }
+    }
 
-	/**
-	 * @return Option
-	 */
-	public function get_disabled() {
-		return $this->disabled;
-	}
+    public function get_enabled(): Option
+    {
+        return $this->enabled;
+    }
 
-	public static function create_from_array( array $options ): self {
-		$first_key = array_key_first( $options );
-		$last_key = array_key_last( $options );
+    public function get_disabled(): Option
+    {
+        return $this->disabled;
+    }
 
-		return new self(
-			new Option( $first_key, $options[ $first_key ] ),
-			new Option( $last_key, $options[ $last_key ] )
-		);
-	}
+    public static function create_from_values(string $disabled_value = '0', string $enabled_value = '1'): self
+    {
+        return new self(
+            new Option($disabled_value),
+            new Option($enabled_value),
+        );
+    }
+
+    public static function create_from_array(array $options): self
+    {
+        $first_key = array_key_first($options);
+        $last_key = array_key_last($options);
+
+        return new self(
+            new Option((string)$first_key, (string)$options[$first_key]),
+            new Option((string)$last_key, (string)$options[$last_key])
+        );
+    }
 
 }

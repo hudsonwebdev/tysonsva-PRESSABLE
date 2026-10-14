@@ -1,18 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\View;
 
-trait TagsTrait {
+use ACP\Editing\View;
 
-	/**
-	 * @param bool $enable_tags
-	 *
-	 * @return $this
-	 */
-	public function set_tags( $enable_tags ) {
-		$this->set( 'tags', (bool) $enable_tags );
-
-		return $this;
-	}
+trait TagsTrait
+{
+    public function set_tags(bool $enable_tags): View
+    {
+        return $this->set('tags', $enable_tags);
+    }
 
 }

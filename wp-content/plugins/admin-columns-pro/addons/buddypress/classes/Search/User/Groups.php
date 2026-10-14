@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\BP\Search\User;
 
 use AC\Helper\Select\Options\Paginated;
+use ACA\BP\API;
 use ACA\BP\Helper\Select;
 use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 use BP_Groups_Group;
 
-class Groups extends Comparison
-    implements Comparison\SearchableValues
+class Groups extends Comparison implements Comparison\SearchableValues
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -25,15 +27,12 @@ class Groups extends Comparison
         parent::__construct($operators);
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb, $bp;
 
         $bindings = new Bindings();
-        $join_table = $bindings->get_unique_alias('bptm');
+        $join_table = AliasGenerator::generate_from_class(static::class);
 
         switch ($operator) {
             case Operators::EQ:
@@ -67,7 +66,7 @@ class Groups extends Comparison
 
     public function format_label($value): string
     {
-        $group = bp_get_group_by('id', $value);
+        $group = API::get_group((int) $value);
 
         return $group instanceof BP_Groups_Group ? $group->name : $value;
     }

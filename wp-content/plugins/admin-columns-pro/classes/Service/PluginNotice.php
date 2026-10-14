@@ -10,7 +10,6 @@ use AC\Type\Url\Documentation;
 
 class PluginNotice implements Registerable
 {
-
     public function register(): void
     {
         $integrations = [

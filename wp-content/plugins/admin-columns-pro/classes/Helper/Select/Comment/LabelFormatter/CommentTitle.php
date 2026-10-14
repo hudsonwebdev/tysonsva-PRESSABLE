@@ -10,7 +10,6 @@ use WP_Comment;
 
 class CommentTitle implements LabelFormatter
 {
-
     public function format_label(WP_Comment $comment): string
     {
         $date = new DateTime($comment->comment_date);

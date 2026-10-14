@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use AC\Helper\Select\Options\Paginated;
-use ACP\Helper\Select;
 use ACP\Helper\Select\Comment\LabelFormatter;
 use ACP\Helper\Select\Comment\PaginatedFactory;
 use ACP\Query\Bindings;
@@ -14,7 +15,6 @@ use ACP\Search\Value;
 
 class ReplyTo extends Comparison implements SearchableValues
 {
-
     public function __construct()
     {
         parent::__construct(
@@ -26,7 +26,7 @@ class ReplyTo extends Comparison implements SearchableValues
 
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
-        return (new Bindings\Comment())->parent($value->get_value());
+        return (new Bindings\Comment())->parent((int)$value->get_value());
     }
 
     private function formatter(): LabelFormatter\CommentTitle
@@ -67,7 +67,7 @@ class ReplyTo extends Comparison implements SearchableValues
 		"
         );
 
-        if ( ! $results || $limit <= count($results)) {
+        if (! $results || $limit <= count($results)) {
             return null;
         }
 

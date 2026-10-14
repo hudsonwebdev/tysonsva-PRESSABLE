@@ -5001,11 +5001,16 @@ class GFFormsModel {
 
 
 	public static function choice_value_match( $field, $choice, $value ) {
+		// If value is not a scalar, it is malformed and not a match.
+		if ( ! is_scalar( $value ) ) {
+			return false;
+		}
+
 		$choice_value = GFFormsModel::maybe_trim_input( $choice['value'], $field->formId, $field );
 		$value        = GFFormsModel::maybe_trim_input( $value, $field->formId, $field );
 
 		$allowed_html    = wp_kses_allowed_html( 'post' );
-		$sanitized_value = wp_kses( $value, $allowed_html );
+		$sanitized_value = wp_kses( (string) $value, $allowed_html );
 
 		if ( $choice_value == $value || $choice_value == $sanitized_value ) {
 			return true;
@@ -5159,7 +5164,7 @@ class GFFormsModel {
 				}
 				switch ( RGFormsModel::get_input_type( $custom_field ) ) {
 					case 'list':
-						$value = maybe_unserialize( $value );
+						$value = GFCommon::maybe_unserialize( $value );
 						if ( is_array( $value ) ) {
 							foreach ( $value as $item ) {
 								if ( is_array( $item ) ) {

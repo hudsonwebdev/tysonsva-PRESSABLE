@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use AC\Helper\Select\Options\Paginated;
@@ -9,10 +11,8 @@ use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Post extends Field
-    implements SearchableValues
+class Post extends Field implements SearchableValues
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -46,7 +46,8 @@ class Post extends Field
         // Only search in posts that have comments
         add_filter('posts_join', [$this, 'callback_join']);
 
-        return (new Select\Post\PaginatedFactory())->create([
+        return (new Select\Post\PaginatedFactory())->create(
+            [
             's'              => $search,
             'paged'          => $page,
             'post_type'      => get_post_types_by_support('comments'),

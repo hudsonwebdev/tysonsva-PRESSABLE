@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Service;
 
 use AC\Capabilities;
@@ -10,7 +12,6 @@ use ACP\Updates\PluginDataUpdater;
 
 class ForcePluginUpdate implements Registerable
 {
-
     private ActivationTokenFactory $activation_token_factory;
 
     private PluginDataUpdater $updater;
@@ -45,7 +46,7 @@ class ForcePluginUpdate implements Registerable
      */
     public function force_plugin_updates(): void
     {
-        if ( ! $this->is_force_check_request()) {
+        if (! $this->is_force_check_request()) {
             return;
         }
 

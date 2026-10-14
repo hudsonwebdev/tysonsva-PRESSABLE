@@ -860,10 +860,6 @@ echo $this->build_settings_rows($aFields);
                             'when' => true // When carouselMode is true
                         ),
                         array(
-                            'show' => 'loop', // Show Loop
-                            'when' => false // When carouselMode is false
-                        ),
-                        array(
                             'show' => 'carouselMargin',
                             'when' => true
                         ),

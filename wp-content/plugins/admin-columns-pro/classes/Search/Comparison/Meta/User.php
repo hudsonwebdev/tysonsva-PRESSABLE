@@ -1,24 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Meta;
 
 use AC\Meta\Query;
-use ACP\Helper\Select;
 use ACP\Search\Comparison\Meta;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
 use ACP\Search\UserValuesTrait;
 use ACP\Search\Value;
 
-class User extends Meta
-    implements SearchableValues
+class User extends Meta implements SearchableValues
 {
-
     use UserValuesTrait;
-    
-    private $query;
 
-    public function __construct(string $meta_key, Query $query = null)
+    private ?Query $query;
+
+    public function __construct(string $meta_key, ?Query $query = null)
     {
         $operators = new Operators([
             Operators::EQ,

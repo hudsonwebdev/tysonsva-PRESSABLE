@@ -2,7 +2,11 @@
 const setupListTable = function( listTable ) {
 	// handle checks of multiple items using shift
 	const checkboxes = listTable.querySelectorAll( 'tbody .check-column input[type="checkbox"]' );
-	const listTableForm = listTable.querySelector('form.em-list-table-form');
+	// The export and settings modals carry the same form class, so match the main form only.
+	const listTableForm = listTable.querySelector('form.em-list-table-form:not(.em-list-table-export-form):not(.em-list-table-settings-form)');
+	if ( !listTableForm ) {
+		return;
+	}
 	let lastChecked;
 
 	//Pagination link clicks
@@ -92,11 +96,11 @@ const setupListTable = function( listTable ) {
 				somethingSelected ? el.classList.remove('disabled') : el.classList.add('disabled', true);
 			});
 			lastChecked = e.target;
-		} else if ( e.target.closest('tbody td.column-primary') ) {
+		} else if ( e.target.closest('tbody .column-primary') ) {
 			// handle row expand/collapse
 			if ( e.target.matches('a[href],button:not(.toggle-row)') ) return true; // allow links to pass
 			e.preventDefault();
-			let rowExpandTrigger = e.target.closest('td.column-primary');
+			let rowExpandTrigger = e.target.closest('.column-primary');
 			let row = rowExpandTrigger.closest('tr');
 			if( row.classList.contains('expanded') ) {
 				row.classList.remove('expanded');
@@ -352,7 +356,7 @@ const setupListTable = function( listTable ) {
 
 	/* ----------------- Row/Bulk Action Handlers ----------------- */
 
-	const actionMessages = JSON.parse( listTableForm.dataset.actionMessages );
+	const actionMessages = listTableForm.dataset.actionMessages ? JSON.parse( listTableForm.dataset.actionMessages ) : {};
 	let isBulkAction = false;
 
 	listTable.addEventListener('click', function( e ) {
@@ -508,7 +512,7 @@ let listTableRowAction = function( tr, formData, upstream = false ){
 		tr.classList.add('faded-out');
 		if ( formData.get('row_action') === 'delete' ) {
 			// the text provided is the icon, nothing else
-			tr.querySelectorAll('th.check-column input[type="checkbox"], .em-list-table-actions').forEach( el => el.remove() );
+			tr.querySelectorAll('.check-column input[type="checkbox"], .em-list-table-actions').forEach( el => el.remove() );
 			let td = tr.querySelector('.column-primary');
 			let wrapper = document.createElement('div');
 			wrapper.innerHTML = html;
@@ -532,7 +536,7 @@ const setupListTableExtras = function( listTable ) {
 		action.setAttribute('aria-label', action.innerText);
 	});
 	// remove tooltips within tooltips in cell tooltips
-	listTable.querySelectorAll('td .em-list-table-col-tooltip .em-list-table-col-tooltip').forEach( (subtip) => {
+	listTable.querySelectorAll('tbody .em-list-table-col-tooltip .em-list-table-col-tooltip').forEach( (subtip) => {
 		subtip.querySelectorAll('.em-tooltip').forEach( el => el.remove() );
 		subtip.querySelectorAll('.em-tooltip-content').forEach( el => el.classList.remove('hidden') );
 	});
@@ -553,8 +557,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.querySelectorAll('.em_obj div.tablenav').forEach( function( tablenav ){
 		let em_obj = tablenav.closest('.em_obj');
 		em_obj.classList.add('em-list-table','legacy', 'frontend');
-		em_obj.querySelector('& > form').classList.add('em-list-table-form');
+		em_obj.querySelector('& > form')?.classList.add('em-list-table-form');
 	});
-	// find tables
-	document.querySelectorAll('.em-list-table').forEach( listTable => setupListTable(listTable) );
+	// find tables, one table failing to set up should not leave the rest of the page unwired
+	document.querySelectorAll('.em-list-table').forEach( function( listTable ) {
+		try {
+			setupListTable( listTable );
+		} catch ( error ) {
+			console.error( error );
+		}
+	});
 });

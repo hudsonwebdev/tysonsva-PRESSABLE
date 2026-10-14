@@ -1,17 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\JetEngine\Field;
 
-interface GlossaryOptions {
+interface GlossaryOptions
+{
+    public function has_glossary_options(): bool;
 
-	/**
-	 * @return bool
-	 */
-	public function has_glossary_options();
-
-	/**
-	 * @return array
-	 */
-	public function get_glossary_options();
+    public function get_glossary_options(): array;
 
 }

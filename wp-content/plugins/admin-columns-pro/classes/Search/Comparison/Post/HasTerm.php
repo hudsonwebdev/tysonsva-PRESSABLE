@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use ACP\Query\Bindings;
@@ -8,13 +10,9 @@ use ACP\Search\Value;
 
 class HasTerm extends Taxonomy
 {
+    protected int $term_id;
 
-    /**
-     * @var int
-     */
-    protected $term_id;
-
-    public function __construct($taxonomy, $term_id)
+    public function __construct(string $taxonomy, int $term_id)
     {
         $this->term_id = $term_id;
 
@@ -24,7 +22,6 @@ class HasTerm extends Taxonomy
     public function get_operators(): Operators
     {
         return new Operators([
-            Operators::IS_EMPTY,
             Operators::NOT_IS_EMPTY,
         ]);
     }

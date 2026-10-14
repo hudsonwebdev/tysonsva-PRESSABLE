@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Access;
 
-use AC\IntegrationRepository;
-use ACP\Access\Rule\ApiDetailsResponse;
+use AC\Integration\IntegrationRepository;
+use ACP\Access\Rule\ApiPermissionResponse;
 use ACP\API;
 use ACP\ApiFactory;
-use ACP\Entity;
 use ACP\LicenseKeyRepository;
+use ACP\Type\Activation;
 use ACP\Type\Activation\ExpiryDate;
 use ACP\Type\Activation\Key;
-use ACP\Type\Activation\Products;
 use ACP\Type\Activation\RenewalMethod;
 use ACP\Type\Activation\Status;
 use ACP\Type\ActivationToken;
@@ -22,20 +23,19 @@ use WP_Error;
 
 class ActivationUpdater
 {
+    private ActivationKeyStorage $activation_key_storage;
 
-    private $activation_key_storage;
+    private ActivationStorage $activation_storage;
 
-    private $activation_storage;
+    private LicenseKeyRepository $license_key_repository;
 
-    private $license_key_repository;
+    private ApiFactory $api_factory;
 
-    private $api_factory;
+    private SiteUrl $site_url;
 
-    private $site_url;
+    private IntegrationRepository $integration_repository;
 
-    private $integration_repository;
-
-    private $permission_checker;
+    private PermissionCheckerFactory $permission_factory;
 
     public function __construct(
         ActivationKeyStorage $activation_key_storage,
@@ -44,7 +44,7 @@ class ActivationUpdater
         ApiFactory $api_factory,
         SiteUrl $site_url,
         IntegrationRepository $integration_repository,
-        PermissionChecker $permission_checker
+        PermissionCheckerFactory $permission_factory
     ) {
         $this->activation_key_storage = $activation_key_storage;
         $this->activation_storage = $activation_storage;
@@ -52,40 +52,48 @@ class ActivationUpdater
         $this->api_factory = $api_factory;
         $this->site_url = $site_url;
         $this->integration_repository = $integration_repository;
-        $this->permission_checker = $permission_checker;
+        $this->permission_factory = $permission_factory;
     }
 
     public function update(ActivationToken $token): API\Response
     {
+        $api = $this->api_factory->create();
+
         $request = new API\Request\SubscriptionDetails(
             $this->site_url,
             $token,
-            $this->integration_repository
+            $this->integration_repository,
+            $api->get_version()
         );
 
-        $api_response = $this->api_factory->create()->dispatch($request);
+        $response = $api->dispatch($request);
 
-        if ($api_response->has_error()) {
+        if ($response->has_error()) {
             // Remove license info when their subscription has not been found or the site is not registered.
             if (
-                $this->has_error_code($api_response->get_error(), 'license_not_found') ||
-                $this->has_error_code($api_response->get_error(), 'activation_not_registered')
+                $this->has_error_code($response->get_error(), 'license_not_found') ||
+                $this->has_error_code($response->get_error(), 'activation_not_registered')
             ) {
                 $this->activation_key_storage->delete();
                 $this->activation_storage->delete();
                 $this->license_key_repository->delete();
-                $this->permission_checker->apply();
+                // clear permissions
+                $this->permission_factory->create()->apply();
             }
 
-            return $api_response;
+            return $response;
         }
 
-        $this->permission_checker
-            ->add_rule(new ApiDetailsResponse($api_response))
+        // Merge API-returned permissions on top of the existing stored permissions.
+        // populate() loads the stored state first so add_rule() overlays without clearing it.
+        $this->permission_factory
+            ->create()
+            ->populate()
+            ->add_rule(new ApiPermissionResponse($response))
             ->apply();
 
-        $activation = $this->create_activation_from_response($api_response);
-        $activation_key = $this->create_activation_key_from_response($api_response);
+        $activation = $this->create_activation_from_response($response);
+        $activation_key = $this->create_activation_key_from_response($response);
 
         if ($activation_key && $activation) {
             $this->activation_key_storage->save($activation_key);
@@ -97,7 +105,7 @@ class ActivationUpdater
             }
         }
 
-        return $api_response;
+        return $response;
     }
 
     private function create_activation_key_from_response(API\Response $api_response): ?Key
@@ -111,9 +119,9 @@ class ActivationUpdater
         return $key;
     }
 
-    private function create_activation_from_response(API\Response $api_response): ?Entity\Activation
+    private function create_activation_from_response(API\Response $api_response): ?Activation
     {
-        $expiry_date = $api_response->get('expiry_date')
+        $expire_date = $api_response->get('expiry_date')
             ? DateTime::createFromFormat(
                 'Y-m-d H:i:s',
                 $api_response->get('expiry_date'),
@@ -121,29 +129,32 @@ class ActivationUpdater
             )
             : null;
 
-        if ($expiry_date === false) {
+        if ($expire_date === false) {
             return null;
+        }
+
+        if ($expire_date && $expire_date > DateTime::createFromFormat('Y-m-d', '2037-12-30')) {
+            $expire_date = null;
         }
 
         $status = $api_response->get('status');
 
-        if ( ! Status::is_valid($status)) {
+        if (! Status::is_valid($status)) {
             return null;
         }
 
         $method = $api_response->get('renewal_method');
 
-        if ( ! RenewalMethod::is_valid($method)) {
+        if (! RenewalMethod::is_valid($method)) {
             return null;
         }
 
-        $products = $api_response->get('products') ?: [];
-
-        return new Entity\Activation(
+        return new Activation(
             new Status($status),
             new RenewalMethod($method),
-            new ExpiryDate($expiry_date),
-            new Products($products)
+            $expire_date
+                ? new ExpiryDate($expire_date)
+                : null
         );
     }
 

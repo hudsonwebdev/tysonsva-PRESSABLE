@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\View;
 
-trait OptionsTrait {
-
-	/**
-	 * @param array $options
-	 *
-	 * @return $this
-	 */
-	public function set_options( array $options ) {
-		$this->set( 'options', $options );
-
-		return $this;
-	}
+trait OptionsTrait
+{
+    /**
+     * @return static
+     */
+    public function set_options(array $options): self
+    {
+        return $this->set('options', $options);
+    }
 
 }

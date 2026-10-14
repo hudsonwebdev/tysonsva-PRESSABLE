@@ -10,7 +10,6 @@ use ACP\ConditionalFormat\Formatter\FilterHtmlFormatter;
 
 trait FilteredHtmlIntegerFormatterTrait
 {
-
     public function conditional_format(): ?FormattableConfig
     {
         return new FormattableConfig(

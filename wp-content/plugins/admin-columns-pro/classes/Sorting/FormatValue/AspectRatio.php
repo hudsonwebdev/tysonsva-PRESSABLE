@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\FormatValue;
 
 use ACP\Sorting\FormatValue;
 
 class AspectRatio implements FormatValue
 {
-
     public function format_value($value)
     {
         $data = maybe_unserialize($value);

@@ -1,25 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service;
 
 use ACP\Editing\Storage;
 use ACP\Editing\View;
 
-class Basic extends BasicStorage {
+final class Basic extends BasicStorage
+{
+    private View $view;
 
-	/**
-	 * @var View
-	 */
-	private $view;
+    public function __construct(View $view, Storage $storage)
+    {
+        parent::__construct($storage);
 
-	public function __construct( View $view, Storage $storage ) {
-		parent::__construct( $storage );
+        $this->view = $view;
+    }
 
-		$this->view = $view;
-	}
-
-	public function get_view( string $context ): ?View {
-		return $this->view;
-	}
+    public function get_view(string $context): View
+    {
+        return $this->view;
+    }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use ACP\Query\Bindings;
@@ -7,10 +9,10 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class NotesSystem extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators(
@@ -19,7 +21,8 @@ class NotesSystem extends Comparison
                 Operators::NOT_CONTAINS,
                 Operators::BEGINS_WITH,
                 Operators::ENDS_WITH,
-            ], false
+            ],
+            false
         );
 
         parent::__construct($operators);
@@ -31,7 +34,7 @@ class NotesSystem extends Comparison
 
         $bindings = new Bindings();
 
-        $alias = $bindings->get_unique_alias('nosy');
+        $alias = AliasGenerator::generate_from_class(static::class);
 
         // System notes have `WooCommerce` as the author
         $join = $wpdb->prepare(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Check;
 
 use AC\Admin\Page\Addons;
@@ -7,7 +9,6 @@ use AC\Admin\Page\Columns;
 use AC\Admin\Page\Settings;
 use AC\Ajax;
 use AC\Capabilities;
-use AC\Entity\Plugin;
 use AC\Message;
 use AC\Registerable;
 use AC\Screen;
@@ -15,34 +16,37 @@ use AC\Storage;
 use AC\Type\Uri;
 use AC\Type\Url;
 use ACP\Access\ActivationStorage;
-use ACP\Access\Permissions;
 use ACP\Access\PermissionsStorage;
 use ACP\ActivationTokenFactory;
 use ACP\Admin\Page\License;
 use ACP\Admin\Page\Tools;
+use ACP\AdminColumnsPro;
+use ACP\Type\Url\AccountFactory;
 
-class Activation
-    implements Registerable
+class Activation implements Registerable
 {
+    private AdminColumnsPro $plugin;
 
-    private $plugin;
+    private ActivationTokenFactory $activation_token_factory;
 
-    private $activation_token_factory;
+    private ActivationStorage $activation_storage;
 
-    private $activation_storage;
+    private PermissionsStorage $permission_storage;
 
-    private $permission_storage;
+    private AccountFactory $account_url_factory;
 
     public function __construct(
-        Plugin $plugin,
+        AdminColumnsPro $plugin,
         ActivationTokenFactory $activation_token_factory,
         ActivationStorage $activation_storage,
-        PermissionsStorage $permission_storage
+        PermissionsStorage $permission_storage,
+        AccountFactory $account_url_factory
     ) {
         $this->plugin = $plugin;
         $this->activation_token_factory = $activation_token_factory;
         $this->activation_storage = $activation_storage;
         $this->permission_storage = $permission_storage;
+        $this->account_url_factory = $account_url_factory;
     }
 
     public function register(): void
@@ -64,12 +68,12 @@ class Activation
 
     public function register_notice(Screen $screen): void
     {
-        if ( ! $screen->has_screen() || ! current_user_can(Capabilities::MANAGE)) {
+        if (! $screen->has_screen() || ! current_user_can(Capabilities::MANAGE)) {
             return;
         }
 
         switch (true) {
-            case $screen->is_plugin_screen() && $this->show_message() :
+            case $screen->is_plugin_screen() && $this->show_message():
                 $notice = new Message\Plugin(
                     $this->get_message(),
                     $this->plugin->get_basename(),
@@ -78,17 +82,17 @@ class Activation
                 $notice->register();
                 break;
             case (
-                     $screen->is_admin_screen(Settings::NAME) ||
-                     $screen->is_admin_screen(Columns::NAME) ||
-                     $screen->is_admin_screen(Tools::NAME) ||
-                     $screen->is_admin_screen(Addons::NAME) ||
-                     $screen->is_admin_screen(License::NAME)) && $this->show_message() :
-                $notice = new Message\Notice($this->get_message());
+                $screen->is_admin_screen(Settings::NAME) ||
+                $screen->is_admin_screen(Columns::NAME) ||
+                $screen->is_admin_screen(Tools::NAME) ||
+                $screen->is_admin_screen(Addons::NAME) ||
+                $screen->is_admin_screen(License::NAME)) && $this->show_message():
+                $notice = new Message\AdminNotice($this->get_message());
                 $notice
                     ->set_type(Message::INFO)
                     ->register();
                 break;
-            case $screen->is_list_screen() && $this->get_dismiss_option()->is_expired() && $this->show_message() :
+            case $screen->is_table_screen() && $this->get_dismiss_option()->is_expired() && $this->show_message():
 
                 // Dismissible message on list table
                 $notice = new Message\Notice\Dismissible($this->get_message(), $this->get_ajax_handler());
@@ -101,17 +105,17 @@ class Activation
 
     private function show_message(): bool
     {
-        // We send a different (locked) message when a use has no usage permissions
-        $has_usage = $this->permission_storage->retrieve()->has_permission(Permissions::USAGE);
+        // We send a different (locked) message when a user has no usage permissions
+        $has_usage = $this->permission_storage->retrieve()->has_usage_permission();
 
-        if ( ! $has_usage) {
+        if (! $has_usage) {
             return false;
         }
 
         $token = $this->activation_token_factory->create();
         $activation = $token ? $this->activation_storage->find($token) : null;
 
-        if ( ! $activation) {
+        if (! $activation) {
             return true;
         }
 
@@ -132,7 +136,7 @@ class Activation
 
     private function get_account_url(): Url\UtmTags
     {
-        return new Url\UtmTags(new Url\Site(Url\Site::PAGE_ACCOUNT_SUBSCRIPTIONS), 'license-activation');
+        return new Url\UtmTags($this->account_url_factory->create(), 'license-activation');
     }
 
     private function get_message(): string

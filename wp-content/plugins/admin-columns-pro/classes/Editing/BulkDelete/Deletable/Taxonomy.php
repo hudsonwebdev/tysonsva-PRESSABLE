@@ -1,24 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\BulkDelete\Deletable;
 
+use AC\Type\TaxonomySlug;
 use ACP\Editing\BulkDelete;
 use ACP\Editing\BulkDelete\Deletable;
 use ACP\Editing\RequestHandler;
 
 class Taxonomy implements Deletable
 {
+    private TaxonomySlug $taxonomy;
 
-    private $taxonomy;
-
-    public function __construct(string $taxonomy)
+    public function __construct(TaxonomySlug $taxonomy)
     {
         $this->taxonomy = $taxonomy;
     }
 
-    public function get_delete_request_handler(): RequestHandler
+    public function get_delete_request_handler(): BulkDelete\RequestHandler\Taxonomy
     {
-        return new BulkDelete\RequestHandler\Taxonomy($this->taxonomy);
+        return new BulkDelete\RequestHandler\Taxonomy((string)$this->taxonomy);
     }
 
     public function user_can_delete(): bool
@@ -26,7 +28,7 @@ class Taxonomy implements Deletable
         return current_user_can('manage_categories');
     }
 
-    public function get_query_request_handler(): RequestHandler
+    public function get_query_request_handler(): RequestHandler\Query\Taxonomy
     {
         return new RequestHandler\Query\Taxonomy();
     }

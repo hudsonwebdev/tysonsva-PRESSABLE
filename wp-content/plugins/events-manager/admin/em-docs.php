@@ -410,7 +410,7 @@ function em_docs_init($force_init = false){
 						)
 					),
 					'Gateway-Specific Information' => array(
-						'desc' => 'Information pertaining to speicifc gateways. '. sprintf('Requires <a href="%s">Events Manager Pro</a>','https://wp-events-plugin.com/features/'),
+						'desc' => 'Information pertaining to specific gateways. '. sprintf('Requires <a href="%s">Events Manager Pro</a>','https://wp-events-plugin.com/features/'),
 						'placeholders' => array(
 							'#_BOOKINGTXNID' => array( 'desc' => '<em>Online Payments Only</em> - Prints the transaction ID of this booking if available.' )
 						)

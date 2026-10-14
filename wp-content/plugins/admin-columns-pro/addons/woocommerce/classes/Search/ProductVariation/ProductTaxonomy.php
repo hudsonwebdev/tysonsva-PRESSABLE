@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ProductVariation;
 
 use AC\Helper\Select\Options\Paginated;
@@ -8,17 +10,13 @@ use ACP\Helper\Select\Taxonomy\PaginatedFactory;
 use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Value;
+use WP_Term;
 
-class ProductTaxonomy extends Comparison
-    implements Comparison\SearchableValues
+class ProductTaxonomy extends Comparison implements Comparison\SearchableValues
 {
+    private string $taxonomy;
 
-    /**
-     * @var string
-     */
-    private $taxonomy;
-
-    public function __construct($taxonomy)
+    public function __construct(string $taxonomy)
     {
         $this->taxonomy = $taxonomy;
 
@@ -33,15 +31,12 @@ class ProductTaxonomy extends Comparison
 
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
-        return (new Bindings())->where($this->get_where($value->get_value()));
+        return (new Bindings())->where(
+            $this->get_where((int)$value->get_value())
+        );
     }
 
-    /**
-     * @param int $product_id
-     *
-     * @return string
-     */
-    public function get_where($product_id)
+    public function get_where(int $product_id): string
     {
         global $wpdb;
 
@@ -63,17 +58,19 @@ class ProductTaxonomy extends Comparison
     {
         $term = get_term($value);
 
-        return $term ? $this->get_label_formatter()->format_label($term) : $value;
+        return $term instanceof WP_Term ? $this->get_label_formatter()->format_label($term) : $value;
     }
 
     public function get_values(string $search, int $page): Paginated
     {
-        return (new PaginatedFactory())->create([
+        return (new PaginatedFactory())->create(
+            [
             'search'   => $search,
             'page'     => $page,
             'taxonomy' => $this->taxonomy,
         ],
-            $this->get_label_formatter());
+            $this->get_label_formatter()
+        );
     }
 
     protected function get_product_ids_by_term_id($term_id): array

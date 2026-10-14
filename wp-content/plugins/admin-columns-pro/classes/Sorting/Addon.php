@@ -1,29 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting;
 
-use AC\Asset\Location\Absolute;
-use AC\ListScreenFactory;
-use AC\ListScreenRepository\Storage;
 use AC\Registerable;
 use AC\Services;
-use ACP\Sorting\Service\ColumnSettings;
+use AC\Vendor\Psr\Container\ContainerInterface;
 use ACP\Sorting\Service\Table;
 
 class Addon implements Registerable
 {
+    private ContainerInterface $container;
 
-    private $storage;
-
-    private $location;
-
-    private $list_screen_factory;
-
-    public function __construct(Storage $storage, Absolute $location, ListScreenFactory $list_screen_factory)
+    public function __construct(ContainerInterface $container)
     {
-        $this->storage = $storage;
-        $this->location = $location;
-        $this->list_screen_factory = $list_screen_factory;
+        $this->container = $container;
     }
 
     public function register(): void
@@ -34,17 +26,8 @@ class Addon implements Registerable
     private function create_services(): Services
     {
         return new Services([
-            new Controller\ResetSorting(),
-            new Controller\AjaxResetSorting($this->storage, $this->list_screen_factory),
-            new Table(
-                $this->location,
-                new NativeSortableFactory(),
-                new ModelFactory()
-            ),
-            new ColumnSettings(
-                new ModelFactory(),
-                new NativeSortableFactory()
-            ),
+            $this->container->get(Controller\AjaxResetSorting::class),
+            $this->container->get(Table::class),
         ]);
     }
 

@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing;
 
 use RuntimeException;
 
-interface Storage {
+interface Storage
+{
+    /**
+     * @return mixed
+     */
+    public function get(int $id);
 
-	/**
-	 * @return mixed
-	 */
-	public function get( int $id );
-
-	/**
-	 * @param mixed $data
-	 *
-	 * @throws RuntimeException
-	 */
-	public function update( int $id, $data ): bool;
+    /**
+     * @param mixed $data
+     *
+     * @throws RuntimeException
+     */
+    public function update(int $id, $data): bool;
 
 }

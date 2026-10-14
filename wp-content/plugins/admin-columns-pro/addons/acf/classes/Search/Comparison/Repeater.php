@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Search\Comparison;
 
 use AC\MetaType;
@@ -9,38 +11,26 @@ use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Labels;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class Repeater extends Comparison
 {
+    protected string $meta_type;
 
-    /**
-     * @var string
-     */
-    protected $meta_type;
+    protected string $parent_key;
 
-    /**
-     * @var string
-     */
-    protected $parent_key;
+    protected string $sub_key;
 
-    /**
-     * @var string
-     */
-    protected $sub_key;
-
-    /**
-     * @var boolean
-     */
-    protected $serialized;
+    protected bool $serialized;
 
     public function __construct(
         string $meta_type,
         string $parent_key,
         string $sub_key,
         Operators $operators,
-        string $value_type = null,
+        ?string $value_type = null,
         bool $serialized = false,
-        Labels $labels = null
+        ?Labels $labels = null
     ) {
         $this->meta_type = $meta_type;
         $this->parent_key = $parent_key;
@@ -60,7 +50,7 @@ class Repeater extends Comparison
         }
 
         $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('metatable');
+        $alias = AliasGenerator::generate_from_class(static::class);
         $meta_key = $this->parent_key . '%' . $this->sub_key;
         $comparison = ComparisonFactory::create($alias . '.meta_value', $operator, $value)->prepare();
 

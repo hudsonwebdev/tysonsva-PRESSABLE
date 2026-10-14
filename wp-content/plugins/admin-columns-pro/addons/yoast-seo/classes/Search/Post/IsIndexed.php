@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\YoastSeo\Search\Post;
 
 use AC;
@@ -8,16 +10,11 @@ use ACP;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class IsIndexed extends ACP\Search\Comparison\Meta
-    implements ACP\Search\Comparison\Values
+class IsIndexed extends ACP\Search\Comparison\Meta implements ACP\Search\Comparison\Values
 {
+    private ?int $null_value;
 
-    /**
-     * @var int|null
-     */
-    private $null_value;
-
-    public function __construct(string $meta_key, int $null_value = null)
+    public function __construct(string $meta_key, ?int $null_value = null)
     {
         $operators = new Operators([
             Operators::EQ,

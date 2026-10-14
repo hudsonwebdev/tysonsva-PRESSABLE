@@ -1,16 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\View;
 
 use ACP\Editing\View;
 
-interface MaxLength {
-
-	/**
-	 * @param int $max_length
-	 *
-	 * @return View
-	 */
-	public function set_max_length( $max_length );
+interface MaxLength
+{
+    public function set_max_length(int $max_length): View;
 
 }

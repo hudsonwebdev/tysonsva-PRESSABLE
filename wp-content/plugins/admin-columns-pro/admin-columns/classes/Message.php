@@ -1,31 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
-use Exception;
 use LogicException;
 
 abstract class Message
 {
-
     public const SUCCESS = 'updated'; // green
     public const ERROR = 'notice-error'; // red
     public const WARNING = 'notice-warning'; // yellow
     public const INFO = 'notice-info'; // blue
 
-    protected $message;
+    protected string $message;
 
-    protected $type;
+    protected string $type;
 
-    protected $id = '';
+    protected string $id = '';
 
-    public function __construct(string $message, string $type = null)
+    public function __construct(string $message, ?string $type = null)
     {
-        if (null === $type) {
-            $type = self::SUCCESS;
-        }
-
-        $this->type = $type;
+        $this->type = $type ?? self::SUCCESS;
         $this->message = trim($message);
 
         $this->validate();
@@ -34,7 +30,7 @@ abstract class Message
     protected function validate(): void
     {
         if (empty($this->message)) {
-            throw new LogicException('Message cannot be empty');
+            throw new LogicException('Message cannot be empty.');
         }
     }
 
@@ -42,7 +38,6 @@ abstract class Message
 
     /**
      * Display self::render to the screen
-     * @throws Exception
      */
     public function display(): void
     {
@@ -59,6 +54,9 @@ abstract class Message
         return $this->type;
     }
 
+    /**
+     * @return static
+     */
     public function set_type(string $type): self
     {
         $this->type = $type;
@@ -71,10 +69,14 @@ abstract class Message
         return $this->id;
     }
 
+    /**
+     * @return static
+     */
     public function set_id(string $id): self
     {
         $this->id = $id;
 
         return $this;
     }
+
 }

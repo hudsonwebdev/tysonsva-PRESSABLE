@@ -1,31 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Comment\Author;
 
-use ACP;
 use ACP\Query\Bindings;
+use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\AliasGenerator;
+use ACP\Sql\Join;
 
-class FullName implements ACP\Sorting\Model\QueryBindings
+class FullName implements QueryBindings
 {
-
     public function create_query_bindings(Order $order): Bindings
     {
         global $wpdb;
 
         $bindings = new Bindings();
 
-        $alias_firstname = $bindings->get_unique_alias('fname');
-        $alias_lastname = $bindings->get_unique_alias('lname');
+        $alias_firstname = AliasGenerator::generate('sorting_comment_firstname');
+        $alias_lastname = AliasGenerator::generate('sorting_comment_lastname');
 
         $bindings->join(
-            "
-			INNER JOIN $wpdb->usermeta AS $alias_firstname ON $wpdb->comments.user_id = $alias_firstname.user_id 
-				AND $alias_firstname.meta_key = 'first_name'
-			INNER JOIN $wpdb->usermeta AS $alias_lastname ON $wpdb->comments.user_id = $alias_lastname.user_id 
-				AND $alias_lastname.meta_key = 'last_name'
-		"
+            Join::inner($wpdb->usermeta, $alias_firstname)
+                ->on("$wpdb->comments.user_id", '=', "$alias_firstname.user_id")
+                ->on("$alias_firstname.meta_key", '=', "'first_name'")
+                ->get_sql()
+            . "\n" .
+            Join::inner($wpdb->usermeta, $alias_lastname)
+                ->on("$wpdb->comments.user_id", '=', "$alias_lastname.user_id")
+                ->on("$alias_lastname.meta_key", '=', "'last_name'")
+                ->get_sql()
         );
         $bindings->group_by("$wpdb->comments.comment_ID");
         $bindings->order_by(

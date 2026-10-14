@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopCoupon;
 
 use AC;
@@ -7,14 +9,12 @@ use AC\Helper\Select\Options;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 
-class Type extends Comparison\Meta
-    implements Comparison\Values
+class Type extends Comparison\Meta implements Comparison\Values
 {
-
     /**
      * @var array [ $key => $label ]
      */
-    private $types;
+    private array $types;
 
     public function __construct(array $types)
     {

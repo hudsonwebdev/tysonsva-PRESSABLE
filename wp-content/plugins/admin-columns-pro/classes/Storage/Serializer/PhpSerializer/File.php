@@ -8,8 +8,7 @@ use ACP\Storage\Serializer;
 
 final class File implements Serializer
 {
-
-    private $serializer;
+    private Serializer $serializer;
 
     public function __construct(Serializer $serializer)
     {

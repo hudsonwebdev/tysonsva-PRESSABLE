@@ -1,26 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\RequestHandler;
 
 use AC;
 use AC\ListScreenRepository\Storage;
 use AC\Request;
 use AC\Response;
+use AC\Type\ColumnId;
 use AC\Type\ListScreenId;
+use ACP\Column;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\RemoteOptions;
 use ACP\Editing\RequestHandler;
 use ACP\Editing\Service;
-use ACP\Editing\ServiceFactory;
+use ACP\Editing\Strategy\AggregateFactory;
+use InvalidArgumentException;
 
 class SelectValues implements RequestHandler
 {
+    private Storage $storage;
 
-    private $storage;
+    private AggregateFactory $aggregate_factory;
 
-    public function __construct(Storage $storage)
+    public function __construct(Storage $storage, AggregateFactory $aggregate_factory)
     {
         $this->storage = $storage;
+        $this->aggregate_factory = $aggregate_factory;
     }
 
     public function handle(Request $request)
@@ -29,31 +36,31 @@ class SelectValues implements RequestHandler
 
         $service = $this->get_service_from_request($request);
 
-        if ( ! $service) {
+        if (! $service) {
             $response->error();
         }
 
+        switch (true) {
+            case $service instanceof RemoteOptions:
+                $options = $service->get_remote_options(
+                    $request->filter('item_id', null, FILTER_VALIDATE_INT) ?: null
+                );
 
-		switch ( true ) {
-			case $service instanceof RemoteOptions:
-				$options = $service->get_remote_options(
-					$request->filter( 'item_id', null, FILTER_VALIDATE_INT ) ?: null
-				);
-
-				$select = new AC\Helper\Select\Response( $options, false );
-				break;
-			case $service instanceof PaginatedOptions:
-				$options = $service->get_paginated_options(
-					(string) $request->filter( 'searchterm' ),
-					(int) $request->filter( 'page', 1, FILTER_SANITIZE_NUMBER_INT ),
-					$request->filter( 'item_id', null, FILTER_VALIDATE_INT ) ?: null
-				);
-				$has_more = ! $options->is_last_page();
+                $select = new AC\Helper\Select\Response($options, false);
+                break;
+            case $service instanceof PaginatedOptions:
+                $options = $service->get_paginated_options(
+                    (string)$request->filter('searchterm'),
+                    (int)$request->filter('page', 1, FILTER_SANITIZE_NUMBER_INT),
+                    $request->filter('item_id', null, FILTER_VALIDATE_INT) ?: null
+                );
+                $has_more = ! $options->is_last_page();
 
                 $select = new AC\Helper\Select\Response($options, $has_more);
                 break;
             default:
                 $response->error();
+                exit;
         }
 
         $response
@@ -63,31 +70,35 @@ class SelectValues implements RequestHandler
 
     private function get_service_from_request(Request $request): ?Service
     {
-        $list_id = $request->get('layout');
-
-        if ( ! ListScreenId::is_valid_id($list_id)) {
+        try {
+            $list_screen = $this->storage->find(
+                new ListScreenId(
+                    (string)$request->get('layout')
+                )
+            );
+        } catch (InvalidArgumentException $e) {
             return null;
         }
 
-        $list_screen = $this->storage->find(new ListScreenId($list_id));
-
-        if ( ! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
+        if (! $list_screen || ! $list_screen->is_user_allowed(wp_get_current_user())) {
             return null;
         }
 
-        $strategy = $list_screen->editing();
+        $strategy = $this->aggregate_factory->create(
+            $list_screen->get_table_screen()
+        );
 
-        if ( ! $strategy) {
+        if (! $strategy) {
             return null;
         }
 
-        $column = $list_screen->get_column_by_name((string)$request->get('column'));
+        $column = $list_screen->get_column(new ColumnId((string)$request->get('column')));
 
-        if ( ! $column) {
+        if (! $column instanceof Column) {
             return null;
         }
 
-        return ServiceFactory::create($column);
+        return $column->editing();
     }
 
 }

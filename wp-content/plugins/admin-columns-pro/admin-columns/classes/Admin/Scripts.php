@@ -1,20 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
-use AC\Asset\Location\Absolute;
+use AC\AdminColumns;
+use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Registerable;
 
 class Scripts implements Registerable
 {
+    private Location $location;
 
-    private $location;
-
-    public function __construct(Absolute $location)
+    public function __construct(AdminColumns $plugin)
     {
-        $this->location = $location;
+        $this->location = $plugin->get_location();
     }
 
     public function register(): void
@@ -33,6 +35,10 @@ class Scripts implements Registerable
             ),
             new Style('ac-select2', $this->location->with_suffix('assets/css/select2.css')),
             new Style('ac-jquery-ui', $this->location->with_suffix('assets/css/ac-jquery-ui.css')),
+
+            // Notices
+            new Style('ac-message', $this->location->with_suffix('assets/css/notice.css')),
+            new Script('ac-message', $this->location->with_suffix('assets/js/notice-dismissible.js')),
         ];
 
         foreach ($assets as $asset) {

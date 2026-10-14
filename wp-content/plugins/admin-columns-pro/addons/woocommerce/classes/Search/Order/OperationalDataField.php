@@ -1,23 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order;
 
 use ACA\WC\Scheme\OrderOperationalData;
 use ACA\WC\Scheme\Orders;
-use ACA\WC\Search;
 use ACP;
 use ACP\Query\Bindings;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Labels;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class OperationalDataField extends ACP\Search\Comparison
 {
+    private string $field;
 
-    private $field;
-
-    public function __construct(string $field, Operators $operators, string $value_type = null, Labels $labels = null)
+    public function __construct(string $field, Operators $operators, ?string $value_type = null, ?Labels $labels = null)
     {
         parent::__construct($operators, $value_type, $labels);
 
@@ -33,7 +34,7 @@ class OperationalDataField extends ACP\Search\Comparison
         $table_orders = $wpdb->prefix . Orders::TABLE;
         $table = $wpdb->prefix . OrderOperationalData::TABLE;
 
-        $alias = $bindings->get_unique_alias('operational_data');
+        $alias = AliasGenerator::generate_from_class(static::class);
 
         $bindings->join("JOIN $table AS $alias ON $table_orders.id = $alias.order_id");
         $bindings->where(

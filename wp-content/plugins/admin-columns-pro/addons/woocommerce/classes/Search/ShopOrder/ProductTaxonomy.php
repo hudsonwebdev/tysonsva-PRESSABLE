@@ -1,26 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use AC\Helper\Select\Options\Paginated;
+use ACA\WC\Search\Helper\OrderItemAttribute;
 use ACP\Helper\Select\Taxonomy\LabelFormatter\TermName;
 use ACP\Helper\Select\Taxonomy\PaginatedFactory;
 use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 use WP_Term;
 
-class ProductTaxonomy extends Comparison
-    implements Comparison\SearchableValues
+class ProductTaxonomy extends Comparison implements Comparison\SearchableValues
 {
+    private string $taxonomy;
 
-    /**
-     * @var string
-     */
-    private $taxonomy;
-
-    public function __construct($taxonomy)
+    public function __construct(string $taxonomy)
     {
         $this->taxonomy = $taxonomy;
 
@@ -35,24 +34,22 @@ class ProductTaxonomy extends Comparison
 
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
-        return (new Bindings())->where($this->get_where($value->get_value()));
+        return (new Bindings())->where(
+            $this->get_where((int)$value->get_value())
+        );
     }
 
-    /**
-     * @param int $product_id
-     *
-     * @return string
-     */
-    public function get_where($product_id)
+    public function get_where(int $term_id): string
     {
         global $wpdb;
-        $orders = $this->get_orders_ids_by_product_cat($product_id);
+
+        $orders = $this->get_orders_ids_by_product_cat($term_id);
 
         if (empty($orders)) {
             $orders = [0];
         }
 
-        return sprintf("{$wpdb->posts}.ID IN( %s )", implode(',', $orders));
+        return sprintf("{$wpdb->posts}.ID IN( %s )", implode(',', array_map('intval', $orders)));
     }
 
     public function format_label($value): string
@@ -75,12 +72,8 @@ class ProductTaxonomy extends Comparison
 
     /**
      * Get All orders IDs for a given product ID.
-     *
-     * @param integer $product_id
-     *
-     * @return array
      */
-    protected function get_orders_ids_by_product_cat($term_id)
+    protected function get_orders_ids_by_product_cat(int $term_id): array
     {
         global $wpdb;
 
@@ -96,19 +89,41 @@ class ProductTaxonomy extends Comparison
             ],
         ]);
 
-        $sql = sprintf(
-            "
-	        SELECT order_items.order_id
-	        FROM {$wpdb->prefix}woocommerce_order_items as order_items
-	        LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
-	        LEFT JOIN {$wpdb->posts} AS posts ON order_items.order_id = posts.ID
-	        WHERE posts.post_type = 'shop_order'
-	        AND order_items.order_item_type = 'line_item'
-	        AND ( order_item_meta.meta_key = '_product_id' OR order_item_meta.meta_key = '_variation_id' )
-	        AND order_item_meta.meta_value IN(%s)
-        ",
-            implode(',', $ids)
-        );
+        $product_ids = implode(',', array_map('intval', $ids ?: [0]));
+
+        $term = get_term($term_id, $this->taxonomy);
+
+        $alias_items = AliasGenerator::generate('product_taxonomy_items');
+        $alias_product = AliasGenerator::generate('product_taxonomy_product');
+
+        $joins = '';
+        $condition = "$alias_product.meta_value IN( $product_ids )";
+
+        // A variable product carries every term of an attribute, so only the value stored on the
+        // order line tells us which variation was purchased.
+        if ($term instanceof WP_Term && OrderItemAttribute::is_attribute_taxonomy($this->taxonomy)) {
+            $attribute = new OrderItemAttribute($this->taxonomy);
+
+            $joins = $attribute->get_joins($alias_items);
+            $condition = sprintf(
+                '%s OR ( %s AND %s )',
+                $attribute->get_matches_term($term),
+                $attribute->get_has_no_value(),
+                $condition
+            );
+        }
+
+        $sql = "
+	        SELECT $alias_items.order_id
+	        FROM {$wpdb->prefix}woocommerce_order_items AS $alias_items
+	        INNER JOIN {$wpdb->posts} AS posts ON $alias_items.order_id = posts.ID AND posts.post_type = 'shop_order'
+	        INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS $alias_product
+	            ON $alias_items.order_item_id = $alias_product.order_item_id
+	            AND $alias_product.meta_key = '_product_id'
+	        $joins
+	        WHERE $alias_items.order_item_type = 'line_item'
+	        AND ( $condition )
+        ";
 
         return $wpdb->get_col($sql);
     }

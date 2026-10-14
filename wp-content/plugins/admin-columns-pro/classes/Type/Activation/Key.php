@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Type\Activation;
 
 use ACP\Type\ActivationToken;
@@ -7,12 +9,11 @@ use InvalidArgumentException;
 
 final class Key implements ActivationToken
 {
-
-    private $token;
+    private string $token;
 
     public function __construct(string $token)
     {
-        if ( ! self::is_valid($token)) {
+        if (! self::is_valid($token)) {
             throw new InvalidArgumentException('Invalid license token.');
         }
 
@@ -29,9 +30,9 @@ final class Key implements ActivationToken
         return 'activation_key';
     }
 
-    public static function is_valid($token): bool
+    public static function is_valid(string $token): bool
     {
-        return $token && is_string($token) && strlen($token) > 12 && false !== strpos($token, '-');
+        return $token && strlen($token) > 12 && false !== strpos($token, '-');
     }
 
 }

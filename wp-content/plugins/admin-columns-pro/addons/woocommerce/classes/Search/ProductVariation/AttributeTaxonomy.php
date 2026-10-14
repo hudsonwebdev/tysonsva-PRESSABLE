@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ProductVariation;
 
 use AC\Helper\Select\Options\Paginated;
@@ -9,16 +11,13 @@ use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use WP_Term;
 
 class AttributeTaxonomy extends Comparison\Meta implements Comparison\SearchableValues
 {
+    protected string $taxonomy;
 
-    /**
-     * @var string
-     */
-    protected $taxonomy;
-
-    public function __construct($taxonomy)
+    public function __construct(string $taxonomy)
     {
         $operators = new Operators([
             Operators::EQ,
@@ -39,7 +38,9 @@ class AttributeTaxonomy extends Comparison\Meta implements Comparison\Searchable
     {
         $term = get_term($value);
 
-        return $term ? $this->get_label_formatter()->format_label($term) : $value;
+        return $term instanceof WP_Term
+            ? $this->get_label_formatter()->format_label($term)
+            : $value;
     }
 
     public function get_values(string $search, int $page): Paginated
@@ -53,12 +54,12 @@ class AttributeTaxonomy extends Comparison\Meta implements Comparison\Searchable
 
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
-        $term = get_term($value->get_value());
+        $term = get_term((int)$value->get_value());
 
         return parent::create_query_bindings(
             $operator,
             new Value(
-                $term->slug ?? '',
+                $term instanceof WP_Term ? $term->slug : '',
                 Value::STRING
             )
         );

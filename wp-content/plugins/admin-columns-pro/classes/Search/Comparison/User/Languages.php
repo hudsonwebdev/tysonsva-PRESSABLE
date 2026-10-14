@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\User;
 
-use AC;
+use AC\Helper;
 use AC\Helper\Select\Options;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 
-class Languages extends Comparison\Meta
-    implements Comparison\RemoteValues
+class Languages extends Comparison\Meta implements Comparison\RemoteValues
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -22,14 +22,23 @@ class Languages extends Comparison\Meta
         parent::__construct($operators, 'locale');
     }
 
-    public function format_label(string $value): string
+    private function get_translations(): array
     {
-        $translations = (new AC\Helper\User())->get_translations_remote();
+        static $translations;
 
-        return $translations[$value]['native_name'] ?? $value;
+        if (null === $translations) {
+            $translations = Helper\AvailableTranslations::create()->get_available_translations();
+        }
+
+        return $translations;
     }
 
-    private function get_language_options()
+    public function format_label(string $value): string
+    {
+        return $this->get_translations()[$value]['native_name'] ?? $value;
+    }
+
+    private function get_language_options(): array
     {
         $options = [];
 
@@ -44,7 +53,7 @@ class Languages extends Comparison\Meta
 
     public function get_values(): Options
     {
-        return AC\Helper\Select\Options::create_from_array($this->get_language_options());
+        return Options::create_from_array($this->get_language_options());
     }
 
 }

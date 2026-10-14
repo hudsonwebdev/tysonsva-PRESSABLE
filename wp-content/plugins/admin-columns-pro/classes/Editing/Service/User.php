@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service;
 
+use AC\Helper;
 use AC\Helper\Select\Options\Paginated;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\PaginatedOptionsFactory;
@@ -9,72 +12,74 @@ use ACP\Editing\Service;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
 
-class User implements Service, PaginatedOptions {
+class User implements Service, PaginatedOptions
+{
+    private View\AjaxSelect $view;
 
-	/**
-	 * @var View\AjaxSelect
-	 */
-	private $view;
+    protected Storage $storage;
 
-	/**
-	 * @var Storage
-	 */
-	protected $storage;
+    protected PaginatedOptionsFactory $options_factory;
 
-	/**
-	 * @var string[]
-	 */
-	protected $roles;
+    public function __construct(
+        View\AjaxSelect $view,
+        Storage $storage,
+        ?PaginatedOptionsFactory $options_factory = null
+    ) {
+        $this->view = $view;
+        $this->storage = $storage;
+        $this->options_factory = $options_factory ?: new PaginatedOptions\Users();
+    }
 
-	/**
-	 * @var PaginatedOptionsFactory
-	 */
-	protected $options_factory;
+    public function get_view(string $context): ?View
+    {
+        return $this->view;
+    }
 
-	public function __construct( View\AjaxSelect $view, Storage $storage, PaginatedOptionsFactory $options_factory = null ) {
-		$this->view = $view;
-		$this->storage = $storage;
-		$this->options_factory = $options_factory ?: new PaginatedOptions\Users();
-	}
+    public function update(int $id, $data): void
+    {
+        $this->storage->update($id, $this->sanitize_user_id($data));
+    }
 
-	public function get_view( string $context ): ?View {
-		return $this->view;
-	}
+    private function sanitize_user_id($user_id): ?int
+    {
+        return $user_id && is_numeric($user_id)
+            ? (int)$user_id
+            : null;
+    }
 
-	public function update( int $id, $data ): void {
-		$this->storage->update( $id, $this->sanitize_user_id( $data ) );
-	}
+    private function get_stored_user_id(int $id): ?int
+    {
+        $user_id = $this->storage->get($id);
 
-	private function sanitize_user_id( $user_id ): ?int {
-		return $user_id && is_numeric( $user_id )
-			? (int) $user_id
-			: null;
-	}
+        if (is_array($user_id)) {
+            $user_id = reset($user_id);
+        }
 
-	private function get_stored_user_id( int $id ): ?int {
-		$user_id = $this->storage->get( $id );
+        return $this->sanitize_user_id($user_id);
+    }
 
-		if ( is_array( $user_id ) ) {
-			$user_id = reset( $user_id );
-		}
+    public function get_value(int $id)
+    {
+        $user_id = $this->get_stored_user_id($id);
 
-		return $this->sanitize_user_id( $user_id );
-	}
+        if (! $user_id) {
+            return false;
+        }
 
-	public function get_value( int $id ) {
-		$user_id = $this->get_stored_user_id( $id );
+        $user = get_userdata($user_id);
 
-		if ( ! $user_id || ! get_userdata( $user_id ) ) {
-			return false;
-		}
+        if (! $user) {
+            return false;
+        }
 
-		return [
-			$user_id => ac_helper()->user->get_display_name( $user_id ),
-		];
-	}
+        return [
+            $user_id => Helper\User::create()->get_formatted_name($user),
+        ];
+    }
 
-	public function get_paginated_options( string $search, int $page, int $id = null ): Paginated {
-		return $this->options_factory->create( $search, $page, $id );
-	}
+    public function get_paginated_options(string $search, int $page, ?int $id = null): Paginated
+    {
+        return $this->options_factory->create($search, $page, $id);
+    }
 
 }

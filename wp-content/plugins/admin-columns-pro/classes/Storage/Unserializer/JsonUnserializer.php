@@ -9,7 +9,6 @@ use ACP\Storage\Unserializer;
 
 final class JsonUnserializer implements Unserializer
 {
-
     /**
      * @throws UnserializeException
      */

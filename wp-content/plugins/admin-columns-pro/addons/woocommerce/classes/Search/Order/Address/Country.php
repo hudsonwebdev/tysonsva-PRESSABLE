@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order\Address;
 
 use AC\Helper\Select\Options;
@@ -12,10 +14,9 @@ use ACP\Search\Value;
 
 class Country extends ACP\Search\Comparison implements ACP\Search\Comparison\Values
 {
-
     use Search\Order\OperatorMappingTrait;
 
-    private $address_type;
+    private AddressType $address_type;
 
     public function __construct(AddressType $address_type)
     {

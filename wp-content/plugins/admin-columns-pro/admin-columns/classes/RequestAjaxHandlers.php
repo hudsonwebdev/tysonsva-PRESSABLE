@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 class RequestAjaxHandlers
 {
-
     /**
      * @var RequestAjaxHandler[]
      */
-    private $request_handlers = [];
+    private array $request_handlers = [];
 
     public function add(string $action, RequestAjaxHandler $request_handler): self
     {

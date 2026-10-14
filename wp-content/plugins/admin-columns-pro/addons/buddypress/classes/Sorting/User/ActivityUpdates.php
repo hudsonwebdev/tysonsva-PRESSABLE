@@ -1,30 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\BP\Sorting\User;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
 
-class ActivityUpdates implements QueryBindings
+class ActivityUpdates extends Base
 {
-
-    private $activity_type;
+    private string $activity_type;
 
     public function __construct(string $activity_type)
     {
         $this->activity_type = $activity_type;
     }
 
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb, $bp;
 
-        $bindings = new Bindings();
-
-        $alias = $bindings->get_unique_alias('activity');
         $where = '';
         if ($this->activity_type) {
             $where = $wpdb->prepare("AND $alias.type = %s", $this->activity_type);
@@ -32,7 +30,7 @@ class ActivityUpdates implements QueryBindings
 
         $bindings->join(
             "
-			LEFT JOIN {$bp->activity->table_name} as $alias 
+			LEFT JOIN {$bp->activity->table_name} as $alias
 				ON {$wpdb->users}.ID = $alias.user_id {$where}
 		"
         );
@@ -45,8 +43,6 @@ class ActivityUpdates implements QueryBindings
                 (string)$order
             )
         );
-
-        return $bindings;
     }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service\Comment;
 
 use AC\Helper\Select\Options\Paginated;
@@ -7,12 +9,10 @@ use ACP\Editing\PaginatedOptions;
 use ACP\Editing\Service;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
-use ACP\Helper\Select;
 use ACP\Helper\Select\Comment\PaginatedFactory;
 
 class CommentParent extends Service\BasicStorage implements PaginatedOptions
 {
-
     public function __construct()
     {
         parent::__construct(new Storage\Comment\Field('comment_parent'));

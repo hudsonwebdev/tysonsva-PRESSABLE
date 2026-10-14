@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model;
 
 use AC\MetaType;
@@ -9,19 +11,18 @@ use AC\MetaType;
  */
 class MetaCountFactory
 {
-
-    public function create(string $meta_type, string $meta_key)
+    public function create(MetaType $meta_type, string $meta_key)
     {
-        switch ($meta_type) {
-            case MetaType::POST :
+        switch ((string)$meta_type) {
+            case MetaType::POST:
                 return new Post\MetaCount($meta_key);
-            case MetaType::USER :
+            case MetaType::USER:
                 return new User\MetaCount($meta_key);
-            case MetaType::COMMENT :
+            case MetaType::COMMENT:
                 return new Comment\MetaCount($meta_key);
-            case MetaType::TERM :
+            case MetaType::TERM:
                 return new Taxonomy\MetaCount($meta_key);
-            default :
+            default:
                 return null;
         }
     }

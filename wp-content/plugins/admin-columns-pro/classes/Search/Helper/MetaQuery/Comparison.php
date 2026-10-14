@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Helper\MetaQuery;
 
 use ACP\Search\Value;
 
 class Comparison
 {
+    protected string $key;
 
-    protected $key;
+    protected string $operator;
 
-    protected $operator;
-
-    protected $value;
+    protected Value $value;
 
     public function __construct(string $key, string $operator, Value $value)
     {

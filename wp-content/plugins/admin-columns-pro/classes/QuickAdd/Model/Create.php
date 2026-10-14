@@ -1,21 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\QuickAdd\Model;
 
 use WP_User;
 
-interface Create {
+interface Create
+{
+    /**
+     * @return mixed
+     */
+    public function create();
 
-	/**
-	 * @return int
-	 */
-	public function create();
-
-	/**
-	 * @param WP_User $user
-	 *
-	 * @return bool
-	 */
-	public function has_permission( WP_User $user );
+    public function has_permission(WP_User $user): bool;
 
 }

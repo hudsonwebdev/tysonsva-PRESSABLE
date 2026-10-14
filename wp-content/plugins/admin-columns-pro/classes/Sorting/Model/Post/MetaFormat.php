@@ -8,25 +8,30 @@ use ACP\Query\Bindings;
 use ACP\Sorting\FormatValue;
 use ACP\Sorting\Model\QueryBindings;
 use ACP\Sorting\Model\SqlOrderByFactory;
+use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Sorter;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
+use ACP\Sql\QueryBuilder;
 
 /**
  * Sorts a post list table on a meta key. The meta value may contain mixed values, as long
  * as the supplied formatter can process them into a string.
  */
-class MetaFormat implements QueryBindings
+class MetaFormat implements QueryBindings, WarningAware
 {
+    protected string $meta_key;
 
-    protected $meta_key;
+    protected FormatValue $formatter;
 
-    protected $formatter;
+    protected ?DataType $data_type;
 
-    protected $data_type;
-
-    public function __construct(FormatValue $formatter, string $meta_key, DataType $data_type = null)
-    {
+    public function __construct(
+        FormatValue $formatter,
+        string $meta_key,
+        ?DataType $data_type = null
+    ) {
         $this->formatter = $formatter;
         $this->meta_key = $meta_key;
         $this->data_type = $data_type;
@@ -53,24 +58,25 @@ class MetaFormat implements QueryBindings
     {
         global $wpdb, $current_screen;
 
-        if ( ! $current_screen->post_type) {
+        if (! $current_screen->post_type) {
             return [];
         }
 
-        $sql = $wpdb->prepare(
-            "
-			SELECT pp.ID AS id, pm.meta_value AS value
-			FROM $wpdb->posts AS pp
-			LEFT JOIN $wpdb->postmeta AS pm ON pm.post_id = pp.ID
-				AND pm.meta_key = %s AND pm.meta_value <> ''
-			WHERE pp.post_type = %s
-		",
-            $this->meta_key,
-            $current_screen->post_type
-        );
+        $prepared_meta_key = $wpdb->prepare('%s', $this->meta_key);
+
+        $sql = QueryBuilder::for($wpdb->posts, 'pp')
+            ->select_columns(['pp.ID AS id', 'pm.meta_value AS value'])
+            ->left_join($wpdb->postmeta, function (Join $join) use ($prepared_meta_key) {
+                $join->on('pm.post_id', '=', 'pp.ID')
+                     ->on('pm.meta_key', '=', $prepared_meta_key)
+                     ->on('pm.meta_value', '<>', "''");
+            }, null, null, 'pm')
+            ->where('pp.post_type', '=', $current_screen->post_type)
+            ->get_sql();
 
         $results = $wpdb->get_results($sql);
-        if ( ! $results) {
+
+        if (! $results) {
             return [];
         }
 

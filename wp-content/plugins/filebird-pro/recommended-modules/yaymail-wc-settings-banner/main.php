@@ -63,12 +63,12 @@ if ( ! class_exists( 'YayMailWCSettingsBanner' ) ) {
 					'is_marketplace' => $is_marketplace,
 					'imageUrl'       => $this->plugin_dir_url . 'assets/images/yaymail-wc-settings-banner.png',
 					'i18n'           => array(
-						'title'       => __( 'Email Customizer for WooCommerce', 'filebird' ),
-						'desc'        => __( 'YayMail helps you easily customize your WooCommerce emails with email builder. Try it today!', 'filebird' ),
-						'btnInstall'  => __( 'Install for Free', 'filebird' ),
-						'btnActivate' => __( 'Activate Plugin', 'filebird' ),
-						'dismiss'     => __( 'No, Thanks', 'filebird' ),
-						'imgAlt'      => __( 'YayMail Email Builder', 'filebird' ),
+						'title'       => 'Email Customizer for WooCommerce',
+						'desc'        => 'YayMail helps you easily customize your WooCommerce emails with email builder. Try it today!',
+						'btnInstall'  => 'Install for Free',
+						'btnActivate' => 'Activate Plugin',
+						'dismiss'     => 'No, Thanks',
+						'imgAlt'      => 'YayMail Email Builder'
 					),
 				)
 			);
@@ -113,7 +113,7 @@ if ( ! class_exists( 'YayMailWCSettingsBanner' ) ) {
 
 		public function ajax_install_activate_yaymail() {
 			if ( ! function_exists( 'current_user_can' ) || ! current_user_can( 'install_plugins' ) ) {
-				wp_send_json_error( array( 'message' => __( 'You do not have permission to install plugins.', 'filebird' ) ) );
+				wp_send_json_error( array( 'message' => 'You do not have permission to install plugins.' ) );
 			}
 			check_ajax_referer( 'yaymail_banner_install-plugin_yaymail', 'nonce', true );
 
@@ -131,7 +131,7 @@ if ( ! class_exists( 'YayMailWCSettingsBanner' ) ) {
 			}
 
 			if ( ! $plugin_file ) {
-				wp_send_json_error( array( 'message' => __( 'Could not locate YayMail plugin file after install.', 'filebird' ) ) );
+				wp_send_json_error( array( 'message' => 'Could not locate YayMail plugin file after install.' ) );
 			}
 
 			// Activate
@@ -194,21 +194,21 @@ if ( ! class_exists( 'YayMailWCSettingsBanner' ) ) {
 				<div class="notice notice-info is-dismissible" id="yaymail-banner">
 					<div class="yaymail-banner-wrapper">
 						<div class="yaymail-banner-content">
-							<h3><?php esc_html_e( 'Email Customizer for WooCommerce', 'filebird' ); ?></h3>
-							<p><?php esc_html_e( 'YayMail helps you easily customize your WooCommerce emails with email builder. Try it today!', 'filebird' ); ?></p>
+							<h3><?php echo esc_html( 'Email Customizer for WooCommerce' ); ?></h3>
+							<p><?php echo esc_html( 'YayMail helps you easily customize your WooCommerce emails with email builder. Try it today!' ); ?></p>
 							<p class="yaymail-banner-actions">
 								<button type="button" class="button button-primary yaymail-banner-install-yaymail">
 									<?php if ( $this->get_yaymail_plugin_file() ) : ?>
-										<?php esc_html_e( 'Activate Plugin', 'filebird' ); ?>
+										<?php echo esc_html( 'Activate Plugin' ); ?>
 									<?php else : ?>
-										<?php esc_html_e( 'Install for Free', 'filebird' ); ?>
+										<?php echo esc_html( 'Install for Free' ); ?>
 									<?php endif; ?>
 								</button>
-								<a href="javascript:;" id="yaymail-banner-dismiss" class="yaymail-banner-inline-dismiss"><?php esc_html_e( 'No, Thanks', 'filebird' ); ?></a>
+								<a href="javascript:;" id="yaymail-banner-dismiss" class="yaymail-banner-inline-dismiss"><?php echo esc_html( 'No, Thanks' ); ?></a>
 							</p>
 						</div>
 						<div class="yaymail-banner-image">
-							<img src="<?php echo esc_url( $this->plugin_dir_url . 'assets/images/yaymail-wc-settings-banner.png' ); ?>" alt="<?php esc_attr_e( 'YayMail Email Builder', 'filebird' ); ?>" />
+							<img src="<?php echo esc_url( $this->plugin_dir_url . 'assets/images/yaymail-wc-settings-banner.png' ); ?>" alt="<?php echo esc_attr( 'YayMail Email Builder' ); ?>" />
 						</div>
 					</div>
 				</div>

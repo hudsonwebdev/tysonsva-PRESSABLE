@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use ACP;
@@ -7,7 +9,6 @@ use ACP\Search\Operators;
 
 class CustomerMessage extends ACP\Search\Comparison\Post\PostField
 {
-
     public function __construct()
     {
         parent::__construct(

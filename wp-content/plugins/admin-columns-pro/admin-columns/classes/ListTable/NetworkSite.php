@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListTable;
 
 use AC\ListTable;
@@ -7,41 +9,39 @@ use WP_MS_Sites_List_Table;
 
 class NetworkSite implements ListTable
 {
+    use RenderColumnTrait;
 
-    use WpListTableTrait;
+    private WP_MS_Sites_List_Table $table;
 
     public function __construct(WP_MS_Sites_List_Table $table)
     {
         $this->table = $table;
     }
 
-    public function get_column_value(string $column, $id): string
+    public function render_cell(string $column_id, $row_id): string
     {
-        ob_start();
+        $blog = get_site($row_id);
 
-        $method = 'column_' . $column;
-
-        $blog = get_site($id);
-
-        if ( ! $blog) {
+        if (! $blog) {
             return '';
         }
 
-        if (method_exists($this->table, $method)) {
-            call_user_func([$this->table, $method], $blog->to_array());
-        } else {
-            $this->table->column_default($blog->to_array(), $column);
-        }
-
-        return ob_get_clean();
+        return $this->render_column($this->table, $column_id, $blog->to_array());
     }
 
     public function render_row($id): string
     {
-        ob_start();
-        $this->table->single_row(get_site($id));
+        $site = get_site($id);
 
-        return ob_get_clean();
+        if (! $site) {
+            return '';
+        }
+
+        ob_start();
+
+        $this->table->single_row($site);
+
+        return (string)ob_get_clean();
     }
 
 }

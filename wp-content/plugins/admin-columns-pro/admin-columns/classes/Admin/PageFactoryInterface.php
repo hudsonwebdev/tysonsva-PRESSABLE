@@ -1,14 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
-use AC\Renderable;
-
-interface PageFactoryInterface {
-
-	/**
-	 * @return Renderable
-	 */
-	public function create();
+interface PageFactoryInterface
+{
+    public function create();
 
 }

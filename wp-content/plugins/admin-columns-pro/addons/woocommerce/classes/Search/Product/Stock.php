@@ -10,10 +10,10 @@ use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Labels;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class Stock extends Comparison
 {
-
     public function __construct()
     {
         parent::__construct(
@@ -38,13 +38,13 @@ class Stock extends Comparison
         global $wpdb;
 
         $bindings = new Bindings();
-        $alias_pml = $bindings->get_unique_alias('pml_stock');
+        $alias_pml = AliasGenerator::generate_from_class(static::class);
 
         $join = "LEFT JOIN {$wpdb->prefix}wc_product_meta_lookup AS $alias_pml 
                         ON $wpdb->posts.ID = $alias_pml.product_id";
 
         switch ($operator) {
-            case Operators::EQ :
+            case Operators::EQ:
                 $stock = (int)$value->get_value();
 
                 if ($stock > 0) {
@@ -54,20 +54,20 @@ class Stock extends Comparison
 
                 return $bindings->join($join)
                                 ->where("$alias_pml.stock_status != 'instock'");
-            case Operators::BETWEEN :
-            case Operators::GTE :
-            case Operators::LTE :
+            case Operators::BETWEEN:
+            case Operators::GTE:
+            case Operators::LTE:
                 $comparison = ComparisonFactory::create("$alias_pml.stock_quantity", $operator, $value);
 
                 return $bindings->join($join)
                                 ->where($comparison());
-            case Operators::IS_EMPTY :
+            case Operators::IS_EMPTY:
                 return $bindings->join($join)
                                 ->where("$alias_pml.stock_status != 'instock'");
-            case Operators::NOT_IS_EMPTY :
+            case Operators::NOT_IS_EMPTY:
                 return $bindings->join($join)
                                 ->where("$alias_pml.stock_status = 'instock'");
-            default :
+            default:
                 return $bindings;
         }
     }

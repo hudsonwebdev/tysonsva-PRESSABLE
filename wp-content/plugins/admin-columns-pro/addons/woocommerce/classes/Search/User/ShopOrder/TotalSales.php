@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\User\ShopOrder;
 
 use ACP\Query\Bindings;
@@ -10,13 +12,12 @@ use ACP\Search\Value;
 
 class TotalSales extends Comparison
 {
-
     /**
      * @var string[]
      */
-    private $statuses;
+    private array $statuses;
 
-    public function __construct($statuses)
+    public function __construct(array $statuses)
     {
         $operators = new Operators([
             Operators::GT,
@@ -29,9 +30,6 @@ class TotalSales extends Comparison
         parent::__construct($operators, Value::INT);
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;
@@ -42,20 +40,14 @@ class TotalSales extends Comparison
         $user_ids = array_filter($user_ids, 'is_numeric');
 
         // Force no results
-        if ( ! $user_ids) {
+        if (! $user_ids) {
             $user_ids = [0];
         }
 
         return $bindings->where(sprintf("{$wpdb->users}.ID IN( %s )", implode(',', $user_ids)));
     }
 
-    /**
-     * @param string $operator
-     * @param Value  $value
-     *
-     * @return array
-     */
-    protected function get_user_ids($operator, $value)
+    protected function get_user_ids(string $operator, Value $value): array
     {
         global $wpdb;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Editing\Order;
 
 use ACA\WC\Editing;
@@ -8,8 +10,7 @@ use ACP;
 
 final class AddressServiceFactory
 {
-
-    private $address_type;
+    private AddressType $address_type;
 
     public function __construct(AddressType $address_type)
     {
@@ -45,7 +46,7 @@ final class AddressServiceFactory
     {
         switch ($property) {
             case 'country':
-                return new ACP\Editing\View\Select(WC()->countries->get_countries());
+                return new ACP\Editing\View\Select(WC()->countries ? WC()->countries->get_countries() : []);
             case 'email':
                 return new ACP\Editing\View\Email();
             default:

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\GravityForms\Search\Comparison\Entry;
 
 use ACA\GravityForms\Search\Query\Bindings;
@@ -8,10 +10,8 @@ use ACP\Search\Operators;
 use ACP\Search\UserValuesTrait;
 use ACP\Search\Value;
 
-class User extends ACP\Search\Comparison
-    implements ACP\Search\Comparison\SearchableValues
+class User extends ACP\Search\Comparison implements ACP\Search\Comparison\SearchableValues
 {
-
     use UserValuesTrait;
 
     public function __construct()

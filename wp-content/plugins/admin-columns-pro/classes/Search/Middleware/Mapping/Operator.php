@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Middleware\Mapping;
 
 use ACP\Search\Middleware\Mapping;
@@ -7,7 +9,6 @@ use ACP\Search\Operators;
 
 class Operator extends Mapping
 {
-
     protected function get_properties(): array
     {
         return [

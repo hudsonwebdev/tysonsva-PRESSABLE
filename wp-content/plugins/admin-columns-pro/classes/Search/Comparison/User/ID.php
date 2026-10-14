@@ -1,28 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\User;
 
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class ID extends UserField {
-
-	public function __construct() {
-		$operators = new Operators( [
-			Operators::EQ,
-			Operators::GT,
-			Operators::GTE,
-			Operators::LT,
-			Operators::LTE,
-			Operators::BETWEEN,
-		] );
-
-		parent::__construct( $operators, Value::INT );
-	}
-
-	protected function get_field(): string
+class ID extends UserField
+{
+    public function __construct()
     {
-		return 'ID';
-	}
+        $operators = new Operators([
+            Operators::EQ,
+            Operators::GT,
+            Operators::GTE,
+            Operators::LT,
+            Operators::LTE,
+            Operators::BETWEEN,
+        ]);
+
+        parent::__construct($operators, Value::INT);
+    }
+
+    protected function get_field(): string
+    {
+        return 'ID';
+    }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use AC\Helper\Select\Options;
@@ -7,25 +9,28 @@ use ACP\Helper\Select\OptionsFactory;
 use ACP\Search\Comparison\Values;
 use ACP\Search\Operators;
 
-class Status extends PostField implements Values {
+class Status extends PostField implements Values
+{
+    private string $post_type;
 
-	private $post_type;
+    public function __construct(string $post_type)
+    {
+        parent::__construct(new Operators([
+            Operators::EQ,
+            Operators::NEQ,
+        ]));
 
-	public function __construct( string $post_type ) {
-		parent::__construct( new Operators( [
-			Operators::EQ,
-			Operators::NEQ,
-		] ) );
+        $this->post_type = $post_type;
+    }
 
-		$this->post_type = $post_type;
-	}
+    protected function get_field(): string
+    {
+        return 'post_status';
+    }
 
-	protected function get_field(): string {
-		return 'post_status';
-	}
-
-	public function get_values(): Options {
-		return ( new OptionsFactory\PostStatus() )->create( $this->post_type );
-	}
+    public function get_values(): Options
+    {
+        return (new OptionsFactory\PostStatus())->create($this->post_type);
+    }
 
 }

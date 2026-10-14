@@ -9,7 +9,6 @@ use DateTime;
 
 class DateOptionsFactory
 {
-
     public function create_label(string $value): string
     {
         $date = DateTime::createFromFormat('Ym', $value);

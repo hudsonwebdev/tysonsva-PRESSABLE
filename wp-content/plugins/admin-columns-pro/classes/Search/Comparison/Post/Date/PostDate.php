@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post\Date;
 
 use AC\Helper\Select\Options;
@@ -10,8 +12,7 @@ use ACP\Search\Operators;
 
 class PostDate extends Post\Date implements RemoteValues
 {
-
-    private $value_factory;
+    private DateOptionsFactory $value_factory;
 
     public function __construct(string $post_type)
     {
@@ -29,6 +30,7 @@ class PostDate extends Post\Date implements RemoteValues
                 Operators::EQ_MONTH,
                 Operators::EQ_YEAR,
                 Operators::GT_DAYS_AGO,
+                Operators::LT_DAYS_AGO,
                 Operators::WITHIN_DAYS,
             ], false)
         );

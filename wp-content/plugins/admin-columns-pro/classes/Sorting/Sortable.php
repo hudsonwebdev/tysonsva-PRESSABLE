@@ -1,15 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting;
 
-use ACP\Sorting\Model\QueryBindings;
-
+/**
+ * @deprecated 7.0
+ */
 interface Sortable
 {
-
-    /**
-     * @return QueryBindings|null
-     */
-    public function sorting();
-
 }

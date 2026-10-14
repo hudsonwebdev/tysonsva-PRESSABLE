@@ -12,10 +12,9 @@ use InvalidArgumentException;
 
 class DateOptionsFactory
 {
-
     public function create_operational_data_options(string $field): Options
     {
-        if ( ! in_array($field, [
+        if (! in_array($field, [
             OrderOperationalData::DATE_COMPLETED_GMT,
             OrderOperationalData::DATE_PAID_GMT,
         ], true)) {
@@ -40,7 +39,7 @@ class DateOptionsFactory
 
     public function create_orders_options(string $field): Options
     {
-        if ( ! in_array($field, [
+        if (! in_array($field, [
             Orders::DATE_CREATED_GMT,
             Orders::DATE_UPDATED_GMT,
         ], true)) {
@@ -68,7 +67,7 @@ class DateOptionsFactory
         foreach ($rows as $value) {
             $date = DateTime::createFromFormat('Ym', $value);
 
-            if ( ! $date) {
+            if (! $date) {
                 continue;
             }
 

@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order;
 
 use AC\Helper\Select\Options;
 use ACA\WC\Scheme\OrderOperationalData;
-use ACA\WC\Search;
 use ACP;
 use ACP\Search\Operators;
 
 class CreatedVia extends OperationalDataField implements ACP\Search\Comparison\RemoteValues
 {
-
     public function __construct()
     {
         parent::__construct(
@@ -39,9 +39,9 @@ class CreatedVia extends OperationalDataField implements ACP\Search\Comparison\R
         $sql = "SELECT DISTINCT($field) FROM $table";
 
         $values = $wpdb->get_col($sql);
-        $options = array_combine($values, $values);
+        $options = $values ? array_combine($values, $values) : [];
 
-        return Options::create_from_array($options ? array_filter($options) : []);
+        return Options::create_from_array(array_filter($options));
     }
 
 }

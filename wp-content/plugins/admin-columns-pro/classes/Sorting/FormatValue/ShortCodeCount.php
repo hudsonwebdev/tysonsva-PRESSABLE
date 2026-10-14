@@ -1,17 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\FormatValue;
 
+use AC\Helper;
 use ACP\Sorting\FormatValue;
 
-class ShortCodeCount implements FormatValue {
+class ShortCodeCount implements FormatValue
+{
+    public function format_value($value): ?int
+    {
+        $shortcodes = Helper\Strings::create()->get_shortcodes((string)$value);
 
-	public function format_value( $content ) {
-		$shortcodes = ac_helper()->string->get_shortcodes( $content );
-
-		return $shortcodes
-			? array_sum( $shortcodes )
-			: false;
-	}
+        return $shortcodes
+            ? (int)array_sum($shortcodes)
+            : null;
+    }
 
 }

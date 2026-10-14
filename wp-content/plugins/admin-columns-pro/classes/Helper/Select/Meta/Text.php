@@ -8,15 +8,13 @@ use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
 use AC\Meta\Query;
 
-class Text extends ArrayIterator
-    implements Paginated
+class Text extends ArrayIterator implements Paginated
 {
-
     public function __construct(Query $query)
     {
         $data = $query->get();
 
-        parent::__construct( array_combine( $data, $data ) );
+        parent::__construct($data ? array_combine($data, $data) : []);
     }
 
     public function get_total_pages(): int

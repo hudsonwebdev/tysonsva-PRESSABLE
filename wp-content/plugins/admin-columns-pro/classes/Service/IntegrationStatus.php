@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Service;
 
-use AC\Integration;
 use AC\Registerable;
+use AC\Type\Integration;
 
 class IntegrationStatus implements Registerable
 {
-
     private string $slug;
 
     public function __construct(string $slug)

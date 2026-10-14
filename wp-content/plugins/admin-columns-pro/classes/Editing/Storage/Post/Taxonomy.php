@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Storage\Post;
 
 use AC\Storage\Transaction;
@@ -11,16 +13,9 @@ use WP_Term;
 
 class Taxonomy implements Storage
 {
+    private string $taxonomy;
 
-    /**
-     * @var string
-     */
-    private $taxonomy;
-
-    /**
-     * @var string
-     */
-    private $enable_term_creation;
+    private bool $enable_term_creation;
 
     public function __construct(string $taxonomy, bool $enable_term_creation)
     {
@@ -28,11 +23,11 @@ class Taxonomy implements Storage
         $this->enable_term_creation = $enable_term_creation;
     }
 
-    public function get($id)
+    public function get($id): array
     {
         $terms = get_the_terms($id, $this->taxonomy);
 
-        if ( ! $terms || is_wp_error($terms)) {
+        if (! $terms || is_wp_error($terms)) {
             return [];
         }
 
@@ -61,7 +56,7 @@ class Taxonomy implements Storage
 
         $term_ids_or_names = $data['value'] ?? [];
 
-        if ( ! is_array($term_ids_or_names)) {
+        if (! is_array($term_ids_or_names)) {
             throw new InvalidArgumentException('Invalid value');
         }
 
@@ -80,7 +75,9 @@ class Taxonomy implements Storage
                 $this->replace_terms($id, $term_ids_or_names);
         }
 
-        return wp_update_post(['ID' => $id]);
+        $result = wp_update_post(['ID' => $id]);
+
+        return ! is_wp_error($result) && $result > 0;
     }
 
     private function remove_terms(int $id, array $term_ids): void
@@ -93,19 +90,13 @@ class Taxonomy implements Storage
         $transaction = new Transaction();
 
         $term_ids = [];
-        $search_numeric_terms = apply_filters('acp/editing/taxonomy/numeric_term_names', false, $this->taxonomy);
 
         foreach ($term_ids_or_names as $term_id_or_name) {
             if (is_numeric($term_id_or_name)) {
-                if ( ! $search_numeric_terms) {
-                    $term_ids[] = $term_id_or_name;
-                    continue;
-                }
-
-                $term = get_term_by('term_id', $term_id_or_name, $this->taxonomy);
+                $term = get_term_by('term_id', (int)$term_id_or_name, $this->taxonomy);
                 $term_ids[] = $term instanceof WP_Term
                     ? $term->term_id
-                    : $this->insert_term($term_id_or_name, $transaction);
+                    : $this->insert_term((string)$term_id_or_name, $transaction);
 
                 continue;
             }
@@ -188,7 +179,7 @@ class Taxonomy implements Storage
 
     private function term_exists($term_id): bool
     {
-        return is_numeric($term_id) && get_term_by('id', $term_id, $this->taxonomy) instanceof WP_Term;
+        return is_numeric($term_id) && get_term_by('id', (int)$term_id, $this->taxonomy) instanceof WP_Term;
     }
 
 }

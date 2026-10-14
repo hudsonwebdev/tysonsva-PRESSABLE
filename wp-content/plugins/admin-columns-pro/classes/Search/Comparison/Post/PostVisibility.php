@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use AC;
@@ -10,10 +12,8 @@ use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class PostVisibility extends Comparison
-    implements Comparison\Values
+class PostVisibility extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -59,7 +59,7 @@ class PostVisibility extends Comparison
         return $binding;
     }
 
-    private function create_where($field, $operator, $value)
+    private function create_where($field, $operator, $value): string
     {
         global $wpdb;
 

@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\View;
 
 use ACP\Editing\View;
 
-class InternalLink extends View implements Placeholder, MaxLength {
+class InternalLink extends View implements Placeholder, MaxLength
+{
+    use MaxlengthTrait;
+    use PlaceholderTrait;
 
-	use MaxlengthTrait,
-		PlaceholderTrait;
-
-	public function __construct() {
-		parent::__construct( 'internal_link' );
-	}
+    public function __construct()
+    {
+        parent::__construct('internal_link');
+    }
 
 }

@@ -213,6 +213,32 @@ function serialiseClassicForm() {
 }
 
 /**
+ * The post status core's Publish/Update button would have applied.
+ *
+ * Our capture-phase preventDefault cancels core's own editPost({ status }), so
+ * whenever we go on to save we have to reapply it. Mirrors the publishStatus
+ * ladder in @wordpress/editor's PostPublishButton.
+ */
+function intendedPublishStatus( editorRO ) {
+	const edits = typeof editorRO.getPostEdits === 'function' ? editorRO.getPostEdits() : null;
+	if ( edits && edits.status ) {
+		return edits.status;
+	}
+
+	const currentPost = typeof editorRO.getCurrentPost === 'function' ? editorRO.getCurrentPost() : null;
+	if ( ! currentPost?._links?.[ 'wp:action-publish' ] ) {
+		return 'pending';
+	}
+	if ( typeof editorRO.getEditedPostVisibility === 'function' && editorRO.getEditedPostVisibility() === 'private' ) {
+		return 'private';
+	}
+	if ( typeof editorRO.isEditedPostBeingScheduled === 'function' && editorRO.isEditedPostBeingScheduled() ) {
+		return 'future';
+	}
+	return 'publish';
+}
+
+/**
  * The main click interceptor. Runs in capture phase on document so it fires
  * before any React-attached bubble-phase listener.
  */
@@ -301,15 +327,7 @@ function onPublishClick( e ) {
 			if ( response && response.valid ) {
 				notices.removeNotice( NOTICE_ID );
 
-				// If we were publishing from a draft via the sidebar, also flip
-				// the status so the dispatched savePost() actually publishes.
-				if (
-					isSidebarOpen() &&
-					! editorRO.isCurrentPostPublished() &&
-					editorRO.getEditedPostAttribute( 'status' ) === 'draft'
-				) {
-					editor.editPost( { status: 'publish' } );
-				}
+				editor.editPost( { status: intendedPublishStatus( editorRO ) }, { undoIgnore: true } );
 
 				// Mirror canvas-block inputs to hidden metaboxes before the
 				// meta-box-loader POST serialises them.
@@ -353,6 +371,7 @@ function onPublishClick( e ) {
 				),
 				{ id: NOTICE_ID, isDismissible: true }
 			);
+			editor.editPost( { status: intendedPublishStatus( editorRO ) }, { undoIgnore: true } );
 			syncAllCanvasToMetabox();
 			editor.unlockPostSaving( LOCK_KEY );
 			editor.savePost();

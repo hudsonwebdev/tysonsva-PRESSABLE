@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Product;
 
 use ACP\Query\Bindings;
@@ -7,10 +9,10 @@ use ACP\Search\Comparison;
 use ACP\Search\Labels;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class LowOnStock extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -32,9 +34,9 @@ class LowOnStock extends Comparison
 
         $bindings = new Bindings();
 
-        $alias_pml = $bindings->get_unique_alias('lwstck_pml');
-        $alias_meta_threshold = $bindings->get_unique_alias('lwstck_thrshld');
-        $alias_meta_managed = $bindings->get_unique_alias('lwstck_mngdstck');
+        $alias_pml = AliasGenerator::generate_from_class(static::class);
+        $alias_meta_threshold = AliasGenerator::generate('lwstck_thrshld');
+        $alias_meta_managed = AliasGenerator::generate('lwstck_mngdstck');
 
         $join_pml = "\nLEFT JOIN {$wpdb->prefix}wc_product_meta_lookup AS $alias_pml 
                         ON $wpdb->posts.ID = $alias_pml.product_id";

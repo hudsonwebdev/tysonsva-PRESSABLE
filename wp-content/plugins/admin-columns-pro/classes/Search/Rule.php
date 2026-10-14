@@ -1,54 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search;
 
-final class Rule {
+final class Rule
+{
+    private string $name;
 
-	/**
-	 * @var string
-	 */
-	private $name;
+    private string $operator;
 
-	/**
-	 * @var string
-	 */
-	private $operator;
+    private Value $value;
 
-	/**
-	 * @var Value
-	 */
-	private $value;
+    public function __construct(string $name, string $operator, Value $value)
+    {
+        $this->name = $name;
+        $this->operator = $operator;
+        $this->value = $value;
+    }
 
-	/**
-	 * @param string $name
-	 * @param string $operator
-	 * @param Value  $value
-	 */
-	public function __construct( $name, $operator, Value $value ) {
-		$this->name = $name;
-		$this->operator = $operator;
-		$this->value = $value;
-	}
+    public function get_name(): string
+    {
+        return $this->name;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_name() {
-		return $this->name;
-	}
+    public function get_operator(): string
+    {
+        return $this->operator;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function get_operator() {
-		return $this->operator;
-	}
-
-	/**
-	 * @return Value
-	 */
-	public function get_value() {
-		return $this->value;
-	}
+    public function get_value(): Value
+    {
+        return $this->value;
+    }
 
 }

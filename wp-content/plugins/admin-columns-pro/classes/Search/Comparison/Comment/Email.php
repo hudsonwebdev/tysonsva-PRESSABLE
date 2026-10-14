@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use AC\Helper\Select\Options\Paginated;
@@ -9,7 +11,6 @@ use ACP\Search\Operators;
 
 class Email extends Field implements SearchableValues
 {
-
     public function __construct()
     {
         $operators = new Operators([

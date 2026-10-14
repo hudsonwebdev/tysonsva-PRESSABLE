@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\EC\Search;
 
 use AC\Helper\Select\Options;
@@ -11,13 +13,9 @@ use ACP\Search\Value;
 
 class UpcomingEvent extends Search\Comparison implements Search\Comparison\Values
 {
+    private string $meta_key;
 
-    /**
-     * @var string
-     */
-    private $meta_key;
-
-    public function __construct($meta_key)
+    public function __construct(string $meta_key)
     {
         parent::__construct(new Operators([Operators::EQ]));
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\GravityForms\Search\Comparison\Entry;
 
 use ACA\GravityForms\Search\Query\Bindings;
@@ -8,13 +10,9 @@ use ACP\Search\Value;
 
 class DateColumn extends ACP\Search\Comparison
 {
+    private string $column;
 
-    /**
-     * @var string
-     */
-    private $column;
-
-    public function __construct($column)
+    public function __construct(string $column)
     {
         $operators = new ACP\Search\Operators([
             ACP\Search\Operators::EQ,
@@ -43,7 +41,7 @@ class DateColumn extends ACP\Search\Comparison
 
         $comparison = ACP\Search\Helper\Sql\ComparisonFactory::create($this->column, $operator, $value);
 
-        return (new Bindings)->where($comparison());
+        return (new Bindings())->where($comparison());
     }
 
 }

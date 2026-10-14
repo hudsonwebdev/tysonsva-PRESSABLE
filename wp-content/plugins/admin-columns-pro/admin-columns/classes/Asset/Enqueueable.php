@@ -1,28 +1,18 @@
 <?php
 
-namespace AC\Asset;
+declare(strict_types=1);
 
-use AC\Asset\Location\Absolute;
+namespace AC\Asset;
 
 abstract class Enqueueable
 {
+    protected string $handle;
 
-    /**
-     * @var string
-     */
-    protected $handle;
+    protected ?Location $location;
 
-    /**
-     * @var Absolute|null
-     */
-    protected $location;
+    protected array $dependencies;
 
-    /**
-     * @var string[]
-     */
-    protected $dependencies;
-
-    public function __construct(string $handle, Absolute $location = null, array $dependencies = [])
+    public function __construct(string $handle, ?Location $location = null, array $dependencies = [])
     {
         $this->handle = $handle;
         $this->location = $location;
@@ -36,11 +26,19 @@ abstract class Enqueueable
 
     protected function get_version(): ?int
     {
+        if (null === $this->location) {
+            return null;
+        }
+
         $path = $this->location->get_path();
 
-        return file_exists($path)
-            ? filemtime($path)
-            : null;
+        if (! file_exists($path)) {
+            return null;
+        }
+
+        $mtime = filemtime($path);
+
+        return false === $mtime ? null : $mtime;
     }
 
     abstract public function register(): void;

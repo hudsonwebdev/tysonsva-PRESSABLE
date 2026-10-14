@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use ACP\Query\Bindings;
@@ -9,8 +11,7 @@ use ACP\Search\Value;
 
 class ChildPages extends Comparison
 {
-
-    private $post_type;
+    private string $post_type;
 
     public function __construct(string $post_type)
     {

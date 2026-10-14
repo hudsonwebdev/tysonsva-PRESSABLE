@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\API\Request;
 
 use ACP\API\Request;
@@ -8,7 +10,6 @@ use ACP\Type\SiteUrl;
 
 class Activate extends Request
 {
-
     public function __construct(LicenseKey $license_key, SiteUrl $site_url)
     {
         parent::__construct([

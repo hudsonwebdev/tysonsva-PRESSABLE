@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\View;
 
-trait MethodTrait {
+use ACP\Editing\View;
 
-	public function has_methods( $has_methods ) {
-		$this->set( 'has_methods', (bool) $has_methods );
-
-		return $this;
-	}
+trait MethodTrait
+{
+    public function has_methods(bool $has_methods): View
+    {
+        return $this->set('has_methods', $has_methods);
+    }
 
 }

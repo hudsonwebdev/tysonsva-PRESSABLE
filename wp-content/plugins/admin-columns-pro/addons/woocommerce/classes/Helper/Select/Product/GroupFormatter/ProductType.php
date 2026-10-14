@@ -9,7 +9,6 @@ use WC_Product;
 
 class ProductType implements GroupFormatter
 {
-
     public function format(WC_Product $product): string
     {
         $types = wc_get_product_types();

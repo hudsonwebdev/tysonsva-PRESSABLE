@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\EC\Search\Event;
 
 use ACP\Search;
@@ -7,7 +9,6 @@ use ACP\Search\Comparison;
 
 class AllDayEvent extends Comparison\Meta
 {
-
     public function __construct()
     {
         parent::__construct(

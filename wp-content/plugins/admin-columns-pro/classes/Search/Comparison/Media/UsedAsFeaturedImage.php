@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Media;
 
 use AC;
@@ -8,10 +10,10 @@ use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class UsedAsFeaturedImage extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         parent::__construct(
@@ -26,7 +28,7 @@ class UsedAsFeaturedImage extends Comparison implements Comparison\Values
         global $wpdb;
 
         $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('subquery');
+        $alias = AliasGenerator::generate_from_class(static::class);
 
         $sub_query = "SELECT DISTINCT( meta_value ) as ID
 			FROM $wpdb->postmeta

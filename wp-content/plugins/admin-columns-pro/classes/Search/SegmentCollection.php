@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ACP\Search;
 
+use AC\Exception\IteratorException;
 use ACP\Search\Entity\Segment;
 use ACP\Search\Type\SegmentKey;
 use Countable;
@@ -12,11 +13,10 @@ use Iterator;
 
 final class SegmentCollection implements Iterator, Countable
 {
-
     /**
      * @var Segment[]
      */
-    private $data = [];
+    private array $data = [];
 
     public function __construct(array $data = [])
     {
@@ -40,7 +40,7 @@ final class SegmentCollection implements Iterator, Countable
 
     public function get(SegmentKey $segment_key): Segment
     {
-        if ( ! $this->contains($segment_key)) {
+        if (! $this->contains($segment_key)) {
             throw new InvalidArgumentException(sprintf('No segment found for key %s.', $segment_key));
         }
 
@@ -49,7 +49,13 @@ final class SegmentCollection implements Iterator, Countable
 
     public function current(): Segment
     {
-        return current($this->data);
+        $current = current($this->data);
+
+        if (! $current instanceof Segment) {
+            throw IteratorException::from_current();
+        }
+
+        return $current;
     }
 
     public function next(): void
@@ -57,9 +63,15 @@ final class SegmentCollection implements Iterator, Countable
         next($this->data);
     }
 
-    public function key(): SegmentKey
+    public function key(): string
     {
-        return new SegmentKey(key($this->data));
+        $key = key($this->data);
+
+        if (! is_string($key)) {
+            throw IteratorException::from_key();
+        }
+
+        return $key;
     }
 
     public function valid(): bool

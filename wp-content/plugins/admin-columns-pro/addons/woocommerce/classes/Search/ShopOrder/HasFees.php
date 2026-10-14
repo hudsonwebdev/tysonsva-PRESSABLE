@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use ACP;
@@ -10,7 +12,6 @@ use ACP\Search\Value;
 
 class HasFees extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators(
@@ -24,7 +25,7 @@ class HasFees extends Comparison
             $operators,
             null,
             new ACP\Search\Labels([
-                Operators::IS_EMPTY     => sprintf(
+                Operators::IS_EMPTY => sprintf(
                     __('Without %s', 'codepress-admin-columns'),
                     __('Fees', 'codepress-admin-columns')
                 ),
@@ -35,7 +36,7 @@ class HasFees extends Comparison
             ])
         );
     }
-    
+
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;

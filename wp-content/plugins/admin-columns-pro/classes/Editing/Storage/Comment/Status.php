@@ -1,39 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Storage\Comment;
 
 use ACP\Editing\Storage;
 use RuntimeException;
 
-class Status implements Storage {
+class Status implements Storage
+{
+    public function get(int $id)
+    {
+        $comment = get_comment($id);
 
-	public function get( int $id ) {
-		return get_comment( $id )->comment_approved;
-	}
+        if (! $comment) {
+            return null;
+        }
 
-	private function set_comment_status( $id, $status ) {
-		$result = wp_set_comment_status( $id, $status );
+        return $comment->comment_approved;
+    }
 
-		if ( is_wp_error( $result ) ) {
-			throw new RuntimeException( $result->get_error_message() );
-		}
+    private function set_comment_status($id, $status)
+    {
+        $result = wp_set_comment_status($id, $status);
 
-		return $result;
-	}
+        if (is_wp_error($result)) {
+            throw new RuntimeException($result->get_error_message());
+        }
 
-	public function update( int $id, $data ): bool {
-		switch ( $data ) {
-			case 'trash' :
-				return wp_trash_comment( $id );
-			case 'spam' :
-				return wp_spam_comment( $id );
-			case '1' :
-				return $this->set_comment_status( $id, 'approve' );
-			case '0' :
-				return $this->set_comment_status( $id, 'hold' );
-			default:
-				return false;
-		}
-	}
+        return $result;
+    }
+
+    public function update(int $id, $data): bool
+    {
+        switch ($data) {
+            case 'trash' :
+                return wp_trash_comment($id);
+            case 'spam' :
+                return wp_spam_comment($id);
+            case '1' :
+                return $this->set_comment_status($id, 'approve');
+            case '0' :
+                return $this->set_comment_status($id, 'hold');
+            default:
+                return false;
+        }
+    }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use AC;
@@ -9,10 +11,8 @@ use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class IsReply extends Comparison
-    implements Comparison\Values
+class IsReply extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Media;
 
 use AC\Helper\Select\Options;
@@ -9,10 +11,8 @@ use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class MimeType extends Comparison
-    implements Comparison\RemoteValues
+class MimeType extends Comparison implements Comparison\RemoteValues
 {
-
     public function __construct()
     {
         $operators = new Operators([

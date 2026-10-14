@@ -10,10 +10,9 @@ use AC\Helper\Select\Paginated;
 
 class Query extends ArrayIterator implements Paginated
 {
+    private string $field;
 
-    private $field;
-
-    private $args;
+    private array $args;
 
     public function __construct(string $field, array $args = [])
     {

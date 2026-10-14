@@ -275,10 +275,13 @@
 			let allTimeranges = container.querySelectorAll('.em-timerange');
 			let hasErrors = false;
 
-			// Clear existing errors
+			// Clear existing errors, then put back the end-before-start flags this pass does not own.
 			allTimeranges.forEach(timerange => {
 				timerange.querySelectorAll('.em-time-start, .em-time-end').forEach(input => {
 					input.classList.remove('error');
+				});
+				timerange.querySelectorAll('.em-time-end').forEach(input => {
+					em_validate_end_time(input);
 				});
 			});
 

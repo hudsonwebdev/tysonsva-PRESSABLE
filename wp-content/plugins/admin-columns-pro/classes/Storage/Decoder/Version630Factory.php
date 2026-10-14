@@ -4,23 +4,24 @@ declare(strict_types=1);
 
 namespace ACP\Storage\Decoder;
 
-use AC\ListScreenFactory;
+use AC\Plugin\Version;
 use ACP\Storage\Decoder;
-use ACP\Storage\DecoderFactory;
 
-final class Version630Factory implements DecoderFactory
+class Version630Factory extends Version510Factory
 {
-
-    private $list_screen_factory;
-
-    public function __construct(ListScreenFactory $list_screen_factory)
+    protected function get_version(): Version
     {
-        $this->list_screen_factory = $list_screen_factory;
+        return new Version(Version630::VERSION);
     }
 
-    public function create(array $encoded_data): Decoder
+    protected function create_decoder(array $encoded_data): Decoder
     {
-        return new Version630($encoded_data, $this->list_screen_factory);
+        return new Version630(
+            $encoded_data,
+            $this->table_screen_factory,
+            $this->column_factory,
+            $this->original_columns_repository
+        );
     }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model;
 
 use ACP\Query\Bindings;
@@ -7,8 +9,7 @@ use ACP\Sorting\Type\Order;
 
 class OrderBy implements QueryBindings
 {
-
-    protected $orderby;
+    protected string $orderby;
 
     public function __construct(string $orderby)
     {

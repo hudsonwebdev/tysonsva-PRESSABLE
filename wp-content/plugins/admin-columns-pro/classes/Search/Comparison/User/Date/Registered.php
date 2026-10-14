@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\User\Date;
 
 use ACP\Search\Comparison;
@@ -7,7 +9,6 @@ use ACP\Search\Operators;
 
 class Registered extends Comparison\User\Date
 {
-
     public function __construct()
     {
         parent::__construct(

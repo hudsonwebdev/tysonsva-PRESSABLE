@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\View;
 
 use ACP\Editing\View;
 
-class Date extends View {
+class Date extends View
+{
+    use WeekstartTrait;
 
-	use WeekstartTrait;
+    public function __construct()
+    {
+        parent::__construct('date');
 
-	public function __construct() {
-		parent::__construct( 'date' );
-
-		$this->set_week_start( 1 );
-	}
+        $this->set_week_start(1);
+    }
 
 }

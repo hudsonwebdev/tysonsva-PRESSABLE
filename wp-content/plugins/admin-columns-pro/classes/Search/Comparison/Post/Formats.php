@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use AC;
@@ -10,16 +12,11 @@ use ACP\Search\Helper\TaxQuery\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Formats extends Comparison
-    implements Comparison\Values
+class Formats extends Comparison implements Comparison\Values
 {
+    protected string $taxonomy;
 
-    /**
-     * @var string
-     */
-    protected $taxonomy;
-
-    public function __construct($taxonomy)
+    public function __construct(string $taxonomy)
     {
         $operators = new Operators([
             Operators::EQ,
@@ -60,7 +57,7 @@ class Formats extends Comparison
         return $bindings->tax_query($tax_query->get_expression());
     }
 
-    private function create_non_existent_post_format_bindings()
+    private function create_non_existent_post_format_bindings(): Bindings\Post
     {
         $bindings = new Bindings\Post();
 

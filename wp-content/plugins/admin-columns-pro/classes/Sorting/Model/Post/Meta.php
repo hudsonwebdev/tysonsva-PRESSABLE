@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Query\Bindings;
@@ -8,15 +10,15 @@ use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\DataType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
 class Meta implements QueryBindings
 {
+    protected string $meta_key;
 
-    protected $meta_key;
+    protected DataType $data_type;
 
-    protected $data_type;
-
-    public function __construct(string $meta_key, DataType $data_type = null)
+    public function __construct(string $meta_key, ?DataType $data_type = null)
     {
         $this->meta_key = $meta_key;
         $this->data_type = $data_type ?: new DataType(DataType::STRING);
@@ -29,12 +31,10 @@ class Meta implements QueryBindings
         $bindings = new Bindings();
 
         $bindings->join(
-            $wpdb->prepare(
-                "LEFT JOIN $wpdb->postmeta AS acsort_postmeta ON $wpdb->posts.ID = acsort_postmeta.post_id
-                    AND acsort_postmeta.meta_key = %s
-                ",
-                $this->meta_key
-            )
+            Join::left($wpdb->postmeta, 'acsort_postmeta')
+                ->on("$wpdb->posts.ID", '=', 'acsort_postmeta.post_id')
+                ->on('acsort_postmeta.meta_key', '=', $wpdb->prepare('%s', $this->meta_key))
+                ->get_sql()
         );
         $bindings->group_by("$wpdb->posts.ID");
         $bindings->order_by($this->get_order_by($order));

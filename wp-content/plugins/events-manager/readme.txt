@@ -1,19 +1,19 @@
-=== Events Manager - Calendar, Bookings, Tickets, and more!  ===
+=== Events Manager - Calendar, Bookings, Tickets, Appointments and more! ===
 Contributors: msykes, pxlite, nutsmuggler, netweblogic
 Donate link: https://wp-events-plugin.com
-Tags: events, calendar, tickets, bookings, block
+Tags: events, calendar, tickets, bookings, appointments
 Text Domain: events-manager
 Requires at least: 6.1
-Tested up to: 7.0
-Stable tag: 7.4.3
+Tested up to: 7.1
+Stable tag: 7.4.8
 Requires PHP: 7.0
 License: GPLv2
 
-Events calendar with bookings, scheduling, appointments, event registration, tickets, recurring events, and venue management.
+Events calendar and booking system: bookings, reservations, appointments, scheduling, event registration, tickets and recurring events.
 
 == Description ==
 
-Events Manager is a full-featured event calendar, bookings, appointments, scheduling, and registration management plugin for WordPress ideal for everything from simple meetups to full-scale event planning. Built with flexibility, reliability and powerful features in mind.
+Events Manager is a full-featured event calendar and booking system for WordPress: bookings, reservations, appointments, scheduling, event registration and ticketing, ideal for everything from simple meetups to full-scale event planning. Schedule one-off dates, recurring series or timeslots, take online bookings and sell tickets, all from one plugin built with flexibility, reliability and powerful features in mind.
 
 * [Demo](https://eventsmanager.site)
 * [Documentation](http://wp-events-plugin.com/documentation/)
@@ -25,26 +25,33 @@ Events Manager is a full-featured event calendar, bookings, appointments, schedu
 * **NEW** API Rest Integration
 * **NEW** EU Compliance Tools for ["Right of withdrawal" (EU 'Widerrufsbutton')](https://wp-events-plugin.com/documentation/compliance/right-of-withdrawal/)
 * Beautiful calendars, search pages, lists, grids and booking forms to enhance your site events.
-* Easy event registration (single day with start/end times)
+* Availability and reservation calendar: real-time availability per event, ticket and timeslot, shown on booking forms and exposed via the REST API
+* Easy event registration and booking forms (single day with start/end times), with custom form fields in Pro
 * Recurring and long (multi-day) event registration
  * Build complex recurrence patterns with exclusion/blackout dates
-* **NEW** Multiple timeslots within the day for events with advanced creation options
+* **NEW** Multiple time slots (timeslots) within the day for events with advanced creation options, so any event can work as a simple appointment scheduler
  * Overlapping timeslots
  * Buffer between timeslots
-* Bookings Management (including approval/rejections, export CVS, and more!)
-* Multiple Tickets
+ * Appointment booking with buffers between slots and capacity per slot
+ * Class and session timetables: a timetable built from timeslots, recurring events and calendar or list views
+* Bookings and attendee management: approvals and rejections, attendee lists, CSV export and confirmation emails
+* A complete booking and reservation system for events and timeslots, with online booking for members or guests and payments via PayPal, Stripe, Square and more (Pro)
+* Sell tickets online with multiple ticket types, pricing and availability limits per ticket (payments via Pro)
+* Event ticketing with PDF tickets by email, check in/out and QR scanning on your phone (Pro)
+* Free RSVP or paid registration for any event, with attendee limits, approvals and waiting lists (Pro)
+* Capacity limits per event, ticket and timeslot, with sold-out handling and waitlists (Pro)
 * Fully-featured graph and statistics including bar/line/pie with comparison and stacking
 * MultiSite Event Support
- * Cross-Network Event Sharing - show your events and booking fromss on other subsites or main site
+ * Cross-Network Event Sharing - show your events and booking forms on other subsites or main site
  * Network-wide Global Booking Management
  * BuddyPress and BuddyBoss Support
  * Create modular (independent) event subsites or inter-networked events
-* Multiple custom event types (Archetypes), such as Workshops, Events, Webinars, Appointments etc.
+* Multiple custom event types (Archetypes), such as Workshops, Seminars, Events, Webinars, Appointments etc.
  * Customize your labels, slugs and CPT names
  * Enable or disable specific features for specific event archetypes.
 * Multiple Location Types
  * Physical Locations
- * Online Events (URLs)
+ * Online and virtual events (URLs)
  * [Zoom Webinars/Meetings Integration](https://wordpress.org/plugins/events-manager-zoom/)
 * BuddyPress & BuddyBoss Support
  * Submit Events
@@ -53,7 +60,7 @@ Events Manager is a full-featured event calendar, bookings, appointments, schedu
  * Activity Stream
  * more on the way
 * Guest/Member Event submissions
-* Assign event locations and view events by location
+* Assign event venues and locations and view events by location
 * Event categories
 * Easily create custom event attributes (e.g. dress code)
 * Google Maps [(see our API usage recommendations)](https://wp-events-plugin.com/documentation/google-maps/api-usage/?utm_source=repo&utm_medium=readme&utm_campaign=gmaps-api)
@@ -61,16 +68,38 @@ Events Manager is a full-featured event calendar, bookings, appointments, schedu
 * Widgets for Events, Locations and Calendars
 * Fine grained control of how every aspect of your events are shown on your site, easily modify templates from the settings pages and template files
 * iCal Feed (single and all events)
-* Add to Google Calendar buttons
+* Add to calendar buttons for Google Calendar, Outlook, Office 365, Apple Calendar and iCal
 * RSS Feeds
 * Compatible with SEO plugins
 * Timezone Support - create events in different timezones
 * Plenty of template tags and shortcodes for use in your posts and pages
-* Gutenberg block editor support, with native blocks for the Events Calendar, Events List, and Locations List — usable in posts, pages, the site editor and the widget editor
+* Gutenberg block editor support, with native blocks for the Events Calendar, Events List, and Locations List, usable in posts, pages, the site editor and the widget editor
 * Actively maintained and supported
 * Lots of documentation and tutorials
 * **NEW** Gutenberg Supported
 * And much more!
+
+= Use Cases =
+
+Events Manager runs on one model: an event with dates or timeslots, a capacity and optional tickets. That covers a lot more than events, and these are all in use today:
+
+* Conferences and festivals: multi-day events with multiple ticket types, sessions, attendee forms and QR check-in (Pro)
+* Seminars, workshops and webinars with online registration and event ticketing
+* Concerts and gigs: sell concert tickets with multiple ticket types, PDF tickets and QR check-in (Pro), general admission only
+* Theatre tickets (theater) and museum tickets: repeat performances, timed entry for galleries and exhibitions, multiple ticket types and PDF tickets, general admission without seat maps
+* Community events calendars where members and guests submit their own events for approval, with BuddyPress and BuddyBoss support
+* Church events, nonprofit events and charity fundraisers (non-profit): recurring services, galas and volunteer days with free RSVPs or paid tickets across multiple locations
+* School, college and university events: term calendars, bookable parent evening timeslots and paid trips with capacity limits
+* Sports events for clubs: fixtures, tournaments and race entries with registration, capacity limits and payment
+* Fitness classes, gym bookings, yoga, pilates and dance classes: weekly timetables with limited spaces per session
+* Courses, training sessions, lessons and coaching: dated or recurring sessions with attendee limits and payments
+* Consultation booking for advisers, consultants and practitioners on a single bookable calendar, with a custom form and optional payment
+* Appointment scheduling and online scheduling for solo practitioners, tutors and studios
+* Tour booking for guided walks, city tours and timed visits: scheduled departures with a head count and a price per place
+* Escape rooms and activity venues: fixed-length sessions with buffers between them and a group size cap
+* Restaurant reservations for set sittings, tasting menus and supper clubs: each service is a timeslot with a cover limit, booked by head count rather than per table
+* Online reservations for sittings, sessions and classes, each with its own time, capacity and optional payment
+* Let visitors book online without creating an account, for any event, ticket or timeslot, and pay on the spot (Pro)
 
 = AI Integration =
 
@@ -97,12 +126,9 @@ We have a premium [Pro add-on for Events Manager](http://eventsmanagerpro.com/go
 * Upload fields for bookings, attendees and users
 * Printable Invoices and Tickets
 * Send PDF tickets/invoices by email automatically
-* Check In/Out
-* Move bookings to other dates/times
-* QR Scanning
- * Manage bookings on your phone
- * Check In/Out users
-* Waitlists
+* QR code check-in and ticket scanner: scan tickets on your phone and check attendees in or out
+* iOS phone app for organisers: manage bookings and check attendees in on the go (Android app coming soon)
+* Waitlist / waiting list for sold-out events and tickets
 * Automation - ultimate flexibility in automation!
  * Triggers:
   * X time before/after events start
@@ -112,8 +138,9 @@ We have a premium [Pro add-on for Events Manager](http://eventsmanagerpro.com/go
   * Send Webhook (Zapier, MS Automation and many other services)
   * Send Email
   * Send WhatsApp, SMS, Telegram notifications
-* WhatsApp, SMS, Telegram integration and interactive flows
-* Coupon Codes
+  * Automated event reminders, booking reminders and appointment reminders by email, or by SMS, WhatsApp and Telegram with the Connect add-on
+* SMS reminders, WhatsApp and Telegram reminders, notifications and interactive flows via the Events Manager Connect add-on
+* Coupon and discount codes
 * Custom booking email per event and gateway
 * Faster support via private Pro forums
 
@@ -170,7 +197,7 @@ Events Manager is built to handle a wide range of use cases, including:
 - Managing venues and multiple event locations
 - Creating a public event calendar for your website visitors
 
-See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page for helps with Events Manager - Calendar, Bookings, Tickets, and more!
+See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page for help with Events Manager - Calendar, Bookings, Tickets, Appointments and more!
 
 == Screenshots ==
 
@@ -194,6 +221,73 @@ See our [FAQ](http://wp-events-plugin.com/documentation/faq/) page for helps wit
 18. Grid view for displaying your upcoming events at a glance
 
 == Changelog ==
+= 7.4.8 =
+* Security: Fixed a clickjacking vulnerability and restricted the permissions granted to AI/MCP connections. Reported by Alexander Ströher.
+* Security: Fixed a cross-site scripting vulnerability. Reported by Alexander Ströher.
+* Security: Fixed an information disclosure vulnerability in the REST API. Reported by Alexander Ströher.
+* Security: Additional hardening of the OAuth endpoints, uploads and search parameters.
+* Fixed: Calendars with long_events enabled hid timed events on the last displayed day of the grid
+* Fixed: Location searches with array coordinates, country-name lookups and timezone-scoped date ranges returned wrong results
+* Fixed: REST API events and bookings endpoints returned an error for some search parameters
+* Fixed: Missing text domain in the general settings tab
+
+= 7.4.7 =
+* Security: Fixed an authenticated SQL injection vulnerability in the REST API events and bookings search, disclosed by neurotx via Patchstack.
+
+= 7.4.6 =
+* Fixed: fatal error on tag pages, and in the admin area after updating, when an event type had no categories or tags enabled
+* Fixed: tag pages skipped upcoming events for event types with tags but no categories
+* Fixed: login failing on sites with a custom event type while debug output was displayed, a notice was printed before headers were sent
+* Fixed: bookings tables on WordPress 7.1 repeated every row's details on wide screens and could not expand rows on narrow ones
+* Fixed: database errors on subsites in MultiSite Global Tables mode, event time ranges and timeslots were looked up in per-site tables that were never created and are now shared like other event data
+
+= 7.4.5 =
+* Security: Fixed a broken access control vulnerability. Reported by Hasyros via WPScan.
+* Security: Fixed an information disclosure vulnerability. Reported by Karthik Ramakrishnan via WPScan.
+* Fixed: scheduled imports failed because wp-cron and WP-CLI requests were subject to the public submitter consent check
+* Fixed: deleting a recurring event's bookings reported success without deleting anything
+* Fixed: a PHP deprecation notice was printed on the admin bookings pages when debugging was enabled
+* Fixed: events with an emoji in their name or content could not be saved on older database tables
+* Fixed: events using a custom archetype could not be edited, reporting "Sorry, you are not allowed to edit this post"
+* Fixed: publishing an event in the block editor saved it as a draft when pre-publish checks were disabled
+* Fixed: the events search form could submit to the default language events page under WPML, and to the wrong page on themes overriding the search template
+* Changed: the admin bookings list and pending badge now show only the event type you are viewing, with an All Event Types filter for the combined list
+* Fixed: an end time earlier than the start time was not flagged while editing an event
+* Fixed: the booking form security token was only refreshed for the standard booking form on cached sites
+* Fixed: the edit icon in the admin bookings list spilled out of its column on narrow screens
+
+= 7.4.4 =
+* Security: Fixed an information disclosure vulnerability. Reported via Patchstack.
+* Security: Fixed a missing authorization vulnerability, CVE-2026-92711. Reported by M4r0u4n3 via Wordfence.
+* Security: Fixed a spoofing vulnerability, CVE-2026-92614. Reported by Shirshak via Wordfence.
+* Fixed: calendar date previews still rendered their modals when Date Preview Mode was set to Direct Link
+* Fixed: booking submissions on cached sites failed with "unexpected network error" once the form's security token expired, the form now says it expired and should be reloaded
+* Fixed: newly booked attendees did not show on the event page until caches were flushed on sites with a persistent object cache, the event was cached with an emptied bookings list and never invalidated when bookings changed
+* Fixed: bookings with a zero booking date in the database displayed as "November 29, -0001"
+* Fixed: fatal error on first activation from WP-CLI or other non-admin contexts because the admin notice class was not loaded
+* Fixed: the pending spaces count ignored a forced refresh and could stay stale after a booking
+* Fixed: the booking meta migration from 6.1 could rerun on every page load when a batch of bookings had no meta, slowing or crashing the site after an upgrade
+* Fixed: events created by imports or the REST API were missing from listings until re-saved because their type and archetype were never set, existing events are repaired on upgrade
+* Fixed: repeating event occurrences had every previous occurrence's date appended to their slug, breaking their URLs
+* Fixed: fatal error on the category page after updating when an archetype has both categories and tags disabled
+* Fixed: bulk actions such as Move to Trash in the admin failed to redirect due to a warning from the archetype post type check
+* Fixed: an empty events page setting could write a rewrite rule that broke the page being viewed until rewrite rules regenerated
+* Fixed: a PHP warning was printed above the header row of CSV booking exports
+* Fixed: an event ending after midnight on a later day was flagged as ending before it started
+* Fixed: the day view of the events page could not be paginated
+* Fixed: deleting a booking from the admin bookings table still rendered its row actions and could print a warning into the response
+* Fixed: admin booking tables could stop responding when the export or settings form was picked up before the main table form, notably on multisite
+* Fixed: the booking submit button read "null" after an AJAX submission
+* Fixed: radio buttons were invisible on the admin Add Booking form due to checkbox styling applied to radios
+* Fixed: uninstalling from a sub-site in MS Global mode dropped the shared network event and booking tables, it is now refused with a link to the network settings
+* Fixed: the bookings admin page turned the URL action into a booking lifecycle hook name, so listeners of em_bookings_add could fatal, a dedicated em_bookings_admin_action_* hook now fires alongside the legacy name
+* Fixed: the REST API bookings list only returned bookings on the caller's own events, even for users who can manage all bookings
+* Fixed: the Test Email Settings button reported "Server Error" for administrators without the activate_plugins capability
+* Fixed: EM_Event::set_timeslot_id() could never load a timeslot due to malformed SQL
+* Fixed: the waiting list could not be joined for a fully booked occurrence of a recurring event
+* Added: em_get_my_bookings_url() accepts a person id and runs through the em_get_my_bookings_url filter, so BuddyPress links resolve the booking owner rather than the displayed user
+* Tweaked: typo on the help page
+
 = 7.4.3 =
 * Security: Fixed an XSS vulnerability CVE-2026-66457. Reported by Mukhlis Amien via Patchstack.
 * Security: Fixed low-severity (self-diagnosed) vulnerability allowing unfiltered shortcode output under specific setup/variable circumstances.

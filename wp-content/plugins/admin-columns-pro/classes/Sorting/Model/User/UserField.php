@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\User;
 
 use ACP\Query\Bindings;
@@ -9,8 +11,7 @@ use ACP\Sorting\Type\Order;
 
 class UserField implements QueryBindings
 {
-
-    protected $field;
+    protected string $field;
 
     public function __construct(string $field)
     {

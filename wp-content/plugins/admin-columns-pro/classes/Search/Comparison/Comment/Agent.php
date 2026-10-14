@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use ACP\Search\Operators;
 
 class Agent extends Field
 {
-
     public function __construct()
     {
         $operators = new Operators([

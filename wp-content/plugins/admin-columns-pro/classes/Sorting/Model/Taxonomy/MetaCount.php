@@ -1,48 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Taxonomy;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class MetaCount implements QueryBindings
+class MetaCount extends Base
 {
-
-    protected $meta_key;
+    protected string $meta_key;
 
     public function __construct(string $meta_key)
     {
         $this->meta_key = $meta_key;
     }
 
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
-
-        $bindings = new Bindings();
-
-        $alias = $bindings->get_unique_alias('metacount');
 
         $orderby = SqlOrderByFactory::create_with_computation(
             new ComputationType(ComputationType::COUNT),
             "$alias.meta_key",
-            $order,
+            (string)$order,
             true
         );
 
-        $join = $wpdb->prepare(
-            "
-			    LEFT JOIN $wpdb->termmeta AS $alias ON t.term_id = $alias.term_id
-				AND $alias.meta_key = %s
-		    ",
-            $this->meta_key
-        );
-
-        return $bindings
-            ->join($join)
+        $bindings
+            ->join(
+                Join::left($wpdb->termmeta, $alias)
+                    ->on('t.term_id', '=', "$alias.term_id")
+                    ->on("$alias.meta_key", '=', $wpdb->prepare('%s', $this->meta_key))
+                    ->get_sql()
+            )
             ->group_by("t.term_id")
             ->order_by($orderby);
     }

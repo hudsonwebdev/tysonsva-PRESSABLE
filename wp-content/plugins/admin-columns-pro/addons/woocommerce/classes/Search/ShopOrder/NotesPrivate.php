@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use ACP\Query\Bindings;
@@ -7,10 +9,10 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class NotesPrivate extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators(
@@ -23,7 +25,8 @@ class NotesPrivate extends Comparison
                 Operators::NEQ,
                 Operators::BEGINS_WITH,
                 Operators::ENDS_WITH,
-            ], false
+            ],
+            false
         );
 
         parent::__construct($operators);
@@ -54,8 +57,8 @@ class NotesPrivate extends Comparison
             return $bindings;
         }
 
-        $alias = $bindings->get_unique_alias('nopr');
-        $alias_meta = $bindings->get_unique_alias('nopr_meta');
+        $alias = AliasGenerator::generate_from_class(static::class);
+        $alias_meta = AliasGenerator::generate('nopr_meta');
 
         // Discard comments with 'WooCommerce' as author
         $join = $wpdb->prepare(

@@ -11,7 +11,6 @@ use ACP\Search\Type\SegmentKey;
 
 interface SegmentRepositoryWritable extends SegmentRepository
 {
-
     public function delete(SegmentKey $key): void;
 
     public function delete_all(ListScreenId $list_screen_id): void;

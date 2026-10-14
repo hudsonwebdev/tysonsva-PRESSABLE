@@ -1,22 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\GravityForms;
 
-interface Field {
+interface Field
+{
+    public function get_form_id(): int;
 
-	/**
-	 * @return int
-	 */
-	public function get_form_id();
+    public function get_id(): string;
 
-	/**
-	 * @return string
-	 */
-	public function get_id();
-
-	/**
-	 * @return bool
-	 */
-	public function is_required();
+    public function is_required(): bool;
 
 }

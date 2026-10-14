@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\GravityForms;
 
 use GF_Entry_List_Table;
@@ -7,7 +9,6 @@ use GFCommon;
 
 class TableFactory
 {
-
     public function create(string $screen_id, int $form_id): GF_Entry_List_Table
     {
         require_once(GFCommon::get_base_path() . '/entry_list.php');

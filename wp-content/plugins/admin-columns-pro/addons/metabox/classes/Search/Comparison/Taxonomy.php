@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\MetaBox\Search\Comparison;
 
 use AC\Helper\Select\Options\Paginated;
@@ -8,25 +10,28 @@ use ACP\Helper\Select\Taxonomy\LabelFormatter\TermName;
 use ACP\Query\Bindings;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use WP_Term;
 
 class Taxonomy extends ACP\Search\Comparison implements ACP\Search\Comparison\SearchableValues
 {
+    protected array $taxonomy;
 
     public function __construct(array $taxonomy)
     {
-        $operators = new Operators([
-            Operators::EQ,
-            Operators::NEQ,
-            Operators::IS_EMPTY,
-            Operators::NOT_IS_EMPTY,
-        ]);
+        parent::__construct(
+            new Operators([
+                Operators::EQ,
+                Operators::NEQ,
+                Operators::IS_EMPTY,
+                Operators::NOT_IS_EMPTY,
+            ]),
+            Value::INT
+        );
 
         $this->taxonomy = $taxonomy;
-
-        parent::__construct($operators, Value::INT);
     }
 
-    private function get_term_by_id($term_id)
+    private function get_term_by_id(int $term_id)
     {
         global $wpdb;
 
@@ -35,14 +40,13 @@ class Taxonomy extends ACP\Search\Comparison implements ACP\Search\Comparison\Se
                 "
 			SELECT t.* 
 			FROM $wpdb->term_taxonomy AS t 
-			WHERE t.term_id = %s 
-			LIMIT 1"
-                ,
+			WHERE t.term_id = %d 
+			LIMIT 1",
                 $term_id
             )
         );
 
-        if ( ! $_tax || is_wp_error($_tax)) {
+        if (! $_tax || is_wp_error($_tax)) {
             return false;
         }
 
@@ -58,7 +62,7 @@ class Taxonomy extends ACP\Search\Comparison implements ACP\Search\Comparison\Se
     {
         $term = get_term($value);
 
-        return $term
+        return $term instanceof WP_Term
             ? $this->get_formatter()->format_label($term)
             : '';
     }
@@ -84,9 +88,9 @@ class Taxonomy extends ACP\Search\Comparison implements ACP\Search\Comparison\Se
     protected function create_query_bindings(string $operator, ACP\Search\Value $value): Bindings
     {
         $bindings = new ACP\Query\Bindings\Post();
-        $term = $this->get_term_by_id($value->get_value());
+        $term = $this->get_term_by_id((int)$value->get_value());
 
-        if ($term) {
+        if ($term instanceof WP_Term) {
             $tax_query = ACP\Search\Helper\TaxQuery\ComparisonFactory::create(
                 $term->taxonomy,
                 $operator,

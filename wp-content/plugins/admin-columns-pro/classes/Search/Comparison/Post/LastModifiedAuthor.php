@@ -1,22 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use AC\Helper\Select\Options\Paginated;
 use AC\Meta\Query;
 use AC\Meta\QueryMetaFactory;
-use ACP\Helper\Select;
 use ACP\Helper\Select\User\LabelFormatter\UserName;
 use ACP\Helper\Select\User\PaginatedFactory;
 use ACP\Search\Comparison;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
 
-class LastModifiedAuthor extends Comparison\Meta
-    implements SearchableValues
+class LastModifiedAuthor extends Comparison\Meta implements SearchableValues
 {
-
-    private $post_type;
+    private string $post_type;
 
     public function __construct(string $post_type)
     {

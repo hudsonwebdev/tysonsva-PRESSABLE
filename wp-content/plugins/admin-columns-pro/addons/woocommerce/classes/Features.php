@@ -8,10 +8,9 @@ use Automattic\WooCommerce\Internal\Features\FeaturesController;
 
 class Features
 {
+    private ?FeaturesController $features_controller;
 
-    private $features_controller;
-
-    public function __construct(FeaturesController $features_controller = null)
+    public function __construct(?FeaturesController $features_controller = null)
     {
         $this->features_controller = $features_controller;
     }
@@ -19,6 +18,11 @@ class Features
     public function use_hpos(): bool
     {
         return $this->features_controller && $this->features_controller->feature_is_enabled('custom_order_tables');
+    }
+
+    public function use_analytics(): bool
+    {
+        return $this->features_controller && $this->features_controller->feature_is_enabled('analytics');
     }
 
     public function declare_compatibility_hpos(string $plugin_basename): void

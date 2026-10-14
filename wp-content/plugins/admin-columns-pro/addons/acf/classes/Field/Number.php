@@ -1,22 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Field;
 
-interface Number {
+interface Number
+{
+    public function get_step(): string;
 
-	/**
-	 * @return string
-	 */
-	public function get_step();
+    public function get_min(): ?int;
 
-	/**
-	 * @return int|null
-	 */
-	public function get_min();
-
-	/**
-	 * @return int|null
-	 */
-	public function get_max();
+    public function get_max(): ?int;
 
 }

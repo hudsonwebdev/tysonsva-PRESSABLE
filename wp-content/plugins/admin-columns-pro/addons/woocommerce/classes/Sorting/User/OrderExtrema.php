@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace ACA\WC\Sorting\User;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 use InvalidArgumentException;
 
-class OrderExtrema implements QueryBindings
+class OrderExtrema extends Base
 {
+    private string $extrema;
 
-    private $extrema;
-
-    private $status;
+    private array $status;
 
     public function __construct(string $extrema = 'min', array $status = ['wc-completed'])
     {
@@ -27,33 +27,30 @@ class OrderExtrema implements QueryBindings
 
     private function validate(): void
     {
-        if ( ! in_array($this->extrema, ['min', 'max'], true)) {
+        if (! in_array($this->extrema, ['min', 'max'], true)) {
             throw new InvalidArgumentException('Invalid extrema');
         }
     }
 
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
 
-        $bindings = new Bindings();
+        $join_orders = Join::left("{$wpdb->prefix}wc_orders", 'acsort_orders')
+            ->on('acsort_orders.customer_id', '=', "$wpdb->users.ID");
 
-        $where_status = $this->status
-            ? sprintf(
-                " AND acsort_orders.status IN ( '%s' )",
-                implode("','", array_map('esc_sql', $this->status))
-            )
-            : '';
-
-        $alias = $bindings->get_unique_alias('order_extrema');
+        if ($this->status) {
+            $placeholders = implode(', ', array_fill(0, count($this->status), '%s'));
+            $join_orders->on('acsort_orders.status', 'IN', '(' . $wpdb->prepare($placeholders, $this->status) . ')');
+        }
 
         $bindings->group_by("$wpdb->users.ID");
         $bindings->join(
-            "
-            LEFT JOIN {$wpdb->prefix}wc_orders AS acsort_orders ON acsort_orders.customer_id = $wpdb->users.ID
-                $where_status
-            LEFT JOIN {$wpdb->prefix}wc_order_operational_data AS $alias ON $alias.order_id = acsort_orders.id
-        "
+            $join_orders->get_sql()
+            . "\n" .
+            Join::left("{$wpdb->prefix}wc_order_operational_data", $alias)
+                ->on("$alias.order_id", '=', 'acsort_orders.id')
+                ->get_sql()
         );
 
         $computation_type = 'min' === $this->extrema
@@ -67,8 +64,6 @@ class OrderExtrema implements QueryBindings
                 (string)$order
             )
         );
-
-        return $bindings;
     }
 
 }

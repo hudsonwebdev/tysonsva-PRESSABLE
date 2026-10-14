@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Helper\Sql\Comparison;
 
 use ACP\Search\Helper\DateValueFactory;
 use ACP\Search\Helper\Sql\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
-use Exception;
 
 class Future extends Comparison
 {
-
-    public function __construct($column, Value $value)
+    public function __construct(string $column, Value $value)
     {
         parent::__construct($column, Operators::FUTURE, $value);
     }
@@ -21,13 +21,7 @@ class Future extends Comparison
         return sprintf('%s > ?', $this->column);
     }
 
-    /**
-     * @param Value $value
-     *
-     * @return Comparison
-     * @throws Exception
-     */
-    public function bind_value(Value $value)
+    public function bind_value(Value $value): self
     {
         $value_factory = new DateValueFactory($value->get_type());
 

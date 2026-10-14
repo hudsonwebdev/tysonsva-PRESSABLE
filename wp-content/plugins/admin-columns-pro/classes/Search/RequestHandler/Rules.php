@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\RequestHandler;
 
 use AC;
-use ACP\QueryFactory;
-use ACP\Search\ComparisonFactory;
+use AC\Type\ColumnId;
+use ACP\Column;
+use ACP\Query\QueryRegistry;
 use ACP\Search\Value;
 use LogicException;
 
@@ -13,37 +16,35 @@ use LogicException;
  */
 class Rules
 {
+    use AC\Column\ColumnLabelTrait;
 
-    /**
-     * @var AC\ListScreen
-     */
-    private $list_screen;
+    private AC\ListScreen $list_screen;
 
     public function __construct(AC\ListScreen $list_screen)
     {
         $this->list_screen = $list_screen;
     }
 
-    public function handle(AC\Request $request)
+    public function handle(AC\Request $request): void
     {
         $rules = $request->filter('ac-rules', [], FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
-        if ( ! $rules) {
+        if (! $rules) {
             return;
         }
 
         $bindings = [];
 
         foreach ($rules as $rule) {
-            $column = $this->list_screen->get_column_by_name($rule['name']);
+            $column = $this->list_screen->get_column(new ColumnId((string)$rule['name']));
 
-            if ( ! $column) {
+            if (! $column instanceof Column) {
                 continue;
             }
 
-            $comparison = (new ComparisonFactory())->create($column);
+            $comparison = $column->search();
 
-            if ( ! $comparison) {
+            if (! $comparison) {
                 continue;
             }
 
@@ -61,7 +62,7 @@ class Rules
                 // Error message
                 $message = sprintf(
                     __('Smart filter for %s could not be applied.', 'codepress-admin-columns'),
-                    sprintf('<strong>%s</strong>', $column->get_custom_label())
+                    sprintf('<strong>%s</strong>', $this->get_column_label($column))
                 );
                 $message = sprintf('%s %s', $message, __('Try to re-apply the filter.', 'codepress-admin-columns'));
 
@@ -73,8 +74,8 @@ class Rules
             }
         }
 
-        QueryFactory::create(
-            $this->list_screen->get_query_type(),
+        QueryRegistry::create(
+            $this->list_screen->get_table_screen(),
             $bindings
         )->register();
     }

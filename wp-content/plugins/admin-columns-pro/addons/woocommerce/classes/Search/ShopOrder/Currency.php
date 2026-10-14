@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use AC\Helper\Select\Options;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 
-class Currency extends Comparison\Meta
-    implements Comparison\RemoteValues
+class Currency extends Comparison\Meta implements Comparison\RemoteValues
 {
-
     public function __construct()
     {
         $operators = new Operators(
@@ -36,7 +36,7 @@ class Currency extends Comparison\Meta
         );
         $entities = $wpdb->get_col($sql);
 
-        $options = array_combine($entities, $entities);
+        $options = $entities ? array_combine($entities, $entities) : [];
 
         return Options::create_from_array($options);
     }

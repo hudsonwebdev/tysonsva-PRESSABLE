@@ -1,37 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search;
 
 use AC;
+use AC\Asset\Location;
 
 class TableScreenOptions implements AC\Registerable
 {
-
     public const INPUT_NAME = 'acp_enable_smart_filtering_button';
 
-    /**
-     * @var Preferences\SmartFiltering
-     */
-    private $preferences;
+    private Preferences\SmartFiltering $preferences;
 
-    /**
-     * @var Settings\HideOnScreen\SmartFilters
-     */
-    private $hide_smart_filters;
+    private Settings\TableElement\SmartFilters $table_element_smart_filters;
 
-    /**
-     * @var AC\Asset\Location\Absolute
-     */
-    private $location;
+    private Location $location;
 
     public function __construct(
-        AC\Asset\Location\Absolute $location,
+        Location $location,
         Preferences\SmartFiltering $preferences,
-        Settings\HideOnScreen\SmartFilters $hide_smart_filters
+        Settings\TableElement\SmartFilters $table_element_smart_filters
     ) {
         $this->location = $location;
         $this->preferences = $preferences;
-        $this->hide_smart_filters = $hide_smart_filters;
+        $this->table_element_smart_filters = $table_element_smart_filters;
     }
 
     public function register(): void
@@ -42,36 +35,37 @@ class TableScreenOptions implements AC\Registerable
 
     private function is_active(AC\ListScreen $list_screen): bool
     {
-        return $this->preferences->is_active($list_screen);
+        return $this->preferences->is_active($list_screen->get_table_id());
     }
 
     public function register_screen_option(AC\Table\Screen $table): void
     {
         $list_screen = $table->get_list_screen();
 
-        if ( ! TableScreenSupport::is_searchable($list_screen)) {
+        if (! $list_screen) {
             return;
         }
 
-        if ( ! $list_screen->has_id()) {
+        if (! TableScreenSupport::is_searchable($list_screen->get_table_screen())) {
             return;
         }
 
-        if ($this->hide_smart_filters->is_hidden($list_screen)) {
+        if (! $this->table_element_smart_filters->is_enabled($list_screen)) {
             return;
         }
 
         $check_box = new AC\Form\Element\Checkbox(self::INPUT_NAME);
 
-        $check_box->set_options([1 => __('Smart Filtering', 'codepress-admin-columns')])
-                  ->set_value($this->is_active($list_screen) ? 1 : 0);
+        $check_box
+            ->set_options([1 => __('Smart Filtering', 'codepress-admin-columns')])
+            ->set_value($this->is_active($list_screen) ? 1 : 0);
 
         $table->register_screen_option($check_box);
     }
 
     public function scripts(AC\ListScreen $list_screen): void
     {
-        if ( ! TableScreenSupport::is_searchable($list_screen)) {
+        if (! TableScreenSupport::is_searchable($list_screen->get_table_screen())) {
             return;
         }
 

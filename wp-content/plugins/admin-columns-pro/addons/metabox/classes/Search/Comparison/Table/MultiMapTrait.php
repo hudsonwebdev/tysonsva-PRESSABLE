@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\MetaBox\Search\Comparison\Table;
 
 use ACP\Search\Operators;
@@ -7,7 +9,6 @@ use ACP\Search\Value;
 
 trait MultiMapTrait
 {
-
     protected function map_operator(string $operator): string
     {
         switch ($operator) {

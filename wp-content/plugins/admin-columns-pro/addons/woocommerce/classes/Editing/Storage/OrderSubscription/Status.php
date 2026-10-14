@@ -8,7 +8,6 @@ use ACP\Editing\Storage;
 
 class Status implements Storage
 {
-
     public function get(int $id)
     {
         $status = wcs_get_subscription($id)->get_status();

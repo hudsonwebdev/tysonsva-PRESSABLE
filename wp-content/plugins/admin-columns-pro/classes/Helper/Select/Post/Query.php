@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Helper\Select\Post;
 
 use AC\ApplyFilter\QueryTotalNumber;
@@ -7,19 +9,11 @@ use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
 use WP_Query;
 
-class Query extends ArrayIterator
-    implements Paginated
+class Query extends ArrayIterator implements Paginated
 {
+    protected WP_Query $query;
 
-    /**
-     * @var WP_Query
-     */
-    protected $query;
-
-    /**
-     * @var array
-     */
-    protected $search_fields = [];
+    protected array $search_fields = [];
 
     public function __construct(array $args = [])
     {
@@ -50,7 +44,7 @@ class Query extends ArrayIterator
         remove_filter('posts_search', [$this, __FUNCTION__], 20);
 
         // Empty search
-        if ( ! $search_where) {
+        if (! $search_where) {
             return $search_where;
         }
 

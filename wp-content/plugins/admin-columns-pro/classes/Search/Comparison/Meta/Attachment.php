@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Meta;
 
 use AC\Helper\Select\Options\Paginated;
 use AC\Meta\Query;
-use ACP\Helper\Select;
 use ACP\Helper\Select\Post\LabelFormatter\PostTitle;
 use ACP\Helper\Select\Post\PaginatedFactory;
 use ACP\Search\Comparison;
@@ -12,15 +13,13 @@ use ACP\Search\Comparison\Meta;
 use ACP\Search\Operators;
 use WP_Post;
 
-class Attachment extends Meta
-    implements Comparison\SearchableValues
+class Attachment extends Meta implements Comparison\SearchableValues
 {
+    private ?Query $query;
 
-    private $query;
+    private ?string $mime_type;
 
-    private $mime_type;
-
-    public function __construct(string $meta_key, Query $query, string $mime_type = null)
+    public function __construct(string $meta_key, ?Query $query = null, ?string $mime_type = null)
     {
         $operators = new Operators([
             Operators::EQ,
@@ -55,7 +54,7 @@ class Attachment extends Meta
                 's'              => $search,
                 'paged'          => $page,
                 'post_mime_type' => $this->mime_type,
-                'post__in'       => $this->query->get(),
+                'post__in'       => $this->query ? $this->query->get() : [],
             ],
             $this->formatter()
         );

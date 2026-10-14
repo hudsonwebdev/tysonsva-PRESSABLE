@@ -1,28 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\QuickAdd;
 
 use AC;
-use AC\Asset\Location;
 use AC\ListScreenRepository\Storage;
 use AC\Services;
-use ACP\QuickAdd\Admin\HideOnScreen;
+use ACP\AdminColumnsPro;
+use ACP\QuickAdd\Admin\TableElement;
 use ACP\QuickAdd\Model\Factory;
 use ACP\QuickAdd\Model\PostFactory;
 
 class Addon implements AC\Registerable
 {
+    private Storage $storage;
 
-    private $storage;
+    private AC\Asset\Location $location;
 
-    private $location;
+    private AC\Request $request;
 
-    private $request;
-
-    public function __construct(Storage $storage, Location\Absolute $location, AC\Request $request)
+    public function __construct(Storage $storage, AdminColumnsPro $plugin, AC\Request $request)
     {
         $this->storage = $storage;
-        $this->location = $location;
+        $this->location = $plugin->get_location();
         $this->request = $request;
     }
 
@@ -30,8 +31,9 @@ class Addon implements AC\Registerable
     {
         Factory::add_factory(new PostFactory());
 
-        $this->create_services()
-             ->register();
+        $this
+            ->create_services()
+            ->register();
     }
 
     private function create_services(): Services
@@ -42,7 +44,7 @@ class Addon implements AC\Registerable
         return new Services([
             new Controller\AjaxNewItem($this->storage, $this->request),
             new Controller\AjaxScreenOption($this->storage, $preference),
-            new Table\Loader($this->location, new HideOnScreen\QuickAdd(), $preference, $filter),
+            new Table\Loader($this->location, new TableElement\QuickAdd(), $preference, $filter),
             new Admin\Settings($filter),
         ]);
     }

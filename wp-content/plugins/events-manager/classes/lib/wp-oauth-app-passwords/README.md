@@ -35,7 +35,7 @@ Served under the REST namespace `oauth/v1` (filterable), plus root well-known pa
    require_once __DIR__ . '/includes/lib/wp-oauth-app-passwords/loader.php';
    ```
 
-3. Register a scope label when the library is ready:
+3. Register a scope when the library is ready:
 
    ```php
    add_action( 'pixelite_oauth_app_passwords_ready', function ( $server ) {
@@ -43,9 +43,24 @@ Served under the REST namespace `oauth/v1` (filterable), plus root well-known pa
        $server::register_scope( 'bbpress:mcp', array(
            'label'       => __( 'bbPress forums', 'your-textdomain' ),
            'description' => __( 'Read and reply to forum topics on your behalf.', 'your-textdomain' ),
+           // REST route prefixes a credential granted this scope may call. Omit to grant the account's full REST access.
+           'routes'      => array( '/bbpress/v1', '/mcp/bbpress' ),
        ) );
    } );
    ```
+
+## Scope enforcement
+
+An Application Password has no scope of its own: it carries every capability of its user. So when a scope is registered with `routes`, the library limits the credentials it mints for that scope to those REST route prefixes (plus its own `oauth/v1` endpoints, so the client can still refresh and revoke). Any other route returns `403 insufficient_scope`. A requested scope the server does not know is reduced to the default scope rather than becoming an unrestricted grant.
+
+A scope registered without `routes` keeps the historical behaviour: full account access. Two filters tune this:
+
+```php
+add_filter( 'pixelite_oauth_enforce_scopes', '__return_false' );          // disable enforcement site-wide
+add_filter( 'pixelite_oauth_scope_routes', fn( $routes, $scope ) => $routes, 10, 2 ); // adjust the allowlist per granted scope
+```
+
+The consent screen and the authorize error page are sent with `X-Frame-Options: DENY` and `frame-ancestors 'none'`. Dynamic registration is limited per IP address (`pixelite_oauth_registration_rate_limit`, default 10 per hour, 0 to disable) and can never evict an admin-created client from the registry.
 
 The **version arbitrator** in `loader.php` ensures that if several plugins each bundle a copy, only the **newest** version's classes load — the rest stand down. So multiple hosts can ship it safely.
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\User;
 
 use AC\Helper\Select\Options\Paginated;
@@ -11,10 +13,8 @@ use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Products extends Comparison
-    implements Comparison\SearchableValues
+class Products extends Comparison implements Comparison\SearchableValues
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -37,8 +37,8 @@ class Products extends Comparison
                 JOIN {$wpdb->prefix}wc_customer_lookup AS wccl ON wccl.customer_id = wcopl.customer_id
                 WHERE ( wcopl.product_id = %d OR wcopl.variation_id = %d )
         ",
-            $value->get_value(),
-            $value->get_value()
+            (int)$value->get_value(),
+            (int)$value->get_value()
         );
 
         return $bindings->where($wpdb->users . '.ID IN( ' . $sub . ')');

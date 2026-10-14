@@ -1,17 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\JetEngine\Field;
 
-interface MaxLength {
+interface MaxLength
+{
+    public function get_maxlength(): int;
 
-	/**
-	 * @return int
-	 */
-	public function get_maxlength();
-
-	/**
-	 * @return bool
-	 */
-	public function has_maxlength();
+    public function has_maxlength(): bool;
 
 }

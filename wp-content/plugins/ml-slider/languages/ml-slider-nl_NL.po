@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-05-25T13:04:12+00:00\n"
-"PO-Revision-Date: 2026-08-28 16:45+0000\n"
+"PO-Revision-Date: 2026-09-16 16:45+0000\n"
 "X-Generator: Poedit 3.2.2\n"
 "X-Domain: ml-slider\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -142,12 +142,22 @@ msgstr "Lees verder"
 #: inc/slide/metaslide.image.class.php:232
 #: inc/slide/metaslide.image.class.php:286
 #: inc/slide/metaslide.image.class.php:404
-#: ml-slider.php:944
-#: ml-slider.php:1026
-#: ml-slider.php:1138
-#: ml-slider.php:2853
-#: ml-slider.php:2898
-#: ml-slider.php:2973
+#: inc/slide/metaslide.livid.class.php:334
+#: inc/slide/metaslide.livid.class.php:401
+#: inc/slide/metaslide.livid.class.php:448
+#: inc/slide/metaslide.livid.class.php:776
+#: ml-slider.php:994
+#: ml-slider.php:1076
+#: ml-slider.php:1188
+#: ml-slider.php:2860
+#: ml-slider.php:2905
+#: ml-slider.php:2980
+#: modules/local_video/slide.php:870
+#: modules/local_video/slide.php:928
+#: modules/local_video/slide.php:1036
+#: modules/local_video/slide.php:1201
+#: modules/local_video/slide.php:1274
+#: modules/local_video/slide.php:1388
 msgid "The security check failed. Please refresh the page and try again."
 msgstr ""
 "De veiligheidscontrole is mislukt. Vernieuw de pagina en probeer het "
@@ -155,18 +165,21 @@ msgstr ""
 
 #: admin/Notices.php:394
 #: admin/Notices.php:642
-#: admin/routes/api.php:141
+#: admin/routes/api.php:145
 #: inc/slide/metaslide.class.php:152
 #: inc/slide/metaslide.image.class.php:135
 #: inc/slide/metaslide.image.class.php:154
 #: inc/slide/metaslide.image.class.php:240
 #: inc/slide/metaslide.image.class.php:294
-#: ml-slider.php:952
-#: ml-slider.php:1034
-#: ml-slider.php:1146
-#: ml-slider.php:2861
-#: ml-slider.php:2906
-#: ml-slider.php:2981
+#: inc/slide/metaslide.livid.class.php:342
+#: inc/slide/metaslide.livid.class.php:409
+#: inc/slide/metaslide.livid.class.php:456
+#: ml-slider.php:1002
+#: ml-slider.php:1084
+#: ml-slider.php:1196
+#: ml-slider.php:2868
+#: ml-slider.php:2913
+#: ml-slider.php:2988
 msgid "Access denied. Sorry, you do not have permission to complete this task."
 msgstr "Toegang geweigerd. Je hebt geen toestemming om deze taak uit te voeren."
 
@@ -177,12 +190,25 @@ msgstr "Toegang geweigerd. Je hebt geen toestemming om deze taak uit te voeren."
 #: inc/slide/metaslide.image.class.php:249
 #: inc/slide/metaslide.image.class.php:303
 #: inc/slide/metaslide.image.class.php:422
-#: ml-slider.php:961
-#: ml-slider.php:1043
-#: ml-slider.php:1155
-#: ml-slider.php:2870
-#: ml-slider.php:2914
-#: ml-slider.php:2990
+#: inc/slide/metaslide.livid.class.php:351
+#: inc/slide/metaslide.livid.class.php:416
+#: inc/slide/metaslide.livid.class.php:463
+#: inc/slide/metaslide.livid.class.php:470
+#: inc/slide/metaslide.livid.class.php:793
+#: ml-slider.php:1011
+#: ml-slider.php:1093
+#: ml-slider.php:1205
+#: ml-slider.php:2877
+#: ml-slider.php:2921
+#: ml-slider.php:2997
+#: modules/local_video/slide.php:209
+#: modules/local_video/slide.php:887
+#: modules/local_video/slide.php:945
+#: modules/local_video/slide.php:1057
+#: modules/local_video/slide.php:1221
+#: modules/local_video/slide.php:1291
+#: modules/local_video/slide.php:1405
+#: modules/local_video/slide.php:2091
 msgid "Bad request"
 msgstr "Slechte aanvraag"
 
@@ -229,6 +255,7 @@ msgid "URL"
 msgstr "URL"
 
 #: admin/Pages.php:157
+#: modules/local_video/slide.php:423
 #: themes/architekt/customize.php:511
 #: themes/bitono/customize.php:625
 #: themes/blend/customize.php:655
@@ -306,7 +333,7 @@ msgid "Tone"
 msgstr "Toon"
 
 #: admin/Pages.php:186
-#: admin/views/pages/parts/slider-settings.php:1431
+#: admin/views/pages/parts/slider-settings.php:1427
 #: admin/views/slides/tabs/background.php:73
 #: inc/metaslider.imagestyles.class.php:463
 #: themes/architekt/customize.php:602
@@ -410,69 +437,69 @@ msgstr "Tekstkleur"
 msgid "Link Text"
 msgstr "Link tekst"
 
-#: admin/routes/api.php:462
+#: admin/routes/api.php:466
 msgid "The request format was not valid."
 msgstr "Het aanvraag format was niet geldig."
 
-#: admin/routes/api.php:470
-#: admin/routes/api.php:602
+#: admin/routes/api.php:474
+#: admin/routes/api.php:606
 msgid "This slideshow is no longer available."
 msgstr "Deze slideshow is niet meer beschikbaar."
 
-#: admin/routes/api.php:557
+#: admin/routes/api.php:561
 msgid "Nothing to import."
 msgstr "Niets te importeren."
 
-#: admin/routes/api.php:609
+#: admin/routes/api.php:613
 msgid "This was not a slideshow, so we cannot delete it."
 msgstr "Dit was geen slideshow, dus we kunnen het niet verwijderen."
 
-#: admin/routes/api.php:822
+#: admin/routes/api.php:826
 msgid "This was not a slideshow, so we cannot update the setting."
 msgstr "Dit was geen slideshow, dus we kunnen de instelling niet updaten."
 
-#: admin/routes/api.php:930
+#: admin/routes/api.php:934
 msgid "The title cannot be empty."
 msgstr "De titel mag niet leeg zijn."
 
-#: admin/routes/api.php:934
-#: admin/routes/api.php:1208
+#: admin/routes/api.php:938
+#: admin/routes/api.php:1212
 #, php-format
 msgid "The field (%s) cannot be empty"
 msgstr "Het veld (%s) mag niet leeg zijn"
 
-#: admin/routes/api.php:1198
+#: admin/routes/api.php:1202
 msgid "Maximum Number of Custom Field in Post Feed Sliders"
 msgstr "Maximum aantal aangepaste velden in sliders voor berichten feed"
 
-#: admin/routes/api.php:1242
+#: admin/routes/api.php:1246
 msgid "No video file was received by the server."
-msgstr "Er is geen videobestand ontvangen door de server."
+msgstr "Geen videobestand ontvangen door de server."
 
-#: admin/routes/api.php:1258
+#: admin/routes/api.php:1262
 #. translators: 1: uploaded filename, 2: mime type WordPress detected, or "none"
 #, php-format
 msgid ""
 "The video \"%1$s\" was rejected before upload (detected type: %2$s). It may "
 "be an unsupported format or exceed this server's upload limit."
 msgstr ""
-"De video \"%1$s\" werd geweigerd vóór upload (gedetecteerd type: %2$s). Het "
-"kan een niet-ondersteund formaat zijn of het kan de uploadlimiet van deze "
-"server overschrijden."
+"De video \"%1$s\" werd afgewezen vóór het uploaden (gedetecteerd type: "
+"%2$s). Het kan een niet-ondersteund format zijn of dit server upload "
+"beperken overschrijden."
 
-#: admin/routes/api.php:1260
+#: admin/routes/api.php:1264
 msgid "none"
 msgstr "geen"
 
-#: admin/routes/api.php:1268
+#: admin/routes/api.php:1272
 msgid "The video could not be imported."
 msgstr "De video kon niet worden geïmporteerd."
 
-#: admin/routes/api.php:1386
+#: admin/routes/api.php:1409
 msgid "Import slug not found"
 msgstr "Import slug niet gevonden"
 
-#: admin/routes/api.php:1402
+#: admin/routes/api.php:1425
 msgid "Import data could not be processed"
 msgstr "Importgegevens konden niet worden verwerkt"
 
@@ -481,18 +508,18 @@ msgid "We could not find any images to import."
 msgstr "We konden geen afbeeldingen vinden om te importeren."
 
 #: admin/slideshows/Settings.php:59
-#: inc/slider/metaslider.class.php:161
+#: inc/slider/metaslider.class.php:165
 msgid "New Slideshow"
 msgstr "Nieuwe slideshow"
 
 #: admin/slideshows/Settings.php:86
-#: inc/slider/metaslider.class.php:188
+#: inc/slider/metaslider.class.php:192
 #: inc/slider/metaslider.flex.class.php:819
 msgid "Previous"
 msgstr "Vorige"
 
 #: admin/slideshows/Settings.php:87
-#: inc/slider/metaslider.class.php:189
+#: inc/slider/metaslider.class.php:193
 #: inc/slider/metaslider.flex.class.php:820
 msgid "Next"
 msgstr "Volgende"
@@ -517,23 +544,23 @@ msgstr "Mislukt bij het volgen van tekst vanaf URL: %s."
 msgid "Failed to import image from URL: %s."
 msgstr "Er is geen afbeelding geïmporteerd van URL: %s."
 
-#: admin/slideshows/Slideshows.php:1204
+#: admin/slideshows/Slideshows.php:1208
 msgid "Only http/https URLs are allowed."
 msgstr "Alleen HTTP/https URL's zijn toegestaan."
 
-#: admin/slideshows/Slideshows.php:1214
+#: admin/slideshows/Slideshows.php:1218
 msgid "URL does not point to an allowed file type."
 msgstr "URL wijst niet naar een toegestaan bestandstype."
 
-#: admin/slideshows/Slideshows.php:1224
+#: admin/slideshows/Slideshows.php:1228
 msgid "URL resolves to a disallowed address."
 msgstr "URL leidt naar een niet toegestaan adres."
 
-#: admin/slideshows/Themes.php:60
+#: admin/slideshows/Themes.php:203
 msgid "No themes found."
 msgstr "Geen thema's gevonden."
 
-#: admin/slideshows/Themes.php:449
+#: admin/slideshows/Themes.php:595
 msgid ""
 "We removed your selected theme as it could not be found. Was the folder "
 "deleted?"
@@ -552,100 +579,100 @@ msgstr ""
 "Je hebt nog geen slideshows. Klik op %shier%s om een nieuwe slideshow te "
 "maken."
 
-#: admin/Table.php:184
-#: admin/Table.php:347
+#: admin/Table.php:193
+#: admin/Table.php:356
 #: inc/slide/metaslide.class.php:420
 msgid "Restore"
 msgstr "Herstellen"
 
-#: admin/Table.php:185
-#: admin/Table.php:348
+#: admin/Table.php:194
+#: admin/Table.php:357
 #: inc/slide/metaslide.class.php:430
 msgid "Delete Permanently"
 msgstr "Permanent verwijderen"
 
-#: admin/Table.php:189
-#: admin/Table.php:362
+#: admin/Table.php:198
+#: admin/Table.php:371
 msgid "Trash"
 msgstr "Prullenbak"
 
-#: admin/Table.php:200
+#: admin/Table.php:209
 #: admin/views/pages/parts/toolbar.php:75
 #: admin/assets/dist/js/app.js:2
 msgid "Preview"
 msgstr "Voorbeeld"
 
-#: admin/Table.php:201
+#: admin/Table.php:210
 #: admin/assets/dist/js/app.js:2
 msgid "Title"
 msgstr "Titel"
 
-#: admin/Table.php:202
+#: admin/Table.php:211
 msgid "Type of Slides"
 msgstr "Type slides"
 
-#: admin/Table.php:203
+#: admin/Table.php:212
 msgid "Number of Slides"
 msgstr "Aantal slides"
 
-#: admin/Table.php:204
+#: admin/Table.php:213
 msgid "Theme"
 msgstr "Thema"
 
-#: admin/Table.php:205
+#: admin/Table.php:214
 msgid "Created"
 msgstr "Gemaakt"
 
-#: admin/Table.php:206
-#: admin/views/pages/parts/slider-settings.php:1694
+#: admin/Table.php:215
+#: admin/views/pages/parts/slider-settings.php:1690
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: admin/Table.php:212
+#: admin/Table.php:221
 msgid "Usage"
 msgstr "Gebruik"
 
-#: admin/Table.php:361
+#: admin/Table.php:370
 msgid "Edit"
 msgstr "Bewerken"
 
-#: admin/Table.php:398
+#: admin/Table.php:407
 #: admin/views/pages/parts/shortcode.php:11
 msgid "Click to copy shortcode."
 msgstr "Klik om shortcode te kopiëren."
 
-#: admin/Table.php:406
-#: admin/Table.php:419
-#: admin/Table.php:479
+#: admin/Table.php:415
+#: admin/Table.php:428
+#: admin/Table.php:488
 msgid "Not found."
 msgstr "Niet gevonden."
 
-#: admin/Table.php:408
+#: admin/Table.php:417
 msgid "View Usage"
 msgstr "Gebruik bekijken"
 
-#: admin/Table.php:414
+#: admin/Table.php:423
 msgid "Content Using This Slideshow"
 msgstr "Inhoud met deze slideshow"
 
-#: admin/Table.php:456
+#: admin/Table.php:465
 msgid "Theme Setting"
 msgstr "Thema instelling"
 
-#: admin/Table.php:470
+#: admin/Table.php:479
 msgid "Option"
 msgstr "Optie"
 
-#: admin/Table.php:527
-#: admin/views/pages/start.php:191
+#: admin/Table.php:536
+#: admin/views/pages/start.php:192
 msgid "All Themes"
 msgstr "Alle thema's"
 
-#: admin/Table.php:540
+#: admin/Table.php:549
 msgid "(No Theme)"
 msgstr "(Geen thema)"
 
-#: admin/Table.php:544
+#: admin/Table.php:553
 #: admin/views/slides/tabs/background.php:32
 #: inc/metaslider.imagestyles.class.php:388, fuzzy
 msgid "Filter"
@@ -662,7 +689,7 @@ msgid "(%s Weeks)"
 msgstr "(%s weken)"
 
 #: admin/views/pages/dashboard.php:8
-#: ml-slider.php:574
+#: ml-slider.php:578
 #: admin/assets/dist/js/app.js:2, fuzzy
 msgid "Slideshows"
 msgstr "Slideshows"
@@ -791,7 +818,7 @@ msgstr "Slideshow breedte"
 
 #: admin/views/pages/parts/slider-settings.php:90
 #: admin/views/pages/parts/slider-settings.php:103
-#: admin/views/pages/parts/slider-settings.php:926
+#: admin/views/pages/parts/slider-settings.php:922
 #: admin/views/slides/tabs/background.php:51
 #: inc/metaslider.imagestyles.class.php:407
 #: inc/metaslider.imagestyles.class.php:419, fuzzy
@@ -1094,7 +1121,7 @@ msgstr ""
 
 #: admin/views/pages/parts/slider-settings.php:466
 msgid "Theme Options"
-msgstr "Thema-opties"
+msgstr "Thema opties"
 
 #: admin/views/pages/parts/slider-settings.php:484
 msgid "Gallery Options"
@@ -1121,30 +1148,30 @@ msgid "This animation is used when changing slides."
 msgstr "Deze animatie wordt gebruikt bij het wisselen van slides."
 
 #: admin/views/pages/parts/slider-settings.php:550
-#: admin/views/pages/start.php:174
+#: admin/views/pages/start.php:175
 #: inc/metaslider.imagestyles.class.php:537
 msgid "Fade"
 msgstr "Vervagen"
 
 #: admin/views/pages/parts/slider-settings.php:554
-#: admin/views/pages/start.php:173, fuzzy
+#: admin/views/pages/start.php:174, fuzzy
 msgid "Slide"
 msgstr "Slide"
 
 #: admin/views/pages/parts/slider-settings.php:558
-#: admin/views/pages/start.php:175
+#: admin/views/pages/start.php:176
 msgid "Zooming"
 msgstr "Zoomen"
 
 #: admin/views/pages/parts/slider-settings.php:562
-#: admin/views/pages/start.php:176
+#: admin/views/pages/start.php:177
 #: admin/views/slides/tabs/background.php:87
 #: inc/metaslider.imagestyles.class.php:488
 msgid "Flip"
 msgstr "Spiegelen"
 
 #: admin/views/pages/parts/slider-settings.php:566
-#: admin/views/pages/parts/slider-settings.php:1344
+#: admin/views/pages/parts/slider-settings.php:1340
 msgid "Random"
 msgstr "Willekeurig"
 
@@ -1267,7 +1294,7 @@ msgid "Horizontal"
 msgstr "Horizontaal"
 
 #: admin/views/pages/parts/slider-settings.php:757
-#: admin/views/pages/start.php:178
+#: admin/views/pages/start.php:179
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:494
 msgid "Vertical"
@@ -1349,11 +1376,11 @@ msgstr ""
 "Toon meerdere slides tegelijk. De uitvoer van de slideshow gebruikt "
 "standaard 100% breedte en het 'Slide' overgangseffect."
 
-#: admin/views/pages/parts/slider-settings.php:903
+#: admin/views/pages/parts/slider-settings.php:899
 msgid "Loop Carousel Continuously"
 msgstr "Loop carrousel continu"
 
-#: admin/views/pages/parts/slider-settings.php:908
+#: admin/views/pages/parts/slider-settings.php:904
 msgid ""
 "Infinite loop of slides when Carousel Mode is enabled. This option disables "
 "arrows and navigation. The slideshow width must be less than or equal to "
@@ -1363,27 +1390,27 @@ msgstr ""
 "optie schakelt pijlen en navigatie uit. De slideshow breedte moet kleiner "
 "dan of gelijk aan de breedte van de container zijn waarin hij is ingevoegd."
 
-#: admin/views/pages/parts/slider-settings.php:919
+#: admin/views/pages/parts/slider-settings.php:915
 msgid "Carousel Margin"
 msgstr "Carousel marge"
 
-#: admin/views/pages/parts/slider-settings.php:922
+#: admin/views/pages/parts/slider-settings.php:918
 msgid "Pixel margin between slides in carousel."
 msgstr "Pixel marge tussen slides in carousel."
 
-#: admin/views/pages/parts/slider-settings.php:936
+#: admin/views/pages/parts/slider-settings.php:932
 msgid "Display Minimum"
 msgstr "Toon minimum"
 
-#: admin/views/pages/parts/slider-settings.php:938
+#: admin/views/pages/parts/slider-settings.php:934
 msgid "Minimum number of slides to be displayed at the same time in the carousel."
 msgstr "Minimum aantal slides dat tegelijk moet worden getoond in de carrousel."
 
-#: admin/views/pages/parts/slider-settings.php:952
+#: admin/views/pages/parts/slider-settings.php:948
 msgid "Display Maximum"
 msgstr "Toon maximum"
 
-#: admin/views/pages/parts/slider-settings.php:954
+#: admin/views/pages/parts/slider-settings.php:950
 msgid ""
 "Maximum number of slides to be displayed at the same time in the carousel. "
 "Set to 0 to adjust automatically."
@@ -1391,63 +1418,60 @@ msgstr ""
 "Maximum aantal slides dat tegelijkertijd wordt getoond in de carrousel. "
 "Stel in op 0 om automatisch aan te passen."
 
-#: admin/views/pages/parts/slider-settings.php:963
+#: admin/views/pages/parts/slider-settings.php:959
 msgid "Slides to Show per Device"
-msgstr "Slides om te tonen per apparaat"
+msgstr "Slides weergeven per apparaat"
 
-#: admin/views/pages/parts/slider-settings.php:964
+#: admin/views/pages/parts/slider-settings.php:960
 msgid ""
 "Set an exact number of slides to show for each device width. Leave a device "
 "at 0 to use the Display Minimum/Maximum settings instead."
 msgstr ""
-"Stel een exact aantal slides in om te tonen voor elke apparaatbreedte. Laat "
-"een apparaat op 0 om in plaats daarvan de instellingen voor Minimum/Maximum "
-"Weergave te gebruiken."
+"Instellen een exact aantal slides om weer te geven voor elke apparaat "
+"breedte. Laat een apparaat op 0 staan om de Toon Minimum/Maximum "
+"instellingen in plaats daarvan te gebruiken."
 
-#: admin/views/pages/parts/slider-settings.php:972
+#: admin/views/pages/parts/slider-settings.php:968
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths less than %spx. Set to 0 to "
 "use Display Minimum/Maximum instead."
 msgstr ""
-"Exact aantal slides om te tonen op schermbreedtes kleiner dan %spx. Stel in "
-"op 0 om in plaats daarvan de instellingen voor Minimum/Maximum Weergave te "
-"gebruiken."
+"Exact aantal slides om weer te geven op schermbreedtes kleiner dan %spx. "
+"Stel in op 0 om in plaats daarvan Toon Minimum/Maximum te gebruiken."
 
-#: admin/views/pages/parts/slider-settings.php:982
-#: admin/views/pages/parts/slider-settings.php:993
+#: admin/views/pages/parts/slider-settings.php:978
+#: admin/views/pages/parts/slider-settings.php:989
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths of %1$spx to %2$spx. Set to "
 "0 to use Display Minimum/Maximum instead."
 msgstr ""
-"Exact aantal slides om te tonen op schermbreedtes van %1$spx tot %2$spx. "
-"Stel in op 0 om in plaats daarvan de instellingen voor Minimum/Maximum "
-"Weergave te gebruiken."
+"Exact aantal slides weergeven op schermbreedtes van %1$spx tot %2$spx. Stel "
+"in op 0 om in plaats daarvan Minimum/Maximum te tonen."
 
-#: admin/views/pages/parts/slider-settings.php:1004
+#: admin/views/pages/parts/slider-settings.php:1000
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths equal to or greater than "
 "%spx. Set to 0 to use Display Minimum/Maximum instead."
 msgstr ""
-"Exact aantal slides om te tonen op schermbreedtes gelijk aan of groter dan "
-"%spx. Stel in op 0 om in plaats daarvan de instellingen voor "
-"Minimum/Maximum Weergave te gebruiken."
+"Exact aantal slides om weer te geven op schermbreedtes gelijk aan of groter "
+"dan %spx. Instellen op 0 om toon Minimum/Maximum te gebruiken."
 
-#: admin/views/pages/parts/slider-settings.php:1021
+#: admin/views/pages/parts/slider-settings.php:1017
 msgid "Slides per Navigation Click"
 msgstr "Slides per navigatie klik"
 
-#: admin/views/pages/parts/slider-settings.php:1023
+#: admin/views/pages/parts/slider-settings.php:1019
 msgid "Number of slides to move when clicking next or previous."
 msgstr "Aantal slides om te verplaatsen als je op volgende of vorige klikt."
 
-#: admin/views/pages/parts/slider-settings.php:1032
+#: admin/views/pages/parts/slider-settings.php:1028
 msgid "Force Height"
 msgstr "Forceer hoogte"
 
-#: admin/views/pages/parts/slider-settings.php:1037
+#: admin/views/pages/parts/slider-settings.php:1033
 msgid ""
 "If the slideshow looks small, force slideshow height when using Carousel "
 "mode. Please note when is enabled slides may look cropped."
@@ -1456,31 +1480,31 @@ msgstr ""
 "als je de carrousel modus gebruikt. Let op: als dit is ingeschakeld, kunnen "
 "de slides er bijgesneden uitzien."
 
-#: admin/views/pages/parts/slider-settings.php:1062
+#: admin/views/pages/parts/slider-settings.php:1058
 msgid "Image Options"
 msgstr "Afbeelding opties"
 
-#: admin/views/pages/parts/slider-settings.php:1074
+#: admin/views/pages/parts/slider-settings.php:1070
 msgid "Image Crop"
 msgstr "Afbeelding bijsnijden"
 
-#: admin/views/pages/parts/slider-settings.php:1079
+#: admin/views/pages/parts/slider-settings.php:1075
 msgid "Smart Crop"
 msgstr "Slim bijsnijden"
 
-#: admin/views/pages/parts/slider-settings.php:1086
+#: admin/views/pages/parts/slider-settings.php:1082
 msgid "Standard"
 msgstr "Standaard"
 
-#: admin/views/pages/parts/slider-settings.php:1093
+#: admin/views/pages/parts/slider-settings.php:1089
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: admin/views/pages/parts/slider-settings.php:1100
+#: admin/views/pages/parts/slider-settings.php:1096
 msgid "Disabled (Smart Pad)"
 msgstr "Uitgeschakeld (Smart Pad)"
 
-#: admin/views/pages/parts/slider-settings.php:1107
+#: admin/views/pages/parts/slider-settings.php:1103
 msgid ""
 "Smart Crop ensures your responsive slides are cropped to a ratio that "
 "results in a consistent slideshow size."
@@ -1488,19 +1512,19 @@ msgstr ""
 "Slim bijsnijden garandeert dat de slides optimaal worden bijgesneden, zodat "
 "deze in het juiste formaat worden weergegeven."
 
-#: admin/views/pages/parts/slider-settings.php:1115
+#: admin/views/pages/parts/slider-settings.php:1111
 msgid "Image Crop Source"
 msgstr "Afbeelding bijsnijden bron"
 
-#: admin/views/pages/parts/slider-settings.php:1120
+#: admin/views/pages/parts/slider-settings.php:1116
 msgid "Slideshow width/height"
 msgstr "Slideshow breedte/hoogte"
 
-#: admin/views/pages/parts/slider-settings.php:1123
+#: admin/views/pages/parts/slider-settings.php:1119
 msgid "Custom width/height (Pro)"
 msgstr "Aangepaste breedte/hoogte (Pro)"
 
-#: admin/views/pages/parts/slider-settings.php:1127
+#: admin/views/pages/parts/slider-settings.php:1123
 msgid ""
 "By default, MetaSlider Slideshow will crop images using the main width and "
 "height of the slideshow. If you want smaller images, select Custom "
@@ -1508,11 +1532,11 @@ msgid ""
 "height."
 msgstr "Standaard zal MetaSlider afbeeldingen bijsnijden met behulp van de hoofd breedte en hoogte van de slideshow. Als je kleinere afbeeldingen wilt, selecteer Aangepaste breedte/hoogte en zorg ervoor dat de waarden kleiner zijn dan de hoofd breedte en hoogte."
 
-#: admin/views/pages/parts/slider-settings.php:1136
+#: admin/views/pages/parts/slider-settings.php:1132
 msgid "Image Crop Size"
 msgstr "Afbeelding bijsnijden grootte"
 
-#: admin/views/pages/parts/slider-settings.php:1145
+#: admin/views/pages/parts/slider-settings.php:1141
 msgid ""
 "This will increase the size of the images in your slideshow. Larger images "
 "are higher quality. Smaller images load more quickly."
@@ -1520,35 +1544,35 @@ msgstr ""
 "Hierdoor worden de afbeeldingen in je slideshow groter. Grotere "
 "afbeeldingen zijn van hogere kwaliteit. Kleinere afbeeldingen laden sneller."
 
-#: admin/views/pages/parts/slider-settings.php:1156
+#: admin/views/pages/parts/slider-settings.php:1152
 msgid "Lazy Load Images"
 msgstr "Lazy-load afbeeldingen"
 
-#: admin/views/pages/parts/slider-settings.php:1161
+#: admin/views/pages/parts/slider-settings.php:1157
 msgid ""
 "This feature can speed up your site. MetaSlider Slideshow will only load "
 "slides when they are required by your slideshow."
 msgstr "Deze functie kan je site versnellen. MetaSlider Slideshow laadt alleen slides wanneer ze vereist zijn door je slideshow."
 
-#: admin/views/pages/parts/slider-settings.php:1177
+#: admin/views/pages/parts/slider-settings.php:1173
 #: inc/metaslider.imagestyles.class.php:96
 msgid "Image Styles"
-msgstr "Afbeeldingstijlen"
+msgstr "Afbeelding stijlen"
 
-#: admin/views/pages/parts/slider-settings.php:1195
+#: admin/views/pages/parts/slider-settings.php:1191
 msgid "Layout Features"
-msgstr "Lay-outfuncties"
+msgstr "Lay-out functies"
 
-#: admin/views/pages/parts/slider-settings.php:1207
+#: admin/views/pages/parts/slider-settings.php:1203
 #: admin/assets/dist/js/app.js:2
 msgid "Auto Play"
 msgstr "Automatisch afspelen"
 
-#: admin/views/pages/parts/slider-settings.php:1212
+#: admin/views/pages/parts/slider-settings.php:1208
 msgid "Transition between slides automatically."
 msgstr "Automatische overgang tussen slides."
 
-#: admin/views/pages/parts/slider-settings.php:1220
+#: admin/views/pages/parts/slider-settings.php:1216
 #: themes/architekt/customize.php:615
 #: themes/bitono/customize.php:798
 #: themes/blend/customize.php:828
@@ -1570,26 +1594,26 @@ msgstr "Automatische overgang tussen slides."
 msgid "Play / Pause Button"
 msgstr "Afspeel/pauze knop"
 
-#: admin/views/pages/parts/slider-settings.php:1225
+#: admin/views/pages/parts/slider-settings.php:1221
 msgid "This allows user to pause or resume Auto Play on the slideshow."
 msgstr ""
 "Hiermee kan de gebruiker het automatisch afspelen van de slideshow pauzeren "
 "of hervatten."
 
-#: admin/views/pages/parts/slider-settings.php:1233
+#: admin/views/pages/parts/slider-settings.php:1229
 msgid "Show Play / Pause Button Text"
 msgstr "De tekst van de afspelen / pauze knop weergeven"
 
-#: admin/views/pages/parts/slider-settings.php:1238
+#: admin/views/pages/parts/slider-settings.php:1234
 msgid "Show text options for Play / Pause Button"
 msgstr "Toon tekst opties voor afspelen / pauze knop"
 
-#: admin/views/pages/parts/slider-settings.php:1246
+#: admin/views/pages/parts/slider-settings.php:1242
 msgid "Play Text"
 msgstr "Afspelen tekst"
 
-#: admin/views/pages/parts/slider-settings.php:1248
-#: admin/views/pages/parts/slider-settings.php:1261
+#: admin/views/pages/parts/slider-settings.php:1244
+#: admin/views/pages/parts/slider-settings.php:1257
 msgid ""
 "Enter text for the Play/Pause Button. Leave the field empty to use the icon "
 "only."
@@ -1597,26 +1621,26 @@ msgstr ""
 "Voer tekst in voor de afspelen/pauzeren knop. Laat het veld leeg om alleen "
 "het icoon te gebruiken."
 
-#: admin/views/pages/parts/slider-settings.php:1259
+#: admin/views/pages/parts/slider-settings.php:1255
 msgid "Pause Text"
 msgstr "Pauze tekst"
 
-#: admin/views/pages/parts/slider-settings.php:1272
+#: admin/views/pages/parts/slider-settings.php:1268
 #: themes/customize.php:34
 msgid "Progress Bar"
 msgstr "Voortgangsbalk"
 
-#: admin/views/pages/parts/slider-settings.php:1277
+#: admin/views/pages/parts/slider-settings.php:1273
 msgid "Displays a visual indicator showing the time left before the next slide."
 msgstr ""
 "Geeft een visuele indicator weer die de resterende tijd voor de volgende "
 "slide aangeeft."
 
-#: admin/views/pages/parts/slider-settings.php:1285
+#: admin/views/pages/parts/slider-settings.php:1281
 msgid "Hover Pause"
 msgstr "Pauze bij hoveren"
 
-#: admin/views/pages/parts/slider-settings.php:1290
+#: admin/views/pages/parts/slider-settings.php:1286
 msgid ""
 "Pause the slideshow when hovering over slider, then resume when no longer "
 "hovering."
@@ -1624,11 +1648,11 @@ msgstr ""
 "Pauzeer de slideshow zodra de cursor boven de slider wordt geplaatst en "
 "hervat de slideshow als hij wordt verwijderd."
 
-#: admin/views/pages/parts/slider-settings.php:1298, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1294, fuzzy
 msgid "Loop"
 msgstr "Loop"
 
-#: admin/views/pages/parts/slider-settings.php:1300
+#: admin/views/pages/parts/slider-settings.php:1296
 msgid ""
 "If you choose \"Loop endlessly\", the slides will loop infinitely. If you "
 "choose \"Stop on first slide after looping\", the slideshow will stop on "
@@ -1640,51 +1664,51 @@ msgstr ""
 "de eerste dia na het tonen van alle items. Als je kiest voor \"Stop op "
 "laatste slide\", stoppen de slides op de laatste slide."
 
-#: admin/views/pages/parts/slider-settings.php:1303
+#: admin/views/pages/parts/slider-settings.php:1299
 msgid "Loop Endlessly"
 msgstr "Loop eindeloos door"
 
-#: admin/views/pages/parts/slider-settings.php:1304
+#: admin/views/pages/parts/slider-settings.php:1300
 msgid "Stop On Last Slide"
 msgstr "Stoppen op laatste slide"
 
-#: admin/views/pages/parts/slider-settings.php:1305
+#: admin/views/pages/parts/slider-settings.php:1301
 msgid "Stop On First Slide After Looping"
 msgstr "Stop bij eerste slide na herhalen"
 
-#: admin/views/pages/parts/slider-settings.php:1311
+#: admin/views/pages/parts/slider-settings.php:1307
 msgid "Smooth Height"
 msgstr "Gladde hoogte"
 
-#: admin/views/pages/parts/slider-settings.php:1316
+#: admin/views/pages/parts/slider-settings.php:1312
 msgid "Allow navigation to follow the slide's height smoothly."
 msgstr "Laat de navigatie de hoogte van de slide vloeiend volgen."
 
-#: admin/views/pages/parts/slider-settings.php:1324
+#: admin/views/pages/parts/slider-settings.php:1320
 msgid "Slide Order"
 msgstr "Slide volgorde"
 
-#: admin/views/pages/parts/slider-settings.php:1329
+#: admin/views/pages/parts/slider-settings.php:1325
 msgid "Newest First"
 msgstr "De nieuwste eerst"
 
-#: admin/views/pages/parts/slider-settings.php:1332
+#: admin/views/pages/parts/slider-settings.php:1328
 msgid "Oldest First"
 msgstr "De oudste eerst"
 
-#: admin/views/pages/parts/slider-settings.php:1335
+#: admin/views/pages/parts/slider-settings.php:1331
 msgid "A to Z (by filename)"
 msgstr "A tot Z (op bestandsnaam)"
 
-#: admin/views/pages/parts/slider-settings.php:1338
+#: admin/views/pages/parts/slider-settings.php:1334
 msgid "Z to A (by filename)"
 msgstr "Z naar A (op bestandsnaam)"
 
-#: admin/views/pages/parts/slider-settings.php:1341
+#: admin/views/pages/parts/slider-settings.php:1337
 msgid "Drag-and-drop"
 msgstr "Verslepen"
 
-#: admin/views/pages/parts/slider-settings.php:1347
+#: admin/views/pages/parts/slider-settings.php:1343
 msgid ""
 "Select the order in which slides appear in the slideshow. This impacts the "
 "frontend view."
@@ -1692,115 +1716,115 @@ msgstr ""
 "Selecteer de volgorde waarin slides in de slideshow worden weergegeven. Dit "
 "heeft invloed op de front-end weergave."
 
-#: admin/views/pages/parts/slider-settings.php:1355
+#: admin/views/pages/parts/slider-settings.php:1351
 msgid "Touch Swipe"
 msgstr "Aanraken vegen"
 
-#: admin/views/pages/parts/slider-settings.php:1360
+#: admin/views/pages/parts/slider-settings.php:1356
 msgid "Allow touch swipe navigation of the slider on touch-enabled devices."
 msgstr ""
 "Navigatie door vegen met aanraken van de slider toestaan op apparaten met "
 "aanraak functionaliteit."
 
-#: admin/views/pages/parts/slider-settings.php:1368
+#: admin/views/pages/parts/slider-settings.php:1364
 msgid "Loading Indicator"
 msgstr "Laadindicator"
 
-#: admin/views/pages/parts/slider-settings.php:1373
+#: admin/views/pages/parts/slider-settings.php:1369
 msgid "Displays a visual indicator while the slideshow is loading."
 msgstr "Toont een visuele indicator terwijl de slideshow aan het laden is."
 
-#: admin/views/pages/parts/slider-settings.php:1381
+#: admin/views/pages/parts/slider-settings.php:1377
 msgid "Previous Text"
 msgstr "Tekst vorige"
 
-#: admin/views/pages/parts/slider-settings.php:1383
+#: admin/views/pages/parts/slider-settings.php:1379
 msgid "Set the text for the \"previous\" direction item."
 msgstr "De tekst instellen voor het 'vorige' richting item."
 
-#: admin/views/pages/parts/slider-settings.php:1395
+#: admin/views/pages/parts/slider-settings.php:1391
 msgid "Next Text"
 msgstr "Tekst volgende"
 
-#: admin/views/pages/parts/slider-settings.php:1397
+#: admin/views/pages/parts/slider-settings.php:1393
 msgid "Set the text for the \"next\" direction item."
 msgstr "De tekst instellen voor het 'volgende' richting item."
 
-#: admin/views/pages/parts/slider-settings.php:1414
+#: admin/views/pages/parts/slider-settings.php:1410
 msgid "Square Delay"
 msgstr "Vierkant vertraging"
 
-#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1412
 msgid "Delay between squares in ms."
 msgstr "Vertraging tussen vierkanten in ms."
 
-#: admin/views/pages/parts/slider-settings.php:1433
+#: admin/views/pages/parts/slider-settings.php:1429
 msgid "Opacity of title and navigation, between 0 and 1."
 msgstr "Dekking van titel en navigatie, tussen 0 en 1."
 
-#: admin/views/pages/parts/slider-settings.php:1448
+#: admin/views/pages/parts/slider-settings.php:1444
 msgid "Caption Speed"
 msgstr "Bijschrift snelheid"
 
-#: admin/views/pages/parts/slider-settings.php:1450
+#: admin/views/pages/parts/slider-settings.php:1446
 msgid "Set the fade in speed of the caption."
 msgstr "De fade snelheid van het bijschrift instellen."
 
-#: admin/views/pages/parts/slider-settings.php:1472
+#: admin/views/pages/parts/slider-settings.php:1468
 msgid "Container Options"
 msgstr "Container opties"
 
-#: admin/views/pages/parts/slider-settings.php:1484
+#: admin/views/pages/parts/slider-settings.php:1480
 msgid "Container Box"
 msgstr "Container box"
 
-#: admin/views/pages/parts/slider-settings.php:1489
+#: admin/views/pages/parts/slider-settings.php:1485
 msgid "Customize the slideshow's container box."
 msgstr "Pas het container vak van de slideshow aan."
 
-#: admin/views/pages/parts/slider-settings.php:1495
-#: admin/views/pages/parts/slider-settings.php:1535
+#: admin/views/pages/parts/slider-settings.php:1491
+#: admin/views/pages/parts/slider-settings.php:1531
 #: admin/assets/dist/js/app.js:2
 msgid "This feature is available in MetaSlider Slideshow Pro"
 msgstr "Deze functie is beschikbaar in MetaSlider Slideshow Pro"
 
-#: admin/views/pages/parts/slider-settings.php:1510
+#: admin/views/pages/parts/slider-settings.php:1506
 msgid "Watermark Options"
-msgstr "Watermerkopties"
+msgstr "Watermerk opties"
 
-#: admin/views/pages/parts/slider-settings.php:1524
+#: admin/views/pages/parts/slider-settings.php:1520
 msgid "Watermark"
 msgstr "Watermerk"
 
-#: admin/views/pages/parts/slider-settings.php:1529
+#: admin/views/pages/parts/slider-settings.php:1525
 msgid "Overlay an image (e.g. a logo) on top of the slideshow."
-msgstr "Overlay een afbeelding (bijv. een logo) bovenop de slideshow."
+msgstr "Afbeelding overlayen (bijv. Een logo) bovenop de slideshow."
 
-#: admin/views/pages/parts/slider-settings.php:1550
+#: admin/views/pages/parts/slider-settings.php:1546
 msgid "Accessibility Options"
 msgstr "Toegankelijkheid opties"
 
-#: admin/views/pages/parts/slider-settings.php:1562
+#: admin/views/pages/parts/slider-settings.php:1558
 msgid "Keyboard Controls"
 msgstr "Toetsenbord bediening"
 
-#: admin/views/pages/parts/slider-settings.php:1567
+#: admin/views/pages/parts/slider-settings.php:1563
 msgid "Use arrow keys to get to the next slide."
 msgstr "Gebruik de pijl toetsen om naar de volgende slide te gaan."
 
-#: admin/views/pages/parts/slider-settings.php:1575
+#: admin/views/pages/parts/slider-settings.php:1571
 msgid "Tabindex For Navigation"
 msgstr "Tabindex voor navigatie"
 
-#: admin/views/pages/parts/slider-settings.php:1580
+#: admin/views/pages/parts/slider-settings.php:1576
 msgid "This helps make the slideshow navigation more accessible."
 msgstr "Dit maakt de navigatie van de slideshow toegankelijker."
 
-#: admin/views/pages/parts/slider-settings.php:1588
+#: admin/views/pages/parts/slider-settings.php:1584
 msgid "ARIA Live"
 msgstr "ARIA live"
 
-#: admin/views/pages/parts/slider-settings.php:1593
+#: admin/views/pages/parts/slider-settings.php:1589
 msgid ""
 "If Autoplay is enabled, this causes screen readers to announce that the "
 "slides are changing."
@@ -1808,11 +1832,11 @@ msgstr ""
 "Als automatisch afspelen is ingeschakeld, zorgt dit ervoor dat schermlezers "
 "aankondigen dat de slides veranderen."
 
-#: admin/views/pages/parts/slider-settings.php:1601
+#: admin/views/pages/parts/slider-settings.php:1597
 msgid "ARIA Current"
 msgstr "ARIA huidige"
 
-#: admin/views/pages/parts/slider-settings.php:1606
+#: admin/views/pages/parts/slider-settings.php:1602
 msgid ""
 "This is used on the navigation button for the active slide. It helps screen "
 "readers understand which slide is active."
@@ -1820,15 +1844,15 @@ msgstr ""
 "Dit wordt gebruikt op de navigatieknop voor de actieve slide. Het helpt "
 "schermlezers te begrijpen welke slide actief is."
 
-#: admin/views/pages/parts/slider-settings.php:1622
+#: admin/views/pages/parts/slider-settings.php:1618
 msgid "Developer Options"
 msgstr "Ontwikkelaar opties"
 
-#: admin/views/pages/parts/slider-settings.php:1634
+#: admin/views/pages/parts/slider-settings.php:1630
 msgid "CSS Classes"
 msgstr "CSS klassen"
 
-#: admin/views/pages/parts/slider-settings.php:1636
+#: admin/views/pages/parts/slider-settings.php:1632
 msgid ""
 "Enter custom CSS classes to apply to the slider wrapper. Separate multiple "
 "classes with a space."
@@ -1836,36 +1860,36 @@ msgstr ""
 "Voer aangepaste CSS klassen in om toe te passen op de slider wrapper. "
 "Scheid meerdere klassen met een spatie."
 
-#: admin/views/pages/parts/slider-settings.php:1647
+#: admin/views/pages/parts/slider-settings.php:1643
 msgid "Print CSS"
 msgstr "CSS afdrukken"
 
-#: admin/views/pages/parts/slider-settings.php:1652
+#: admin/views/pages/parts/slider-settings.php:1648
 msgid "Uncheck this if you would like to include your own CSS."
 msgstr "Vink dit uit als je je eigen CSS wilt opnemen."
 
-#: admin/views/pages/parts/slider-settings.php:1660
+#: admin/views/pages/parts/slider-settings.php:1656
 msgid "Print JS"
 msgstr "JS afdrukken"
 
-#: admin/views/pages/parts/slider-settings.php:1665
+#: admin/views/pages/parts/slider-settings.php:1661
 msgid "Uncheck this if you would like to include your own Javascript."
 msgstr "Vink dit uit als je je eigen JavaScript wil opnemen."
 
-#: admin/views/pages/parts/slider-settings.php:1673
+#: admin/views/pages/parts/slider-settings.php:1669
 msgid "No Conflict Mode"
 msgstr "Geen conflict modus"
 
-#: admin/views/pages/parts/slider-settings.php:1678
+#: admin/views/pages/parts/slider-settings.php:1674
 msgid "Delay adding the flexslider class to the slideshow."
 msgstr "Het toevoegen van de flexslider klasse aan de slideshow vertragen."
 
-#: admin/views/pages/parts/slider-settings.php:1716
-#: ml-slider.php:1880
+#: admin/views/pages/parts/slider-settings.php:1712
+#: ml-slider.php:1930
 msgid "Trashed Slides"
 msgstr "Verwijderde slides"
 
-#: admin/views/pages/parts/slider-settings.php:1726
+#: admin/views/pages/parts/slider-settings.php:1722
 msgid "View trashed slides"
 msgstr "Bekijk verwijderde slides"
 
@@ -1883,7 +1907,7 @@ msgid "Add a new slide"
 msgstr "Een nieuwe slider toevoegen"
 
 #: admin/views/pages/parts/toolbar.php:60
-#: inc/slider/metaslider.class.php:1055
+#: inc/slider/metaslider.class.php:1065
 msgid "Add Slide"
 msgstr "Slide toevoegen"
 
@@ -1927,7 +1951,7 @@ msgid "Save"
 msgstr "Opslaan"
 
 #: admin/views/pages/parts/toolbar.php:155
-#: ml-slider.php:1945
+#: ml-slider.php:1995
 msgid "Return to Published Slides"
 msgstr "Terug naar gepubliceerde slides"
 
@@ -1963,7 +1987,7 @@ msgid "Redirecting..."
 msgstr "Aan het omleiden..."
 
 #: admin/views/pages/start.php:106
-#: ml-slider.php:575
+#: ml-slider.php:579
 msgid "Quick Start"
 msgstr "Snelle start"
 
@@ -1992,162 +2016,163 @@ msgid "Slide Type"
 msgstr "Type slide"
 
 #: admin/views/pages/start.php:145
-#: inc/metaslider.quickstart.class.php:760
-#: ml-slider.php:798
+#: inc/metaslider.quickstart.class.php:773
+#: ml-slider.php:849
 msgid "Image"
 msgstr "Afbeelding"
 
-#: admin/views/pages/start.php:149
-#: inc/metaslider.quickstart.class.php:611
-#: inc/metaslider.quickstart.class.php:772
-#: ml-slider.php:842
+#: admin/views/pages/start.php:150
+#: inc/metaslider.quickstart.class.php:623
+#: inc/metaslider.quickstart.class.php:785
+#: ml-slider.php:893
 msgid "External Image"
 msgstr "Externe afbeelding"
 
-#: admin/views/pages/start.php:150
-#: inc/metaslider.quickstart.class.php:623
-#: inc/metaslider.quickstart.class.php:775
-#: ml-slider.php:843
+#: admin/views/pages/start.php:151
+#: inc/metaslider.quickstart.class.php:635
+#: inc/metaslider.quickstart.class.php:788
+#: ml-slider.php:894
 msgid "External Video"
 msgstr "Externe video"
 
-#: admin/views/pages/start.php:151
-#: inc/metaslider.quickstart.class.php:635
-#: inc/metaslider.quickstart.class.php:781
-#: ml-slider.php:844
+#: admin/views/pages/start.php:152
+#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:797
+#: ml-slider.php:895
 msgid "Custom HTML"
 msgstr "Aangepaste HTML"
 
-#: admin/views/pages/start.php:152
-#: inc/metaslider.quickstart.class.php:683
-#: inc/metaslider.quickstart.class.php:790
-#: ml-slider.php:845
+#: admin/views/pages/start.php:153
+#: inc/metaslider.quickstart.class.php:695
+#: inc/metaslider.quickstart.class.php:806
+#: ml-slider.php:896
 msgid "Background Color"
 msgstr "Achtergrondkleur"
 
-#: admin/views/pages/start.php:153
-#: admin/views/pages/start.php:184
-#: ml-slider.php:848
+#: admin/views/pages/start.php:154
+#: admin/views/pages/start.php:185
+#: ml-slider.php:899
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: admin/views/pages/start.php:154
-#: inc/metaslider.quickstart.class.php:599
-#: inc/metaslider.quickstart.class.php:787
-#: ml-slider.php:849
+#: admin/views/pages/start.php:155
+#: inc/metaslider.quickstart.class.php:611
+#: inc/metaslider.quickstart.class.php:803
+#: ml-slider.php:900
 msgid "Post Feed"
 msgstr "Berichten feed"
 
-#: admin/views/pages/start.php:155
-#: inc/metaslider.quickstart.class.php:784
-#: ml-slider.php:850
+#: admin/views/pages/start.php:156
+#: inc/metaslider.quickstart.class.php:800
+#: ml-slider.php:901
 msgid "Layer Slide"
 msgstr "Gelaagde slide"
 
-#: admin/views/pages/start.php:156
-#: inc/metaslider.quickstart.class.php:575
-#: inc/metaslider.quickstart.class.php:769
-#: ml-slider.php:851
+#: admin/views/pages/start.php:157
+#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:782
+#: modules/local_video/slide.php:43
+#: modules/local_video/slide.php:82
 msgid "Local Video"
 msgstr "Lokale video"
 
-#: admin/views/pages/start.php:161
+#: admin/views/pages/start.php:162
 msgid "Features"
 msgstr "Functies"
 
-#: admin/views/pages/start.php:162, fuzzy
+#: admin/views/pages/start.php:163, fuzzy
 msgid "Boxed"
 msgstr "Boxed"
 
-#: admin/views/pages/start.php:163
+#: admin/views/pages/start.php:164
 msgid "Full-width"
 msgstr "Volledige breedte"
 
-#: admin/views/pages/start.php:164
+#: admin/views/pages/start.php:165
 msgid "Carousel"
 msgstr "Carrousel"
 
-#: admin/views/pages/start.php:165
+#: admin/views/pages/start.php:166
 msgid "Thumbnail Navigation"
 msgstr "Navigatie met thumbnails"
 
-#: admin/views/pages/start.php:166
+#: admin/views/pages/start.php:167
 msgid "Video Caption"
 msgstr "Video bijschrift"
 
-#: admin/views/pages/start.php:167
-#: admin/views/pages/start.php:302
+#: admin/views/pages/start.php:168
+#: admin/views/pages/start.php:303
 msgid "Hero Image"
 msgstr "Hero afbeelding"
 
-#: admin/views/pages/start.php:172
+#: admin/views/pages/start.php:173
 msgid "Animation Type"
 msgstr "Animatietype"
 
-#: admin/views/pages/start.php:177, fuzzy
+#: admin/views/pages/start.php:178, fuzzy
 msgid "Ken Burns"
 msgstr "Ken Burns"
 
-#: admin/views/pages/start.php:183
+#: admin/views/pages/start.php:184
 msgid "Integration"
 msgstr "Integratie"
 
-#: admin/views/pages/start.php:185, fuzzy
+#: admin/views/pages/start.php:186, fuzzy
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: admin/views/pages/start.php:186
-#: admin/views/pages/start.php:298
+#: admin/views/pages/start.php:187
+#: admin/views/pages/start.php:299
 msgid "WordPress Posts"
 msgstr "WordPress berichten"
 
-#: admin/views/pages/start.php:227
+#: admin/views/pages/start.php:228
 msgid "Free and Pro"
 msgstr "Gratis en Pro"
 
-#: admin/views/pages/start.php:228
+#: admin/views/pages/start.php:229
 msgid "Free only"
 msgstr "Alleen gratis"
 
-#: admin/views/pages/start.php:229
+#: admin/views/pages/start.php:230
 msgid "Pro only"
 msgstr "Alleen Pro"
 
-#: admin/views/pages/start.php:233
+#: admin/views/pages/start.php:234
 msgid "Reset Filters"
 msgstr "Filters resetten"
 
-#: admin/views/pages/start.php:239
+#: admin/views/pages/start.php:240
 msgid "No demos match your filters."
 msgstr "Er zijn geen demo's die overeenkomen met je filters."
 
-#: admin/views/pages/start.php:322
+#: admin/views/pages/start.php:323
 #, php-format
 msgid "Create %s slideshow?"
 msgstr "%s slideshow maken?"
 
-#: admin/views/pages/start.php:328
+#: admin/views/pages/start.php:329
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: admin/views/pages/start.php:331
+#: admin/views/pages/start.php:332
 msgid "Yes, please!"
 msgstr "Ja, graag!"
 
-#: admin/views/pages/start.php:337, fuzzy
+#: admin/views/pages/start.php:338, fuzzy
 msgid "Demo"
 msgstr "Demo"
 
-#: admin/views/pages/start.php:343
+#: admin/views/pages/start.php:344
 #: admin/assets/dist/js/app.js:2
 msgid "Get MetaSlider Slideshow Pro!"
 msgstr "Verkrijg MetaSlider Slideshow Pro!"
 
-#: admin/views/pages/start.php:346
+#: admin/views/pages/start.php:347
 msgid "Upgrade now to unlock this demo slideshow!"
 msgstr "Upgrade nu om deze demo slideshow te ontgrendelen!"
 
-#: admin/views/pages/start.php:349
+#: admin/views/pages/start.php:350
 #: admin/views/pages/theme-editor.php:36
 #: admin/views/pages/upgrade.php:26
 #: admin/views/pages/upgrade.php:201
@@ -2155,19 +2180,19 @@ msgstr "Upgrade nu om deze demo slideshow te ontgrendelen!"
 msgid "Upgrade now"
 msgstr "Nu upgraden"
 
-#: admin/views/pages/start.php:367
+#: admin/views/pages/start.php:368
 msgid "Create a slideshow with your images"
 msgstr "Maak een slideshow met je afbeeldingen"
 
-#: admin/views/pages/start.php:368
+#: admin/views/pages/start.php:369
 msgid "Choose your own images to start a new slideshow."
 msgstr "Kies je eigen afbeeldingen om een nieuwe slideshow te starten."
 
-#: admin/views/pages/start.php:374
+#: admin/views/pages/start.php:375
 msgid "Uploading images..."
 msgstr "Afbeeldingen aan het uploaden..."
 
-#: admin/views/pages/start.php:385
+#: admin/views/pages/start.php:386
 msgid "Open Media Library"
 msgstr "Open mediabibliotheek"
 
@@ -2176,7 +2201,7 @@ msgid "Introducing the Theme Editor in MetaSlider Slideshow Pro"
 msgstr "Introductie van de Thema editor in MetaSlider Slideshow Pro"
 
 #: admin/views/pages/theme-editor.php:18
-#: ml-slider.php:579
+#: ml-slider.php:583
 msgid "Theme Editor"
 msgstr "Thema editor"
 
@@ -2437,19 +2462,19 @@ msgstr "Herhaal slide is beschikbaar in MetaSlider Slideshow Pro"
 
 #: admin/views/slides/tabs/advanced.php:49
 msgid "Show only in the first loop"
-msgstr "Alleen in de eerste lus weergeven"
+msgstr "Weergeven alleen in de eerste loop"
 
 #: admin/views/slides/tabs/advanced.php:49
 msgid ""
 "The slide is only shown during the slideshow's first loop, then skipped on "
 "every following loop."
 msgstr ""
-"De slide wordt alleen weergegeven tijdens de eerste lus van de slideshow, "
-"en wordt daarna overgeslagen in elke volgende lus."
+"De slide wordt alleen getoond tijdens de eerste loop van de "
+"diavoorstelling, daarna overgeslagen bij elke volgende loop."
 
 #: admin/views/slides/tabs/advanced.php:56
 msgid "Show only in the first loop is available in MetaSlider Slideshow Pro"
-msgstr "Alleen in de eerste lus weergeven is beschikbaar in MetaSlider Slideshow Pro"
+msgstr "Weergeven alleen in de eerste loop is beschikbaar in MetaSlider Slideshow Pro"
 
 #: admin/views/slides/tabs/advanced.php:68
 msgid "Custom thumbnail"
@@ -2483,7 +2508,7 @@ msgstr "Aangepaste CSS klassen zijn beschikbaar in MetaSlider Slideshow Pro"
 
 #: admin/views/slides/tabs/background.php:33
 msgid "Apply a one-click look. Default uses the slideshow filter."
-msgstr "Pas een one-click look toe. Standaard gebruikt de slideshowfilter."
+msgstr "Een één-klik weergave toepassen. Standaard gebruikt de slideshow filter."
 
 #: admin/views/slides/tabs/background.php:44
 #: inc/metaslider.imagestyles.class.php:401
@@ -2493,8 +2518,8 @@ msgstr "Afgeronde hoeken"
 #: admin/views/slides/tabs/background.php:44
 msgid "Round the image corners (px). Leave blank to use the slideshow default."
 msgstr ""
-"Rond de hoeken van de afbeelding (px) af. Laat leeg om de standaard van de "
-"slideshow te gebruiken."
+"Rond de afbeelding hoeken (px). Laat leeg om de slideshow standaard te "
+"gebruiken."
 
 #: admin/views/slides/tabs/background.php:45
 #: admin/views/slides/tabs/background.php:51
@@ -2646,13 +2671,13 @@ msgid ""
 "default; 0 = no border. If a filter is applied above, it may alter how this "
 "colour actually renders."
 msgstr ""
-"Randdikte, stijl en kleur. Laat de dikte leeg om de standaardwaarde van de "
-"diavoorstelling te gebruiken; 0 = geen rand. Als er een filter boven is "
-"toegepast, kan dit de weergave van deze kleur beïnvloeden."
+"Randbreedte, stijl en kleur. Laat breedte leeg om de slideshow-Standaard te "
+"gebruiken; 0 = geen rand. Als er hierboven een filter is toegepast, kan dit "
+"de weergave van deze kleur wijzigen."
 
 #: admin/views/slides/tabs/background.php:51
 msgid "Width (px)"
-msgstr "Dikte (px)"
+msgstr "Breedte (px)"
 
 #: admin/views/slides/tabs/background.php:52
 msgid "Style"
@@ -2787,13 +2812,13 @@ msgstr "Kleur"
 #: admin/views/slides/tabs/background.php:64
 #: inc/metaslider.imagestyles.class.php:450
 msgid "Box shadow"
-msgstr "Schaduw van de doos"
+msgstr "Vak schaduw"
 
 #: admin/views/slides/tabs/background.php:64
 msgid "Add a drop shadow to the image. Default uses the slideshow setting."
 msgstr ""
-"Voeg een schaduw toe aan de afbeelding. Standaard gebruikt de instelling "
-"van de diavoorstelling."
+"Een slagschaduw aan de afbeelding toevoegen. Standaard gebruikt de "
+"slideshow instelling."
 
 #: admin/views/slides/tabs/background.php:66
 #: inc/metaslider.imagestyles.class.php:455
@@ -2801,46 +2826,44 @@ msgid "Light"
 msgstr "Licht"
 
 #: admin/views/slides/tabs/background.php:66
-#: inc/metaslider.imagestyles.class.php:456
+#: inc/metaslider.imagestyles.class.php:456, fuzzy
 msgid "Medium"
-msgstr "Gemiddeld"
+msgstr "Medium"
 
 #: admin/views/slides/tabs/background.php:66
 #: inc/metaslider.imagestyles.class.php:457
 msgid "Heavy"
-msgstr "Zwaar"
+msgstr "Dik"
 
 #: admin/views/slides/tabs/background.php:73
 msgid ""
 "Image transparency (%). 100 = fully visible. Leave blank to use the "
 "slideshow default."
 msgstr ""
-"Afbeeldingtransparantie (%). 100 = volledig zichtbaar. Laat leeg om de "
-"standaardwaarde van de diavoorstelling te gebruiken."
+"Afbeelding transparantie (%). 100 = volledig zichtbaar. Leeg laten om de "
+"standaard van de slideshow te gebruiken."
 
 #: admin/views/slides/tabs/background.php:78
 #: inc/metaslider.imagestyles.class.php:475
 msgid "Rotate"
-msgstr "Draaien"
+msgstr "Roteren"
 
 #: admin/views/slides/tabs/background.php:78
 msgid "Rotate the image. Default uses the slideshow setting."
-msgstr ""
-"Draai de afbeelding. Standaard gebruikt de instelling van de "
-"diavoorstelling."
+msgstr "Afbeelding roteren. Standaard gebruikt de slideshow instelling."
 
 #: admin/views/slides/tabs/background.php:87
 msgid ""
 "Mirror the image horizontally and/or vertically. Default uses the slideshow "
 "setting."
 msgstr ""
-"Spiegel de afbeelding horizontaal en/of verticaal. Standaard gebruikt de "
-"instelling van de diavoorstelling."
+"Afbeelding horizontaal en/of verticaal spiegelen. Standaard gebruikt de "
+"slideshow instelling."
 
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:495
 msgid "Both"
-msgstr "Beiden"
+msgstr "Beide"
 
 #: admin/views/slides/tabs/crop.php:14
 msgid "Crop Position"
@@ -2910,10 +2933,12 @@ msgstr ""
 "de knop."
 
 #: admin/views/slides/tabs/link.php:20
+#: modules/local_video/tabs/link.php:28
 msgid "New window"
 msgstr "Nieuw venster"
 
 #: admin/views/slides/tabs/link.php:22
+#: modules/local_video/tabs/link.php:30
 msgid "Open link in a new window"
 msgstr "Link openen in een nieuw venster"
 
@@ -2933,11 +2958,64 @@ msgstr ""
 msgid "Enter text here"
 msgstr "Voer hier tekst in"
 
-#: admin/views/slides/tabs/mobile.php:33
+#: admin/views/slides/tabs/livid.php:18
+msgid "Livid Video URL"
+msgstr "Livid Video-URL"
+
+#: admin/views/slides/tabs/livid.php:19
+msgid ""
+"Paste the link to a video hosted on livid.com. We will create the embed for "
+"you."
+msgstr ""
+"Plak de link naar een video gehost op livid.com. We zullen de embed voor je "
+"maken."
+
+#: admin/views/slides/tabs/livid.php:33
+#: modules/local_video/tabs/general.php:70
+msgid "Mute video"
+msgstr "Video dempen"
+
+#: admin/views/slides/tabs/livid.php:47
+#: modules/local_video/tabs/general.php:82
+msgid "Show controls"
+msgstr "Toon bedieningselementen"
+
+#: admin/views/slides/tabs/livid.php:49
+msgid ""
+"Hiding the controls only works if the video is on a Livid Pro or Premium "
+"account"
+msgstr "Het verbergen van de bedieningselementen werkt alleen als de video op een Livid Pro of Premium-account staat"
+
+#: admin/views/slides/tabs/livid.php:65
+#: modules/local_video/tabs/general.php:95
+msgid "Auto play"
+msgstr "Automatisch afspelen"
+
+#: admin/views/slides/tabs/livid.php:67
+msgid "May require the video to be muted"
+msgstr "Kan vereisen dat de video gedempt is"
+
+#: admin/views/slides/tabs/livid.php:83
+#: modules/local_video/tabs/general.php:113, fuzzy
+msgid "Lazy load video"
+msgstr "Lazy load video"
+
+#: admin/views/slides/tabs/livid.php:85
+msgid "The video only loads once a visitor clicks play"
+msgstr "De video laadt alleen wanneer een bezoeker op afspelen klikt"
+
+#: admin/views/slides/tabs/livid.php:99
+#: modules/local_video/tabs/general.php:125
+msgid "Loop video"
+msgstr "Video in een lus afspelen"
+
+#: admin/views/slides/tabs/mobile.php:35
+#: modules/local_video/tabs/mobile.php:22
 msgid "Hide slide on:"
 msgstr "Slide verbergen op:"
 
-#: admin/views/slides/tabs/mobile.php:46
+#: admin/views/slides/tabs/mobile.php:48
+#: modules/local_video/tabs/mobile.php:35
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths equal to or "
@@ -2946,7 +3024,8 @@ msgstr ""
 "Indien ingeschakeld zal deze instelling de slide verbergen bij een breedte "
 "van het scherm gelijk aan of groter dan %spx"
 
-#: admin/views/slides/tabs/mobile.php:56
+#: admin/views/slides/tabs/mobile.php:58
+#: modules/local_video/tabs/mobile.php:45
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths of %1$spx to "
@@ -2955,11 +3034,11 @@ msgstr ""
 "Indien ingeschakeld zal deze instelling de slide verbergen bij een breedte "
 "van %1$spx tot %2$spx"
 
-#: admin/views/slides/tabs/mobile.php:72
+#: admin/views/slides/tabs/mobile.php:75
 msgid "Hide caption on:"
 msgstr "Bijschrift verbergen op:"
 
-#: admin/views/slides/tabs/mobile.php:85
+#: admin/views/slides/tabs/mobile.php:88
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths equal to "
@@ -2968,7 +3047,7 @@ msgstr ""
 "Indien ingeschakeld zal deze instelling het bijschrift verbergen bij een "
 "breedte van het scherm gelijk aan of groter dan %spx"
 
-#: admin/views/slides/tabs/mobile.php:95
+#: admin/views/slides/tabs/mobile.php:98
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths of %1$spx "
@@ -3050,20 +3129,20 @@ msgid ""
 "Apply a filter to every slide. Slides can override this on their Image "
 "Styles tab."
 msgstr ""
-"Pas een filter toe op elke dia. Dia's kunnen dit overschrijven op hun "
-"tabblad Afbeeldingsstijlen."
+"Een filter toepassen op elke slide. Slides kunnen dit overschrijven op hun "
+"afbeelding stijlen tab."
 
 #: inc/metaslider.imagestyles.class.php:408
 msgid "Corner radius (px) applied to every slide image."
-msgstr "Hoekradius (px) toegepast op elke dia-afbeelding."
+msgstr "Hoekradius (px) toegepast op elke slide afbeelding."
 
 #: inc/metaslider.imagestyles.class.php:413
 msgid "Border width"
-msgstr "Randdikte"
+msgstr "Rand breedte"
 
 #: inc/metaslider.imagestyles.class.php:420
 msgid "Image border width (px). 0 = no border."
-msgstr "Randdikte van de afbeelding (px). 0 = geen rand."
+msgstr "Afbeelding randbreedte (px). 0 = geen rand."
 
 #: inc/metaslider.imagestyles.class.php:425
 msgid "Border style"
@@ -3078,8 +3157,8 @@ msgid ""
 "Leave blank for no fixed border colour. If a filter is applied, it may also "
 "alter how this colour renders."
 msgstr ""
-"Laat leeg voor geen vaste randkleur. Als er een filter wordt toegepast, kan "
-"dit ook de weergave van deze kleur beïnvloeden."
+"Leeg laten voor geen vaste randkleur. Als een filter is toegepast, kan het "
+"ook wijzigen hoe deze kleur wordt weergegeven."
 
 #: inc/metaslider.imagestyles.class.php:469, fuzzy
 msgid "%"
@@ -3087,23 +3166,23 @@ msgstr "%"
 
 #: inc/metaslider.imagestyles.class.php:470
 msgid "Image opacity (%)."
-msgstr "Afbeeldingseffectiviteit (%)."
+msgstr "Afbeelding opaciteit (%)."
 
-#: inc/metaslider.imagestyles.class.php:530, fuzzy
+#: inc/metaslider.imagestyles.class.php:530
 msgid "Noir (B&W)"
-msgstr "Noir (B&W)"
+msgstr "Noir (Z&W)"
 
 #: inc/metaslider.imagestyles.class.php:531
 msgid "Silver (B&W)"
-msgstr "Zilver (B&W)"
+msgstr "Zilver (Z&W)"
 
 #: inc/metaslider.imagestyles.class.php:532, fuzzy
 msgid "Vintage"
 msgstr "Vintage"
 
-#: inc/metaslider.imagestyles.class.php:533
+#: inc/metaslider.imagestyles.class.php:533, fuzzy
 msgid "Golden Hour"
-msgstr "Gouden Uur"
+msgstr "Golden Hour"
 
 #: inc/metaslider.imagestyles.class.php:534, fuzzy
 msgid "Toaster"
@@ -3129,9 +3208,9 @@ msgstr "Pastel"
 msgid "Vivid"
 msgstr "Levendig"
 
-#: inc/metaslider.imagestyles.class.php:541
+#: inc/metaslider.imagestyles.class.php:541, fuzzy
 msgid "Crisp"
-msgstr "Knap"
+msgstr "Crisp"
 
 #: inc/metaslider.imagestyles.class.php:542
 msgid "Dramatic"
@@ -3205,136 +3284,136 @@ msgstr "Nieuwe perspectieven"
 msgid "Sporting Spirit"
 msgstr "Sporting Spirit"
 
-#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:227
 msgid "Marathon Journey"
 msgstr "Marathonreis"
 
-#: inc/metaslider.quickstart.class.php:227
-msgid "Cars Display"
-msgstr "Toon auto's"
-
 #: inc/metaslider.quickstart.class.php:239
-msgid "Watch Shop Hero"
-msgstr "Shop Hero bekijken"
-
-#: inc/metaslider.quickstart.class.php:251
-msgid "Creative Agency Hero"
-msgstr "Creatief agentschap Hero"
-
-#: inc/metaslider.quickstart.class.php:263
-msgid "Fashion Trends"
-msgstr "Modetrends"
-
-#: inc/metaslider.quickstart.class.php:275
-msgid "Entertainment YouTube Shorts Feed"
-msgstr "Entertainment YouTube shorts feed"
-
-#: inc/metaslider.quickstart.class.php:287
-msgid "Album Cover Showcase"
-msgstr "Album omslagafbeelding showcase"
-
-#: inc/metaslider.quickstart.class.php:299
-msgid "Business Presentation"
-msgstr "Zakelijke presentatie"
-
-#: inc/metaslider.quickstart.class.php:311
-msgid "Books by Genre"
-msgstr "Boeken per genre"
-
-#: inc/metaslider.quickstart.class.php:323
-msgid "Testimonials"
-msgstr "Aanbevelingen"
-
-#: inc/metaslider.quickstart.class.php:335
-msgid "Skincare Routine Guide"
-msgstr "Gids voor huidverzorgingsroutine"
-
-#: inc/metaslider.quickstart.class.php:347
-msgid "Indoor Plant Selection Guide"
-msgstr "Gids voor selectie van kamerplanten"
-
-#: inc/metaslider.quickstart.class.php:359
-msgid "TikTok Vertical Videos"
-msgstr "Verticale TikTok video's"
-
-#: inc/metaslider.quickstart.class.php:371
 msgid "Daily Routine Videos"
 msgstr "Dagelijkse routine video's"
 
+#: inc/metaslider.quickstart.class.php:263
+msgid "Cars Display"
+msgstr "Toon auto's"
+
+#: inc/metaslider.quickstart.class.php:275
+msgid "Watch Shop Hero"
+msgstr "Shop Hero bekijken"
+
+#: inc/metaslider.quickstart.class.php:287
+msgid "Creative Agency Hero"
+msgstr "Creatief agentschap Hero"
+
+#: inc/metaslider.quickstart.class.php:299
+msgid "Fashion Trends"
+msgstr "Modetrends"
+
+#: inc/metaslider.quickstart.class.php:311
+msgid "Entertainment YouTube Shorts Feed"
+msgstr "Entertainment YouTube shorts feed"
+
+#: inc/metaslider.quickstart.class.php:323
+msgid "Album Cover Showcase"
+msgstr "Album omslagafbeelding showcase"
+
+#: inc/metaslider.quickstart.class.php:335
+msgid "Business Presentation"
+msgstr "Zakelijke presentatie"
+
+#: inc/metaslider.quickstart.class.php:347
+msgid "Books by Genre"
+msgstr "Boeken per genre"
+
+#: inc/metaslider.quickstart.class.php:359
+msgid "Testimonials"
+msgstr "Aanbevelingen"
+
+#: inc/metaslider.quickstart.class.php:371
+msgid "Skincare Routine Guide"
+msgstr "Gids voor huidverzorgingsroutine"
+
 #: inc/metaslider.quickstart.class.php:383
+msgid "Indoor Plant Selection Guide"
+msgstr "Gids voor selectie van kamerplanten"
+
+#: inc/metaslider.quickstart.class.php:395
+msgid "TikTok Vertical Videos"
+msgstr "Verticale TikTok video's"
+
+#: inc/metaslider.quickstart.class.php:407
 msgid "Coffee Brewing Guide"
 msgstr "Koffiezetgids"
 
-#: inc/metaslider.quickstart.class.php:395
+#: inc/metaslider.quickstart.class.php:419
 msgid "Upcoming City Events"
 msgstr "Komende stadsevenementen"
 
-#: inc/metaslider.quickstart.class.php:407
+#: inc/metaslider.quickstart.class.php:431
 msgid "Product Categories"
 msgstr "Productcategorieën"
 
-#: inc/metaslider.quickstart.class.php:419
+#: inc/metaslider.quickstart.class.php:443
 msgid "Recent WooCommerce Products"
 msgstr "Recente WooCommerce producten"
 
-#: inc/metaslider.quickstart.class.php:431
+#: inc/metaslider.quickstart.class.php:455
 msgid "Latest News Posts"
 msgstr "Laatste berichten"
 
-#: inc/metaslider.quickstart.class.php:443
+#: inc/metaslider.quickstart.class.php:467
 msgid "Product Demo"
 msgstr "Product demo"
 
-#: inc/metaslider.quickstart.class.php:455
+#: inc/metaslider.quickstart.class.php:479
 msgid "Trending Videos"
 msgstr "Populaire video's"
 
-#: inc/metaslider.quickstart.class.php:467
+#: inc/metaslider.quickstart.class.php:491
 msgid "Hotel Rooms"
 msgstr "Hotelkamers"
 
-#: inc/metaslider.quickstart.class.php:479
+#: inc/metaslider.quickstart.class.php:503
 msgid "Client Testimonials"
 msgstr "Aanbevelingen van klanten"
 
-#: inc/metaslider.quickstart.class.php:491
+#: inc/metaslider.quickstart.class.php:515
 msgid "Meet the Team"
 msgstr "Ontmoet het team"
 
-#: inc/metaslider.quickstart.class.php:503
+#: inc/metaslider.quickstart.class.php:527
 msgid "Curated Videos"
 msgstr "Verzamelde video's"
 
-#: inc/metaslider.quickstart.class.php:515
+#: inc/metaslider.quickstart.class.php:539
 msgid "Natural Skincare Presentation"
 msgstr "Presentatie natuurlijke huidverzorging"
 
-#: inc/metaslider.quickstart.class.php:539
+#: inc/metaslider.quickstart.class.php:563
 msgid "YouTube Shorts Carousel"
 msgstr "YouTube shorts carrousel"
 
-#: inc/metaslider.quickstart.class.php:551
+#: inc/metaslider.quickstart.class.php:575
 msgid "TikTok Carousel"
 msgstr "TikTok carrousel"
 
-#: inc/metaslider.quickstart.class.php:563
-#: ml-slider.php:839, fuzzy
+#: inc/metaslider.quickstart.class.php:587
+#: ml-slider.php:890, fuzzy
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: inc/metaslider.quickstart.class.php:587
+#: inc/metaslider.quickstart.class.php:599
 msgid "Layer Slides"
 msgstr "Lagen slides"
 
-#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:659
 msgid "WooCommerce Carousel"
 msgstr "WooCommerce carrousel"
 
-#: inc/metaslider.quickstart.class.php:659
+#: inc/metaslider.quickstart.class.php:671
 msgid "Bold Motion"
 msgstr "Gedurfde beweging"
 
-#: inc/metaslider.quickstart.class.php:671, fuzzy
+#: inc/metaslider.quickstart.class.php:683, fuzzy
 msgid "Playful Pets"
 msgstr "Playful Pets"
 
@@ -3368,7 +3447,7 @@ msgid "Select Slider:"
 msgstr "Selecteer slider:"
 
 #: inc/metaslider.widget.class.php:126
-#: ml-slider.php:2074
+#: ml-slider.php:2124
 #: admin/assets/dist/js/app.js:2
 msgid "No slideshows found"
 msgstr "Geen slideshows gevonden"
@@ -3416,6 +3495,15 @@ msgid "This isn't a valid image format. Please try again."
 msgstr "Dit is geen geldige afbeelding format. Probeer het opnieuw."
 
 #: inc/slide/metaslide.image.class.php:412
+#: inc/slide/metaslide.livid.class.php:784
+#: modules/local_video/slide.php:203
+#: modules/local_video/slide.php:878
+#: modules/local_video/slide.php:936
+#: modules/local_video/slide.php:1044
+#: modules/local_video/slide.php:1209
+#: modules/local_video/slide.php:1282
+#: modules/local_video/slide.php:1396
+#: modules/local_video/slide.php:2082
 msgid "Access denied"
 msgstr "Toegang geweigerd"
 
@@ -3430,10 +3518,13 @@ msgstr ""
 "opnieuw."
 
 #: inc/slide/metaslide.image.class.php:555
+#: inc/slide/metaslide.livid.class.php:875
+#: modules/local_video/slide.php:407
 msgid "General"
 msgstr "Algemeen"
 
-#: inc/slide/metaslide.image.class.php:559, fuzzy
+#: inc/slide/metaslide.image.class.php:559
+#: modules/local_video/slide.php:411, fuzzy
 msgid "Link"
 msgstr "Link"
 
@@ -3442,6 +3533,8 @@ msgid "SEO"
 msgstr "SEO"
 
 #: inc/slide/metaslide.image.class.php:578
+#: inc/slide/metaslide.livid.class.php:893
+#: modules/local_video/slide.php:438
 msgid "Device"
 msgstr "Apparaat"
 
@@ -3465,7 +3558,65 @@ msgstr "Geavanceerde instellingen zijn beschikbaar in MetaSlider Slideshow Pro"
 msgid "View Slide Details"
 msgstr "Bekijk slide details"
 
-#: inc/slider/metaslider.class.php:457
+#: inc/slide/metaslide.livid.class.php:217, fuzzy
+msgid "Livid Video"
+msgstr "Livid Video"
+
+#: inc/slide/metaslide.livid.class.php:272
+#: inc/slide/metaslide.livid.class.php:320
+#: inc/slide/metaslide.livid.class.php:364
+#: inc/slide/metaslide.livid.class.php:425
+#: inc/slide/metaslide.livid.class.php:477
+msgid "Please enter a valid link to a video hosted on livid.com."
+msgstr "Voer een geldige link in naar een video gehost op livid.com."
+
+#: inc/slide/metaslide.livid.class.php:278
+msgid "Create slideshows with your Livid videos"
+msgstr "Maak diavoorstellingen met je Livid-video's"
+
+#: inc/slide/metaslide.livid.class.php:281
+msgid "Enter the URL of a Livid video:"
+msgstr "Voer de URL van een Livid-video in:"
+
+#: inc/slide/metaslide.livid.class.php:292
+#: ml-slider.php:850
+#: modules/local_video/slide.php:112
+#: admin/assets/dist/js/admin.js:1
+#: admin/assets/js/admin.js:218
+msgid "Add to slideshow"
+msgstr "Toevoegen aan slideshow"
+
+#: inc/slide/metaslide.livid.class.php:318
+msgid "Updating the Livid video..."
+msgstr "De Livid-video wordt bijgewerkt..."
+
+#: inc/slide/metaslide.livid.class.php:319
+msgid "Livid video updated."
+msgstr "Livid-video bijgewerkt."
+
+#: inc/slide/metaslide.livid.class.php:321
+msgid "We could not update the Livid video. Please check the link and try again."
+msgstr "We konden de Livid-video niet bijwerken. Controleer de link en probeer het opnieuw."
+
+#: inc/slide/metaslide.livid.class.php:561
+msgid "Livid video player"
+msgstr "Livid videospeler"
+
+#: inc/slide/metaslide.livid.class.php:681
+#. translators: %s: Livid video URL
+#, php-format
+msgid "Livid video thumbnail - %s"
+msgstr "Livid video miniatuur - %s"
+
+#: inc/slide/metaslide.livid.class.php:818
+msgid "Livid Video Slide"
+msgstr "Livid Video Dia"
+
+#: inc/slide/metaslide.livid.class.php:1011
+msgid "Play video"
+msgstr "Video afspelen"
+
+#: inc/slider/metaslider.class.php:461
 msgid "Edit Slideshow"
 msgstr "Slideshow bewerken"
 
@@ -3477,77 +3628,71 @@ msgstr "Afspelen"
 msgid "Pause"
 msgstr "Pauze"
 
-#: ml-slider.php:267
+#: ml-slider.php:270
 #, php-format
 msgid ""
 "MetaSlider Slideshow Pro is installed but is out of date. You may update it "
 "%shere%s. Learn more about this notice %shere%s"
 msgstr "MetaSlider Slideshow Pro is geïnstalleerd, maar is verouderd. Je kunt het updaten %shier%s. Lees verder over dit bericht %shier%s"
 
-#: ml-slider.php:576
+#: ml-slider.php:580
 msgid "Settings & Help"
 msgstr "Instellingen & Help"
 
-#: ml-slider.php:580
+#: ml-slider.php:584
 msgid "Upgrade to Pro"
 msgstr "Upgraden naar Pro"
 
-#: ml-slider.php:610
-#: ml-slider.php:613
+#: ml-slider.php:614
+#: ml-slider.php:617
 #: themes/customize.php:20, fuzzy
 msgid "Slideshow"
 msgstr "Slideshow"
 
-#: ml-slider.php:619
-#: ml-slider.php:622
+#: ml-slider.php:623
+#: ml-slider.php:626
 msgid "All Slideshows"
 msgstr "Alle slideshows"
 
-#: ml-slider.php:630
-#: ml-slider.php:633
+#: ml-slider.php:634
+#: ml-slider.php:637
 msgid "Create Slideshow"
 msgstr "Slideshow maken"
 
-#: ml-slider.php:799
-#: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:218
-msgid "Add to slideshow"
-msgstr "Toevoegen aan slideshow"
-
-#: ml-slider.php:840, fuzzy
+#: ml-slider.php:891, fuzzy
 msgid "YouTube"
 msgstr "YouTube"
 
-#: ml-slider.php:841, fuzzy
+#: ml-slider.php:892, fuzzy
 msgid "TikTok"
 msgstr "TikTok"
 
-#: ml-slider.php:846
+#: ml-slider.php:897
 msgid "Image Folder"
 msgstr "Afbeelding map"
 
-#: ml-slider.php:847
+#: ml-slider.php:898
 #: admin/assets/dist/js/app.js:2
 msgid "Post Images"
 msgstr "Bericht afbeeldingen"
 
-#: ml-slider.php:976
+#: ml-slider.php:1026
 msgid "The slide was successfully restored"
 msgstr "De slide is hersteld"
 
-#: ml-slider.php:999
+#: ml-slider.php:1049
 msgid "The attempt to restore the slide failed."
 msgstr "De poging om de slide te herstellen is mislukt."
 
-#: ml-slider.php:1058
+#: ml-slider.php:1108
 msgid "The slide was successfully trashed"
 msgstr "De slide is met succes verwijderd"
 
-#: ml-slider.php:1170
+#: ml-slider.php:1220
 msgid "The slide was permanently deleted"
 msgstr "De slide werd permanent verwijderd"
 
-#: ml-slider.php:1461
+#: ml-slider.php:1511
 #, php-format
 msgid ""
 "Please consider moving your slides to <b>FlexSlider</b>. We're adding all "
@@ -3555,19 +3700,19 @@ msgid ""
 "more</a>."
 msgstr "Overweeg je slides te verplaatsen naar <b>FlexSlider</b>. We voegen alle nieuwe MetaSlider Slideshow functies toe aan deze optie. <a href=\"%s\">Vind hier meer informatie</a>."
 
-#: ml-slider.php:1863
+#: ml-slider.php:1913
 msgid "Slide permanently deleted."
 msgstr "Slide permanent verwijderd."
 
-#: ml-slider.php:1866
+#: ml-slider.php:1916
 msgid "Slide restored."
 msgstr "Slide teruggezet."
 
-#: ml-slider.php:1898
+#: ml-slider.php:1948
 msgid "Toggle slide reorder panel"
 msgstr "Toggle het opnieuw ordenen van slides paneel"
 
-#: ml-slider.php:1935
+#: ml-slider.php:1985
 #, php-format
 msgid ""
 "You are viewing slides that have been trashed, which will be automatically "
@@ -3576,27 +3721,27 @@ msgstr ""
 "Je bekijkt slides die zijn verwijderd en binnen %s dagen automatisch worden "
 "verwijderd."
 
-#: ml-slider.php:1968
+#: ml-slider.php:2018
 msgid "Move slideshow to trash"
 msgstr "Verplaats slideshow naar prullenbak"
 
-#: ml-slider.php:2023
+#: ml-slider.php:2073
 msgid "Add slideshow"
 msgstr "Nieuwe slideshow toevoegen"
 
-#: ml-slider.php:2059
+#: ml-slider.php:2109
 msgid "Choose slideshow"
 msgstr "Slideshow kiezen"
 
-#: ml-slider.php:2069
+#: ml-slider.php:2119
 msgid "Insert slideshow"
 msgstr "Slideshow invoegen"
 
-#: ml-slider.php:2104
+#: ml-slider.php:2154
 msgid "Create slides by adding text, videos and more to your images"
 msgstr "Maak slides door tekst, video's en meer toe te voegen aan je afbeeldingen"
 
-#: ml-slider.php:2108
+#: ml-slider.php:2158
 msgid ""
 "With Layer slides, you can create beautiful, stylish layers of different "
 "elements."
@@ -3604,7 +3749,7 @@ msgstr ""
 "Met Layer slides kun je mooie, stijlvolle lagen van verschillende elementen "
 "maken."
 
-#: ml-slider.php:2112
+#: ml-slider.php:2162
 msgid ""
 "You start with an image and then can add text, video, colors, animations, "
 "more images, and even shortcodes."
@@ -3612,34 +3757,33 @@ msgstr ""
 "Je begint met een afbeelding en kunt vervolgens tekst, video, kleuren, "
 "animaties, meer afbeeldingen en zelfs shortcodes toevoegen."
 
-#: ml-slider.php:2118
-#: ml-slider.php:2159
-#: ml-slider.php:2200
-#: ml-slider.php:2243
-#: ml-slider.php:2286
-#: ml-slider.php:2329
-#: ml-slider.php:2372
-#: ml-slider.php:2411
-#: ml-slider.php:2454
-#: ml-slider.php:2493
-#: ml-slider.php:2564
-#: ml-slider.php:2599
-#: ml-slider.php:2634
+#: ml-slider.php:2168
+#: ml-slider.php:2209
+#: ml-slider.php:2250
+#: ml-slider.php:2293
+#: ml-slider.php:2336
+#: ml-slider.php:2379
+#: ml-slider.php:2418
+#: ml-slider.php:2461
+#: ml-slider.php:2500
+#: ml-slider.php:2571
+#: ml-slider.php:2606
+#: ml-slider.php:2641
 #: admin/assets/dist/js/app.js:2
 msgid "Find out more about MetaSlider Slideshow Pro"
 msgstr "Ontdek meer over MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2147
+#: ml-slider.php:2197
 msgid "Create slideshows with your Vimeo videos"
 msgstr "Maak slideshow met je Vimeo video's"
 
-#: ml-slider.php:2151
+#: ml-slider.php:2201
 msgid ""
 "With Vimeo slides, you can build beautiful slideshows with your Vimeo "
 "videos."
 msgstr "Met Vimeo slides kan je prachtige slideshows maken met je Vimeo video's."
 
-#: ml-slider.php:2155
+#: ml-slider.php:2205
 msgid ""
 "Vimeo slides will display your videos with auto play, mute, the ability to "
 "hide controls, and much more."
@@ -3647,17 +3791,17 @@ msgstr ""
 "Vimeo slides zullen je video's weergeven met automatisch afspelen, dempen, "
 "de mogelijkheid om bediening elementen te verbergen en nog veel meer."
 
-#: ml-slider.php:2188
+#: ml-slider.php:2238
 msgid "Create slideshows with your YouTube videos"
 msgstr "Maak slideshows met je YouTube video's"
 
-#: ml-slider.php:2192
+#: ml-slider.php:2242
 msgid ""
 "With YouTube slides, you can build beautiful slideshows with your YouTube "
 "videos."
 msgstr "Met YouTube slides kun je prachtige slideshows maken met je YouTube video's."
 
-#: ml-slider.php:2196
+#: ml-slider.php:2246
 msgid ""
 "YouTube slides will display your videos with auto play, mute, lazy load, "
 "the ability to hide controls, and much more."
@@ -3666,11 +3810,11 @@ msgstr ""
 "dempen, lazy-load, de mogelijkheid om bediening elementen te verbergen en "
 "nog veel meer."
 
-#: ml-slider.php:2229
+#: ml-slider.php:2279
 msgid "Create slideshows with your posts"
 msgstr "Maak een slideshow met je berichten"
 
-#: ml-slider.php:2233
+#: ml-slider.php:2283
 msgid ""
 "With Post Feed slides, you can build slideshows with your latest posts, "
 "events, or WooCommerce products."
@@ -3678,7 +3822,7 @@ msgstr ""
 "Met bericht feed slides kun je slideshow maken met je laatste berichten, "
 "evenementen of WooCommerce producten."
 
-#: ml-slider.php:2237
+#: ml-slider.php:2287
 msgid ""
 "Post Feed slides will automatically display your posts with images, text, "
 "custom fields, and much more."
@@ -3686,11 +3830,11 @@ msgstr ""
 "Bericht feed slides tonen automatisch je berichten met afbeeldingen, tekst, "
 "aangepaste velden en nog veel meer."
 
-#: ml-slider.php:2272
+#: ml-slider.php:2322
 msgid "Create slideshows with images stored outside of WordPress"
 msgstr "Maak slideshows met afbeeldingen die buiten WordPress zijn opgeslagen"
 
-#: ml-slider.php:2276
+#: ml-slider.php:2326
 msgid ""
 "With External URL slides, you can load images directly from non-WordPress "
 "sources such as CDNs or image hosts."
@@ -3698,39 +3842,17 @@ msgstr ""
 "Met externe URL slides kun je afbeeldingen rechtstreeks laden vanaf niet "
 "WordPress bronnen zoals CDNs of afbeelding hosts."
 
-#: ml-slider.php:2280
+#: ml-slider.php:2330
 msgid ""
 "External URL slides give you all the power of MetaSlider Slideshow, using "
 "images stored anywhere you want."
 msgstr "Externe URL slideshows geven je alle kracht van MetaSlider Slideshow, met afbeeldingen die zijn opgeslagen waar je maar wilt."
 
-#: ml-slider.php:2315
-msgid "Create slideshows with videos in your media library"
-msgstr "Maak slideshow met video's in je mediabibliotheek"
-
-#: ml-slider.php:2319
-msgid ""
-"With Local Video slides, you can build beautiful slideshows with videos in "
-"your WordPress media library or searched directly from Pixabay."
-msgstr ""
-"Met lokale video-dia's kun je prachtige dia's maken met video's uit je "
-"WordPress-mediabibliotheek of rechtstreeks gezocht vanuit Pixabay."
-
-#: ml-slider.php:2323
-msgid ""
-"Local Video slides will display your MP4, WebM, and MOV videos with cover "
-"images, auto play, mute, lazy load, the ability to hide controls, and much "
-"more."
-msgstr ""
-"Lokale video slides zullen je MP4, WebM en MOV video's weergeven met "
-"omslagafbeeldingen, automatisch afspelen, dempen, lazy-load, de "
-"mogelijkheid om de bedieningselementen te verbergen en nog veel meer."
-
-#: ml-slider.php:2358
+#: ml-slider.php:2365
 msgid "Create slideshows with videos stored outside of WordPress"
 msgstr "Maak slideshows met afbeeldingen die buiten WordPress zijn opgeslagen"
 
-#: ml-slider.php:2362
+#: ml-slider.php:2369
 msgid ""
 "With External Video slides, you can add videos directly from non-WordPress "
 "sources."
@@ -3738,7 +3860,7 @@ msgstr ""
 "Met External Video slides kun je video's rechtstreeks toevoegen van niet "
 "WordPress bronnen."
 
-#: ml-slider.php:2366
+#: ml-slider.php:2373
 msgid ""
 "External Video Slides will display your MP4, WebM, and MOV videos. Features "
 "include text captions, cover images, auto play, mute, lazy load, the "
@@ -3749,11 +3871,11 @@ msgstr ""
 "automatisch afspelen, dempen, lazy-load, de mogelijkheid om "
 "bedieningselementen te verbergen en nog veel meer."
 
-#: ml-slider.php:2401
+#: ml-slider.php:2408
 msgid "Create slideshows with custom HTML"
 msgstr "Slideshows maken met aangepaste HTML"
 
-#: ml-slider.php:2405
+#: ml-slider.php:2412
 msgid ""
 "With Custom HTML slides, you can design slides using images, HTML and CSS. "
 "This gives you complete control over the layout and styling."
@@ -3761,11 +3883,11 @@ msgstr ""
 "Met aangepaste HTML slides kun je slides ontwerpen met afbeeldingen, HTML "
 "en CSS. Hierdoor heb je volledige controle over de lay-out en styling."
 
-#: ml-slider.php:2444
+#: ml-slider.php:2451
 msgid "Create slides with background colors and text"
 msgstr "Slides maken met achtergrondkleuren en tekst"
 
-#: ml-slider.php:2448
+#: ml-slider.php:2455
 msgid ""
 "With Background Color slides, you can create slides using a solid or "
 "gradient background color. Perfect for text-only slides, calls to action or "
@@ -3775,21 +3897,21 @@ msgstr ""
 "gradiënt achtergrondkleur. Perfect voor slides met alleen tekst, Calls To "
 "Action of snelle banners."
 
-#: ml-slider.php:2483
+#: ml-slider.php:2490
 msgid "Create slideshows with Tiktok Videos"
 msgstr "Maak slideshows met TikTok video's"
 
-#: ml-slider.php:2487
+#: ml-slider.php:2494
 msgid ""
 "A TikTok Slide will display a video in your slideshow directly from "
 "TikTok.com."
 msgstr "Een TikTok slide toont een video in je slideshow rechtstreeks van TikTok.com"
 
-#: ml-slider.php:2550
+#: ml-slider.php:2557
 msgid "Create slideshows with images from a folder"
 msgstr "Maak slideshows met afbeeldingen van een map"
 
-#: ml-slider.php:2554
+#: ml-slider.php:2561
 msgid ""
 "The Image Folder slide type extracts images from a specified folder and "
 "displays them as slides."
@@ -3797,7 +3919,7 @@ msgstr ""
 "De Afbeelding map slide type haalt Afbeeldingen uit een gespecificeerde "
 "kaart en toont deze als slides."
 
-#: ml-slider.php:2558
+#: ml-slider.php:2565
 msgid ""
 "This slide type displays images from folders in your WordPress Media "
 "Library."
@@ -3805,11 +3927,11 @@ msgstr ""
 "Dit slide type toont afbeeldingen van mappen in je WordPress media "
 "bibliotheek."
 
-#: ml-slider.php:2585
+#: ml-slider.php:2592
 msgid "Create slideshows with Post Images"
 msgstr "Maak slideshows met bericht afbeeldingen"
 
-#: ml-slider.php:2589
+#: ml-slider.php:2596
 msgid ""
 "The Post Images slide type extracts images from the current post and "
 "displays them as slides."
@@ -3817,7 +3939,7 @@ msgstr ""
 "Het bericht afbeelding slide type haalt afbeeldingen uit het huidige "
 "bericht en toont ze als slides."
 
-#: ml-slider.php:2593
+#: ml-slider.php:2600
 msgid ""
 "This slide type supports featured images, post content images, WooCommerce "
 "galleries, Advanced Custom Fields images and galleries."
@@ -3826,17 +3948,17 @@ msgstr ""
 "berichtinhoud, WooCommerce galerijen, Advanced Custom Fields afbeeldingen "
 "en galerijen."
 
-#: ml-slider.php:2620
+#: ml-slider.php:2627
 msgid "Create slideshows with your WooCommerce products"
 msgstr "Maak slideshows met je WooCommerce producten"
 
-#: ml-slider.php:2624
+#: ml-slider.php:2631
 msgid ""
 "With WooCommerce slides, you can build slideshows with your WooCommerce "
 "products."
 msgstr "Met WooCommerce slides kun je slideshows maken met je WooCommerce producten."
 
-#: ml-slider.php:2628
+#: ml-slider.php:2635
 msgid ""
 "WooCommerce slides will automatically display your products with images, "
 "text, custom fields, and much more."
@@ -3844,45 +3966,290 @@ msgstr ""
 "WooCommerce slides tonen automatisch je producten met afbeeldingen, tekst, "
 "aangepaste velden en nog veel meer."
 
-#: ml-slider.php:2672
+#: ml-slider.php:2679
 msgid "Premium Support"
 msgstr "Premium Ondersteuning"
 
-#: ml-slider.php:2678
+#: ml-slider.php:2685
 msgid "MetaSlider Slideshow Pro"
 msgstr "MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2682
+#: ml-slider.php:2689
 msgid "Support"
 msgstr "Ondersteuning"
 
-#: ml-slider.php:2687
+#: ml-slider.php:2694
+#: modules/local_video/slide.php:533
 msgid "Documentation"
 msgstr "Documentatie"
 
-#: ml-slider.php:2691
+#: ml-slider.php:2698
 msgid "Leave a review"
 msgstr "Schrijf een beoordeling"
 
-#: ml-slider.php:2810
+#: ml-slider.php:2817
 msgid "Uploading..."
 msgstr "Aan het uploaden..."
 
-#: ml-slider.php:2817
+#: ml-slider.php:2824
 msgid "Upload Complete"
 msgstr "Upload compleet"
 
-#: ml-slider.php:2944
+#: ml-slider.php:2951
 msgid "Import file is missing"
 msgstr "Importbestand ontbreekt"
 
-#: ml-slider.php:3095
+#: ml-slider.php:3102
 msgid ""
 "You attempted to edit a slideshow that does not exist. Perhaps it was moved "
 "to trash?"
 msgstr ""
 "Je probeerde een slideshow te bewerken die niet bestaat. Misschien is deze "
 "naar de prullenbak verplaatst?"
+
+#: modules/local_video/helper.php:95
+#: modules/local_video/helper.php:101
+msgid "Update cover image"
+msgstr "Omslagafbeelding bijwerken"
+
+#: modules/local_video/helper.php:108
+msgid "Set cover image"
+msgstr "Omslagafbeelding instellen"
+
+#: modules/local_video/helper.php:159
+#: modules/local_video/slide.php:1163
+msgid "Update slide video"
+msgstr "Dia video bijwerken"
+
+#: modules/local_video/helper.php:163
+#: modules/local_video/slide.php:585
+#: modules/local_video/slide.php:1167
+msgid "Browse"
+msgstr "Bladeren"
+
+#: modules/local_video/helper.php:168
+#: modules/local_video/slide.php:1172
+msgid "Video File"
+msgstr "Videobestand"
+
+#: modules/local_video/slide.php:109
+msgid "Select replacement video"
+msgstr "Vervangende video selecteren"
+
+#: modules/local_video/slide.php:110
+msgid "Select replacement cover"
+msgstr "Vervangende omslag selecteren"
+
+#: modules/local_video/slide.php:111
+msgid "Select replacement text track"
+msgstr "Vervangende teksttrack selecteren"
+
+#: modules/local_video/slide.php:197
+#: modules/local_video/slide.php:2075
+msgid "Invalid nonce"
+msgstr "Ongeldige nonce"
+
+#: modules/local_video/slide.php:218
+#: modules/local_video/slide.php:897
+#: modules/local_video/slide.php:1107
+msgid "Not supported video format"
+msgstr "Niet ondersteund videoformaat"
+
+#: modules/local_video/slide.php:349
+msgid "Local Video Slide"
+msgstr "Lokale Video Dia"
+
+#: modules/local_video/slide.php:370
+msgid "Please update to MetaSlider Slideshow to version 3.2 or above."
+msgstr "Werk bij naar MetaSlider Slideshow versie 3.2 of hoger."
+
+#: modules/local_video/slide.php:415
+msgid "Cover"
+msgstr "Omslag"
+
+#: modules/local_video/slide.php:419
+msgid "Text track"
+msgstr "Teksttrack"
+
+#: modules/local_video/slide.php:476
+msgid "Which language is the source file?"
+msgstr "Welke taal heeft het bronbestand?"
+
+#: modules/local_video/slide.php:477
+msgid "Language label"
+msgstr "Taallabel"
+
+#: modules/local_video/slide.php:482
+msgid "For example: English"
+msgstr "Bijvoorbeeld: Engels"
+
+#: modules/local_video/slide.php:490
+msgid "Choose the type of text track"
+msgstr "Kies het type teksttrack"
+
+#: modules/local_video/slide.php:491
+msgid "Language kind"
+msgstr "Taalsoort"
+
+#: modules/local_video/slide.php:497
+msgid "Captions"
+msgstr "Ondertitels"
+
+#: modules/local_video/slide.php:500
+msgid "Chapters"
+msgstr "Hoofdstukken"
+
+#: modules/local_video/slide.php:503
+msgid "Descriptions"
+msgstr "Beschrijvingen"
+
+#: modules/local_video/slide.php:509
+msgid "Subtitles"
+msgstr "Ondertiteling"
+
+#: modules/local_video/slide.php:517
+msgid "If the language is English, the code must be en"
+msgstr "Als de taal Engels is, moet de code en zijn"
+
+#: modules/local_video/slide.php:518
+msgid "Language code"
+msgstr "Taalcode"
+
+#: modules/local_video/slide.php:523
+msgid "For example: en"
+msgstr "Bijvoorbeeld: en"
+
+#: modules/local_video/slide.php:576
+msgid "File must be TXT or VTT format"
+msgstr "Bestand moet in TXT of VTT formaat zijn"
+
+#: modules/local_video/slide.php:577
+msgid "Source"
+msgstr "Bron"
+
+#: modules/local_video/slide.php:582
+msgid "Update slide text track"
+msgstr "Bijwerken van de teksttrack van de dia"
+
+#: modules/local_video/slide.php:956
+msgid "The cover was successfully removed."
+msgstr "De omslag is succesvol verwijderd."
+
+#: modules/local_video/slide.php:986
+msgid "The requested video does not exist. Please try again."
+msgstr "De aangevraagde video bestaat niet. Probeer het opnieuw."
+
+#: modules/local_video/slide.php:995
+msgid "There was an error updating the video. No previous video saved."
+msgstr ""
+"Er was een fout bij het bijwerken van de video. Geen eerdere video "
+"opgeslagen."
+
+#: modules/local_video/slide.php:1011
+msgid "The video was successfully updated."
+msgstr "De video is succesvol bijgewerkt."
+
+#: modules/local_video/slide.php:1020
+msgid "There was an error updating the video. Please try again"
+msgstr "Er was een fout bij het bijwerken van de video. Probeer het opnieuw"
+
+#: modules/local_video/slide.php:1078
+msgid "You can't add more sources to this video slide."
+msgstr "Je kunt geen meer bronnen aan deze video dia toevoegen."
+
+#: modules/local_video/slide.php:1094
+msgid "This slide already has a video in that format."
+msgstr "Deze dia heeft al een video in dat formaat."
+
+#: modules/local_video/slide.php:1126
+msgid "The video source was successfully added."
+msgstr "De video bron is succesvol toegevoegd."
+
+#: modules/local_video/slide.php:1237
+msgid "This slide requires at least one video source."
+msgstr "Deze dia vereist ten minste één video bron."
+
+#: modules/local_video/slide.php:1250
+msgid "The video source was successfully removed."
+msgstr "De video bron is succesvol verwijderd."
+
+#: modules/local_video/slide.php:1301
+msgid "Not supported text track format"
+msgstr "Niet ondersteund teksttrackformaat"
+
+#: modules/local_video/slide.php:1343
+msgid "The requested text track does not exist. Please try again."
+msgstr "De aangevraagde teksttrack bestaat niet. Probeer het opnieuw."
+
+#: modules/local_video/slide.php:1364
+msgid "The text track was successfully updated."
+msgstr "De teksttrack is succesvol bijgewerkt."
+
+#: modules/local_video/slide.php:1373
+msgid "There was an error updating the text track. Please try again"
+msgstr "Er was een fout bij het bijwerken van de teksttrack. Probeer het opnieuw"
+
+#: modules/local_video/slide.php:1420
+msgid "The text track was successfully removed."
+msgstr "De teksttrack is succesvol verwijderd."
+
+#: modules/local_video/tabs/caption.php:7
+msgid ""
+"Please note that captions on videos can interfere with player controls. We "
+"recommend adding captions when \"Auto play\" is enabled, and \"Show "
+"controls\" and \"Lazy load video\" are both disabled."
+msgstr ""
+"Houd er rekening mee dat ondertitels op video's de bedieningsknoppen van de "
+"speler kunnen verstoren. We raden aan om ondertitels toe te voegen wanneer "
+"\"Automatisch afspelen\" is ingeschakeld en \"Toon bedieningsknoppen\" en "
+"\"Lazy load video\" beide zijn uitgeschakeld."
+
+#: modules/local_video/tabs/general.php:50
+#: modules/local_video/tabs/general.php:52
+msgid "Add a new video source"
+msgstr "Voeg een nieuwe video bron toe"
+
+#: modules/local_video/tabs/general.php:55
+msgid ""
+"Adding more formats for the same video can help improve support for "
+"different platforms."
+msgstr ""
+"Het toevoegen van meer formaten voor dezelfde video kan helpen om de "
+"ondersteuning voor verschillende platforms te verbeteren."
+
+#: modules/local_video/tabs/general.php:97
+msgid "May require video to be muted"
+msgstr "Kan vereisen dat de video wordt gedempt"
+
+#: modules/local_video/tabs/general.php:137
+msgid "Fit video in container"
+msgstr "Pas video aan container aan"
+
+#: modules/local_video/tabs/general.php:150
+msgid "Fade in transition"
+msgstr "Vervagen overgang"
+
+#: modules/local_video/tabs/general.php:152
+msgid ""
+"Fade in before video loads. Recommended when slide and slideshow Auto play "
+"are enabled, and slideshow Transition effect is fade."
+msgstr ""
+"Vervagen voordat de video wordt geladen. Aanbevolen wanneer slide en "
+"diavoorstelling Automatisch afspelen zijn ingeschakeld, en het "
+"overgangseffect van de diavoorstelling vervagen is."
+
+#: modules/local_video/tabs/link.php:8, fuzzy
+msgid "Video Link URL"
+msgstr "Video Link URL"
+
+#: modules/local_video/tabs/link.php:11
+msgid ""
+"When visitors click on your video slide, they will be taken to this URL. "
+"This may affect how user interacts with the video controls."
+msgstr ""
+"Wanneer bezoekers op je videoslide klikken, worden ze naar deze URL geleid. "
+"Dit kan van invloed zijn op hoe de gebruiker interactie heeft met de "
+"videobedieningselementen."
 
 #: themes/architekt/customize.php:16
 #: themes/architekt/customize.php:356
@@ -3979,7 +4346,7 @@ msgstr "Achtergrond"
 #: themes/radix/customize.php:17
 #: themes/simply-dark/customize.php:17
 msgid "The background color of the arrow buttons."
-msgstr "De achtergrondkleur van de pijltjestoetsen."
+msgstr "De achtergrondkleur van de pijl knoppen."
 
 #: themes/architekt/customize.php:28
 #: themes/architekt/customize.php:55
@@ -4171,7 +4538,7 @@ msgstr "Icoon kleuren"
 #: themes/radix/customize.php:72
 #: themes/simply-dark/customize.php:44
 msgid "The color of the arrow icons."
-msgstr "De kleur van de pijltjesiconen."
+msgstr "De kleur van de pijl iconen."
 
 #: themes/architekt/customize.php:70
 #: themes/bitono/customize.php:70
@@ -4207,7 +4574,7 @@ msgstr "Icoon grootte"
 #: themes/radix/customize.php:99
 #: themes/simply-dark/customize.php:71
 msgid "The size of the arrow icons."
-msgstr "De grootte van de pijltjesiconen."
+msgstr "De grootte van de pijl iconen."
 
 #: themes/architekt/customize.php:87
 #: themes/bitono/customize.php:87
@@ -4264,7 +4631,7 @@ msgstr "Rand kleur"
 #: themes/radix/customize.php:116
 #: themes/simply-dark/customize.php:88
 msgid "The border color of the arrow buttons."
-msgstr "De randkleur van de pijltjesknoppen."
+msgstr "De randkleur van de pijl knoppen."
 
 #: themes/architekt/customize.php:115
 #: themes/bitono/customize.php:115
@@ -4371,7 +4738,7 @@ msgstr "Randstijl"
 #: themes/radix/customize.php:161
 #: themes/simply-dark/customize.php:133
 msgid "The line style of the border around the arrow buttons."
-msgstr "De lijnstijl van de rand rond de pijltjesknoppen."
+msgstr "De lijntype van de rand rond de pijlknoppen."
 
 #: themes/architekt/customize.php:160
 msgid "Distance from Navigation"
@@ -4393,7 +4760,7 @@ msgstr "De afstand tussen de pijlen en de navigatie."
 #: themes/outline/customize.php:226
 #: themes/precognition/customize.php:227
 msgid "The width of the arrow buttons."
-msgstr "De breedte van de pijltjesknoppen."
+msgstr "De breedte van de pijlknoppen."
 
 #: themes/architekt/customize.php:233
 #: themes/bitono/customize.php:244
@@ -4412,7 +4779,7 @@ msgstr "De breedte van de pijltjesknoppen."
 #: themes/precognition/customize.php:244
 #: themes/radix/customize.php:239
 msgid "The height of the arrow buttons."
-msgstr "De hoogte van de pijltjesknoppen."
+msgstr "De hoogte van de pijlknoppen."
 
 #: themes/architekt/customize.php:249
 #: themes/architekt/customize.php:663
@@ -4472,7 +4839,7 @@ msgstr "Randradius"
 #: themes/radix/customize.php:256
 #: themes/simply-dark/customize.php:249
 msgid "The roundness of the arrow buttons' corners."
-msgstr "De rondheid van de hoeken van de pijltjesknoppen."
+msgstr "De rondheid van de hoeken van de pijlknoppen."
 
 #: themes/architekt/customize.php:266
 #: themes/architekt/customize.php:674
@@ -4532,7 +4899,7 @@ msgstr "Opaciteit (standaard)"
 #: themes/radix/customize.php:273
 #: themes/simply-dark/customize.php:266
 msgid "The transparency of the arrow buttons when not hovered."
-msgstr "De transparantie van de pijltjesknoppen wanneer ze niet worden_hovered."
+msgstr "De transparantie van de pijltjesknoppen wanneer niet gehoverd."
 
 #: themes/architekt/customize.php:283
 #: themes/architekt/customize.php:685
@@ -4592,7 +4959,7 @@ msgstr "Opaciteit (hoveren)"
 #: themes/radix/customize.php:290
 #: themes/simply-dark/customize.php:283
 msgid "The transparency of the arrow buttons when hovered."
-msgstr "De transparantie van de pijltjesknoppen wanneer ze worden_hovered."
+msgstr "De transparantie van de pijltjesknoppen wanneer gehoverd."
 
 #: themes/architekt/customize.php:300
 #: themes/bitono/customize.php:311
@@ -4813,7 +5180,7 @@ msgstr "Getallen kleur"
 #: themes/bubble/customize.php:464
 #: themes/radix/customize.php:363
 msgid "The color of the pagination numbers."
-msgstr "De kleur van de paginanummers."
+msgstr "De kleur van de paginering nummers."
 
 #: themes/architekt/customize.php:458
 #: themes/precognition/customize.php:503
@@ -4824,7 +5191,7 @@ msgstr "Getallen grootte"
 #: themes/blend/customize.php:602
 #: themes/precognition/customize.php:504
 msgid "The font size of the pagination numbers."
-msgstr "De lettergrootte van de paginanummers."
+msgstr "De lettertypegrootte van de paginering nummers."
 
 #: themes/architekt/customize.php:475
 msgid "Numbers Line Height"
@@ -4833,7 +5200,7 @@ msgstr "Getallen regelafstand"
 #: themes/architekt/customize.php:476
 #: themes/blend/customize.php:619
 msgid "The line height of the pagination numbers."
-msgstr "De regelhoogte van de paginanummers."
+msgstr "De regelafstand van de paginering nummers."
 
 #: themes/architekt/customize.php:492
 msgid "Distance Between Numbers"
@@ -4841,7 +5208,7 @@ msgstr "Afstand tussen getallen"
 
 #: themes/architekt/customize.php:493
 msgid "The spacing between each pagination number."
-msgstr "De ruimte tussen elke paginanummer."
+msgstr "De afstand tussen elk paginanummer."
 
 #: themes/architekt/customize.php:517
 #: themes/bitono/customize.php:631
@@ -4883,7 +5250,7 @@ msgstr "Kleuren"
 #: themes/radix/customize.php:507
 #: themes/simply-dark/customize.php:620
 msgid "The background, text, and link colors of the caption."
-msgstr "De achtergrond-, tekst- en linkkleuren van de bijschrift."
+msgstr "De achtergrond-, tekst- en linkkleuren van het bijschrift."
 
 #: themes/architekt/customize.php:529
 #: themes/bitono/customize.php:643
@@ -4946,7 +5313,7 @@ msgstr "Links"
 #: themes/radix/customize.php:603
 #: themes/simply-dark/customize.php:722
 msgid "The width of the caption box, as a percentage of the slide width."
-msgstr "De breedte van de bijschriftbox, als percentage van de breedte van de dia."
+msgstr "De breedte van het bijschrift vak, als een percentage van de slide breedte."
 
 #: themes/architekt/customize.php:556
 #: themes/bitono/customize.php:739
@@ -5072,7 +5439,7 @@ msgstr "Tekst uitlijning"
 #: themes/radix/customize.php:638
 #: themes/simply-dark/customize.php:757
 msgid "The horizontal alignment of the text inside the caption."
-msgstr "De horizontale uitlijning van de tekst in het bijschrift."
+msgstr "De horizontale uitlijning van de tekst binnen het bijschrift."
 
 #: themes/architekt/customize.php:587
 #: themes/architekt/customize.php:741
@@ -5260,7 +5627,7 @@ msgstr "Midden"
 #: themes/radix/customize.php:660
 #: themes/simply-dark/customize.php:779
 msgid "The transparency of the caption background."
-msgstr "De transparantie van de achtergrond van het bijschrift."
+msgstr "De transparantie van de bijschrift achtergrond."
 
 #: themes/architekt/customize.php:622
 #: themes/bitono/customize.php:805
@@ -5281,7 +5648,7 @@ msgstr "De transparantie van de achtergrond van het bijschrift."
 #: themes/radix/customize.php:679
 #: themes/simply-dark/customize.php:798
 msgid "The background color of the play/pause button."
-msgstr "De achtergrondkleur van de afspeel/pauze knop."
+msgstr "De achtergrondkleur van de afspelen/pauzeren knop."
 
 #: themes/architekt/customize.php:643
 #: themes/bitono/customize.php:826
@@ -5302,7 +5669,7 @@ msgstr "De achtergrondkleur van de afspeel/pauze knop."
 #: themes/radix/customize.php:700
 #: themes/simply-dark/customize.php:819
 msgid "The color of the play/pause icon."
-msgstr "De kleur van het afspeel/pauze icoon."
+msgstr "De kleur van het afspelen/pauzeren icoon."
 
 #: themes/architekt/customize.php:664
 #: themes/bitono/customize.php:847
@@ -5322,7 +5689,7 @@ msgstr "De kleur van het afspeel/pauze icoon."
 #: themes/radix/customize.php:721
 #: themes/simply-dark/customize.php:840
 msgid "The roundness of the play/pause button's corners."
-msgstr "De rondheid van de hoeken van de afspeel/pauze knop."
+msgstr "De rondheid van de hoeken van de afspelen/pauzeren knop."
 
 #: themes/architekt/customize.php:675
 #: themes/bitono/customize.php:858
@@ -5343,7 +5710,7 @@ msgstr "De rondheid van de hoeken van de afspeel/pauze knop."
 #: themes/radix/customize.php:732
 #: themes/simply-dark/customize.php:851
 msgid "The transparency of the play/pause button when not hovered."
-msgstr "De transparantie van de afspeel/pauze knop wanneer deze niet wordt hovered."
+msgstr "De transparantie van de afspelen/pauzeren knop wanneer niet gehoverd."
 
 #: themes/architekt/customize.php:686
 #: themes/bitono/customize.php:869
@@ -5364,7 +5731,7 @@ msgstr "De transparantie van de afspeel/pauze knop wanneer deze niet wordt hover
 #: themes/radix/customize.php:743
 #: themes/simply-dark/customize.php:862
 msgid "The transparency of the play/pause button when hovered."
-msgstr "De transparantie van de afspeel/pauze knop wanneer deze wordt hovered."
+msgstr "De transparantie van de afspelen/pauzeren knop wanneer gehoverd."
 
 #: themes/architekt/customize.php:696
 #: themes/bitono/customize.php:180
@@ -5456,8 +5823,8 @@ msgid ""
 "Whether the play/pause button is positioned nearer the top or bottom of the "
 "slideshow."
 msgstr ""
-"Of de afspeel/pauze knop dichter bij de boven- of onderkant van de "
-"diavoorstelling is gepositioneerd."
+"Of de afspeel/pauze knop dichter bij de bovenkant of onderkant van de "
+"slideshow is geplaatst."
 
 #: themes/architekt/customize.php:703
 #: themes/bitono/customize.php:187
@@ -5687,8 +6054,8 @@ msgid ""
 "How far the play/pause button sits from the top or bottom of the slideshow, "
 "depending on the \"Vertical Position\" setting."
 msgstr ""
-"Hoe ver de afspeel/pauze knop van de boven- of onderkant van de "
-"diavoorstelling zit, afhankelijk van de instelling \"Verticale positie\"."
+"Hoe ver de afspeel/pauze knop zit vanaf de bovenkant of onderkant van de "
+"slideshow, afhankelijk van de \"Verticale Positie\" instelling."
 
 #: themes/architekt/customize.php:730
 #: themes/bitono/customize.php:694
@@ -5749,8 +6116,8 @@ msgid ""
 "Whether the play/pause button is positioned nearer the left or right of the "
 "slideshow."
 msgstr ""
-"Of de afspeel/pauze knop dichter bij de linker- of rechterkant van de "
-"diavoorstelling is gepositioneerd."
+"Of de afspeel/pauze knop dichter bij de linker of rechterkant van de "
+"slideshow staat."
 
 #: themes/architekt/customize.php:752
 #: themes/bitono/customize.php:716
@@ -5811,8 +6178,8 @@ msgid ""
 "How far the play/pause button sits from the left or right of the slideshow, "
 "depending on the \"Horizontal Position\" setting."
 msgstr ""
-"Hoe ver de afspeel/pauze knop van de linker- of rechterkant van de "
-"diavoorstelling zit, afhankelijk van de instelling \"Horizontale positie\"."
+"Hoe ver de afspeel/pauze knop zit vanaf de linker- of rechterkant van de "
+"slideshow, afhankelijk van de \"Horizontale Positie\" instelling."
 
 #: themes/bitono/customize.php:160
 #: themes/bubble/customize.php:143
@@ -5840,9 +6207,7 @@ msgstr "Afstand tot Edge"
 #: themes/precognition/customize.php:161
 #: themes/simply-dark/customize.php:161
 msgid "The distance between the arrows and the left/right edges of the slideshow."
-msgstr ""
-"De afstand tussen de pijlen en de linker/rechter randen van de "
-"diavoorstelling."
+msgstr "De afstand tussen de pijlen en de linker/rechter randen van de slideshow."
 
 #: themes/bitono/customize.php:181
 #: themes/blend/customize.php:161
@@ -5862,8 +6227,8 @@ msgstr ""
 #: themes/simply-dark/customize.php:181
 msgid "Whether the arrows are positioned nearer the top or bottom of the slideshow."
 msgstr ""
-"Of de pijlen dichter bij de boven- of onderkant van de diavoorstelling zijn "
-"gepositioneerd."
+"Of de pijlen dichter bij de bovenkant of onderkant van de slideshow "
+"gepositioneerd zijn."
 
 #: themes/bitono/customize.php:209
 #: themes/blend/customize.php:189
@@ -5885,8 +6250,8 @@ msgid ""
 "How far the arrows sit from the top or bottom of the slideshow, depending "
 "on the \"Vertical Position\" setting."
 msgstr ""
-"Hoe ver de pijlen van de boven- of onderkant van de diavoorstelling zitten, "
-"afhankelijk van de instelling \"Verticale positie\"."
+"Hoe ver de pijlen van de bovenkant of onderkant van de slideshow zitten, "
+"afhankelijk van de \"Verticale Positie\" instelling."
 
 #: themes/bitono/customize.php:402
 #: themes/bubble/customize.php:385
@@ -5922,7 +6287,7 @@ msgstr "De randkleur van de navigatiepunten."
 #: themes/precognition/customize.php:422
 #: themes/simply-dark/customize.php:425
 msgid "The thickness of the border around the navigation dots."
-msgstr "De dikte van de rand rondom de navigatiepunten."
+msgstr "De dikte van de rand rond de navigatiepunten."
 
 #: themes/bitono/customize.php:454
 #: themes/bubble/customize.php:436
@@ -5940,7 +6305,7 @@ msgstr "De dikte van de rand rondom de navigatiepunten."
 #: themes/precognition/customize.php:442
 #: themes/simply-dark/customize.php:442
 msgid "The line style of the border around the navigation dots."
-msgstr "De lijnstijl van de rand rondom de navigatiepunten."
+msgstr "De lijntype van de rand rond de navigatiedots."
 
 #: themes/bitono/customize.php:482
 #: themes/blend/customize.php:478
@@ -5960,8 +6325,8 @@ msgid ""
 "Whether the navigation is positioned nearer the top or bottom of the "
 "slideshow."
 msgstr ""
-"Of de navigatie dichter bij de boven- of onderkant van de diavoorstelling "
-"is gepositioneerd."
+"Of de Navigatie dichter bij de bovenkant of onderkant van de slideshow "
+"staat."
 
 #: themes/bitono/customize.php:510
 #: themes/blend/customize.php:506
@@ -5982,8 +6347,8 @@ msgid ""
 "How far the navigation dots sit from the top or bottom of the slideshow, "
 "depending on the \"Vertical Position\" setting."
 msgstr ""
-"Hoe ver de navigatiepunten van de boven- of onderkant van de "
-"diavoorstelling zitten, afhankelijk van de instelling \"Verticale positie\"."
+"Hoe ver de navigatiedots van de bovenkant of onderkant van de slideshow "
+"zitten, afhankelijk van de \"Verticale Positie\" instelling."
 
 #: themes/bitono/customize.php:527
 #: themes/blend/customize.php:523
@@ -6047,7 +6412,7 @@ msgstr "Stippen radius"
 #: themes/outline/customize.php:554
 #: themes/simply-dark/customize.php:544
 msgid "The roundness of the navigation dots' corners."
-msgstr "De rondheid van de hoeken van de navigatiepunten."
+msgstr "De rondheid van de hoeken van de navigatiedots."
 
 #: themes/bitono/customize.php:572
 #: themes/blend/customize.php:573
@@ -6083,7 +6448,7 @@ msgstr "Stippen breedte"
 #: themes/outline/customize.php:571
 #: themes/simply-dark/customize.php:561
 msgid "The width of each navigation dot."
-msgstr "De breedte van elke navigatiepunt."
+msgstr "De breedte van elk navigatiepunt."
 
 #: themes/bitono/customize.php:589
 #: themes/bubble/customize.php:605
@@ -6151,7 +6516,7 @@ msgstr "Afstand tussen stippen"
 #: themes/outline/customize.php:605
 #: themes/simply-dark/customize.php:595
 msgid "The spacing between each navigation dot."
-msgstr "De ruimte tussen elke navigatiepunt."
+msgstr "De afstand tussen elk navigatiepunt."
 
 #: themes/bitono/customize.php:660
 #: themes/blend/customize.php:690
@@ -6170,9 +6535,7 @@ msgstr "De ruimte tussen elke navigatiepunt."
 #: themes/radix/customize.php:535
 #: themes/simply-dark/customize.php:648
 msgid "Whether the caption is positioned nearer the top or bottom of the slide."
-msgstr ""
-"Of het bijschrift dichter bij de bovenkant of onderkant van de dia is "
-"geplaatst."
+msgstr "Of het bijschrift dichter bij de bovenkant of onderkant van de slide staat."
 
 #: themes/bitono/customize.php:683
 #: themes/blend/customize.php:713
@@ -6194,8 +6557,8 @@ msgid ""
 "How far the caption sits from the top or bottom of the slide, depending on "
 "the \"Vertical Position\" setting."
 msgstr ""
-"Hoe ver het bijschrift van de bovenkant of onderkant van de dia zit, "
-"afhankelijk van de instelling \"Verticale positie\"."
+"Hoe ver het bijschrift van de bovenkant of onderkant van de slide zit, "
+"afhankelijk van de \"Verticale Positie\" instelling."
 
 #: themes/bitono/customize.php:695
 #: themes/blend/customize.php:725
@@ -6214,9 +6577,7 @@ msgstr ""
 #: themes/radix/customize.php:569
 #: themes/simply-dark/customize.php:688
 msgid "Whether the caption is positioned nearer the left or right of the slide."
-msgstr ""
-"Of het bijschrift dichter bij de linkerkant of rechterkant van de dia is "
-"geplaatst."
+msgstr "Of het bijschrift dichter bij de linker of rechterkant van de slide staat."
 
 #: themes/bitono/customize.php:717
 #: themes/blend/customize.php:747
@@ -6238,8 +6599,8 @@ msgid ""
 "How far the caption sits from the left or right of the slide, depending on "
 "the \"Horizontal Position\" setting."
 msgstr ""
-"Hoe ver het bijschrift van de linkerkant of rechterkant van de dia zit, "
-"afhankelijk van de instelling \"Horizontale positie\"."
+"Hoe ver het bijschrift van de linker- of rechterkant van de slide zit, "
+"afhankelijk van de \"Horizontale Positie\" instelling."
 
 #: themes/blend/customize.php:398
 msgid "Number Underline Width"
@@ -6247,7 +6608,7 @@ msgstr "Aantal breedte onderstreping"
 
 #: themes/blend/customize.php:399
 msgid "The thickness of the underline beneath the pagination numbers."
-msgstr "De dikte van de onderlijn onder de paginatie nummers."
+msgstr "De dikte van de onderstreping onder de paginanummers."
 
 #: themes/blend/customize.php:415
 msgid "Numbers Underline Style"
@@ -6255,7 +6616,7 @@ msgstr "Getallen onderstrepen stijl"
 
 #: themes/blend/customize.php:416
 msgid "The line style of the underline beneath the pagination numbers."
-msgstr "De lijnstijl van de onderlijn onder de paginatie nummers."
+msgstr "De lijntype van de onderstreping onder de paginanummers."
 
 #: themes/blend/customize.php:443
 #: themes/bubble/customize.php:463
@@ -6330,20 +6691,20 @@ msgstr ""
 #: themes/customize.php:35
 msgid "The color of the progress bar shown while a slide is displayed, if enabled."
 msgstr ""
-"De kleur van de voortgangsbalk die wordt weergegeven terwijl een dia wordt "
-"weergegeven, als deze is ingeschakeld."
+"De kleur van de voortgangsbalk die wordt getoond terwijl een slide wordt "
+"weergegeven, indien ingeschakeld."
 
 #: themes/default-base/customize.php:277
 msgid "The roundness of the arrow buttons' corners. 50% makes them circular."
-msgstr "De rondheid van de hoeken van de pijlknoppen. 50% maakt ze rond."
+msgstr "De rondheid van de hoeken van de pijlknoppen. 50% maakt ze cirkelvormig."
 
 #: themes/default-base/customize.php:498
 msgid ""
 "Whether the navigation dots are positioned nearer the top or bottom of the "
 "slideshow."
 msgstr ""
-"Of de navigatiepunten dichter bij de bovenkant of onderkant van de "
-"diavoorstelling zijn geplaatst."
+"Of de navigatiedots dichter bij de bovenkant of onderkant van de slideshow "
+"staan."
 
 #: themes/default-base/customize.php:549
 msgid "The horizontal alignment of the navigation dots."
@@ -6351,7 +6712,9 @@ msgstr "De horizontale uitlijning van de navigatiepunten."
 
 #: themes/default-base/customize.php:881
 msgid "The roundness of the play/pause button's corners. 50% makes it circular."
-msgstr "De rondheid van de hoeken van de afspeel/pauze knop. 50% maakt het rond."
+msgstr ""
+"De rondheid van de hoeken van de afspelen/pauzeren knop. 50% maakt het "
+"cirkelvormig."
 
 #: themes/highway/customize.php:159
 msgid "Distance from Center"
@@ -6359,9 +6722,7 @@ msgstr "Afstand van het centrum"
 
 #: themes/highway/customize.php:160
 msgid "The distance between the arrows and the horizontal center of the slideshow."
-msgstr ""
-"De afstand tussen de pijlen en het horizontale midden van de "
-"diavoorstelling."
+msgstr "De afstand tussen de pijlen en het horizontale midden van de slideshow."
 
 #: themes/manifest-legacy.php:15
 msgid "This is the default MetaSlider Slideshow theme."
@@ -6720,7 +7081,7 @@ msgstr "Knop"
 
 #: themes/nexus/customize.php:788
 msgid "The background color of the button shown on the slide."
-msgstr "De achtergrondkleur van de knop die op de dia wordt weergegeven."
+msgstr "De achtergrondkleur van de knop die op de slide wordt getoond."
 
 #: themes/nexus/v1.0.0/theme.php:53
 msgid "Click Here"
@@ -6732,12 +7093,12 @@ msgstr "Tekst en cijfers"
 
 #: themes/precognition/customize.php:470
 msgid "The color of the pagination text and numbers."
-msgstr "De kleur van de paginatie tekst en nummers."
+msgstr "De kleur van de paginering tekst en nummers."
 
 #: themes/radix/customize.php:44
 #: themes/radix/customize.php:58
 msgid "The color of the arrow text or icon."
-msgstr "De kleur van de pijl tekst of het pictogram."
+msgstr "De kleur van de pijltekst of icoon."
 
 #: themes/radix/customize.php:367
 msgid "Color"
@@ -6749,7 +7110,7 @@ msgstr "Grootte lettertype voor actief getal "
 
 #: themes/radix/customize.php:429
 msgid "The font size of the currently active pagination number."
-msgstr "De lettergrootte van het momenteel actieve paginatie nummer."
+msgstr "De lettertypegrootte van het nu actieve paginanummer."
 
 #: themes/radix/customize.php:445
 msgid "Line Height for Active Number "
@@ -6757,7 +7118,7 @@ msgstr "Regelafstand voor actief nummer "
 
 #: themes/radix/customize.php:446
 msgid "The line height of the currently active pagination number."
-msgstr "De regelhoogte van het momenteel actieve paginatie nummer."
+msgstr "De regelafstand van het nu actieve paginering nummer."
 
 #: themes/radix/customize.php:463
 msgid "Font Size for Count Number "
@@ -6765,7 +7126,7 @@ msgstr "Grootte lettertype voor tel getal "
 
 #: themes/radix/customize.php:464
 msgid "The font size of the total slide count number."
-msgstr "De lettergrootte van het totale aantal dia's."
+msgstr "De lettertypegrootte van het totale slide aantal."
 
 #: themes/radix/customize.php:480
 msgid "Line Height for Count Number "
@@ -6773,7 +7134,7 @@ msgstr "Regelafstand voor telnummer "
 
 #: themes/radix/customize.php:481
 msgid "The line height of the total slide count number."
-msgstr "De regelhoogte van het totale aantal dia's."
+msgstr "De regelafstand van het totale slide aantal."
 
 #: themes/simply-dark/v1.0.0/theme.php:57
 msgid "Previous Slide"
@@ -6791,8 +7152,8 @@ msgstr "Bezig met het voorbereiden van 1 dia..."
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/dist/js/app.js:2
 #: admin/assets/js/admin.js:168
-#: admin/assets/js/admin.js:1519
-#: admin/assets/js/admin.js:1562
+#: admin/assets/js/admin.js:1554
+#: admin/assets/js/admin.js:1597
 msgid "1 slide added successfully"
 msgstr "1 dia succesvol toegevoegd"
 
@@ -6813,6 +7174,8 @@ msgstr "Bezig met het sluiten van de UI voor het toevoegen van dia..."
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:314
+#: modules/local_video/assets/local_video.js:208
+#: modules/local_video/assets/local_video.js:632
 msgid "Updating slide..."
 msgstr "Dia aan het bijwerken..."
 
@@ -6833,23 +7196,24 @@ msgstr "Unsplash Bibliotheek"
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:959
 msgid "Pixabay Library"
 msgstr "Pixabay Bibliotheek"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1347
+#: admin/assets/js/admin.js:1382
 msgid "Crop position saved and image cropped"
 msgstr "Bijsnijdpositie opgeslagen en afbeelding bijgesneden"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1364
+#: admin/assets/js/admin.js:1399
 msgid "There was an error when saving crop position or cropping the image"
 msgstr ""
 "Er is een fout opgetreden bij het opslaan van de bijsnijdpositie of het "
 "bijsnijden van de afbeelding"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1577
+#: admin/assets/js/admin.js:1612
 msgid "Device options are enabled for this slide. Adjust using the Device tab."
 msgstr ""
 "Apparaatopties zijn ingeschakeld voor deze dia. Pas aan met behulp van het "
@@ -7275,6 +7639,40 @@ msgid "All images published on Pixabay can be used for free."
 msgstr ""
 "Alle afbeeldingen die op Pixabay zijn gepubliceerd, kunnen gratis worden "
 "gebruikt."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Search pixabay.com videos..."
+msgstr "Zoek pixabay.com video's..."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s on Pixabay"
+msgstr "Video door %s op Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Video on Pixabay"
+msgstr "Video op Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Opening Pixabay Video tab..."
+msgstr "Pixabay Video tabblad openen..."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Pixabay Video tab closed"
+msgstr "Pixabay Video tabblad gesloten"
+
+#: admin/assets/dist/js/app.js:2
+msgid "No videos found."
+msgstr "Geen video's gevonden."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s"
+msgstr "Video door %s"
+
+#: admin/assets/dist/js/app.js:2
+msgid "All videos published on Pixabay can be used for free."
+msgstr "Alle video's gepubliceerd op Pixabay kunnen gratis worden gebruikt."
 
 #: admin/assets/dist/js/app.js:2
 msgid "Complete!"
@@ -8207,6 +8605,11 @@ msgid "Importing %s slideshows... This may take a minute"
 msgstr "Importeren van %s slideshows... Dit kan een minuut duren"
 
 #: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Failed to import: %s"
+msgstr "Importeren mislukt: %s"
+
+#: admin/assets/dist/js/app.js:2
 msgid "Import successful"
 msgstr "Import succesvol"
 
@@ -8241,6 +8644,13 @@ msgstr "Verwerken..."
 #: admin/assets/dist/js/app.js:2
 msgid "Upload file"
 msgstr "Bestand uploaden"
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Importing slideshow %1$s of %2$s (%3$s slides). This may take a minute."
+msgstr ""
+"Aan het importeren van diavoorstelling %1$s van %2$s (%3$s dia's). Dit kan "
+"een minuut duren."
 
 #: admin/assets/dist/js/app.js:2
 msgid ""
@@ -8427,6 +8837,43 @@ msgstr "Instellingenpagina openen..."
 msgid "Page not found: %s"
 msgstr "Pagina niet gevonden: %s"
 
+#: admin/assets/js/app/slides/external/videoQuality.js:29, fuzzy
+msgid "4K"
+msgstr "4K"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:30, fuzzy
+msgid "Quad HD"
+msgstr "Quad HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:31, fuzzy
+msgid "Full HD"
+msgstr "Full HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:32, fuzzy
+msgid "HD"
+msgstr "HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:33, fuzzy
+msgid "SD"
+msgstr "SD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:45
+msgid "SD (if available)"
+msgstr "SD (indien beschikbaar)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:46
+msgid "HD (if available)"
+msgstr "HD (indien beschikbaar)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:47
+msgid "Full HD (if available)"
+msgstr "Full HD (indien beschikbaar)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:48
+#: admin/assets/js/app/slides/external/videoQuality.js:64
+msgid "Original"
+msgstr "Origineel"
+
 #: admin/assets/js/app/tour/main.js:12
 msgid "Add a slide"
 msgstr "Voeg een dia toe"
@@ -8553,6 +9000,111 @@ msgstr "diavoorstelling"
 msgid "gallery"
 msgstr "galerij"
 
+#: admin/assets/js/livid-iframe.js:132
+#: modules/local_video/assets/local_video.js:46
+#: modules/local_video/assets/local_video.js:166
+#, js-format
+msgid "Preparing %s slide..."
+msgstr "Voorbereiden van %s dia..."
+
+#: modules/local_video/assets/local_video.js:61
+#: modules/local_video/assets/local_video.js:181
+msgid "This isn't a supported video format. Please use MP4, WebM, or MOV videos."
+msgstr ""
+"Dit is geen ondersteund videoformaat. Gebruik alstublieft MP4, WebM of MOV "
+"video's."
+
+#: modules/local_video/assets/local_video.js:241
+#: modules/local_video/assets/local_video.js:690
+msgid "There is an error"
+msgstr "Er is een fout"
+
+#: modules/local_video/assets/local_video.js:265
+#: modules/local_video/assets/local_video.js:741
+msgid "Video source added successfully"
+msgstr "Video-bron succesvol toegevoegd"
+
+#: modules/local_video/assets/local_video.js:282
+#: modules/local_video/assets/local_video.js:762
+msgid "Video updated successfully"
+msgstr "Video succesvol bijgewerkt"
+
+#: modules/local_video/assets/local_video.js:324
+msgid "Create slideshows with videos hosted in your media library"
+msgstr "Maak diavoorstellingen met video's die in uw mediatheek zijn gehost"
+
+#: modules/local_video/assets/local_video.js:326
+msgid "Create slideshows with images in your media library"
+msgstr "Maak diavoorstellingen met afbeeldingen in uw mediatheek"
+
+#: modules/local_video/assets/local_video.js:328
+msgid ""
+"Layer Slides allow you to add text, colors, shortcodes and media on top of "
+"an image or video."
+msgstr ""
+"Laag Dia's stellen je in staat om tekst, kleuren, shortcodes en media "
+"bovenop een afbeelding of video toe te voegen."
+
+#: modules/local_video/assets/local_video.js:398
+msgid "Cover removed successfully."
+msgstr "Omslag succesvol verwijderd."
+
+#: modules/local_video/assets/local_video.js:431
+msgid "You can't delete this video. This slide requires at least one video source."
+msgstr ""
+"Je kunt deze video niet verwijderen. Deze dia vereist ten minste één video "
+"bron."
+
+#: modules/local_video/assets/local_video.js:462
+msgid "Video source removed successfully"
+msgstr "Video bron succesvol verwijderd"
+
+#: modules/local_video/assets/local_video.js:481
+msgid "No text track has beed selected for this slide."
+msgstr "Er is geen teksttrack geselecteerd voor deze dia."
+
+#: modules/local_video/assets/local_video.js:503
+msgid "There was an error removing the text track"
+msgstr "Er was een fout bij het verwijderen van de teksttrack"
+
+#: modules/local_video/assets/local_video.js:520
+msgid "Text track removed successfully"
+msgstr "Teksttrack succesvol verwijderd"
+
+#: modules/local_video/assets/local_video.js:546
+#, js-format
+msgid "Select Replacement %s Video"
+msgstr "Selecteer Vervangende %s Video"
+
+#: modules/local_video/assets/local_video.js:608
+#, js-format
+msgid "Please select a %s video for this source!"
+msgstr "Selecteer een %s video voor deze bron!"
+
+#: modules/local_video/assets/local_video.js:702
+msgid "This isn't a supported image format. Please use JPG, PNG, or GIF images."
+msgstr ""
+"Dit is geen ondersteund afbeeldingsformaat. Gebruik alstublieft JPG, PNG of "
+"GIF afbeeldingen."
+
+#: modules/local_video/assets/local_video.js:708
+msgid "This isn't a supported text track format. Please use TXT or VTT files."
+msgstr ""
+"Dit is geen ondersteund teksttrackformaat. Gebruik alstublieft TXT of VTT "
+"bestanden."
+
+#: modules/local_video/assets/local_video.js:788
+msgid "Text track updated successfully"
+msgstr "Teksttrack succesvol bijgewerkt"
+
+#: modules/local_video/assets/local_video.js:861
+msgid "Cover image updated successfully"
+msgstr "Omslagafbeelding succesvol bijgewerkt"
+
+#: modules/local_video/assets/local_video.js:906
+msgid "Duplicating the slide failed."
+msgstr "Het dupliceren van de dia is mislukt."
+
 #: admin/Notices.php:101
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid ""
@@ -8565,15 +9117,15 @@ msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Review MetaSlider Slideshow &rarr;"
 msgstr "Beoordeel MetaSlider Slideshow &rarr;"
 
-#: ml-slider.php:2053
+#: ml-slider.php:2103
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Select slideshow to insert into post"
 msgstr "Slideshow selecteren om in te voegen in bericht"
 
 #: admin/views/pages/parts/slider-settings.php:665
 #: admin/views/pages/parts/slider-settings.php:685
-#: admin/views/pages/parts/slider-settings.php:1420
-#: admin/views/pages/parts/slider-settings.php:1454, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1450, fuzzy
 msgctxt "Short for milliseconds"
 msgid "ms"
 msgstr "ms"
@@ -8583,7 +9135,7 @@ msgctxt "This is a keyboard shortcut."
 msgid " (Use Alt or ⌥ (Option) + P keys)"
 msgstr " (Gebruik Alt of ⌥ (Optie) + P sleutels)"
 
-#: admin/views/pages/start.php:382
+#: admin/views/pages/start.php:383
 msgctxt "Uploader: Drop files to upload - or - Select Files"
 msgid "or"
 msgstr "of"

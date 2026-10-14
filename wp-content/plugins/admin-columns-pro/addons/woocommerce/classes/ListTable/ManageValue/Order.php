@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace ACA\WC\ListTable\ManageValue;
 
-use AC\ColumnRepository;
-use AC\Table\ManageValue;
-use Automattic;
-use DomainException;
-use WC_Order;
+use AC\Exception\HookTimingException;
+use AC\Table\ManageValue\RenderFactory;
+use AC\TableScreen\ManageValueService;
+use AC\Type\ColumnId;
+use AC\Type\Value;
 
-class Order extends ManageValue
+class Order implements ManageValueService
 {
+    private string $order_type;
 
-    private $order_type;
+    private RenderFactory $factory;
 
-    public function __construct(string $order_type, ColumnRepository $column_repository)
+    public function __construct(string $order_type, RenderFactory $factory)
     {
-        parent::__construct($column_repository);
-
         $this->order_type = $order_type;
+        $this->factory = $factory;
     }
 
     public function register(): void
@@ -27,15 +27,21 @@ class Order extends ManageValue
         $action = sprintf('woocommerce_%s_list_table_custom_column', $this->order_type);
 
         if (did_action($action)) {
-            throw new DomainException(sprintf("Method should be called before the %s action.", $action));
+            throw HookTimingException::called_too_late($action);
         }
 
         add_action($action, [$this, 'render_value'], 100, 2);
     }
 
-    public function render_value($column_name, WC_Order $order): void
+    public function render_value(...$args): void
     {
-        echo $this->render_cell((string)$column_name, $order->get_id());
+        [$column_name, $order] = $args;
+
+        $formatter = $this->factory->create(new ColumnId((string)$column_name));
+
+        if ($formatter) {
+            echo $formatter->format(new Value($order->get_id()));
+        }
     }
 
 }

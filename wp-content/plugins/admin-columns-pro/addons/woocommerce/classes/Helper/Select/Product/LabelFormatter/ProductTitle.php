@@ -10,7 +10,6 @@ use WC_Product_Variation;
 
 class ProductTitle implements LabelFormatter
 {
-
     public function format_label_unique(WC_Product $product): string
     {
         return sprintf('%s (%s)', $this->format_label($product), $product->get_id());

@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use AC\Helper\Select\Options\Paginated;
-use ACP\Helper\Select;
 use ACP\Helper\Select\Post\LabelFormatter\PostTitle;
 use ACP\Helper\Select\Post\PaginatedFactory;
 use ACP\Query\Bindings;
@@ -13,15 +14,11 @@ use ACP\Search\Operators;
 use ACP\Search\Value;
 use WP_Post;
 
-class PostParent extends PostField
-    implements SearchableValues
+class PostParent extends PostField implements SearchableValues
 {
+    private string $current_post_type;
 
-    private $current_post_type;
-
-    private $searchable_post_types;
-
-    public function __construct(string $current_post_type, array $searchable_post_types = [])
+    public function __construct(string $current_post_type)
     {
         parent::__construct(
             new Operators([
@@ -37,7 +34,6 @@ class PostParent extends PostField
         );
 
         $this->current_post_type = $current_post_type;
-        $this->searchable_post_types = $searchable_post_types ?: ['any'];
     }
 
     protected function create_query_bindings(string $operator, Value $value): Bindings
@@ -47,7 +43,7 @@ class PostParent extends PostField
             $value = new Value(0, $value->get_type());
         }
 
-        if (Operators::IS_EMPTY === $operator) {
+        if (Operators::NOT_IS_EMPTY === $operator) {
             $operator = Operators::NEQ;
             $value = new Value(0, $value->get_type());
         }
@@ -76,24 +72,45 @@ class PostParent extends PostField
 
     public function get_values(string $search, int $page): Paginated
     {
+        [$parent_ids, $parent_post_types] = $this->get_parents();
+
         return (new PaginatedFactory())->create([
             's'         => $search,
             'paged'     => $page,
-            'post_type' => $this->searchable_post_types,
-            'post__in'  => $this->get_parent_ids(),
+            'post_type' => $parent_post_types,
+            // A non-existing ID makes sure no results are returned when there are no parents
+            'post__in' => $parent_ids ?: [0],
         ], $this->formatter());
     }
 
-    private function get_parent_ids(): array
+    /**
+     * Parents can be of a different post type than their children, hence the post types are
+     * resolved from the parents themselves.
+     *
+     * @return array{0: int[], 1: string[]}
+     */
+    private function get_parents(): array
     {
         global $wpdb;
 
         $sql = $wpdb->prepare(
-            "SELECT DISTINCT(post_parent) FROM $wpdb->posts WHERE post_type = %s",
+            "SELECT DISTINCT parent.ID, parent.post_type
+             FROM $wpdb->posts AS child
+             INNER JOIN $wpdb->posts AS parent ON parent.ID = child.post_parent
+             WHERE child.post_type = %s
+                AND child.post_parent > 0",
             $this->current_post_type
         );
 
-        return array_filter($wpdb->get_col($sql));
+        $ids = [];
+        $post_types = [];
+
+        foreach ($wpdb->get_results($sql) as $parent) {
+            $ids[] = (int)$parent->ID;
+            $post_types[$parent->post_type] = $parent->post_type;
+        }
+
+        return [$ids, array_values($post_types)];
     }
 
 }

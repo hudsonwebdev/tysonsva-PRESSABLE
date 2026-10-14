@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Search\Comparison\Repeater;
 
 use AC\Helper\Select\Options\Paginated;
@@ -9,13 +11,11 @@ use ACP\Helper\Select\Post\PaginatedFactory;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
 
-class Media extends Comparison\Repeater
-    implements SearchableValues
+class Media extends Comparison\Repeater implements SearchableValues
 {
+    private ?string $mime_type;
 
-    private $mime_type;
-
-    public function __construct(string $meta_type, string $parent_key, string $sub_key, string $mime_type = null)
+    public function __construct(string $meta_type, string $parent_key, string $sub_key, ?string $mime_type = null)
     {
         parent::__construct(
             $meta_type,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Helper\MetaQuery;
 
 use ACP\Search\Operators;
@@ -8,7 +10,6 @@ use LogicException;
 
 final class SerializedComparisonFactory
 {
-
     public static function create(string $key, string $operator, Value $value): Comparison
     {
         $value = new Value(
@@ -33,7 +34,7 @@ final class SerializedComparisonFactory
             Operators::NOT_IS_EMPTY => 'NotEmpty',
         ];
 
-        if ( ! array_key_exists($operator, $operators)) {
+        if (! array_key_exists($operator, $operators)) {
             throw new LogicException('Unsupported operator found.');
         }
 

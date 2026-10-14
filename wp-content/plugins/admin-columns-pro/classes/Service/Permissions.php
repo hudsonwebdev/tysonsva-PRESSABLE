@@ -1,22 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Service;
 
 use AC\Registerable;
-use ACP\Access\PermissionChecker;
+use ACP\Access;
 use ACP\Access\PermissionsStorage;
 
 class Permissions implements Registerable
 {
+    private PermissionsStorage $permission_storage;
 
-    private $permission_storage;
+    private Access\PermissionCheckerFactory $permission_factory;
 
-    private $permission_checker;
-
-    public function __construct(PermissionsStorage $permission_storage, PermissionChecker $permission_checker)
+    public function __construct(PermissionsStorage $permission_storage, Access\PermissionCheckerFactory $permission_factory)
     {
         $this->permission_storage = $permission_storage;
-        $this->permission_checker = $permission_checker;
+        $this->permission_factory = $permission_factory;
     }
 
     public function register(): void
@@ -30,7 +31,9 @@ class Permissions implements Registerable
             return;
         }
 
-        $this->permission_checker->apply();
+        $this->permission_factory
+            ->create()
+            ->apply();
     }
 
 }

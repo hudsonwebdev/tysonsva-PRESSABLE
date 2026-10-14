@@ -341,6 +341,25 @@ eventually be removed/refactored */
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
+.metaslider ul.ms-split-li {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.metaslider ul.ms-split-li li {
+    width: 50%;
+    margin-bottom: 4px;
+}
+.metaslider ul.ms-split-li li .ms-switch-button + span {
+    line-height: 30px;
+    width: calc(100% - 60px);
+}
+.metaslider ul.ms-split-li li > label {
+    display: flex !important;
+    align-items: center;
+    margin-bottom: 0;
+    line-height: 30px;
+}
 
 /* Theme settings */
 .theme-select-module .change-theme-img-button {
@@ -2300,16 +2319,25 @@ td .dot.available {
     font-weight: bold;
 }
 
-.media-frame-menu > .media-menu > button.media-menu-item:not(#menu-item-insert):after {
+.media-frame-menu > .media-menu > button.media-menu-item:not(#menu-item-insert):not(#menu-item-iframe\:livid):not(#menu-item-insert-local-video):after {
     background: #feb123;
     color: #333;
     content: "Pro";
 }
 
-.media-frame-menu > .media-menu > button.media-menu-item:is(#menu-item-insert)::after {
+.media-frame-menu > .media-menu > button.media-menu-item:is(#menu-item-insert, #menu-item-iframe\:livid, #menu-item-insert-local-video)::after {
     background: #ddd;
     color: #333;
     content: "Free";
+}
+
+.ms-slide-type-heading-desc {
+    padding: 16px;
+    background: #fff;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+    font-weight: normal;
+    font-size: 14px;
 }
 
 .metaslider .is-pro-setting,

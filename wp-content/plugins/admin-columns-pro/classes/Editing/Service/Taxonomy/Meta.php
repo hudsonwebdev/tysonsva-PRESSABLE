@@ -10,15 +10,14 @@ use ACP\Editing\View;
 
 class Meta implements Service
 {
+    private string $meta_key;
 
-    private $meta_key;
+    private View $view;
 
-    private $view;
-
-    public function __construct(string $meta_key, View $view = null)
+    public function __construct(string $meta_key, ?View $view = null)
     {
         $this->meta_key = $meta_key;
-        $this->view = $view ?: new View\Text();
+        $this->view = $view ?? new View\Text();
     }
 
     public function get_view(string $context): ?View

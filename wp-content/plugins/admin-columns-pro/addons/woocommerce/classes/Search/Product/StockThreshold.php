@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Product;
 
 use ACP\Search\Comparison;
@@ -8,7 +10,6 @@ use ACP\Search\Value;
 
 class StockThreshold extends Comparison\Meta
 {
-
     public function __construct()
     {
         $operators = new Operators([

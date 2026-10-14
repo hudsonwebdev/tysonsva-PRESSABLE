@@ -10,7 +10,6 @@ use ACP\Search\SegmentRepository\Sort;
 
 final class Name extends Sort
 {
-
     public function sort(SegmentCollection $segment_collection): SegmentCollection
     {
         $callable = static function (Segment $a, Segment $b) {

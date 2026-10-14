@@ -1,22 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\BP\Search\Profile;
 
 use AC;
 use AC\Helper\Select\Options;
-use ACA\BP\Helper\Select;
 use ACA\BP\Search;
 use ACP\Query\Bindings;
 use ACP\Search\Comparison\Values;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class MultipleChoice extends Search\Profile
-    implements Values
+class MultipleChoice extends Search\Profile implements Values
 {
-
-    /** @var array */
-    private $options;
+    private array $options;
 
     public function __construct($meta_key, $options)
     {

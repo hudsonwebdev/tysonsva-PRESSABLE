@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ColumnRepository;
 
-interface Filter {
+use AC\ColumnCollection;
+use AC\ColumnIterator;
 
-	public function filter( array $columns ): array;
+interface Filter
+{
+    public function filter(ColumnIterator $columns): ColumnCollection;
 
 }

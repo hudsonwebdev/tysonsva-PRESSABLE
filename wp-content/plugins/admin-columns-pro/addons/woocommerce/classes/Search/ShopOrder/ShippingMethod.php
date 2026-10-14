@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use AC;
@@ -8,11 +10,10 @@ use ACP\Query\Bindings;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
-class ShippingMethod extends Comparison
-    implements Comparison\Values
+class ShippingMethod extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -28,8 +29,8 @@ class ShippingMethod extends Comparison
 
         $bindings = new Bindings();
 
-        $alias_order = $bindings->get_unique_alias('shippingmethod_order');
-        $alias_meta = $bindings->get_unique_alias('shippingmethod_meta');
+        $alias_order = AliasGenerator::generate_from_class(static::class);
+        $alias_meta = AliasGenerator::generate('shippingmethod_meta');
 
         $where = $wpdb->prepare(
             "$alias_meta.meta_value = %s AND $alias_meta.meta_key = 'method_id'",

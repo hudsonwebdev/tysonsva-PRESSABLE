@@ -5,75 +5,84 @@ declare(strict_types=1);
 namespace ACA\ACF;
 
 use AC;
-use AC\ListScreenRepository\Storage;
-use AC\Registerable;
-use AC\Request;
+use AC\DI\Container;
+use AC\Plugin\Version;
 use AC\Services;
-use AC\Vendor\Psr\Container\ContainerInterface;
-use ACA\ACF\ConditionalFormatting\FieldFormattableFactory;
-use ACA\ACF\ListScreenFactory\FieldGroupFactory;
-use ACA\ACF\RequestHandler\MapLegacyListScreen;
-use ACP\RequestHandlerFactory;
-use ACP\RequestParser;
+use ACP\Addon;
 use ACP\Service\IntegrationStatus;
 
-final class AdvancedCustomFields implements Registerable
+final class AdvancedCustomFields implements Addon
 {
+    private Container $container;
 
-    private $location;
-
-    private $container;
-
-    public function __construct(AC\Asset\Location\Absolute $location, ContainerInterface $container)
+    public function __construct(Container $container)
     {
-        $this->location = $location;
         $this->container = $container;
+    }
+
+    public function get_id(): string
+    {
+        return 'acf';
+    }
+
+    private function get_acf_version(): Version
+    {
+        return new Version(acf()->version);
     }
 
     public function register(): void
     {
-        if ( ! class_exists('acf', false)) {
+        if (! AC\Acf::is_active()) {
             return;
         }
 
-        AC\ListScreenFactory\Aggregate::add(new FieldGroupFactory());
+        if ($this->get_acf_version()->is_lt(new Version('5.7'))) {
+            return;
+        }
 
-        $this->create_services()->register();
+        $this->define_factories();
+        $this
+            ->create_services()
+            ->register();
+    }
+
+    private function define_factories(): void
+    {
+        AC\ColumnFactories\Aggregate::add($this->container->get(ColumnFactories\FieldsFactory::class));
+        AC\ColumnFactories\Aggregate::add($this->container->get(ColumnFactories\OrderFieldsFactory::class));
+        AC\ColumnFactories\Aggregate::add($this->container->get(ColumnFactories\MediaFactory::class));
+
+        AC\Value\ExtendedValueRegistry::add(
+            $this->container->get(Value\ExtendedValue\Media\PostsContainingImageInAcf::class)
+        );
     }
 
     private function create_services(): Services
     {
-        $column_initiator = new ColumnInstantiator(
-            new ConfigFactory(new FieldFactory()),
-            new Search\ComparisonFactory(),
-            new Sorting\ModelFactory(),
-            new Editing\ModelFactory(),
-            new FieldFormattableFactory()
+        $request_ajax_handlers = new \AC\RequestAjaxHandlers();
+        $request_ajax_handlers->add(
+            'acp-acf-add-column',
+            $this->container->get(RequestHandler\FieldSettingsAddColumn::class)
         );
 
-        $request_handler_factory = new RequestHandlerFactory(new Request());
-        $request_handler_factory->add(
-            'aca-acf-map-legacy-list-screen',
-            new MapLegacyListScreen($this->container->get(Storage::class))
-        );
-
-        return new Services([
+        $services = new Services([
             new IntegrationStatus('ac-addon-acf'),
-            new ColumnGroup(),
-            new Service\ColumnSettings(),
-            new Service\EditingFix(),
-            new Service\LegacyColumnMapper(),
-            new Service\ListScreens(),
-            new Service\RemoveDeprecatedColumnFromTypeSelector(),
-            new Service\AddColumns(
-                new FieldRepository(new FieldGroup\QueryFactory()),
-                new FieldsFactory(),
-                new ColumnFactory($column_initiator)
-            ),
-            new Service\Scripts($this->location),
-            new Service\InitColumn($column_initiator),
-            new RequestParser($request_handler_factory),
+            new \AC\RequestAjaxParser($request_ajax_handlers),
+            new \AC\Service\View($this->container->get('addon.acf.location')),
         ]);
+
+        $class_names = [
+            Service\ColumnGroup::class,
+            Service\EditingFix::class,
+            Service\FieldSettings::class,
+            Service\Scripts::class,
+        ];
+
+        foreach ($class_names as $service) {
+            $services->add($this->container->get($service));
+        }
+
+        return $services;
     }
 
 }

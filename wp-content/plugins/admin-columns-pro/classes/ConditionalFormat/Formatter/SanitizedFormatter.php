@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace ACP\ConditionalFormat\Formatter;
 
-use AC\Column;
+use AC\Expression\ComparisonOperators;
+use AC\Expression\DateOperators;
+use AC\Expression\StringOperators;
 use ACP\ConditionalFormat\Formatter;
-use ACP\Expression\ComparisonOperators;
-use ACP\Expression\DateOperators;
-use ACP\Expression\StringOperators;
 use InvalidArgumentException;
 
 final class SanitizedFormatter implements Formatter
 {
+    private Formatter $formatter;
 
-    private $formatter;
-
-    private $ignored_operator_groups;
+    private array $ignored_operator_groups;
 
     public function __construct(Formatter $formatter, array $ignored_operator_groups = [])
     {
@@ -33,13 +31,13 @@ final class SanitizedFormatter implements Formatter
         ]);
     }
 
-    public function format(string $value, $id, Column $column, string $operator_group): string
+    public function format(string $value, $id, string $operator_group): string
     {
-        if ( ! in_array($operator_group, $this->ignored_operator_groups, true)) {
+        if (! in_array($operator_group, $this->ignored_operator_groups, true)) {
             $value = $this->sanitize($value);
         }
 
-        return $this->formatter->format($value, $id, $column, $operator_group);
+        return $this->formatter->format($value, $id, $operator_group);
     }
 
     public function get_type(): string
@@ -56,7 +54,7 @@ final class SanitizedFormatter implements Formatter
         ];
 
         foreach ($this->ignored_operator_groups as $ignored_operator_group) {
-            if ( ! in_array($ignored_operator_group, $valid_operator_groups, true)) {
+            if (! in_array($ignored_operator_group, $valid_operator_groups, true)) {
                 throw new InvalidArgumentException(
                     sprintf('%s is not a valid operator group.', $ignored_operator_group)
                 );
@@ -84,7 +82,7 @@ final class SanitizedFormatter implements Formatter
                 break;
         }
 
-        return $value;
+        return (string)$value;
     }
 
 }

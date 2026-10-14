@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Helper\Sql;
 
 use ACP\Search\Operators;
@@ -8,7 +10,6 @@ use LogicException;
 
 final class ComparisonFactory
 {
-
     public static function create(string $column, string $operator, Value $value): Comparison
     {
         $operators = [
@@ -45,7 +46,7 @@ final class ComparisonFactory
             Operators::EQ_YEAR      => Comparison\EqYear::class,
         ];
 
-        if ( ! array_key_exists($operator, $operators)) {
+        if (! array_key_exists($operator, $operators)) {
             throw new LogicException('Invalid operator found.');
         }
 

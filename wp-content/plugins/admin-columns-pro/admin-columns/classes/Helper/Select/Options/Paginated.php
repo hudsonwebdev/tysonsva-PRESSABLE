@@ -1,31 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper\Select\Options;
 
 use AC\ArrayIterator;
 use AC\Helper\Select;
 
-class Paginated extends Select\Options
-	implements Select\Paginated {
+class Paginated extends Select\Options implements Select\Paginated
+{
+    protected Select\Paginated $paginated;
 
-	protected $paginated;
+    public function __construct(Select\Paginated $paginated, ArrayIterator $options)
+    {
+        $this->paginated = $paginated;
 
-	public function __construct( Select\Paginated $paginated, ArrayIterator $options ) {
-		$this->paginated = $paginated;
+        parent::__construct($options->get_copy());
+    }
 
-		parent::__construct( $options->get_copy() );
-	}
+    public function get_total_pages(): int
+    {
+        return $this->paginated->get_total_pages();
+    }
 
-	public function get_total_pages(): int {
-		return $this->paginated->get_total_pages();
-	}
+    public function get_page(): int
+    {
+        return $this->paginated->get_page();
+    }
 
-	public function get_page(): int {
-		return $this->paginated->get_page();
-	}
-
-	public function is_last_page(): bool {
-		return $this->paginated->is_last_page();
-	}
+    public function is_last_page(): bool
+    {
+        return $this->paginated->is_last_page();
+    }
 
 }

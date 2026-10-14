@@ -9,18 +9,14 @@ use WC_Product;
 
 class Options extends Select\Options
 {
-
     /**
      * @var WC_Product[]
      */
-    private $products;
+    private array $products = [];
 
-    /**
-     * @var array
-     */
-    private $labels = [];
+    private array $labels = [];
 
-    private $formatter;
+    private LabelFormatter $formatter;
 
     public function __construct(array $posts, LabelFormatter $formatter)
     {

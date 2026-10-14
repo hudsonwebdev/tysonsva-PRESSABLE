@@ -11,10 +11,9 @@ use ACP\Sorting\Type\Order;
 
 class Depth implements QueryBindings
 {
-
     use PostRequestTrait;
 
-    private $post_type;
+    private string $post_type;
 
     public function __construct(string $post_type)
     {
@@ -36,7 +35,7 @@ class Depth implements QueryBindings
 
     private function get_depth(int $id, array $ids, int $depth = 0): int
     {
-        if ( ! array_key_exists($id, $ids)) {
+        if (! array_key_exists($id, $ids)) {
             return $depth;
         }
 

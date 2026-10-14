@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use AC\Helper\Select\Options\Paginated;
@@ -8,18 +10,12 @@ use ACP\Helper\Select\User\LabelFormatter\UserName;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
 
-class Author extends Field
-    implements SearchableValues
+class Author extends Field implements SearchableValues
 {
-
     public function __construct()
     {
         $operators = new Operators([
             Operators::EQ,
-            Operators::CONTAINS,
-            Operators::NOT_CONTAINS,
-            Operators::BEGINS_WITH,
-            Operators::ENDS_WITH,
             Operators::CURRENT_USER,
         ]);
 
@@ -54,7 +50,8 @@ class Author extends Field
 
     public function get_values(string $search, int $page): Paginated
     {
-        return (new Select\User\PaginatedFactory())->create([
+        return (new Select\User\PaginatedFactory())->create(
+            [
             'search'  => $search,
             'paged'   => $page,
             'include' => $this->get_user_ids(),

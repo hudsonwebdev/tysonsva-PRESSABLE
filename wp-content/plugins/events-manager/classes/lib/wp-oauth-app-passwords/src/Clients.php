@@ -56,13 +56,17 @@ class Clients {
 			}
 		}
 
-		// Bound the registry to avoid unbounded growth from drive-by registrations.
+		// Bound the registry. A flood of drive-by registrations may only ever push out other self-registered clients, never one an administrator created, so it cannot evict the site's real client and break its authorize flow.
 		if ( count( $all ) >= self::MAX ) {
-			// Drop the oldest.
-			uasort( $all, static function ( $a, $b ) {
-				return ( $a['created'] ?? 0 ) <=> ( $b['created'] ?? 0 );
+			$dynamic = array_filter( $all, static function ( $client ) {
+				return ! empty( $client['dynamic'] );
 			} );
-			array_shift( $all );
+			if ( $dynamic ) {
+				uasort( $dynamic, static function ( $a, $b ) {
+					return ( $a['created'] ?? 0 ) <=> ( $b['created'] ?? 0 );
+				} );
+				unset( $all[ array_key_first( $dynamic ) ] );
+			}
 		}
 
 		$client = array(
@@ -105,11 +109,13 @@ class Clients {
 		if ( $host !== '127.0.0.1' && $host !== '::1' && $host !== 'localhost' ) {
 			return false;
 		}
+		$scheme = strtolower( (string) wp_parse_url( $uri, PHP_URL_SCHEME ) );
+		$upath  = (string) wp_parse_url( $uri, PHP_URL_PATH );
 		foreach ( (array) ( $client['redirect_uris'] ?? array() ) as $registered ) {
-			$rhost = (string) wp_parse_url( $registered, PHP_URL_HOST );
-			$rpath = (string) wp_parse_url( $registered, PHP_URL_PATH );
-			$upath = (string) wp_parse_url( $uri, PHP_URL_PATH );
-			if ( $rhost === $host && $rpath === $upath ) {
+			$rscheme = strtolower( (string) wp_parse_url( $registered, PHP_URL_SCHEME ) );
+			$rhost   = (string) wp_parse_url( $registered, PHP_URL_HOST );
+			$rpath   = (string) wp_parse_url( $registered, PHP_URL_PATH );
+			if ( $rscheme === $scheme && $rhost === $host && $rpath === $upath ) {
 				return true;
 			}
 		}

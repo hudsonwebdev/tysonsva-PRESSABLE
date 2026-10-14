@@ -170,7 +170,7 @@ class Command extends \DeliciousBrains\WPMDB\Pro\Cli\Command
         $assoc_args['import-file'] = trim($args[0]);
 
         if (empty($assoc_args['import-file'])) {
-            \WP_CLI::error(__('You must provide an import file.', 'wp-migrate-db-cli'));
+            \WP_CLI::error(__('You must provide an import file.', 'wp-migrate-db'));
         }
 
         $profile = $this->_get_profile_data_from_args($args, $assoc_args);

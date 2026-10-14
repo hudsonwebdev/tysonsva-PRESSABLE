@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use ACP\Query\Bindings;
@@ -10,7 +12,6 @@ use ACP\Search\Value;
 
 class Refunds extends Comparison
 {
-
     public function __construct()
     {
         parent::__construct(

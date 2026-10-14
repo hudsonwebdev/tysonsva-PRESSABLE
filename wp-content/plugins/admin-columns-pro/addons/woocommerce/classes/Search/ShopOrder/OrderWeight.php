@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use ACP;
@@ -9,7 +11,6 @@ use ACP\Search\Value;
 
 class OrderWeight extends Comparison
 {
-
     public function __construct()
     {
         $operators = new ACP\Search\Operators(
@@ -27,10 +28,12 @@ class OrderWeight extends Comparison
     {
         $bindings = new Bindings();
 
-        return $bindings->where($this->get_where($operator, $value));
+        return $bindings->where(
+            $this->get_where($operator, $value)
+        );
     }
 
-    public function get_where($operator, $value)
+    public function get_where(string $operator, Value $value): string
     {
         global $wpdb;
 
@@ -45,16 +48,20 @@ class OrderWeight extends Comparison
         return sprintf("{$wpdb->posts}.ID IN( %s )", implode(',', $order_ids));
     }
 
-    public function get_order_ids($operator, Value $value)
+    public function get_order_ids(string $operator, Value $value): array
     {
         global $wpdb;
 
         switch ($operator) {
             case ACP\Search\Operators::BETWEEN:
-                $where = $wpdb->prepare('total BETWEEN %d AND %d', $value->get_value()[0], $value->get_value()[1]);
+                $where = $wpdb->prepare(
+                    'total BETWEEN %d AND %d',
+                    (int)$value->get_value()[0],
+                    (int)$value->get_value()[1]
+                );
                 break;
             default:
-                $where = $wpdb->prepare("total {$operator} %d", $value->get_value());
+                $where = $wpdb->prepare("total $operator %d", (int)$value->get_value());
         }
 
         // The sub query needs a limit in order to sort the subquery before grouping it, which is necessary in this case

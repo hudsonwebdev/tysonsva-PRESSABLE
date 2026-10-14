@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Helper\MetaQuery;
 
 use ACP\Search\Helper\MetaQuery;
@@ -9,7 +11,6 @@ use LogicException;
 
 final class ComparisonFactory
 {
-
     public static function create(string $key, string $operator, Value $value): Comparison
     {
         $operators = [
@@ -44,7 +45,7 @@ final class ComparisonFactory
             Operators::CURRENT_USER => MetaQuery\Comparison\CurrentUser::class,
         ];
 
-        if ( ! array_key_exists($operator, $operators)) {
+        if (! array_key_exists($operator, $operators)) {
             throw new LogicException('Invalid operator found.');
         }
 

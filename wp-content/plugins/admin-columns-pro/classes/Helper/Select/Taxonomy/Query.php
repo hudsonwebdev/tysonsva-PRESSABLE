@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Helper\Select\Taxonomy;
 
 use AC\ApplyFilter\QueryTotalNumber;
@@ -7,14 +9,9 @@ use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
 use WP_Term_Query;
 
-class Query extends ArrayIterator
-    implements Paginated
+class Query extends ArrayIterator implements Paginated
 {
-
-    /**
-     * @var WP_Term_Query
-     */
-    protected $query;
+    protected WP_Term_Query $query;
 
     public function __construct(array $args = [])
     {
@@ -25,13 +22,15 @@ class Query extends ArrayIterator
             'hide_empty' => 0,
             'taxonomy'   => null,
         ], $args);
- 
+
         // calculate offset
         $args['offset'] = ($args['page'] - 1) * $args['number'];
 
         $this->query = new WP_Term_Query($args);
 
-        parent::__construct($this->query->get_terms());
+        $terms = $this->query->get_terms();
+
+        parent::__construct(is_array($terms) ? $terms : []);
     }
 
     public function get_total_pages(): int
@@ -43,7 +42,13 @@ class Query extends ArrayIterator
         $vars['page'] = 1;
         $vars['offset'] = 0;
 
-        return absint(ceil(wp_count_terms($taxonomy, $vars) / $this->query->query_vars['number']));
+        $count = wp_count_terms($taxonomy, $vars);
+
+        if (is_wp_error($count)) {
+            return 0;
+        }
+
+        return absint(ceil((int)$count / $this->query->query_vars['number']));
     }
 
     public function get_page(): int

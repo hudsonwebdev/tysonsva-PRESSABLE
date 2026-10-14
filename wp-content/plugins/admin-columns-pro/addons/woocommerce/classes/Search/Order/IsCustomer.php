@@ -6,7 +6,6 @@ namespace ACA\WC\Search\Order;
 
 use AC;
 use ACA\WC\Scheme\Orders;
-use ACA\WC\Search;
 use ACP;
 use ACP\Query\Bindings;
 use ACP\Search\Operators;
@@ -14,7 +13,6 @@ use ACP\Search\Value;
 
 class IsCustomer extends OrderField implements ACP\Search\Comparison\Values
 {
-
     public function __construct()
     {
         parent::__construct(

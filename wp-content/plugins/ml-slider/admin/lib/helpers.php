@@ -499,6 +499,8 @@ function metaslider_intermediate_image_src( $width, $attachment_id )
  * Filter unsafe HTML from slide content (e.g. caption)
  * 
  * @since 3.103
+ * @since 3.113.1 Use the prefixed MSHTMLPurifier classes so another plugin's copy of
+ *                the library can no longer answer for ours.
  * 
  * @param string $content    The HTML content to be purified
  * @param array  $slide      The slide data such as id, caption, caption_raw, etc.
@@ -510,14 +512,14 @@ function metaslider_intermediate_image_src( $width, $attachment_id )
 function metaslider_filter_unsafe_html( $content, $slide, $slider_id, $settings )
 {
     try {
-        if ( ! class_exists( 'HTMLPurifier_Config' ) || ! class_exists( 'HTMLPurifier' ) ) {
-            $autoloader = METASLIDER_PATH . 'lib/htmlpurifier/library/HTMLPurifier.auto.php';
+        if ( ! class_exists( 'MSHTMLPurifier_Config' ) || ! class_exists( 'MSHTMLPurifier' ) ) {
+            $autoloader = METASLIDER_PATH . 'lib/htmlpurifier/library/MSHTMLPurifier.auto.php';
             if ( ! file_exists( $autoloader ) ) {
                 throw new RuntimeException( 'HTMLPurifier autoloader not found: ' . $autoloader );
             }
             require_once( $autoloader );
         }
-        $config = HTMLPurifier_Config::createDefault();
+        $config = MSHTMLPurifier_Config::createDefault();
         // How to filter:
         // add_filter('metaslider_html_purifier_config', function($config) {
         //     $config->set('HTML.Allowed', 'a[href|target]');
@@ -525,7 +527,7 @@ function metaslider_filter_unsafe_html( $content, $slide, $slider_id, $settings 
         //     return $config;
         // });
         $config   = apply_filters('metaslider_html_purifier_config', $config, $slide, $slider_id, $settings);
-        $purifier = new HTMLPurifier( $config );
+        $purifier = new MSHTMLPurifier( $config );
         $content  = $purifier->purify( $content );
     } catch ( Throwable $e ) {
         $content = htmlspecialchars( do_shortcode( $content ), ENT_NOQUOTES, 'UTF-8' );

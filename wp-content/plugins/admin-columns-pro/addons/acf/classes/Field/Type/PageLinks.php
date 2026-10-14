@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Field\Type;
 
 use ACA\ACF\Field;
 
-class PageLinks extends Field
-    implements Field\PostTypeFilterable, Field\TaxonomyFilterable, Field\Multiple
+class PageLinks extends Field implements Field\PostTypeFilterable, Field\TaxonomyFilterable, Field\Multiple
 {
-
     use MultipleTrait;
     use PostTypeTrait;
     use TaxonomyFilterableTrait;

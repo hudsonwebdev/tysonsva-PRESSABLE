@@ -1,35 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\QuickAdd\Model;
 
-use AC\ListScreen;
+use AC\TableScreen;
 
-class Factory {
+class Factory
+{
+    /**
+     * @var ModelFactory[]
+     */
+    private static array $factories = [];
 
-	/**
-	 * @var ModelFactory[]
-	 */
-	private static $factories = [];
+    public static function add_factory(ModelFactory $factory)
+    {
+        self::$factories[] = $factory;
+    }
 
-	public static function add_factory( ModelFactory $factory ) {
-		self::$factories[] = $factory;
-	}
+    public static function create(TableScreen $table_screen): ?Create
+    {
+        foreach (array_reverse(self::$factories) as $factory) {
+            $model = $factory->create($table_screen);
 
-	/**
-	 * @param ListScreen $list_screen
-	 *
-	 * @return Create|null
-	 */
-	public static function create( ListScreen $list_screen ) {
-		foreach ( array_reverse( self::$factories ) as $factory ) {
-			$model = $factory->create( $list_screen );
+            if ($model) {
+                return $model;
+            }
+        }
 
-			if ( $model ) {
-				return $model;
-			}
-		}
-
-		return null;
-	}
+        return null;
+    }
 
 }

@@ -1,17 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Field;
 
-interface ValueWrapper {
+interface ValueWrapper
+{
+    public function get_append(): string;
 
-	/**
-	 * @return string
-	 */
-	public function get_append();
-
-	/**
-	 * @return string
-	 */
-	public function get_prepend();
+    public function get_prepend(): string;
 
 }

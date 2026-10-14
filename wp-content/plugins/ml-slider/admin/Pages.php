@@ -258,6 +258,8 @@ class MetaSlider_Admin_Pages extends MetaSliderPlugin
             'unsplashImageQuality' => isset( $global_settings['unsplashImageQuality'] ) ? $global_settings['unsplashImageQuality'] : 'optimized',
             'pixabayImageQuality' => isset( $global_settings['pixabayImageQuality'] ) ? $global_settings['pixabayImageQuality'] : 'largeImageURL',
             'pixabayVideoQuality' => isset( $global_settings['pixabayVideoQuality'] ) ? $global_settings['pixabayVideoQuality'] : 'medium',
+            'docs_link' => 'https://www.metaslider.com/docs/',
+            'support_link' => 'https://www.metaslider.com/support/',
         ));
         wp_enqueue_script('metaslider-admin-components');
     }

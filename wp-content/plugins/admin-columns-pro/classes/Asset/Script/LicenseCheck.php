@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Asset\Script;
 
 use AC\Asset\Location\Absolute;
@@ -8,7 +10,6 @@ use AC\Nonce\Ajax;
 
 class LicenseCheck extends Script
 {
-
     public function __construct(Absolute $location)
     {
         parent::__construct('acp-license-check', $location);

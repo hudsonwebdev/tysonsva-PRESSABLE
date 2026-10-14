@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use AC\Helper\Select\Options;
@@ -9,10 +11,10 @@ use ACP\Search\Comparison\Values;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class AuthorRole extends Comparison implements Values
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -25,11 +27,11 @@ class AuthorRole extends Comparison implements Values
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;
-        
+
         $bindings = new Bindings();
 
-        $alias_user = $bindings->get_unique_alias('user');
-        $alias_usermeta = $bindings->get_unique_alias('usermeta');
+        $alias_user = AliasGenerator::generate_from_class(static::class);
+        $alias_usermeta = AliasGenerator::generate('usermeta');
 
         $bindings->join(
             "

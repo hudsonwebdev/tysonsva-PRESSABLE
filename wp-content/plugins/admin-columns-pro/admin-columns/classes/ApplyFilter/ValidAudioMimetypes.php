@@ -1,29 +1,20 @@
 <?php
 
-namespace AC\ApplyFilter;
+declare(strict_types=1);
 
-use AC;
+namespace AC\ApplyFilter;
 
 class ValidAudioMimetypes
 {
-
-    private $column;
-
-    public function __construct(AC\Column $column)
-    {
-        $this->column = $column;
-    }
-
     public function apply_filters(): array
     {
         return (array)apply_filters(
-            'ac/column/video_player/valid_mime_types',
+            'ac/column/audio_mime_types',
             [
                 'audio/mpeg',
                 'audio/flac',
                 'audio/wav',
-            ],
-            $this->column
+            ]
         );
     }
 

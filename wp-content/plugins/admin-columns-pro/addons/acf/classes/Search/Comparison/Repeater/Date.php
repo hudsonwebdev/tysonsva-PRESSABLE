@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Search\Comparison\Repeater;
 
 use ACA\ACF\Search\Comparison;
@@ -10,7 +12,6 @@ use ACP\Search\Value;
 
 class Date extends Comparison\Repeater
 {
-
     public function __construct(string $meta_type, string $parent_key, string $sub_key)
     {
         $operators = new Operators([
@@ -83,7 +84,8 @@ class Date extends Comparison\Repeater
                 $value[$key] = $this->format_date($item);
             }
         } else {
-            $value = date('Ymd', strtotime($value));
+            $timestamp = strtotime((string)$value);
+            $value = false === $timestamp ? '' : date('Ymd', $timestamp);
         }
 
         return $value;

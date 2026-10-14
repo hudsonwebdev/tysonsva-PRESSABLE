@@ -107,12 +107,7 @@ function em_init_actions_start() {
 				exit();
 			} elseif ( $_REQUEST['action'] == 'booking_form_nonces' ) {
 				if ( ( defined( 'WP_CACHE' ) && WP_CACHE ) || defined( 'EM_CACHE' ) && EM_CACHE ) {
-					$nonces = array (
-						'booking_form' => wp_create_nonce( 'booking_form' ),
-						'booking_recurrences' => wp_create_nonce( 'booking_recurrences' ),
-						'booking_add' => wp_create_nonce( 'booking_add' ),
-					);
-					echo EM_Object::json_encode( $nonces );
+					echo EM_Object::json_encode( em_booking_form_nonces() );
 					exit();
 				}
 			}
@@ -360,7 +355,7 @@ function em_init_actions_start() {
 		if ( $_REQUEST['action'] == 'booking_add') {
 			//ADD/EDIT Booking
 			ob_start();
-			em_verify_nonce('booking_add');
+			em_verify_booking_nonce('booking_add');
 			if( !is_user_logged_in() || $EM_Booking->get_option('dbem_bookings_double') || !$EM_Event->get_bookings()->has_booking(get_current_user_id()) ){
 				if ( $EM_Event->event_status != 1 || $EM_Event->event_active_status != 1 ) {
 					$EM_Notices->add_error( __('This event is not available or has been cancelled', 'events-manager') ); // uncommon, not needed for custom error.
@@ -671,12 +666,12 @@ function em_init_actions_start() {
 
 		if( $result && defined('DOING_AJAX') ){
 			$return = array('result'=>true, 'success'=>true, 'message'=>$feedback);
-			header( 'Content-Type: application/javascript; charset=UTF-8', true ); //add this for HTTP -> HTTPS requests which assume it's a cross-site request
+			if( !headers_sent() ) header( 'Content-Type: application/javascript; charset=UTF-8', true ); //add this for HTTP -> HTTPS requests which assume it's a cross-site request
 			echo EM_Object::json_encode(apply_filters('em_action_'.$_REQUEST['action'], $return, $EM_Booking));
 			die();
 		}elseif( !$result && defined('DOING_AJAX') ){
 			$return = array('result'=>false, 'success'=>false, 'message'=>$feedback, 'errors'=>$EM_Notices->get_errors());
-			header( 'Content-Type: application/javascript; charset=UTF-8', true ); //add this for HTTP -> HTTPS requests which assume it's a cross-site request
+			if( !headers_sent() ) header( 'Content-Type: application/javascript; charset=UTF-8', true ); //add this for HTTP -> HTTPS requests which assume it's a cross-site request
 			echo EM_Object::json_encode(apply_filters('em_action_'.$_REQUEST['action'], $return, $EM_Booking));
 			die();
 		}

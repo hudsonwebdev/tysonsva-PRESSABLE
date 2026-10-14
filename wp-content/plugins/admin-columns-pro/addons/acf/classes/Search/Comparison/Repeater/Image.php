@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Search\Comparison\Repeater;
 
 use AC\Helper\Select\Options\Paginated;
@@ -10,10 +12,8 @@ use ACP\Helper\Select\Post\PaginatedFactory;
 use ACP\Search\Comparison\SearchableValues;
 use ACP\Search\Operators;
 
-class Image extends Comparison\Repeater
-    implements SearchableValues
+class Image extends Comparison\Repeater implements SearchableValues
 {
-
     public function __construct(string $meta_type, string $parent_key, string $sub_key)
     {
         $operators = new Operators([

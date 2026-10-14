@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Product;
 
 use AC\Helper\Select\Options\Paginated;
@@ -11,10 +13,8 @@ use ACP\Search\Operators;
 use ACP\Search\Value;
 use WC_Product;
 
-class GroupedProducts extends Comparison\Meta
-    implements Comparison\SearchableValues
+class GroupedProducts extends Comparison\Meta implements Comparison\SearchableValues
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -44,18 +44,19 @@ class GroupedProducts extends Comparison\Meta
 
     private function get_grouped_products(): array
     {
+        $options = [];
+
         foreach (wc_get_products(['type' => 'grouped']) as $grouped_product) {
-            if ( ! $grouped_product instanceof WC_Product) {
+            if (! $grouped_product instanceof WC_Product) {
                 continue;
             }
-            $options = [];
 
             foreach ($grouped_product->get_children() as $child) {
                 $options[] = $child;
             }
         }
 
-        return $options;
+        return array_unique($options);
     }
 
     public function format_label($value): string

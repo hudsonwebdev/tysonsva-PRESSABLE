@@ -1,21 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order\Customer;
 
 use ACA\WC\Scheme\Orders;
-use ACA\WC\Search;
 use ACP;
 use ACP\Query\Bindings;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class UserField extends ACP\Search\Comparison
 {
+    private string $field;
 
-    private $field;
-
-    public function __construct(string $field, Operators $operators = null, string $value_type = null)
+    public function __construct(string $field, ?Operators $operators = null, ?string $value_type = null)
     {
         $operators = $operators
             ?: new Operators([
@@ -46,7 +47,7 @@ class UserField extends ACP\Search\Comparison
         );
 
         $subquery = $wpdb->prepare("SELECT u.ID FROM $wpdb->users AS u WHERE {$where()}");
-        $alias = $bindings->get_unique_alias('usq');
+        $alias = AliasGenerator::generate_from_class(static::class);
         $order_table = $wpdb->prefix . Orders::TABLE;
         $bindings->join("JOIN($subquery) as $alias on $order_table.customer_id = $alias.ID");
 

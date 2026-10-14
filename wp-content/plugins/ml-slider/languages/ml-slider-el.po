@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-05-25T13:04:12+00:00\n"
-"PO-Revision-Date: 2026-08-28 16:44+0000\n"
+"PO-Revision-Date: 2026-09-16 16:45+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ml-slider\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -154,12 +154,22 @@ msgstr "Διάβασε περισσότερα"
 #: inc/slide/metaslide.image.class.php:232
 #: inc/slide/metaslide.image.class.php:286
 #: inc/slide/metaslide.image.class.php:404
-#: ml-slider.php:944
-#: ml-slider.php:1026
-#: ml-slider.php:1138
-#: ml-slider.php:2853
-#: ml-slider.php:2898
-#: ml-slider.php:2973
+#: inc/slide/metaslide.livid.class.php:334
+#: inc/slide/metaslide.livid.class.php:401
+#: inc/slide/metaslide.livid.class.php:448
+#: inc/slide/metaslide.livid.class.php:776
+#: ml-slider.php:994
+#: ml-slider.php:1076
+#: ml-slider.php:1188
+#: ml-slider.php:2860
+#: ml-slider.php:2905
+#: ml-slider.php:2980
+#: modules/local_video/slide.php:870
+#: modules/local_video/slide.php:928
+#: modules/local_video/slide.php:1036
+#: modules/local_video/slide.php:1201
+#: modules/local_video/slide.php:1274
+#: modules/local_video/slide.php:1388
 msgid "The security check failed. Please refresh the page and try again."
 msgstr ""
 "Η έλεγχος ασφαλείας απέτυχε. Παρακαλώ ανανεώστε τη σελίδα και δοκιμάστε "
@@ -167,18 +177,21 @@ msgstr ""
 
 #: admin/Notices.php:394
 #: admin/Notices.php:642
-#: admin/routes/api.php:141
+#: admin/routes/api.php:145
 #: inc/slide/metaslide.class.php:152
 #: inc/slide/metaslide.image.class.php:135
 #: inc/slide/metaslide.image.class.php:154
 #: inc/slide/metaslide.image.class.php:240
 #: inc/slide/metaslide.image.class.php:294
-#: ml-slider.php:952
-#: ml-slider.php:1034
-#: ml-slider.php:1146
-#: ml-slider.php:2861
-#: ml-slider.php:2906
-#: ml-slider.php:2981
+#: inc/slide/metaslide.livid.class.php:342
+#: inc/slide/metaslide.livid.class.php:409
+#: inc/slide/metaslide.livid.class.php:456
+#: ml-slider.php:1002
+#: ml-slider.php:1084
+#: ml-slider.php:1196
+#: ml-slider.php:2868
+#: ml-slider.php:2913
+#: ml-slider.php:2988
 msgid "Access denied. Sorry, you do not have permission to complete this task."
 msgstr ""
 "Η πρόσβαση απορρίφθηκε. Συγγνώμη, δεν έχετε άδεια να ολοκληρώσετε αυτή την "
@@ -191,12 +204,25 @@ msgstr ""
 #: inc/slide/metaslide.image.class.php:249
 #: inc/slide/metaslide.image.class.php:303
 #: inc/slide/metaslide.image.class.php:422
-#: ml-slider.php:961
-#: ml-slider.php:1043
-#: ml-slider.php:1155
-#: ml-slider.php:2870
-#: ml-slider.php:2914
-#: ml-slider.php:2990
+#: inc/slide/metaslide.livid.class.php:351
+#: inc/slide/metaslide.livid.class.php:416
+#: inc/slide/metaslide.livid.class.php:463
+#: inc/slide/metaslide.livid.class.php:470
+#: inc/slide/metaslide.livid.class.php:793
+#: ml-slider.php:1011
+#: ml-slider.php:1093
+#: ml-slider.php:1205
+#: ml-slider.php:2877
+#: ml-slider.php:2921
+#: ml-slider.php:2997
+#: modules/local_video/slide.php:209
+#: modules/local_video/slide.php:887
+#: modules/local_video/slide.php:945
+#: modules/local_video/slide.php:1057
+#: modules/local_video/slide.php:1221
+#: modules/local_video/slide.php:1291
+#: modules/local_video/slide.php:1405
+#: modules/local_video/slide.php:2091
 msgid "Bad request"
 msgstr "Κακή αίτηση"
 
@@ -247,6 +273,7 @@ msgid "URL"
 msgstr "URL"
 
 #: admin/Pages.php:157
+#: modules/local_video/slide.php:423
 #: themes/architekt/customize.php:511
 #: themes/bitono/customize.php:625
 #: themes/blend/customize.php:655
@@ -324,7 +351,7 @@ msgid "Tone"
 msgstr "Τόνος"
 
 #: admin/Pages.php:186
-#: admin/views/pages/parts/slider-settings.php:1431
+#: admin/views/pages/parts/slider-settings.php:1427
 #: admin/views/slides/tabs/background.php:73
 #: inc/metaslider.imagestyles.class.php:463
 #: themes/architekt/customize.php:602
@@ -428,46 +455,46 @@ msgstr "Χρώμα Κειμένου"
 msgid "Link Text"
 msgstr "Κείμενο Συνδέσμου"
 
-#: admin/routes/api.php:462
+#: admin/routes/api.php:466
 msgid "The request format was not valid."
 msgstr "Η μορφή αιτήματος δεν ήταν έγκυρη."
 
-#: admin/routes/api.php:470
-#: admin/routes/api.php:602
+#: admin/routes/api.php:474
+#: admin/routes/api.php:606
 msgid "This slideshow is no longer available."
 msgstr "Αυτή η παρουσίαση δεν είναι πλέον διαθέσιμη."
 
-#: admin/routes/api.php:557
+#: admin/routes/api.php:561
 msgid "Nothing to import."
 msgstr "Δεν υπάρχει τίποτα προς εισαγωγή."
 
-#: admin/routes/api.php:609
+#: admin/routes/api.php:613
 msgid "This was not a slideshow, so we cannot delete it."
 msgstr "Αυτή δεν ήταν παρουσίαση, επομένως δεν μπορούμε να την διαγράψουμε."
 
-#: admin/routes/api.php:822
+#: admin/routes/api.php:826
 msgid "This was not a slideshow, so we cannot update the setting."
 msgstr "Αυτή δεν ήταν παρουσίαση, επομένως δεν μπορούμε να ενημερώσουμε την ρύθμιση."
 
-#: admin/routes/api.php:930
+#: admin/routes/api.php:934
 msgid "The title cannot be empty."
 msgstr "Ο τίτλος δεν μπορεί να είναι κενός."
 
-#: admin/routes/api.php:934
-#: admin/routes/api.php:1208
+#: admin/routes/api.php:938
+#: admin/routes/api.php:1212
 #, php-format
 msgid "The field (%s) cannot be empty"
 msgstr "Το πεδίο (%s) δεν μπορεί να είναι κενό"
 
-#: admin/routes/api.php:1198
+#: admin/routes/api.php:1202
 msgid "Maximum Number of Custom Field in Post Feed Sliders"
 msgstr "Μέγιστος αριθμός προσαρμοσμένων πεδίων σε παρουσίες τροφοδοσίας αναρτήσεων"
 
-#: admin/routes/api.php:1242
+#: admin/routes/api.php:1246
 msgid "No video file was received by the server."
 msgstr "Δεν ελήφθη κανένα αρχείο βίντεο από τον διακομιστή."
 
-#: admin/routes/api.php:1258
+#: admin/routes/api.php:1262
 #. translators: 1: uploaded filename, 2: mime type WordPress detected, or "none"
 #, php-format
 msgid ""
@@ -478,19 +505,19 @@ msgstr ""
 "%2$s). Μπορεί να είναι μη υποστηριζόμενη μορφή ή να υπερβαίνει το όριο "
 "ανέβασμα αυτού του διακομιστή."
 
-#: admin/routes/api.php:1260
+#: admin/routes/api.php:1264
 msgid "none"
 msgstr "κανένα"
 
-#: admin/routes/api.php:1268
+#: admin/routes/api.php:1272
 msgid "The video could not be imported."
 msgstr "Το βίντεο δεν μπόρεσε να εισαχθεί."
 
-#: admin/routes/api.php:1386
+#: admin/routes/api.php:1409
 msgid "Import slug not found"
 msgstr "Η εισαγωγή slug δεν βρέθηκε"
 
-#: admin/routes/api.php:1402
+#: admin/routes/api.php:1425
 msgid "Import data could not be processed"
 msgstr "Τα δεδομένα εισαγωγής δεν μπορούν να επεξεργαστούν"
 
@@ -499,18 +526,18 @@ msgid "We could not find any images to import."
 msgstr "Δεν μπορέσαμε να βρούμε εικόνες για εισαγωγή."
 
 #: admin/slideshows/Settings.php:59
-#: inc/slider/metaslider.class.php:161
+#: inc/slider/metaslider.class.php:165
 msgid "New Slideshow"
 msgstr "Νέο Slideshow"
 
 #: admin/slideshows/Settings.php:86
-#: inc/slider/metaslider.class.php:188
+#: inc/slider/metaslider.class.php:192
 #: inc/slider/metaslider.flex.class.php:819
 msgid "Previous"
 msgstr "Προηγούμενο"
 
 #: admin/slideshows/Settings.php:87
-#: inc/slider/metaslider.class.php:189
+#: inc/slider/metaslider.class.php:193
 #: inc/slider/metaslider.flex.class.php:820
 msgid "Next"
 msgstr "Επόμενο"
@@ -535,23 +562,23 @@ msgstr "Απέτυχε η εισαγωγή κειμένου από τη διεύ
 msgid "Failed to import image from URL: %s."
 msgstr "Αποτυχία στην εισαγωγή εικόνας από τη διεύθυνση URL: %s."
 
-#: admin/slideshows/Slideshows.php:1204
+#: admin/slideshows/Slideshows.php:1208
 msgid "Only http/https URLs are allowed."
 msgstr "Μόνο οι διευθύνσεις URL http/https επιτρέπονται."
 
-#: admin/slideshows/Slideshows.php:1214
+#: admin/slideshows/Slideshows.php:1218
 msgid "URL does not point to an allowed file type."
 msgstr "Η διεύθυνση URL δεν δείχνει σε επιτρεπόμενο τύπο αρχείου."
 
-#: admin/slideshows/Slideshows.php:1224
+#: admin/slideshows/Slideshows.php:1228
 msgid "URL resolves to a disallowed address."
 msgstr "Η διεύθυνση URL επιλύεται σε απαγορευμένη διεύθυνση."
 
-#: admin/slideshows/Themes.php:60
+#: admin/slideshows/Themes.php:203
 msgid "No themes found."
 msgstr "Δεν βρέθηκαν Θέματα."
 
-#: admin/slideshows/Themes.php:449
+#: admin/slideshows/Themes.php:595
 msgid ""
 "We removed your selected theme as it could not be found. Was the folder "
 "deleted?"
@@ -570,100 +597,100 @@ msgstr ""
 "Δεν έχετε καμία παρουσίαση διαφανειών ακόμα. Κάντε κλικ %shere%s για να "
 "δημιουργήσετε μια νέα παρουσίαση διαφανειών."
 
-#: admin/Table.php:184
-#: admin/Table.php:347
+#: admin/Table.php:193
+#: admin/Table.php:356
 #: inc/slide/metaslide.class.php:420
 msgid "Restore"
 msgstr "Αποκατάσταση"
 
-#: admin/Table.php:185
-#: admin/Table.php:348
+#: admin/Table.php:194
+#: admin/Table.php:357
 #: inc/slide/metaslide.class.php:430
 msgid "Delete Permanently"
 msgstr "Οριστική διαγραφή"
 
-#: admin/Table.php:189
-#: admin/Table.php:362
+#: admin/Table.php:198
+#: admin/Table.php:371
 msgid "Trash"
 msgstr "Διεγραμμένα"
 
-#: admin/Table.php:200
+#: admin/Table.php:209
 #: admin/views/pages/parts/toolbar.php:75
 #: admin/assets/dist/js/app.js:2
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: admin/Table.php:201
+#: admin/Table.php:210
 #: admin/assets/dist/js/app.js:2
 msgid "Title"
 msgstr "Τίτλος"
 
-#: admin/Table.php:202
+#: admin/Table.php:211
 msgid "Type of Slides"
 msgstr "Τύπος Διαφανειών"
 
-#: admin/Table.php:203
+#: admin/Table.php:212
 msgid "Number of Slides"
 msgstr "Αριθμός Διαφανειών"
 
-#: admin/Table.php:204
+#: admin/Table.php:213
 msgid "Theme"
 msgstr "Θέμα"
 
-#: admin/Table.php:205
+#: admin/Table.php:214
 msgid "Created"
 msgstr "Δημιουργήθηκε"
 
-#: admin/Table.php:206
-#: admin/views/pages/parts/slider-settings.php:1694
+#: admin/Table.php:215
+#: admin/views/pages/parts/slider-settings.php:1690
 msgid "Shortcode"
 msgstr "Κώδικας συντόμευσης"
 
-#: admin/Table.php:212
+#: admin/Table.php:221
 msgid "Usage"
 msgstr "Χρήση"
 
-#: admin/Table.php:361
+#: admin/Table.php:370
 msgid "Edit"
 msgstr "Επεξεργασία"
 
-#: admin/Table.php:398
+#: admin/Table.php:407
 #: admin/views/pages/parts/shortcode.php:11
 msgid "Click to copy shortcode."
 msgstr "Κάντε κλικ για να αντιγράψετε το shortcode."
 
-#: admin/Table.php:406
-#: admin/Table.php:419
-#: admin/Table.php:479
+#: admin/Table.php:415
+#: admin/Table.php:428
+#: admin/Table.php:488
 msgid "Not found."
 msgstr "Δεν βρέθηκε."
 
-#: admin/Table.php:408
+#: admin/Table.php:417
 msgid "View Usage"
 msgstr "Προβολή Χρήσης"
 
-#: admin/Table.php:414
+#: admin/Table.php:423
 msgid "Content Using This Slideshow"
 msgstr "Περιεχόμενο που χρησιμοποιεί αυτό το slideshow"
 
-#: admin/Table.php:456
+#: admin/Table.php:465
 msgid "Theme Setting"
 msgstr "Ρύθμιση Θέματος"
 
-#: admin/Table.php:470
+#: admin/Table.php:479
 msgid "Option"
 msgstr "Επιλογή"
 
-#: admin/Table.php:527
-#: admin/views/pages/start.php:191
+#: admin/Table.php:536
+#: admin/views/pages/start.php:192
 msgid "All Themes"
 msgstr "Όλα τα Θέματα"
 
-#: admin/Table.php:540
+#: admin/Table.php:549
 msgid "(No Theme)"
 msgstr "(Κανένα Θέμα)"
 
-#: admin/Table.php:544
+#: admin/Table.php:553
 #: admin/views/slides/tabs/background.php:32
 #: inc/metaslider.imagestyles.class.php:388
 msgid "Filter"
@@ -680,7 +707,7 @@ msgid "(%s Weeks)"
 msgstr "(Από %s Εβδομάδες)"
 
 #: admin/views/pages/dashboard.php:8
-#: ml-slider.php:574
+#: ml-slider.php:578
 #: admin/assets/dist/js/app.js:2
 msgid "Slideshows"
 msgstr "Slideshow"
@@ -810,7 +837,7 @@ msgstr "Πλάτος παρουσίασης"
 
 #: admin/views/pages/parts/slider-settings.php:90
 #: admin/views/pages/parts/slider-settings.php:103
-#: admin/views/pages/parts/slider-settings.php:926
+#: admin/views/pages/parts/slider-settings.php:922
 #: admin/views/slides/tabs/background.php:51
 #: inc/metaslider.imagestyles.class.php:407
 #: inc/metaslider.imagestyles.class.php:419, fuzzy
@@ -1148,30 +1175,30 @@ msgid "This animation is used when changing slides."
 msgstr "Αυτή η animation χρησιμοποιείται κατά την αλλαγή των διαφανειών."
 
 #: admin/views/pages/parts/slider-settings.php:550
-#: admin/views/pages/start.php:174
+#: admin/views/pages/start.php:175
 #: inc/metaslider.imagestyles.class.php:537, fuzzy
 msgid "Fade"
 msgstr "Fade"
 
 #: admin/views/pages/parts/slider-settings.php:554
-#: admin/views/pages/start.php:173, fuzzy
+#: admin/views/pages/start.php:174, fuzzy
 msgid "Slide"
 msgstr "Slide"
 
 #: admin/views/pages/parts/slider-settings.php:558
-#: admin/views/pages/start.php:175
+#: admin/views/pages/start.php:176
 msgid "Zooming"
 msgstr "Ζουμ"
 
 #: admin/views/pages/parts/slider-settings.php:562
-#: admin/views/pages/start.php:176
+#: admin/views/pages/start.php:177
 #: admin/views/slides/tabs/background.php:87
 #: inc/metaslider.imagestyles.class.php:488
 msgid "Flip"
 msgstr "Αναστροφή"
 
 #: admin/views/pages/parts/slider-settings.php:566
-#: admin/views/pages/parts/slider-settings.php:1344
+#: admin/views/pages/parts/slider-settings.php:1340
 msgid "Random"
 msgstr "Τυχαίο"
 
@@ -1294,7 +1321,7 @@ msgid "Horizontal"
 msgstr "Οριζόντια"
 
 #: admin/views/pages/parts/slider-settings.php:757
-#: admin/views/pages/start.php:178
+#: admin/views/pages/start.php:179
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:494
 msgid "Vertical"
@@ -1377,11 +1404,11 @@ msgstr ""
 "διαφανειών θα προεπιλεγεί να χρησιμοποιεί πλάτος 100% και το εφέ μετάβασης "
 "'Διαφάνεια'."
 
-#: admin/views/pages/parts/slider-settings.php:903
+#: admin/views/pages/parts/slider-settings.php:899
 msgid "Loop Carousel Continuously"
 msgstr "Επαναλαμβανόμενο Καρουσέλ Συνεχώς"
 
-#: admin/views/pages/parts/slider-settings.php:908
+#: admin/views/pages/parts/slider-settings.php:904
 msgid ""
 "Infinite loop of slides when Carousel Mode is enabled. This option disables "
 "arrows and navigation. The slideshow width must be less than or equal to "
@@ -1392,27 +1419,27 @@ msgstr ""
 "της παρουσίασης διαφανειών πρέπει να είναι λιγότερο ή ίσο με το πλάτος του "
 "περιέκτη όπου εισάγεται."
 
-#: admin/views/pages/parts/slider-settings.php:919
+#: admin/views/pages/parts/slider-settings.php:915
 msgid "Carousel Margin"
 msgstr "Περιθώριο Καρουσέλ"
 
-#: admin/views/pages/parts/slider-settings.php:922
+#: admin/views/pages/parts/slider-settings.php:918
 msgid "Pixel margin between slides in carousel."
 msgstr "Περιθώριο σε pixel μεταξύ των διαφανειών (slides) στο carousel."
 
-#: admin/views/pages/parts/slider-settings.php:936
+#: admin/views/pages/parts/slider-settings.php:932
 msgid "Display Minimum"
 msgstr "Ελάχιστη Εμφάνιση"
 
-#: admin/views/pages/parts/slider-settings.php:938
+#: admin/views/pages/parts/slider-settings.php:934
 msgid "Minimum number of slides to be displayed at the same time in the carousel."
 msgstr "Ελάχιστος αριθμός διαφανειών που θα εμφανίζονται ταυτόχρονα στο καρουσέλ."
 
-#: admin/views/pages/parts/slider-settings.php:952
+#: admin/views/pages/parts/slider-settings.php:948
 msgid "Display Maximum"
 msgstr "Μέγιστη Εμφάνιση"
 
-#: admin/views/pages/parts/slider-settings.php:954
+#: admin/views/pages/parts/slider-settings.php:950
 msgid ""
 "Maximum number of slides to be displayed at the same time in the carousel. "
 "Set to 0 to adjust automatically."
@@ -1420,11 +1447,11 @@ msgstr ""
 "Μέγιστος αριθμός διαφανειών που θα εμφανίζονται ταυτόχρονα στο καρουσέλ. "
 "Ρυθμίστε σε 0 για αυτόματη προσαρμογή."
 
-#: admin/views/pages/parts/slider-settings.php:963
+#: admin/views/pages/parts/slider-settings.php:959
 msgid "Slides to Show per Device"
 msgstr "Διαφάνειες προς Εμφάνιση ανά Συσκευή"
 
-#: admin/views/pages/parts/slider-settings.php:964
+#: admin/views/pages/parts/slider-settings.php:960
 msgid ""
 "Set an exact number of slides to show for each device width. Leave a device "
 "at 0 to use the Display Minimum/Maximum settings instead."
@@ -1433,7 +1460,7 @@ msgstr ""
 "συσκευής. Αφήστε μια συσκευή στο 0 για να χρησιμοποιήσετε τις ρυθμίσεις "
 "Ελάχιστης/Μέγιστης Εμφάνισης."
 
-#: admin/views/pages/parts/slider-settings.php:972
+#: admin/views/pages/parts/slider-settings.php:968
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths less than %spx. Set to 0 to "
@@ -1443,8 +1470,8 @@ msgstr ""
 "Ορίστε στο 0 για να χρησιμοποιήσετε την Ελάχιστη/Μέγιστη Εμφάνιση αντί γι' "
 "αυτό."
 
-#: admin/views/pages/parts/slider-settings.php:982
-#: admin/views/pages/parts/slider-settings.php:993
+#: admin/views/pages/parts/slider-settings.php:978
+#: admin/views/pages/parts/slider-settings.php:989
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths of %1$spx to %2$spx. Set to "
@@ -1454,7 +1481,7 @@ msgstr ""
 "%2$spx. Ορίστε στο 0 για να χρησιμοποιήσετε την Ελάχιστη/Μέγιστη Εμφάνιση "
 "αντί γι' αυτό."
 
-#: admin/views/pages/parts/slider-settings.php:1004
+#: admin/views/pages/parts/slider-settings.php:1000
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths equal to or greater than "
@@ -1464,21 +1491,21 @@ msgstr ""
 "από %spx. Ορίστε στο 0 για να χρησιμοποιήσετε την Ελάχιστη/Μέγιστη Εμφάνιση "
 "αντί γι' αυτό."
 
-#: admin/views/pages/parts/slider-settings.php:1021
+#: admin/views/pages/parts/slider-settings.php:1017
 msgid "Slides per Navigation Click"
 msgstr "Διαφάνειες ανά Κλικ Πλοήγησης"
 
-#: admin/views/pages/parts/slider-settings.php:1023
+#: admin/views/pages/parts/slider-settings.php:1019
 msgid "Number of slides to move when clicking next or previous."
 msgstr ""
 "Αριθμός διαφανειών που θα μετακινηθούν όταν κάνετε κλικ στο επόμενο ή το "
 "προηγούμενο."
 
-#: admin/views/pages/parts/slider-settings.php:1032
+#: admin/views/pages/parts/slider-settings.php:1028
 msgid "Force Height"
 msgstr "Υποχρεωτικό Ύψος"
 
-#: admin/views/pages/parts/slider-settings.php:1037
+#: admin/views/pages/parts/slider-settings.php:1033
 msgid ""
 "If the slideshow looks small, force slideshow height when using Carousel "
 "mode. Please note when is enabled slides may look cropped."
@@ -1488,31 +1515,31 @@ msgstr ""
 "Σημειώστε ότι όταν είναι ενεργοποιημένο, οι διαφάνειες μπορεί να φαίνονται "
 "κομμένες."
 
-#: admin/views/pages/parts/slider-settings.php:1062
+#: admin/views/pages/parts/slider-settings.php:1058
 msgid "Image Options"
 msgstr "Επιλογές Εικόνας"
 
-#: admin/views/pages/parts/slider-settings.php:1074
+#: admin/views/pages/parts/slider-settings.php:1070
 msgid "Image Crop"
 msgstr "Περικοπή Εικόνας"
 
-#: admin/views/pages/parts/slider-settings.php:1079
+#: admin/views/pages/parts/slider-settings.php:1075
 msgid "Smart Crop"
 msgstr "Έξυπνη Περικοπή"
 
-#: admin/views/pages/parts/slider-settings.php:1086
+#: admin/views/pages/parts/slider-settings.php:1082
 msgid "Standard"
 msgstr "Κανονική"
 
-#: admin/views/pages/parts/slider-settings.php:1093
+#: admin/views/pages/parts/slider-settings.php:1089
 msgid "Disabled"
 msgstr "Απενεργοποιημένο"
 
-#: admin/views/pages/parts/slider-settings.php:1100
+#: admin/views/pages/parts/slider-settings.php:1096
 msgid "Disabled (Smart Pad)"
 msgstr "Απενεργοποιημένο (Smart Pad)"
 
-#: admin/views/pages/parts/slider-settings.php:1107
+#: admin/views/pages/parts/slider-settings.php:1103
 msgid ""
 "Smart Crop ensures your responsive slides are cropped to a ratio that "
 "results in a consistent slideshow size."
@@ -1520,19 +1547,19 @@ msgstr ""
 "Η Έξυπνη Κοπή εξασφαλίζει ότι οι responsive διαφάνειες σας κόβονται σε "
 "αναλογία που έχει ως αποτέλεσμα μια σταθερή διάσταση παρουσίασης διαφανειών."
 
-#: admin/views/pages/parts/slider-settings.php:1115
+#: admin/views/pages/parts/slider-settings.php:1111
 msgid "Image Crop Source"
 msgstr "Πηγή Κοπής Εικόνας"
 
-#: admin/views/pages/parts/slider-settings.php:1120
+#: admin/views/pages/parts/slider-settings.php:1116
 msgid "Slideshow width/height"
 msgstr "Πλάτος/ύψος παρουσίασης διαφανειών"
 
-#: admin/views/pages/parts/slider-settings.php:1123
+#: admin/views/pages/parts/slider-settings.php:1119
 msgid "Custom width/height (Pro)"
 msgstr "Προσαρμοσμένο πλάτος/ύψος (Pro)"
 
-#: admin/views/pages/parts/slider-settings.php:1127
+#: admin/views/pages/parts/slider-settings.php:1123
 msgid ""
 "By default, MetaSlider Slideshow will crop images using the main width and "
 "height of the slideshow. If you want smaller images, select Custom "
@@ -1544,11 +1571,11 @@ msgstr ""
 "επιλέξτε Προσαρμοσμένο πλάτος/ύψος και βεβαιωθείτε ότι οι τιμές είναι "
 "μικρότερες από το κύριο πλάτος και ύψος."
 
-#: admin/views/pages/parts/slider-settings.php:1136
+#: admin/views/pages/parts/slider-settings.php:1132
 msgid "Image Crop Size"
 msgstr "Μέγεθος Κοπής Εικόνας"
 
-#: admin/views/pages/parts/slider-settings.php:1145
+#: admin/views/pages/parts/slider-settings.php:1141
 msgid ""
 "This will increase the size of the images in your slideshow. Larger images "
 "are higher quality. Smaller images load more quickly."
@@ -1557,11 +1584,11 @@ msgstr ""
 "Μεγαλύτερες εικόνες είναι υψηλότερης ποιότητας. Μικρότερες εικόνες "
 "φορτώνουν πιο γρήγορα."
 
-#: admin/views/pages/parts/slider-settings.php:1156
+#: admin/views/pages/parts/slider-settings.php:1152
 msgid "Lazy Load Images"
 msgstr "Φόρτωση Εικόνων με Τεμπέληδες"
 
-#: admin/views/pages/parts/slider-settings.php:1161
+#: admin/views/pages/parts/slider-settings.php:1157
 msgid ""
 "This feature can speed up your site. MetaSlider Slideshow will only load "
 "slides when they are required by your slideshow."
@@ -1570,25 +1597,25 @@ msgstr ""
 "φορτώσει μόνο τις διαφάνειες όταν απαιτούνται από την παρουσίαση διαφανειών "
 "σας."
 
-#: admin/views/pages/parts/slider-settings.php:1177
+#: admin/views/pages/parts/slider-settings.php:1173
 #: inc/metaslider.imagestyles.class.php:96
 msgid "Image Styles"
 msgstr "Στυλ Εικόνας"
 
-#: admin/views/pages/parts/slider-settings.php:1195
+#: admin/views/pages/parts/slider-settings.php:1191
 msgid "Layout Features"
 msgstr "Χαρακτηριστικά Διάταξης"
 
-#: admin/views/pages/parts/slider-settings.php:1207
+#: admin/views/pages/parts/slider-settings.php:1203
 #: admin/assets/dist/js/app.js:2
 msgid "Auto Play"
 msgstr "Αυτόματη Αναπαραγωγή"
 
-#: admin/views/pages/parts/slider-settings.php:1212
+#: admin/views/pages/parts/slider-settings.php:1208
 msgid "Transition between slides automatically."
 msgstr "Μετάβαση μεταξύ των διαφανειών αυτόματα."
 
-#: admin/views/pages/parts/slider-settings.php:1220
+#: admin/views/pages/parts/slider-settings.php:1216
 #: themes/architekt/customize.php:615
 #: themes/bitono/customize.php:798
 #: themes/blend/customize.php:828
@@ -1610,26 +1637,26 @@ msgstr "Μετάβαση μεταξύ των διαφανειών αυτόματ
 msgid "Play / Pause Button"
 msgstr "Κουμπί Αναπαραγωγής / Παύσης"
 
-#: admin/views/pages/parts/slider-settings.php:1225
+#: admin/views/pages/parts/slider-settings.php:1221
 msgid "This allows user to pause or resume Auto Play on the slideshow."
 msgstr ""
 "Αυτό επιτρέπει στον χρήστη να παύσει ή να επαναλάβει την αυτόματη "
 "αναπαραγωγή στην παρουσίαση διαφανειών."
 
-#: admin/views/pages/parts/slider-settings.php:1233
+#: admin/views/pages/parts/slider-settings.php:1229
 msgid "Show Play / Pause Button Text"
 msgstr "Εμφάνιση κειμένου κουμπιού Αναπαραγωγής / Παύσης"
 
-#: admin/views/pages/parts/slider-settings.php:1238
+#: admin/views/pages/parts/slider-settings.php:1234
 msgid "Show text options for Play / Pause Button"
 msgstr "Εμφάνιση επιλογών κειμένου για το κουμπί Αναπαραγωγής / Παύσης"
 
-#: admin/views/pages/parts/slider-settings.php:1246
+#: admin/views/pages/parts/slider-settings.php:1242
 msgid "Play Text"
 msgstr "Κείμενο Αναπαραγωγής"
 
-#: admin/views/pages/parts/slider-settings.php:1248
-#: admin/views/pages/parts/slider-settings.php:1261
+#: admin/views/pages/parts/slider-settings.php:1244
+#: admin/views/pages/parts/slider-settings.php:1257
 msgid ""
 "Enter text for the Play/Pause Button. Leave the field empty to use the icon "
 "only."
@@ -1637,26 +1664,26 @@ msgstr ""
 "Εισάγετε κείμενο για το κουμπί Αναπαραγωγής / Παύσης. Αφήστε το πεδίο κενό "
 "για να χρησιμοποιήσετε μόνο το εικονίδιο."
 
-#: admin/views/pages/parts/slider-settings.php:1259
+#: admin/views/pages/parts/slider-settings.php:1255
 msgid "Pause Text"
 msgstr "Κείμενο Παύσης"
 
-#: admin/views/pages/parts/slider-settings.php:1272
+#: admin/views/pages/parts/slider-settings.php:1268
 #: themes/customize.php:34
 msgid "Progress Bar"
 msgstr "Γραμμή Πρόοδου"
 
-#: admin/views/pages/parts/slider-settings.php:1277
+#: admin/views/pages/parts/slider-settings.php:1273
 msgid "Displays a visual indicator showing the time left before the next slide."
 msgstr ""
 "Εμφανίζει έναν οπτικό δείκτη που δείχνει τον χρόνο που απομένει πριν από "
 "την επόμενη διαφάνεια."
 
-#: admin/views/pages/parts/slider-settings.php:1285
+#: admin/views/pages/parts/slider-settings.php:1281
 msgid "Hover Pause"
 msgstr "Παύση με Hover"
 
-#: admin/views/pages/parts/slider-settings.php:1290
+#: admin/views/pages/parts/slider-settings.php:1286
 msgid ""
 "Pause the slideshow when hovering over slider, then resume when no longer "
 "hovering."
@@ -1664,11 +1691,11 @@ msgstr ""
 "Παύση της παρουσίασης όταν περνάτε το ποντίκι πάνω από την παρουσίαση "
 "(slider), έπειτα επανέναρξη όταν δεν περνάτε άλλο το ποντίκι από πάνω."
 
-#: admin/views/pages/parts/slider-settings.php:1298
+#: admin/views/pages/parts/slider-settings.php:1294
 msgid "Loop"
 msgstr "Επανάληψη"
 
-#: admin/views/pages/parts/slider-settings.php:1300
+#: admin/views/pages/parts/slider-settings.php:1296
 msgid ""
 "If you choose \"Loop endlessly\", the slides will loop infinitely. If you "
 "choose \"Stop on first slide after looping\", the slideshow will stop on "
@@ -1682,51 +1709,51 @@ msgstr ""
 "τελευταία διαφάνεια\", οι διαφάνειες θα σταματήσουν στην τελευταία "
 "διαφάνεια."
 
-#: admin/views/pages/parts/slider-settings.php:1303
+#: admin/views/pages/parts/slider-settings.php:1299
 msgid "Loop Endlessly"
 msgstr "Επανάληψη Χωρίς Τέλος"
 
-#: admin/views/pages/parts/slider-settings.php:1304
+#: admin/views/pages/parts/slider-settings.php:1300
 msgid "Stop On Last Slide"
 msgstr "Σταματήστε Στην Τελευταία Διαφάνεια"
 
-#: admin/views/pages/parts/slider-settings.php:1305
+#: admin/views/pages/parts/slider-settings.php:1301
 msgid "Stop On First Slide After Looping"
 msgstr "Σταματήστε Στην Πρώτη Διαφάνεια Μετά την Επανάληψη"
 
-#: admin/views/pages/parts/slider-settings.php:1311
+#: admin/views/pages/parts/slider-settings.php:1307
 msgid "Smooth Height"
 msgstr "Ομαλό Ύψος"
 
-#: admin/views/pages/parts/slider-settings.php:1316
+#: admin/views/pages/parts/slider-settings.php:1312
 msgid "Allow navigation to follow the slide's height smoothly."
 msgstr "Επιτρέψτε την πλοήγηση να ακολουθεί το ύψος της διαφάνειας ομαλά."
 
-#: admin/views/pages/parts/slider-settings.php:1324
+#: admin/views/pages/parts/slider-settings.php:1320
 msgid "Slide Order"
 msgstr "Σειρά Διαφανειών"
 
-#: admin/views/pages/parts/slider-settings.php:1329
+#: admin/views/pages/parts/slider-settings.php:1325
 msgid "Newest First"
 msgstr "Νεότερα Πρώτα"
 
-#: admin/views/pages/parts/slider-settings.php:1332
+#: admin/views/pages/parts/slider-settings.php:1328
 msgid "Oldest First"
 msgstr "Παλαιότερα Πρώτα"
 
-#: admin/views/pages/parts/slider-settings.php:1335
+#: admin/views/pages/parts/slider-settings.php:1331
 msgid "A to Z (by filename)"
 msgstr "Α προς Ζ (κατά όνομα αρχείου)"
 
-#: admin/views/pages/parts/slider-settings.php:1338
+#: admin/views/pages/parts/slider-settings.php:1334
 msgid "Z to A (by filename)"
 msgstr "Ζ προς Α (κατά όνομα αρχείου)"
 
-#: admin/views/pages/parts/slider-settings.php:1341
+#: admin/views/pages/parts/slider-settings.php:1337
 msgid "Drag-and-drop"
 msgstr "Σύρε και άφησε"
 
-#: admin/views/pages/parts/slider-settings.php:1347
+#: admin/views/pages/parts/slider-settings.php:1343
 msgid ""
 "Select the order in which slides appear in the slideshow. This impacts the "
 "frontend view."
@@ -1734,118 +1761,118 @@ msgstr ""
 "Επιλέξτε τη σειρά με την οποία εμφανίζονται οι διαφάνειες στην παρουσίαση. "
 "Αυτό επηρεάζει την εμφάνιση στο frontend."
 
-#: admin/views/pages/parts/slider-settings.php:1355
+#: admin/views/pages/parts/slider-settings.php:1351
 msgid "Touch Swipe"
 msgstr "Άγγιγμα και Σύρσιμο"
 
-#: admin/views/pages/parts/slider-settings.php:1360
+#: admin/views/pages/parts/slider-settings.php:1356
 msgid "Allow touch swipe navigation of the slider on touch-enabled devices."
 msgstr ""
 "Επιτρέπεται η πλοήγηση με άγγιγμα και σύρσιμο του ρυθμιστικού σε συσκευές "
 "με υποστήριξη αφής."
 
-#: admin/views/pages/parts/slider-settings.php:1368
+#: admin/views/pages/parts/slider-settings.php:1364
 msgid "Loading Indicator"
 msgstr "Δείκτης Φόρτωσης"
 
-#: admin/views/pages/parts/slider-settings.php:1373
+#: admin/views/pages/parts/slider-settings.php:1369
 msgid "Displays a visual indicator while the slideshow is loading."
 msgstr "Εμφανίζει έναν οπτικό δείκτη ενώ η παρουσίαση φορτώνει."
 
-#: admin/views/pages/parts/slider-settings.php:1381
+#: admin/views/pages/parts/slider-settings.php:1377
 msgid "Previous Text"
 msgstr "Κείμενο Πριν"
 
-#: admin/views/pages/parts/slider-settings.php:1383
+#: admin/views/pages/parts/slider-settings.php:1379
 msgid "Set the text for the \"previous\" direction item."
 msgstr "Ορίστε το κείμενο για το στοιχείο κατεύθυνσης \"πριν\"."
 
-#: admin/views/pages/parts/slider-settings.php:1395
+#: admin/views/pages/parts/slider-settings.php:1391
 msgid "Next Text"
 msgstr "Κείμενο Μετά"
 
-#: admin/views/pages/parts/slider-settings.php:1397
+#: admin/views/pages/parts/slider-settings.php:1393
 msgid "Set the text for the \"next\" direction item."
 msgstr "Ορίστε το κείμενο για το στοιχείο κατεύθυνσης \"μετά\"."
 
-#: admin/views/pages/parts/slider-settings.php:1414
+#: admin/views/pages/parts/slider-settings.php:1410
 msgid "Square Delay"
 msgstr "Καθυστέρηση Τετραγώνου"
 
-#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1412
 msgid "Delay between squares in ms."
 msgstr "Η καθυστέρηση μεταξύ των τετραγώνων σε ms."
 
-#: admin/views/pages/parts/slider-settings.php:1433
+#: admin/views/pages/parts/slider-settings.php:1429
 msgid "Opacity of title and navigation, between 0 and 1."
 msgstr "Διαφάνεια τίτλου και πλοήγησης, μεταξύ 0 και 1."
 
-#: admin/views/pages/parts/slider-settings.php:1448
+#: admin/views/pages/parts/slider-settings.php:1444
 msgid "Caption Speed"
 msgstr "Ταχύτητα Λεζάντας"
 
-#: admin/views/pages/parts/slider-settings.php:1450
+#: admin/views/pages/parts/slider-settings.php:1446
 msgid "Set the fade in speed of the caption."
 msgstr "Ορίστε την ταχύτητα εμφάνισης της λεζάντας."
 
-#: admin/views/pages/parts/slider-settings.php:1472
+#: admin/views/pages/parts/slider-settings.php:1468
 msgid "Container Options"
 msgstr "Επιλογές Κοντέινερ"
 
-#: admin/views/pages/parts/slider-settings.php:1484
+#: admin/views/pages/parts/slider-settings.php:1480
 msgid "Container Box"
 msgstr "Κουτί Δοχείου"
 
-#: admin/views/pages/parts/slider-settings.php:1489
+#: admin/views/pages/parts/slider-settings.php:1485
 msgid "Customize the slideshow's container box."
 msgstr "Προσαρμόστε το κουτί περιέκτη του slideshow."
 
-#: admin/views/pages/parts/slider-settings.php:1495
-#: admin/views/pages/parts/slider-settings.php:1535
+#: admin/views/pages/parts/slider-settings.php:1491
+#: admin/views/pages/parts/slider-settings.php:1531
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "This feature is available in MetaSlider Slideshow Pro"
 msgstr "Αυτή η δυνατότητα είναι διαθέσιμη στο MetaSlider Pro"
 
-#: admin/views/pages/parts/slider-settings.php:1510
+#: admin/views/pages/parts/slider-settings.php:1506
 msgid "Watermark Options"
 msgstr "Επιλογές Υδατογραφήματος"
 
-#: admin/views/pages/parts/slider-settings.php:1524
+#: admin/views/pages/parts/slider-settings.php:1520
 msgid "Watermark"
 msgstr "Υδατογράφημα"
 
-#: admin/views/pages/parts/slider-settings.php:1529
+#: admin/views/pages/parts/slider-settings.php:1525
 msgid "Overlay an image (e.g. a logo) on top of the slideshow."
 msgstr ""
 "Επικάλυψη μιας εικόνας (π.χ. ένα λογότυπο) πάνω από την παρουσίαση "
 "διαφανειών."
 
-#: admin/views/pages/parts/slider-settings.php:1550
+#: admin/views/pages/parts/slider-settings.php:1546
 msgid "Accessibility Options"
 msgstr "Επιλογές Προσβασιμότητας"
 
-#: admin/views/pages/parts/slider-settings.php:1562
+#: admin/views/pages/parts/slider-settings.php:1558
 msgid "Keyboard Controls"
 msgstr "Έλεγχοι Πληκτρολογίου"
 
-#: admin/views/pages/parts/slider-settings.php:1567
+#: admin/views/pages/parts/slider-settings.php:1563
 msgid "Use arrow keys to get to the next slide."
 msgstr "Χρησιμοποιήστε τα πλήκτρα βέλους για να μεταβείτε στην επόμενη διαφάνεια."
 
-#: admin/views/pages/parts/slider-settings.php:1575
+#: admin/views/pages/parts/slider-settings.php:1571
 msgid "Tabindex For Navigation"
 msgstr "Tabindex Για Πλοήγηση"
 
-#: admin/views/pages/parts/slider-settings.php:1580
+#: admin/views/pages/parts/slider-settings.php:1576
 msgid "This helps make the slideshow navigation more accessible."
 msgstr "Αυτό βοηθά στην πιο προσβάσιμη πλοήγηση του slideshow."
 
-#: admin/views/pages/parts/slider-settings.php:1588, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1584, fuzzy
 msgid "ARIA Live"
 msgstr "ARIA Live"
 
-#: admin/views/pages/parts/slider-settings.php:1593
+#: admin/views/pages/parts/slider-settings.php:1589
 msgid ""
 "If Autoplay is enabled, this causes screen readers to announce that the "
 "slides are changing."
@@ -1853,11 +1880,11 @@ msgstr ""
 "Εάν είναι ενεργοποιημένη η αυτόματη αναπαραγωγή, αυτό προκαλεί στους "
 "αναγνώστες οθόνης να ανακοινώνουν ότι οι διαφάνειες αλλάζουν."
 
-#: admin/views/pages/parts/slider-settings.php:1601, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1597, fuzzy
 msgid "ARIA Current"
 msgstr "ARIA Current"
 
-#: admin/views/pages/parts/slider-settings.php:1606
+#: admin/views/pages/parts/slider-settings.php:1602
 msgid ""
 "This is used on the navigation button for the active slide. It helps screen "
 "readers understand which slide is active."
@@ -1865,15 +1892,15 @@ msgstr ""
 "Αυτό χρησιμοποιείται στο κουμπί πλοήγησης για την ενεργή διαφάνεια. Βοηθά "
 "τους αναγνώστες οθόνης να κατανοήσουν ποια διαφάνεια είναι ενεργή."
 
-#: admin/views/pages/parts/slider-settings.php:1622
+#: admin/views/pages/parts/slider-settings.php:1618
 msgid "Developer Options"
 msgstr "Επιλογές Ανάπτυξης"
 
-#: admin/views/pages/parts/slider-settings.php:1634
+#: admin/views/pages/parts/slider-settings.php:1630
 msgid "CSS Classes"
 msgstr "Κλάσεις CSS"
 
-#: admin/views/pages/parts/slider-settings.php:1636
+#: admin/views/pages/parts/slider-settings.php:1632
 msgid ""
 "Enter custom CSS classes to apply to the slider wrapper. Separate multiple "
 "classes with a space."
@@ -1881,36 +1908,36 @@ msgstr ""
 "Εισάγετε προσαρμοσμένες κλάσεις CSS για να εφαρμόσετε στο περιτύλιγμα του "
 "slider. Διαχωρίστε πολλές κλάσεις με ένα διάστημα."
 
-#: admin/views/pages/parts/slider-settings.php:1647
+#: admin/views/pages/parts/slider-settings.php:1643
 msgid "Print CSS"
 msgstr "CSS Εκτύπωσης"
 
-#: admin/views/pages/parts/slider-settings.php:1652
+#: admin/views/pages/parts/slider-settings.php:1648
 msgid "Uncheck this if you would like to include your own CSS."
 msgstr "Αφαιρέστε την επιλογή αν θέλετε να συμπεριλάβετε τη δική σας CSS."
 
-#: admin/views/pages/parts/slider-settings.php:1660
+#: admin/views/pages/parts/slider-settings.php:1656
 msgid "Print JS"
 msgstr "JS Εκτύπωσης"
 
-#: admin/views/pages/parts/slider-settings.php:1665
+#: admin/views/pages/parts/slider-settings.php:1661
 msgid "Uncheck this if you would like to include your own Javascript."
 msgstr "Αφαιρέστε την επιλογή αν θέλετε να συμπεριλάβετε τη δική σας Javascript."
 
-#: admin/views/pages/parts/slider-settings.php:1673
+#: admin/views/pages/parts/slider-settings.php:1669
 msgid "No Conflict Mode"
 msgstr "Λειτουργία Χωρίς Σύγκρουση"
 
-#: admin/views/pages/parts/slider-settings.php:1678
+#: admin/views/pages/parts/slider-settings.php:1674
 msgid "Delay adding the flexslider class to the slideshow."
 msgstr "Αναβολή προσθήκης της κλάσης flexslider στην παρουσίαση."
 
-#: admin/views/pages/parts/slider-settings.php:1716
-#: ml-slider.php:1880
+#: admin/views/pages/parts/slider-settings.php:1712
+#: ml-slider.php:1930
 msgid "Trashed Slides"
 msgstr "Διαγραμμένες Διαφάνειες"
 
-#: admin/views/pages/parts/slider-settings.php:1726
+#: admin/views/pages/parts/slider-settings.php:1722
 msgid "View trashed slides"
 msgstr "Προβολή διαγραμμένων διαφανειών"
 
@@ -1928,7 +1955,7 @@ msgid "Add a new slide"
 msgstr "Προσθήκη νέας διαφάνειας"
 
 #: admin/views/pages/parts/toolbar.php:60
-#: inc/slider/metaslider.class.php:1055
+#: inc/slider/metaslider.class.php:1065
 msgid "Add Slide"
 msgstr "Προσθήκη Διαφάνειας (Slide)"
 
@@ -1974,7 +2001,7 @@ msgid "Save"
 msgstr "Αποθήκευση"
 
 #: admin/views/pages/parts/toolbar.php:155
-#: ml-slider.php:1945
+#: ml-slider.php:1995
 msgid "Return to Published Slides"
 msgstr "Επιστροφή στις Δημοσιευμένες Διαφάνειες"
 
@@ -2010,7 +2037,7 @@ msgid "Redirecting..."
 msgstr "Ανακατεύθυνση..."
 
 #: admin/views/pages/start.php:106
-#: ml-slider.php:575
+#: ml-slider.php:579
 msgid "Quick Start"
 msgstr "Γρήγορη Εκκίνηση"
 
@@ -2041,163 +2068,164 @@ msgid "Slide Type"
 msgstr "Τύπος Διαφάνειας"
 
 #: admin/views/pages/start.php:145
-#: inc/metaslider.quickstart.class.php:760
-#: ml-slider.php:798
+#: inc/metaslider.quickstart.class.php:773
+#: ml-slider.php:849
 msgid "Image"
 msgstr "Εικόνα"
 
-#: admin/views/pages/start.php:149
-#: inc/metaslider.quickstart.class.php:611
-#: inc/metaslider.quickstart.class.php:772
-#: ml-slider.php:842
+#: admin/views/pages/start.php:150
+#: inc/metaslider.quickstart.class.php:623
+#: inc/metaslider.quickstart.class.php:785
+#: ml-slider.php:893
 msgid "External Image"
 msgstr "Εξωτερική Εικόνα"
 
-#: admin/views/pages/start.php:150
-#: inc/metaslider.quickstart.class.php:623
-#: inc/metaslider.quickstart.class.php:775
-#: ml-slider.php:843
+#: admin/views/pages/start.php:151
+#: inc/metaslider.quickstart.class.php:635
+#: inc/metaslider.quickstart.class.php:788
+#: ml-slider.php:894
 msgid "External Video"
 msgstr "Εξωτερικό Βίντεο"
 
-#: admin/views/pages/start.php:151
-#: inc/metaslider.quickstart.class.php:635
-#: inc/metaslider.quickstart.class.php:781
-#: ml-slider.php:844
+#: admin/views/pages/start.php:152
+#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:797
+#: ml-slider.php:895
 msgid "Custom HTML"
 msgstr "Προσαρμοσμένο HTML"
 
-#: admin/views/pages/start.php:152
-#: inc/metaslider.quickstart.class.php:683
-#: inc/metaslider.quickstart.class.php:790
-#: ml-slider.php:845
+#: admin/views/pages/start.php:153
+#: inc/metaslider.quickstart.class.php:695
+#: inc/metaslider.quickstart.class.php:806
+#: ml-slider.php:896
 msgid "Background Color"
 msgstr "Χρώμα Φόντου"
 
-#: admin/views/pages/start.php:153
-#: admin/views/pages/start.php:184
-#: ml-slider.php:848
+#: admin/views/pages/start.php:154
+#: admin/views/pages/start.php:185
+#: ml-slider.php:899
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: admin/views/pages/start.php:154
-#: inc/metaslider.quickstart.class.php:599
-#: inc/metaslider.quickstart.class.php:787
-#: ml-slider.php:849
+#: admin/views/pages/start.php:155
+#: inc/metaslider.quickstart.class.php:611
+#: inc/metaslider.quickstart.class.php:803
+#: ml-slider.php:900
 msgid "Post Feed"
 msgstr "Τροφοδοσία Άρθρων"
 
-#: admin/views/pages/start.php:155
-#: inc/metaslider.quickstart.class.php:784
-#: ml-slider.php:850
+#: admin/views/pages/start.php:156
+#: inc/metaslider.quickstart.class.php:800
+#: ml-slider.php:901
 msgid "Layer Slide"
 msgstr "Διαφάνεια (Slide) Επιπέδου"
 
-#: admin/views/pages/start.php:156
-#: inc/metaslider.quickstart.class.php:575
-#: inc/metaslider.quickstart.class.php:769
-#: ml-slider.php:851
+#: admin/views/pages/start.php:157
+#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:782
+#: modules/local_video/slide.php:43
+#: modules/local_video/slide.php:82
 msgid "Local Video"
 msgstr "Τοπικό Βίντεο"
 
-#: admin/views/pages/start.php:161
+#: admin/views/pages/start.php:162
 msgid "Features"
 msgstr "Χαρακτηριστικά"
 
-#: admin/views/pages/start.php:162
+#: admin/views/pages/start.php:163
 msgid "Boxed"
 msgstr "Κουτί"
 
-#: admin/views/pages/start.php:163
+#: admin/views/pages/start.php:164
 msgid "Full-width"
 msgstr "Πλήρους πλάτους"
 
-#: admin/views/pages/start.php:164
+#: admin/views/pages/start.php:165
 msgid "Carousel"
 msgstr "Καρουσέλ"
 
-#: admin/views/pages/start.php:165
+#: admin/views/pages/start.php:166
 msgid "Thumbnail Navigation"
 msgstr "Πλοήγηση Μικρογραφιών"
 
-#: admin/views/pages/start.php:166
+#: admin/views/pages/start.php:167
 msgid "Video Caption"
 msgstr "Λεζάντα Βίντεο"
 
-#: admin/views/pages/start.php:167
-#: admin/views/pages/start.php:302
+#: admin/views/pages/start.php:168
+#: admin/views/pages/start.php:303
 msgid "Hero Image"
 msgstr "Εικόνα Ήρωα"
 
-#: admin/views/pages/start.php:172
+#: admin/views/pages/start.php:173
 msgid "Animation Type"
 msgstr "Τύπος Κίνησης"
 
-#: admin/views/pages/start.php:177, fuzzy
+#: admin/views/pages/start.php:178, fuzzy
 msgid "Ken Burns"
 msgstr "Ken Burns"
 
-#: admin/views/pages/start.php:183
+#: admin/views/pages/start.php:184
 msgid "Integration"
 msgstr "Ενσωμάτωση"
 
-#: admin/views/pages/start.php:185
+#: admin/views/pages/start.php:186
 msgid "The Events Calendar"
 msgstr "Ημερολόγιο Εκδηλώσεων"
 
-#: admin/views/pages/start.php:186
-#: admin/views/pages/start.php:298
+#: admin/views/pages/start.php:187
+#: admin/views/pages/start.php:299
 msgid "WordPress Posts"
 msgstr "Δημοσιεύσεις WordPress"
 
-#: admin/views/pages/start.php:227
+#: admin/views/pages/start.php:228
 msgid "Free and Pro"
 msgstr "Δωρεάν και Pro"
 
-#: admin/views/pages/start.php:228
+#: admin/views/pages/start.php:229
 msgid "Free only"
 msgstr "Μόνο Δωρεάν"
 
-#: admin/views/pages/start.php:229
+#: admin/views/pages/start.php:230
 msgid "Pro only"
 msgstr "Μόνο Pro"
 
-#: admin/views/pages/start.php:233
+#: admin/views/pages/start.php:234
 msgid "Reset Filters"
 msgstr "Επαναφορά Φίλτρων"
 
-#: admin/views/pages/start.php:239
+#: admin/views/pages/start.php:240
 msgid "No demos match your filters."
 msgstr "Δεν υπάρχουν επιδείξεις που να ταιριάζουν με τα φίλτρα σας."
 
-#: admin/views/pages/start.php:322
+#: admin/views/pages/start.php:323
 #, php-format
 msgid "Create %s slideshow?"
 msgstr "Δημιουργία slideshow %s;"
 
-#: admin/views/pages/start.php:328
+#: admin/views/pages/start.php:329
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: admin/views/pages/start.php:331
+#: admin/views/pages/start.php:332
 msgid "Yes, please!"
 msgstr "Ναι, παρακαλώ!"
 
-#: admin/views/pages/start.php:337
+#: admin/views/pages/start.php:338
 msgid "Demo"
 msgstr "Επίδειξη"
 
-#: admin/views/pages/start.php:343
+#: admin/views/pages/start.php:344
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Get MetaSlider Slideshow Pro!"
 msgstr "MetaSlider Slideshow"
 
-#: admin/views/pages/start.php:346
+#: admin/views/pages/start.php:347
 msgid "Upgrade now to unlock this demo slideshow!"
 msgstr "Αναβαθμίστε τώρα για να ξεκλειδώσετε αυτήν τη δοκιμαστική παρουσίαση!"
 
-#: admin/views/pages/start.php:349
+#: admin/views/pages/start.php:350
 #: admin/views/pages/theme-editor.php:36
 #: admin/views/pages/upgrade.php:26
 #: admin/views/pages/upgrade.php:201
@@ -2205,19 +2233,19 @@ msgstr "Αναβαθμίστε τώρα για να ξεκλειδώσετε α�
 msgid "Upgrade now"
 msgstr "Αναβαθμίστε τώρα"
 
-#: admin/views/pages/start.php:367
+#: admin/views/pages/start.php:368
 msgid "Create a slideshow with your images"
 msgstr "Δημιουργήστε μια παρουσίαση με τις εικόνες σας"
 
-#: admin/views/pages/start.php:368
+#: admin/views/pages/start.php:369
 msgid "Choose your own images to start a new slideshow."
 msgstr "Επιλέξτε τις δικές σας εικόνες για να ξεκινήσετε μια νέα παρουσίαση."
 
-#: admin/views/pages/start.php:374
+#: admin/views/pages/start.php:375
 msgid "Uploading images..."
 msgstr "Ανεβάζω εικόνες..."
 
-#: admin/views/pages/start.php:385
+#: admin/views/pages/start.php:386
 msgid "Open Media Library"
 msgstr "Άνοιγμα Βιβλιοθήκης Πολυμέσων"
 
@@ -2227,7 +2255,7 @@ msgid "Introducing the Theme Editor in MetaSlider Slideshow Pro"
 msgstr "Παρουσίαση του Επεξεργαστή Θέματος στο MetaSlider Pro"
 
 #: admin/views/pages/theme-editor.php:18
-#: ml-slider.php:579
+#: ml-slider.php:583
 msgid "Theme Editor"
 msgstr "Επεξεργαστής Θέματος"
 
@@ -2988,10 +3016,12 @@ msgstr ""
 "κουμπί, ο σύνδεσμος θα εφαρμοστεί στο κουμπί."
 
 #: admin/views/slides/tabs/link.php:20
+#: modules/local_video/tabs/link.php:28
 msgid "New window"
 msgstr "Νέο παράθυρο"
 
 #: admin/views/slides/tabs/link.php:22
+#: modules/local_video/tabs/link.php:30
 msgid "Open link in a new window"
 msgstr "Άνοιγμα συνδέσμου σε νέο παράθυρο"
 
@@ -3012,11 +3042,66 @@ msgstr ""
 msgid "Enter text here"
 msgstr "Εισάγετε κείμενο εδώ"
 
-#: admin/views/slides/tabs/mobile.php:33
+#: admin/views/slides/tabs/livid.php:18
+msgid "Livid Video URL"
+msgstr "URL Βίντεο Livid"
+
+#: admin/views/slides/tabs/livid.php:19
+msgid ""
+"Paste the link to a video hosted on livid.com. We will create the embed for "
+"you."
+msgstr ""
+"Επικολλήστε το σύνδεσμο σε ένα βίντεο που φιλοξενείται στο livid.com. Θα "
+"δημιουργήσουμε την ενσωμάτωσή του για εσάς."
+
+#: admin/views/slides/tabs/livid.php:33
+#: modules/local_video/tabs/general.php:70
+msgid "Mute video"
+msgstr "Σίγαση βίντεο"
+
+#: admin/views/slides/tabs/livid.php:47
+#: modules/local_video/tabs/general.php:82
+msgid "Show controls"
+msgstr "Εμφάνιση ελέγχων"
+
+#: admin/views/slides/tabs/livid.php:49
+msgid ""
+"Hiding the controls only works if the video is on a Livid Pro or Premium "
+"account"
+msgstr ""
+"Η απόκρυψη των ελέγχων λειτουργεί μόνο αν το βίντεο είναι σε λογαριασμό "
+"Livid Pro ή Premium"
+
+#: admin/views/slides/tabs/livid.php:65
+#: modules/local_video/tabs/general.php:95
+msgid "Auto play"
+msgstr "Αυτόματη αναπαραγωγή"
+
+#: admin/views/slides/tabs/livid.php:67
+msgid "May require the video to be muted"
+msgstr "Μπορεί να απαιτεί να είναι το βίντεο σιωπηλό"
+
+#: admin/views/slides/tabs/livid.php:83
+#: modules/local_video/tabs/general.php:113
+msgid "Lazy load video"
+msgstr "Lazy load βίντεο"
+
+#: admin/views/slides/tabs/livid.php:85
+msgid "The video only loads once a visitor clicks play"
+msgstr "Το βίντεο φορτώνει μόνο όταν ο επισκέπτης κλικάρει αναπαραγωγή"
+
+#: admin/views/slides/tabs/livid.php:99
+#: modules/local_video/tabs/general.php:125
+msgid "Loop video"
+msgstr "Επανάληψη βίντεο"
+
+#: admin/views/slides/tabs/mobile.php:35
+#: modules/local_video/tabs/mobile.php:22
 msgid "Hide slide on:"
 msgstr "Απόκρυψη διαφάνειας σε:"
 
-#: admin/views/slides/tabs/mobile.php:46
+#: admin/views/slides/tabs/mobile.php:48
+#: modules/local_video/tabs/mobile.php:35
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths equal to or "
@@ -3025,7 +3110,8 @@ msgstr ""
 "Όταν είναι ενεργοποιημένη, αυτή η ρύθμιση θα αποκρύψει τη διαφάνεια σε "
 "πλάτη οθόνης ίσα ή μεγαλύτερα από %spx"
 
-#: admin/views/slides/tabs/mobile.php:56
+#: admin/views/slides/tabs/mobile.php:58
+#: modules/local_video/tabs/mobile.php:45
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths of %1$spx to "
@@ -3034,11 +3120,11 @@ msgstr ""
 "Όταν είναι ενεργοποιημένη, αυτή η ρύθμιση θα αποκρύψει τη διαφάνεια σε "
 "πλάτη οθόνης από %1$spx έως %2$spx"
 
-#: admin/views/slides/tabs/mobile.php:72
+#: admin/views/slides/tabs/mobile.php:75
 msgid "Hide caption on:"
 msgstr "Απόκρυψη λεζάντας σε:"
 
-#: admin/views/slides/tabs/mobile.php:85
+#: admin/views/slides/tabs/mobile.php:88
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths equal to "
@@ -3047,7 +3133,7 @@ msgstr ""
 "Όταν είναι ενεργοποιημένη, αυτή η ρύθμιση θα αποκρύψει τη λεζάντα σε πλάτη "
 "οθόνης ίσα ή μεγαλύτερα από %spx"
 
-#: admin/views/slides/tabs/mobile.php:95
+#: admin/views/slides/tabs/mobile.php:98
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths of %1$spx "
@@ -3287,136 +3373,136 @@ msgstr "Αναδυόμενες Προοπτικές"
 msgid "Sporting Spirit"
 msgstr "Αθλητικό Πνεύμα"
 
-#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:227
 msgid "Marathon Journey"
 msgstr "Ταξίδι Μαραθωνίου"
 
-#: inc/metaslider.quickstart.class.php:227
-msgid "Cars Display"
-msgstr "Εμφάνιση Αυτοκινήτων"
-
 #: inc/metaslider.quickstart.class.php:239
-msgid "Watch Shop Hero"
-msgstr "Ηρωίδα Καταστήματος Ρολόγια"
-
-#: inc/metaslider.quickstart.class.php:251
-msgid "Creative Agency Hero"
-msgstr "Ηρωίδα Δημιουργικής Υπηρεσίας"
-
-#: inc/metaslider.quickstart.class.php:263
-msgid "Fashion Trends"
-msgstr "Μόδες Μόδας"
-
-#: inc/metaslider.quickstart.class.php:275
-msgid "Entertainment YouTube Shorts Feed"
-msgstr "Ψυχαγωγία YouTube Shorts Feed"
-
-#: inc/metaslider.quickstart.class.php:287
-msgid "Album Cover Showcase"
-msgstr "Επίδειξη Εξωφύλλου Άλμπουμ"
-
-#: inc/metaslider.quickstart.class.php:299
-msgid "Business Presentation"
-msgstr "Παρουσίαση Επιχείρησης"
-
-#: inc/metaslider.quickstart.class.php:311
-msgid "Books by Genre"
-msgstr "Βιβλία ανά Γένος"
-
-#: inc/metaslider.quickstart.class.php:323
-msgid "Testimonials"
-msgstr "Μαρτυρίες"
-
-#: inc/metaslider.quickstart.class.php:335
-msgid "Skincare Routine Guide"
-msgstr "Οδηγός Ρουτίνας Περιποίησης Δέρματος"
-
-#: inc/metaslider.quickstart.class.php:347
-msgid "Indoor Plant Selection Guide"
-msgstr "Οδηγός Επιλογής Εσωτερικών Φυτών"
-
-#: inc/metaslider.quickstart.class.php:359
-msgid "TikTok Vertical Videos"
-msgstr "Vertical Videos TikTok"
-
-#: inc/metaslider.quickstart.class.php:371
 msgid "Daily Routine Videos"
 msgstr "Βίντεο Καθημερινής Ρουτίνας"
 
+#: inc/metaslider.quickstart.class.php:263
+msgid "Cars Display"
+msgstr "Εμφάνιση Αυτοκινήτων"
+
+#: inc/metaslider.quickstart.class.php:275
+msgid "Watch Shop Hero"
+msgstr "Ηρωίδα Καταστήματος Ρολόγια"
+
+#: inc/metaslider.quickstart.class.php:287
+msgid "Creative Agency Hero"
+msgstr "Ηρωίδα Δημιουργικής Υπηρεσίας"
+
+#: inc/metaslider.quickstart.class.php:299
+msgid "Fashion Trends"
+msgstr "Μόδες Μόδας"
+
+#: inc/metaslider.quickstart.class.php:311
+msgid "Entertainment YouTube Shorts Feed"
+msgstr "Ψυχαγωγία YouTube Shorts Feed"
+
+#: inc/metaslider.quickstart.class.php:323
+msgid "Album Cover Showcase"
+msgstr "Επίδειξη Εξωφύλλου Άλμπουμ"
+
+#: inc/metaslider.quickstart.class.php:335
+msgid "Business Presentation"
+msgstr "Παρουσίαση Επιχείρησης"
+
+#: inc/metaslider.quickstart.class.php:347
+msgid "Books by Genre"
+msgstr "Βιβλία ανά Γένος"
+
+#: inc/metaslider.quickstart.class.php:359
+msgid "Testimonials"
+msgstr "Μαρτυρίες"
+
+#: inc/metaslider.quickstart.class.php:371
+msgid "Skincare Routine Guide"
+msgstr "Οδηγός Ρουτίνας Περιποίησης Δέρματος"
+
 #: inc/metaslider.quickstart.class.php:383
+msgid "Indoor Plant Selection Guide"
+msgstr "Οδηγός Επιλογής Εσωτερικών Φυτών"
+
+#: inc/metaslider.quickstart.class.php:395
+msgid "TikTok Vertical Videos"
+msgstr "Vertical Videos TikTok"
+
+#: inc/metaslider.quickstart.class.php:407
 msgid "Coffee Brewing Guide"
 msgstr "Οδηγός Παρασκευής Καφέ"
 
-#: inc/metaslider.quickstart.class.php:395
+#: inc/metaslider.quickstart.class.php:419
 msgid "Upcoming City Events"
 msgstr "Επερχόμενες Εκδηλώσεις Πόλης"
 
-#: inc/metaslider.quickstart.class.php:407
+#: inc/metaslider.quickstart.class.php:431
 msgid "Product Categories"
 msgstr "Κατηγορίες Προϊόντων"
 
-#: inc/metaslider.quickstart.class.php:419
+#: inc/metaslider.quickstart.class.php:443
 msgid "Recent WooCommerce Products"
 msgstr "Πρόσφατα Προϊόντα WooCommerce"
 
-#: inc/metaslider.quickstart.class.php:431
+#: inc/metaslider.quickstart.class.php:455
 msgid "Latest News Posts"
 msgstr "Τελευταίες Δημοσιεύσεις Ειδήσεων"
 
-#: inc/metaslider.quickstart.class.php:443
+#: inc/metaslider.quickstart.class.php:467
 msgid "Product Demo"
 msgstr "Δημοσίευση προϊόντος"
 
-#: inc/metaslider.quickstart.class.php:455
+#: inc/metaslider.quickstart.class.php:479
 msgid "Trending Videos"
 msgstr "Δημοφιλή βίντεο"
 
-#: inc/metaslider.quickstart.class.php:467
+#: inc/metaslider.quickstart.class.php:491
 msgid "Hotel Rooms"
 msgstr "Δωμάτια ξενοδοχείου"
 
-#: inc/metaslider.quickstart.class.php:479
+#: inc/metaslider.quickstart.class.php:503
 msgid "Client Testimonials"
 msgstr "Μαρτυρίες πελατών"
 
-#: inc/metaslider.quickstart.class.php:491
+#: inc/metaslider.quickstart.class.php:515
 msgid "Meet the Team"
 msgstr "Γνωρίστε την ομάδα"
 
-#: inc/metaslider.quickstart.class.php:503
+#: inc/metaslider.quickstart.class.php:527
 msgid "Curated Videos"
 msgstr "Επιλεγμένα βίντεο"
 
-#: inc/metaslider.quickstart.class.php:515
+#: inc/metaslider.quickstart.class.php:539
 msgid "Natural Skincare Presentation"
 msgstr "Παρουσίαση φυσικής περιποίησης δέρματος"
 
-#: inc/metaslider.quickstart.class.php:539
+#: inc/metaslider.quickstart.class.php:563
 msgid "YouTube Shorts Carousel"
 msgstr "Carousel YouTube Shorts"
 
-#: inc/metaslider.quickstart.class.php:551
+#: inc/metaslider.quickstart.class.php:575
 msgid "TikTok Carousel"
 msgstr "Carousel TikTok"
 
-#: inc/metaslider.quickstart.class.php:563
-#: ml-slider.php:839, fuzzy
+#: inc/metaslider.quickstart.class.php:587
+#: ml-slider.php:890, fuzzy
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: inc/metaslider.quickstart.class.php:587
+#: inc/metaslider.quickstart.class.php:599
 msgid "Layer Slides"
 msgstr "Διαφάνειες Layer"
 
-#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:659
 msgid "WooCommerce Carousel"
 msgstr "Carousel WooCommerce"
 
-#: inc/metaslider.quickstart.class.php:659, fuzzy
+#: inc/metaslider.quickstart.class.php:671, fuzzy
 msgid "Bold Motion"
 msgstr "Bold Motion"
 
-#: inc/metaslider.quickstart.class.php:671
+#: inc/metaslider.quickstart.class.php:683
 msgid "Playful Pets"
 msgstr "Παιχνιδιάρικα Κατοικίδια"
 
@@ -3450,7 +3536,7 @@ msgid "Select Slider:"
 msgstr "Επιλογή Παρουσίασης (Slider):"
 
 #: inc/metaslider.widget.class.php:126
-#: ml-slider.php:2074
+#: ml-slider.php:2124
 #: admin/assets/dist/js/app.js:2
 msgid "No slideshows found"
 msgstr "Δεν βρέθηκε καμία παρουσίαση"
@@ -3498,6 +3584,15 @@ msgid "This isn't a valid image format. Please try again."
 msgstr "Αυτό δεν είναι έγκυρος τύπος εικόνας. Παρακαλώ προσπαθήστε ξανά."
 
 #: inc/slide/metaslide.image.class.php:412
+#: inc/slide/metaslide.livid.class.php:784
+#: modules/local_video/slide.php:203
+#: modules/local_video/slide.php:878
+#: modules/local_video/slide.php:936
+#: modules/local_video/slide.php:1044
+#: modules/local_video/slide.php:1209
+#: modules/local_video/slide.php:1282
+#: modules/local_video/slide.php:1396
+#: modules/local_video/slide.php:2082
 msgid "Access denied"
 msgstr "Πρόσβαση απαγορευμένη"
 
@@ -3512,10 +3607,13 @@ msgstr ""
 "ξανά την εικόνα."
 
 #: inc/slide/metaslide.image.class.php:555
+#: inc/slide/metaslide.livid.class.php:875
+#: modules/local_video/slide.php:407
 msgid "General"
 msgstr "Γενικά"
 
 #: inc/slide/metaslide.image.class.php:559
+#: modules/local_video/slide.php:411
 msgid "Link"
 msgstr "Σύνδεσμος"
 
@@ -3524,6 +3622,8 @@ msgid "SEO"
 msgstr "SEO"
 
 #: inc/slide/metaslide.image.class.php:578
+#: inc/slide/metaslide.livid.class.php:893
+#: modules/local_video/slide.php:438
 msgid "Device"
 msgstr "Συσκευή"
 
@@ -3547,7 +3647,69 @@ msgstr "Οι προηγμένες ρυθμίσεις είναι διαθέσιμ
 msgid "View Slide Details"
 msgstr "Προβολή λεπτομερειών διαφάνειας"
 
-#: inc/slider/metaslider.class.php:457
+#: inc/slide/metaslide.livid.class.php:217
+msgid "Livid Video"
+msgstr "Βίντεο Livid"
+
+#: inc/slide/metaslide.livid.class.php:272
+#: inc/slide/metaslide.livid.class.php:320
+#: inc/slide/metaslide.livid.class.php:364
+#: inc/slide/metaslide.livid.class.php:425
+#: inc/slide/metaslide.livid.class.php:477
+msgid "Please enter a valid link to a video hosted on livid.com."
+msgstr ""
+"Παρακαλώ εισάγετε έναν έγκυρο σύνδεσμο σε βίντεο που φιλοξενείται στο "
+"livid.com."
+
+#: inc/slide/metaslide.livid.class.php:278
+msgid "Create slideshows with your Livid videos"
+msgstr "Δημιουργήστε προβολές διαφανειών με τα βίντεο Livid σας"
+
+#: inc/slide/metaslide.livid.class.php:281
+msgid "Enter the URL of a Livid video:"
+msgstr "Εισάγετε το URL ενός βίντεο Livid:"
+
+#: inc/slide/metaslide.livid.class.php:292
+#: ml-slider.php:850
+#: modules/local_video/slide.php:112
+#: admin/assets/dist/js/admin.js:1
+#: admin/assets/js/admin.js:218
+msgid "Add to slideshow"
+msgstr "Προσθήκη στην παρουσίαση διαφάνειας"
+
+#: inc/slide/metaslide.livid.class.php:318
+msgid "Updating the Livid video..."
+msgstr "Ενημέρωση του βίντεο Livid..."
+
+#: inc/slide/metaslide.livid.class.php:319
+msgid "Livid video updated."
+msgstr "Το βίντεο Livid ενημερώθηκε."
+
+#: inc/slide/metaslide.livid.class.php:321
+msgid "We could not update the Livid video. Please check the link and try again."
+msgstr ""
+"Δεν μπορέσαμε να ενημερώσουμε το βίντεο Livid. Παρακαλώ ελέγξτε τον "
+"σύνδεσμο και δοκιμάστε ξανά."
+
+#: inc/slide/metaslide.livid.class.php:561
+msgid "Livid video player"
+msgstr "Player βίντεο Livid"
+
+#: inc/slide/metaslide.livid.class.php:681
+#. translators: %s: Livid video URL
+#, php-format
+msgid "Livid video thumbnail - %s"
+msgstr "Μικρογραφία βίντεο Livid - %s"
+
+#: inc/slide/metaslide.livid.class.php:818
+msgid "Livid Video Slide"
+msgstr "Διαφάνεια Βίντεο Livid"
+
+#: inc/slide/metaslide.livid.class.php:1011
+msgid "Play video"
+msgstr "Αναπαραγωγή βίντεο"
+
+#: inc/slider/metaslider.class.php:461
 msgid "Edit Slideshow"
 msgstr "Επεξεργασία παρουσίασης διαφανειών"
 
@@ -3559,7 +3721,7 @@ msgstr "Αναπαραγωγή"
 msgid "Pause"
 msgstr "Παύση"
 
-#: ml-slider.php:267
+#: ml-slider.php:270
 #, php-format
 msgid ""
 "MetaSlider Slideshow Pro is installed but is out of date. You may update it "
@@ -3568,70 +3730,64 @@ msgstr ""
 "Το MetaSlider Pro είναι εγκατεστημένο αλλά είναι παλιό. Μπορείτε να το "
 "ενημερώσετε %shere%s. Μάθετε περισσότερα για αυτή την ειδοποίηση %shere%s"
 
-#: ml-slider.php:576
+#: ml-slider.php:580
 msgid "Settings & Help"
 msgstr "Ρυθμίσεις & Βοήθεια"
 
-#: ml-slider.php:580
+#: ml-slider.php:584
 msgid "Upgrade to Pro"
 msgstr "Αναβάθμιση σε Pro"
 
-#: ml-slider.php:610
-#: ml-slider.php:613
+#: ml-slider.php:614
+#: ml-slider.php:617
 #: themes/customize.php:20
 msgid "Slideshow"
 msgstr "Διαφάνεια"
 
-#: ml-slider.php:619
-#: ml-slider.php:622
+#: ml-slider.php:623
+#: ml-slider.php:626
 msgid "All Slideshows"
 msgstr "Όλες οι Παρουσιάσεις Διαφανειών"
 
-#: ml-slider.php:630
-#: ml-slider.php:633
+#: ml-slider.php:634
+#: ml-slider.php:637
 msgid "Create Slideshow"
 msgstr "Δημιουργία Παρουσίασης Διαφάνειας"
 
-#: ml-slider.php:799
-#: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:218
-msgid "Add to slideshow"
-msgstr "Προσθήκη στην παρουσίαση διαφάνειας"
-
-#: ml-slider.php:840, fuzzy
+#: ml-slider.php:891, fuzzy
 msgid "YouTube"
 msgstr "YouTube"
 
-#: ml-slider.php:841, fuzzy
+#: ml-slider.php:892, fuzzy
 msgid "TikTok"
 msgstr "TikTok"
 
-#: ml-slider.php:846
+#: ml-slider.php:897
 msgid "Image Folder"
 msgstr "Φάκελος Εικόνας"
 
-#: ml-slider.php:847
+#: ml-slider.php:898
 #: admin/assets/dist/js/app.js:2
 msgid "Post Images"
 msgstr "Εικόνες Δημοσίευσης"
 
-#: ml-slider.php:976
+#: ml-slider.php:1026
 msgid "The slide was successfully restored"
 msgstr "Η διαφάνεια αποκαταστάθηκε με επιτυχία"
 
-#: ml-slider.php:999
+#: ml-slider.php:1049
 msgid "The attempt to restore the slide failed."
 msgstr "Η προσπάθεια αποκατάστασης της διαφάνειας απέτυχε."
 
-#: ml-slider.php:1058
+#: ml-slider.php:1108
 msgid "The slide was successfully trashed"
 msgstr "Η διαφάνεια μεταφέρθηκε με επιτυχία στα σκουπίδια"
 
-#: ml-slider.php:1170
+#: ml-slider.php:1220
 msgid "The slide was permanently deleted"
 msgstr "Η διαφάνεια διαγράφηκε μόνιμα"
 
-#: ml-slider.php:1461
+#: ml-slider.php:1511
 #, php-format
 msgid ""
 "Please consider moving your slides to <b>FlexSlider</b>. We're adding all "
@@ -3642,19 +3798,19 @@ msgstr ""
 "<b>FlexSlider</b>. Προσθέτουμε όλες τις νέες δυνατότητες του MetaSlider σε "
 "αυτή την επιλογή. <a href=\"%s\">Μάθετε περισσότερα</a>."
 
-#: ml-slider.php:1863
+#: ml-slider.php:1913
 msgid "Slide permanently deleted."
 msgstr "Η διαφάνεια διαγράφηκε μόνιμα."
 
-#: ml-slider.php:1866
+#: ml-slider.php:1916
 msgid "Slide restored."
 msgstr "Η διαφάνεια αποκαταστάθηκε."
 
-#: ml-slider.php:1898
+#: ml-slider.php:1948
 msgid "Toggle slide reorder panel"
 msgstr "Εναλλαγή πλάνου αναδιάταξης διαφανειών"
 
-#: ml-slider.php:1935
+#: ml-slider.php:1985
 #, php-format
 msgid ""
 "You are viewing slides that have been trashed, which will be automatically "
@@ -3663,29 +3819,29 @@ msgstr ""
 "Βλέπετε διαφάνειες που έχουν μεταφερθεί στα σκουπίδια, οι οποίες θα "
 "διαγραφούν αυτόματα σε %s ημέρες."
 
-#: ml-slider.php:1968
+#: ml-slider.php:2018
 msgid "Move slideshow to trash"
 msgstr "Μετακίνηση της παρουσίασης διαφάνειας στα σκουπίδια"
 
-#: ml-slider.php:2023
+#: ml-slider.php:2073
 msgid "Add slideshow"
 msgstr "Προσθήκη παρουσίασης διαφάνειας"
 
-#: ml-slider.php:2059
+#: ml-slider.php:2109
 msgid "Choose slideshow"
 msgstr "Επιλογή παρουσίασης"
 
-#: ml-slider.php:2069
+#: ml-slider.php:2119
 msgid "Insert slideshow"
 msgstr "Εισαγωγή παρουσίασης"
 
-#: ml-slider.php:2104
+#: ml-slider.php:2154
 msgid "Create slides by adding text, videos and more to your images"
 msgstr ""
 "Δημιουργήστε διαφάνειες προσθέτοντας κείμενο, βίντεο και άλλα στις εικόνες "
 "σας"
 
-#: ml-slider.php:2108
+#: ml-slider.php:2158
 msgid ""
 "With Layer slides, you can create beautiful, stylish layers of different "
 "elements."
@@ -3693,7 +3849,7 @@ msgstr ""
 "Με τις διαφάνειες Layer, μπορείτε να δημιουργήσετε όμορφα, κομψά επίπεδα "
 "διαφορετικών στοιχείων."
 
-#: ml-slider.php:2112
+#: ml-slider.php:2162
 msgid ""
 "You start with an image and then can add text, video, colors, animations, "
 "more images, and even shortcodes."
@@ -3701,29 +3857,28 @@ msgstr ""
 "Αρχίζετε με μια εικόνα και στη συνέχεια μπορείτε να προσθέσετε κείμενο, "
 "βίντεο, χρώματα, animations, περισσότερες εικόνες, και ακόμη και shortcodes."
 
-#: ml-slider.php:2118
-#: ml-slider.php:2159
-#: ml-slider.php:2200
-#: ml-slider.php:2243
-#: ml-slider.php:2286
-#: ml-slider.php:2329
-#: ml-slider.php:2372
-#: ml-slider.php:2411
-#: ml-slider.php:2454
-#: ml-slider.php:2493
-#: ml-slider.php:2564
-#: ml-slider.php:2599
-#: ml-slider.php:2634
+#: ml-slider.php:2168
+#: ml-slider.php:2209
+#: ml-slider.php:2250
+#: ml-slider.php:2293
+#: ml-slider.php:2336
+#: ml-slider.php:2379
+#: ml-slider.php:2418
+#: ml-slider.php:2461
+#: ml-slider.php:2500
+#: ml-slider.php:2571
+#: ml-slider.php:2606
+#: ml-slider.php:2641
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Find out more about MetaSlider Slideshow Pro"
 msgstr "Μάθετε περισσότερα για το MetaSlider Pro"
 
-#: ml-slider.php:2147
+#: ml-slider.php:2197
 msgid "Create slideshows with your Vimeo videos"
 msgstr "Δημιουργήστε παρουσιάσεις διαφανειών με τα βίντεο σας από το Vimeo"
 
-#: ml-slider.php:2151
+#: ml-slider.php:2201
 msgid ""
 "With Vimeo slides, you can build beautiful slideshows with your Vimeo "
 "videos."
@@ -3731,7 +3886,7 @@ msgstr ""
 "Με τις διαφάνειες Vimeo, μπορείτε να δημιουργήσετε όμορφες παρουσιάσεις "
 "διαφανειών με τα βίντεο σας από το Vimeo."
 
-#: ml-slider.php:2155
+#: ml-slider.php:2205
 msgid ""
 "Vimeo slides will display your videos with auto play, mute, the ability to "
 "hide controls, and much more."
@@ -3739,11 +3894,11 @@ msgstr ""
 "Οι διαφάνειες Vimeo θα εμφανίζουν τα βίντεό σας με αυτόματη αναπαραγωγή, "
 "σίγαση, τη δυνατότητα απόκρυψης ελέγχων και πολλά άλλα."
 
-#: ml-slider.php:2188
+#: ml-slider.php:2238
 msgid "Create slideshows with your YouTube videos"
 msgstr "Δημιουργήστε παρουσιάσεις διαφανειών με τα βίντεο σας από το YouTube"
 
-#: ml-slider.php:2192
+#: ml-slider.php:2242
 msgid ""
 "With YouTube slides, you can build beautiful slideshows with your YouTube "
 "videos."
@@ -3751,7 +3906,7 @@ msgstr ""
 "Με τις διαφάνειες YouTube, μπορείτε να δημιουργήσετε όμορφες παρουσιάσεις "
 "διαφανειών με τα βίντεο σας από το YouTube."
 
-#: ml-slider.php:2196
+#: ml-slider.php:2246
 msgid ""
 "YouTube slides will display your videos with auto play, mute, lazy load, "
 "the ability to hide controls, and much more."
@@ -3759,11 +3914,11 @@ msgstr ""
 "Οι διαφάνειες YouTube θα εμφανίζουν τα βίντεό σας με αυτόματη αναπαραγωγή, "
 "σίγαση, lazy load, τη δυνατότητα απόκρυψης ελέγχων και πολλά άλλα."
 
-#: ml-slider.php:2229
+#: ml-slider.php:2279
 msgid "Create slideshows with your posts"
 msgstr "Δημιουργήστε παρουσιάσεις διαφανειών με τις αναρτήσεις σας"
 
-#: ml-slider.php:2233
+#: ml-slider.php:2283
 msgid ""
 "With Post Feed slides, you can build slideshows with your latest posts, "
 "events, or WooCommerce products."
@@ -3771,7 +3926,7 @@ msgstr ""
 "Με τις διαφάνειες Post Feed, μπορείτε να δημιουργήσετε παρουσιάσεις "
 "διαφανειών με τις τελευταίες αναρτήσεις, εκδηλώσεις ή προϊόντα WooCommerce."
 
-#: ml-slider.php:2237
+#: ml-slider.php:2287
 msgid ""
 "Post Feed slides will automatically display your posts with images, text, "
 "custom fields, and much more."
@@ -3779,13 +3934,13 @@ msgstr ""
 "Οι διαφάνειες Post Feed θα εμφανίζουν αυτόματα τις αναρτήσεις σας με "
 "εικόνες, κείμενο, προσαρμοσμένα πεδία και πολλά άλλα."
 
-#: ml-slider.php:2272
+#: ml-slider.php:2322
 msgid "Create slideshows with images stored outside of WordPress"
 msgstr ""
 "Δημιουργήστε παρουσιάσεις διαφανειών με εικόνες αποθηκευμένες εκτός του "
 "WordPress"
 
-#: ml-slider.php:2276
+#: ml-slider.php:2326
 msgid ""
 "With External URL slides, you can load images directly from non-WordPress "
 "sources such as CDNs or image hosts."
@@ -3793,7 +3948,7 @@ msgstr ""
 "Με τις διαφάνειες External URL, μπορείτε να φορτώσετε εικόνες απευθείας από "
 "πηγές μη WordPress όπως CDNs ή φιλοξενούμενες εικόνες."
 
-#: ml-slider.php:2280
+#: ml-slider.php:2330
 msgid ""
 "External URL slides give you all the power of MetaSlider Slideshow, using "
 "images stored anywhere you want."
@@ -3801,36 +3956,13 @@ msgstr ""
 "Οι διαφάνειες External URL σας δίνουν όλη τη δύναμη του MetaSlider, "
 "χρησιμοποιώντας εικόνες αποθηκευμένες οπουδήποτε θέλετε."
 
-#: ml-slider.php:2315
-msgid "Create slideshows with videos in your media library"
-msgstr "Δημιουργήστε παρουσιάσεις διαφανειών με βίντεο στη βιβλιοθήκη πολυμέσων σας"
-
-#: ml-slider.php:2319
-msgid ""
-"With Local Video slides, you can build beautiful slideshows with videos in "
-"your WordPress media library or searched directly from Pixabay."
-msgstr ""
-"Με τις διαφάνειες τοπικών βίντεο, μπορείτε να δημιουργήσετε όμορφες "
-"διαφάνειες με βίντεο από τη βιβλιοθήκη πολυμέσων του WordPress ή να τα "
-"αναζητήσετε απευθείας από το Pixabay."
-
-#: ml-slider.php:2323
-msgid ""
-"Local Video slides will display your MP4, WebM, and MOV videos with cover "
-"images, auto play, mute, lazy load, the ability to hide controls, and much "
-"more."
-msgstr ""
-"Οι τοπικές διαφάνειες βίντεο θα εμφανίζουν τα βίντεο MP4, WebM και MOV σας "
-"με εικόνες κάλυψης, αυτόματη αναπαραγωγή, σίγαση, καθυστέρηση φόρτωσης, τη "
-"δυνατότητα απόκρυψης των ελέγχων και πολλά άλλα."
-
-#: ml-slider.php:2358
+#: ml-slider.php:2365
 msgid "Create slideshows with videos stored outside of WordPress"
 msgstr ""
 "Δημιουργήστε παρουσιάσεις διαφανειών με βίντεο που είναι αποθηκευμένα εκτός "
 "του WordPress"
 
-#: ml-slider.php:2362
+#: ml-slider.php:2369
 msgid ""
 "With External Video slides, you can add videos directly from non-WordPress "
 "sources."
@@ -3838,7 +3970,7 @@ msgstr ""
 "Με τις εξωτερικές διαφάνειες βίντεο, μπορείτε να προσθέσετε βίντεο "
 "απευθείας από πηγές που δεν είναι WordPress."
 
-#: ml-slider.php:2366
+#: ml-slider.php:2373
 msgid ""
 "External Video Slides will display your MP4, WebM, and MOV videos. Features "
 "include text captions, cover images, auto play, mute, lazy load, the "
@@ -3849,11 +3981,11 @@ msgstr ""
 "αναπαραγωγή, σίγαση, καθυστέρηση φόρτωσης, τη δυνατότητα απόκρυψης των "
 "ελέγχων και πολλά άλλα."
 
-#: ml-slider.php:2401
+#: ml-slider.php:2408
 msgid "Create slideshows with custom HTML"
 msgstr "Δημιουργήστε παρουσιάσεις διαφανειών με προσαρμοσμένο HTML"
 
-#: ml-slider.php:2405
+#: ml-slider.php:2412
 msgid ""
 "With Custom HTML slides, you can design slides using images, HTML and CSS. "
 "This gives you complete control over the layout and styling."
@@ -3862,11 +3994,11 @@ msgstr ""
 "χρησιμοποιώντας εικόνες, HTML και CSS. Αυτό σας δίνει πλήρη έλεγχο πάνω "
 "στην διάταξη και το στυλ."
 
-#: ml-slider.php:2444
+#: ml-slider.php:2451
 msgid "Create slides with background colors and text"
 msgstr "Δημιουργήστε διαφάνειες με χρώματα φόντου και κείμενο"
 
-#: ml-slider.php:2448
+#: ml-slider.php:2455
 msgid ""
 "With Background Color slides, you can create slides using a solid or "
 "gradient background color. Perfect for text-only slides, calls to action or "
@@ -3876,11 +4008,11 @@ msgstr ""
 "χρησιμοποιώντας ένα συμπαγές ή γραμμικό χρώμα φόντου. Ιδανικό για "
 "διαφάνειες μόνο με κείμενο, κλήσεις σε δράση ή γρήγορες διαφημίσεις."
 
-#: ml-slider.php:2483
+#: ml-slider.php:2490
 msgid "Create slideshows with Tiktok Videos"
 msgstr "Δημιουργήστε παρουσιάσεις διαφανειών με βίντεο TikTok"
 
-#: ml-slider.php:2487
+#: ml-slider.php:2494
 msgid ""
 "A TikTok Slide will display a video in your slideshow directly from "
 "TikTok.com."
@@ -3888,11 +4020,11 @@ msgstr ""
 "Μια διαφάνεια TikTok θα εμφανίσει ένα βίντεο στην παρουσίαση διαφανειών σας "
 "απευθείας από το TikTok.com."
 
-#: ml-slider.php:2550
+#: ml-slider.php:2557
 msgid "Create slideshows with images from a folder"
 msgstr "Δημιουργήστε παρουσιάσεις διαφανειών με εικόνες από φάκελο"
 
-#: ml-slider.php:2554
+#: ml-slider.php:2561
 msgid ""
 "The Image Folder slide type extracts images from a specified folder and "
 "displays them as slides."
@@ -3900,7 +4032,7 @@ msgstr ""
 "Ο τύπος διαφάνειας Εικόνας Φακέλου εξάγει εικόνες από έναν καθορισμένο "
 "φάκελο και τις εμφανίζει ως διαφάνειες."
 
-#: ml-slider.php:2558
+#: ml-slider.php:2565
 msgid ""
 "This slide type displays images from folders in your WordPress Media "
 "Library."
@@ -3908,11 +4040,11 @@ msgstr ""
 "Αυτός ο τύπος διαφάνειας εμφανίζει εικόνες από φακέλους στη Βιβλιοθήκη "
 "Πολυμέσων του WordPress σας."
 
-#: ml-slider.php:2585
+#: ml-slider.php:2592
 msgid "Create slideshows with Post Images"
 msgstr "Δημιουργήστε παρουσιάσεις διαφανειών με Εικόνες Αναρτήσεων"
 
-#: ml-slider.php:2589
+#: ml-slider.php:2596
 msgid ""
 "The Post Images slide type extracts images from the current post and "
 "displays them as slides."
@@ -3920,7 +4052,7 @@ msgstr ""
 "Ο τύπος διαφάνειας Εικόνες Αναρτήσεων εξάγει εικόνες από την τρέχουσα "
 "ανάρτηση και τις εμφανίζει ως διαφάνειες."
 
-#: ml-slider.php:2593
+#: ml-slider.php:2600
 msgid ""
 "This slide type supports featured images, post content images, WooCommerce "
 "galleries, Advanced Custom Fields images and galleries."
@@ -3929,11 +4061,11 @@ msgstr ""
 "περιεχομένου αναρτήσεων, γκαλερί WooCommerce, εικόνες και γκαλερί Advanced "
 "Custom Fields."
 
-#: ml-slider.php:2620
+#: ml-slider.php:2627
 msgid "Create slideshows with your WooCommerce products"
 msgstr "Δημιουργήστε παρουσιάσεις διαφανειών με τα προϊόντα WooCommerce σας"
 
-#: ml-slider.php:2624
+#: ml-slider.php:2631
 msgid ""
 "With WooCommerce slides, you can build slideshows with your WooCommerce "
 "products."
@@ -3941,7 +4073,7 @@ msgstr ""
 "Με τις διαφάνειες WooCommerce, μπορείτε να δημιουργήσετε παρουσιάσεις "
 "διαφανειών με τα προϊόντα WooCommerce σας."
 
-#: ml-slider.php:2628
+#: ml-slider.php:2635
 msgid ""
 "WooCommerce slides will automatically display your products with images, "
 "text, custom fields, and much more."
@@ -3949,46 +4081,293 @@ msgstr ""
 "Οι διαφάνειες WooCommerce θα εμφανίζουν αυτόματα τα προϊόντα σας με "
 "εικόνες, κείμενο, προσαρμοσμένα πεδία και πολλά άλλα."
 
-#: ml-slider.php:2672
+#: ml-slider.php:2679
 msgid "Premium Support"
 msgstr "Επαγγελματική υποστήριξη"
 
-#: ml-slider.php:2678
+#: ml-slider.php:2685
 #, fuzzy
 msgid "MetaSlider Slideshow Pro"
 msgstr "MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2682
+#: ml-slider.php:2689
 msgid "Support"
 msgstr "Yποστήριξη"
 
-#: ml-slider.php:2687
+#: ml-slider.php:2694
+#: modules/local_video/slide.php:533
 msgid "Documentation"
 msgstr "Τεκμηρίωση"
 
-#: ml-slider.php:2691
+#: ml-slider.php:2698
 msgid "Leave a review"
 msgstr "Αφήστε μια κριτική"
 
-#: ml-slider.php:2810
+#: ml-slider.php:2817
 msgid "Uploading..."
 msgstr "Ανέβασμα..."
 
-#: ml-slider.php:2817
+#: ml-slider.php:2824
 msgid "Upload Complete"
 msgstr "Ολοκλήρωση Ανέβασμα"
 
-#: ml-slider.php:2944
+#: ml-slider.php:2951
 msgid "Import file is missing"
 msgstr "Το αρχείο εισαγωγής λείπει"
 
-#: ml-slider.php:3095
+#: ml-slider.php:3102
 msgid ""
 "You attempted to edit a slideshow that does not exist. Perhaps it was moved "
 "to trash?"
 msgstr ""
 "Προσπαθήσατε να επεξεργαστείτε μια παρουσίαση που δεν υπάρχει. Ίσως να "
 "μεταφέρθηκε στον κάδο απορριμμάτων;"
+
+#: modules/local_video/helper.php:95
+#: modules/local_video/helper.php:101
+msgid "Update cover image"
+msgstr "Ενημέρωση εικόνας εξωφύλλου"
+
+#: modules/local_video/helper.php:108
+msgid "Set cover image"
+msgstr "Ορισμός εικόνας εξωφύλλου"
+
+#: modules/local_video/helper.php:159
+#: modules/local_video/slide.php:1163
+msgid "Update slide video"
+msgstr "Ενημέρωση βίντεο διαφάνειας"
+
+#: modules/local_video/helper.php:163
+#: modules/local_video/slide.php:585
+#: modules/local_video/slide.php:1167
+msgid "Browse"
+msgstr "Περιήγηση"
+
+#: modules/local_video/helper.php:168
+#: modules/local_video/slide.php:1172
+msgid "Video File"
+msgstr "Αρχείο βίντεο"
+
+#: modules/local_video/slide.php:109
+msgid "Select replacement video"
+msgstr "Επιλέξτε βίντεο αντικατάστασης"
+
+#: modules/local_video/slide.php:110
+msgid "Select replacement cover"
+msgstr "Επιλέξτε αντικατάσταση εξωφύλλου"
+
+#: modules/local_video/slide.php:111
+msgid "Select replacement text track"
+msgstr "Επιλέξτε αντικατάσταση κειμένου διαδρομής"
+
+#: modules/local_video/slide.php:197
+#: modules/local_video/slide.php:2075
+msgid "Invalid nonce"
+msgstr "Μη έγκυρο nonce"
+
+#: modules/local_video/slide.php:218
+#: modules/local_video/slide.php:897
+#: modules/local_video/slide.php:1107
+msgid "Not supported video format"
+msgstr "Μη υποστηριζόμενη μορφή βίντεο"
+
+#: modules/local_video/slide.php:349
+msgid "Local Video Slide"
+msgstr "Τοπική διαφάνεια βίντεο"
+
+#: modules/local_video/slide.php:370
+msgid "Please update to MetaSlider Slideshow to version 3.2 or above."
+msgstr "Παρακαλούμε αναβαθμίστε στο MetaSlider Slideshow στην έκδοση 3.2 ή ανώτερη."
+
+#: modules/local_video/slide.php:415
+msgid "Cover"
+msgstr "Εξώφυλλο"
+
+#: modules/local_video/slide.php:419
+msgid "Text track"
+msgstr "Διαδρομή κειμένου"
+
+#: modules/local_video/slide.php:476
+msgid "Which language is the source file?"
+msgstr "Ποια γλώσσα έχει το αρχείο προέλευσης;"
+
+#: modules/local_video/slide.php:477
+msgid "Language label"
+msgstr "Ετικέτα γλώσσας"
+
+#: modules/local_video/slide.php:482
+msgid "For example: English"
+msgstr "Για παράδειγμα: Αγγλικά"
+
+#: modules/local_video/slide.php:490
+msgid "Choose the type of text track"
+msgstr "Επιλέξτε τον τύπο διαδρομής κειμένου"
+
+#: modules/local_video/slide.php:491
+msgid "Language kind"
+msgstr "Τύπος γλώσσας"
+
+#: modules/local_video/slide.php:497
+msgid "Captions"
+msgstr "Λεζάντες"
+
+#: modules/local_video/slide.php:500
+msgid "Chapters"
+msgstr "Κεφάλαια"
+
+#: modules/local_video/slide.php:503
+msgid "Descriptions"
+msgstr "Περιγραφές"
+
+#: modules/local_video/slide.php:509
+msgid "Subtitles"
+msgstr "Υπότιτλοι"
+
+#: modules/local_video/slide.php:517
+msgid "If the language is English, the code must be en"
+msgstr "Εάν η γλώσσα είναι αγγλική, ο κωδικός πρέπει να είναι en"
+
+#: modules/local_video/slide.php:518
+msgid "Language code"
+msgstr "Κωδικός γλώσσας"
+
+#: modules/local_video/slide.php:523
+msgid "For example: en"
+msgstr "Για παράδειγμα: en"
+
+#: modules/local_video/slide.php:576
+msgid "File must be TXT or VTT format"
+msgstr "Το αρχείο πρέπει να είναι σε μορφή TXT ή VTT"
+
+#: modules/local_video/slide.php:577
+msgid "Source"
+msgstr "Πηγή"
+
+#: modules/local_video/slide.php:582
+msgid "Update slide text track"
+msgstr "Ενημέρωση κειμένου διαφάνειας"
+
+#: modules/local_video/slide.php:956
+msgid "The cover was successfully removed."
+msgstr "Η εξώφυλλο αφαιρέθηκε με επιτυχία."
+
+#: modules/local_video/slide.php:986
+msgid "The requested video does not exist. Please try again."
+msgstr "Το ζητούμενο βίντεο δεν υπάρχει. Παρακαλώ δοκιμάστε ξανά."
+
+#: modules/local_video/slide.php:995
+msgid "There was an error updating the video. No previous video saved."
+msgstr ""
+"Υπήρξε σφάλμα κατά την ενημέρωση του βίντεο. Δεν υπάρχει προηγούμενο "
+"αποθηκευμένο βίντεο."
+
+#: modules/local_video/slide.php:1011
+msgid "The video was successfully updated."
+msgstr "Το βίντεο ενημερώθηκε με επιτυχία."
+
+#: modules/local_video/slide.php:1020
+msgid "There was an error updating the video. Please try again"
+msgstr "Υπήρξε σφάλμα κατά την ενημέρωση του βίντεο. Παρακαλώ δοκιμάστε ξανά"
+
+#: modules/local_video/slide.php:1078
+msgid "You can't add more sources to this video slide."
+msgstr "Δεν μπορείτε να προσθέσετε περισσότερες πηγές σε αυτή τη διαφάνεια βίντεο."
+
+#: modules/local_video/slide.php:1094
+msgid "This slide already has a video in that format."
+msgstr "Αυτή η διαφάνεια έχει ήδη ένα βίντεο σε αυτή τη μορφή."
+
+#: modules/local_video/slide.php:1126
+msgid "The video source was successfully added."
+msgstr "Η πηγή βίντεο προστέθηκε με επιτυχία."
+
+#: modules/local_video/slide.php:1237
+msgid "This slide requires at least one video source."
+msgstr "Αυτή η διαφάνεια απαιτεί τουλάχιστον μία πηγή βίντεο."
+
+#: modules/local_video/slide.php:1250
+msgid "The video source was successfully removed."
+msgstr "Η πηγή βίντεο αφαιρέθηκε με επιτυχία."
+
+#: modules/local_video/slide.php:1301
+msgid "Not supported text track format"
+msgstr "Μη υποστηριζόμενη μορφή κειμένου υποτίτλων"
+
+#: modules/local_video/slide.php:1343
+msgid "The requested text track does not exist. Please try again."
+msgstr "Η ζητούμενη γραμμή κειμένου δεν υπάρχει. Παρακαλώ δοκιμάστε ξανά."
+
+#: modules/local_video/slide.php:1364
+msgid "The text track was successfully updated."
+msgstr "Η γραμμή κειμένου ενημερώθηκε με επιτυχία."
+
+#: modules/local_video/slide.php:1373
+msgid "There was an error updating the text track. Please try again"
+msgstr ""
+"Παρουσιάστηκε σφάλμα κατά την ενημέρωση της γραμμής κειμένου. Παρακαλώ "
+"δοκιμάστε ξανά"
+
+#: modules/local_video/slide.php:1420
+msgid "The text track was successfully removed."
+msgstr "Η γραμμή κειμένου αφαιρέθηκε με επιτυχία."
+
+#: modules/local_video/tabs/caption.php:7
+msgid ""
+"Please note that captions on videos can interfere with player controls. We "
+"recommend adding captions when \"Auto play\" is enabled, and \"Show "
+"controls\" and \"Lazy load video\" are both disabled."
+msgstr ""
+"Παρακαλώ σημειώστε ότι οι υπότιτλοι σε βίντεο μπορεί να επηρεάσουν τους "
+"ελέγχους του αναπαραγωγέα. Συνιστούμε να προσθέσετε υπότιτλους όταν είναι "
+"ενεργοποιημένη η επιλογή \"Αυτόματη αναπαραγωγή\" και οι επιλογές "
+"\"Εμφάνιση ελέγχων\" και \"Αργή φόρτωση βίντεο\" είναι απενεργοποιημένες."
+
+#: modules/local_video/tabs/general.php:50
+#: modules/local_video/tabs/general.php:52
+msgid "Add a new video source"
+msgstr "Προσθέστε μια νέα πηγή βίντεο"
+
+#: modules/local_video/tabs/general.php:55
+msgid ""
+"Adding more formats for the same video can help improve support for "
+"different platforms."
+msgstr ""
+"Η προσθήκη περισσότερων μορφών για το ίδιο βίντεο μπορεί να βοηθήσει στη "
+"βελτίωση της υποστήριξης για διαφορετικές πλατφόρμες."
+
+#: modules/local_video/tabs/general.php:97
+msgid "May require video to be muted"
+msgstr "Μπορεί να απαιτείται το βίντεο να είναι σε σίγαση"
+
+#: modules/local_video/tabs/general.php:137
+msgid "Fit video in container"
+msgstr "Προσαρμογή βίντεο στον κάδο"
+
+#: modules/local_video/tabs/general.php:150
+msgid "Fade in transition"
+msgstr "Μετάβαση με σταδιακή εμφάνιση"
+
+#: modules/local_video/tabs/general.php:152
+msgid ""
+"Fade in before video loads. Recommended when slide and slideshow Auto play "
+"are enabled, and slideshow Transition effect is fade."
+msgstr ""
+"Σταδιακή εμφάνιση πριν φορτωθεί το βίντεο. Συνιστάται όταν είναι "
+"ενεργοποιημένες οι επιλογές αυτόματης αναπαραγωγής διαφανειών και οι εφέ "
+"μετάβασης διαφανειών είναι σταδιακή εμφάνιση."
+
+#: modules/local_video/tabs/link.php:8
+msgid "Video Link URL"
+msgstr "Διεύθυνση URL συνδέσμου βίντεο"
+
+#: modules/local_video/tabs/link.php:11
+msgid ""
+"When visitors click on your video slide, they will be taken to this URL. "
+"This may affect how user interacts with the video controls."
+msgstr ""
+"Όταν οι επισκέπτες κάνουν κλικ στη διαφάνεια του βίντεο σας, θα μεταφερθούν "
+"σε αυτή τη διεύθυνση URL. Αυτό μπορεί να επηρεάσει το πώς ο χρήστης "
+"αλληλεπιδρά με τους ελέγχους του βίντεο."
 
 #: themes/architekt/customize.php:16
 #: themes/architekt/customize.php:356
@@ -6898,8 +7277,8 @@ msgstr "Ετοιμασία 1 διαφάνειας..."
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/dist/js/app.js:2
 #: admin/assets/js/admin.js:168
-#: admin/assets/js/admin.js:1519
-#: admin/assets/js/admin.js:1562
+#: admin/assets/js/admin.js:1554
+#: admin/assets/js/admin.js:1597
 msgid "1 slide added successfully"
 msgstr "Η 1 διαφάνεια προστέθηκε με επιτυχία"
 
@@ -6920,6 +7299,8 @@ msgstr "Κλείνει το UI προσθήκης διαφάνειας..."
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:314
+#: modules/local_video/assets/local_video.js:208
+#: modules/local_video/assets/local_video.js:632
 msgid "Updating slide..."
 msgstr "Ενημέρωση διαφάνειας..."
 
@@ -6940,23 +7321,24 @@ msgstr "Βιβλιοθήκη Unsplash"
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:959
 msgid "Pixabay Library"
 msgstr "Βιβλιοθήκη Pixabay"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1347
+#: admin/assets/js/admin.js:1382
 msgid "Crop position saved and image cropped"
 msgstr "Η θέση κοπής αποθηκεύτηκε και η εικόνα κόπηκε"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1364
+#: admin/assets/js/admin.js:1399
 msgid "There was an error when saving crop position or cropping the image"
 msgstr ""
 "Παρουσιάστηκε σφάλμα κατά την αποθήκευση της θέσης κοπής ή κατά την κοπή "
 "της εικόνας"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1577
+#: admin/assets/js/admin.js:1612
 msgid "Device options are enabled for this slide. Adjust using the Device tab."
 msgstr ""
 "Οι επιλογές συσκευής είναι ενεργοποιημένες για αυτή τη διαφάνεια. Ρυθμίστε "
@@ -7384,6 +7766,42 @@ msgstr "Δεν βρέθηκαν φωτογραφίες."
 msgid "All images published on Pixabay can be used for free."
 msgstr ""
 "Όλες οι εικόνες που δημοσιεύονται στο Pixabay μπορούν να χρησιμοποιηθούν "
+"δωρεάν."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Search pixabay.com videos..."
+msgstr "Αναζήτηση βίντεο στο pixabay.com..."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s on Pixabay"
+msgstr "Βίντεο από %s στο Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Video on Pixabay"
+msgstr "Βίντεο στο Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Opening Pixabay Video tab..."
+msgstr "Άνοιγμα καρτέλας βίντεο Pixabay..."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Pixabay Video tab closed"
+msgstr "Καρτέλα βίντεο Pixabay κλειστή"
+
+#: admin/assets/dist/js/app.js:2
+msgid "No videos found."
+msgstr "Δεν βρέθηκαν βίντεο."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s"
+msgstr "Βίντεο από %s"
+
+#: admin/assets/dist/js/app.js:2
+msgid "All videos published on Pixabay can be used for free."
+msgstr ""
+"Όλα τα βίντεο που δημοσιεύονται στο Pixabay μπορούν να χρησιμοποιηθούν "
 "δωρεάν."
 
 #: admin/assets/dist/js/app.js:2
@@ -8352,6 +8770,11 @@ msgid "Importing %s slideshows... This may take a minute"
 msgstr "Εισαγωγή %s slideshow... Αυτό μπορεί να διαρκέσει ένα λεπτό"
 
 #: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Failed to import: %s"
+msgstr "Αποτυχία εισαγωγής: %s"
+
+#: admin/assets/dist/js/app.js:2
 msgid "Import successful"
 msgstr "Η εισαγωγή ήταν επιτυχής"
 
@@ -8388,6 +8811,13 @@ msgstr "Επεξεργασία..."
 #: admin/assets/dist/js/app.js:2
 msgid "Upload file"
 msgstr "Ανεβάστε αρχείο"
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Importing slideshow %1$s of %2$s (%3$s slides). This may take a minute."
+msgstr ""
+"Εισαγωγή παρουσίασης %1$s από %2$s (%3$s διαφάνειες). Αυτό μπορεί να "
+"διαρκέσει ένα λεπτό."
 
 #: admin/assets/dist/js/app.js:2
 msgid ""
@@ -8576,6 +9006,43 @@ msgstr "Άνοιγμα σελίδας ρυθμίσεων..."
 msgid "Page not found: %s"
 msgstr "Σελίδα δεν βρέθηκε: %s"
 
+#: admin/assets/js/app/slides/external/videoQuality.js:29, fuzzy
+msgid "4K"
+msgstr "4K"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:30, fuzzy
+msgid "Quad HD"
+msgstr "Quad HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:31, fuzzy
+msgid "Full HD"
+msgstr "Full HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:32, fuzzy
+msgid "HD"
+msgstr "HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:33, fuzzy
+msgid "SD"
+msgstr "SD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:45
+msgid "SD (if available)"
+msgstr "SD (αν είναι διαθέσιμο)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:46
+msgid "HD (if available)"
+msgstr "HD (αν είναι διαθέσιμο)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:47
+msgid "Full HD (if available)"
+msgstr "Full HD (αν είναι διαθέσιμο)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:48
+#: admin/assets/js/app/slides/external/videoQuality.js:64
+msgid "Original"
+msgstr "Πρωτότυπο"
+
 #: admin/assets/js/app/tour/main.js:12
 msgid "Add a slide"
 msgstr "Προσθέστε μια διαφάνεια"
@@ -8710,6 +9177,113 @@ msgstr "διαφάνεια"
 msgid "gallery"
 msgstr "γκαλερί"
 
+#: admin/assets/js/livid-iframe.js:132
+#: modules/local_video/assets/local_video.js:46
+#: modules/local_video/assets/local_video.js:166
+#, js-format
+msgid "Preparing %s slide..."
+msgstr "Προετοιμασία διαφάνειας %s..."
+
+#: modules/local_video/assets/local_video.js:61
+#: modules/local_video/assets/local_video.js:181
+msgid "This isn't a supported video format. Please use MP4, WebM, or MOV videos."
+msgstr ""
+"Αυτό δεν είναι ένα υποστηριζόμενο φορμά βίντεο. Παρακαλώ χρησιμοποιήστε "
+"βίντεο MP4, WebM ή MOV."
+
+#: modules/local_video/assets/local_video.js:241
+#: modules/local_video/assets/local_video.js:690
+msgid "There is an error"
+msgstr "Υπάρχει ένα σφάλμα"
+
+#: modules/local_video/assets/local_video.js:265
+#: modules/local_video/assets/local_video.js:741
+msgid "Video source added successfully"
+msgstr "Η πηγή βίντεο προστέθηκε με επιτυχία"
+
+#: modules/local_video/assets/local_video.js:282
+#: modules/local_video/assets/local_video.js:762
+msgid "Video updated successfully"
+msgstr "Το βίντεο ενημερώθηκε με επιτυχία"
+
+#: modules/local_video/assets/local_video.js:324
+msgid "Create slideshows with videos hosted in your media library"
+msgstr ""
+"Δημιουργήστε παρουσιάσεις με βίντεο που φιλοξενούνται στη βιβλιοθήκη "
+"πολυμέσων σας"
+
+#: modules/local_video/assets/local_video.js:326
+msgid "Create slideshows with images in your media library"
+msgstr "Δημιουργήστε παρουσιάσεις με εικόνες στη βιβλιοθήκη πολυμέσων σας"
+
+#: modules/local_video/assets/local_video.js:328
+msgid ""
+"Layer Slides allow you to add text, colors, shortcodes and media on top of "
+"an image or video."
+msgstr ""
+"Οι διαφάνειες Layer σας επιτρέπουν να προσθέσετε κείμενο, χρώματα, "
+"shortcode και πολυμέσα πάνω από μια εικόνα ή βίντεο."
+
+#: modules/local_video/assets/local_video.js:398
+msgid "Cover removed successfully."
+msgstr "Η κάλυψη αφαιρέθηκε με επιτυχία."
+
+#: modules/local_video/assets/local_video.js:431
+msgid "You can't delete this video. This slide requires at least one video source."
+msgstr ""
+"Δεν μπορείτε να διαγράψετε αυτό το βίντεο. Αυτή η διαφάνεια απαιτεί "
+"τουλάχιστον μία πηγή βίντεο."
+
+#: modules/local_video/assets/local_video.js:462
+msgid "Video source removed successfully"
+msgstr "Η πηγή βίντεο αφαιρέθηκε με επιτυχία"
+
+#: modules/local_video/assets/local_video.js:481
+msgid "No text track has beed selected for this slide."
+msgstr "Δεν έχει επιλεγεί καμία γραμμή κειμένου για αυτή τη διαφάνεια."
+
+#: modules/local_video/assets/local_video.js:503
+msgid "There was an error removing the text track"
+msgstr "Υπήρξε σφάλμα κατά την αφαίρεση της γραμμής κειμένου"
+
+#: modules/local_video/assets/local_video.js:520
+msgid "Text track removed successfully"
+msgstr "Η γραμμή κειμένου αφαιρέθηκε με επιτυχία"
+
+#: modules/local_video/assets/local_video.js:546
+#, js-format
+msgid "Select Replacement %s Video"
+msgstr "Επιλέξτε Αντικατάσταση %s Βίντεο"
+
+#: modules/local_video/assets/local_video.js:608
+#, js-format
+msgid "Please select a %s video for this source!"
+msgstr "Παρακαλώ επιλέξτε ένα %s βίντεο για αυτή την πηγή!"
+
+#: modules/local_video/assets/local_video.js:702
+msgid "This isn't a supported image format. Please use JPG, PNG, or GIF images."
+msgstr ""
+"Αυτή δεν είναι υποστηριζόμενη μορφή εικόνας. Παρακαλώ χρησιμοποιήστε "
+"εικόνες JPG, PNG ή GIF."
+
+#: modules/local_video/assets/local_video.js:708
+msgid "This isn't a supported text track format. Please use TXT or VTT files."
+msgstr ""
+"Αυτή δεν είναι υποστηριζόμενη μορφή αρχείου γραμμής κειμένου. Παρακαλώ "
+"χρησιμοποιήστε αρχεία TXT ή VTT."
+
+#: modules/local_video/assets/local_video.js:788
+msgid "Text track updated successfully"
+msgstr "Η γραμμή κειμένου ενημερώθηκε με επιτυχία"
+
+#: modules/local_video/assets/local_video.js:861
+msgid "Cover image updated successfully"
+msgstr "Η εικόνα κάλυψης ενημερώθηκε με επιτυχία"
+
+#: modules/local_video/assets/local_video.js:906
+msgid "Duplicating the slide failed."
+msgstr "Η αντιγραφή της διαφάνειας απέτυχε."
+
 #: admin/Notices.php:101
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
@@ -8726,7 +9300,7 @@ msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Review MetaSlider Slideshow &rarr;"
 msgstr "Αξιολογήστε το MetaSlider &rarr;"
 
-#: ml-slider.php:2053
+#: ml-slider.php:2103
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Select slideshow to insert into post"
@@ -8734,8 +9308,8 @@ msgstr "Επιλέξτε διαφάνεια για να εισάγετε στη�
 
 #: admin/views/pages/parts/slider-settings.php:665
 #: admin/views/pages/parts/slider-settings.php:685
-#: admin/views/pages/parts/slider-settings.php:1420
-#: admin/views/pages/parts/slider-settings.php:1454, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1450, fuzzy
 msgctxt "Short for milliseconds"
 msgid "ms"
 msgstr "ms"
@@ -8745,7 +9319,7 @@ msgctxt "This is a keyboard shortcut."
 msgid " (Use Alt or ⌥ (Option) + P keys)"
 msgstr " (Χρησιμοποιήστε τα πλήκτρα Alt ή ⌥ (Επιλογή) + P)"
 
-#: admin/views/pages/start.php:382
+#: admin/views/pages/start.php:383
 msgctxt "Uploader: Drop files to upload - or - Select Files"
 msgid "or"
 msgstr "ή"

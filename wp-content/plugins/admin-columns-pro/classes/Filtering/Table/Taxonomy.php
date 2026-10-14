@@ -9,8 +9,7 @@ use ACP\Filtering\View\FilterContainer;
 
 class Taxonomy implements Registerable
 {
-
-    private $column_name;
+    private string $column_name;
 
     public function __construct(string $column_name)
     {

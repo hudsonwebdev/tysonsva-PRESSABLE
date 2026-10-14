@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Editing\OrderSubscription;
 
 use ACP;
@@ -9,10 +11,9 @@ use RuntimeException;
 
 class Date implements ACP\Editing\Service
 {
+    private string $date_key;
 
-    private $date_key;
-
-    private $clearable;
+    private bool $clearable;
 
     public function __construct(string $date_key, bool $clearable = false)
     {
@@ -25,7 +26,7 @@ class Date implements ACP\Editing\Service
         return (new ACP\Editing\View\DateTime())->set_clear_button($this->clearable);
     }
 
-    public function get_value($id)
+    public function get_value(int $id)
     {
         return wcs_get_subscription($id)->get_date($this->date_key);
     }

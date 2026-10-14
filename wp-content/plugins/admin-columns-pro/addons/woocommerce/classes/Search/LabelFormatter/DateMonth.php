@@ -9,7 +9,6 @@ use DateTime;
 
 class DateMonth implements LabelFormatter
 {
-
     public function format_label(string $value): string
     {
         $date = DateTime::createFromFormat('Ym', $value);

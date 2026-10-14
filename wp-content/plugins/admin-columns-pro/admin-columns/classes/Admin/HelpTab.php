@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 abstract class HelpTab
 {
+    private string $id;
 
-    private $id;
-
-    private $title;
+    private string $title;
 
     public function __construct(string $id, string $title)
     {

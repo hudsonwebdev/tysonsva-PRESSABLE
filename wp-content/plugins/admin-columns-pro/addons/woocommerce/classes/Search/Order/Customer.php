@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order;
 
-use ACA\WC\Search;
 use ACP;
 use ACP\Query\Bindings;
 use ACP\Search\Operators;
@@ -10,7 +11,6 @@ use ACP\Search\Value;
 
 class Customer extends ACP\Search\Comparison implements ACP\Search\Comparison\SearchableValues
 {
-
     use ACP\Search\UserValuesTrait;
 
     public function __construct()
@@ -29,7 +29,6 @@ class Customer extends ACP\Search\Comparison implements ACP\Search\Comparison\Se
         $bindings = new Bindings\QueryArguments();
 
         $compare = '=';
-        $customer_id = $value->get_value();
 
         switch ($operator) {
             case Operators::IS_EMPTY:
@@ -38,6 +37,9 @@ class Customer extends ACP\Search\Comparison implements ACP\Search\Comparison\Se
             case Operators::NOT_IS_EMPTY:
                 $compare = '!=';
                 $customer_id = 0;
+                break;
+            default:
+                $customer_id = (int)$value->get_value();
         }
 
         $bindings->query_arguments([

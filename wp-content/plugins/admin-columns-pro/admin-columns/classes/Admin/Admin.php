@@ -1,25 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
-use AC\Asset\Location\Absolute;
+use AC;
+use AC\AdminColumns;
 use AC\Registerable;
 
 class Admin implements Registerable
 {
-
     public const NAME = 'codepress-admin-columns';
 
-    private $request_handler;
+    private RequestHandlerInterface $request_handler;
 
-    private $location;
+    private AC\Asset\Location $location;
 
-    private $scripts;
+    private AdminScripts $scripts;
 
-    public function __construct(RequestHandlerInterface $request_handler, Absolute $location, AdminScripts $scripts)
+    public function __construct(RequestHandlerInterface $request_handler, AdminColumns $plugin, AdminScripts $scripts)
     {
         $this->request_handler = $request_handler;
-        $this->location = $location;
+        $this->location = $plugin->get_location();
         $this->scripts = $scripts;
     }
 
@@ -30,10 +32,9 @@ class Admin implements Registerable
 
     private function get_menu_page_factory(): MenuPageFactory
     {
-        return apply_filters(
-            'ac/menu_page_factory',
-            new MenuPageFactory\SubMenu()
-        );
+        $factory = apply_filters('ac/menu_page_factory', new MenuPageFactory\SubMenu());
+
+        return $factory instanceof MenuPageFactory ? $factory : new MenuPageFactory\SubMenu();
     }
 
     public function init(): void
@@ -42,6 +43,10 @@ class Admin implements Registerable
             'parent' => 'options-general.php',
             'icon'   => $this->location->with_suffix('assets/images/page-menu-icon.svg')->get_url(),
         ]);
+
+        if (null === $hook) {
+            return;
+        }
 
         $loader = new AdminLoader($hook, $this->request_handler, $this->scripts);
         $loader->register();

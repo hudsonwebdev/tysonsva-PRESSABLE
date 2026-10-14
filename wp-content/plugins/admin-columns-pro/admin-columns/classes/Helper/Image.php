@@ -1,87 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Helper;
 
-use DOMDocument;
-use DOMElement;
+use AC\Helper\Image\Markup;
+use AC\Helper\Image\SizeResolver;
 
-class Image
+class Image extends Creatable
 {
-
-    /**
-     * Resize image
-     *
-     * @param string      $file
-     * @param int         $max_w
-     * @param int         $max_h
-     * @param bool        $crop
-     * @param null|string $suffix
-     * @param null|string $dest_path
-     * @param int         $jpeg_quality
-     *
-     * @return false|string
-     */
-    public function resize(
-        $file,
-        $max_w,
-        $max_h,
-        $crop = false,
-        $suffix = null,
-        $dest_path = null,
-        $jpeg_quality = 90
-    ) {
+    private function resize(string $file, int $max_w, int $max_h, bool $crop = false): ?string
+    {
         $editor = wp_get_image_editor($file);
 
         if (is_wp_error($editor)) {
-            return false;
+            return null;
         }
 
-        $editor->set_quality($jpeg_quality);
+        $editor->set_quality(90);
 
         $resized = $editor->resize($max_w, $max_h, $crop);
 
         if (is_wp_error($resized)) {
-            return false;
+            return null;
         }
 
-        $dest_file = $editor->generate_filename($suffix, $dest_path);
-        $saved = $editor->save($dest_file);
+        $filename = $editor->generate_filename();
+        $saved = $editor->save($filename);
 
         if (is_wp_error($saved)) {
-            return false;
+            return null;
         }
 
-        return $dest_file;
+        return $filename;
     }
 
-    /**
-     * @param int[]|int    $ids
-     * @param array|string $size
-     *
-     * @return string HTML Images
-     */
-    public function get_images_by_ids($ids, $size)
+    public function get_image_by_id(int $id, $size): ?string
     {
-        $images = [];
-
-        $ids = is_array($ids) ? $ids : [$ids];
-        foreach ($ids as $id) {
-            $images[] = $this->get_image_by_id($id, $size);
-        }
-
-        return implode($images);
-    }
-
-    /**
-     * @param int          $id
-     * @param string|array $size
-     *
-     * @return string|false
-     */
-    public function get_image_by_id($id, $size)
-    {
-        if ( ! is_numeric($id)) {
-            return false;
+        if (! wp_get_attachment_url($id)) {
+            return null;
         }
 
         $attributes = wp_get_attachment_image_src($id, $size);
@@ -90,322 +47,141 @@ class Image
         if ($attributes) {
             [$src, $width, $height] = $attributes;
 
-            if (is_array($size)) {
-                $image = $this->markup_cover($src, $size[0], $size[1], $id);
-            } else {
-                // In case of SVG
-                if ('svg' === pathinfo($src, PATHINFO_EXTENSION) && 'full' !== $size) {
-                    $_size = $this->get_image_sizes_by_name($size);
-                    $width = $_size['width'];
-                    $height = $_size['height'];
-                }
-                $image = $this->markup($src, $width, $height, $id);
+            $pair = SizeResolver::create()->normalize_pair($size);
+
+            if ($pair !== null) {
+                return Markup::create()->cover($src, $pair[0], $pair[1], $id);
             }
 
-            return $image;
+            // In case of SVG
+            if (is_string($size) && 'svg' === pathinfo($src, PATHINFO_EXTENSION) && 'full' !== $size) {
+                $_size = SizeResolver::create()->get_sizes_by_name($size);
+
+                $width = (int)($_size['width'] ?? 0);
+                $height = (int)($_size['height'] ?? 0);
+            }
+
+            return $this->markup_image($src, (int)$width, (int)$height, $id);
         }
 
-        $attributes = wp_get_attachment_image_src($id, $size, true);
+        // Is File - render as pill instead of mime-type icon
+        if (wp_get_attachment_image_src($id, $size, true)) {
+            $filename = LocalFile::create()->get_file_name($id) ?? '';
 
-        // Is File, use icon
-        if ($attributes) {
-            return $this->markup(
-                $attributes[0],
-                $this->scale_size($attributes[1], 0.8),
-                $this->scale_size($attributes[2], 0.8),
-                $id,
-                true
-            );
+            return Markup::create()->file_pill($id, $filename);
         }
 
-        return false;
+        return null;
     }
 
-    /**
-     * @param     $size
-     * @param int $scale
-     *
-     * @return float
-     */
-    private function scale_size($size, $scale = 1): float
+    public function get_image_by_url(string $url, $size): ?string
     {
-        return round(absint($size) * $scale);
-    }
+        $dimensions = SizeResolver::create()->get_dimensions($size);
 
-    private function is_resized_image($path)
-    {
-        $fileinfo = pathinfo($path);
+        $width = $dimensions[0] ?? 0;
+        $height = $dimensions[1] ?? 0;
 
-        return preg_match('/-[0-9]+x[0-9]+$/', $fileinfo['filename']);
-    }
-
-    /**
-     * @param string       $url
-     * @param array|string $size
-     *
-     * @return string
-     */
-    public function get_image_by_url($url, $size)
-    {
-        $dimensions = [60, 60];
-
-        if (is_string($size) && ($sizes = $this->get_image_sizes_by_name($size))) {
-            $dimensions = [$sizes['width'], $sizes['height']];
-        } elseif (is_array($size)) {
-            $dimensions = $size;
-        }
-
-        $image_path = str_replace(WP_CONTENT_URL, WP_CONTENT_DIR, $url);
+        $local = LocalFile::create();
+        $image_path = $local->url_to_path($url);
 
         if (is_file($image_path)) {
             // try to resize image if it is not already resized
-            if ( ! $this->is_resized_image($image_path) && ($resized = $this->resize(
+            if (! $this->is_resized_image($image_path)) {
+                $resized = $this->resize(
                     $image_path,
-                    $dimensions[0],
-                    $dimensions[1],
+                    $width,
+                    $height,
                     true
-                ))) {
-                $src = str_replace(WP_CONTENT_DIR, WP_CONTENT_URL, $resized);
+                );
 
-                return $this->markup($src, $dimensions[0], $dimensions[1]);
+                if ($resized) {
+                    $src = $local->path_to_url($resized);
+
+                    return $this->markup_image($src, $width, $height);
+                }
             }
 
-            return $this->markup($url, $dimensions[0], $dimensions[1]);
+            return $this->markup_image($url, $width, $height);
         }
 
         // External image
-        return $this->markup_cover($image_path, $dimensions[0], $dimensions[1]);
+        return Markup::create()->cover($url, $width, $height);
+    }
+
+    public function get_image(string $image_id_or_url, $size = 'thumbnail'): ?string
+    {
+        if (! $image_id_or_url) {
+            return null;
+        }
+
+        if (is_numeric($image_id_or_url)) {
+            return $this->get_image_by_id((int)$image_id_or_url, $size);
+        }
+
+        if (Strings::create()->is_image($image_id_or_url)) {
+            return $this->get_image_by_url($image_id_or_url, $size);
+        }
+
+        return null;
+    }
+
+    public function get_local_image_info(string $url): ?array
+    {
+        $path = LocalFile::create()->get_path($url);
+
+        if (! $path) {
+            return null;
+        }
+
+        return getimagesize($path) ?: null;
+    }
+
+    private function markup_image(string $src, int $width, int $height, ?int $media_id = null): string
+    {
+        $tooltip = $media_id
+            ? Html::create()->get_tooltip_attr(LocalFile::create()->get_file_name($media_id) ?? '')
+            : '';
+
+        return Markup::create()->image($src, $width, $height, $media_id, $tooltip);
+    }
+
+    private function is_resized_image(string $path): bool
+    {
+        $fileinfo = pathinfo($path);
+
+        return (bool)preg_match('/-[0-9]+x[0-9]+$/', $fileinfo['filename']);
     }
 
     /**
-     * @param mixed        $images
-     * @param array|string $size
-     * @param bool         $skip_image_check Skips image check. Useful when the url does not have an image extension like jpg or gif (e.g. gravatar).
-     *
-     * @return array
+     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_file_name() instead.
      */
-    public function get_images($images, $size = 'thumbnail', $skip_image_check = false)
+    public function get_file_name(int $attachment_id): ?string
     {
-        $thumbnails = [];
-
-        foreach ((array)$images as $value) {
-            if ($skip_image_check && $value && is_string($value)) {
-                $thumbnails[] = $this->get_image_by_url($value, $size);
-            } elseif (ac_helper()->string->is_image($value)) {
-                $thumbnails[] = $this->get_image_by_url($value, $size);
-            } // Media Attachment
-			elseif (is_numeric($value) && wp_get_attachment_url($value)) {
-                $thumbnails[] = $this->get_image_by_id($value, $size);
-            }
-        }
-
-        return $thumbnails;
+        return LocalFile::create()->get_file_name($attachment_id);
     }
 
     /**
-     * @param int|string   $image ID of Url
-     * @param string|array $size
-     * @param bool         $skip_image_check
-     *
-     * @return string
+     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_file_extension() instead.
      */
-    public function get_image($image, $size = 'thumbnail', $skip_image_check = false)
+    public function get_file_extension(int $attachment_id): string
     {
-        return implode($this->get_images($image, $size, $skip_image_check));
+        return LocalFile::create()->get_file_extension($attachment_id);
     }
 
     /**
-     * @param string $name
-     *
-     * @return array Image sizes
+     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_path() instead.
      */
-    public function get_image_sizes_by_name($name)
+    public function get_local_image_path(string $url): ?string
     {
-        $available_sizes = wp_get_additional_image_sizes();
-
-        $defaults = ['thumbnail', 'medium', 'large'];
-        foreach ($defaults as $key) {
-            $available_sizes[$key] = [
-                'width'  => get_option($key . '_size_w'),
-                'height' => get_option($key . '_size_h'),
-            ];
-        }
-
-        $sizes = false;
-
-        if (is_scalar($name) && isset($available_sizes[$name])) {
-            $sizes = $available_sizes[$name];
-        }
-
-        return $sizes;
+        return LocalFile::create()->get_path($url);
     }
 
     /**
-     * @param int $attachment_id
-     *
-     * @return bool|string
+     * @deprecated 7.1 Use AC\Helper\LocalFile::create()->get_size() instead.
      */
-    public function get_file_name($attachment_id)
+    public function get_local_image_size(string $url): ?int
     {
-        $file = get_post_meta($attachment_id, '_wp_attached_file', true);
-
-        if ( ! $file) {
-            return false;
-        }
-
-        return basename($file);
-    }
-
-    /**
-     * @param int $attachment_id
-     *
-     * @return string File extension
-     */
-    public function get_file_extension($attachment_id)
-    {
-        return pathinfo($this->get_file_name($attachment_id), PATHINFO_EXTENSION);
-    }
-
-    private function get_file_tooltip_attr($media_id)
-    {
-        return ac_helper()->html->get_tooltip_attr($this->get_file_name($media_id));
-    }
-
-    private function markup_cover($src, $width, $height, $media_id = null)
-    {
-        ob_start(); ?>
-
-		<span class="ac-image -cover" data-media-id="<?= esc_attr($media_id); ?>">
-			<img style="width:<?= esc_attr($width); ?>px;height:<?= esc_attr($height); ?>px;" src="<?= esc_attr(
-                $src
-            ); ?>" alt="">
-		</span>
-
-        <?php
-        return ob_get_clean();
-    }
-
-    private function markup($src, $width, $height, $media_id = null, $add_extension = false, $class = '')
-    {
-        if ($media_id && ! wp_attachment_is_image($media_id)) {
-            $class = ' ac-icon';
-        }
-
-        $image_attributes = [
-            'max-width'  => esc_attr($width) . 'px',
-            'max_height' => esc_attr($height) . 'px',
-        ];
-
-        if (pathinfo($src, PATHINFO_EXTENSION) === 'svg') {
-            $image_attributes['width'] = esc_attr($width) . 'px';
-            $image_attributes['height'] = esc_attr($height) . 'px';
-        }
-
-        ob_start(); ?>
-		<span class="ac-image <?= esc_attr($class); ?>" data-media-id="<?= esc_attr(
-            $media_id
-        ); ?>" <?= $this->get_file_tooltip_attr($media_id) ?>>
-			<img style="<?= ac_helper()->html->get_style_attributes_as_string($image_attributes) ?>"
-				src="<?= esc_attr($src) ?>" alt="">
-
-			<?php
-            if ($add_extension) : ?>
-				<span class="ac-extension"><?= esc_attr($this->get_file_extension($media_id)) ?></span>
-            <?php
-            endif; ?>
-
-		</span>
-
-        <?php
-        return ob_get_clean();
-    }
-
-    /**
-     * Return dimensions and file type
-     *
-     * @param string $url
-     *
-     * @return false|array
-     * @see filesize
-     */
-    public function get_local_image_info($url)
-    {
-        $path = $this->get_local_image_path($url);
-
-        if ( ! $path) {
-            return false;
-        }
-
-        return getimagesize($path);
-    }
-
-    /**
-     * @param string $url
-     *
-     * @return false|string
-     */
-    public function get_local_image_path($url)
-    {
-        $path = str_replace(WP_CONTENT_URL, WP_CONTENT_DIR, $url);
-
-        if ( ! file_exists($path)) {
-            return false;
-        }
-
-        return $path;
-    }
-
-    public function get_local_image_size($url): ?int
-    {
-        $path = $this->get_local_image_path($url);
-
-        return $path
-            ? filesize($path)
-            : null;
-    }
-
-    /**
-     * @param string $string
-     *
-     * @return array
-     */
-    public function get_image_urls_from_string($string): array
-    {
-        if ( ! $string) {
-            return [];
-        }
-
-        if (false === strpos($string, '<img')) {
-            return [];
-        }
-
-        if ( ! class_exists('DOMDocument')) {
-            return [];
-        }
-
-        $dom = new DOMDocument();
-
-        libxml_use_internal_errors(true);
-        $dom->loadHTML($string);
-        $dom->preserveWhiteSpace = false;
-        libxml_clear_errors();
-
-        $urls = [];
-
-        $images = $dom->getElementsByTagName('img');
-
-        foreach ($images as $img) {
-            /** @var DOMElement $img */
-            $src = $img->getAttribute('src');
-
-            if ( ! $src) {
-                continue;
-            }
-
-            $urls[] = $src;
-        }
-
-        return $urls;
+        return LocalFile::create()->get_size($url);
     }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use ACP\Search\Operators;
@@ -7,7 +9,6 @@ use ACP\Search\Value;
 
 class ID extends Field
 {
-
     public function __construct()
     {
         $operators = new Operators([

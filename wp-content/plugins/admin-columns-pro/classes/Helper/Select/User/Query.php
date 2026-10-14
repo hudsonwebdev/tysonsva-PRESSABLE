@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Helper\Select\User;
 
 use AC\ApplyFilter\QueryTotalNumber;
@@ -7,19 +9,11 @@ use AC\ArrayIterator;
 use AC\Helper\Select\Paginated;
 use WP_User_Query;
 
-class Query extends ArrayIterator
-    implements Paginated
+class Query extends ArrayIterator implements Paginated
 {
+    protected WP_User_Query $query;
 
-    /**
-     * @var WP_User_Query
-     */
-    protected $query;
-
-    /**
-     * @var string
-     */
-    private $searchterm;
+    private string $searchterm;
 
     public function __construct(array $args = [])
     {
@@ -31,7 +25,7 @@ class Query extends ArrayIterator
             'search'         => null,
         ], $args);
 
-        $this->searchterm = $args['search'];
+        $this->searchterm = (string)($args['search'] ?? '');
 
         if ($args['search']) {
             $args['search'] = sprintf('*%s*', trim($args['search'], '*'));
@@ -51,7 +45,7 @@ class Query extends ArrayIterator
     {
         remove_action('pre_user_query', __FUNCTION__, 1);
 
-        if ( ! $this->searchterm) {
+        if (! $this->searchterm) {
             return;
         }
 

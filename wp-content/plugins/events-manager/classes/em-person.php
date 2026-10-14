@@ -86,6 +86,36 @@ class EM_Person extends WP_User{
 	}
 
 	/**
+	 * Scopes a set of EM_Bookings search arguments to this person's bookings that the current user is allowed to manage.
+	 *
+	 * The page gate and the bookings table AJAX re-query both scope through this, so what the page shows cannot drift from what its pagination shows.
+	 *
+	 * @param array $args EM_Bookings::get() search arguments to scope.
+	 * @return array
+	 */
+	public function get_manageable_bookings_args( $args = array() ){
+		$args['person'] = $this->ID;
+		$args['owner'] = current_user_can('manage_others_bookings') ? false : 'me';
+		return $args;
+	}
+
+	/**
+	 * Whether the current user is allowed to manage any of this person's bookings.
+	 *
+	 * @return bool
+	 */
+	public function can_manage_bookings(){
+		if( current_user_can('manage_others_bookings') ) return true;
+		if( !current_user_can('manage_bookings') ) return false;
+		if( EM_Bookings::count( $this->get_manageable_bookings_args( array('scope' => 'all') ) ) > 0 ) return true;
+		// an event managed through em_event_can_manage rather than owned, a BuddyPress group admin for one, is invisible to the owner-scoped query; a booking whose event row has been deleted is excluded because EM_Object reads a missing id as ownership
+		foreach( $this->get_bookings() as $EM_Booking ){
+			if( $EM_Booking->get_event()->event_id && $EM_Booking->can_manage('manage_bookings','manage_others_bookings') ) return true;
+		}
+		return false;
+	}
+
+	/**
 	 * @return EM_Events
 	 */
 	function get_events(){

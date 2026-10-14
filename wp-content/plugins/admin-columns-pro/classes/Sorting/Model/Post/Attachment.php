@@ -5,29 +5,27 @@ declare(strict_types=1);
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class Attachment implements QueryBindings
+class Attachment extends Base
 {
-
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
 
-        $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('attachment');
-
         $bindings->join(
-            "LEFT JOIN $wpdb->posts AS $alias ON $alias.post_parent = $wpdb->posts.ID AND $alias.post_type = 'attachment'"
+            Join::left($wpdb->posts, $alias)
+                ->on("$alias.post_parent", '=', "$wpdb->posts.ID")
+                ->on("$alias.post_type", '=', "'attachment'")
+                ->get_sql()
         );
         $bindings->group_by("$wpdb->posts.ID");
         $bindings->order_by(
             SqlOrderByFactory::create_with_count("$alias.ID", (string)$order)
         );
-
-        return $bindings;
     }
 
 }

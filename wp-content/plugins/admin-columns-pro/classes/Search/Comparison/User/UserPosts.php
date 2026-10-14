@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\User;
 
 use ACP\Query\Bindings;
@@ -7,13 +9,14 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
+use ACP\Sql\Expression;
 
 class UserPosts extends Comparison
 {
+    private array $post_types;
 
-    private $post_types;
-
-    private $post_status;
+    private array $post_status;
 
     public function __construct(array $post_types, array $post_status)
     {
@@ -31,23 +34,25 @@ class UserPosts extends Comparison
         ]), Value::INT);
     }
 
-    private function esc_sql_array($array)
-    {
-        return sprintf("'%s'", implode("','", array_map('esc_sql', $array)));
-    }
-
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         global $wpdb;
 
         $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('sq_posts');
+        $alias = AliasGenerator::generate_from_class(static::class);
 
         $sub_query = "SELECT COUNT(ID) as num_posts, post_author 
             FROM $wpdb->posts
-            WHERE post_type IN ( " . $this->esc_sql_array($this->post_types) . ")
-            AND post_status IN ( " . $this->esc_sql_array($this->post_status) . ")
-            GROUP BY post_author";
+            WHERE 1=1";
+
+        if ($this->post_types) {
+            $sub_query .= "\nAND " . Expression\Comparison::in('post_type', $this->post_types);
+        }
+        if ($this->post_status) {
+            $sub_query .= "\nAND " . Expression\Comparison::in('post_status', $this->post_status);
+        }
+
+        $sub_query .= "\nGROUP BY post_author";
 
         $bindings->join("LEFT JOIN ($sub_query) AS $alias ON $wpdb->users.ID = $alias.post_author");
 

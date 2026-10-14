@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListTable;
 
 use AC\ListTable;
@@ -7,27 +9,33 @@ use WP_Media_List_Table;
 
 class Media implements ListTable
 {
+    use RenderColumnTrait;
 
-    use WpListTableTrait;
+    private WP_Media_List_Table $table;
 
     public function __construct(WP_Media_List_Table $table)
     {
         $this->table = $table;
     }
 
-    public function get_column_value(string $column, $id): string
+    public function render_cell(string $column_id, $row_id): string
     {
-        ob_start();
+        // populate globals
+        $global_post = get_post();
+        $post = get_post((int)$row_id);
 
-        $method = 'column_' . $column;
-
-        if (method_exists($this->table, $method)) {
-            call_user_func([$this->table, $method], get_post($id));
-        } else {
-            $this->table->column_default(get_post($id), $column);
+        if (! $post) {
+            return '';
         }
 
-        return ob_get_clean();
+        setup_postdata($post);
+        $GLOBALS['post'] = $post;
+
+        $output = $this->render_column($this->table, $column_id, $post);
+
+        $GLOBALS['post'] = $global_post;
+
+        return $output;
     }
 
     public function render_row($id): string
@@ -35,18 +43,24 @@ class Media implements ListTable
         // Author column depends on this global to be set.
         global $authordata;
 
-        // Title for some columns can only be retrieved when post is set globally
-        if ( ! isset($GLOBALS['post'])) {
-            $GLOBALS['post'] = get_post($id);
+        $post = get_post($id);
+
+        if (! $post) {
+            return '';
         }
 
-        $authordata = get_userdata(get_post_field('post_author', $id));
+        // Title for some columns can only be retrieved when post is set globally
+        if (! isset($GLOBALS['post'])) {
+            $GLOBALS['post'] = $post;
+        }
+
+        $authordata = get_userdata((int)$post->post_author) ?: null;
 
         ob_start();
 
-        $this->table->single_row(get_post($id));
+        $this->table->single_row($post);
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
 }

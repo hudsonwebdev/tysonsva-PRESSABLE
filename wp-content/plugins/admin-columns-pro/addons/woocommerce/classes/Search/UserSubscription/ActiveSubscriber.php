@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\UserSubscription;
 
 use ACP;
@@ -9,7 +11,6 @@ use ACP\Search\Value;
 
 class ActiveSubscriber extends ACP\Search\Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([

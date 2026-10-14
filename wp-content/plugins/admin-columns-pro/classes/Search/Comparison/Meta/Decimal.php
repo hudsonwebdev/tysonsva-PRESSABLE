@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Meta;
 
 use ACP\Search\Comparison\Meta;
@@ -8,7 +10,6 @@ use ACP\Search\Value;
 
 class Decimal extends Meta
 {
-
     public function __construct(string $meta_key)
     {
         $operators = new Operators([

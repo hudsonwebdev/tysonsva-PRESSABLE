@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Helper\Select;
 
 use AC\Helper\Select\Options\Paginated;
@@ -8,7 +10,6 @@ use ACA\WC\Helper\Select\Product\PaginatedFactory;
 
 trait ProductValuesTrait
 {
-
     public function format_label($value): string
     {
         $product = wc_get_product($value);

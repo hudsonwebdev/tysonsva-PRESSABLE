@@ -5,41 +5,33 @@ declare(strict_types=1);
 namespace ACA\WC\Sorting\User;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class OrderCount implements QueryBindings
+class OrderCount extends Base
 {
-
-    private $status;
+    private array $status;
 
     public function __construct(array $status = [])
     {
         $this->status = $status;
     }
 
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
 
-        $bindings = new Bindings();
+        $join = Join::left("{$wpdb->prefix}wc_orders", $alias)
+            ->on("$alias.customer_id", '=', "$wpdb->users.ID");
 
-        $alias = $bindings->get_unique_alias('order_count');
+        if ($this->status) {
+            $placeholders = implode(', ', array_fill(0, count($this->status), '%s'));
+            $join->on("$alias.status", 'IN', '(' . $wpdb->prepare($placeholders, $this->status) . ')');
+        }
 
-        $where_status = $this->status
-            ? sprintf(
-                " AND $alias.status IN ( '%s' )",
-                implode("','", array_map('esc_sql', $this->status))
-            )
-            : '';
-
-        $bindings->join(
-            " 
-            LEFT JOIN {$wpdb->prefix}wc_orders AS $alias ON $alias.customer_id = $wpdb->users.ID
-                $where_status
-            "
-        );
+        $bindings->join($join->get_sql());
 
         $bindings->group_by("$wpdb->users.ID");
 
@@ -49,8 +41,6 @@ class OrderCount implements QueryBindings
                 (string)$order
             )
         );
-
-        return $bindings;
     }
 
 }

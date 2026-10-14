@@ -212,7 +212,7 @@ class Archetypes {
 					$current = Archetypes::is_repeating( $post_type ) ? Archetypes::get_repeating_archetype( $post_type ) : $post_type;
 				}
 			}
-		} elseif ( is_singular() ) {
+		} elseif ( did_action( 'wp' ) && is_singular() ) {
 			$post_type = get_post_type( get_the_ID() );
 			if ( $post_type && self::is_event($post_type) ) {
 				$current = Archetypes::is_repeating( $post_type ) ? Archetypes::get_repeating_archetype( $post_type ) : $post_type;
@@ -432,6 +432,9 @@ class Archetypes {
 		if ( empty($type['rewrite']) ) {
 			$archetype['rewrite'] = [ 'slug' => $archetype['slug'], 'with_front' => false ];
 		}
+		if ( !isset( $archetype['taxonomies'] ) || $archetype['taxonomies'] === '' ) {
+			$archetype['taxonomies'] = [];
+		}
 		// return final post type of archetype
 		return $archetype;
 	}
@@ -613,16 +616,18 @@ class Archetypes {
 	public static function map_meta_cap_type( $c, $archetype ) {
 		// create cap sets
 		$cpt = $archetype['cpt'];
-		if ( !empty($type['capabilities']) && is_array($type['capabilities']) ) {
-			$c['read'][$cpt] = $type['capabilities']['read_post'];
-			$c['edit'][$cpt] = $type['capabilities']['edit_post'];
-			$c['delete'][$cpt] = $type['capabilities']['delete_post'];
+		// WP rewrites the requested $cap to the post type's own meta cap name before firing this filter, so the registered CPT is the only thing we can match against, not what the archetype was stored with.
+		$post_type = get_post_type_object( $cpt );
+		if ( $post_type ) {
+			$caps = (array) $post_type->cap;
+		} elseif ( !empty($archetype['capabilities']) && is_array($archetype['capabilities']) ) {
+			$caps = $archetype['capabilities'];
 		} else {
 			$caps = static::generate_capabilities( $archetype );
-			$c['read'][$cpt] = $caps['read_post'];
-			$c['edit'][$cpt] = $caps['edit_post'];
-			$c['delete'][$cpt] = $caps['delete_post'];
 		}
+		$c['read'][$cpt] = $caps['read_post'];
+		$c['edit'][$cpt] = $caps['edit_post'];
+		$c['delete'][$cpt] = $caps['delete_post'];
 		$c = static::map_meta_cap_repeating( $c, $archetype );
 		return $c;
 	}
@@ -729,7 +734,7 @@ class Archetypes {
 	 */
 	public static function is_location( $cpt ) {
 		$cpt = static::get_post_type( $cpt );
-		return $cpt && ( static::$location['cpt'] ?? null === $cpt );
+		return $cpt && ( static::$location['cpt'] ?? null ) === $cpt;
 	}
 
 	/**
@@ -805,6 +810,9 @@ class Archetypes {
 	 * @return string|false
 	 */
 	public static function get_post_type( $cpt ) {
+		if ( is_array( $cpt ) ) {
+			return false;
+		}
 		if ( !is_string( $cpt ) ) {
 			if( !empty( $cpt->post_type ) ){
 				$cpt = $cpt->post_type;

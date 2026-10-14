@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopCoupon;
 
 use ACP\Search\Comparison;
@@ -7,7 +9,6 @@ use ACP\Search\Operators;
 
 class EmailRestriction extends Comparison\Meta
 {
-
     public function __construct()
     {
         $operators = new Operators([

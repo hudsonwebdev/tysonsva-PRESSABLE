@@ -1,24 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Updates;
 
-use AC\Entity\Plugin;
 use AC\Registerable;
-use ACP\API\Request;
+use ACP\AdminColumnsPro;
+use ACP\API\Request\ProductInformation;
 use ACP\ApiFactory;
-use WP_Error;
 
 /**
  * Show changelog when "click view details".
  */
 class ViewPluginDetails implements Registerable
 {
+    private AdminColumnsPro $plugin;
 
-    private $plugin;
+    private ApiFactory $api_factory;
 
-    private $api_factory;
-
-    public function __construct(Plugin $plugin, ApiFactory $api_factory)
+    public function __construct(AdminColumnsPro $plugin, ApiFactory $api_factory)
     {
         $this->plugin = $plugin;
         $this->api_factory = $api_factory;
@@ -29,13 +29,6 @@ class ViewPluginDetails implements Registerable
         add_filter('plugins_api', [$this, 'get_plugin_information'], 10, 3);
     }
 
-    /**
-     * @param mixed  $result
-     * @param string $action
-     * @param object $args
-     *
-     * @return object|WP_Error
-     */
     public function get_plugin_information($result, $action, $args)
     {
         if ('plugin_information' !== $action) {
@@ -49,7 +42,7 @@ class ViewPluginDetails implements Registerable
         }
 
         $response = $this->api_factory->create()->dispatch(
-            new Request\ProductInformation($slug)
+            new ProductInformation($slug)
         );
 
         if ($response->has_error()) {

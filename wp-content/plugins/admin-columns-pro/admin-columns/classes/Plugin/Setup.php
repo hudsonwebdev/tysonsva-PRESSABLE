@@ -1,30 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin;
 
-use AC\Storage\KeyValuePair;
+use AC\Storage\KeyValue;
 
 abstract class Setup
 {
+    private KeyValue $storage;
 
-    private $storage;
+    private Version $version;
 
-    private $version;
+    private InstallCollection $installers;
 
-    private $installers;
-
-    private $updates;
+    private UpdateCollection $updates;
 
     public function __construct(
-        KeyValuePair $storage,
+        KeyValue $storage,
         Version $version,
-        InstallCollection $installers,
-        UpdateCollection $updates
+        ?InstallCollection $installers = null,
+        ?UpdateCollection $updates = null
     ) {
         $this->storage = $storage;
         $this->version = $version;
-        $this->installers = $installers;
-        $this->updates = $updates;
+        $this->installers = $installers ?? new InstallCollection();
+        $this->updates = $updates ?? new UpdateCollection();
     }
 
     protected function update_stored_version(Version $version): void
@@ -56,7 +57,7 @@ abstract class Setup
     private function update(): void
     {
         foreach ($this->updates as $update) {
-            if ( ! $update->needs_update($this->get_stored_version())) {
+            if (! $update->needs_update($this->get_stored_version())) {
                 continue;
             }
 

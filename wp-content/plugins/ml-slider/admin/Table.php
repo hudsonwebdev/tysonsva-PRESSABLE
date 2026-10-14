@@ -148,24 +148,33 @@ class MetaSlider_Admin_Table extends WP_List_table
         $current = $_REQUEST['post_status'] ?? 'all';
         $base_url = remove_query_arg($parameters);
     
-        // Helper function to generate view links
-        $generate_view_link = function ($status, $label) use ($base_url, $current) {
-            $count = $this->slideshow_count($status);
-            if ($count == 0 && $status === 'trash') {
-                return null;
-            }
-            $url = ($status === 'all') ? $base_url : add_query_arg('post_status', $status, $base_url);
-            $class = ($current === $status) ? ' class="current"' : '';
-            return "<a href='" . esc_url($url) . "' {$class}>" . esc_html__($label, 'ml-slider') . " ({$count})</a>";
-        };
-    
-        $views['all'] = $generate_view_link('all', 'Published');
+        $views['all'] = $this->generate_view_link($base_url, $current, 'all', 'Published');
         
-        if ($trash_link = $generate_view_link('trash', 'Trash')) {
+        if ($trash_link = $this->generate_view_link($base_url, $current, 'trash', 'Trash')) {
             $views['trash'] = $trash_link;
         }
     
         return $views;
+    }
+
+    /**
+     * Generate a status filter link for the slideshow table.
+     *
+     * @param string $base_url Base admin URL.
+     * @param string $current Current status filter.
+     * @param string $status Status represented by the link.
+     * @param string $label Link label.
+     * @return string|null
+     */
+    private function generate_view_link($base_url, $current, $status, $label)
+    {
+        $count = $this->slideshow_count($status);
+        if ($count == 0 && $status === 'trash') {
+            return null;
+        }
+        $url = ($status === 'all') ? $base_url : add_query_arg('post_status', $status, $base_url);
+        $class = ($current === $status) ? ' class="current"' : '';
+        return "<a href='" . esc_url($url) . "' {$class}>" . esc_html__($label, 'ml-slider') . " ({$count})</a>";
     }
     
     private function slideshow_count($status = 'all')

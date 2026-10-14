@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\EC\Search\Event;
 
 use AC;
@@ -9,10 +11,8 @@ use ACP\Search\Comparison\Values;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Featured extends Meta
-    implements Values
+class Featured extends Meta implements Values
 {
-
     public function __construct(string $meta_key)
     {
         $operators = new Operators([

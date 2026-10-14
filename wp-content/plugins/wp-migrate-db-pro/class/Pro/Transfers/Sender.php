@@ -95,6 +95,11 @@ class Sender {
 		}
 
 		$handle = $this->payload->create_payload( $batch, $state_data, $state_data['bottleneck'] );
+
+		if ( is_wp_error( $handle ) ) {
+			throw new \Exception( $handle->get_error_message() );
+		}
+
 		rewind( $handle );
 
 		// Before outputting anything, make sure buffer is empty and set headers

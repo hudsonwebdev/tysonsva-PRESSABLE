@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\JetEngine\Search\Comparison\Relation;
 
 use AC\Helper\Select\Options\Paginated;
 use ACA\JetEngine\Search\Comparison\Relation;
 use ACP\Helper\Select;
 use Jet_Engine\Relations\Relation as JetEngineRelation;
+use WP_Term;
 
 class Term extends Relation
 {
-
-    private $taxonomy;
+    private string $taxonomy;
 
     public function __construct(JetEngineRelation $relation, bool $is_parent, string $taxonomy)
     {
@@ -21,7 +23,11 @@ class Term extends Relation
 
     public function format_label($value): string
     {
-        return (new Select\Taxonomy\LabelFormatter\TermName())->format_label(get_term((int)$value));
+        $term = get_term((int)$value);
+
+        return $term instanceof WP_Term
+            ? (new Select\Taxonomy\LabelFormatter\TermName())->format_label($term)
+            : (string)$value;
     }
 
     public function get_values(string $search, int $page): Paginated

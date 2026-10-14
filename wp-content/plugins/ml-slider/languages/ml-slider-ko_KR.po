@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-05-25T13:04:12+00:00\n"
-"PO-Revision-Date: 2026-08-28 16:45+0000\n"
+"PO-Revision-Date: 2026-09-16 16:45+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ml-slider\n"
 "Language: ko_KR\n"
@@ -138,29 +138,42 @@ msgstr "더 읽기"
 #: inc/slide/metaslide.image.class.php:232
 #: inc/slide/metaslide.image.class.php:286
 #: inc/slide/metaslide.image.class.php:404
-#: ml-slider.php:944
-#: ml-slider.php:1026
-#: ml-slider.php:1138
-#: ml-slider.php:2853
-#: ml-slider.php:2898
-#: ml-slider.php:2973
+#: inc/slide/metaslide.livid.class.php:334
+#: inc/slide/metaslide.livid.class.php:401
+#: inc/slide/metaslide.livid.class.php:448
+#: inc/slide/metaslide.livid.class.php:776
+#: ml-slider.php:994
+#: ml-slider.php:1076
+#: ml-slider.php:1188
+#: ml-slider.php:2860
+#: ml-slider.php:2905
+#: ml-slider.php:2980
+#: modules/local_video/slide.php:870
+#: modules/local_video/slide.php:928
+#: modules/local_video/slide.php:1036
+#: modules/local_video/slide.php:1201
+#: modules/local_video/slide.php:1274
+#: modules/local_video/slide.php:1388
 msgid "The security check failed. Please refresh the page and try again."
 msgstr "보안 검사에 실패했습니다. 페이지를 새로고침하고 다시 시도하세요."
 
 #: admin/Notices.php:394
 #: admin/Notices.php:642
-#: admin/routes/api.php:141
+#: admin/routes/api.php:145
 #: inc/slide/metaslide.class.php:152
 #: inc/slide/metaslide.image.class.php:135
 #: inc/slide/metaslide.image.class.php:154
 #: inc/slide/metaslide.image.class.php:240
 #: inc/slide/metaslide.image.class.php:294
-#: ml-slider.php:952
-#: ml-slider.php:1034
-#: ml-slider.php:1146
-#: ml-slider.php:2861
-#: ml-slider.php:2906
-#: ml-slider.php:2981
+#: inc/slide/metaslide.livid.class.php:342
+#: inc/slide/metaslide.livid.class.php:409
+#: inc/slide/metaslide.livid.class.php:456
+#: ml-slider.php:1002
+#: ml-slider.php:1084
+#: ml-slider.php:1196
+#: ml-slider.php:2868
+#: ml-slider.php:2913
+#: ml-slider.php:2988
 msgid "Access denied. Sorry, you do not have permission to complete this task."
 msgstr "액세스가 거부되었습니다. 죄송합니다. 이 작업을 완료할 수 있는 권한이 없습니다."
 
@@ -171,12 +184,25 @@ msgstr "액세스가 거부되었습니다. 죄송합니다. 이 작업을 완�
 #: inc/slide/metaslide.image.class.php:249
 #: inc/slide/metaslide.image.class.php:303
 #: inc/slide/metaslide.image.class.php:422
-#: ml-slider.php:961
-#: ml-slider.php:1043
-#: ml-slider.php:1155
-#: ml-slider.php:2870
-#: ml-slider.php:2914
-#: ml-slider.php:2990
+#: inc/slide/metaslide.livid.class.php:351
+#: inc/slide/metaslide.livid.class.php:416
+#: inc/slide/metaslide.livid.class.php:463
+#: inc/slide/metaslide.livid.class.php:470
+#: inc/slide/metaslide.livid.class.php:793
+#: ml-slider.php:1011
+#: ml-slider.php:1093
+#: ml-slider.php:1205
+#: ml-slider.php:2877
+#: ml-slider.php:2921
+#: ml-slider.php:2997
+#: modules/local_video/slide.php:209
+#: modules/local_video/slide.php:887
+#: modules/local_video/slide.php:945
+#: modules/local_video/slide.php:1057
+#: modules/local_video/slide.php:1221
+#: modules/local_video/slide.php:1291
+#: modules/local_video/slide.php:1405
+#: modules/local_video/slide.php:2091
 msgid "Bad request"
 msgstr "잘못된 요청"
 
@@ -223,6 +249,7 @@ msgid "URL"
 msgstr "URL"
 
 #: admin/Pages.php:157
+#: modules/local_video/slide.php:423
 #: themes/architekt/customize.php:511
 #: themes/bitono/customize.php:625
 #: themes/blend/customize.php:655
@@ -298,7 +325,7 @@ msgid "Tone"
 msgstr "톤"
 
 #: admin/Pages.php:186
-#: admin/views/pages/parts/slider-settings.php:1431
+#: admin/views/pages/parts/slider-settings.php:1427
 #: admin/views/slides/tabs/background.php:73
 #: inc/metaslider.imagestyles.class.php:463
 #: themes/architekt/customize.php:602
@@ -402,46 +429,46 @@ msgstr "글자 색상"
 msgid "Link Text"
 msgstr "링크 텍스트"
 
-#: admin/routes/api.php:462
+#: admin/routes/api.php:466
 msgid "The request format was not valid."
 msgstr "요청 형식이 유효하지 않습니다."
 
-#: admin/routes/api.php:470
-#: admin/routes/api.php:602
+#: admin/routes/api.php:474
+#: admin/routes/api.php:606
 msgid "This slideshow is no longer available."
 msgstr "이 슬라이드쇼는 더 이상 사용할 수 없습니다."
 
-#: admin/routes/api.php:557
+#: admin/routes/api.php:561
 msgid "Nothing to import."
 msgstr "가져올 항목이 없습니다."
 
-#: admin/routes/api.php:609
+#: admin/routes/api.php:613
 msgid "This was not a slideshow, so we cannot delete it."
 msgstr "이것은 슬라이드쇼가 아니기때문에 삭제할 수 없습니다."
 
-#: admin/routes/api.php:822
+#: admin/routes/api.php:826
 msgid "This was not a slideshow, so we cannot update the setting."
 msgstr "이것은 슬라이드쇼가 아니므로 설정을 업데이트할 수 없습니다."
 
-#: admin/routes/api.php:930
+#: admin/routes/api.php:934
 msgid "The title cannot be empty."
 msgstr "제목은 비워 둘 수 없습니다."
 
-#: admin/routes/api.php:934
-#: admin/routes/api.php:1208
+#: admin/routes/api.php:938
+#: admin/routes/api.php:1212
 #, php-format
 msgid "The field (%s) cannot be empty"
 msgstr "필드(%s)는 비워둘 수 없습니다."
 
-#: admin/routes/api.php:1198
+#: admin/routes/api.php:1202
 msgid "Maximum Number of Custom Field in Post Feed Sliders"
 msgstr "포스트 피드 슬라이더의 최대 사용자 정의 필드 수"
 
-#: admin/routes/api.php:1242
+#: admin/routes/api.php:1246
 msgid "No video file was received by the server."
 msgstr "서버에서 비디오 파일을 수신하지 못했습니다."
 
-#: admin/routes/api.php:1258
+#: admin/routes/api.php:1262
 #. translators: 1: uploaded filename, 2: mime type WordPress detected, or "none"
 #, php-format
 msgid ""
@@ -451,19 +478,19 @@ msgstr ""
 "비디오 \"%1$s\"가 업로드 전에 거부되었습니다 (감지된 유형: %2$s). 지원되지 않는 형식이거나 이 서버의 업로드 한도를 "
 "초과할 수 있습니다."
 
-#: admin/routes/api.php:1260
+#: admin/routes/api.php:1264
 msgid "none"
 msgstr "없음"
 
-#: admin/routes/api.php:1268
+#: admin/routes/api.php:1272
 msgid "The video could not be imported."
 msgstr "비디오를 가져올 수 없습니다."
 
-#: admin/routes/api.php:1386
+#: admin/routes/api.php:1409
 msgid "Import slug not found"
 msgstr "가져오기 슬러그를 찾을 수 없습니다."
 
-#: admin/routes/api.php:1402
+#: admin/routes/api.php:1425
 msgid "Import data could not be processed"
 msgstr "가져오기 데이터를 처리할 수 없습니다."
 
@@ -472,18 +499,18 @@ msgid "We could not find any images to import."
 msgstr "가져올 이미지를 찾을 수 없습니다."
 
 #: admin/slideshows/Settings.php:59
-#: inc/slider/metaslider.class.php:161
+#: inc/slider/metaslider.class.php:165
 msgid "New Slideshow"
 msgstr "새 슬라이드쇼"
 
 #: admin/slideshows/Settings.php:86
-#: inc/slider/metaslider.class.php:188
+#: inc/slider/metaslider.class.php:192
 #: inc/slider/metaslider.flex.class.php:819
 msgid "Previous"
 msgstr "이전"
 
 #: admin/slideshows/Settings.php:87
-#: inc/slider/metaslider.class.php:189
+#: inc/slider/metaslider.class.php:193
 #: inc/slider/metaslider.flex.class.php:820
 msgid "Next"
 msgstr "다음"
@@ -508,23 +535,23 @@ msgstr "URL: %s에서 텍스트 트랙을 가져오는 데 실패했습니다."
 msgid "Failed to import image from URL: %s."
 msgstr "URL %s에서 이미지를 가져오는 데 실패했습니다."
 
-#: admin/slideshows/Slideshows.php:1204
+#: admin/slideshows/Slideshows.php:1208
 msgid "Only http/https URLs are allowed."
 msgstr "http/https URL만 허용됩니다."
 
-#: admin/slideshows/Slideshows.php:1214
+#: admin/slideshows/Slideshows.php:1218
 msgid "URL does not point to an allowed file type."
 msgstr "URL이 허용된 파일 형식을 가리키지 않습니다."
 
-#: admin/slideshows/Slideshows.php:1224
+#: admin/slideshows/Slideshows.php:1228
 msgid "URL resolves to a disallowed address."
 msgstr "URL이 허용되지 않은 주소로 해결됩니다."
 
-#: admin/slideshows/Themes.php:60
+#: admin/slideshows/Themes.php:203
 msgid "No themes found."
 msgstr "테마를 찾을 수 없습니다."
 
-#: admin/slideshows/Themes.php:449
+#: admin/slideshows/Themes.php:595
 msgid ""
 "We removed your selected theme as it could not be found. Was the folder "
 "deleted?"
@@ -539,100 +566,100 @@ msgstr "휴지통에 버려진 슬라이드쇼가 없습니다."
 msgid "You don't have any slideshows yet. Click %shere%s to create a new slideshow."
 msgstr "아직 슬라이드쇼가 없습니다. %s여기%s를 클릭하여 새 슬라이드쇼를 만듭니다."
 
-#: admin/Table.php:184
-#: admin/Table.php:347
+#: admin/Table.php:193
+#: admin/Table.php:356
 #: inc/slide/metaslide.class.php:420
 msgid "Restore"
 msgstr "복원"
 
-#: admin/Table.php:185
-#: admin/Table.php:348
+#: admin/Table.php:194
+#: admin/Table.php:357
 #: inc/slide/metaslide.class.php:430
 msgid "Delete Permanently"
 msgstr "영구적으로 삭제"
 
-#: admin/Table.php:189
-#: admin/Table.php:362
+#: admin/Table.php:198
+#: admin/Table.php:371
 msgid "Trash"
 msgstr "휴지통"
 
-#: admin/Table.php:200
+#: admin/Table.php:209
 #: admin/views/pages/parts/toolbar.php:75
 #: admin/assets/dist/js/app.js:2
 msgid "Preview"
 msgstr "미리보기"
 
-#: admin/Table.php:201
+#: admin/Table.php:210
 #: admin/assets/dist/js/app.js:2
 msgid "Title"
 msgstr "제목"
 
-#: admin/Table.php:202
+#: admin/Table.php:211
 msgid "Type of Slides"
 msgstr "슬라이드 유형"
 
-#: admin/Table.php:203
+#: admin/Table.php:212
 msgid "Number of Slides"
 msgstr "슬라이드 수"
 
-#: admin/Table.php:204
+#: admin/Table.php:213
 msgid "Theme"
 msgstr "테마"
 
-#: admin/Table.php:205
+#: admin/Table.php:214
 msgid "Created"
 msgstr "생성됨"
 
-#: admin/Table.php:206
-#: admin/views/pages/parts/slider-settings.php:1694
+#: admin/Table.php:215
+#: admin/views/pages/parts/slider-settings.php:1690
 msgid "Shortcode"
 msgstr "단축코드"
 
-#: admin/Table.php:212
+#: admin/Table.php:221
 msgid "Usage"
 msgstr "사용법"
 
-#: admin/Table.php:361
+#: admin/Table.php:370
 msgid "Edit"
 msgstr "편집"
 
-#: admin/Table.php:398
+#: admin/Table.php:407
 #: admin/views/pages/parts/shortcode.php:11
 msgid "Click to copy shortcode."
 msgstr "클릭하여 단축코드를 복사합니다."
 
-#: admin/Table.php:406
-#: admin/Table.php:419
-#: admin/Table.php:479
+#: admin/Table.php:415
+#: admin/Table.php:428
+#: admin/Table.php:488
 msgid "Not found."
 msgstr "찾을 수 없음."
 
-#: admin/Table.php:408
+#: admin/Table.php:417
 msgid "View Usage"
 msgstr "사용 보기"
 
-#: admin/Table.php:414
+#: admin/Table.php:423
 msgid "Content Using This Slideshow"
 msgstr "이 슬라이드쇼를 사용한 콘텐츠"
 
-#: admin/Table.php:456
+#: admin/Table.php:465
 msgid "Theme Setting"
 msgstr "테마 설정"
 
-#: admin/Table.php:470
+#: admin/Table.php:479
 msgid "Option"
 msgstr "옵션"
 
-#: admin/Table.php:527
-#: admin/views/pages/start.php:191
+#: admin/Table.php:536
+#: admin/views/pages/start.php:192
 msgid "All Themes"
 msgstr "모든 테마"
 
-#: admin/Table.php:540
+#: admin/Table.php:549
 msgid "(No Theme)"
 msgstr "(테마 없음)"
 
-#: admin/Table.php:544
+#: admin/Table.php:553
 #: admin/views/slides/tabs/background.php:32
 #: inc/metaslider.imagestyles.class.php:388
 msgid "Filter"
@@ -649,7 +676,7 @@ msgid "(%s Weeks)"
 msgstr "( %s 주)"
 
 #: admin/views/pages/dashboard.php:8
-#: ml-slider.php:574
+#: ml-slider.php:578
 #: admin/assets/dist/js/app.js:2
 msgid "Slideshows"
 msgstr "슬라이드쇼"
@@ -774,7 +801,7 @@ msgstr "슬라이드쇼 너비"
 
 #: admin/views/pages/parts/slider-settings.php:90
 #: admin/views/pages/parts/slider-settings.php:103
-#: admin/views/pages/parts/slider-settings.php:926
+#: admin/views/pages/parts/slider-settings.php:922
 #: admin/views/slides/tabs/background.php:51
 #: inc/metaslider.imagestyles.class.php:407
 #: inc/metaslider.imagestyles.class.php:419
@@ -1077,30 +1104,30 @@ msgid "This animation is used when changing slides."
 msgstr "이 애니메이션은 슬라이드를 변경할 때 사용됩니다."
 
 #: admin/views/pages/parts/slider-settings.php:550
-#: admin/views/pages/start.php:174
+#: admin/views/pages/start.php:175
 #: inc/metaslider.imagestyles.class.php:537, fuzzy
 msgid "Fade"
 msgstr "Fade"
 
 #: admin/views/pages/parts/slider-settings.php:554
-#: admin/views/pages/start.php:173, fuzzy
+#: admin/views/pages/start.php:174, fuzzy
 msgid "Slide"
 msgstr "Slide"
 
 #: admin/views/pages/parts/slider-settings.php:558
-#: admin/views/pages/start.php:175
+#: admin/views/pages/start.php:176
 msgid "Zooming"
 msgstr "확대/축소"
 
 #: admin/views/pages/parts/slider-settings.php:562
-#: admin/views/pages/start.php:176
+#: admin/views/pages/start.php:177
 #: admin/views/slides/tabs/background.php:87
 #: inc/metaslider.imagestyles.class.php:488
 msgid "Flip"
 msgstr "플립"
 
 #: admin/views/pages/parts/slider-settings.php:566
-#: admin/views/pages/parts/slider-settings.php:1344, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1340, fuzzy
 msgid "Random"
 msgstr "Random"
 
@@ -1220,7 +1247,7 @@ msgid "Horizontal"
 msgstr "수평"
 
 #: admin/views/pages/parts/slider-settings.php:757
-#: admin/views/pages/start.php:178
+#: admin/views/pages/start.php:179
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:494
 msgid "Vertical"
@@ -1297,11 +1324,11 @@ msgid ""
 "100% width and the 'Slide' Transition Effect."
 msgstr "한 번에 여러 개의 슬라이드를 표시합니다. 슬라이드쇼 출력은 기본적으로 너비 100%와 '슬라이드' 전환 효과를 사용합니다."
 
-#: admin/views/pages/parts/slider-settings.php:903
+#: admin/views/pages/parts/slider-settings.php:899
 msgid "Loop Carousel Continuously"
 msgstr "캐러셀 연속 반복"
 
-#: admin/views/pages/parts/slider-settings.php:908
+#: admin/views/pages/parts/slider-settings.php:904
 msgid ""
 "Infinite loop of slides when Carousel Mode is enabled. This option disables "
 "arrows and navigation. The slideshow width must be less than or equal to "
@@ -1310,37 +1337,37 @@ msgstr ""
 "캐러셀 모드가 활성화된 경우 슬라이드 무한 루프. 이 옵션은 화살표 및 탐색을 비활성화합니다. 슬라이드 쇼 너비는 슬라이드 쇼가 "
 "삽입되는 컨테이너 너비보다 작거나 같아야 합니다."
 
-#: admin/views/pages/parts/slider-settings.php:919
+#: admin/views/pages/parts/slider-settings.php:915
 msgid "Carousel Margin"
 msgstr "캐러셀 여백"
 
-#: admin/views/pages/parts/slider-settings.php:922
+#: admin/views/pages/parts/slider-settings.php:918
 msgid "Pixel margin between slides in carousel."
 msgstr "캐러셀에서 슬라이드 사이의 픽셀 여백입니다."
 
-#: admin/views/pages/parts/slider-settings.php:936
+#: admin/views/pages/parts/slider-settings.php:932
 msgid "Display Minimum"
 msgstr "최소 표시"
 
-#: admin/views/pages/parts/slider-settings.php:938
+#: admin/views/pages/parts/slider-settings.php:934
 msgid "Minimum number of slides to be displayed at the same time in the carousel."
 msgstr "캐러셀에 동시에 표시될 슬라이드의 최소 개수."
 
-#: admin/views/pages/parts/slider-settings.php:952
+#: admin/views/pages/parts/slider-settings.php:948
 msgid "Display Maximum"
 msgstr "최대 표시"
 
-#: admin/views/pages/parts/slider-settings.php:954
+#: admin/views/pages/parts/slider-settings.php:950
 msgid ""
 "Maximum number of slides to be displayed at the same time in the carousel. "
 "Set to 0 to adjust automatically."
 msgstr "캐러셀에 동시에 표시될 슬라이드의 최대 개수입니다. 자동으로 조정하려면 0으로 설정하세요."
 
-#: admin/views/pages/parts/slider-settings.php:963
+#: admin/views/pages/parts/slider-settings.php:959
 msgid "Slides to Show per Device"
 msgstr "장치별 표시할 슬라이드 수"
 
-#: admin/views/pages/parts/slider-settings.php:964
+#: admin/views/pages/parts/slider-settings.php:960
 msgid ""
 "Set an exact number of slides to show for each device width. Leave a device "
 "at 0 to use the Display Minimum/Maximum settings instead."
@@ -1348,89 +1375,89 @@ msgstr ""
 "각 장치 너비에 대해 표시할 슬라이드의 정확한 수를 설정합니다. 장치를 0으로 두어 디스플레이 최소/최대 설정을 대신 사용할 수 "
 "있습니다."
 
-#: admin/views/pages/parts/slider-settings.php:972
+#: admin/views/pages/parts/slider-settings.php:968
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths less than %spx. Set to 0 to "
 "use Display Minimum/Maximum instead."
 msgstr "%spx 미만의 화면 너비에서 표시할 슬라이드의 정확한 수. 디스플레이 최소/최대 대신 0으로 설정합니다."
 
-#: admin/views/pages/parts/slider-settings.php:982
-#: admin/views/pages/parts/slider-settings.php:993
+#: admin/views/pages/parts/slider-settings.php:978
+#: admin/views/pages/parts/slider-settings.php:989
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths of %1$spx to %2$spx. Set to "
 "0 to use Display Minimum/Maximum instead."
 msgstr "%1$spx에서 %2$spx 사이의 화면 너비에서 표시할 슬라이드의 정확한 수. 디스플레이 최소/최대 대신 0으로 설정합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1004
+#: admin/views/pages/parts/slider-settings.php:1000
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths equal to or greater than "
 "%spx. Set to 0 to use Display Minimum/Maximum instead."
 msgstr "%spx 이상인 화면 너비에서 표시할 슬라이드의 정확한 수. 디스플레이 최소/최대 대신 0으로 설정합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1021
+#: admin/views/pages/parts/slider-settings.php:1017
 msgid "Slides per Navigation Click"
 msgstr "탐색 클릭당 슬라이드 수"
 
-#: admin/views/pages/parts/slider-settings.php:1023
+#: admin/views/pages/parts/slider-settings.php:1019
 msgid "Number of slides to move when clicking next or previous."
 msgstr "다음 또는 이전을 클릭할 때 이동할 슬라이드 수입니다."
 
-#: admin/views/pages/parts/slider-settings.php:1032
+#: admin/views/pages/parts/slider-settings.php:1028
 msgid "Force Height"
 msgstr "포스 높이"
 
-#: admin/views/pages/parts/slider-settings.php:1037
+#: admin/views/pages/parts/slider-settings.php:1033
 msgid ""
 "If the slideshow looks small, force slideshow height when using Carousel "
 "mode. Please note when is enabled slides may look cropped."
 msgstr "슬라이드쇼가 작게 보이면 캐러셀 모드를 사용할 때 슬라이드쇼 높이를 강제로 높입니다. 활성화된 경우 슬라이드가 잘려 보일 수 있습니다."
 
-#: admin/views/pages/parts/slider-settings.php:1062
+#: admin/views/pages/parts/slider-settings.php:1058
 msgid "Image Options"
 msgstr "이미지 옵션"
 
-#: admin/views/pages/parts/slider-settings.php:1074
+#: admin/views/pages/parts/slider-settings.php:1070
 msgid "Image Crop"
 msgstr "이미지 자르기"
 
-#: admin/views/pages/parts/slider-settings.php:1079
+#: admin/views/pages/parts/slider-settings.php:1075
 msgid "Smart Crop"
 msgstr "스마트 크롭"
 
-#: admin/views/pages/parts/slider-settings.php:1086
+#: admin/views/pages/parts/slider-settings.php:1082
 msgid "Standard"
 msgstr "표준"
 
-#: admin/views/pages/parts/slider-settings.php:1093
+#: admin/views/pages/parts/slider-settings.php:1089
 msgid "Disabled"
 msgstr "비활성화됨"
 
-#: admin/views/pages/parts/slider-settings.php:1100
+#: admin/views/pages/parts/slider-settings.php:1096
 msgid "Disabled (Smart Pad)"
 msgstr "비활성화됨(스마트 패드)"
 
-#: admin/views/pages/parts/slider-settings.php:1107
+#: admin/views/pages/parts/slider-settings.php:1103
 msgid ""
 "Smart Crop ensures your responsive slides are cropped to a ratio that "
 "results in a consistent slideshow size."
 msgstr "스마트 자르기를 사용하면 반응형 슬라이드가 일정한 비율로 잘려서 슬라이드쇼 크기가 일관되게 유지됩니다."
 
-#: admin/views/pages/parts/slider-settings.php:1115
+#: admin/views/pages/parts/slider-settings.php:1111
 msgid "Image Crop Source"
 msgstr "이미지 자르기 소스"
 
-#: admin/views/pages/parts/slider-settings.php:1120
+#: admin/views/pages/parts/slider-settings.php:1116
 msgid "Slideshow width/height"
 msgstr "슬라이드쇼 너비/높이"
 
-#: admin/views/pages/parts/slider-settings.php:1123
+#: admin/views/pages/parts/slider-settings.php:1119
 msgid "Custom width/height (Pro)"
 msgstr "사용자 지정 너비/높이(프로)"
 
-#: admin/views/pages/parts/slider-settings.php:1127
+#: admin/views/pages/parts/slider-settings.php:1123
 msgid ""
 "By default, MetaSlider Slideshow will crop images using the main width and "
 "height of the slideshow. If you want smaller images, select Custom "
@@ -1438,45 +1465,45 @@ msgid ""
 "height."
 msgstr "기본적으로 MetaSlider는 슬라이드쇼의 주요 너비와 높이를 사용하여 이미지를 자릅니다. 더 작은 이미지를 원하면 사용자 정의 너비/높이를 선택하고 값이 주요 너비와 높이보다 작도록 설정하십시오."
 
-#: admin/views/pages/parts/slider-settings.php:1136
+#: admin/views/pages/parts/slider-settings.php:1132
 msgid "Image Crop Size"
 msgstr "이미지 자르기 크기"
 
-#: admin/views/pages/parts/slider-settings.php:1145
+#: admin/views/pages/parts/slider-settings.php:1141
 msgid ""
 "This will increase the size of the images in your slideshow. Larger images "
 "are higher quality. Smaller images load more quickly."
 msgstr "이렇게 하면 슬라이드쇼의 이미지 크기가 커집니다. 이미지가 클수록 품질이 높습니다. 이미지가 작을수록 더 빨리 로드됩니다."
 
-#: admin/views/pages/parts/slider-settings.php:1156
+#: admin/views/pages/parts/slider-settings.php:1152
 msgid "Lazy Load Images"
 msgstr "이미지 지연 로딩"
 
-#: admin/views/pages/parts/slider-settings.php:1161
+#: admin/views/pages/parts/slider-settings.php:1157
 msgid ""
 "This feature can speed up your site. MetaSlider Slideshow will only load "
 "slides when they are required by your slideshow."
 msgstr "이 기능은 사이트 속도를 높일 수 있습니다. MetaSlider는 슬라이드쇼에서 필요한 경우에만 슬라이드를 로드합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1177
+#: admin/views/pages/parts/slider-settings.php:1173
 #: inc/metaslider.imagestyles.class.php:96
 msgid "Image Styles"
 msgstr "이미지 스타일"
 
-#: admin/views/pages/parts/slider-settings.php:1195
+#: admin/views/pages/parts/slider-settings.php:1191
 msgid "Layout Features"
 msgstr "레이아웃 기능"
 
-#: admin/views/pages/parts/slider-settings.php:1207
+#: admin/views/pages/parts/slider-settings.php:1203
 #: admin/assets/dist/js/app.js:2
 msgid "Auto Play"
 msgstr "자동 재생"
 
-#: admin/views/pages/parts/slider-settings.php:1212
+#: admin/views/pages/parts/slider-settings.php:1208
 msgid "Transition between slides automatically."
 msgstr "자동으로 슬라이드 간 전환"
 
-#: admin/views/pages/parts/slider-settings.php:1220
+#: admin/views/pages/parts/slider-settings.php:1216
 #: themes/architekt/customize.php:615
 #: themes/bitono/customize.php:798
 #: themes/blend/customize.php:828
@@ -1498,57 +1525,57 @@ msgstr "자동으로 슬라이드 간 전환"
 msgid "Play / Pause Button"
 msgstr "재생/일시 정지 버튼"
 
-#: admin/views/pages/parts/slider-settings.php:1225
+#: admin/views/pages/parts/slider-settings.php:1221
 msgid "This allows user to pause or resume Auto Play on the slideshow."
 msgstr "이를 통해 사용자는 슬라이드쇼에서 자동 재생을 일시 중지하거나 다시 시작할 수 있습니다."
 
-#: admin/views/pages/parts/slider-settings.php:1233
+#: admin/views/pages/parts/slider-settings.php:1229
 msgid "Show Play / Pause Button Text"
 msgstr "재생/일시정지 버튼 텍스트 표시"
 
-#: admin/views/pages/parts/slider-settings.php:1238
+#: admin/views/pages/parts/slider-settings.php:1234
 msgid "Show text options for Play / Pause Button"
 msgstr "재생/일시 정지 버튼의 텍스트 옵션 표시"
 
-#: admin/views/pages/parts/slider-settings.php:1246
+#: admin/views/pages/parts/slider-settings.php:1242
 msgid "Play Text"
 msgstr "텍스트 재생"
 
-#: admin/views/pages/parts/slider-settings.php:1248
-#: admin/views/pages/parts/slider-settings.php:1261
+#: admin/views/pages/parts/slider-settings.php:1244
+#: admin/views/pages/parts/slider-settings.php:1257
 msgid ""
 "Enter text for the Play/Pause Button. Leave the field empty to use the icon "
 "only."
 msgstr "재생/일시 정지 버튼의 텍스트를 입력합니다. 아이콘만 사용하려면 입력란을 비워 둡니다."
 
-#: admin/views/pages/parts/slider-settings.php:1259
+#: admin/views/pages/parts/slider-settings.php:1255
 msgid "Pause Text"
 msgstr "텍스트 일시 중지"
 
-#: admin/views/pages/parts/slider-settings.php:1272
+#: admin/views/pages/parts/slider-settings.php:1268
 #: themes/customize.php:34
 msgid "Progress Bar"
 msgstr "진행률 표시줄"
 
-#: admin/views/pages/parts/slider-settings.php:1277
+#: admin/views/pages/parts/slider-settings.php:1273
 msgid "Displays a visual indicator showing the time left before the next slide."
 msgstr "다음 슬라이드까지 남은 시간을 표시하는 시각적 표시기를 표시합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1285
+#: admin/views/pages/parts/slider-settings.php:1281
 msgid "Hover Pause"
 msgstr "마우스 오버시  일시중지"
 
-#: admin/views/pages/parts/slider-settings.php:1290
+#: admin/views/pages/parts/slider-settings.php:1286
 msgid ""
 "Pause the slideshow when hovering over slider, then resume when no longer "
 "hovering."
 msgstr "슬라이더 위로 마우스를 가져가면 슬라이드쇼를 일시 중지한 다음 더 이상 마우스를 가져가지 않으면 다시 시작합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1298
+#: admin/views/pages/parts/slider-settings.php:1294
 msgid "Loop"
 msgstr "루프"
 
-#: admin/views/pages/parts/slider-settings.php:1300
+#: admin/views/pages/parts/slider-settings.php:1296
 msgid ""
 "If you choose \"Loop endlessly\", the slides will loop infinitely. If you "
 "choose \"Stop on first slide after looping\", the slideshow will stop on "
@@ -1558,223 +1585,223 @@ msgstr ""
 "\"무한 반복\"을 선택하면 슬라이드가 무한 반복됩니다. \"반복 후 첫 번째 슬라이드에서 중지\"를 선택하면 슬라이드 쇼가 모든 "
 "항목을 표시한 후 첫 번째 슬라이드에서 중지됩니다. '마지막 슬라이드에서 중지'를 선택하면 슬라이드가 마지막 슬라이드에서 중지됩니다."
 
-#: admin/views/pages/parts/slider-settings.php:1303
+#: admin/views/pages/parts/slider-settings.php:1299
 msgid "Loop Endlessly"
 msgstr "끝없이 반복"
 
-#: admin/views/pages/parts/slider-settings.php:1304
+#: admin/views/pages/parts/slider-settings.php:1300
 msgid "Stop On Last Slide"
 msgstr "마지막 슬라이드에서 중지"
 
-#: admin/views/pages/parts/slider-settings.php:1305
+#: admin/views/pages/parts/slider-settings.php:1301
 msgid "Stop On First Slide After Looping"
 msgstr "루핑 후 첫 번째 슬라이드에서 중지"
 
-#: admin/views/pages/parts/slider-settings.php:1311
+#: admin/views/pages/parts/slider-settings.php:1307
 msgid "Smooth Height"
 msgstr "부드러운 높이"
 
-#: admin/views/pages/parts/slider-settings.php:1316
+#: admin/views/pages/parts/slider-settings.php:1312
 msgid "Allow navigation to follow the slide's height smoothly."
 msgstr "탐색이 슬라이드 높이를 부드럽게 따라갈 수 있도록 허용"
 
-#: admin/views/pages/parts/slider-settings.php:1324
+#: admin/views/pages/parts/slider-settings.php:1320
 msgid "Slide Order"
 msgstr "슬라이드 순서"
 
-#: admin/views/pages/parts/slider-settings.php:1329
+#: admin/views/pages/parts/slider-settings.php:1325
 msgid "Newest First"
 msgstr "최신 먼저"
 
-#: admin/views/pages/parts/slider-settings.php:1332
+#: admin/views/pages/parts/slider-settings.php:1328
 msgid "Oldest First"
 msgstr "최고령자 우선"
 
-#: admin/views/pages/parts/slider-settings.php:1335
+#: admin/views/pages/parts/slider-settings.php:1331
 msgid "A to Z (by filename)"
 msgstr "A부터 Z까지(파일명 기준)"
 
-#: admin/views/pages/parts/slider-settings.php:1338
+#: admin/views/pages/parts/slider-settings.php:1334
 msgid "Z to A (by filename)"
 msgstr "Z에서 A까지(파일명 기준)"
 
-#: admin/views/pages/parts/slider-settings.php:1341
+#: admin/views/pages/parts/slider-settings.php:1337
 msgid "Drag-and-drop"
 msgstr "드래그 앤 드롭"
 
-#: admin/views/pages/parts/slider-settings.php:1347
+#: admin/views/pages/parts/slider-settings.php:1343
 msgid ""
 "Select the order in which slides appear in the slideshow. This impacts the "
 "frontend view."
 msgstr "슬라이드 쇼에 슬라이드가 표시되는 순서를 선택합니다. 이는 프런트엔드 보기에 영향을 줍니다."
 
-#: admin/views/pages/parts/slider-settings.php:1355
+#: admin/views/pages/parts/slider-settings.php:1351
 msgid "Touch Swipe"
 msgstr "터치 스와이프"
 
-#: admin/views/pages/parts/slider-settings.php:1360
+#: admin/views/pages/parts/slider-settings.php:1356
 msgid "Allow touch swipe navigation of the slider on touch-enabled devices."
 msgstr "터치 지원 장치에서 슬라이더의 터치 스와이프 탐색을 허용합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1368
+#: admin/views/pages/parts/slider-settings.php:1364
 msgid "Loading Indicator"
 msgstr "로딩 표시기"
 
-#: admin/views/pages/parts/slider-settings.php:1373
+#: admin/views/pages/parts/slider-settings.php:1369
 msgid "Displays a visual indicator while the slideshow is loading."
 msgstr "슬라이드쇼가 로드되는 동안 시각적 표시기를 표시합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1381
+#: admin/views/pages/parts/slider-settings.php:1377
 msgid "Previous Text"
 msgstr "이전 텍스트"
 
-#: admin/views/pages/parts/slider-settings.php:1383
+#: admin/views/pages/parts/slider-settings.php:1379
 msgid "Set the text for the \"previous\" direction item."
 msgstr "'이전' 방향 항목에 대한 텍스트 설정"
 
-#: admin/views/pages/parts/slider-settings.php:1395
+#: admin/views/pages/parts/slider-settings.php:1391
 msgid "Next Text"
 msgstr "다음 텍스트"
 
-#: admin/views/pages/parts/slider-settings.php:1397
+#: admin/views/pages/parts/slider-settings.php:1393
 msgid "Set the text for the \"next\" direction item."
 msgstr "'다음' 방향 항목에 대한 텍스트 설정"
 
-#: admin/views/pages/parts/slider-settings.php:1414
+#: admin/views/pages/parts/slider-settings.php:1410
 msgid "Square Delay"
 msgstr "스퀘어 지연"
 
-#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1412
 msgid "Delay between squares in ms."
 msgstr "사각형 사이의 지연 시간(ms)입니다."
 
-#: admin/views/pages/parts/slider-settings.php:1433
+#: admin/views/pages/parts/slider-settings.php:1429
 msgid "Opacity of title and navigation, between 0 and 1."
 msgstr "제목 및 탐색의 불투명도는 0에서 1 사이입니다."
 
-#: admin/views/pages/parts/slider-settings.php:1448
+#: admin/views/pages/parts/slider-settings.php:1444
 msgid "Caption Speed"
 msgstr "캡션 속도"
 
-#: admin/views/pages/parts/slider-settings.php:1450
+#: admin/views/pages/parts/slider-settings.php:1446
 msgid "Set the fade in speed of the caption."
 msgstr "캡션의 페이드 인 속도 설정"
 
-#: admin/views/pages/parts/slider-settings.php:1472
+#: admin/views/pages/parts/slider-settings.php:1468
 msgid "Container Options"
 msgstr "컨테이너 옵션"
 
-#: admin/views/pages/parts/slider-settings.php:1484
+#: admin/views/pages/parts/slider-settings.php:1480
 msgid "Container Box"
 msgstr "컨테이너 박스"
 
-#: admin/views/pages/parts/slider-settings.php:1489
+#: admin/views/pages/parts/slider-settings.php:1485
 msgid "Customize the slideshow's container box."
 msgstr "슬라이드쇼의 컨테이너 상자를 사용자 지정합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1495
-#: admin/views/pages/parts/slider-settings.php:1535
+#: admin/views/pages/parts/slider-settings.php:1491
+#: admin/views/pages/parts/slider-settings.php:1531
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "This feature is available in MetaSlider Slideshow Pro"
 msgstr "이 기능은 MetaSlider Pro에서 사용할 수 있습니다"
 
-#: admin/views/pages/parts/slider-settings.php:1510
+#: admin/views/pages/parts/slider-settings.php:1506
 msgid "Watermark Options"
 msgstr "워터마크 옵션"
 
-#: admin/views/pages/parts/slider-settings.php:1524
+#: admin/views/pages/parts/slider-settings.php:1520
 msgid "Watermark"
 msgstr "워터마크"
 
-#: admin/views/pages/parts/slider-settings.php:1529
+#: admin/views/pages/parts/slider-settings.php:1525
 msgid "Overlay an image (e.g. a logo) on top of the slideshow."
 msgstr "슬라이드쇼 위에 이미지(예: 로고)를 오버레이합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1550
+#: admin/views/pages/parts/slider-settings.php:1546
 msgid "Accessibility Options"
 msgstr "접근성 옵션"
 
-#: admin/views/pages/parts/slider-settings.php:1562
+#: admin/views/pages/parts/slider-settings.php:1558
 msgid "Keyboard Controls"
 msgstr "키보드 컨트롤"
 
-#: admin/views/pages/parts/slider-settings.php:1567
+#: admin/views/pages/parts/slider-settings.php:1563
 msgid "Use arrow keys to get to the next slide."
 msgstr "화살표 키를 사용하여 다음 슬라이드로 이동합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1575
+#: admin/views/pages/parts/slider-settings.php:1571
 msgid "Tabindex For Navigation"
 msgstr "내비게이션용 탭 색인"
 
-#: admin/views/pages/parts/slider-settings.php:1580
+#: admin/views/pages/parts/slider-settings.php:1576
 msgid "This helps make the slideshow navigation more accessible."
 msgstr "이렇게 하면 슬라이드쇼 탐색에 더 쉽게 액세스할 수 있습니다."
 
-#: admin/views/pages/parts/slider-settings.php:1588
+#: admin/views/pages/parts/slider-settings.php:1584
 msgid "ARIA Live"
 msgstr "ARIA 라이브"
 
-#: admin/views/pages/parts/slider-settings.php:1593
+#: admin/views/pages/parts/slider-settings.php:1589
 msgid ""
 "If Autoplay is enabled, this causes screen readers to announce that the "
 "slides are changing."
 msgstr "자동 재생을 사용하도록 설정하면 화면 리더가 슬라이드가 변경되고 있음을 알립니다."
 
-#: admin/views/pages/parts/slider-settings.php:1601
+#: admin/views/pages/parts/slider-settings.php:1597
 msgid "ARIA Current"
 msgstr "ARIA 현재"
 
-#: admin/views/pages/parts/slider-settings.php:1606
+#: admin/views/pages/parts/slider-settings.php:1602
 msgid ""
 "This is used on the navigation button for the active slide. It helps screen "
 "readers understand which slide is active."
 msgstr "활성 슬라이드의 탐색 버튼에 사용됩니다. 화면 리더가 어떤 슬라이드가 활성화되어 있는지 이해하는 데 도움이 됩니다."
 
-#: admin/views/pages/parts/slider-settings.php:1622
+#: admin/views/pages/parts/slider-settings.php:1618
 msgid "Developer Options"
 msgstr "개발자 옵션"
 
-#: admin/views/pages/parts/slider-settings.php:1634
+#: admin/views/pages/parts/slider-settings.php:1630
 msgid "CSS Classes"
 msgstr "CSS 클래스"
 
-#: admin/views/pages/parts/slider-settings.php:1636
+#: admin/views/pages/parts/slider-settings.php:1632
 msgid ""
 "Enter custom CSS classes to apply to the slider wrapper. Separate multiple "
 "classes with a space."
 msgstr "슬라이더 래퍼에 적용할 사용자 정의 CSS 클래스를 입력합니다. 여러 클래스를 공백으로 구분합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1647
+#: admin/views/pages/parts/slider-settings.php:1643
 msgid "Print CSS"
 msgstr "인쇄 CSS"
 
-#: admin/views/pages/parts/slider-settings.php:1652
+#: admin/views/pages/parts/slider-settings.php:1648
 msgid "Uncheck this if you would like to include your own CSS."
 msgstr "고유한 CSS를 포함하려면 이 옵션을 선택 취소하세요."
 
-#: admin/views/pages/parts/slider-settings.php:1660
+#: admin/views/pages/parts/slider-settings.php:1656
 msgid "Print JS"
 msgstr "인쇄 JS"
 
-#: admin/views/pages/parts/slider-settings.php:1665
+#: admin/views/pages/parts/slider-settings.php:1661
 msgid "Uncheck this if you would like to include your own Javascript."
 msgstr "자체 자바스크립트를 포함하려면 이 옵션을 선택 취소하세요."
 
-#: admin/views/pages/parts/slider-settings.php:1673
+#: admin/views/pages/parts/slider-settings.php:1669
 msgid "No Conflict Mode"
 msgstr "충돌 모드 없음"
 
-#: admin/views/pages/parts/slider-settings.php:1678
+#: admin/views/pages/parts/slider-settings.php:1674
 msgid "Delay adding the flexslider class to the slideshow."
 msgstr "슬라이드쇼에 플렉스슬라이더 클래스를 추가하는 것을 지연합니다."
 
-#: admin/views/pages/parts/slider-settings.php:1716
-#: ml-slider.php:1880
+#: admin/views/pages/parts/slider-settings.php:1712
+#: ml-slider.php:1930
 msgid "Trashed Slides"
 msgstr "휴지통 슬라이드"
 
-#: admin/views/pages/parts/slider-settings.php:1726
+#: admin/views/pages/parts/slider-settings.php:1722
 msgid "View trashed slides"
 msgstr "삭제된 슬라이드 보기"
 
@@ -1792,7 +1819,7 @@ msgid "Add a new slide"
 msgstr "새 슬라이드 추가"
 
 #: admin/views/pages/parts/toolbar.php:60
-#: inc/slider/metaslider.class.php:1055
+#: inc/slider/metaslider.class.php:1065
 msgid "Add Slide"
 msgstr "슬라이드 추가"
 
@@ -1836,7 +1863,7 @@ msgid "Save"
 msgstr "저장"
 
 #: admin/views/pages/parts/toolbar.php:155
-#: ml-slider.php:1945
+#: ml-slider.php:1995
 msgid "Return to Published Slides"
 msgstr "게시된 슬라이드로 돌아가기"
 
@@ -1872,7 +1899,7 @@ msgid "Redirecting..."
 msgstr "리디렉션..."
 
 #: admin/views/pages/start.php:106
-#: ml-slider.php:575
+#: ml-slider.php:579
 msgid "Quick Start"
 msgstr "퀵 스타트"
 
@@ -1901,163 +1928,164 @@ msgid "Slide Type"
 msgstr "슬라이드 유형"
 
 #: admin/views/pages/start.php:145
-#: inc/metaslider.quickstart.class.php:760
-#: ml-slider.php:798
+#: inc/metaslider.quickstart.class.php:773
+#: ml-slider.php:849
 msgid "Image"
 msgstr "이미지"
 
-#: admin/views/pages/start.php:149
-#: inc/metaslider.quickstart.class.php:611
-#: inc/metaslider.quickstart.class.php:772
-#: ml-slider.php:842
+#: admin/views/pages/start.php:150
+#: inc/metaslider.quickstart.class.php:623
+#: inc/metaslider.quickstart.class.php:785
+#: ml-slider.php:893
 msgid "External Image"
 msgstr "외부 이미지"
 
-#: admin/views/pages/start.php:150
-#: inc/metaslider.quickstart.class.php:623
-#: inc/metaslider.quickstart.class.php:775
-#: ml-slider.php:843
+#: admin/views/pages/start.php:151
+#: inc/metaslider.quickstart.class.php:635
+#: inc/metaslider.quickstart.class.php:788
+#: ml-slider.php:894
 msgid "External Video"
 msgstr "외부 비디오"
 
-#: admin/views/pages/start.php:151
-#: inc/metaslider.quickstart.class.php:635
-#: inc/metaslider.quickstart.class.php:781
-#: ml-slider.php:844
+#: admin/views/pages/start.php:152
+#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:797
+#: ml-slider.php:895
 msgid "Custom HTML"
 msgstr "사용자 정의 HTML"
 
-#: admin/views/pages/start.php:152
-#: inc/metaslider.quickstart.class.php:683
-#: inc/metaslider.quickstart.class.php:790
-#: ml-slider.php:845
+#: admin/views/pages/start.php:153
+#: inc/metaslider.quickstart.class.php:695
+#: inc/metaslider.quickstart.class.php:806
+#: ml-slider.php:896
 msgid "Background Color"
 msgstr "배경 색상"
 
-#: admin/views/pages/start.php:153
-#: admin/views/pages/start.php:184
-#: ml-slider.php:848
+#: admin/views/pages/start.php:154
+#: admin/views/pages/start.php:185
+#: ml-slider.php:899
 msgid "WooCommerce"
 msgstr "우커머스"
 
-#: admin/views/pages/start.php:154
-#: inc/metaslider.quickstart.class.php:599
-#: inc/metaslider.quickstart.class.php:787
-#: ml-slider.php:849
+#: admin/views/pages/start.php:155
+#: inc/metaslider.quickstart.class.php:611
+#: inc/metaslider.quickstart.class.php:803
+#: ml-slider.php:900
 msgid "Post Feed"
 msgstr "게시물 피드"
 
-#: admin/views/pages/start.php:155
-#: inc/metaslider.quickstart.class.php:784
-#: ml-slider.php:850
+#: admin/views/pages/start.php:156
+#: inc/metaslider.quickstart.class.php:800
+#: ml-slider.php:901
 msgid "Layer Slide"
 msgstr "레이어 슬라이드"
 
-#: admin/views/pages/start.php:156
-#: inc/metaslider.quickstart.class.php:575
-#: inc/metaslider.quickstart.class.php:769
-#: ml-slider.php:851
+#: admin/views/pages/start.php:157
+#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:782
+#: modules/local_video/slide.php:43
+#: modules/local_video/slide.php:82
 msgid "Local Video"
 msgstr "로컬 비디오"
 
-#: admin/views/pages/start.php:161
+#: admin/views/pages/start.php:162
 msgid "Features"
 msgstr "주요 기능"
 
-#: admin/views/pages/start.php:162
+#: admin/views/pages/start.php:163
 msgid "Boxed"
 msgstr "박스형"
 
-#: admin/views/pages/start.php:163
+#: admin/views/pages/start.php:164
 msgid "Full-width"
 msgstr "전체 폭"
 
-#: admin/views/pages/start.php:164
+#: admin/views/pages/start.php:165
 msgid "Carousel"
 msgstr "캐러셀"
 
-#: admin/views/pages/start.php:165
+#: admin/views/pages/start.php:166
 msgid "Thumbnail Navigation"
 msgstr "썸네일 탐색"
 
-#: admin/views/pages/start.php:166
+#: admin/views/pages/start.php:167
 msgid "Video Caption"
 msgstr "비디오 캡션"
 
-#: admin/views/pages/start.php:167
-#: admin/views/pages/start.php:302
+#: admin/views/pages/start.php:168
+#: admin/views/pages/start.php:303
 msgid "Hero Image"
 msgstr "히어로 이미지"
 
-#: admin/views/pages/start.php:172
+#: admin/views/pages/start.php:173
 msgid "Animation Type"
 msgstr "애니메이션 유형"
 
-#: admin/views/pages/start.php:177
+#: admin/views/pages/start.php:178
 msgid "Ken Burns"
 msgstr "켄 번스"
 
-#: admin/views/pages/start.php:183
+#: admin/views/pages/start.php:184
 msgid "Integration"
 msgstr "통합"
 
-#: admin/views/pages/start.php:185
+#: admin/views/pages/start.php:186
 msgid "The Events Calendar"
 msgstr "이벤트 캘린더"
 
-#: admin/views/pages/start.php:186
-#: admin/views/pages/start.php:298
+#: admin/views/pages/start.php:187
+#: admin/views/pages/start.php:299
 msgid "WordPress Posts"
 msgstr "워드프레스 게시물"
 
-#: admin/views/pages/start.php:227
+#: admin/views/pages/start.php:228
 msgid "Free and Pro"
 msgstr "무료 및 프로"
 
-#: admin/views/pages/start.php:228
+#: admin/views/pages/start.php:229
 msgid "Free only"
 msgstr "무료만"
 
-#: admin/views/pages/start.php:229
+#: admin/views/pages/start.php:230
 msgid "Pro only"
 msgstr "프로 전용"
 
-#: admin/views/pages/start.php:233
+#: admin/views/pages/start.php:234
 msgid "Reset Filters"
 msgstr "필터 재설정"
 
-#: admin/views/pages/start.php:239
+#: admin/views/pages/start.php:240
 msgid "No demos match your filters."
 msgstr "필터에 맞는 데모가 없습니다."
 
-#: admin/views/pages/start.php:322
+#: admin/views/pages/start.php:323
 #, php-format
 msgid "Create %s slideshow?"
 msgstr "%s 슬라이드쇼를 생성하시겠습니까?"
 
-#: admin/views/pages/start.php:328
+#: admin/views/pages/start.php:329
 msgid "Cancel"
 msgstr "취소"
 
-#: admin/views/pages/start.php:331
+#: admin/views/pages/start.php:332
 msgid "Yes, please!"
 msgstr "예, 부탁합니다!"
 
-#: admin/views/pages/start.php:337
+#: admin/views/pages/start.php:338
 msgid "Demo"
 msgstr "데모"
 
-#: admin/views/pages/start.php:343
+#: admin/views/pages/start.php:344
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Get MetaSlider Slideshow Pro!"
 msgstr "MetaSlider Slideshow"
 
-#: admin/views/pages/start.php:346
+#: admin/views/pages/start.php:347
 msgid "Upgrade now to unlock this demo slideshow!"
 msgstr "지금 업그레이드하여 이 데모 슬라이드쇼를 잠금 해제하세요!"
 
-#: admin/views/pages/start.php:349
+#: admin/views/pages/start.php:350
 #: admin/views/pages/theme-editor.php:36
 #: admin/views/pages/upgrade.php:26
 #: admin/views/pages/upgrade.php:201
@@ -2065,19 +2093,19 @@ msgstr "지금 업그레이드하여 이 데모 슬라이드쇼를 잠금 해제
 msgid "Upgrade now"
 msgstr "지금 업그레이드"
 
-#: admin/views/pages/start.php:367
+#: admin/views/pages/start.php:368
 msgid "Create a slideshow with your images"
 msgstr "이미지로 슬라이드쇼 만들기"
 
-#: admin/views/pages/start.php:368
+#: admin/views/pages/start.php:369
 msgid "Choose your own images to start a new slideshow."
 msgstr "나만의 이미지를 선택하여 새 슬라이드쇼를 시작하세요."
 
-#: admin/views/pages/start.php:374
+#: admin/views/pages/start.php:375
 msgid "Uploading images..."
 msgstr "이미지 업로딩 중..."
 
-#: admin/views/pages/start.php:385
+#: admin/views/pages/start.php:386
 msgid "Open Media Library"
 msgstr "미디어 라이브러리 열기"
 
@@ -2087,7 +2115,7 @@ msgid "Introducing the Theme Editor in MetaSlider Slideshow Pro"
 msgstr "MetaSlider Pro의 테마 편집기 소개"
 
 #: admin/views/pages/theme-editor.php:18
-#: ml-slider.php:579
+#: ml-slider.php:583
 msgid "Theme Editor"
 msgstr "테마 편집기"
 
@@ -2796,10 +2824,12 @@ msgid ""
 msgstr "방문자가 이미지 슬라이드를 클릭하면 이 URL로 이동합니다. 또는 테마에 버튼이 있는 경우 해당 링크가 버튼에 적용됩니다."
 
 #: admin/views/slides/tabs/link.php:20
+#: modules/local_video/tabs/link.php:28
 msgid "New window"
 msgstr "새 창"
 
 #: admin/views/slides/tabs/link.php:22
+#: modules/local_video/tabs/link.php:30
 msgid "Open link in a new window"
 msgstr "새 창에서 링크 열기"
 
@@ -2817,36 +2847,88 @@ msgstr "이 텍스트는 검색 엔진과 화면 리더를 사용하는 방문�
 msgid "Enter text here"
 msgstr "여기에 텍스트 입력"
 
-#: admin/views/slides/tabs/mobile.php:33
+#: admin/views/slides/tabs/livid.php:18
+msgid "Livid Video URL"
+msgstr "리비드 비디오 URL"
+
+#: admin/views/slides/tabs/livid.php:19
+msgid ""
+"Paste the link to a video hosted on livid.com. We will create the embed for "
+"you."
+msgstr "livid.com에 호스팅된 비디오 링크를 붙여넣으세요. 우리가 임베드를 만들어 드립니다."
+
+#: admin/views/slides/tabs/livid.php:33
+#: modules/local_video/tabs/general.php:70
+msgid "Mute video"
+msgstr "비디오 음소거"
+
+#: admin/views/slides/tabs/livid.php:47
+#: modules/local_video/tabs/general.php:82
+msgid "Show controls"
+msgstr "컨트롤 표시"
+
+#: admin/views/slides/tabs/livid.php:49
+msgid ""
+"Hiding the controls only works if the video is on a Livid Pro or Premium "
+"account"
+msgstr "컨트롤 숨기기는 비디오가 Livid Pro 또는 Premium 계정에 있을 때만 작동합니다"
+
+#: admin/views/slides/tabs/livid.php:65
+#: modules/local_video/tabs/general.php:95
+msgid "Auto play"
+msgstr "자동 재생"
+
+#: admin/views/slides/tabs/livid.php:67
+msgid "May require the video to be muted"
+msgstr "비디오를 음소거해야 할 수 있습니다"
+
+#: admin/views/slides/tabs/livid.php:83
+#: modules/local_video/tabs/general.php:113
+msgid "Lazy load video"
+msgstr "지연 로드 비디오"
+
+#: admin/views/slides/tabs/livid.php:85
+msgid "The video only loads once a visitor clicks play"
+msgstr "방문자가 재생을 클릭할 때에만 비디오가 로드됩니다"
+
+#: admin/views/slides/tabs/livid.php:99
+#: modules/local_video/tabs/general.php:125
+msgid "Loop video"
+msgstr "비디오 루프"
+
+#: admin/views/slides/tabs/mobile.php:35
+#: modules/local_video/tabs/mobile.php:22
 msgid "Hide slide on:"
 msgstr "슬라이드 숨기기 켜짐:"
 
-#: admin/views/slides/tabs/mobile.php:46
+#: admin/views/slides/tabs/mobile.php:48
+#: modules/local_video/tabs/mobile.php:35
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths equal to or "
 "greater than %spx"
 msgstr "이 설정을 활성화하면 %spx보다 큰 화면 너비에서 슬라이드가 숨겨집니다."
 
-#: admin/views/slides/tabs/mobile.php:56
+#: admin/views/slides/tabs/mobile.php:58
+#: modules/local_video/tabs/mobile.php:45
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths of %1$spx to "
 "%2$spx"
 msgstr "이 설정을 활성화하면 %1$spx~%2$spx의 화면 너비에서 슬라이드가 숨겨집니다."
 
-#: admin/views/slides/tabs/mobile.php:72
+#: admin/views/slides/tabs/mobile.php:75
 msgid "Hide caption on:"
 msgstr "캡션 숨기기 켜짐:"
 
-#: admin/views/slides/tabs/mobile.php:85
+#: admin/views/slides/tabs/mobile.php:88
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths equal to "
 "or greater than %spx"
 msgstr "이 설정을 활성화하면 %spx보다 큰 화면 너비에서는 캡션이 숨겨집니다."
 
-#: admin/views/slides/tabs/mobile.php:95
+#: admin/views/slides/tabs/mobile.php:98
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths of %1$spx "
@@ -3074,136 +3156,136 @@ msgstr "새로운 관점"
 msgid "Sporting Spirit"
 msgstr "스포츠 정신"
 
-#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:227
 msgid "Marathon Journey"
 msgstr "마라톤 여정"
 
-#: inc/metaslider.quickstart.class.php:227
-msgid "Cars Display"
-msgstr "자동차 전시"
-
 #: inc/metaslider.quickstart.class.php:239
-msgid "Watch Shop Hero"
-msgstr "워치 샵 히어로"
-
-#: inc/metaslider.quickstart.class.php:251
-msgid "Creative Agency Hero"
-msgstr "크리에이티브 에이전시 히어로"
-
-#: inc/metaslider.quickstart.class.php:263
-msgid "Fashion Trends"
-msgstr "패션 트렌드"
-
-#: inc/metaslider.quickstart.class.php:275
-msgid "Entertainment YouTube Shorts Feed"
-msgstr "엔터테인먼트 YouTube 숏츠 피드"
-
-#: inc/metaslider.quickstart.class.php:287
-msgid "Album Cover Showcase"
-msgstr "앨범 커버 쇼케이스"
-
-#: inc/metaslider.quickstart.class.php:299
-msgid "Business Presentation"
-msgstr "비즈니스 프레젠테이션"
-
-#: inc/metaslider.quickstart.class.php:311
-msgid "Books by Genre"
-msgstr "장르별 도서"
-
-#: inc/metaslider.quickstart.class.php:323
-msgid "Testimonials"
-msgstr "추천사"
-
-#: inc/metaslider.quickstart.class.php:335
-msgid "Skincare Routine Guide"
-msgstr "스킨케어 루틴 가이드"
-
-#: inc/metaslider.quickstart.class.php:347
-msgid "Indoor Plant Selection Guide"
-msgstr "실내 식물 선택 가이드"
-
-#: inc/metaslider.quickstart.class.php:359
-msgid "TikTok Vertical Videos"
-msgstr "틱톡 세로 동영상"
-
-#: inc/metaslider.quickstart.class.php:371
 msgid "Daily Routine Videos"
 msgstr "일상 루틴 영상"
 
+#: inc/metaslider.quickstart.class.php:263
+msgid "Cars Display"
+msgstr "자동차 전시"
+
+#: inc/metaslider.quickstart.class.php:275
+msgid "Watch Shop Hero"
+msgstr "워치 샵 히어로"
+
+#: inc/metaslider.quickstart.class.php:287
+msgid "Creative Agency Hero"
+msgstr "크리에이티브 에이전시 히어로"
+
+#: inc/metaslider.quickstart.class.php:299
+msgid "Fashion Trends"
+msgstr "패션 트렌드"
+
+#: inc/metaslider.quickstart.class.php:311
+msgid "Entertainment YouTube Shorts Feed"
+msgstr "엔터테인먼트 YouTube 숏츠 피드"
+
+#: inc/metaslider.quickstart.class.php:323
+msgid "Album Cover Showcase"
+msgstr "앨범 커버 쇼케이스"
+
+#: inc/metaslider.quickstart.class.php:335
+msgid "Business Presentation"
+msgstr "비즈니스 프레젠테이션"
+
+#: inc/metaslider.quickstart.class.php:347
+msgid "Books by Genre"
+msgstr "장르별 도서"
+
+#: inc/metaslider.quickstart.class.php:359
+msgid "Testimonials"
+msgstr "추천사"
+
+#: inc/metaslider.quickstart.class.php:371
+msgid "Skincare Routine Guide"
+msgstr "스킨케어 루틴 가이드"
+
 #: inc/metaslider.quickstart.class.php:383
+msgid "Indoor Plant Selection Guide"
+msgstr "실내 식물 선택 가이드"
+
+#: inc/metaslider.quickstart.class.php:395
+msgid "TikTok Vertical Videos"
+msgstr "틱톡 세로 동영상"
+
+#: inc/metaslider.quickstart.class.php:407
 msgid "Coffee Brewing Guide"
 msgstr "커피 추출 가이드"
 
-#: inc/metaslider.quickstart.class.php:395
+#: inc/metaslider.quickstart.class.php:419
 msgid "Upcoming City Events"
 msgstr "다가오는 도시 행사"
 
-#: inc/metaslider.quickstart.class.php:407
+#: inc/metaslider.quickstart.class.php:431
 msgid "Product Categories"
 msgstr "제품 카테고리"
 
-#: inc/metaslider.quickstart.class.php:419
+#: inc/metaslider.quickstart.class.php:443
 msgid "Recent WooCommerce Products"
 msgstr "최근 WooCommerce 제품"
 
-#: inc/metaslider.quickstart.class.php:431
+#: inc/metaslider.quickstart.class.php:455
 msgid "Latest News Posts"
 msgstr "최신 뉴스 게시물"
 
-#: inc/metaslider.quickstart.class.php:443
+#: inc/metaslider.quickstart.class.php:467
 msgid "Product Demo"
 msgstr "제품 데모"
 
-#: inc/metaslider.quickstart.class.php:455
+#: inc/metaslider.quickstart.class.php:479
 msgid "Trending Videos"
 msgstr "인기 동영상"
 
-#: inc/metaslider.quickstart.class.php:467
+#: inc/metaslider.quickstart.class.php:491
 msgid "Hotel Rooms"
 msgstr "호텔 객실"
 
-#: inc/metaslider.quickstart.class.php:479
+#: inc/metaslider.quickstart.class.php:503
 msgid "Client Testimonials"
 msgstr "고객 후기"
 
-#: inc/metaslider.quickstart.class.php:491
+#: inc/metaslider.quickstart.class.php:515
 msgid "Meet the Team"
 msgstr "팀 소개"
 
-#: inc/metaslider.quickstart.class.php:503
+#: inc/metaslider.quickstart.class.php:527
 msgid "Curated Videos"
 msgstr "선별된 동영상"
 
-#: inc/metaslider.quickstart.class.php:515
+#: inc/metaslider.quickstart.class.php:539
 msgid "Natural Skincare Presentation"
 msgstr "천연 스킨케어 프레젠테이션"
 
-#: inc/metaslider.quickstart.class.php:539
+#: inc/metaslider.quickstart.class.php:563
 msgid "YouTube Shorts Carousel"
 msgstr "YouTube Shorts 캐러셀"
 
-#: inc/metaslider.quickstart.class.php:551
+#: inc/metaslider.quickstart.class.php:575
 msgid "TikTok Carousel"
 msgstr "틱톡 캐러셀"
 
-#: inc/metaslider.quickstart.class.php:563
-#: ml-slider.php:839, fuzzy
+#: inc/metaslider.quickstart.class.php:587
+#: ml-slider.php:890, fuzzy
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: inc/metaslider.quickstart.class.php:587
+#: inc/metaslider.quickstart.class.php:599
 msgid "Layer Slides"
 msgstr "레이어 슬라이드"
 
-#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:659
 msgid "WooCommerce Carousel"
 msgstr "우커머스 캐러셀"
 
-#: inc/metaslider.quickstart.class.php:659
+#: inc/metaslider.quickstart.class.php:671
 msgid "Bold Motion"
 msgstr "볼드 모션"
 
-#: inc/metaslider.quickstart.class.php:671
+#: inc/metaslider.quickstart.class.php:683
 msgid "Playful Pets"
 msgstr "장난기 많은 애완동물"
 
@@ -3235,7 +3317,7 @@ msgid "Select Slider:"
 msgstr "슬라이더 선택:"
 
 #: inc/metaslider.widget.class.php:126
-#: ml-slider.php:2074
+#: ml-slider.php:2124
 #: admin/assets/dist/js/app.js:2
 msgid "No slideshows found"
 msgstr "슬라이드쇼를 찾을 수 없습니다."
@@ -3279,6 +3361,15 @@ msgid "This isn't a valid image format. Please try again."
 msgstr "유효한 이미지 형식이 아닙니다. 다시 시도해 주십시오."
 
 #: inc/slide/metaslide.image.class.php:412
+#: inc/slide/metaslide.livid.class.php:784
+#: modules/local_video/slide.php:203
+#: modules/local_video/slide.php:878
+#: modules/local_video/slide.php:936
+#: modules/local_video/slide.php:1044
+#: modules/local_video/slide.php:1209
+#: modules/local_video/slide.php:1282
+#: modules/local_video/slide.php:1396
+#: modules/local_video/slide.php:2082
 msgid "Access denied"
 msgstr "접근 불가"
 
@@ -3291,10 +3382,13 @@ msgid "Warning: The image data does not exist. Please re-upload the image."
 msgstr "경고: 이미지 데이터가 존재하지 않습니다. 이미지를 다시 업로드해 주세요."
 
 #: inc/slide/metaslide.image.class.php:555
+#: inc/slide/metaslide.livid.class.php:875
+#: modules/local_video/slide.php:407
 msgid "General"
 msgstr "일반"
 
 #: inc/slide/metaslide.image.class.php:559
+#: modules/local_video/slide.php:411
 msgid "Link"
 msgstr "링크"
 
@@ -3303,6 +3397,8 @@ msgid "SEO"
 msgstr "SEO"
 
 #: inc/slide/metaslide.image.class.php:578
+#: inc/slide/metaslide.livid.class.php:893
+#: modules/local_video/slide.php:438
 msgid "Device"
 msgstr "기기"
 
@@ -3326,7 +3422,65 @@ msgstr "고급 설정은 MetaSlider Slideshow Pro에서 사용할 수 있습니�
 msgid "View Slide Details"
 msgstr "슬라이드 세부 정보 보기"
 
-#: inc/slider/metaslider.class.php:457
+#: inc/slide/metaslide.livid.class.php:217
+msgid "Livid Video"
+msgstr "리비드 비디오"
+
+#: inc/slide/metaslide.livid.class.php:272
+#: inc/slide/metaslide.livid.class.php:320
+#: inc/slide/metaslide.livid.class.php:364
+#: inc/slide/metaslide.livid.class.php:425
+#: inc/slide/metaslide.livid.class.php:477
+msgid "Please enter a valid link to a video hosted on livid.com."
+msgstr "livid.com에 호스팅된 비디오의 유효한 링크를 입력하세요."
+
+#: inc/slide/metaslide.livid.class.php:278
+msgid "Create slideshows with your Livid videos"
+msgstr "당신의 리비드 비디오로 슬라이드쇼 만들기"
+
+#: inc/slide/metaslide.livid.class.php:281
+msgid "Enter the URL of a Livid video:"
+msgstr "리비드 비디오의 URL을 입력하세요:"
+
+#: inc/slide/metaslide.livid.class.php:292
+#: ml-slider.php:850
+#: modules/local_video/slide.php:112
+#: admin/assets/dist/js/admin.js:1
+#: admin/assets/js/admin.js:218
+msgid "Add to slideshow"
+msgstr "슬라이드쇼에 추가"
+
+#: inc/slide/metaslide.livid.class.php:318
+msgid "Updating the Livid video..."
+msgstr "리비드 비디오 업데이트 중..."
+
+#: inc/slide/metaslide.livid.class.php:319
+msgid "Livid video updated."
+msgstr "리비드 비디오가 업데이트되었습니다."
+
+#: inc/slide/metaslide.livid.class.php:321
+msgid "We could not update the Livid video. Please check the link and try again."
+msgstr "리비드 비디오를 업데이트할 수 없습니다. 링크를 확인하고 다시 시도하세요."
+
+#: inc/slide/metaslide.livid.class.php:561
+msgid "Livid video player"
+msgstr "리비드 비디오 플레이어"
+
+#: inc/slide/metaslide.livid.class.php:681
+#. translators: %s: Livid video URL
+#, php-format
+msgid "Livid video thumbnail - %s"
+msgstr "리비드 비디오 썸네일 - %s"
+
+#: inc/slide/metaslide.livid.class.php:818
+msgid "Livid Video Slide"
+msgstr "리비드 비디오 슬라이드"
+
+#: inc/slide/metaslide.livid.class.php:1011
+msgid "Play video"
+msgstr "비디오 재생"
+
+#: inc/slider/metaslider.class.php:461
 msgid "Edit Slideshow"
 msgstr "슬라이드쇼 편집"
 
@@ -3338,77 +3492,71 @@ msgstr "재생"
 msgid "Pause"
 msgstr "일시 정지"
 
-#: ml-slider.php:267
+#: ml-slider.php:270
 #, php-format
 msgid ""
 "MetaSlider Slideshow Pro is installed but is out of date. You may update it "
 "%shere%s. Learn more about this notice %shere%s"
 msgstr "MetaSlider Pro가 설치되었지만 구버전입니다. %shere%s에서 업데이트할 수 있습니다. 이 공지에 대한 자세한 내용은 %shere%s를 참조하세요."
 
-#: ml-slider.php:576
+#: ml-slider.php:580
 msgid "Settings & Help"
 msgstr "설정 및 도움말"
 
-#: ml-slider.php:580
+#: ml-slider.php:584
 msgid "Upgrade to Pro"
 msgstr "프로로 업그레이드"
 
-#: ml-slider.php:610
-#: ml-slider.php:613
+#: ml-slider.php:614
+#: ml-slider.php:617
 #: themes/customize.php:20
 msgid "Slideshow"
 msgstr "슬라이드쇼"
 
-#: ml-slider.php:619
-#: ml-slider.php:622
+#: ml-slider.php:623
+#: ml-slider.php:626
 msgid "All Slideshows"
 msgstr "모든 슬라이드쇼"
 
-#: ml-slider.php:630
-#: ml-slider.php:633
+#: ml-slider.php:634
+#: ml-slider.php:637
 msgid "Create Slideshow"
 msgstr "슬라이드쇼 만들기"
 
-#: ml-slider.php:799
-#: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:218
-msgid "Add to slideshow"
-msgstr "슬라이드쇼에 추가"
-
-#: ml-slider.php:840, fuzzy
+#: ml-slider.php:891, fuzzy
 msgid "YouTube"
 msgstr "YouTube"
 
-#: ml-slider.php:841
+#: ml-slider.php:892
 msgid "TikTok"
 msgstr "틱톡"
 
-#: ml-slider.php:846
+#: ml-slider.php:897
 msgid "Image Folder"
 msgstr "이미지 폴더"
 
-#: ml-slider.php:847
+#: ml-slider.php:898
 #: admin/assets/dist/js/app.js:2
 msgid "Post Images"
 msgstr "이미지 게시"
 
-#: ml-slider.php:976
+#: ml-slider.php:1026
 msgid "The slide was successfully restored"
 msgstr "슬라이드가 성공적으로 복원되었습니다."
 
-#: ml-slider.php:999
+#: ml-slider.php:1049
 msgid "The attempt to restore the slide failed."
 msgstr "슬라이드를 복원하려는 시도가 실패했습니다."
 
-#: ml-slider.php:1058
+#: ml-slider.php:1108
 msgid "The slide was successfully trashed"
 msgstr "슬라이드가 성공적으로 삭제되었습니다."
 
-#: ml-slider.php:1170
+#: ml-slider.php:1220
 msgid "The slide was permanently deleted"
 msgstr "슬라이드가 영구 삭제되었습니다."
 
-#: ml-slider.php:1461
+#: ml-slider.php:1511
 #, php-format
 msgid ""
 "Please consider moving your slides to <b>FlexSlider</b>. We're adding all "
@@ -3416,171 +3564,149 @@ msgid ""
 "more</a>."
 msgstr "슬라이드를 <b>FlexSlider</b>로 이동하는 것을 고려해 주세요. 이 옵션에 모든 새로운 MetaSlider 기능을 추가하고 있습니다. <a href=\"%s\">자세히 알아보기</a>."
 
-#: ml-slider.php:1863
+#: ml-slider.php:1913
 msgid "Slide permanently deleted."
 msgstr "슬라이드가 영구 삭제되었습니다."
 
-#: ml-slider.php:1866
+#: ml-slider.php:1916
 msgid "Slide restored."
 msgstr "슬라이드가 복원되었습니다."
 
-#: ml-slider.php:1898
+#: ml-slider.php:1948
 msgid "Toggle slide reorder panel"
 msgstr "슬라이드 재정렬 패널 전환"
 
-#: ml-slider.php:1935
+#: ml-slider.php:1985
 #, php-format
 msgid ""
 "You are viewing slides that have been trashed, which will be automatically "
 "deleted in %s days."
 msgstr "휴지통에 버려진 슬라이드를 보고 있으며, 이 슬라이드는 %s일 후에 자동으로 삭제됩니다."
 
-#: ml-slider.php:1968
+#: ml-slider.php:2018
 msgid "Move slideshow to trash"
 msgstr "슬라이드쇼를 휴지통으로 이동"
 
-#: ml-slider.php:2023
+#: ml-slider.php:2073
 msgid "Add slideshow"
 msgstr "슬라이드쇼 추가"
 
-#: ml-slider.php:2059
+#: ml-slider.php:2109
 msgid "Choose slideshow"
 msgstr "슬라이드쇼 선택"
 
-#: ml-slider.php:2069
+#: ml-slider.php:2119
 msgid "Insert slideshow"
 msgstr "슬라이드쇼 삽입"
 
-#: ml-slider.php:2104
+#: ml-slider.php:2154
 msgid "Create slides by adding text, videos and more to your images"
 msgstr "이미지에 텍스트, 동영상 등을 추가하여 슬라이드 만들기"
 
-#: ml-slider.php:2108
+#: ml-slider.php:2158
 msgid ""
 "With Layer slides, you can create beautiful, stylish layers of different "
 "elements."
 msgstr "레이어 슬라이드를 사용하면 다양한 요소로 아름답고 스타일리시한 레이어를 만들 수 있습니다."
 
-#: ml-slider.php:2112
+#: ml-slider.php:2162
 msgid ""
 "You start with an image and then can add text, video, colors, animations, "
 "more images, and even shortcodes."
 msgstr "이미지로 시작하여 텍스트, 동영상, 색상, 애니메이션, 추가 이미지, 심지어 단축코드까지 추가할 수 있습니다."
 
-#: ml-slider.php:2118
-#: ml-slider.php:2159
-#: ml-slider.php:2200
-#: ml-slider.php:2243
-#: ml-slider.php:2286
-#: ml-slider.php:2329
-#: ml-slider.php:2372
-#: ml-slider.php:2411
-#: ml-slider.php:2454
-#: ml-slider.php:2493
-#: ml-slider.php:2564
-#: ml-slider.php:2599
-#: ml-slider.php:2634
+#: ml-slider.php:2168
+#: ml-slider.php:2209
+#: ml-slider.php:2250
+#: ml-slider.php:2293
+#: ml-slider.php:2336
+#: ml-slider.php:2379
+#: ml-slider.php:2418
+#: ml-slider.php:2461
+#: ml-slider.php:2500
+#: ml-slider.php:2571
+#: ml-slider.php:2606
+#: ml-slider.php:2641
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Find out more about MetaSlider Slideshow Pro"
 msgstr "MetaSlider Pro에 대해 더 알아보기"
 
-#: ml-slider.php:2147
+#: ml-slider.php:2197
 msgid "Create slideshows with your Vimeo videos"
 msgstr "Vimeo 동영상으로 슬라이드쇼 만들기"
 
-#: ml-slider.php:2151
+#: ml-slider.php:2201
 msgid ""
 "With Vimeo slides, you can build beautiful slideshows with your Vimeo "
 "videos."
 msgstr "Vimeo 슬라이드를 사용하면 Vimeo 동영상으로 멋진 슬라이드쇼를 만들 수 있습니다."
 
-#: ml-slider.php:2155
+#: ml-slider.php:2205
 msgid ""
 "Vimeo slides will display your videos with auto play, mute, the ability to "
 "hide controls, and much more."
 msgstr "Vimeo 슬라이드는 자동 재생, 음소거, 컨트롤 숨기기 기능 등을 통해 동영상을 표시합니다."
 
-#: ml-slider.php:2188
+#: ml-slider.php:2238
 msgid "Create slideshows with your YouTube videos"
 msgstr "YouTube 동영상으로 슬라이드쇼 만들기"
 
-#: ml-slider.php:2192
+#: ml-slider.php:2242
 msgid ""
 "With YouTube slides, you can build beautiful slideshows with your YouTube "
 "videos."
 msgstr "YouTube 슬라이드를 사용하면 YouTube 동영상으로 멋진 슬라이드쇼를 만들 수 있습니다."
 
-#: ml-slider.php:2196
+#: ml-slider.php:2246
 msgid ""
 "YouTube slides will display your videos with auto play, mute, lazy load, "
 "the ability to hide controls, and much more."
 msgstr "YouTube 슬라이드는 자동 재생, 음소거, 지연 로드, 컨트롤 숨기기 기능 등을 사용하여 동영상을 표시합니다."
 
-#: ml-slider.php:2229
+#: ml-slider.php:2279
 msgid "Create slideshows with your posts"
 msgstr "게시물로 슬라이드쇼 만들기"
 
-#: ml-slider.php:2233
+#: ml-slider.php:2283
 msgid ""
 "With Post Feed slides, you can build slideshows with your latest posts, "
 "events, or WooCommerce products."
 msgstr "게시물 피드 슬라이드를 사용하면 최신 게시물, 이벤트 또는 우커머스 제품으로 슬라이드쇼를 만들 수 있습니다."
 
-#: ml-slider.php:2237
+#: ml-slider.php:2287
 msgid ""
 "Post Feed slides will automatically display your posts with images, text, "
 "custom fields, and much more."
 msgstr "게시물 피드 슬라이드는 이미지, 텍스트, 사용자 정의 필드 등이 포함된 게시물을 자동으로 표시합니다."
 
-#: ml-slider.php:2272
+#: ml-slider.php:2322
 msgid "Create slideshows with images stored outside of WordPress"
 msgstr "워드프레스 외부에 저장된 이미지로 슬라이드쇼 만들기"
 
-#: ml-slider.php:2276
+#: ml-slider.php:2326
 msgid ""
 "With External URL slides, you can load images directly from non-WordPress "
 "sources such as CDNs or image hosts."
 msgstr "외부 URL 슬라이드를 사용하면 CDN이나 이미지 호스트와 같은 워드프레스가 아닌 소스에서 직접 이미지를 로드할 수 있습니다."
 
-#: ml-slider.php:2280
+#: ml-slider.php:2330
 msgid ""
 "External URL slides give you all the power of MetaSlider Slideshow, using "
 "images stored anywhere you want."
 msgstr "외부 URL 슬라이드는 원하는 곳에 저장된 이미지를 사용하여 MetaSlider의 모든 기능을 제공합니다."
 
-#: ml-slider.php:2315
-msgid "Create slideshows with videos in your media library"
-msgstr "미디어 라이브러리에 있는 동영상으로 슬라이드쇼 만들기"
-
-#: ml-slider.php:2319
-msgid ""
-"With Local Video slides, you can build beautiful slideshows with videos in "
-"your WordPress media library or searched directly from Pixabay."
-msgstr ""
-"로컬 비디오 슬라이드를 사용하면 WordPress 미디어 라이브러리에서 비디오를 사용하여 아름다운 슬라이드쇼를 만들거나 "
-"Pixabay에서 직접 검색할 수 있습니다."
-
-#: ml-slider.php:2323
-msgid ""
-"Local Video slides will display your MP4, WebM, and MOV videos with cover "
-"images, auto play, mute, lazy load, the ability to hide controls, and much "
-"more."
-msgstr ""
-"로컬 비디오 슬라이드에는 표지 이미지, 자동 재생, 음소거, 지연 로드, 컨트롤 숨기기 기능 등이 포함된 MP4, WebM 및 MOV "
-"비디오가 표시됩니다."
-
-#: ml-slider.php:2358
+#: ml-slider.php:2365
 msgid "Create slideshows with videos stored outside of WordPress"
 msgstr "워드프레스 외부에 저장된 동영상으로 슬라이드쇼 만들기"
 
-#: ml-slider.php:2362
+#: ml-slider.php:2369
 msgid ""
 "With External Video slides, you can add videos directly from non-WordPress "
 "sources."
 msgstr "외부 비디오 슬라이드를 사용하면 워드프레스가 아닌 소스에서 직접 비디오를 추가할 수 있습니다."
 
-#: ml-slider.php:2366
+#: ml-slider.php:2373
 msgid ""
 "External Video Slides will display your MP4, WebM, and MOV videos. Features "
 "include text captions, cover images, auto play, mute, lazy load, the "
@@ -3589,11 +3715,11 @@ msgstr ""
 "외부 비디오 슬라이드에는 MP4, WebM 및 MOV 동영상이 표시됩니다. 텍스트 캡션, 표지 이미지, 자동 재생, 음소거, 지연 "
 "로드, 컨트롤 숨기기 기능 등 다양한 기능을 제공합니다."
 
-#: ml-slider.php:2401
+#: ml-slider.php:2408
 msgid "Create slideshows with custom HTML"
 msgstr "사용자 지정 HTML로 슬라이드쇼 만들기"
 
-#: ml-slider.php:2405
+#: ml-slider.php:2412
 msgid ""
 "With Custom HTML slides, you can design slides using images, HTML and CSS. "
 "This gives you complete control over the layout and styling."
@@ -3601,11 +3727,11 @@ msgstr ""
 "사용자 정의 HTML 슬라이드를 사용하면 이미지, HTML 및 CSS를 사용하여 슬라이드를 디자인할 수 있습니다. 이를 통해 레이아웃과 "
 "스타일을 완벽하게 제어할 수 있습니다."
 
-#: ml-slider.php:2444
+#: ml-slider.php:2451
 msgid "Create slides with background colors and text"
 msgstr "배경 색상과 텍스트로 슬라이드 만들기"
 
-#: ml-slider.php:2448
+#: ml-slider.php:2455
 msgid ""
 "With Background Color slides, you can create slides using a solid or "
 "gradient background color. Perfect for text-only slides, calls to action or "
@@ -3614,102 +3740,335 @@ msgstr ""
 "배경 색상 슬라이드를 사용하면 단색 또는 그라디언트 배경 색상으로 슬라이드를 만들 수 있습니다. 텍스트 전용 슬라이드, 행동 촉구 또는 "
 "빠른 배너에 적합합니다."
 
-#: ml-slider.php:2483
+#: ml-slider.php:2490
 msgid "Create slideshows with Tiktok Videos"
 msgstr "틱톡 동영상으로 슬라이드쇼 만들기"
 
-#: ml-slider.php:2487
+#: ml-slider.php:2494
 msgid ""
 "A TikTok Slide will display a video in your slideshow directly from "
 "TikTok.com."
 msgstr "틱톡 슬라이드는 TikTok.com에서 바로 슬라이드쇼에 동영상을 표시합니다."
 
-#: ml-slider.php:2550
+#: ml-slider.php:2557
 msgid "Create slideshows with images from a folder"
 msgstr "폴더의 이미지로 슬라이드쇼 만들기"
 
-#: ml-slider.php:2554
+#: ml-slider.php:2561
 msgid ""
 "The Image Folder slide type extracts images from a specified folder and "
 "displays them as slides."
 msgstr "이미지 폴더 슬라이드 유형은 지정된 폴더에서 이미지를 추출하여 슬라이드로 표시합니다."
 
-#: ml-slider.php:2558
+#: ml-slider.php:2565
 msgid ""
 "This slide type displays images from folders in your WordPress Media "
 "Library."
 msgstr "이 슬라이드 유형은 WordPress 미디어 라이브러리의 폴더에 있는 이미지를 표시합니다."
 
-#: ml-slider.php:2585
+#: ml-slider.php:2592
 msgid "Create slideshows with Post Images"
 msgstr "게시물 이미지로 슬라이드쇼 만들기"
 
-#: ml-slider.php:2589
+#: ml-slider.php:2596
 msgid ""
 "The Post Images slide type extracts images from the current post and "
 "displays them as slides."
 msgstr "글 이미지 슬라이드 유형은 현재 글에서 이미지를 추출하여 슬라이드로 표시합니다."
 
-#: ml-slider.php:2593
+#: ml-slider.php:2600
 msgid ""
 "This slide type supports featured images, post content images, WooCommerce "
 "galleries, Advanced Custom Fields images and galleries."
 msgstr "이 슬라이드 유형은 추천 이미지, 글 콘텐츠 이미지, 우커머스 갤러리, 고급 사용자 정의 필드 이미지 및 갤러리를 지원합니다."
 
-#: ml-slider.php:2620
+#: ml-slider.php:2627
 msgid "Create slideshows with your WooCommerce products"
 msgstr "우커머스 제품으로 슬라이드쇼 만들기"
 
-#: ml-slider.php:2624
+#: ml-slider.php:2631
 msgid ""
 "With WooCommerce slides, you can build slideshows with your WooCommerce "
 "products."
 msgstr "우커머스 슬라이드를 사용하면 우커머스 제품으로 슬라이드쇼를 만들 수 있습니다."
 
-#: ml-slider.php:2628
+#: ml-slider.php:2635
 msgid ""
 "WooCommerce slides will automatically display your products with images, "
 "text, custom fields, and much more."
 msgstr "우커머스 슬라이드는 이미지, 텍스트, 사용자 정의 필드 등이 포함된 제품을 자동으로 표시합니다."
 
-#: ml-slider.php:2672
+#: ml-slider.php:2679
 msgid "Premium Support"
 msgstr "프리미엄 지원"
 
-#: ml-slider.php:2678
+#: ml-slider.php:2685
 #, fuzzy
 msgid "MetaSlider Slideshow Pro"
 msgstr "MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2682
+#: ml-slider.php:2689
 msgid "Support"
 msgstr "지원"
 
-#: ml-slider.php:2687
+#: ml-slider.php:2694
+#: modules/local_video/slide.php:533
 msgid "Documentation"
 msgstr "문서"
 
-#: ml-slider.php:2691
+#: ml-slider.php:2698
 msgid "Leave a review"
 msgstr "리뷰를 남겨주세요"
 
-#: ml-slider.php:2810
+#: ml-slider.php:2817
 msgid "Uploading..."
 msgstr "업로드 중..."
 
-#: ml-slider.php:2817
+#: ml-slider.php:2824
 msgid "Upload Complete"
 msgstr "업로드 완료"
 
-#: ml-slider.php:2944
+#: ml-slider.php:2951
 msgid "Import file is missing"
 msgstr "가져오기 파일이 없습니다"
 
-#: ml-slider.php:3095
+#: ml-slider.php:3102
 msgid ""
 "You attempted to edit a slideshow that does not exist. Perhaps it was moved "
 "to trash?"
 msgstr "존재하지 않는 슬라이드쇼를 편집하려고 시도했습니다. 휴지통으로 이동되었을 수도 있나요?"
+
+#: modules/local_video/helper.php:95
+#: modules/local_video/helper.php:101
+msgid "Update cover image"
+msgstr "커버 이미지 업데이트"
+
+#: modules/local_video/helper.php:108
+msgid "Set cover image"
+msgstr "커버 이미지 설정"
+
+#: modules/local_video/helper.php:159
+#: modules/local_video/slide.php:1163
+msgid "Update slide video"
+msgstr "슬라이드 비디오 업데이트"
+
+#: modules/local_video/helper.php:163
+#: modules/local_video/slide.php:585
+#: modules/local_video/slide.php:1167
+msgid "Browse"
+msgstr "찾아보기"
+
+#: modules/local_video/helper.php:168
+#: modules/local_video/slide.php:1172
+msgid "Video File"
+msgstr "비디오 파일"
+
+#: modules/local_video/slide.php:109
+msgid "Select replacement video"
+msgstr "대체 비디오 선택"
+
+#: modules/local_video/slide.php:110
+msgid "Select replacement cover"
+msgstr "대체 커버 선택"
+
+#: modules/local_video/slide.php:111
+msgid "Select replacement text track"
+msgstr "대체 텍스트 트랙 선택"
+
+#: modules/local_video/slide.php:197
+#: modules/local_video/slide.php:2075
+msgid "Invalid nonce"
+msgstr "유효하지 않은 논스"
+
+#: modules/local_video/slide.php:218
+#: modules/local_video/slide.php:897
+#: modules/local_video/slide.php:1107
+msgid "Not supported video format"
+msgstr "지원되지 않는 비디오 형식"
+
+#: modules/local_video/slide.php:349
+msgid "Local Video Slide"
+msgstr "로컬 비디오 슬라이드"
+
+#: modules/local_video/slide.php:370
+msgid "Please update to MetaSlider Slideshow to version 3.2 or above."
+msgstr "MetaSlider Slideshow를 버전 3.2 이상으로 업데이트해 주세요."
+
+#: modules/local_video/slide.php:415
+msgid "Cover"
+msgstr "커버"
+
+#: modules/local_video/slide.php:419
+msgid "Text track"
+msgstr "텍스트 트랙"
+
+#: modules/local_video/slide.php:476
+msgid "Which language is the source file?"
+msgstr "소스 파일의 언어는 무엇인가요?"
+
+#: modules/local_video/slide.php:477
+msgid "Language label"
+msgstr "언어 레이블"
+
+#: modules/local_video/slide.php:482
+msgid "For example: English"
+msgstr "예: 영어"
+
+#: modules/local_video/slide.php:490
+msgid "Choose the type of text track"
+msgstr "텍스트 트랙의 유형을 선택하세요"
+
+#: modules/local_video/slide.php:491
+msgid "Language kind"
+msgstr "언어 종류"
+
+#: modules/local_video/slide.php:497
+msgid "Captions"
+msgstr "자막"
+
+#: modules/local_video/slide.php:500
+msgid "Chapters"
+msgstr "장"
+
+#: modules/local_video/slide.php:503
+msgid "Descriptions"
+msgstr "설명"
+
+#: modules/local_video/slide.php:509
+msgid "Subtitles"
+msgstr "자막"
+
+#: modules/local_video/slide.php:517
+msgid "If the language is English, the code must be en"
+msgstr "언어가 영어인 경우, 코드는 en이어야 합니다"
+
+#: modules/local_video/slide.php:518
+msgid "Language code"
+msgstr "언어 코드"
+
+#: modules/local_video/slide.php:523
+msgid "For example: en"
+msgstr "예: en"
+
+#: modules/local_video/slide.php:576
+msgid "File must be TXT or VTT format"
+msgstr "파일은 TXT 또는 VTT 형식이어야 합니다"
+
+#: modules/local_video/slide.php:577
+msgid "Source"
+msgstr "소스"
+
+#: modules/local_video/slide.php:582
+msgid "Update slide text track"
+msgstr "슬라이드 텍스트 트랙 업데이트"
+
+#: modules/local_video/slide.php:956
+msgid "The cover was successfully removed."
+msgstr "표지가 성공적으로 제거되었습니다."
+
+#: modules/local_video/slide.php:986
+msgid "The requested video does not exist. Please try again."
+msgstr "요청한 비디오가 존재하지 않습니다. 다시 시도해 주세요."
+
+#: modules/local_video/slide.php:995
+msgid "There was an error updating the video. No previous video saved."
+msgstr "비디오 업데이트 중 오류가 발생했습니다. 저장된 이전 비디오가 없습니다."
+
+#: modules/local_video/slide.php:1011
+msgid "The video was successfully updated."
+msgstr "비디오가 성공적으로 업데이트되었습니다."
+
+#: modules/local_video/slide.php:1020
+msgid "There was an error updating the video. Please try again"
+msgstr "비디오 업데이트 중 오류가 발생했습니다. 다시 시도해 주세요"
+
+#: modules/local_video/slide.php:1078
+msgid "You can't add more sources to this video slide."
+msgstr "이 비디오 슬라이드에 더 많은 소스를 추가할 수 없습니다."
+
+#: modules/local_video/slide.php:1094
+msgid "This slide already has a video in that format."
+msgstr "이 슬라이드에는 해당 형식의 비디오가 이미 있습니다."
+
+#: modules/local_video/slide.php:1126
+msgid "The video source was successfully added."
+msgstr "비디오 소스가 성공적으로 추가되었습니다."
+
+#: modules/local_video/slide.php:1237
+msgid "This slide requires at least one video source."
+msgstr "이 슬라이드에는 최소한 하나의 비디오 소스가 필요합니다."
+
+#: modules/local_video/slide.php:1250
+msgid "The video source was successfully removed."
+msgstr "비디오 소스가 성공적으로 제거되었습니다."
+
+#: modules/local_video/slide.php:1301
+msgid "Not supported text track format"
+msgstr "지원되지 않는 텍스트 트랙 형식"
+
+#: modules/local_video/slide.php:1343
+msgid "The requested text track does not exist. Please try again."
+msgstr "요청한 텍스트 트랙이 존재하지 않습니다. 다시 시도해 주십시오."
+
+#: modules/local_video/slide.php:1364
+msgid "The text track was successfully updated."
+msgstr "텍스트 트랙이 성공적으로 업데이트되었습니다."
+
+#: modules/local_video/slide.php:1373
+msgid "There was an error updating the text track. Please try again"
+msgstr "텍스트 트랙 업데이트 중 오류가 발생했습니다. 다시 시도해 주십시오."
+
+#: modules/local_video/slide.php:1420
+msgid "The text track was successfully removed."
+msgstr "텍스트 트랙이 성공적으로 제거되었습니다."
+
+#: modules/local_video/tabs/caption.php:7
+msgid ""
+"Please note that captions on videos can interfere with player controls. We "
+"recommend adding captions when \"Auto play\" is enabled, and \"Show "
+"controls\" and \"Lazy load video\" are both disabled."
+msgstr ""
+"비디오에 자막이 있으면 플레이어 컨트롤에 영향을 줄 수 있습니다. \"자동 재생\"이 활성화되고 \"컨트롤 표시\"와 \"비디오 지연 "
+"로드\"가 모두 비활성화된 경우 자막을 추가하는 것이 좋습니다."
+
+#: modules/local_video/tabs/general.php:50
+#: modules/local_video/tabs/general.php:52
+msgid "Add a new video source"
+msgstr "새 비디오 소스 추가"
+
+#: modules/local_video/tabs/general.php:55
+msgid ""
+"Adding more formats for the same video can help improve support for "
+"different platforms."
+msgstr "같은 비디오에 대해 더 많은 형식을 추가하면 다양한 플랫폼에 대한 지원을 개선하는 데 도움이 될 수 있습니다."
+
+#: modules/local_video/tabs/general.php:97
+msgid "May require video to be muted"
+msgstr "비디오가 음소거 되어야 할 수 있습니다"
+
+#: modules/local_video/tabs/general.php:137
+msgid "Fit video in container"
+msgstr "컨테이너에 비디오 맞추기"
+
+#: modules/local_video/tabs/general.php:150
+msgid "Fade in transition"
+msgstr "페이드 인 전환"
+
+#: modules/local_video/tabs/general.php:152
+msgid ""
+"Fade in before video loads. Recommended when slide and slideshow Auto play "
+"are enabled, and slideshow Transition effect is fade."
+msgstr "비디오가 로드되기 전에 페이드 인합니다. 슬라이드 및 슬라이드쇼 자동 재생이 활성화되고 슬라이드쇼 전환 효과가 페이드일 때 권장됩니다."
+
+#: modules/local_video/tabs/link.php:8
+msgid "Video Link URL"
+msgstr "비디오 링크 URL"
+
+#: modules/local_video/tabs/link.php:11
+msgid ""
+"When visitors click on your video slide, they will be taken to this URL. "
+"This may affect how user interacts with the video controls."
+msgstr "방문자가 비디오 슬라이드를 클릭하면 이 URL로 이동합니다. 이는 사용자가 비디오 컨트롤과 상호작용하는 방식에 영향을 줄 수 있습니다."
 
 #: themes/architekt/customize.php:16
 #: themes/architekt/customize.php:356
@@ -6508,8 +6867,8 @@ msgstr "슬라이드 1개 준비 중..."
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/dist/js/app.js:2
 #: admin/assets/js/admin.js:168
-#: admin/assets/js/admin.js:1519
-#: admin/assets/js/admin.js:1562
+#: admin/assets/js/admin.js:1554
+#: admin/assets/js/admin.js:1597
 msgid "1 slide added successfully"
 msgstr "슬라이드 1개가 성공적으로 추가되었습니다"
 
@@ -6530,6 +6889,8 @@ msgstr "슬라이드 추가 UI 닫기 중..."
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:314
+#: modules/local_video/assets/local_video.js:208
+#: modules/local_video/assets/local_video.js:632
 msgid "Updating slide..."
 msgstr "슬라이드 업데이트 중..."
 
@@ -6550,21 +6911,22 @@ msgstr "언스플래시 라이브러리"
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:959
 msgid "Pixabay Library"
 msgstr "Pixabay 라이브러리"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1347
+#: admin/assets/js/admin.js:1382
 msgid "Crop position saved and image cropped"
 msgstr "크롭 위치가 저장되었고 이미지가 크롭되었습니다"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1364
+#: admin/assets/js/admin.js:1399
 msgid "There was an error when saving crop position or cropping the image"
 msgstr "크롭 위치를 저장하거나 이미지를 크롭하는 중 오류가 발생했습니다"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1577
+#: admin/assets/js/admin.js:1612
 msgid "Device options are enabled for this slide. Adjust using the Device tab."
 msgstr "이 슬라이드에 대해 장치 옵션이 활성화되었습니다. 장치 탭을 사용하여 조정하십시오."
 
@@ -6974,6 +7336,40 @@ msgstr "사진이 발견되지 않았습니다."
 #: admin/assets/dist/js/app.js:2
 msgid "All images published on Pixabay can be used for free."
 msgstr "Pixabay에 게시된 모든 이미지는 무료로 사용할 수 있습니다."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Search pixabay.com videos..."
+msgstr "pixabay.com 비디오 검색..."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s on Pixabay"
+msgstr "Pixabay의 %s 제공 비디오"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Video on Pixabay"
+msgstr "Pixabay의 비디오"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Opening Pixabay Video tab..."
+msgstr "Pixabay 비디오 탭 여는 중..."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Pixabay Video tab closed"
+msgstr "Pixabay 비디오 탭이 닫혔습니다"
+
+#: admin/assets/dist/js/app.js:2
+msgid "No videos found."
+msgstr "비디오를 찾을 수 없습니다."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s"
+msgstr "%s의 비디오"
+
+#: admin/assets/dist/js/app.js:2
+msgid "All videos published on Pixabay can be used for free."
+msgstr "Pixabay에 게시된 모든 비디오는 무료로 사용할 수 있습니다."
 
 #: admin/assets/dist/js/app.js:2
 msgid "Complete!"
@@ -7860,6 +8256,11 @@ msgid "Importing %s slideshows... This may take a minute"
 msgstr "%s 개의 슬라이드쇼를 가져오는 중입니다... 잠시만 기다려 주세요"
 
 #: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Failed to import: %s"
+msgstr "가져오기에 실패했습니다: %s"
+
+#: admin/assets/dist/js/app.js:2
 msgid "Import successful"
 msgstr "가져오기 성공"
 
@@ -7893,6 +8294,11 @@ msgstr "처리 중..."
 #: admin/assets/dist/js/app.js:2
 msgid "Upload file"
 msgstr "파일 업로드"
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Importing slideshow %1$s of %2$s (%3$s slides). This may take a minute."
+msgstr "%1$s의 슬라이드쇼 %2$s 가져오는 중 (%3$s 슬라이드). 잠시 시간이 걸릴 수 있습니다."
 
 #: admin/assets/dist/js/app.js:2
 msgid ""
@@ -8067,6 +8473,43 @@ msgstr "설정 페이지를 여는 중..."
 msgid "Page not found: %s"
 msgstr "페이지를 찾을 수 없습니다: %s"
 
+#: admin/assets/js/app/slides/external/videoQuality.js:29, fuzzy
+msgid "4K"
+msgstr "4K"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:30
+msgid "Quad HD"
+msgstr "쿼드 HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:31
+msgid "Full HD"
+msgstr "풀 HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:32, fuzzy
+msgid "HD"
+msgstr "HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:33, fuzzy
+msgid "SD"
+msgstr "SD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:45
+msgid "SD (if available)"
+msgstr "SD (사용 가능한 경우)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:46
+msgid "HD (if available)"
+msgstr "HD (사용 가능한 경우)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:47
+msgid "Full HD (if available)"
+msgstr "풀 HD (사용 가능한 경우)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:48
+#: admin/assets/js/app/slides/external/videoQuality.js:64
+msgid "Original"
+msgstr "원본"
+
 #: admin/assets/js/app/tour/main.js:12
 msgid "Add a slide"
 msgstr "슬라이드 추가"
@@ -8188,6 +8631,101 @@ msgstr "슬라이드쇼"
 msgid "gallery"
 msgstr "갤러리"
 
+#: admin/assets/js/livid-iframe.js:132
+#: modules/local_video/assets/local_video.js:46
+#: modules/local_video/assets/local_video.js:166
+#, js-format
+msgid "Preparing %s slide..."
+msgstr "%s 슬라이드 준비 중..."
+
+#: modules/local_video/assets/local_video.js:61
+#: modules/local_video/assets/local_video.js:181
+msgid "This isn't a supported video format. Please use MP4, WebM, or MOV videos."
+msgstr "지원되지 않는 비디오 형식입니다. MP4, WebM 또는 MOV 비디오를 사용하십시오."
+
+#: modules/local_video/assets/local_video.js:241
+#: modules/local_video/assets/local_video.js:690
+msgid "There is an error"
+msgstr "오류가 발생했습니다"
+
+#: modules/local_video/assets/local_video.js:265
+#: modules/local_video/assets/local_video.js:741
+msgid "Video source added successfully"
+msgstr "비디오 소스가 성공적으로 추가되었습니다"
+
+#: modules/local_video/assets/local_video.js:282
+#: modules/local_video/assets/local_video.js:762
+msgid "Video updated successfully"
+msgstr "비디오가 성공적으로 업데이트되었습니다"
+
+#: modules/local_video/assets/local_video.js:324
+msgid "Create slideshows with videos hosted in your media library"
+msgstr "미디어 라이브러리에 호스팅된 비디오로 슬라이드쇼 만들기"
+
+#: modules/local_video/assets/local_video.js:326
+msgid "Create slideshows with images in your media library"
+msgstr "미디어 라이브러리에 있는 이미지로 슬라이드쇼 만들기"
+
+#: modules/local_video/assets/local_video.js:328
+msgid ""
+"Layer Slides allow you to add text, colors, shortcodes and media on top of "
+"an image or video."
+msgstr "레이어 슬라이드를 사용하면 이미지나 비디오 위에 텍스트, 색상, 숏코드 및 미디어를 추가할 수 있습니다."
+
+#: modules/local_video/assets/local_video.js:398
+msgid "Cover removed successfully."
+msgstr "표지가 성공적으로 제거되었습니다."
+
+#: modules/local_video/assets/local_video.js:431
+msgid "You can't delete this video. This slide requires at least one video source."
+msgstr "이 비디오는 삭제할 수 없습니다. 이 슬라이드는 최소한 하나의 비디오 소스가 필요합니다."
+
+#: modules/local_video/assets/local_video.js:462
+msgid "Video source removed successfully"
+msgstr "비디오 소스가 성공적으로 제거되었습니다"
+
+#: modules/local_video/assets/local_video.js:481
+msgid "No text track has beed selected for this slide."
+msgstr "이 슬라이드에 대해 선택된 텍스트 트랙이 없습니다."
+
+#: modules/local_video/assets/local_video.js:503
+msgid "There was an error removing the text track"
+msgstr "텍스트 트랙을 제거하는 동안 오류가 발생했습니다."
+
+#: modules/local_video/assets/local_video.js:520
+msgid "Text track removed successfully"
+msgstr "텍스트 트랙이 성공적으로 제거되었습니다."
+
+#: modules/local_video/assets/local_video.js:546
+#, js-format
+msgid "Select Replacement %s Video"
+msgstr "대체 %s 비디오 선택"
+
+#: modules/local_video/assets/local_video.js:608
+#, js-format
+msgid "Please select a %s video for this source!"
+msgstr "이 소스를 위해 %s 비디오를 선택해 주세요!"
+
+#: modules/local_video/assets/local_video.js:702
+msgid "This isn't a supported image format. Please use JPG, PNG, or GIF images."
+msgstr "지원되지 않는 이미지 형식입니다. JPG, PNG 또는 GIF 이미지를 사용해 주세요."
+
+#: modules/local_video/assets/local_video.js:708
+msgid "This isn't a supported text track format. Please use TXT or VTT files."
+msgstr "지원되지 않는 텍스트 트랙 형식입니다. TXT 또는 VTT 파일을 사용해 주세요."
+
+#: modules/local_video/assets/local_video.js:788
+msgid "Text track updated successfully"
+msgstr "텍스트 트랙이 성공적으로 업데이트되었습니다."
+
+#: modules/local_video/assets/local_video.js:861
+msgid "Cover image updated successfully"
+msgstr "표지 이미지가 성공적으로 업데이트되었습니다."
+
+#: modules/local_video/assets/local_video.js:906
+msgid "Duplicating the slide failed."
+msgstr "슬라이드 복제가 실패했습니다."
+
 #: admin/Notices.php:101
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
@@ -8202,7 +8740,7 @@ msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Review MetaSlider Slideshow &rarr;"
 msgstr "MetaSlider 리뷰 &rarr;"
 
-#: ml-slider.php:2053
+#: ml-slider.php:2103
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Select slideshow to insert into post"
@@ -8210,8 +8748,8 @@ msgstr "게시물에 삽입할 슬라이드쇼 선택"
 
 #: admin/views/pages/parts/slider-settings.php:665
 #: admin/views/pages/parts/slider-settings.php:685
-#: admin/views/pages/parts/slider-settings.php:1420
-#: admin/views/pages/parts/slider-settings.php:1454, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1450, fuzzy
 msgctxt "Short for milliseconds"
 msgid "ms"
 msgstr "ms"
@@ -8221,7 +8759,7 @@ msgctxt "This is a keyboard shortcut."
 msgid " (Use Alt or ⌥ (Option) + P keys)"
 msgstr " (Alt 또는 ⌥ (옵션) + P 키 사용)"
 
-#: admin/views/pages/start.php:382
+#: admin/views/pages/start.php:383
 msgctxt "Uploader: Drop files to upload - or - Select Files"
 msgid "or"
 msgstr "또는"

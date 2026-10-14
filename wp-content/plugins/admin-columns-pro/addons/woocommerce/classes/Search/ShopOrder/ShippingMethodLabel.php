@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use ACP\Query\Bindings;
@@ -7,10 +9,10 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class ShippingMethodLabel extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -31,7 +33,7 @@ class ShippingMethodLabel extends Comparison
 
         $bindings = new Bindings();
 
-        $alias_order = $bindings->get_unique_alias('smoi');
+        $alias_order = AliasGenerator::generate_from_class(static::class);
 
         $comparison = ComparisonFactory::create("{$alias_order}.order_item_name", $operator, $value);
         $bindings->where($comparison());

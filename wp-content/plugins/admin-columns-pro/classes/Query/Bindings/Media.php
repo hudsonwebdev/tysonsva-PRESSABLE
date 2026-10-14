@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Query\Bindings;
 
 class Media extends Post
 {
-
-    protected $mime_types = [];
+    protected array $mime_types = [];
 
     public function get_mime_types(): array
     {

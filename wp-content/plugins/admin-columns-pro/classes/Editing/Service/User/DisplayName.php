@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service\User;
 
 use AC\Helper\Select\Options;
@@ -10,24 +12,23 @@ use ACP\Editing\View;
 
 class DisplayName extends BasicStorage implements RemoteOptions
 {
-
     public function __construct()
     {
         parent::__construct(new Storage\User\DisplayName());
     }
 
-    public function get_view(string $context): ?View
+    public function get_view(string $context): View\RemoteSelect
     {
-        if ($context === self::CONTEXT_BULK) {
-            return null;
-        }
-
         return new View\RemoteSelect();
     }
 
-    public function get_remote_options(int $id = null): Options
+    public function get_remote_options(?int $id = null): Options
     {
-        $user = get_userdata($id);
+        $user = get_userdata((int)$id);
+
+        if (! $user) {
+            return Options::create_from_array([]);
+        }
 
         $options = [
             $user->nickname,
@@ -55,7 +56,7 @@ class DisplayName extends BasicStorage implements RemoteOptions
             );
         }
 
-        if ( ! in_array($user->display_name, $options, true)) {
+        if (! in_array($user->display_name, $options, true)) {
             $options[] = $user->display_name;
         }
 

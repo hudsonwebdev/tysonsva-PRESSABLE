@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopCoupon;
 
 use ACA\WC\Helper\Select\ProductValuesTrait;
@@ -7,10 +9,8 @@ use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Products extends Comparison\Meta
-    implements Comparison\SearchableValues
+class Products extends Comparison\Meta implements Comparison\SearchableValues
 {
-
     use ProductValuesTrait;
 
     public function __construct($meta_key)

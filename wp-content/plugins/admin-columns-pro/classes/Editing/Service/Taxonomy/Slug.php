@@ -1,17 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service\Taxonomy;
 
 use ACP\Editing\View;
 
-class Slug extends Field {
+class Slug extends Field
+{
+    public function __construct(string $taxonomy)
+    {
+        parent::__construct($taxonomy, 'slug');
+    }
 
-	public function __construct( $taxonomy ) {
-		parent::__construct( $taxonomy, 'slug' );
-	}
-
-	public function get_view( string $context ): ?View {
-		return new View\Text();
-	}
+    public function get_view(string $context): ?View
+    {
+        return new View\Text();
+    }
 
 }

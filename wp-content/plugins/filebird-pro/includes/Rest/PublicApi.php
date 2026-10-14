@@ -179,17 +179,14 @@ class PublicApi {
 	}
 
     private function getBearerToken() {
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		$token   = null;
 		$headers = $this->getAuthorizationHeader();
-		// HEADER: Get the access token from the header
+		// The key is only ever read from the Authorization header. Accepting it
+		// from the query string leaks it into proxy, CDN and access logs.
 		if ( ! empty( $headers ) ) {
 			if ( preg_match( '/Bearer\s(\S+)/', $headers, $matches ) ) {
 				$token = $matches[1];
 			}
-		}
-		if ( is_null( $token ) && isset( $_REQUEST['token'] ) ) {
-			$token = $_REQUEST['token'];
 		}
 		return $token;
 	}
@@ -200,9 +197,13 @@ class PublicApi {
 
 	public function permission_callback( $request ) {
 		$key = get_option( 'fbv_rest_api_key', '' );
-		if ( \strlen( $key ) == 40 ) {
-			return $key === $this->getBearerToken();
+
+		if ( \strlen( $key ) !== 40 ) {
+			return false;
 		}
-		return false;
+
+		$token = $this->getBearerToken();
+
+		return is_string( $token ) && hash_equals( $key, $token );
 	}
 }

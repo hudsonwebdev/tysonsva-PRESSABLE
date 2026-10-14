@@ -10,38 +10,42 @@ use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Type\ComputationType;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\AliasGenerator;
+use ACP\Sql\Join;
 
 class Dimensions implements WarningAware, QueryBindings
 {
-
     public function create_query_bindings(Order $order): Bindings
     {
         global $wpdb;
 
         $bindings = new Bindings();
 
-        $alias_l = $bindings->get_unique_alias('length');
-        $alias_w = $bindings->get_unique_alias('width');
-        $alias_h = $bindings->get_unique_alias('height');
+        $alias_length = AliasGenerator::generate('sorting_length');
+        $alias_width = AliasGenerator::generate('sorting_width');
+        $alias_height = AliasGenerator::generate('sorting_height');
 
         $bindings->join(
-            "
-				LEFT JOIN $wpdb->postmeta AS $alias_l
-					ON $alias_l.post_id = $wpdb->posts.ID
-					AND $alias_l.meta_key = '_length' 
-				LEFT JOIN $wpdb->postmeta AS $alias_w
-					ON $alias_w.post_id = $wpdb->posts.ID
-					AND $alias_w.meta_key = '_width' 
-				LEFT JOIN $wpdb->postmeta AS $alias_h
-					ON $alias_h.post_id = $wpdb->posts.ID
-					AND $alias_h.meta_key = '_height' 
-				"
+            Join::left($wpdb->postmeta, $alias_length)
+                ->on("$alias_length.post_id", '=', "$wpdb->posts.ID")
+                ->on("$alias_length.meta_key", '=', "'_length'")
+                ->get_sql()
+            . "\n" .
+            Join::left($wpdb->postmeta, $alias_width)
+                ->on("$alias_width.post_id", '=', "$wpdb->posts.ID")
+                ->on("$alias_width.meta_key", '=', "'_width'")
+                ->get_sql()
+            . "\n" .
+            Join::left($wpdb->postmeta, $alias_height)
+                ->on("$alias_height.post_id", '=', "$wpdb->posts.ID")
+                ->on("$alias_height.meta_key", '=', "'_height'")
+                ->get_sql()
         );
         $bindings->group_by("$wpdb->posts.ID");
         $bindings->order_by(
             SqlOrderByFactory::create_with_computation(
                 new ComputationType(ComputationType::SUM),
-                "$alias_l.meta_value * $alias_w.meta_value * $alias_h.meta_value",
+                "$alias_length.meta_value * $alias_width.meta_value * $alias_height.meta_value",
                 (string)$order
             )
         );

@@ -16,10 +16,9 @@ use InvalidArgumentException;
 
 class OptionsFactory
 {
-
     public function create_logic_options(Comparison $comparison): Options
     {
-        if ( ! $this->needs_logic_group($comparison)) {
+        if (! $this->needs_logic_group($comparison)) {
             throw new InvalidArgumentException('Invalid comparison.');
         }
 
@@ -28,7 +27,7 @@ class OptionsFactory
 
     public function create_by_values(Comparison $comparison): Options
     {
-        if ( ! $comparison instanceof Values) {
+        if (! $comparison instanceof Values) {
             throw new InvalidArgumentException('Invalid comparison.');
         }
 
@@ -39,7 +38,7 @@ class OptionsFactory
 
     public function create_by_remote(Comparison $comparison): Options
     {
-        if ( ! $comparison instanceof RemoteValues) {
+        if (! $comparison instanceof RemoteValues) {
             throw new InvalidArgumentException('Invalid comparison.');
         }
 
@@ -50,7 +49,7 @@ class OptionsFactory
 
     public function create_by_searchable(Comparison $comparison, Options $options): Options
     {
-        if ( ! $comparison instanceof SearchableValues) {
+        if (! $comparison instanceof SearchableValues) {
             throw new InvalidArgumentException('Invalid comparison.');
         }
 
@@ -77,7 +76,7 @@ class OptionsFactory
 
         $values = $options->get_copy();
 
-        if ( ! $this->contains_group($values)) {
+        if (! $this->contains_group($values)) {
             $values = [$this->wrap_in_group($values)];
         }
 
@@ -114,14 +113,14 @@ class OptionsFactory
         if ($comparison->get_operators()->search(Operators::IS_EMPTY)) {
             $options[] = new Option(
                 EmptyOptions::IS_EMPTY,
-                $comparison->get_labels()[Operators::IS_EMPTY]
+                (string)$comparison->get_labels()[Operators::IS_EMPTY]
             );
         }
 
         if ($comparison->get_operators()->search(Operators::NOT_IS_EMPTY)) {
             $options[] = new Option(
                 EmptyOptions::NOT_IS_EMPTY,
-                $comparison->get_labels()[Operators::NOT_IS_EMPTY]
+                (string)$comparison->get_labels()[Operators::NOT_IS_EMPTY]
             );
         }
 

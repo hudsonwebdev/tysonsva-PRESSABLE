@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ShopOrder;
 
 use ACP;
 use ACP\Search\Comparison;
 use ACP\Search\Operators;
 
-class Customer extends Comparison\Meta
-    implements Comparison\SearchableValues
+class Customer extends Comparison\Meta implements Comparison\SearchableValues
 {
-
     use ACP\Search\UserValuesTrait;
 
     public function __construct()

@@ -11,16 +11,7 @@ use Iterator;
 
 final class SourceCollection implements Iterator, Countable
 {
-
-    /**
-     * @var string[]
-     */
-    private $data = [];
-
-    public function __construct(array $data = [])
-    {
-        array_map([$this, 'add'], $data);
-    }
+    private array $data = [];
 
     public function add(ListScreenId $id, string $source): void
     {
@@ -39,7 +30,7 @@ final class SourceCollection implements Iterator, Countable
 
     public function get(ListScreenId $id): string
     {
-        if ( ! $this->contains($id)) {
+        if (! $this->contains($id)) {
             throw new InvalidArgumentException(sprintf('No source found for id %s.', $id));
         }
 
@@ -58,7 +49,7 @@ final class SourceCollection implements Iterator, Countable
 
     public function key(): ListScreenId
     {
-        return new ListScreenId(key($this->data));
+        return new ListScreenId((string)key($this->data));
     }
 
     public function valid(): bool

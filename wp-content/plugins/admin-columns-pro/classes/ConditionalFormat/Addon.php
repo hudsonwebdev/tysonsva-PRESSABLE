@@ -5,27 +5,21 @@ declare(strict_types=1);
 namespace ACP\ConditionalFormat;
 
 use AC\Asset\Location;
+use AC\DI\Container;
 use AC\Registerable;
 use AC\Services;
-use ACP\ConditionalFormat\Settings\ListScreen\HideOnScreenFactory;
+use ACP\AdminColumnsPro;
 
 final class Addon implements Registerable
 {
+    private Location $location;
 
-    private $location;
+    private Container $container;
 
-    private $rules_repository_factory;
-
-    private $hide_on_screen_factory;
-
-    public function __construct(
-        Location\Absolute $location,
-        RulesRepositoryFactory $rules_repository_factory,
-        HideOnScreenFactory $hide_on_screen_factory
-    ) {
-        $this->location = $location;
-        $this->rules_repository_factory = $rules_repository_factory;
-        $this->hide_on_screen_factory = $hide_on_screen_factory;
+    public function __construct(AdminColumnsPro $plugin, Container $container)
+    {
+        $this->location = $plugin->get_location();
+        $this->container = $container;
     }
 
     public function register(): void
@@ -36,18 +30,9 @@ final class Addon implements Registerable
 
     private function create_services(): Services
     {
-        $operators = new Operators();
-
         return new Services([
-            new Service\Assets(
-                $this->location,
-                $operators,
-                $this->rules_repository_factory,
-                $this->hide_on_screen_factory
-            ),
-            new Service\Formatter($operators, $this->rules_repository_factory),
-            new Service\ListScreenSettings($this->hide_on_screen_factory),
-            new Service\Storage($this->rules_repository_factory),
+            $this->container->make(Service\Assets::class, ['location' => $this->location]),
+            $this->container->make(Service\ListScreenSettings::class),
         ]);
     }
 

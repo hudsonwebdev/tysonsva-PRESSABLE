@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Search\Comparison\Repeater;
 
 use ACA\ACF\Search\Comparison;
@@ -9,7 +11,6 @@ use ACP\Search\UserValuesTrait;
 
 class User extends Comparison\Repeater implements SearchableValues
 {
-
     use UserValuesTrait;
 
     public function __construct(string $meta_type, string $parent_key, string $sub_key, bool $multiple)

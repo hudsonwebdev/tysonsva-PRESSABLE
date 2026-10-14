@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Query;
 
 use AC;
@@ -9,14 +11,13 @@ use WP_Screen;
 
 final class OrderQueryController implements Registerable
 {
-
     private bool $is_main_query = false;
 
     private const KEY = 'ac_is_main_order_query';
 
-    private AC\ListScreenFactory\Aggregate $factory;
+    private AC\TableScreenFactory\Aggregate $factory;
 
-    public function __construct(AC\ListScreenFactory\Aggregate $factory)
+    public function __construct(AC\TableScreenFactory\Aggregate $factory)
     {
         $this->factory = $factory;
     }
@@ -28,13 +29,13 @@ final class OrderQueryController implements Registerable
 
     public function init(WP_Screen $screen): void
     {
-        if ( ! $this->factory->can_create_from_wp_screen($screen)) {
+        if (! $this->factory->can_create_from_wp_screen($screen)) {
             return;
         }
 
         $order = $this->factory->create_from_wp_screen($screen);
 
-        if ( ! $order instanceof WC\ListScreen\Order && ! $order instanceof WC\ListScreen\OrderSubscription) {
+        if (! $order instanceof WC\TableScreen\Order && ! $order instanceof WC\Subscriptions\TableScreen\OrderSubscription) {
             return;
         }
 

@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\FormatValue;
 
 use ACP\Sorting\FormatValue;
 
-class StripContent implements FormatValue {
-
-	public function format_value( $string ) {
-		return trim( strip_shortcodes( strip_tags( $string ) ) );
-	}
+class StripContent implements FormatValue
+{
+    public function format_value($value)
+    {
+        return trim(strip_shortcodes(strip_tags((string)$value)));
+    }
 
 }

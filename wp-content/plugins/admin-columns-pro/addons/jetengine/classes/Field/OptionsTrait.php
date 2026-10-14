@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\JetEngine\Field;
 
 use ACA\JetEngine\Mapping;
 
 trait OptionsTrait
 {
-
-    public function get_options()
+    public function get_options(): array
     {
         if ($this instanceof GlossaryOptions && $this->has_glossary_options()) {
             return $this->get_glossary_options();

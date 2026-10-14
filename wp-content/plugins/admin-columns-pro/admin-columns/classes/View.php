@@ -1,19 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC;
 
 class View implements Renderable
 {
+    private array $data = [];
 
-    /**
-     * @var array
-     */
-    private $data = [];
-
-    /**
-     * @var string|null
-     */
-    private $template;
+    private ?string $template;
 
     public function __construct(array $data = [])
     {
@@ -30,9 +25,9 @@ class View implements Renderable
         return $this->get($key);
     }
 
-    public function __set($key, $value)
+    public function __set($key, $value): void
     {
-        return $this->set($key, $value);
+        $this->set($key, $value);
     }
 
     public function set(string $key, $value): self
@@ -67,11 +62,9 @@ class View implements Renderable
          * @param array  $paths    Template paths
          * @param string $template Current template path
          */
-        $paths = apply_filters(
+        $paths = (array)apply_filters(
             'ac/view/templates',
-            [
-                Container::get_location()->with_suffix('templates')->get_path(),
-            ],
+            [],
             $this->template
         );
 
@@ -94,7 +87,7 @@ class View implements Renderable
 
         $this->resolve_template();
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
     public function get_template(): ?string

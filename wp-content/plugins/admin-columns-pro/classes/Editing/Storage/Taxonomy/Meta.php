@@ -9,10 +9,9 @@ use ACP;
 
 class Meta extends ACP\Editing\Storage\Meta
 {
-
     public function __construct(string $meta_key)
     {
-        parent::__construct($meta_key, new MetaType(MetaType::TERM));
+        parent::__construct($meta_key, MetaType::create_term_meta());
     }
 
 }

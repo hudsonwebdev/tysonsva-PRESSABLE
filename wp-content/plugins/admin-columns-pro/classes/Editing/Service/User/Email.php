@@ -1,30 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service\User;
 
 use ACP\Editing\Service\BasicStorage;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
 
-class Email extends BasicStorage {
+class Email extends BasicStorage
+{
+    private string $placeholder;
 
-	/**
-	 * @var string
-	 */
-	private $placeholder;
+    public function __construct(string $placeholder)
+    {
+        parent::__construct(new Storage\User\Field('user_email'));
 
-	public function __construct( $placeholder ) {
-		parent::__construct( new Storage\User\Field( 'user_email' ) );
+        $this->placeholder = $placeholder;
+    }
 
-		$this->placeholder = (string) $placeholder;
-	}
-
-	public function get_view( string $context ): ?View {
-		if ( self::CONTEXT_BULK === $context ) {
-			return null;
-		}
-
-		return ( new View\Email() )->set_placeholder( $this->placeholder );
-	}
+    public function get_view(string $context): View\Email
+    {
+        return (new View\Email())->set_placeholder($this->placeholder);
+    }
 
 }

@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
-use ACP\Helper\Select;
 use ACP\Search\Operators;
 
 class AuthorName extends Field
 {
-
     public function __construct()
     {
         $operators = new Operators([

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service\Post;
 
 use ACP\Editing\Service;
@@ -8,7 +10,6 @@ use ACP\Editing\View;
 
 class Date extends Service\DateTime implements Service\Editability
 {
-
     public function __construct()
     {
         parent::__construct(new View\DateTime(), new Storage\Post\Date());
@@ -16,16 +17,24 @@ class Date extends Service\DateTime implements Service\Editability
 
     public function is_editable(int $id): bool
     {
-        return ! $this->is_unsupported_status(get_post($id)->post_status);
+        $post = get_post($id);
+
+        return ! $this->is_unsupported_status($post ? $post->post_status : '');
     }
 
     public function get_not_editable_reason(int $id): string
     {
         $post = get_post($id);
 
+        if (! $post) {
+            return '';
+        }
+
+        $post_type = get_post_type_object($post->post_type);
+
         return sprintf(
             __('Date can not be updated for %s with %s status.', 'codepress-admin-columns'),
-            get_post_type_object($post->post_type)->labels->singular_name,
+            $post_type ? $post_type->labels->singular_name : $post->post_type,
             $post->post_status
         );
     }

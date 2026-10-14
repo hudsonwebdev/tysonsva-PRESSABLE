@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListScreenRepository\Sort;
 
 use AC\ListScreenCollection;
@@ -8,34 +10,33 @@ use AC\Storage;
 
 class ManualOrder implements Sort
 {
-
-    private $list_screen_order;
+    private Storage\Repository\ListScreenOrder $list_screen_order;
 
     public function __construct()
     {
-        $this->list_screen_order = new Storage\ListScreenOrder();
+        $this->list_screen_order = new Storage\Repository\ListScreenOrder();
     }
 
     public function sort(ListScreenCollection $list_screens): ListScreenCollection
     {
-        if ( ! $list_screens->count()) {
+        $list_screen = $list_screens->first();
+
+        if (! $list_screen) {
             return $list_screens;
         }
 
-        $key = $list_screens->get_first()->get_key();
+        $key = $list_screen->get_table_id();
 
         $layouts = [];
 
         foreach ($list_screens as $list_screen) {
-            if ($list_screen->has_id()) {
-                $layouts[(string)$list_screen->get_id()] = $list_screen;
-            }
+            $layouts[(string)$list_screen->get_id()] = $list_screen;
         }
 
         $ordered = new ListScreenCollection();
 
         foreach ($this->list_screen_order->get($key) as $layout_id) {
-            if ( ! isset($layouts[$layout_id])) {
+            if (! isset($layouts[$layout_id])) {
                 continue;
             }
 

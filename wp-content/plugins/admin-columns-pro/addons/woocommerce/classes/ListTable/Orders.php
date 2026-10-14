@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\ListTable;
 
 use AC;
@@ -7,17 +9,11 @@ use Automattic;
 
 class Orders implements AC\ListTable
 {
-
-    private $table;
+    private Automattic\WooCommerce\Internal\Admin\Orders\ListTable $table;
 
     public function __construct(Automattic\WooCommerce\Internal\Admin\Orders\ListTable $list_table)
     {
         $this->table = $list_table;
-    }
-
-    public function get_total_items(): int
-    {
-        return $this->table->get_pagination_arg('total_items');
     }
 
     public function render_row($id): string
@@ -26,22 +22,30 @@ class Orders implements AC\ListTable
 
         $this->table->single_row(wc_get_order($id));
 
-        return ob_get_clean();
+        return (string)ob_get_clean();
     }
 
-    public function get_column_value(string $column, $id): string
+    public function render_cell(string $column_id, $row_id): string
     {
-        ob_start();
+        $order = wc_get_order($row_id);
 
-        $method = 'column_' . $column;
-
-        if (method_exists($this->table, $method)) {
-            call_user_func([$this->table, $method], wc_get_order($id));
-        } else {
-            $this->table->column_default(wc_get_order($id), $column);
+        if (! $order) {
+            return '';
         }
 
-        return ob_get_clean();
+        ob_start();
+
+        $method = 'column_' . $column_id;
+
+        if (method_exists($this->table, $method)) {
+            call_user_func([$this->table, $method], $order);
+        } else {
+            // WC's column_default relies on $this->order_type which is only set via setup(),
+            // called on the actual orders page — not in AJAX context. Fire the action directly.
+            do_action('woocommerce_shop_order_list_table_custom_column', $column_id, $order);
+        }
+
+        return (string)ob_get_clean();
     }
 
 }

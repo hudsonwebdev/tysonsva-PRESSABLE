@@ -11,13 +11,12 @@ use Exception;
 
 abstract class RequestHandler implements ACP\Editing\RequestHandler
 {
-
     private const STATUS_FAILED = 'failed';
     private const STATUS_SUCCESS = 'success';
 
     abstract protected function delete($id, array $args = []): void;
 
-    public function handle(Request $request)
+    public function handle(Request $request): void
     {
         $response = new Response\Json();
 

@@ -5,7 +5,7 @@
  * Plugin Name: MetaSlider Slideshow
  * Plugin URI:  https://www.metaslider.com
  * Description: MetaSlider gives you the power to create a beautiful slideshow, carousel, or gallery on your WordPress site.
- * Version:     3.112.0
+ * Version:     3.113.1
  * Author:      MetaSlider
  * Author URI:  https://www.metaslider.com
  * License:     GPL-2.0+
@@ -44,7 +44,7 @@ if (! class_exists('MetaSliderPlugin')) {
          *
          * @var string
          */
-        public $version = '3.112.0';
+        public $version = '3.113.1';
 
         /**
          * Pro installed version number
@@ -175,7 +175,7 @@ if (! class_exists('MetaSliderPlugin')) {
             if (! defined('METASLIDER_VERSION')) {
                 $assets_version = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? uniqid() : $this->version;
 
-                define('METASLIDER_VERSION', '3.112.0');
+                define('METASLIDER_VERSION', '3.113.1'); // We need it defined as string due `composer build` doesn't detect $this->version
                 define('METASLIDER_ASSETS_VERSION', $assets_version);
                 define('METASLIDER_BASE_URL', plugin_dir_url(metaslider_plugin_is_installed('ml-slider')));
                 define('METASLIDER_ASSETS_URL', METASLIDER_BASE_URL . 'assets/');
@@ -200,6 +200,7 @@ if (! class_exists('MetaSliderPlugin')) {
                 'metaresponsiveslider' => METASLIDER_PATH . 'inc/slider/metaslider.responsive.class.php',
                 'metaslide' => METASLIDER_PATH . 'inc/slide/metaslide.class.php',
                 'metaimageslide' => METASLIDER_PATH . 'inc/slide/metaslide.image.class.php',
+                'metalividslide' => METASLIDER_PATH . 'inc/slide/metaslide.livid.class.php',
                 'metaslider_image_styles' => METASLIDER_PATH . 'inc/metaslider.imagestyles.class.php',
                 'metasliderimagehelper' => METASLIDER_PATH . 'inc/metaslider.imagehelper.class.php',
                 'metaslidersystemcheck' => METASLIDER_PATH . 'inc/metaslider.systemcheck.class.php',
@@ -216,6 +217,8 @@ if (! class_exists('MetaSliderPlugin')) {
                 'metaslider_gutenberg' => METASLIDER_PATH . 'admin/Gutenberg.php',
                 'metaslider_email_collection' => METASLIDER_PATH . 'admin/support/EmailCollection.php',
                 'metasliderquickstart' => METASLIDER_PATH . 'inc/metaslider.quickstart.class.php',
+                'metavideohelper' => METASLIDER_PATH . 'modules/local_video/helper.php',
+                'metalocalvideoslide' => METASLIDER_PATH . 'modules/local_video/slide.php',
             );
         }
 
@@ -338,7 +341,6 @@ if (! class_exists('MetaSliderPlugin')) {
             add_action('media_upload_post_feed', array($this, 'upgrade_to_pro_tab_post_feed'));
             add_action('media_upload_layer', array($this, 'upgrade_to_pro_tab_layer'));
             add_action('media_upload_external_url', array($this, 'upgrade_to_pro_tab_external_url'));
-            add_action('media_upload_local_video', array($this, 'upgrade_to_pro_tab_local_video'));
             add_action('media_upload_external_video', array($this, 'upgrade_to_pro_tab_external_video'));
             add_action('media_upload_custom_html', array($this, 'upgrade_to_pro_tab_custom_html'));
             add_action('media_upload_tiktok', array($this, 'upgrade_to_pro_tab_tiktok'));
@@ -557,6 +559,8 @@ if (! class_exists('MetaSliderPlugin')) {
         private function register_slide_types()
         {
             $image = new MetaImageSlide();
+            $livid = new MetaLividSlide();
+            $local_video = new MetaLocalVideoSlide();
         }
 
         /**
@@ -736,8 +740,55 @@ if (! class_exists('MetaSliderPlugin')) {
             // Set up the slideshow and load the slideshow theme
             $this->set_slider($id, $atts);
             MetaSlider_Themes::get_instance()->load_theme($id, $atts['theme']);
+
             $this->slider->enqueue_scripts();
-            return $this->slider->render_public_slides();
+            $slides_html = $this->slider->render_public_slides();
+
+            // Run one page-wide force-print pass on wp_footer instead of per-call (see #2333, metaslider-pro#1448).
+            static $registered = false;
+            if (!$registered) {
+                $registered = true;
+                if (did_action('wp_footer')) {
+                    // Already mid/post wp_footer - a hook added now could be skipped or never fire, so print now.
+                    $this->force_print_pending_metaslider_assets();
+                } else {
+                    add_action('wp_footer', array($this, 'force_print_pending_metaslider_assets'), -9999);
+                }
+            }
+
+            return $slides_html;
+        }
+
+        /**
+         * Force-print any still-pending metaslider-family style/script handle.
+         *
+         * Runs once, as early into `wp_footer` as possible (see the shortcode
+         * registration above), so it has the best chance of landing before
+         * anything else can interfere with that later print pass.
+         *
+         * @since 3.113.0
+         */
+        public function force_print_pending_metaslider_assets()
+        {
+            $is_metaslider_handle = function ($handle) {
+                return 0 === strpos($handle, 'metaslider');
+            };
+
+            $pending_styles = array_values(array_filter(wp_styles()->queue, $is_metaslider_handle));
+            $pending_scripts = array_values(array_filter(wp_scripts()->queue, $is_metaslider_handle));
+
+            // Engine handles carry an inline init script that can call into a slide-type library (e.g. video.js) - print those last.
+            usort($pending_scripts, function ($a, $b) {
+                return preg_match('/-slider$/', $a) - preg_match('/-slider$/', $b);
+            });
+
+            // do_items() directly, not wp_print_scripts(), to avoid re-firing the 'wp_print_scripts' action on every page.
+            if ($pending_styles) {
+                wp_styles()->do_items($pending_styles);
+            }
+            if ($pending_scripts) {
+                wp_scripts()->do_items($pending_scripts);
+            }
         }
 
         /**
@@ -848,7 +899,6 @@ if (! class_exists('MetaSliderPlugin')) {
                         'woocommerce' => __("WooCommerce", "ml-slider"),
                         'post_feed' => __("Post Feed", "ml-slider"),
                         'layer' => __("Layer Slide", "ml-slider"),
-                        'local_video' => __("Local Video", "ml-slider"),
                     );
                 }
 
@@ -2292,49 +2342,6 @@ if (! class_exists('MetaSliderPlugin')) {
             );
         }
 
-        /**
-         * Return the MetaSlider pro upgrade iFrame
-         */
-        public function upgrade_to_pro_tab_local_video()
-        {
-            if (function_exists('is_plugin_active') && ! is_plugin_active('ml-slider-pro/ml-slider-pro.php')) {
-                return wp_iframe(array($this, 'upgrade_to_pro_iframe_local_video'));
-            }
-        }
-
-        /**
-         * Media Manager iframe HTML - Local video
-         */
-        public function upgrade_to_pro_iframe_local_video()
-        {
-            $link = apply_filters('metaslider_hoplink', 'https://www.metaslider.com/upgrade/');
-            $link .= '?utm_source=lite&amp;utm_medium=more-slide-types-video&amp;utm_campaign=pro';
-            $this->upgrade_to_pro_iframe(
-                array(
-                    '<div class="left"><img src="' . esc_url(METASLIDER_ADMIN_URL . 'images/upgrade/local-video.png') . '" alt="" /></div>',
-                    "<div ><h2>" . esc_html__(
-                        'Create slideshows with videos in your media library',
-                        'ml-slider'
-                    ) . "</h2>",
-                    "<p>" . esc_html__(
-                        'With Local Video slides, you can build beautiful slideshows with videos in your WordPress media library or searched directly from Pixabay.',
-                        'ml-slider'
-                    ) . "</p>",
-                    "<p>" . esc_html__(
-                        'Local Video slides will display your MP4, WebM, and MOV videos with cover images, auto play, mute, lazy load, the ability to hide controls, and much more.',
-                        'ml-slider'
-                    ) . "</p>",
-                    '<a class="probutton button button-primary button-hero" href="' . esc_url(
-                        $link
-                    ) . '" target="_blank">' . esc_html__(
-                        "Find out more about MetaSlider Slideshow Pro",
-                        "ml-slider"
-                    ) . '<span class="dashicons dashicons-external"></span></a>',
-                    "</div>"
-                )
-            );
-        }
-
          /**
          * Return the MetaSlider pro upgrade iFrame
          */
@@ -2679,7 +2686,7 @@ if (! class_exists('MetaSliderPlugin')) {
                             'MetaSlider Slideshow Pro',
                             'ml-slider'
                         ) . "</a>";
-                    $meta[] = "<a href='https://wordpress.org/support/plugin/ml-slider/' target='_blank'>" . esc_html__(
+                    $meta[] = "<a href='https://www.metaslider.com/support/' target='_blank'>" . esc_html__(
                             'Support',
                             'ml-slider'
                         ) . "</a>";

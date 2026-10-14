@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\PostType;
 
 use AC\Asset\Location\Absolute;
@@ -8,13 +10,9 @@ use ACA\WC\ListTable;
 
 class ProductVariation implements Registerable
 {
-
     public const POST_TYPE = 'product_variation';
 
-    /**
-     * @var Absolute
-     */
-    private $location;
+    private Absolute $location;
 
     public function __construct(Absolute $location)
     {
@@ -39,35 +37,34 @@ class ProductVariation implements Registerable
     {
         $variation_post = get_post($product_id);
 
-        if ($variation_post->post_type === self::POST_TYPE) {
+        if ($variation_post && $variation_post->post_type === self::POST_TYPE) {
             $product_post = get_post($variation_post->post_parent);
 
-            if ('product' === $product_post->post_type) {
-                $link = sprintf('%s#variation_%d', get_edit_post_link($product_post), $variation_post->ID);
+            if ($product_post && 'product' === $product_post->post_type) {
+                $edit_link = get_edit_post_link($product_post);
+
+                if ($edit_link) {
+                    $link = sprintf('%s#variation_%d', $edit_link, $variation_post->ID);
+                }
             }
         }
 
         return $link;
     }
 
-    /**
-     * @param array $args
-     *
-     * @return array
-     */
-    public function enable_variation_list_table($args)
+    public function enable_variation_list_table($args): array
     {
         $args['show_ui'] = true;
         $args['show_in_menu'] = true;
 
-        if ( ! isset($args['capabilities'])) {
+        if (! isset($args['capabilities'])) {
             $args['capabilities'] = [];
         }
 
         $args['capabilities']['create_posts'] = 'do_not_allow';
         $args['capabilities']['delete_posts'] = true;
 
-        if ( ! isset($args['labels'])) {
+        if (! isset($args['labels'])) {
             $args['labels'] = [
                 'name'               => __('Product Variations', 'codepress-admin-columns'),
                 'singular_name'      => __('Product Variation', 'codepress-admin-columns'),
@@ -98,7 +95,7 @@ class ProductVariation implements Registerable
 
         $slug_variation = 'edit.php?post_type=' . self::POST_TYPE;
 
-        if ( ! isset($submenu[$slug_variation])) {
+        if (! isset($submenu[$slug_variation])) {
             return;
         }
 
@@ -106,7 +103,7 @@ class ProductVariation implements Registerable
 
         $slug_product = 'edit.php?post_type=product';
 
-        if ( ! isset($submenu[$slug_product])) {
+        if (! isset($submenu[$slug_product])) {
             return;
         }
 
@@ -147,7 +144,7 @@ class ProductVariation implements Registerable
             $screen_id = isset($screen, $screen->id) ? $screen->id : '';
         }
 
-        if ( ! empty($_REQUEST['screen']) && wp_doing_ajax()) {
+        if (! empty($_REQUEST['screen']) && wp_doing_ajax()) {
             $screen_id = wc_clean(wp_unslash($_REQUEST['screen']));
         }
 

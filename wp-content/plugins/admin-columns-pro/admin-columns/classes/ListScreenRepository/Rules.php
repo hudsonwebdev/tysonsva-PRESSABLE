@@ -1,72 +1,66 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ListScreenRepository;
 
 use InvalidArgumentException;
 
-final class Rules {
+final class Rules
+{
+    public const MATCH_ALL = 'all';
+    public const MATCH_ANY = 'any';
 
-	const MATCH_ALL = 'all';
-	const MATCH_ANY = 'any';
+    private string $match_decision;
 
-	/**
-	 * @var string
-	 */
-	private $match_decision;
+    /**
+     * @var Rule[]
+     */
+    private array $rules = [];
 
-	/**
-	 * @var Rule[]
-	 */
-	private $rules = [];
+    public function __construct(?string $match_decision = null)
+    {
+        $this->match_decision = $match_decision ?? self::MATCH_ANY;
 
-	public function __construct( $match_decision = null ) {
-		if ( null === $match_decision ) {
-			$match_decision = self::MATCH_ANY;
-		}
+        $this->validate();
+    }
 
-		$this->match_decision = $match_decision;
+    private function validate()
+    {
+        $match_decisions = [self::MATCH_ANY, self::MATCH_ALL];
 
-		$this->validate();
-	}
+        if (! in_array($this->match_decision, $match_decisions, true)) {
+            throw new InvalidArgumentException('Invalid match decision.');
+        }
+    }
 
-	private function validate() {
-		$match_decisions = [ self::MATCH_ANY, self::MATCH_ALL ];
+    public function add_rule(Rule $rule): self
+    {
+        $this->rules[] = $rule;
 
-		if ( ! in_array( $this->match_decision, $match_decisions, true ) ) {
-			throw new InvalidArgumentException( 'Invalid match decision.' );
-		}
-	}
+        return $this;
+    }
 
-	/**
-	 * @param Rule $rule
-	 *
-	 * @return $this
-	 */
-	public function add_rule( Rule $rule ) {
-		$this->rules[] = $rule;
+    public function match(array $args): bool
+    {
+        $matches = 0;
 
-		return $this;
-	}
+        foreach ($this->rules as $rule) {
+            if ($rule->match($args)) {
+                $matches++;
+            }
+        }
 
-	public function match( array $args ) {
-		$matches = 0;
+        $has_as_least_one_match = $matches > 0;
 
-		foreach ( $this->rules as $rule ) {
-			if ( $rule->match( $args ) ) {
-				$matches++;
-			}
-		}
+        switch ($this->match_decision) {
+            case self::MATCH_ANY:
+                return $has_as_least_one_match;
+            case self::MATCH_ALL:
+                return $has_as_least_one_match && $matches === count($this->rules);
+        }
 
-		$has_as_least_one_match = $matches > 0;
-
-		switch ( $this->match_decision ) {
-			case self::MATCH_ANY:
-				return $has_as_least_one_match;
-			case self::MATCH_ALL:
-				return $has_as_least_one_match && $matches === count( $this->rules );
-		}
-
-		return false;
-	}
+        return false;
+    }
 
 }

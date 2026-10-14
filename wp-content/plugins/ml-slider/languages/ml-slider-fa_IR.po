@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-05-25T13:04:12+00:00\n"
-"PO-Revision-Date: 2026-08-28 16:44+0000\n"
+"PO-Revision-Date: 2026-09-16 16:45+0000\n"
 "X-Generator: Poedit 3.2.2\n"
 "X-Domain: ml-slider\n"
 "Language: fa_IR\n"
@@ -154,29 +154,42 @@ msgstr "بیشتر بخوانید"
 #: inc/slide/metaslide.image.class.php:232
 #: inc/slide/metaslide.image.class.php:286
 #: inc/slide/metaslide.image.class.php:404
-#: ml-slider.php:944
-#: ml-slider.php:1026
-#: ml-slider.php:1138
-#: ml-slider.php:2853
-#: ml-slider.php:2898
-#: ml-slider.php:2973
+#: inc/slide/metaslide.livid.class.php:334
+#: inc/slide/metaslide.livid.class.php:401
+#: inc/slide/metaslide.livid.class.php:448
+#: inc/slide/metaslide.livid.class.php:776
+#: ml-slider.php:994
+#: ml-slider.php:1076
+#: ml-slider.php:1188
+#: ml-slider.php:2860
+#: ml-slider.php:2905
+#: ml-slider.php:2980
+#: modules/local_video/slide.php:870
+#: modules/local_video/slide.php:928
+#: modules/local_video/slide.php:1036
+#: modules/local_video/slide.php:1201
+#: modules/local_video/slide.php:1274
+#: modules/local_video/slide.php:1388
 msgid "The security check failed. Please refresh the page and try again."
 msgstr "بررسی امنیت ناموفق بود. لطفاً صفحه را تازه‌سازی کرده و دوباره تلاش کنید."
 
 #: admin/Notices.php:394
 #: admin/Notices.php:642
-#: admin/routes/api.php:141
+#: admin/routes/api.php:145
 #: inc/slide/metaslide.class.php:152
 #: inc/slide/metaslide.image.class.php:135
 #: inc/slide/metaslide.image.class.php:154
 #: inc/slide/metaslide.image.class.php:240
 #: inc/slide/metaslide.image.class.php:294
-#: ml-slider.php:952
-#: ml-slider.php:1034
-#: ml-slider.php:1146
-#: ml-slider.php:2861
-#: ml-slider.php:2906
-#: ml-slider.php:2981
+#: inc/slide/metaslide.livid.class.php:342
+#: inc/slide/metaslide.livid.class.php:409
+#: inc/slide/metaslide.livid.class.php:456
+#: ml-slider.php:1002
+#: ml-slider.php:1084
+#: ml-slider.php:1196
+#: ml-slider.php:2868
+#: ml-slider.php:2913
+#: ml-slider.php:2988
 msgid "Access denied. Sorry, you do not have permission to complete this task."
 msgstr "دسترسی رد شد. متأسفیم، شما مجوز انجام این کار را ندارید."
 
@@ -187,12 +200,25 @@ msgstr "دسترسی رد شد. متأسفیم، شما مجوز انجام ای
 #: inc/slide/metaslide.image.class.php:249
 #: inc/slide/metaslide.image.class.php:303
 #: inc/slide/metaslide.image.class.php:422
-#: ml-slider.php:961
-#: ml-slider.php:1043
-#: ml-slider.php:1155
-#: ml-slider.php:2870
-#: ml-slider.php:2914
-#: ml-slider.php:2990
+#: inc/slide/metaslide.livid.class.php:351
+#: inc/slide/metaslide.livid.class.php:416
+#: inc/slide/metaslide.livid.class.php:463
+#: inc/slide/metaslide.livid.class.php:470
+#: inc/slide/metaslide.livid.class.php:793
+#: ml-slider.php:1011
+#: ml-slider.php:1093
+#: ml-slider.php:1205
+#: ml-slider.php:2877
+#: ml-slider.php:2921
+#: ml-slider.php:2997
+#: modules/local_video/slide.php:209
+#: modules/local_video/slide.php:887
+#: modules/local_video/slide.php:945
+#: modules/local_video/slide.php:1057
+#: modules/local_video/slide.php:1221
+#: modules/local_video/slide.php:1291
+#: modules/local_video/slide.php:1405
+#: modules/local_video/slide.php:2091
 msgid "Bad request"
 msgstr "درخواست نامعتبر"
 
@@ -239,6 +265,7 @@ msgid "URL"
 msgstr "لینک"
 
 #: admin/Pages.php:157
+#: modules/local_video/slide.php:423
 #: themes/architekt/customize.php:511
 #: themes/bitono/customize.php:625
 #: themes/blend/customize.php:655
@@ -316,7 +343,7 @@ msgid "Tone"
 msgstr "تن"
 
 #: admin/Pages.php:186
-#: admin/views/pages/parts/slider-settings.php:1431
+#: admin/views/pages/parts/slider-settings.php:1427
 #: admin/views/slides/tabs/background.php:73
 #: inc/metaslider.imagestyles.class.php:463
 #: themes/architekt/customize.php:602
@@ -420,46 +447,46 @@ msgstr "رنگ متن"
 msgid "Link Text"
 msgstr "متن لینک"
 
-#: admin/routes/api.php:462
+#: admin/routes/api.php:466
 msgid "The request format was not valid."
 msgstr "فرمت درخواست معتبر نبود."
 
-#: admin/routes/api.php:470
-#: admin/routes/api.php:602
+#: admin/routes/api.php:474
+#: admin/routes/api.php:606
 msgid "This slideshow is no longer available."
 msgstr "این اسلایدشو دیگر در دسترس نیست."
 
-#: admin/routes/api.php:557
+#: admin/routes/api.php:561
 msgid "Nothing to import."
 msgstr "هیچ چیزی برای وارد کردن وجود ندارد."
 
-#: admin/routes/api.php:609
+#: admin/routes/api.php:613
 msgid "This was not a slideshow, so we cannot delete it."
 msgstr "این یک اسلایدشو نبود، بنابراین نمی‌توانیم آن را حذف کنیم."
 
-#: admin/routes/api.php:822
+#: admin/routes/api.php:826
 msgid "This was not a slideshow, so we cannot update the setting."
 msgstr "این یک اسلایدشو نبود، بنابراین نمی‌توانیم تنظیمات را به‌روزرسانی کنیم."
 
-#: admin/routes/api.php:930
+#: admin/routes/api.php:934
 msgid "The title cannot be empty."
 msgstr "عنوان نمی‌تواند خالی باشد."
 
-#: admin/routes/api.php:934
-#: admin/routes/api.php:1208
+#: admin/routes/api.php:938
+#: admin/routes/api.php:1212
 #, php-format
 msgid "The field (%s) cannot be empty"
 msgstr "فیلد (%s) نمی‌تواند خالی باشد"
 
-#: admin/routes/api.php:1198
+#: admin/routes/api.php:1202
 msgid "Maximum Number of Custom Field in Post Feed Sliders"
 msgstr "حداکثر تعداد فیلدهای سفارشی در اسلایدشوهای فید پست"
 
-#: admin/routes/api.php:1242
+#: admin/routes/api.php:1246
 msgid "No video file was received by the server."
 msgstr "هیچ فایل ویدیویی توسط سرور دریافت نشد."
 
-#: admin/routes/api.php:1258
+#: admin/routes/api.php:1262
 #. translators: 1: uploaded filename, 2: mime type WordPress detected, or "none"
 #, php-format
 msgid ""
@@ -469,19 +496,19 @@ msgstr ""
 "ویدیو \"%1$s\" قبل از بارگذاری رد شد (نوع شناسایی شده: %2$s). ممکن است فرمت "
 "پشتیبانی نشده باشد یا از محدودیت بارگذاری این سرور بیشتر باشد."
 
-#: admin/routes/api.php:1260
+#: admin/routes/api.php:1264
 msgid "none"
 msgstr "هیچ"
 
-#: admin/routes/api.php:1268
+#: admin/routes/api.php:1272
 msgid "The video could not be imported."
 msgstr "ویدیو نتوانست وارد شود."
 
-#: admin/routes/api.php:1386
+#: admin/routes/api.php:1409
 msgid "Import slug not found"
 msgstr "اسلاگ واردات یافت نشد"
 
-#: admin/routes/api.php:1402
+#: admin/routes/api.php:1425
 msgid "Import data could not be processed"
 msgstr "داده‌های وارداتی نتوانستند پردازش شوند"
 
@@ -490,18 +517,18 @@ msgid "We could not find any images to import."
 msgstr "ما نتوانستیم هیچ تصویری برای واردات پیدا کنیم."
 
 #: admin/slideshows/Settings.php:59
-#: inc/slider/metaslider.class.php:161
+#: inc/slider/metaslider.class.php:165
 msgid "New Slideshow"
 msgstr "اسلایدشو جدید"
 
 #: admin/slideshows/Settings.php:86
-#: inc/slider/metaslider.class.php:188
+#: inc/slider/metaslider.class.php:192
 #: inc/slider/metaslider.flex.class.php:819
 msgid "Previous"
 msgstr "قبلی"
 
 #: admin/slideshows/Settings.php:87
-#: inc/slider/metaslider.class.php:189
+#: inc/slider/metaslider.class.php:193
 #: inc/slider/metaslider.flex.class.php:820
 msgid "Next"
 msgstr "بعدی"
@@ -526,23 +553,23 @@ msgstr "عدم موفقیت در واردات متن از URL: %s."
 msgid "Failed to import image from URL: %s."
 msgstr "عدم موفقیت در واردات تصویر از URL: %s."
 
-#: admin/slideshows/Slideshows.php:1204
+#: admin/slideshows/Slideshows.php:1208
 msgid "Only http/https URLs are allowed."
 msgstr "فقط URLهای http/https مجاز هستند."
 
-#: admin/slideshows/Slideshows.php:1214
+#: admin/slideshows/Slideshows.php:1218
 msgid "URL does not point to an allowed file type."
 msgstr "URL به نوع فایل مجاز اشاره نمی‌کند."
 
-#: admin/slideshows/Slideshows.php:1224
+#: admin/slideshows/Slideshows.php:1228
 msgid "URL resolves to a disallowed address."
 msgstr "URL به آدرس غیرمجاز ارجاع می‌دهد."
 
-#: admin/slideshows/Themes.php:60
+#: admin/slideshows/Themes.php:203
 msgid "No themes found."
 msgstr "هیچ تمی یافت نشد."
 
-#: admin/slideshows/Themes.php:449
+#: admin/slideshows/Themes.php:595
 msgid ""
 "We removed your selected theme as it could not be found. Was the folder "
 "deleted?"
@@ -561,100 +588,100 @@ msgstr ""
 "شما هنوز هیچ اسلایدشویی ندارید. برای ایجاد یک اسلایدشو جدید روی %shere%s "
 "کلیک کنید."
 
-#: admin/Table.php:184
-#: admin/Table.php:347
+#: admin/Table.php:193
+#: admin/Table.php:356
 #: inc/slide/metaslide.class.php:420
 msgid "Restore"
 msgstr "بازگردانی"
 
-#: admin/Table.php:185
-#: admin/Table.php:348
+#: admin/Table.php:194
+#: admin/Table.php:357
 #: inc/slide/metaslide.class.php:430
 msgid "Delete Permanently"
 msgstr "حذف دائمی"
 
-#: admin/Table.php:189
-#: admin/Table.php:362
+#: admin/Table.php:198
+#: admin/Table.php:371
 msgid "Trash"
 msgstr "سطل زباله"
 
-#: admin/Table.php:200
+#: admin/Table.php:209
 #: admin/views/pages/parts/toolbar.php:75
 #: admin/assets/dist/js/app.js:2
 msgid "Preview"
 msgstr "پیش‌نمایش"
 
-#: admin/Table.php:201
+#: admin/Table.php:210
 #: admin/assets/dist/js/app.js:2
 msgid "Title"
 msgstr "موضوع"
 
-#: admin/Table.php:202
+#: admin/Table.php:211
 msgid "Type of Slides"
 msgstr "نوع اسلایدها"
 
-#: admin/Table.php:203
+#: admin/Table.php:212
 msgid "Number of Slides"
 msgstr "تعداد اسلایدها"
 
-#: admin/Table.php:204
+#: admin/Table.php:213
 msgid "Theme"
 msgstr "تم"
 
-#: admin/Table.php:205
+#: admin/Table.php:214
 msgid "Created"
 msgstr "ایجاد شده"
 
-#: admin/Table.php:206
-#: admin/views/pages/parts/slider-settings.php:1694
+#: admin/Table.php:215
+#: admin/views/pages/parts/slider-settings.php:1690
 msgid "Shortcode"
 msgstr "کد کوتاه"
 
-#: admin/Table.php:212
+#: admin/Table.php:221
 msgid "Usage"
 msgstr "استفاده"
 
-#: admin/Table.php:361
+#: admin/Table.php:370
 msgid "Edit"
 msgstr "ویرایش"
 
-#: admin/Table.php:398
+#: admin/Table.php:407
 #: admin/views/pages/parts/shortcode.php:11
 msgid "Click to copy shortcode."
 msgstr "برای کپی کردن shortcode کلیک کنید."
 
-#: admin/Table.php:406
-#: admin/Table.php:419
-#: admin/Table.php:479
+#: admin/Table.php:415
+#: admin/Table.php:428
+#: admin/Table.php:488
 msgid "Not found."
 msgstr "یافت نشد."
 
-#: admin/Table.php:408
+#: admin/Table.php:417
 msgid "View Usage"
 msgstr "مشاهده استفاده"
 
-#: admin/Table.php:414
+#: admin/Table.php:423
 msgid "Content Using This Slideshow"
 msgstr "محتوا با استفاده از این اسلایدشو"
 
-#: admin/Table.php:456
+#: admin/Table.php:465
 msgid "Theme Setting"
 msgstr "تنظیمات تم"
 
-#: admin/Table.php:470
+#: admin/Table.php:479
 msgid "Option"
 msgstr "گزینه"
 
-#: admin/Table.php:527
-#: admin/views/pages/start.php:191
+#: admin/Table.php:536
+#: admin/views/pages/start.php:192
 msgid "All Themes"
 msgstr "تمام تم‌ها"
 
-#: admin/Table.php:540
+#: admin/Table.php:549
 msgid "(No Theme)"
 msgstr "(بدون تم)"
 
-#: admin/Table.php:544
+#: admin/Table.php:553
 #: admin/views/slides/tabs/background.php:32
 #: inc/metaslider.imagestyles.class.php:388
 msgid "Filter"
@@ -671,7 +698,7 @@ msgid "(%s Weeks)"
 msgstr "(%s هفته)"
 
 #: admin/views/pages/dashboard.php:8
-#: ml-slider.php:574
+#: ml-slider.php:578
 #: admin/assets/dist/js/app.js:2
 msgid "Slideshows"
 msgstr "اسلایدشوها"
@@ -801,7 +828,7 @@ msgstr "عرض اسلایدشو"
 
 #: admin/views/pages/parts/slider-settings.php:90
 #: admin/views/pages/parts/slider-settings.php:103
-#: admin/views/pages/parts/slider-settings.php:926
+#: admin/views/pages/parts/slider-settings.php:922
 #: admin/views/slides/tabs/background.php:51
 #: inc/metaslider.imagestyles.class.php:407
 #: inc/metaslider.imagestyles.class.php:419, fuzzy
@@ -1132,30 +1159,30 @@ msgid "This animation is used when changing slides."
 msgstr "این انیمیشن هنگام تغییر اسلایدها استفاده می‌شود."
 
 #: admin/views/pages/parts/slider-settings.php:550
-#: admin/views/pages/start.php:174
+#: admin/views/pages/start.php:175
 #: inc/metaslider.imagestyles.class.php:537
 msgid "Fade"
 msgstr "محو"
 
 #: admin/views/pages/parts/slider-settings.php:554
-#: admin/views/pages/start.php:173
+#: admin/views/pages/start.php:174
 msgid "Slide"
 msgstr "اسلاید"
 
 #: admin/views/pages/parts/slider-settings.php:558
-#: admin/views/pages/start.php:175
+#: admin/views/pages/start.php:176
 msgid "Zooming"
 msgstr "زوم کردن"
 
 #: admin/views/pages/parts/slider-settings.php:562
-#: admin/views/pages/start.php:176
+#: admin/views/pages/start.php:177
 #: admin/views/slides/tabs/background.php:87
 #: inc/metaslider.imagestyles.class.php:488
 msgid "Flip"
 msgstr "چرخش"
 
 #: admin/views/pages/parts/slider-settings.php:566
-#: admin/views/pages/parts/slider-settings.php:1344
+#: admin/views/pages/parts/slider-settings.php:1340
 msgid "Random"
 msgstr "تصادفی"
 
@@ -1277,7 +1304,7 @@ msgid "Horizontal"
 msgstr "افقی"
 
 #: admin/views/pages/parts/slider-settings.php:757
-#: admin/views/pages/start.php:178
+#: admin/views/pages/start.php:179
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:494
 msgid "Vertical"
@@ -1358,11 +1385,11 @@ msgstr ""
 "چندین اسلاید را به صورت همزمان نمایش دهید. خروجی اسلایدشو به طور پیش‌فرض از "
 "عرض 100% و اثر انتقال 'اسلاید' استفاده خواهد کرد."
 
-#: admin/views/pages/parts/slider-settings.php:903
+#: admin/views/pages/parts/slider-settings.php:899
 msgid "Loop Carousel Continuously"
 msgstr "حلقه کاروسل به طور مداوم"
 
-#: admin/views/pages/parts/slider-settings.php:908
+#: admin/views/pages/parts/slider-settings.php:904
 msgid ""
 "Infinite loop of slides when Carousel Mode is enabled. This option disables "
 "arrows and navigation. The slideshow width must be less than or equal to "
@@ -1372,27 +1399,27 @@ msgstr ""
 "ناوبری را غیرفعال می‌کند. عرض اسلایدشو باید کمتر از یا برابر با عرض ظرفی "
 "باشد که در آن درج شده است."
 
-#: admin/views/pages/parts/slider-settings.php:919
+#: admin/views/pages/parts/slider-settings.php:915
 msgid "Carousel Margin"
 msgstr "حاشیه کاروسل"
 
-#: admin/views/pages/parts/slider-settings.php:922
+#: admin/views/pages/parts/slider-settings.php:918
 msgid "Pixel margin between slides in carousel."
 msgstr "فاصله خروجی بین اسلایدر در چرخ و فلک"
 
-#: admin/views/pages/parts/slider-settings.php:936
+#: admin/views/pages/parts/slider-settings.php:932
 msgid "Display Minimum"
 msgstr "حداقل نمایش"
 
-#: admin/views/pages/parts/slider-settings.php:938
+#: admin/views/pages/parts/slider-settings.php:934
 msgid "Minimum number of slides to be displayed at the same time in the carousel."
 msgstr "حداقل تعداد اسلایدها برای نمایش همزمان در کاروسل."
 
-#: admin/views/pages/parts/slider-settings.php:952
+#: admin/views/pages/parts/slider-settings.php:948
 msgid "Display Maximum"
 msgstr "حداکثر نمایش"
 
-#: admin/views/pages/parts/slider-settings.php:954
+#: admin/views/pages/parts/slider-settings.php:950
 msgid ""
 "Maximum number of slides to be displayed at the same time in the carousel. "
 "Set to 0 to adjust automatically."
@@ -1400,11 +1427,11 @@ msgstr ""
 "حداکثر تعداد اسلایدها برای نمایش همزمان در کاروسل. برای تنظیم خودکار مقدار "
 "را روی 0 قرار دهید."
 
-#: admin/views/pages/parts/slider-settings.php:963
+#: admin/views/pages/parts/slider-settings.php:959
 msgid "Slides to Show per Device"
 msgstr "تعداد اسلایدهایی که باید در هر دستگاه نمایش داده شود"
 
-#: admin/views/pages/parts/slider-settings.php:964
+#: admin/views/pages/parts/slider-settings.php:960
 msgid ""
 "Set an exact number of slides to show for each device width. Leave a device "
 "at 0 to use the Display Minimum/Maximum settings instead."
@@ -1412,7 +1439,7 @@ msgstr ""
 "تعداد دقیقی از اسلایدها را برای هر عرض دستگاه تنظیم کنید. برای استفاده از "
 "تنظیمات حداقل/حداکثر نمایش، یک دستگاه را روی 0 بگذارید."
 
-#: admin/views/pages/parts/slider-settings.php:972
+#: admin/views/pages/parts/slider-settings.php:968
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths less than %spx. Set to 0 to "
@@ -1421,8 +1448,8 @@ msgstr ""
 "تعداد دقیق اسلایدهایی که باید در عرض‌های صفحه کمتر از %spx نمایش داده شود. "
 "برای استفاده از حداقل/حداکثر نمایش، روی 0 تنظیم کنید."
 
-#: admin/views/pages/parts/slider-settings.php:982
-#: admin/views/pages/parts/slider-settings.php:993
+#: admin/views/pages/parts/slider-settings.php:978
+#: admin/views/pages/parts/slider-settings.php:989
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths of %1$spx to %2$spx. Set to "
@@ -1431,7 +1458,7 @@ msgstr ""
 "تعداد دقیق اسلایدهایی که باید در عرض‌های صفحه بین %1$spx تا %2$spx نمایش "
 "داده شود. برای استفاده از حداقل/حداکثر نمایش، روی 0 تنظیم کنید."
 
-#: admin/views/pages/parts/slider-settings.php:1004
+#: admin/views/pages/parts/slider-settings.php:1000
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths equal to or greater than "
@@ -1440,19 +1467,19 @@ msgstr ""
 "تعداد دقیق اسلایدهایی که باید در عرض‌های صفحه برابر یا بیشتر از %spx نمایش "
 "داده شود. برای استفاده از حداقل/حداکثر نمایش، روی 0 تنظیم کنید."
 
-#: admin/views/pages/parts/slider-settings.php:1021
+#: admin/views/pages/parts/slider-settings.php:1017
 msgid "Slides per Navigation Click"
 msgstr "اسلایدها در هر کلیک ناوبری"
 
-#: admin/views/pages/parts/slider-settings.php:1023
+#: admin/views/pages/parts/slider-settings.php:1019
 msgid "Number of slides to move when clicking next or previous."
 msgstr "تعداد اسلایدها برای حرکت در هنگام کلیک بر روی بعدی یا قبلی."
 
-#: admin/views/pages/parts/slider-settings.php:1032
+#: admin/views/pages/parts/slider-settings.php:1028
 msgid "Force Height"
 msgstr "ارتفاع اجباری"
 
-#: admin/views/pages/parts/slider-settings.php:1037
+#: admin/views/pages/parts/slider-settings.php:1033
 msgid ""
 "If the slideshow looks small, force slideshow height when using Carousel "
 "mode. Please note when is enabled slides may look cropped."
@@ -1461,31 +1488,31 @@ msgstr ""
 "حالت کاروسل اجباری کنید. لطفاً توجه داشته باشید که وقتی فعال است، اسلایدها "
 "ممکن است برش خورده به نظر برسند."
 
-#: admin/views/pages/parts/slider-settings.php:1062
+#: admin/views/pages/parts/slider-settings.php:1058
 msgid "Image Options"
 msgstr "گزینه‌های تصویر"
 
-#: admin/views/pages/parts/slider-settings.php:1074
+#: admin/views/pages/parts/slider-settings.php:1070
 msgid "Image Crop"
 msgstr "برش تصویر"
 
-#: admin/views/pages/parts/slider-settings.php:1079
+#: admin/views/pages/parts/slider-settings.php:1075
 msgid "Smart Crop"
 msgstr "برش هوشمند"
 
-#: admin/views/pages/parts/slider-settings.php:1086
+#: admin/views/pages/parts/slider-settings.php:1082
 msgid "Standard"
 msgstr "استاندارد"
 
-#: admin/views/pages/parts/slider-settings.php:1093
+#: admin/views/pages/parts/slider-settings.php:1089
 msgid "Disabled"
 msgstr "غیرفعال"
 
-#: admin/views/pages/parts/slider-settings.php:1100
+#: admin/views/pages/parts/slider-settings.php:1096
 msgid "Disabled (Smart Pad)"
 msgstr "غیرفعال (پد هوشمند)"
 
-#: admin/views/pages/parts/slider-settings.php:1107
+#: admin/views/pages/parts/slider-settings.php:1103
 msgid ""
 "Smart Crop ensures your responsive slides are cropped to a ratio that "
 "results in a consistent slideshow size."
@@ -1493,19 +1520,19 @@ msgstr ""
 "برش هوشمند اطمینان می‌دهد که اسلایدهای پاسخگو شما به نسبت برش می‌خورند که "
 "منجر به اندازه ثابت اسلایدشو می‌شود."
 
-#: admin/views/pages/parts/slider-settings.php:1115
+#: admin/views/pages/parts/slider-settings.php:1111
 msgid "Image Crop Source"
 msgstr "منبع برش تصویر"
 
-#: admin/views/pages/parts/slider-settings.php:1120
+#: admin/views/pages/parts/slider-settings.php:1116
 msgid "Slideshow width/height"
 msgstr "عرض/ارتفاع اسلایدشو"
 
-#: admin/views/pages/parts/slider-settings.php:1123
+#: admin/views/pages/parts/slider-settings.php:1119
 msgid "Custom width/height (Pro)"
 msgstr "عرض/ارتفاع سفارشی (پرو)"
 
-#: admin/views/pages/parts/slider-settings.php:1127
+#: admin/views/pages/parts/slider-settings.php:1123
 msgid ""
 "By default, MetaSlider Slideshow will crop images using the main width and "
 "height of the slideshow. If you want smaller images, select Custom "
@@ -1517,11 +1544,11 @@ msgstr ""
 "عرض/ارتفاع سفارشی را انتخاب کنید و اطمینان حاصل کنید که مقادیر کمتر از عرض "
 "و ارتفاع اصلی هستند."
 
-#: admin/views/pages/parts/slider-settings.php:1136
+#: admin/views/pages/parts/slider-settings.php:1132
 msgid "Image Crop Size"
 msgstr "اندازه برش تصویر"
 
-#: admin/views/pages/parts/slider-settings.php:1145
+#: admin/views/pages/parts/slider-settings.php:1141
 msgid ""
 "This will increase the size of the images in your slideshow. Larger images "
 "are higher quality. Smaller images load more quickly."
@@ -1529,11 +1556,11 @@ msgstr ""
 "این اندازه تصاویر در اسلایدشو شما را افزایش می‌دهد. تصاویر بزرگتر کیفیت "
 "بالاتری دارند. تصاویر کوچک‌تر سریع‌تر بارگذاری می‌شوند."
 
-#: admin/views/pages/parts/slider-settings.php:1156
+#: admin/views/pages/parts/slider-settings.php:1152
 msgid "Lazy Load Images"
 msgstr "بارگذاری تنبل تصاویر"
 
-#: admin/views/pages/parts/slider-settings.php:1161
+#: admin/views/pages/parts/slider-settings.php:1157
 msgid ""
 "This feature can speed up your site. MetaSlider Slideshow will only load "
 "slides when they are required by your slideshow."
@@ -1541,25 +1568,25 @@ msgstr ""
 "این ویژگی می‌تواند سرعت سایت شما را افزایش دهد. MetaSlider تنها زمانی "
 "اسلایدها را بارگذاری می‌کند که توسط اسلایدشو شما نیاز باشد."
 
-#: admin/views/pages/parts/slider-settings.php:1177
+#: admin/views/pages/parts/slider-settings.php:1173
 #: inc/metaslider.imagestyles.class.php:96
 msgid "Image Styles"
 msgstr "سبک‌های تصویر"
 
-#: admin/views/pages/parts/slider-settings.php:1195
+#: admin/views/pages/parts/slider-settings.php:1191
 msgid "Layout Features"
 msgstr "ویژگی‌های طرح"
 
-#: admin/views/pages/parts/slider-settings.php:1207
+#: admin/views/pages/parts/slider-settings.php:1203
 #: admin/assets/dist/js/app.js:2
 msgid "Auto Play"
 msgstr "پخش خودکار"
 
-#: admin/views/pages/parts/slider-settings.php:1212
+#: admin/views/pages/parts/slider-settings.php:1208
 msgid "Transition between slides automatically."
 msgstr "انتقال بین اسلایدها به‌طور خودکار."
 
-#: admin/views/pages/parts/slider-settings.php:1220
+#: admin/views/pages/parts/slider-settings.php:1216
 #: themes/architekt/customize.php:615
 #: themes/bitono/customize.php:798
 #: themes/blend/customize.php:828
@@ -1581,24 +1608,24 @@ msgstr "انتقال بین اسلایدها به‌طور خودکار."
 msgid "Play / Pause Button"
 msgstr "دکمه پخش / وقفه"
 
-#: admin/views/pages/parts/slider-settings.php:1225
+#: admin/views/pages/parts/slider-settings.php:1221
 msgid "This allows user to pause or resume Auto Play on the slideshow."
 msgstr "این به کاربر اجازه می‌دهد که پخش خودکار را در اسلایدشو متوقف یا از سر بگیرد."
 
-#: admin/views/pages/parts/slider-settings.php:1233
+#: admin/views/pages/parts/slider-settings.php:1229
 msgid "Show Play / Pause Button Text"
 msgstr "نمایش متن دکمه پخش / وقفه"
 
-#: admin/views/pages/parts/slider-settings.php:1238
+#: admin/views/pages/parts/slider-settings.php:1234
 msgid "Show text options for Play / Pause Button"
 msgstr "نمایش گزینه‌های متنی برای دکمه پخش / وقفه"
 
-#: admin/views/pages/parts/slider-settings.php:1246
+#: admin/views/pages/parts/slider-settings.php:1242
 msgid "Play Text"
 msgstr "متن پخش"
 
-#: admin/views/pages/parts/slider-settings.php:1248
-#: admin/views/pages/parts/slider-settings.php:1261
+#: admin/views/pages/parts/slider-settings.php:1244
+#: admin/views/pages/parts/slider-settings.php:1257
 msgid ""
 "Enter text for the Play/Pause Button. Leave the field empty to use the icon "
 "only."
@@ -1606,36 +1633,36 @@ msgstr ""
 "متن را برای دکمه پخش/وقفه وارد کنید. برای استفاده از فقط آیکون، فیلد را "
 "خالی بگذارید."
 
-#: admin/views/pages/parts/slider-settings.php:1259
+#: admin/views/pages/parts/slider-settings.php:1255
 msgid "Pause Text"
 msgstr "متن وقفه"
 
-#: admin/views/pages/parts/slider-settings.php:1272
+#: admin/views/pages/parts/slider-settings.php:1268
 #: themes/customize.php:34
 msgid "Progress Bar"
 msgstr "نوار پیشرفت"
 
-#: admin/views/pages/parts/slider-settings.php:1277
+#: admin/views/pages/parts/slider-settings.php:1273
 msgid "Displays a visual indicator showing the time left before the next slide."
 msgstr ""
 "یک نشانگر بصری را نمایش می‌دهد که زمان باقی‌مانده قبل از اسلاید بعدی را "
 "نشان می‌دهد."
 
-#: admin/views/pages/parts/slider-settings.php:1285
+#: admin/views/pages/parts/slider-settings.php:1281
 msgid "Hover Pause"
 msgstr "وقفه هنگام حرکت ماوس"
 
-#: admin/views/pages/parts/slider-settings.php:1290
+#: admin/views/pages/parts/slider-settings.php:1286
 msgid ""
 "Pause the slideshow when hovering over slider, then resume when no longer "
 "hovering."
 msgstr "متوقف کردن تصویر هنگام بردن موس روی تصویر"
 
-#: admin/views/pages/parts/slider-settings.php:1298
+#: admin/views/pages/parts/slider-settings.php:1294
 msgid "Loop"
 msgstr "حلقه"
 
-#: admin/views/pages/parts/slider-settings.php:1300
+#: admin/views/pages/parts/slider-settings.php:1296
 msgid ""
 "If you choose \"Loop endlessly\", the slides will loop infinitely. If you "
 "choose \"Stop on first slide after looping\", the slideshow will stop on "
@@ -1648,51 +1675,51 @@ msgstr ""
 "شدن در آخرین اسلاید\" را انتخاب کنید، اسلایدها در آخرین اسلاید متوقف خواهند "
 "شد."
 
-#: admin/views/pages/parts/slider-settings.php:1303
+#: admin/views/pages/parts/slider-settings.php:1299
 msgid "Loop Endlessly"
 msgstr "حلقه بی‌پایان"
 
-#: admin/views/pages/parts/slider-settings.php:1304
+#: admin/views/pages/parts/slider-settings.php:1300
 msgid "Stop On Last Slide"
 msgstr "توقف بر روی آخرین اسلاید"
 
-#: admin/views/pages/parts/slider-settings.php:1305
+#: admin/views/pages/parts/slider-settings.php:1301
 msgid "Stop On First Slide After Looping"
 msgstr "توقف بر روی اولین اسلاید بعد از تکرار"
 
-#: admin/views/pages/parts/slider-settings.php:1311
+#: admin/views/pages/parts/slider-settings.php:1307
 msgid "Smooth Height"
 msgstr "ارتفاع نرم"
 
-#: admin/views/pages/parts/slider-settings.php:1316
+#: admin/views/pages/parts/slider-settings.php:1312
 msgid "Allow navigation to follow the slide's height smoothly."
 msgstr "اجازه دهید ناوبری به آرامی ارتفاع اسلاید را دنبال کند."
 
-#: admin/views/pages/parts/slider-settings.php:1324
+#: admin/views/pages/parts/slider-settings.php:1320
 msgid "Slide Order"
 msgstr "ترتیب اسلاید"
 
-#: admin/views/pages/parts/slider-settings.php:1329
+#: admin/views/pages/parts/slider-settings.php:1325
 msgid "Newest First"
 msgstr "جدیدترین اول"
 
-#: admin/views/pages/parts/slider-settings.php:1332
+#: admin/views/pages/parts/slider-settings.php:1328
 msgid "Oldest First"
 msgstr "قدیمی‌ترین اول"
 
-#: admin/views/pages/parts/slider-settings.php:1335
+#: admin/views/pages/parts/slider-settings.php:1331
 msgid "A to Z (by filename)"
 msgstr "از الف تا ی (بر اساس نام فایل)"
 
-#: admin/views/pages/parts/slider-settings.php:1338
+#: admin/views/pages/parts/slider-settings.php:1334
 msgid "Z to A (by filename)"
 msgstr "از ی تا الف (بر اساس نام فایل)"
 
-#: admin/views/pages/parts/slider-settings.php:1341
+#: admin/views/pages/parts/slider-settings.php:1337
 msgid "Drag-and-drop"
 msgstr "کشیدن و رها کردن"
 
-#: admin/views/pages/parts/slider-settings.php:1347
+#: admin/views/pages/parts/slider-settings.php:1343
 msgid ""
 "Select the order in which slides appear in the slideshow. This impacts the "
 "frontend view."
@@ -1700,116 +1727,116 @@ msgstr ""
 "ترتیب نمایش اسلایدها را در اسلایدشو انتخاب کنید. این بر روی نمای جلویی "
 "تأثیر می‌گذارد."
 
-#: admin/views/pages/parts/slider-settings.php:1355
+#: admin/views/pages/parts/slider-settings.php:1351
 msgid "Touch Swipe"
 msgstr "حرکت لمسی"
 
-#: admin/views/pages/parts/slider-settings.php:1360
+#: admin/views/pages/parts/slider-settings.php:1356
 msgid "Allow touch swipe navigation of the slider on touch-enabled devices."
 msgstr ""
 "اجازه دهید ناوبری کشیدن لمسی اسلایدها بر روی دستگاه‌های لمسی امکان‌پذیر "
 "باشد."
 
-#: admin/views/pages/parts/slider-settings.php:1368
+#: admin/views/pages/parts/slider-settings.php:1364
 msgid "Loading Indicator"
 msgstr "شاخص بارگذاری"
 
-#: admin/views/pages/parts/slider-settings.php:1373
+#: admin/views/pages/parts/slider-settings.php:1369
 msgid "Displays a visual indicator while the slideshow is loading."
 msgstr "در حین بارگذاری اسلایدشو، یک نشانگر بصری را نمایش می‌دهد."
 
-#: admin/views/pages/parts/slider-settings.php:1381
+#: admin/views/pages/parts/slider-settings.php:1377
 msgid "Previous Text"
 msgstr "متن قبلی"
 
-#: admin/views/pages/parts/slider-settings.php:1383
+#: admin/views/pages/parts/slider-settings.php:1379
 msgid "Set the text for the \"previous\" direction item."
 msgstr "متن را برای مورد جهت \"قبلی\" تنظیم کنید."
 
-#: admin/views/pages/parts/slider-settings.php:1395
+#: admin/views/pages/parts/slider-settings.php:1391
 msgid "Next Text"
 msgstr "متن بعدی"
 
-#: admin/views/pages/parts/slider-settings.php:1397
+#: admin/views/pages/parts/slider-settings.php:1393
 msgid "Set the text for the \"next\" direction item."
 msgstr "متن را برای مورد جهت \"بعدی\" تنظیم کنید."
 
-#: admin/views/pages/parts/slider-settings.php:1414
+#: admin/views/pages/parts/slider-settings.php:1410
 msgid "Square Delay"
 msgstr "تاخیر مربعی"
 
-#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1412
 msgid "Delay between squares in ms."
 msgstr "تاخیر بین مربع‌ها به میلی‌ثانیه."
 
-#: admin/views/pages/parts/slider-settings.php:1433
+#: admin/views/pages/parts/slider-settings.php:1429
 msgid "Opacity of title and navigation, between 0 and 1."
 msgstr "شفافیت عنوان و ناوبری، بین ۰ و ۱."
 
-#: admin/views/pages/parts/slider-settings.php:1448
+#: admin/views/pages/parts/slider-settings.php:1444
 msgid "Caption Speed"
 msgstr "سرعت زیرنویس"
 
-#: admin/views/pages/parts/slider-settings.php:1450
+#: admin/views/pages/parts/slider-settings.php:1446
 msgid "Set the fade in speed of the caption."
 msgstr "سرعت محو شدن زیرنویس را تنظیم کنید."
 
-#: admin/views/pages/parts/slider-settings.php:1472
+#: admin/views/pages/parts/slider-settings.php:1468
 msgid "Container Options"
 msgstr "گزینه‌های کانتینر"
 
-#: admin/views/pages/parts/slider-settings.php:1484
+#: admin/views/pages/parts/slider-settings.php:1480
 msgid "Container Box"
 msgstr "جعبه کانتینر"
 
-#: admin/views/pages/parts/slider-settings.php:1489
+#: admin/views/pages/parts/slider-settings.php:1485
 msgid "Customize the slideshow's container box."
 msgstr "جعبه کانتینر اسلایدشو را سفارشی کنید."
 
-#: admin/views/pages/parts/slider-settings.php:1495
-#: admin/views/pages/parts/slider-settings.php:1535
+#: admin/views/pages/parts/slider-settings.php:1491
+#: admin/views/pages/parts/slider-settings.php:1531
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "This feature is available in MetaSlider Slideshow Pro"
 msgstr "این ویژگی در MetaSlider Pro در دسترس است"
 
-#: admin/views/pages/parts/slider-settings.php:1510
+#: admin/views/pages/parts/slider-settings.php:1506
 msgid "Watermark Options"
 msgstr "تنظیمات واترمارک"
 
-#: admin/views/pages/parts/slider-settings.php:1524
+#: admin/views/pages/parts/slider-settings.php:1520
 msgid "Watermark"
 msgstr "واترمارک"
 
-#: admin/views/pages/parts/slider-settings.php:1529
+#: admin/views/pages/parts/slider-settings.php:1525
 msgid "Overlay an image (e.g. a logo) on top of the slideshow."
 msgstr "تصویری (مانند لوگو) را روی اسلایدشو قرار دهید."
 
-#: admin/views/pages/parts/slider-settings.php:1550
+#: admin/views/pages/parts/slider-settings.php:1546
 msgid "Accessibility Options"
 msgstr "گزینه‌های دسترسی"
 
-#: admin/views/pages/parts/slider-settings.php:1562
+#: admin/views/pages/parts/slider-settings.php:1558
 msgid "Keyboard Controls"
 msgstr "کنترل‌های صفحه‌کلید"
 
-#: admin/views/pages/parts/slider-settings.php:1567
+#: admin/views/pages/parts/slider-settings.php:1563
 msgid "Use arrow keys to get to the next slide."
 msgstr "از کلیدهای جهت‌نما برای رفتن به اسلاید بعدی استفاده کنید."
 
-#: admin/views/pages/parts/slider-settings.php:1575
+#: admin/views/pages/parts/slider-settings.php:1571
 msgid "Tabindex For Navigation"
 msgstr "ترتیب تب برای ناوبری"
 
-#: admin/views/pages/parts/slider-settings.php:1580
+#: admin/views/pages/parts/slider-settings.php:1576
 msgid "This helps make the slideshow navigation more accessible."
 msgstr "این به بهبود دسترسی ناوبری اسلایدشو کمک می‌کند."
 
-#: admin/views/pages/parts/slider-settings.php:1588
+#: admin/views/pages/parts/slider-settings.php:1584
 msgid "ARIA Live"
 msgstr "ARIA زنده"
 
-#: admin/views/pages/parts/slider-settings.php:1593
+#: admin/views/pages/parts/slider-settings.php:1589
 msgid ""
 "If Autoplay is enabled, this causes screen readers to announce that the "
 "slides are changing."
@@ -1817,11 +1844,11 @@ msgstr ""
 "اگر پخش خودکار فعال باشد، این باعث می‌شود که نرم‌افزارهای خواننده صفحه "
 "اعلام کنند که اسلایدها در حال تغییر هستند."
 
-#: admin/views/pages/parts/slider-settings.php:1601
+#: admin/views/pages/parts/slider-settings.php:1597
 msgid "ARIA Current"
 msgstr "ARIA فعلی"
 
-#: admin/views/pages/parts/slider-settings.php:1606
+#: admin/views/pages/parts/slider-settings.php:1602
 msgid ""
 "This is used on the navigation button for the active slide. It helps screen "
 "readers understand which slide is active."
@@ -1829,15 +1856,15 @@ msgstr ""
 "این بر روی دکمه ناوبری برای اسلاید فعال استفاده می‌شود. این به نرم‌افزارهای "
 "خواننده صفحه کمک می‌کند تا بفهمند کدام اسلاید فعال است."
 
-#: admin/views/pages/parts/slider-settings.php:1622
+#: admin/views/pages/parts/slider-settings.php:1618
 msgid "Developer Options"
 msgstr "گزینه‌های توسعه‌دهنده"
 
-#: admin/views/pages/parts/slider-settings.php:1634
+#: admin/views/pages/parts/slider-settings.php:1630
 msgid "CSS Classes"
 msgstr "کلاس‌های CSS"
 
-#: admin/views/pages/parts/slider-settings.php:1636
+#: admin/views/pages/parts/slider-settings.php:1632
 msgid ""
 "Enter custom CSS classes to apply to the slider wrapper. Separate multiple "
 "classes with a space."
@@ -1845,36 +1872,36 @@ msgstr ""
 "کلاس‌های CSS سفارشی را وارد کنید تا به wrapper اسلایدر اعمال شود. کلاس‌های "
 "متعدد را با یک فاصله جدا کنید."
 
-#: admin/views/pages/parts/slider-settings.php:1647
+#: admin/views/pages/parts/slider-settings.php:1643
 msgid "Print CSS"
 msgstr "چاپ سی اس اس"
 
-#: admin/views/pages/parts/slider-settings.php:1652
+#: admin/views/pages/parts/slider-settings.php:1648
 msgid "Uncheck this if you would like to include your own CSS."
 msgstr "اگر می‌خواهید CSS خود را اضافه کنید، این گزینه را لغو کنید."
 
-#: admin/views/pages/parts/slider-settings.php:1660
+#: admin/views/pages/parts/slider-settings.php:1656
 msgid "Print JS"
 msgstr "چاپ جاوا اسکریپت"
 
-#: admin/views/pages/parts/slider-settings.php:1665
+#: admin/views/pages/parts/slider-settings.php:1661
 msgid "Uncheck this if you would like to include your own Javascript."
 msgstr "اگر می‌خواهید Javascript خود را اضافه کنید، این گزینه را لغو کنید."
 
-#: admin/views/pages/parts/slider-settings.php:1673
+#: admin/views/pages/parts/slider-settings.php:1669
 msgid "No Conflict Mode"
 msgstr "حالت بدون تداخل"
 
-#: admin/views/pages/parts/slider-settings.php:1678
+#: admin/views/pages/parts/slider-settings.php:1674
 msgid "Delay adding the flexslider class to the slideshow."
 msgstr "اضافه کردن کلاس flexslider به اسلایدشو را به تأخیر بیاندازید."
 
-#: admin/views/pages/parts/slider-settings.php:1716
-#: ml-slider.php:1880
+#: admin/views/pages/parts/slider-settings.php:1712
+#: ml-slider.php:1930
 msgid "Trashed Slides"
 msgstr "اسلایدهای حذف شده"
 
-#: admin/views/pages/parts/slider-settings.php:1726
+#: admin/views/pages/parts/slider-settings.php:1722
 msgid "View trashed slides"
 msgstr "مشاهده اسلایدهای حذف شده"
 
@@ -1892,7 +1919,7 @@ msgid "Add a new slide"
 msgstr "اضافه کردن یک اسلاید جدید"
 
 #: admin/views/pages/parts/toolbar.php:60
-#: inc/slider/metaslider.class.php:1055
+#: inc/slider/metaslider.class.php:1065
 msgid "Add Slide"
 msgstr "قرار دادن اسلاید"
 
@@ -1938,7 +1965,7 @@ msgid "Save"
 msgstr "ذخیره"
 
 #: admin/views/pages/parts/toolbar.php:155
-#: ml-slider.php:1945
+#: ml-slider.php:1995
 msgid "Return to Published Slides"
 msgstr "بازگشت به اسلایدهای منتشر شده"
 
@@ -1974,7 +2001,7 @@ msgid "Redirecting..."
 msgstr "در حال هدایت..."
 
 #: admin/views/pages/start.php:106
-#: ml-slider.php:575
+#: ml-slider.php:579
 msgid "Quick Start"
 msgstr "شروع سریع"
 
@@ -2003,163 +2030,164 @@ msgid "Slide Type"
 msgstr "نوع اسلاید"
 
 #: admin/views/pages/start.php:145
-#: inc/metaslider.quickstart.class.php:760
-#: ml-slider.php:798
+#: inc/metaslider.quickstart.class.php:773
+#: ml-slider.php:849
 msgid "Image"
 msgstr "تصویر"
 
-#: admin/views/pages/start.php:149
-#: inc/metaslider.quickstart.class.php:611
-#: inc/metaslider.quickstart.class.php:772
-#: ml-slider.php:842
+#: admin/views/pages/start.php:150
+#: inc/metaslider.quickstart.class.php:623
+#: inc/metaslider.quickstart.class.php:785
+#: ml-slider.php:893
 msgid "External Image"
 msgstr "تصویر خارجی"
 
-#: admin/views/pages/start.php:150
-#: inc/metaslider.quickstart.class.php:623
-#: inc/metaslider.quickstart.class.php:775
-#: ml-slider.php:843
+#: admin/views/pages/start.php:151
+#: inc/metaslider.quickstart.class.php:635
+#: inc/metaslider.quickstart.class.php:788
+#: ml-slider.php:894
 msgid "External Video"
 msgstr "ویدیو خارجی"
 
-#: admin/views/pages/start.php:151
-#: inc/metaslider.quickstart.class.php:635
-#: inc/metaslider.quickstart.class.php:781
-#: ml-slider.php:844
+#: admin/views/pages/start.php:152
+#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:797
+#: ml-slider.php:895
 msgid "Custom HTML"
 msgstr "HTML سفارشی"
 
-#: admin/views/pages/start.php:152
-#: inc/metaslider.quickstart.class.php:683
-#: inc/metaslider.quickstart.class.php:790
-#: ml-slider.php:845
+#: admin/views/pages/start.php:153
+#: inc/metaslider.quickstart.class.php:695
+#: inc/metaslider.quickstart.class.php:806
+#: ml-slider.php:896
 msgid "Background Color"
 msgstr "رنگ پس‌زمینه"
 
-#: admin/views/pages/start.php:153
-#: admin/views/pages/start.php:184
-#: ml-slider.php:848
+#: admin/views/pages/start.php:154
+#: admin/views/pages/start.php:185
+#: ml-slider.php:899
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: admin/views/pages/start.php:154
-#: inc/metaslider.quickstart.class.php:599
-#: inc/metaslider.quickstart.class.php:787
-#: ml-slider.php:849
+#: admin/views/pages/start.php:155
+#: inc/metaslider.quickstart.class.php:611
+#: inc/metaslider.quickstart.class.php:803
+#: ml-slider.php:900
 msgid "Post Feed"
 msgstr "فید پست"
 
-#: admin/views/pages/start.php:155
-#: inc/metaslider.quickstart.class.php:784
-#: ml-slider.php:850
+#: admin/views/pages/start.php:156
+#: inc/metaslider.quickstart.class.php:800
+#: ml-slider.php:901
 msgid "Layer Slide"
 msgstr "اسلاید لایه"
 
-#: admin/views/pages/start.php:156
-#: inc/metaslider.quickstart.class.php:575
-#: inc/metaslider.quickstart.class.php:769
-#: ml-slider.php:851
+#: admin/views/pages/start.php:157
+#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:782
+#: modules/local_video/slide.php:43
+#: modules/local_video/slide.php:82
 msgid "Local Video"
 msgstr "ویدیو محلی"
 
-#: admin/views/pages/start.php:161
+#: admin/views/pages/start.php:162
 msgid "Features"
 msgstr "ویژگی‌ها"
 
-#: admin/views/pages/start.php:162
+#: admin/views/pages/start.php:163
 msgid "Boxed"
 msgstr "باکس‌دار"
 
-#: admin/views/pages/start.php:163
+#: admin/views/pages/start.php:164
 msgid "Full-width"
 msgstr "عرض کامل"
 
-#: admin/views/pages/start.php:164
+#: admin/views/pages/start.php:165
 msgid "Carousel"
 msgstr "چرخ‌فلکی"
 
-#: admin/views/pages/start.php:165
+#: admin/views/pages/start.php:166
 msgid "Thumbnail Navigation"
 msgstr "ناوبری بندانگشتی"
 
-#: admin/views/pages/start.php:166
+#: admin/views/pages/start.php:167
 msgid "Video Caption"
 msgstr "زیرنویس ویدئو"
 
-#: admin/views/pages/start.php:167
-#: admin/views/pages/start.php:302
+#: admin/views/pages/start.php:168
+#: admin/views/pages/start.php:303
 msgid "Hero Image"
 msgstr "تصویر قهرمان"
 
-#: admin/views/pages/start.php:172
+#: admin/views/pages/start.php:173
 msgid "Animation Type"
 msgstr "نوع انیمیشن"
 
-#: admin/views/pages/start.php:177
+#: admin/views/pages/start.php:178
 msgid "Ken Burns"
 msgstr "کن برنز"
 
-#: admin/views/pages/start.php:183
+#: admin/views/pages/start.php:184
 msgid "Integration"
 msgstr "ادغام"
 
-#: admin/views/pages/start.php:185
+#: admin/views/pages/start.php:186
 msgid "The Events Calendar"
 msgstr "تقویم رویدادها"
 
-#: admin/views/pages/start.php:186
-#: admin/views/pages/start.php:298
+#: admin/views/pages/start.php:187
+#: admin/views/pages/start.php:299
 msgid "WordPress Posts"
 msgstr "مقالات WordPress"
 
-#: admin/views/pages/start.php:227
+#: admin/views/pages/start.php:228
 msgid "Free and Pro"
 msgstr "رایگان و حرفه‌ای"
 
-#: admin/views/pages/start.php:228
+#: admin/views/pages/start.php:229
 msgid "Free only"
 msgstr "فقط رایگان"
 
-#: admin/views/pages/start.php:229
+#: admin/views/pages/start.php:230
 msgid "Pro only"
 msgstr "فقط حرفه‌ای"
 
-#: admin/views/pages/start.php:233
+#: admin/views/pages/start.php:234
 msgid "Reset Filters"
 msgstr "تنظیم مجدد فیلترها"
 
-#: admin/views/pages/start.php:239
+#: admin/views/pages/start.php:240
 msgid "No demos match your filters."
 msgstr "هیچ نمایشی با فیلترهای شما مطابقت ندارد."
 
-#: admin/views/pages/start.php:322
+#: admin/views/pages/start.php:323
 #, php-format
 msgid "Create %s slideshow?"
 msgstr "آیا می‌خواهید اسلایدشو %s را ایجاد کنید؟"
 
-#: admin/views/pages/start.php:328
+#: admin/views/pages/start.php:329
 msgid "Cancel"
 msgstr "لغو"
 
-#: admin/views/pages/start.php:331
+#: admin/views/pages/start.php:332
 msgid "Yes, please!"
 msgstr "بله، لطفاً!"
 
-#: admin/views/pages/start.php:337
+#: admin/views/pages/start.php:338
 msgid "Demo"
 msgstr "دمو"
 
-#: admin/views/pages/start.php:343
+#: admin/views/pages/start.php:344
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Get MetaSlider Slideshow Pro!"
 msgstr "MetaSlider Slideshow"
 
-#: admin/views/pages/start.php:346
+#: admin/views/pages/start.php:347
 msgid "Upgrade now to unlock this demo slideshow!"
 msgstr "هم‌اکنون ارتقا دهید تا این نمایش اسلاید دمو را باز کنید!"
 
-#: admin/views/pages/start.php:349
+#: admin/views/pages/start.php:350
 #: admin/views/pages/theme-editor.php:36
 #: admin/views/pages/upgrade.php:26
 #: admin/views/pages/upgrade.php:201
@@ -2167,19 +2195,19 @@ msgstr "هم‌اکنون ارتقا دهید تا این نمایش اسلای�
 msgid "Upgrade now"
 msgstr "هم‌اکنون ارتقا دهید"
 
-#: admin/views/pages/start.php:367
+#: admin/views/pages/start.php:368
 msgid "Create a slideshow with your images"
 msgstr "یک نمایش اسلاید با تصاویر خود ایجاد کنید"
 
-#: admin/views/pages/start.php:368
+#: admin/views/pages/start.php:369
 msgid "Choose your own images to start a new slideshow."
 msgstr "تصاویر خود را برای شروع یک نمایش اسلاید جدید انتخاب کنید."
 
-#: admin/views/pages/start.php:374
+#: admin/views/pages/start.php:375
 msgid "Uploading images..."
 msgstr "در حال بارگذاری تصاویر..."
 
-#: admin/views/pages/start.php:385
+#: admin/views/pages/start.php:386
 msgid "Open Media Library"
 msgstr "کتابخانه رسانه را باز کنید"
 
@@ -2189,7 +2217,7 @@ msgid "Introducing the Theme Editor in MetaSlider Slideshow Pro"
 msgstr "معرفی ویرایشگر تم در MetaSlider Pro"
 
 #: admin/views/pages/theme-editor.php:18
-#: ml-slider.php:579
+#: ml-slider.php:583
 msgid "Theme Editor"
 msgstr "ویرایشگر تم"
 
@@ -2926,10 +2954,12 @@ msgstr ""
 "اعمال خواهد شد."
 
 #: admin/views/slides/tabs/link.php:20
+#: modules/local_video/tabs/link.php:28
 msgid "New window"
 msgstr "پنجره جدید"
 
 #: admin/views/slides/tabs/link.php:22
+#: modules/local_video/tabs/link.php:30
 msgid "Open link in a new window"
 msgstr "باز کردن لینک در یک پنجره جدید"
 
@@ -2950,11 +2980,66 @@ msgstr ""
 msgid "Enter text here"
 msgstr "متن را اینجا وارد کنید"
 
-#: admin/views/slides/tabs/mobile.php:33
+#: admin/views/slides/tabs/livid.php:18
+msgid "Livid Video URL"
+msgstr "آدرس ویدیو لیوید"
+
+#: admin/views/slides/tabs/livid.php:19
+msgid ""
+"Paste the link to a video hosted on livid.com. We will create the embed for "
+"you."
+msgstr ""
+"لینک ویدیویی که در livid.com میزبانی شده را بچسبانید. ما برای شما کد جاسازی "
+"را ایجاد خواهیم کرد."
+
+#: admin/views/slides/tabs/livid.php:33
+#: modules/local_video/tabs/general.php:70
+msgid "Mute video"
+msgstr "بی‌صدا کردن ویدیو"
+
+#: admin/views/slides/tabs/livid.php:47
+#: modules/local_video/tabs/general.php:82
+msgid "Show controls"
+msgstr "نمایش کنترل‌ها"
+
+#: admin/views/slides/tabs/livid.php:49
+msgid ""
+"Hiding the controls only works if the video is on a Livid Pro or Premium "
+"account"
+msgstr ""
+"پنهان کردن کنترل‌ها فقط در صورتی کار می‌کند که ویدیو در حساب لیوید پرو یا "
+"پریمیوم باشد"
+
+#: admin/views/slides/tabs/livid.php:65
+#: modules/local_video/tabs/general.php:95
+msgid "Auto play"
+msgstr "پخش خودکار"
+
+#: admin/views/slides/tabs/livid.php:67
+msgid "May require the video to be muted"
+msgstr "ممکن است نیاز باشد ویدیو بی‌صدا باشد"
+
+#: admin/views/slides/tabs/livid.php:83
+#: modules/local_video/tabs/general.php:113
+msgid "Lazy load video"
+msgstr "بارگذاری تنبل ویدیو"
+
+#: admin/views/slides/tabs/livid.php:85
+msgid "The video only loads once a visitor clicks play"
+msgstr "ویدیو فقط زمانی بارگذاری می‌شود که یک بازدیدکننده روی پخش کلیک کند"
+
+#: admin/views/slides/tabs/livid.php:99
+#: modules/local_video/tabs/general.php:125
+msgid "Loop video"
+msgstr "چرخش ویدیو"
+
+#: admin/views/slides/tabs/mobile.php:35
+#: modules/local_video/tabs/mobile.php:22
 msgid "Hide slide on:"
 msgstr "مخفی کردن اسلاید در:"
 
-#: admin/views/slides/tabs/mobile.php:46
+#: admin/views/slides/tabs/mobile.php:48
+#: modules/local_video/tabs/mobile.php:35
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths equal to or "
@@ -2963,7 +3048,8 @@ msgstr ""
 "هنگامی که این تنظیم فعال شود، اسلاید در عرض‌های صفحه برابر یا بزرگتر از "
 "%spx مخفی خواهد شد"
 
-#: admin/views/slides/tabs/mobile.php:56
+#: admin/views/slides/tabs/mobile.php:58
+#: modules/local_video/tabs/mobile.php:45
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths of %1$spx to "
@@ -2972,11 +3058,11 @@ msgstr ""
 "هنگامی که این تنظیم فعال شود، اسلاید در عرض‌های صفحه %1$spx تا %2$spx مخفی "
 "خواهد شد"
 
-#: admin/views/slides/tabs/mobile.php:72
+#: admin/views/slides/tabs/mobile.php:75
 msgid "Hide caption on:"
 msgstr "مخفی کردن عنوان در:"
 
-#: admin/views/slides/tabs/mobile.php:85
+#: admin/views/slides/tabs/mobile.php:88
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths equal to "
@@ -2985,7 +3071,7 @@ msgstr ""
 "هنگامی که این تنظیم فعال شود، عنوان در عرض‌های صفحه برابر یا بزرگتر از %spx "
 "مخفی خواهد شد"
 
-#: admin/views/slides/tabs/mobile.php:95
+#: admin/views/slides/tabs/mobile.php:98
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths of %1$spx "
@@ -3223,136 +3309,136 @@ msgstr "دیدگاه‌های نوظهور"
 msgid "Sporting Spirit"
 msgstr "روح ورزشی"
 
-#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:227
 msgid "Marathon Journey"
 msgstr "سفر ماراتن"
 
-#: inc/metaslider.quickstart.class.php:227
-msgid "Cars Display"
-msgstr "نمایش خودروها"
-
 #: inc/metaslider.quickstart.class.php:239
-msgid "Watch Shop Hero"
-msgstr "قهرمان فروشگاه ساعت"
-
-#: inc/metaslider.quickstart.class.php:251
-msgid "Creative Agency Hero"
-msgstr "قهرمان آژانس خلاق"
-
-#: inc/metaslider.quickstart.class.php:263
-msgid "Fashion Trends"
-msgstr "روندهای مد"
-
-#: inc/metaslider.quickstart.class.php:275
-msgid "Entertainment YouTube Shorts Feed"
-msgstr "فید ویدیوهای کوتاه یوتیوب سرگرمی"
-
-#: inc/metaslider.quickstart.class.php:287
-msgid "Album Cover Showcase"
-msgstr "نمایش کاور آلبوم"
-
-#: inc/metaslider.quickstart.class.php:299
-msgid "Business Presentation"
-msgstr "ارائه کسب و کار"
-
-#: inc/metaslider.quickstart.class.php:311
-msgid "Books by Genre"
-msgstr "کتاب‌ها بر اساس ژانر"
-
-#: inc/metaslider.quickstart.class.php:323
-msgid "Testimonials"
-msgstr "نظرات"
-
-#: inc/metaslider.quickstart.class.php:335
-msgid "Skincare Routine Guide"
-msgstr "راهنمای روتین مراقبت از پوست"
-
-#: inc/metaslider.quickstart.class.php:347
-msgid "Indoor Plant Selection Guide"
-msgstr "راهنمای انتخاب گیاهان آپارتمانی"
-
-#: inc/metaslider.quickstart.class.php:359
-msgid "TikTok Vertical Videos"
-msgstr "ویدیوهای عمودی تیک‌تاک"
-
-#: inc/metaslider.quickstart.class.php:371
 msgid "Daily Routine Videos"
 msgstr "ویدیوهای روتین روزانه"
 
+#: inc/metaslider.quickstart.class.php:263
+msgid "Cars Display"
+msgstr "نمایش خودروها"
+
+#: inc/metaslider.quickstart.class.php:275
+msgid "Watch Shop Hero"
+msgstr "قهرمان فروشگاه ساعت"
+
+#: inc/metaslider.quickstart.class.php:287
+msgid "Creative Agency Hero"
+msgstr "قهرمان آژانس خلاق"
+
+#: inc/metaslider.quickstart.class.php:299
+msgid "Fashion Trends"
+msgstr "روندهای مد"
+
+#: inc/metaslider.quickstart.class.php:311
+msgid "Entertainment YouTube Shorts Feed"
+msgstr "فید ویدیوهای کوتاه یوتیوب سرگرمی"
+
+#: inc/metaslider.quickstart.class.php:323
+msgid "Album Cover Showcase"
+msgstr "نمایش کاور آلبوم"
+
+#: inc/metaslider.quickstart.class.php:335
+msgid "Business Presentation"
+msgstr "ارائه کسب و کار"
+
+#: inc/metaslider.quickstart.class.php:347
+msgid "Books by Genre"
+msgstr "کتاب‌ها بر اساس ژانر"
+
+#: inc/metaslider.quickstart.class.php:359
+msgid "Testimonials"
+msgstr "نظرات"
+
+#: inc/metaslider.quickstart.class.php:371
+msgid "Skincare Routine Guide"
+msgstr "راهنمای روتین مراقبت از پوست"
+
 #: inc/metaslider.quickstart.class.php:383
+msgid "Indoor Plant Selection Guide"
+msgstr "راهنمای انتخاب گیاهان آپارتمانی"
+
+#: inc/metaslider.quickstart.class.php:395
+msgid "TikTok Vertical Videos"
+msgstr "ویدیوهای عمودی تیک‌تاک"
+
+#: inc/metaslider.quickstart.class.php:407
 msgid "Coffee Brewing Guide"
 msgstr "راهنمای دم کردن قهوه"
 
-#: inc/metaslider.quickstart.class.php:395
+#: inc/metaslider.quickstart.class.php:419
 msgid "Upcoming City Events"
 msgstr "رویدادهای شهری آینده"
 
-#: inc/metaslider.quickstart.class.php:407
+#: inc/metaslider.quickstart.class.php:431
 msgid "Product Categories"
 msgstr "دسته‌بندی‌های محصول"
 
-#: inc/metaslider.quickstart.class.php:419
+#: inc/metaslider.quickstart.class.php:443
 msgid "Recent WooCommerce Products"
 msgstr "محصولات اخیر WooCommerce"
 
-#: inc/metaslider.quickstart.class.php:431
+#: inc/metaslider.quickstart.class.php:455
 msgid "Latest News Posts"
 msgstr "آخرین پست‌های خبری"
 
-#: inc/metaslider.quickstart.class.php:443
+#: inc/metaslider.quickstart.class.php:467
 msgid "Product Demo"
 msgstr "دموی محصول"
 
-#: inc/metaslider.quickstart.class.php:455
+#: inc/metaslider.quickstart.class.php:479
 msgid "Trending Videos"
 msgstr "ویدیوهای پرطرفدار"
 
-#: inc/metaslider.quickstart.class.php:467
+#: inc/metaslider.quickstart.class.php:491
 msgid "Hotel Rooms"
 msgstr "اتاق‌های هتل"
 
-#: inc/metaslider.quickstart.class.php:479
+#: inc/metaslider.quickstart.class.php:503
 msgid "Client Testimonials"
 msgstr "نظرات مشتریان"
 
-#: inc/metaslider.quickstart.class.php:491
+#: inc/metaslider.quickstart.class.php:515
 msgid "Meet the Team"
 msgstr "آشنایی با تیم"
 
-#: inc/metaslider.quickstart.class.php:503
+#: inc/metaslider.quickstart.class.php:527
 msgid "Curated Videos"
 msgstr "ویدیوهای انتخاب شده"
 
-#: inc/metaslider.quickstart.class.php:515
+#: inc/metaslider.quickstart.class.php:539
 msgid "Natural Skincare Presentation"
 msgstr "معرفی مراقبت از پوست طبیعی"
 
-#: inc/metaslider.quickstart.class.php:539
+#: inc/metaslider.quickstart.class.php:563
 msgid "YouTube Shorts Carousel"
 msgstr "کاروسل ویدیوهای یوتیوب"
 
-#: inc/metaslider.quickstart.class.php:551
+#: inc/metaslider.quickstart.class.php:575
 msgid "TikTok Carousel"
 msgstr "کاروسل تیک‌تاک"
 
-#: inc/metaslider.quickstart.class.php:563
-#: ml-slider.php:839, fuzzy
+#: inc/metaslider.quickstart.class.php:587
+#: ml-slider.php:890, fuzzy
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: inc/metaslider.quickstart.class.php:587
+#: inc/metaslider.quickstart.class.php:599
 msgid "Layer Slides"
 msgstr "اسلایدهای لایه‌ای"
 
-#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:659
 msgid "WooCommerce Carousel"
 msgstr "کاروسل WooCommerce"
 
-#: inc/metaslider.quickstart.class.php:659
+#: inc/metaslider.quickstart.class.php:671
 msgid "Bold Motion"
 msgstr "حرکت جسورانه"
 
-#: inc/metaslider.quickstart.class.php:671
+#: inc/metaslider.quickstart.class.php:683
 msgid "Playful Pets"
 msgstr "حیوانات بازیگوش"
 
@@ -3386,7 +3472,7 @@ msgid "Select Slider:"
 msgstr "انتخاب اسلاید:"
 
 #: inc/metaslider.widget.class.php:126
-#: ml-slider.php:2074
+#: ml-slider.php:2124
 #: admin/assets/dist/js/app.js:2
 msgid "No slideshows found"
 msgstr "اسلایدشو پیدا نشد"
@@ -3430,6 +3516,15 @@ msgid "This isn't a valid image format. Please try again."
 msgstr "این فرمت تصویر معتبر نیست. لطفاً دوباره تلاش کنید."
 
 #: inc/slide/metaslide.image.class.php:412
+#: inc/slide/metaslide.livid.class.php:784
+#: modules/local_video/slide.php:203
+#: modules/local_video/slide.php:878
+#: modules/local_video/slide.php:936
+#: modules/local_video/slide.php:1044
+#: modules/local_video/slide.php:1209
+#: modules/local_video/slide.php:1282
+#: modules/local_video/slide.php:1396
+#: modules/local_video/slide.php:2082
 msgid "Access denied"
 msgstr "دسترسی رد شد"
 
@@ -3442,10 +3537,13 @@ msgid "Warning: The image data does not exist. Please re-upload the image."
 msgstr "هشدار: داده‌های تصویر وجود ندارد. لطفاً تصویر را دوباره بارگذاری کنید."
 
 #: inc/slide/metaslide.image.class.php:555
+#: inc/slide/metaslide.livid.class.php:875
+#: modules/local_video/slide.php:407
 msgid "General"
 msgstr "عمومی"
 
 #: inc/slide/metaslide.image.class.php:559
+#: modules/local_video/slide.php:411
 msgid "Link"
 msgstr "لینک"
 
@@ -3454,6 +3552,8 @@ msgid "SEO"
 msgstr "سئو"
 
 #: inc/slide/metaslide.image.class.php:578
+#: inc/slide/metaslide.livid.class.php:893
+#: modules/local_video/slide.php:438
 msgid "Device"
 msgstr "دستگاه"
 
@@ -3477,7 +3577,67 @@ msgstr "تنظیمات پیشرفته در MetaSlider Slideshow Pro در دست�
 msgid "View Slide Details"
 msgstr "مشاهده جزئیات اسلاید"
 
-#: inc/slider/metaslider.class.php:457
+#: inc/slide/metaslide.livid.class.php:217
+msgid "Livid Video"
+msgstr "ویدیو لیوید"
+
+#: inc/slide/metaslide.livid.class.php:272
+#: inc/slide/metaslide.livid.class.php:320
+#: inc/slide/metaslide.livid.class.php:364
+#: inc/slide/metaslide.livid.class.php:425
+#: inc/slide/metaslide.livid.class.php:477
+msgid "Please enter a valid link to a video hosted on livid.com."
+msgstr "لطفاً یک لینک معتبر به ویدیویی که در livid.com میزبانی شده وارد کنید."
+
+#: inc/slide/metaslide.livid.class.php:278
+msgid "Create slideshows with your Livid videos"
+msgstr "ایجاد نمایش اسلاید با ویدیوهای لیوید شما"
+
+#: inc/slide/metaslide.livid.class.php:281
+msgid "Enter the URL of a Livid video:"
+msgstr "آدرس ویدیو لیوید را وارد کنید:"
+
+#: inc/slide/metaslide.livid.class.php:292
+#: ml-slider.php:850
+#: modules/local_video/slide.php:112
+#: admin/assets/dist/js/admin.js:1
+#: admin/assets/js/admin.js:218
+msgid "Add to slideshow"
+msgstr "اضافه کردن به اسلایدشو"
+
+#: inc/slide/metaslide.livid.class.php:318
+msgid "Updating the Livid video..."
+msgstr "در حال به‌روزرسانی ویدیو لیوید..."
+
+#: inc/slide/metaslide.livid.class.php:319
+msgid "Livid video updated."
+msgstr "ویدیو لیوید به‌روز شد."
+
+#: inc/slide/metaslide.livid.class.php:321
+msgid "We could not update the Livid video. Please check the link and try again."
+msgstr ""
+"ما نتوانستیم ویدیو لیوید را به‌روزرسانی کنیم. لطفاً لینک را بررسی کرده و "
+"دوباره تلاش کنید."
+
+#: inc/slide/metaslide.livid.class.php:561
+msgid "Livid video player"
+msgstr "پخش‌کننده ویدیو لیوید"
+
+#: inc/slide/metaslide.livid.class.php:681
+#. translators: %s: Livid video URL
+#, php-format
+msgid "Livid video thumbnail - %s"
+msgstr "thumb ویدیو لیوید - %s"
+
+#: inc/slide/metaslide.livid.class.php:818
+msgid "Livid Video Slide"
+msgstr "اسلاید ویدیو لیوید"
+
+#: inc/slide/metaslide.livid.class.php:1011
+msgid "Play video"
+msgstr "پخش ویدئو"
+
+#: inc/slider/metaslider.class.php:461
 msgid "Edit Slideshow"
 msgstr "ویرایش اسلایدشو"
 
@@ -3489,7 +3649,7 @@ msgstr "پخش"
 msgid "Pause"
 msgstr "مکث"
 
-#: ml-slider.php:267
+#: ml-slider.php:270
 #, php-format
 msgid ""
 "MetaSlider Slideshow Pro is installed but is out of date. You may update it "
@@ -3498,70 +3658,64 @@ msgstr ""
 "MetaSlider Pro نصب شده است اما به روز نیست. شما می‌توانید آن را %shere%s "
 "به‌روزرسانی کنید. اطلاعات بیشتر در مورد این اطلاعیه %shere%s"
 
-#: ml-slider.php:576
+#: ml-slider.php:580
 msgid "Settings & Help"
 msgstr "تنظیمات و کمک"
 
-#: ml-slider.php:580
+#: ml-slider.php:584
 msgid "Upgrade to Pro"
 msgstr "به Pro ارتقاء دهید"
 
-#: ml-slider.php:610
-#: ml-slider.php:613
+#: ml-slider.php:614
+#: ml-slider.php:617
 #: themes/customize.php:20
 msgid "Slideshow"
 msgstr "اسلایدشو"
 
-#: ml-slider.php:619
-#: ml-slider.php:622
+#: ml-slider.php:623
+#: ml-slider.php:626
 msgid "All Slideshows"
 msgstr "تمام اسلایدشوها"
 
-#: ml-slider.php:630
-#: ml-slider.php:633
+#: ml-slider.php:634
+#: ml-slider.php:637
 msgid "Create Slideshow"
 msgstr "ایجاد اسلایدشو"
 
-#: ml-slider.php:799
-#: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:218
-msgid "Add to slideshow"
-msgstr "اضافه کردن به اسلایدشو"
-
-#: ml-slider.php:840, fuzzy
+#: ml-slider.php:891, fuzzy
 msgid "YouTube"
 msgstr "YouTube"
 
-#: ml-slider.php:841, fuzzy
+#: ml-slider.php:892, fuzzy
 msgid "TikTok"
 msgstr "TikTok"
 
-#: ml-slider.php:846
+#: ml-slider.php:897
 msgid "Image Folder"
 msgstr "پوشه تصویر"
 
-#: ml-slider.php:847
+#: ml-slider.php:898
 #: admin/assets/dist/js/app.js:2
 msgid "Post Images"
 msgstr "تصاویر پست"
 
-#: ml-slider.php:976
+#: ml-slider.php:1026
 msgid "The slide was successfully restored"
 msgstr "اسلاید با موفقیت بازیابی شد"
 
-#: ml-slider.php:999
+#: ml-slider.php:1049
 msgid "The attempt to restore the slide failed."
 msgstr "تلاش برای بازیابی اسلاید ناموفق بود."
 
-#: ml-slider.php:1058
+#: ml-slider.php:1108
 msgid "The slide was successfully trashed"
 msgstr "اسلاید با موفقیت به سطل زباله منتقل شد"
 
-#: ml-slider.php:1170
+#: ml-slider.php:1220
 msgid "The slide was permanently deleted"
 msgstr "اسلاید به طور دائمی حذف شد"
 
-#: ml-slider.php:1461
+#: ml-slider.php:1511
 #, php-format
 msgid ""
 "Please consider moving your slides to <b>FlexSlider</b>. We're adding all "
@@ -3572,19 +3726,19 @@ msgstr ""
 "ویژگی‌های جدید MetaSlider را به این گزینه اضافه می‌کنیم. <a "
 "href=\"%s\">بیشتر بدانید</a>."
 
-#: ml-slider.php:1863
+#: ml-slider.php:1913
 msgid "Slide permanently deleted."
 msgstr "اسلاید به طور دائمی حذف شد."
 
-#: ml-slider.php:1866
+#: ml-slider.php:1916
 msgid "Slide restored."
 msgstr "اسلاید بازیابی شد."
 
-#: ml-slider.php:1898
+#: ml-slider.php:1948
 msgid "Toggle slide reorder panel"
 msgstr "پنل تغییر ترتیب اسلاید را روشن/خاموش کنید"
 
-#: ml-slider.php:1935
+#: ml-slider.php:1985
 #, php-format
 msgid ""
 "You are viewing slides that have been trashed, which will be automatically "
@@ -3593,27 +3747,27 @@ msgstr ""
 "شما در حال مشاهده اسلایدهایی هستید که به سطل زباله منتقل شده‌اند و به طور "
 "خودکار در %s روز حذف خواهند شد."
 
-#: ml-slider.php:1968
+#: ml-slider.php:2018
 msgid "Move slideshow to trash"
 msgstr "انتقال نمایش اسلاید به سطل زباله"
 
-#: ml-slider.php:2023
+#: ml-slider.php:2073
 msgid "Add slideshow"
 msgstr "اضافه کردن نمایش اسلاید"
 
-#: ml-slider.php:2059
+#: ml-slider.php:2109
 msgid "Choose slideshow"
 msgstr "انتخاب اسلایدشو"
 
-#: ml-slider.php:2069
+#: ml-slider.php:2119
 msgid "Insert slideshow"
 msgstr "درج نمایش اسلاید"
 
-#: ml-slider.php:2104
+#: ml-slider.php:2154
 msgid "Create slides by adding text, videos and more to your images"
 msgstr "با افزودن متن، ویدیو و موارد دیگر به تصاویر خود، اسلایدها ایجاد کنید"
 
-#: ml-slider.php:2108
+#: ml-slider.php:2158
 msgid ""
 "With Layer slides, you can create beautiful, stylish layers of different "
 "elements."
@@ -3621,7 +3775,7 @@ msgstr ""
 "با اسلایدهای لایه‌ای، می‌توانید لایه‌های زیبا و شیک از عناصر مختلف ایجاد "
 "کنید."
 
-#: ml-slider.php:2112
+#: ml-slider.php:2162
 msgid ""
 "You start with an image and then can add text, video, colors, animations, "
 "more images, and even shortcodes."
@@ -3629,29 +3783,28 @@ msgstr ""
 "شما با یک تصویر شروع می‌کنید و سپس می‌توانید متن، ویدیو، رنگ‌ها، "
 "انیمیشن‌ها، تصاویر بیشتر و حتی کدهای کوتاه را اضافه کنید."
 
-#: ml-slider.php:2118
-#: ml-slider.php:2159
-#: ml-slider.php:2200
-#: ml-slider.php:2243
-#: ml-slider.php:2286
-#: ml-slider.php:2329
-#: ml-slider.php:2372
-#: ml-slider.php:2411
-#: ml-slider.php:2454
-#: ml-slider.php:2493
-#: ml-slider.php:2564
-#: ml-slider.php:2599
-#: ml-slider.php:2634
+#: ml-slider.php:2168
+#: ml-slider.php:2209
+#: ml-slider.php:2250
+#: ml-slider.php:2293
+#: ml-slider.php:2336
+#: ml-slider.php:2379
+#: ml-slider.php:2418
+#: ml-slider.php:2461
+#: ml-slider.php:2500
+#: ml-slider.php:2571
+#: ml-slider.php:2606
+#: ml-slider.php:2641
 #: admin/assets/dist/js/app.js:2
 #, fuzzy
 msgid "Find out more about MetaSlider Slideshow Pro"
 msgstr "بیشتر در مورد MetaSlider Pro بدانید"
 
-#: ml-slider.php:2147
+#: ml-slider.php:2197
 msgid "Create slideshows with your Vimeo videos"
 msgstr "با ویدیوهای Vimeo خود، نمایش اسلاید ایجاد کنید"
 
-#: ml-slider.php:2151
+#: ml-slider.php:2201
 msgid ""
 "With Vimeo slides, you can build beautiful slideshows with your Vimeo "
 "videos."
@@ -3659,7 +3812,7 @@ msgstr ""
 "با اسلایدهای Vimeo، می‌توانید نمایش اسلایدهای زیبایی با ویدیوهای Vimeo خود "
 "بسازید."
 
-#: ml-slider.php:2155
+#: ml-slider.php:2205
 msgid ""
 "Vimeo slides will display your videos with auto play, mute, the ability to "
 "hide controls, and much more."
@@ -3667,11 +3820,11 @@ msgstr ""
 "اسلایدهای Vimeo ویدیوهای شما را با پخش خودکار، بی‌صدا، امکان پنهان کردن "
 "کنترل‌ها و موارد دیگر نمایش خواهند داد."
 
-#: ml-slider.php:2188
+#: ml-slider.php:2238
 msgid "Create slideshows with your YouTube videos"
 msgstr "با ویدیوهای YouTube خود، نمایش اسلاید ایجاد کنید"
 
-#: ml-slider.php:2192
+#: ml-slider.php:2242
 msgid ""
 "With YouTube slides, you can build beautiful slideshows with your YouTube "
 "videos."
@@ -3679,7 +3832,7 @@ msgstr ""
 "با اسلایدهای یوتیوب، می‌توانید اسلایدشوهای زیبایی با ویدیوهای یوتیوب خود "
 "بسازید."
 
-#: ml-slider.php:2196
+#: ml-slider.php:2246
 msgid ""
 "YouTube slides will display your videos with auto play, mute, lazy load, "
 "the ability to hide controls, and much more."
@@ -3687,11 +3840,11 @@ msgstr ""
 "اسلایدهای یوتیوب ویدیوهای شما را با پخش خودکار، بی‌صدا، بارگذاری تنبل، "
 "قابلیت مخفی کردن کنترل‌ها و بسیاری امکانات دیگر نمایش می‌دهند."
 
-#: ml-slider.php:2229
+#: ml-slider.php:2279
 msgid "Create slideshows with your posts"
 msgstr "اسلایدشوهایی با پست‌های خود بسازید"
 
-#: ml-slider.php:2233
+#: ml-slider.php:2283
 msgid ""
 "With Post Feed slides, you can build slideshows with your latest posts, "
 "events, or WooCommerce products."
@@ -3699,7 +3852,7 @@ msgstr ""
 "با اسلایدهای فید پست، می‌توانید اسلایدشوهایی با آخرین پست‌ها، رویدادها یا "
 "محصولات WooCommerce خود بسازید."
 
-#: ml-slider.php:2237
+#: ml-slider.php:2287
 msgid ""
 "Post Feed slides will automatically display your posts with images, text, "
 "custom fields, and much more."
@@ -3707,11 +3860,11 @@ msgstr ""
 "اسلایدهای فید پست به طور خودکار پست‌های شما را با تصاویر، متن، فیلدهای "
 "سفارشی و بسیاری امکانات دیگر نمایش می‌دهند."
 
-#: ml-slider.php:2272
+#: ml-slider.php:2322
 msgid "Create slideshows with images stored outside of WordPress"
 msgstr "اسلایدشوهایی با تصاویری که در خارج از WordPress ذخیره شده‌اند بسازید"
 
-#: ml-slider.php:2276
+#: ml-slider.php:2326
 msgid ""
 "With External URL slides, you can load images directly from non-WordPress "
 "sources such as CDNs or image hosts."
@@ -3719,7 +3872,7 @@ msgstr ""
 "با اسلایدهای URL خارجی، می‌توانید تصاویر را به طور مستقیم از منابع غیر "
 "WordPress مانند CDNها یا میزبان‌های تصویر بارگذاری کنید."
 
-#: ml-slider.php:2280
+#: ml-slider.php:2330
 msgid ""
 "External URL slides give you all the power of MetaSlider Slideshow, using "
 "images stored anywhere you want."
@@ -3727,33 +3880,11 @@ msgstr ""
 "اسلایدهای URL خارجی تمام قدرت MetaSlider را به شما می‌دهند و از تصاویری که "
 "هر جایی که بخواهید ذخیره شده‌اند استفاده می‌کنند."
 
-#: ml-slider.php:2315
-msgid "Create slideshows with videos in your media library"
-msgstr "اسلایدشوهایی با ویدیوهای موجود در کتابخانه رسانه‌ای خود بسازید"
-
-#: ml-slider.php:2319
-msgid ""
-"With Local Video slides, you can build beautiful slideshows with videos in "
-"your WordPress media library or searched directly from Pixabay."
-msgstr ""
-"با اسلایدهای ویدیویی محلی، می‌توانید اسلایدشوهای زیبایی با ویدیوها در "
-"کتابخانه رسانه WordPress خود یا به‌طور مستقیم از Pixabay ایجاد کنید."
-
-#: ml-slider.php:2323
-msgid ""
-"Local Video slides will display your MP4, WebM, and MOV videos with cover "
-"images, auto play, mute, lazy load, the ability to hide controls, and much "
-"more."
-msgstr ""
-"اسلایدهای ویدیو محلی ویدیوهای MP4، WebM و MOV شما را با تصاویر کاور، پخش "
-"خودکار، بی‌صدا، بارگذاری تنبل، قابلیت مخفی کردن کنترل‌ها و بسیاری امکانات "
-"دیگر نمایش می‌دهند."
-
-#: ml-slider.php:2358
+#: ml-slider.php:2365
 msgid "Create slideshows with videos stored outside of WordPress"
 msgstr "اسلایدشوهایی با ویدیوهایی که در خارج از WordPress ذخیره شده‌اند بسازید"
 
-#: ml-slider.php:2362
+#: ml-slider.php:2369
 msgid ""
 "With External Video slides, you can add videos directly from non-WordPress "
 "sources."
@@ -3761,7 +3892,7 @@ msgstr ""
 "با اسلایدهای ویدیو خارجی، می‌توانید ویدیوها را به طور مستقیم از منابع غیر "
 "WordPress اضافه کنید."
 
-#: ml-slider.php:2366
+#: ml-slider.php:2373
 msgid ""
 "External Video Slides will display your MP4, WebM, and MOV videos. Features "
 "include text captions, cover images, auto play, mute, lazy load, the "
@@ -3771,11 +3902,11 @@ msgstr ""
 "ویژگی‌ها شامل زیرنویس‌های متنی، تصاویر کاور، پخش خودکار، بی‌صدا، بارگذاری "
 "تنبل، قابلیت مخفی کردن کنترل‌ها و بسیاری امکانات دیگر هستند."
 
-#: ml-slider.php:2401
+#: ml-slider.php:2408
 msgid "Create slideshows with custom HTML"
 msgstr "اسلایدشوهایی با HTML سفارشی بسازید"
 
-#: ml-slider.php:2405
+#: ml-slider.php:2412
 msgid ""
 "With Custom HTML slides, you can design slides using images, HTML and CSS. "
 "This gives you complete control over the layout and styling."
@@ -3783,11 +3914,11 @@ msgstr ""
 "با اسلایدهای HTML سفارشی، می‌توانید اسلایدها را با استفاده از تصاویر، HTML "
 "و CSS طراحی کنید. این به شما کنترل کامل بر روی چینش و طراحی می‌دهد."
 
-#: ml-slider.php:2444
+#: ml-slider.php:2451
 msgid "Create slides with background colors and text"
 msgstr "ایجاد اسلایدها با رنگ‌های پس‌زمینه و متن"
 
-#: ml-slider.php:2448
+#: ml-slider.php:2455
 msgid ""
 "With Background Color slides, you can create slides using a solid or "
 "gradient background color. Perfect for text-only slides, calls to action or "
@@ -3797,11 +3928,11 @@ msgstr ""
 "جامد یا گرادیانت ایجاد کنید. مناسب برای اسلایدهای فقط متنی، فراخوانی به عمل "
 "یا بنرهای سریع."
 
-#: ml-slider.php:2483
+#: ml-slider.php:2490
 msgid "Create slideshows with Tiktok Videos"
 msgstr "اسلایدشوهایی با ویدیوهای TikTok بسازید"
 
-#: ml-slider.php:2487
+#: ml-slider.php:2494
 msgid ""
 "A TikTok Slide will display a video in your slideshow directly from "
 "TikTok.com."
@@ -3809,11 +3940,11 @@ msgstr ""
 "یک اسلاید TikTok ویدیو را به طور مستقیم از TikTok.com در اسلایدشوی شما "
 "نمایش می‌دهد."
 
-#: ml-slider.php:2550
+#: ml-slider.php:2557
 msgid "Create slideshows with images from a folder"
 msgstr "اسلایدشوهایی با تصاویری از یک پوشه بسازید"
 
-#: ml-slider.php:2554
+#: ml-slider.php:2561
 msgid ""
 "The Image Folder slide type extracts images from a specified folder and "
 "displays them as slides."
@@ -3821,7 +3952,7 @@ msgstr ""
 "نوع اسلاید پوشه تصویر، تصاویر را از یک پوشه مشخص استخراج کرده و به عنوان "
 "اسلاید نمایش می‌دهد."
 
-#: ml-slider.php:2558
+#: ml-slider.php:2565
 msgid ""
 "This slide type displays images from folders in your WordPress Media "
 "Library."
@@ -3829,11 +3960,11 @@ msgstr ""
 "این نوع اسلاید تصاویر را از پوشه‌ها در کتابخانه رسانه‌های WordPress شما "
 "نمایش می‌دهد."
 
-#: ml-slider.php:2585
+#: ml-slider.php:2592
 msgid "Create slideshows with Post Images"
 msgstr "ایجاد اسلایدشو با تصاویر پست"
 
-#: ml-slider.php:2589
+#: ml-slider.php:2596
 msgid ""
 "The Post Images slide type extracts images from the current post and "
 "displays them as slides."
@@ -3841,7 +3972,7 @@ msgstr ""
 "نوع اسلاید تصاویر پست، تصاویر را از پست فعلی استخراج کرده و به عنوان اسلاید "
 "نمایش می‌دهد."
 
-#: ml-slider.php:2593
+#: ml-slider.php:2600
 msgid ""
 "This slide type supports featured images, post content images, WooCommerce "
 "galleries, Advanced Custom Fields images and galleries."
@@ -3849,11 +3980,11 @@ msgstr ""
 "این نوع اسلاید از تصاویر ویژه، تصاویر محتوای پست، گالری‌های WooCommerce، "
 "تصاویر و گالری‌های فیلدهای سفارشی پیشرفته پشتیبانی می‌کند."
 
-#: ml-slider.php:2620
+#: ml-slider.php:2627
 msgid "Create slideshows with your WooCommerce products"
 msgstr "ایجاد اسلایدشو با محصولات WooCommerce شما"
 
-#: ml-slider.php:2624
+#: ml-slider.php:2631
 msgid ""
 "With WooCommerce slides, you can build slideshows with your WooCommerce "
 "products."
@@ -3861,7 +3992,7 @@ msgstr ""
 "با اسلایدهای WooCommerce، می‌توانید اسلایدشوهایی با محصولات WooCommerce خود "
 "بسازید."
 
-#: ml-slider.php:2628
+#: ml-slider.php:2635
 msgid ""
 "WooCommerce slides will automatically display your products with images, "
 "text, custom fields, and much more."
@@ -3869,46 +4000,288 @@ msgstr ""
 "اسلایدهای WooCommerce به صورت خودکار محصولات شما را با تصاویر، متن، فیلدهای "
 "سفارشی و موارد دیگر نمایش می‌دهند."
 
-#: ml-slider.php:2672
+#: ml-slider.php:2679
 msgid "Premium Support"
 msgstr "پشتیبانی پریمیوم"
 
-#: ml-slider.php:2678
+#: ml-slider.php:2685
 #, fuzzy
 msgid "MetaSlider Slideshow Pro"
 msgstr "MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2682
+#: ml-slider.php:2689
 msgid "Support"
 msgstr "پشتیبانی"
 
-#: ml-slider.php:2687
+#: ml-slider.php:2694
+#: modules/local_video/slide.php:533
 msgid "Documentation"
 msgstr "مستندات"
 
-#: ml-slider.php:2691
+#: ml-slider.php:2698
 msgid "Leave a review"
 msgstr "یک بررسی بگذارید"
 
-#: ml-slider.php:2810
+#: ml-slider.php:2817
 msgid "Uploading..."
 msgstr "در حال بارگذاری..."
 
-#: ml-slider.php:2817
+#: ml-slider.php:2824
 msgid "Upload Complete"
 msgstr "بارگذاری کامل"
 
-#: ml-slider.php:2944
+#: ml-slider.php:2951
 msgid "Import file is missing"
 msgstr "فایل واردات گم شده است"
 
-#: ml-slider.php:3095
+#: ml-slider.php:3102
 msgid ""
 "You attempted to edit a slideshow that does not exist. Perhaps it was moved "
 "to trash?"
 msgstr ""
 "شما سعی کرده‌اید یک اسلایدشو را ویرایش کنید که وجود ندارد. شاید به سطل "
 "زباله منتقل شده است؟"
+
+#: modules/local_video/helper.php:95
+#: modules/local_video/helper.php:101
+msgid "Update cover image"
+msgstr "به‌روزرسانی تصویر کاور"
+
+#: modules/local_video/helper.php:108
+msgid "Set cover image"
+msgstr "تنظیم تصویر کاور"
+
+#: modules/local_video/helper.php:159
+#: modules/local_video/slide.php:1163
+msgid "Update slide video"
+msgstr "به‌روزرسانی ویدئوی اسلاید"
+
+#: modules/local_video/helper.php:163
+#: modules/local_video/slide.php:585
+#: modules/local_video/slide.php:1167
+msgid "Browse"
+msgstr "مرور"
+
+#: modules/local_video/helper.php:168
+#: modules/local_video/slide.php:1172
+msgid "Video File"
+msgstr "فایل ویدئو"
+
+#: modules/local_video/slide.php:109
+msgid "Select replacement video"
+msgstr "انتخاب ویدئوی جایگزین"
+
+#: modules/local_video/slide.php:110
+msgid "Select replacement cover"
+msgstr "انتخاب کاور جایگزین"
+
+#: modules/local_video/slide.php:111
+msgid "Select replacement text track"
+msgstr "انتخاب ترک متن جایگزین"
+
+#: modules/local_video/slide.php:197
+#: modules/local_video/slide.php:2075
+msgid "Invalid nonce"
+msgstr "Nonce نامعتبر"
+
+#: modules/local_video/slide.php:218
+#: modules/local_video/slide.php:897
+#: modules/local_video/slide.php:1107
+msgid "Not supported video format"
+msgstr "فرمت ویدئو پشتیبانی نمی‌شود"
+
+#: modules/local_video/slide.php:349
+msgid "Local Video Slide"
+msgstr "اسلاید ویدئوی محلی"
+
+#: modules/local_video/slide.php:370
+msgid "Please update to MetaSlider Slideshow to version 3.2 or above."
+msgstr "لطفاً به MetaSlider Slideshow نسخه ۳.۲ یا بالاتر به‌روزرسانی کنید."
+
+#: modules/local_video/slide.php:415
+msgid "Cover"
+msgstr "کاور"
+
+#: modules/local_video/slide.php:419
+msgid "Text track"
+msgstr "ترک متن"
+
+#: modules/local_video/slide.php:476
+msgid "Which language is the source file?"
+msgstr "فایل منبع به چه زبانی است؟"
+
+#: modules/local_video/slide.php:477
+msgid "Language label"
+msgstr "برچسب زبان"
+
+#: modules/local_video/slide.php:482
+msgid "For example: English"
+msgstr "به عنوان مثال: انگلیسی"
+
+#: modules/local_video/slide.php:490
+msgid "Choose the type of text track"
+msgstr "نوع ترک متن را انتخاب کنید"
+
+#: modules/local_video/slide.php:491
+msgid "Language kind"
+msgstr "نوع زبان"
+
+#: modules/local_video/slide.php:497
+msgid "Captions"
+msgstr "زیرنویس‌ها"
+
+#: modules/local_video/slide.php:500
+msgid "Chapters"
+msgstr "فصل‌ها"
+
+#: modules/local_video/slide.php:503
+msgid "Descriptions"
+msgstr "توضیحات"
+
+#: modules/local_video/slide.php:509
+msgid "Subtitles"
+msgstr "زیرنویس‌ها"
+
+#: modules/local_video/slide.php:517
+msgid "If the language is English, the code must be en"
+msgstr "اگر زبان انگلیسی است، کد باید en باشد"
+
+#: modules/local_video/slide.php:518
+msgid "Language code"
+msgstr "کد زبان"
+
+#: modules/local_video/slide.php:523
+msgid "For example: en"
+msgstr "برای مثال: en"
+
+#: modules/local_video/slide.php:576
+msgid "File must be TXT or VTT format"
+msgstr "فایل باید فرمت TXT یا VTT باشد"
+
+#: modules/local_video/slide.php:577
+msgid "Source"
+msgstr "منبع"
+
+#: modules/local_video/slide.php:582
+msgid "Update slide text track"
+msgstr "به‌روزرسانی متن اسلاید"
+
+#: modules/local_video/slide.php:956
+msgid "The cover was successfully removed."
+msgstr "کاور با موفقیت حذف شد."
+
+#: modules/local_video/slide.php:986
+msgid "The requested video does not exist. Please try again."
+msgstr "ویدیوی درخواست شده وجود ندارد. لطفاً دوباره تلاش کنید."
+
+#: modules/local_video/slide.php:995
+msgid "There was an error updating the video. No previous video saved."
+msgstr "در به‌روزرسانی ویدیو خطا رخ داد. ویدیوی قبلی ذخیره نشده است."
+
+#: modules/local_video/slide.php:1011
+msgid "The video was successfully updated."
+msgstr "ویدیو با موفقیت به‌روزرسانی شد."
+
+#: modules/local_video/slide.php:1020
+msgid "There was an error updating the video. Please try again"
+msgstr "در به‌روزرسانی ویدیو خطا رخ داد. لطفاً دوباره تلاش کنید"
+
+#: modules/local_video/slide.php:1078
+msgid "You can't add more sources to this video slide."
+msgstr "شما نمی‌توانید منابع بیشتری به این اسلاید ویدیو اضافه کنید."
+
+#: modules/local_video/slide.php:1094
+msgid "This slide already has a video in that format."
+msgstr "این اسلاید قبلاً یک ویدیو در آن فرمت دارد."
+
+#: modules/local_video/slide.php:1126
+msgid "The video source was successfully added."
+msgstr "منبع ویدیو با موفقیت اضافه شد."
+
+#: modules/local_video/slide.php:1237
+msgid "This slide requires at least one video source."
+msgstr "این اسلاید به حداقل یک منبع ویدیو نیاز دارد."
+
+#: modules/local_video/slide.php:1250
+msgid "The video source was successfully removed."
+msgstr "منبع ویدیو با موفقیت حذف شد."
+
+#: modules/local_video/slide.php:1301
+msgid "Not supported text track format"
+msgstr "فرمت زیرنویس پشتیبانی نمی‌شود"
+
+#: modules/local_video/slide.php:1343
+msgid "The requested text track does not exist. Please try again."
+msgstr "زیرنویس درخواستی وجود ندارد. لطفاً دوباره تلاش کنید."
+
+#: modules/local_video/slide.php:1364
+msgid "The text track was successfully updated."
+msgstr "زیرنویس با موفقیت به‌روزرسانی شد."
+
+#: modules/local_video/slide.php:1373
+msgid "There was an error updating the text track. Please try again"
+msgstr "در به‌روزرسانی زیرنویس خطایی رخ داد. لطفاً دوباره تلاش کنید"
+
+#: modules/local_video/slide.php:1420
+msgid "The text track was successfully removed."
+msgstr "زیرنویس با موفقیت حذف شد."
+
+#: modules/local_video/tabs/caption.php:7
+msgid ""
+"Please note that captions on videos can interfere with player controls. We "
+"recommend adding captions when \"Auto play\" is enabled, and \"Show "
+"controls\" and \"Lazy load video\" are both disabled."
+msgstr ""
+"لطفاً توجه داشته باشید که زیرنویس‌ها روی ویدیوها می‌توانند با کنترل‌های پخش "
+"تداخل داشته باشند. توصیه می‌شود زیرنویس‌ها را زمانی اضافه کنید که \"پخش "
+"خودکار\" فعال است و \"نمایش کنترل‌ها\" و \"بارگذاری تنبل ویدیو\" غیرفعال "
+"هستند."
+
+#: modules/local_video/tabs/general.php:50
+#: modules/local_video/tabs/general.php:52
+msgid "Add a new video source"
+msgstr "یک منبع ویدیویی جدید اضافه کنید"
+
+#: modules/local_video/tabs/general.php:55
+msgid ""
+"Adding more formats for the same video can help improve support for "
+"different platforms."
+msgstr ""
+"اضافه کردن فرمت‌های بیشتر برای همان ویدیو می‌تواند به بهبود پشتیبانی از "
+"پلتفرم‌های مختلف کمک کند."
+
+#: modules/local_video/tabs/general.php:97
+msgid "May require video to be muted"
+msgstr "ممکن است نیاز باشد که ویدیو بی‌صدا باشد"
+
+#: modules/local_video/tabs/general.php:137
+msgid "Fit video in container"
+msgstr "ویدیو را در ظرف جا دهید"
+
+#: modules/local_video/tabs/general.php:150
+msgid "Fade in transition"
+msgstr "انتقال محو شدن"
+
+#: modules/local_video/tabs/general.php:152
+msgid ""
+"Fade in before video loads. Recommended when slide and slideshow Auto play "
+"are enabled, and slideshow Transition effect is fade."
+msgstr ""
+"قبل از بارگذاری ویدیو محو شوید. توصیه می‌شود زمانی که پخش خودکار اسلاید و "
+"اسلایدشو فعال هستند و اثر انتقال اسلایدشو محو است."
+
+#: modules/local_video/tabs/link.php:8
+msgid "Video Link URL"
+msgstr "آدرس URL لینک ویدیو"
+
+#: modules/local_video/tabs/link.php:11
+msgid ""
+"When visitors click on your video slide, they will be taken to this URL. "
+"This may affect how user interacts with the video controls."
+msgstr ""
+"زمانی که بازدیدکنندگان بر روی اسلاید ویدیویی شما کلیک کنند، به این URL "
+"منتقل خواهند شد. این ممکن است بر نحوه تعامل کاربر با کنترل‌های ویدیو تأثیر "
+"بگذارد."
 
 #: themes/architekt/customize.php:16
 #: themes/architekt/customize.php:356
@@ -6774,8 +7147,8 @@ msgstr "در حال آماده‌سازی ۱ اسلاید..."
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/dist/js/app.js:2
 #: admin/assets/js/admin.js:168
-#: admin/assets/js/admin.js:1519
-#: admin/assets/js/admin.js:1562
+#: admin/assets/js/admin.js:1554
+#: admin/assets/js/admin.js:1597
 msgid "1 slide added successfully"
 msgstr "۱ اسلاید با موفقیت اضافه شد"
 
@@ -6796,6 +7169,8 @@ msgstr "در حال بستن رابط کاربری افزودن اسلاید..."
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:314
+#: modules/local_video/assets/local_video.js:208
+#: modules/local_video/assets/local_video.js:632
 msgid "Updating slide..."
 msgstr "در حال به‌روزرسانی اسلاید..."
 
@@ -6816,21 +7191,22 @@ msgstr "کتابخانه Unsplash"
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:959
 msgid "Pixabay Library"
 msgstr "کتابخانه Pixabay"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1347
+#: admin/assets/js/admin.js:1382
 msgid "Crop position saved and image cropped"
 msgstr "موقعیت برش ذخیره شد و تصویر برش داده شد"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1364
+#: admin/assets/js/admin.js:1399
 msgid "There was an error when saving crop position or cropping the image"
 msgstr "هنگام ذخیره موقعیت برش یا برش تصویر خطایی رخ داد"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1577
+#: admin/assets/js/admin.js:1612
 msgid "Device options are enabled for this slide. Adjust using the Device tab."
 msgstr ""
 "گزینه‌های دستگاه برای این اسلاید فعال شده‌اند. از تب دستگاه برای تنظیم "
@@ -7256,6 +7632,40 @@ msgstr "عکسی یافت نشد."
 #: admin/assets/dist/js/app.js:2
 msgid "All images published on Pixabay can be used for free."
 msgstr "تمامی تصاویری که در پیکسابی منتشر شده‌اند به صورت رایگان قابل استفاده هستند."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Search pixabay.com videos..."
+msgstr "جستجوی ویدیوهای pixabay.com..."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s on Pixabay"
+msgstr "ویدیو توسط %s در Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Video on Pixabay"
+msgstr "ویدیو در Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Opening Pixabay Video tab..."
+msgstr "در حال باز کردن زبانه ویدیو Pixabay..."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Pixabay Video tab closed"
+msgstr "زبانه ویدیو Pixabay بسته شد"
+
+#: admin/assets/dist/js/app.js:2
+msgid "No videos found."
+msgstr "هیچ ویدیویی پیدا نشد."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s"
+msgstr "ویدیو توسط %s"
+
+#: admin/assets/dist/js/app.js:2
+msgid "All videos published on Pixabay can be used for free."
+msgstr "تمام ویدیوهای منتشر شده در Pixabay می‌توانند به صورت رایگان استفاده شوند."
 
 #: admin/assets/dist/js/app.js:2
 msgid "Complete!"
@@ -8200,6 +8610,11 @@ msgid "Importing %s slideshows... This may take a minute"
 msgstr "در حال وارد کردن %s اسلایدشو... این ممکن است یک دقیقه طول بکشد"
 
 #: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Failed to import: %s"
+msgstr "وارد کردن ناموفق: %s"
+
+#: admin/assets/dist/js/app.js:2
 msgid "Import successful"
 msgstr "وارد کردن با موفقیت انجام شد"
 
@@ -8236,6 +8651,13 @@ msgstr "در حال پردازش..."
 #: admin/assets/dist/js/app.js:2
 msgid "Upload file"
 msgstr "بارگذاری فایل"
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Importing slideshow %1$s of %2$s (%3$s slides). This may take a minute."
+msgstr ""
+"در حال وارد کردن اسلایدشو %1$s از %2$s (%3$s اسلاید). این ممکن است یک دقیقه "
+"طول بکشد."
 
 #: admin/assets/dist/js/app.js:2
 msgid ""
@@ -8422,6 +8844,43 @@ msgstr "در حال باز کردن صفحه تنظیمات..."
 msgid "Page not found: %s"
 msgstr "صفحه پیدا نشد: %s"
 
+#: admin/assets/js/app/slides/external/videoQuality.js:29, fuzzy
+msgid "4K"
+msgstr "4K"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:30
+msgid "Quad HD"
+msgstr "کواد HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:31, fuzzy
+msgid "Full HD"
+msgstr "Full HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:32, fuzzy
+msgid "HD"
+msgstr "HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:33, fuzzy
+msgid "SD"
+msgstr "SD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:45
+msgid "SD (if available)"
+msgstr "SD (در صورت موجود بودن)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:46
+msgid "HD (if available)"
+msgstr "HD (در صورت موجود بودن)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:47
+msgid "Full HD (if available)"
+msgstr "Full HD (در صورت موجود بودن)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:48
+#: admin/assets/js/app/slides/external/videoQuality.js:64
+msgid "Original"
+msgstr "اصلی"
+
 #: admin/assets/js/app/tour/main.js:12
 msgid "Add a slide"
 msgstr "اضافه کردن یک اسلاید"
@@ -8551,6 +9010,111 @@ msgstr "اسلایدشو"
 msgid "gallery"
 msgstr "گالری"
 
+#: admin/assets/js/livid-iframe.js:132
+#: modules/local_video/assets/local_video.js:46
+#: modules/local_video/assets/local_video.js:166
+#, js-format
+msgid "Preparing %s slide..."
+msgstr "در حال آماده‌سازی اسلاید %s..."
+
+#: modules/local_video/assets/local_video.js:61
+#: modules/local_video/assets/local_video.js:181
+msgid "This isn't a supported video format. Please use MP4, WebM, or MOV videos."
+msgstr ""
+"این فرمت ویدیو پشتیبانی نمی‌شود. لطفاً از ویدیوهای MP4، WebM یا MOV استفاده "
+"کنید."
+
+#: modules/local_video/assets/local_video.js:241
+#: modules/local_video/assets/local_video.js:690
+msgid "There is an error"
+msgstr "یک خطا وجود دارد"
+
+#: modules/local_video/assets/local_video.js:265
+#: modules/local_video/assets/local_video.js:741
+msgid "Video source added successfully"
+msgstr "منبع ویدیو با موفقیت اضافه شد"
+
+#: modules/local_video/assets/local_video.js:282
+#: modules/local_video/assets/local_video.js:762
+msgid "Video updated successfully"
+msgstr "ویدیو با موفقیت به‌روزرسانی شد"
+
+#: modules/local_video/assets/local_video.js:324
+msgid "Create slideshows with videos hosted in your media library"
+msgstr "اسلایدشوهایی با ویدیوهای میزبانی شده در کتابخانه رسانه شما ایجاد کنید"
+
+#: modules/local_video/assets/local_video.js:326
+msgid "Create slideshows with images in your media library"
+msgstr "اسلایدشوهایی با تصاویر در کتابخانه رسانه شما ایجاد کنید"
+
+#: modules/local_video/assets/local_video.js:328
+msgid ""
+"Layer Slides allow you to add text, colors, shortcodes and media on top of "
+"an image or video."
+msgstr ""
+"لایه‌های اسلاید به شما امکان می‌دهند متن، رنگ‌ها، کدهای کوتاه و رسانه را "
+"روی یک تصویر یا ویدیو اضافه کنید."
+
+#: modules/local_video/assets/local_video.js:398
+msgid "Cover removed successfully."
+msgstr "پوشش با موفقیت حذف شد."
+
+#: modules/local_video/assets/local_video.js:431
+msgid "You can't delete this video. This slide requires at least one video source."
+msgstr ""
+"شما نمی‌توانید این ویدیو را حذف کنید. این اسلاید حداقل به یک منبع ویدیو "
+"نیاز دارد."
+
+#: modules/local_video/assets/local_video.js:462
+msgid "Video source removed successfully"
+msgstr "منبع ویدیو با موفقیت حذف شد"
+
+#: modules/local_video/assets/local_video.js:481
+msgid "No text track has beed selected for this slide."
+msgstr "هیچ مسیری برای متن برای این اسلاید انتخاب نشده است."
+
+#: modules/local_video/assets/local_video.js:503
+msgid "There was an error removing the text track"
+msgstr "در حذف مسیر متن خطایی رخ داد"
+
+#: modules/local_video/assets/local_video.js:520
+msgid "Text track removed successfully"
+msgstr "مسیر متن با موفقیت حذف شد"
+
+#: modules/local_video/assets/local_video.js:546
+#, js-format
+msgid "Select Replacement %s Video"
+msgstr "ویدیو جایگزین %s را انتخاب کنید"
+
+#: modules/local_video/assets/local_video.js:608
+#, js-format
+msgid "Please select a %s video for this source!"
+msgstr "لطفاً یک ویدیو %s برای این منبع انتخاب کنید!"
+
+#: modules/local_video/assets/local_video.js:702
+msgid "This isn't a supported image format. Please use JPG, PNG, or GIF images."
+msgstr ""
+"این یک فرمت تصویر پشتیبانی شده نیست. لطفاً از تصاویر JPG، PNG یا GIF "
+"استفاده کنید."
+
+#: modules/local_video/assets/local_video.js:708
+msgid "This isn't a supported text track format. Please use TXT or VTT files."
+msgstr ""
+"این یک فرمت مسیر متن پشتیبانی شده نیست. لطفاً از فایل‌های TXT یا VTT "
+"استفاده کنید."
+
+#: modules/local_video/assets/local_video.js:788
+msgid "Text track updated successfully"
+msgstr "مسیر متن با موفقیت به‌روزرسانی شد"
+
+#: modules/local_video/assets/local_video.js:861
+msgid "Cover image updated successfully"
+msgstr "تصویر پوشش با موفقیت به‌روزرسانی شد"
+
+#: modules/local_video/assets/local_video.js:906
+msgid "Duplicating the slide failed."
+msgstr "تکثیر اسلاید ناموفق بود."
+
 #: admin/Notices.php:101
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
@@ -8567,7 +9131,7 @@ msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Review MetaSlider Slideshow &rarr;"
 msgstr "بررسی MetaSlider &rarr;"
 
-#: ml-slider.php:2053
+#: ml-slider.php:2103
 #, fuzzy
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Select slideshow to insert into post"
@@ -8575,8 +9139,8 @@ msgstr "اسلایدشو را برای درج در پست انتخاب کنید"
 
 #: admin/views/pages/parts/slider-settings.php:665
 #: admin/views/pages/parts/slider-settings.php:685
-#: admin/views/pages/parts/slider-settings.php:1420
-#: admin/views/pages/parts/slider-settings.php:1454, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1450, fuzzy
 msgctxt "Short for milliseconds"
 msgid "ms"
 msgstr "ms"
@@ -8586,7 +9150,7 @@ msgctxt "This is a keyboard shortcut."
 msgid " (Use Alt or ⌥ (Option) + P keys)"
 msgstr " (از کلیدهای Alt یا ⌥ (Option) + P استفاده کنید)"
 
-#: admin/views/pages/start.php:382
+#: admin/views/pages/start.php:383
 msgctxt "Uploader: Drop files to upload - or - Select Files"
 msgid "or"
 msgstr "یا"

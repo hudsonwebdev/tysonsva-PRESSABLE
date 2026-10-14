@@ -1,19 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Field;
 
-interface Subfields {
+use ACA\ACF\Field;
 
-	/**
-	 * @return array
-	 */
-	public function get_sub_fields();
+interface Subfields
+{
+    public function get_sub_fields(): array;
 
-	/**
-	 * @param string $key
-	 *
-	 * @return array|null
-	 */
-	public function get_sub_field( $key );
+    public function get_sub_field(string $key): ?Field;
 
 }

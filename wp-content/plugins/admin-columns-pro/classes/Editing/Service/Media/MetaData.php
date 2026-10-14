@@ -1,14 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service\Media;
 
 use ACP\Editing\Service;
 use ACP\Editing\Storage;
 
-class MetaData extends Service\SerializedMeta {
-
-	public function __construct( $sub_key ) {
-		parent::__construct( new Storage\Post\Meta( '_wp_attachment_metadata' ), [ (string) $sub_key ] );
-	}
+class MetaData extends Service\SerializedMeta
+{
+    public function __construct(string $sub_key)
+    {
+        parent::__construct(
+            new Storage\Post\Meta('_wp_attachment_metadata'),
+            [
+                $sub_key,
+            ]
+        );
+    }
 
 }

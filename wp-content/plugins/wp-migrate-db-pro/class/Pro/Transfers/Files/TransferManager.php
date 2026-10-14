@@ -119,7 +119,19 @@ class TransferManager extends Common_TransferManager
             $total_size += $file['size'];
         }
 
-        list($count, $sent, $handle, $chunked, $file, $chunk_data) = $this->payload->create_payload($batch, $state_data, $bottleneck);
+		$payload_details = $this->payload->create_payload($batch, $state_data, $bottleneck);
+
+		if ( is_wp_error($payload_details) ) {
+			return $this->util->fire_transfer_errors(
+				sprintf(
+					/* translators: %s is the specific error message. */
+					__('Error creating payload: %s', 'wp-migrate-db'),
+					$payload_details->get_error_message()
+				)
+			);
+		}
+
+        list($count, $sent, $handle, $chunked, $file, $chunk_data) = $payload_details;
 
         $transfer_status = $this->attempt_post($state_data, $remote_url, $handle);
         $code            = $transfer_status->status_code;

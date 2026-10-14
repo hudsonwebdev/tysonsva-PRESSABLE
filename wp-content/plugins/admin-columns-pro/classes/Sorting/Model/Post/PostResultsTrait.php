@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace ACP\Sorting\Model\Post;
 
+use ACP\Sorting\FormatValue;
+use ACP\Sql\QueryBuilder;
+
 trait PostResultsTrait
 {
-
     use PostRequestTrait;
 
-    protected $db_columns;
+    protected array $db_columns = [];
 
-    protected $formatter;
+    protected ?FormatValue $formatter = null;
 
-    protected $max_value_length = 100;
+    protected ?int $max_value_length = 100;
 
-    protected $sort_numeric = false;
+    protected bool $sort_numeric = false;
 
     public function get_post_ids(): array
     {
@@ -39,7 +41,10 @@ trait PostResultsTrait
         $value = '';
 
         foreach ($this->db_columns as $column) {
-            $value .= $this->formatter->format_value($row->{$column});
+            $raw = $row->{$column} ?? null;
+            $value .= $this->formatter
+                ? (string)$this->formatter->format_value($raw)
+                : (string)$raw;
         }
 
         return $value;
@@ -49,41 +54,24 @@ trait PostResultsTrait
     {
         global $wpdb;
 
-        $fields = "";
+        $select = ["$wpdb->posts.ID AS id"];
 
         foreach ($this->db_columns as $column) {
-            $fields .= $this->max_value_length > 0
-                ? sprintf(
-                    ', LEFT( %1$s.%2$s, %3$d ) AS %2$s',
-                    $wpdb->posts,
-                    esc_sql($column),
-                    $this->max_value_length
-                )
-                : sprintf(
-                    ', %1$s.%2$s AS %2$s',
-                    $wpdb->posts,
-                    esc_sql($column)
-                );
+            $escaped = esc_sql($column);
+            $select[] = $this->max_value_length > 0
+                ? 'LEFT( ' . $wpdb->posts . '.' . $escaped . ', ' . $this->max_value_length . ' ) AS ' . $escaped
+                : $wpdb->posts . '.' . $escaped . ' AS ' . $escaped;
         }
 
-        $where = '';
+        $query = QueryBuilder::for($wpdb->posts)
+            ->select_columns($select)
+            ->where("$wpdb->posts.post_type", '=', $this->get_var_post_type());
 
         $status = $this->get_var_post_status();
-
         if ($status) {
-            $where = $wpdb->prepare("\nAND $wpdb->posts.post_status = %s", $status);
+            $query->and_where("$wpdb->posts.post_status", '=', $status);
         }
 
-        $sql = $wpdb->prepare(
-            "
-            SELECT $wpdb->posts.ID AS id $fields 
-            FROM $wpdb->posts
-            WHERE $wpdb->posts.post_type = %s
-                $where
-            ",
-            $this->get_var_post_type()
-        );
-
-        return $wpdb->get_results($sql);
+        return $wpdb->get_results($query->get_sql());
     }
 }

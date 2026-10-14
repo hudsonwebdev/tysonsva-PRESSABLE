@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Media;
 
 use AC\Helper\Select\Options;
@@ -9,10 +11,8 @@ use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class PostType extends Comparison
-    implements Comparison\RemoteValues
+class PostType extends Comparison implements Comparison\RemoteValues
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -40,7 +40,7 @@ class PostType extends Comparison
     {
         global $wpdb;
 
-        $sub_query = $wpdb->prepare("SELECT ID from $wpdb->posts WHERE post_type = %s", $value->get_value());
+        $sub_query = $wpdb->prepare("SELECT ID from $wpdb->posts WHERE post_type = %s", (string)$value->get_value());
 
         $bindings = new Bindings();
         $bindings->where("$wpdb->posts.post_parent IN($sub_query)");

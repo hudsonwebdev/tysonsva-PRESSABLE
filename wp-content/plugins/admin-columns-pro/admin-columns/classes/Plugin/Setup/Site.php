@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Plugin\Setup;
 
 use AC\Plugin\InstallCollection;
@@ -10,12 +12,11 @@ use AC\Storage\Option;
 
 final class Site extends Setup
 {
-
     public function __construct(
         Option $storage,
         Version $version,
-        InstallCollection $installers = null,
-        UpdateCollection $updates = null
+        ?InstallCollection $installers = null,
+        ?UpdateCollection $updates = null
     ) {
         parent::__construct($storage, $version, $installers, $updates);
     }

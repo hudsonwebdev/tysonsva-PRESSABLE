@@ -1,16 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\ColumnRepository;
 
-use AC\Column;
+use AC\ColumnCollection;
+use AC\ColumnIterator;
 
-interface Sort {
-
-	/**
-	 * @param Column[] $columns
-	 *
-	 * @return Column[]
-	 */
-	public function sort( array $columns ): array;
+interface Sort
+{
+    public function sort(ColumnIterator $columns): ColumnCollection;
 
 }

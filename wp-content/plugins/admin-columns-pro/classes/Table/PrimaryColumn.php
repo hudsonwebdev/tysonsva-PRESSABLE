@@ -1,30 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Table;
 
 use AC;
 use AC\Registerable;
 
-class PrimaryColumn implements Registerable {
+class PrimaryColumn implements Registerable
+{
+    private ?AC\ListScreen $list_screen = null;
 
-	/**
-	 * @var AC\ListScreen
-	 */
-	private $list_screen;
-
-	public function register(): void
+    public function register(): void
     {
-		add_action( 'ac/table', [ $this, 'init' ] );
-	}
+        add_action('ac/table', [$this, 'init']);
+    }
 
-	public function init( AC\Table\Screen $table_screen ) {
-		$this->list_screen = $table_screen->get_list_screen();
+    public function init(AC\Table\Screen $table_screen)
+    {
+        $this->list_screen = $table_screen->get_list_screen();
 
-		add_filter( 'list_table_primary_column', [ $this, 'set_primary_column' ], 20 );
-	}
+        if ($this->list_screen) {
+            add_filter('list_table_primary_column', [$this, 'set_primary_column'], 20);
+        }
+    }
 
-	function set_primary_column( $column_name ) {
-		return $this->list_screen->get_preference( 'primary_column' ) ?: $column_name;
-	}
+    public function set_primary_column($column_name)
+    {
+        if (! $this->list_screen) {
+            return $column_name;
+        }
+
+        return $this->list_screen->get_preference('primary_column') ?: $column_name;
+    }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Helper\Sql\Comparison;
 
 use ACP\Search\Helper\Sql\Comparison;
@@ -9,7 +11,6 @@ use ACP\Search\Value;
 
 class CurrentUser extends Comparison
 {
-
     public function __construct(string $column, Value $value)
     {
         parent::__construct($column, Operators::EQ, $value);
@@ -20,7 +21,7 @@ class CurrentUser extends Comparison
         return sprintf('%s = ?', $this->column);
     }
 
-    public function bind_value(Value $value)
+    public function bind_value(Value $value): self
     {
         return parent::bind_value((new UserValueFactory())->create_current_user());
     }

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\BulkDelete\RequestHandler;
 
+use AC\Helper;
 use ACP\Editing\BulkDelete\RequestHandler;
 use RuntimeException;
 use WP_Post;
@@ -9,8 +12,7 @@ use WP_Post_Type;
 
 class Post extends RequestHandler
 {
-
-    protected $post_type;
+    private WP_Post_Type $post_type;
 
     public function __construct(WP_Post_Type $post_type)
     {
@@ -31,37 +33,37 @@ class Post extends RequestHandler
 
         $force_delete = 'true' === ($args['force_delete'] ?? null);
 
-        $this->delete_post($this->post_type->name, $id, $force_delete);
+        $this->delete_post($id, $force_delete);
     }
 
-    private function restore_post($id): void
+    private function restore_post(int $id): void
     {
-        if ( ! $this->user_can_delete($id)) {
+        if (! $this->user_can_delete($id)) {
             throw new RuntimeException(__('You have no permission to restore this item.', 'codepress-admin-columns'));
         }
 
         $post = get_post($id);
 
-        if ('trash' !== $post->post_status) {
+        if (! $post || 'trash' !== $post->post_status) {
             throw new RuntimeException(
                 sprintf(__('%s is not in Trash.', 'codepress-admin-columns'), $this->post_type->labels->singular_name)
             );
         }
 
-        if ( ! wp_untrash_post($id)) {
+        if (! wp_untrash_post($id)) {
             throw new RuntimeException(__('Error in restoring the item from Trash.'));
         }
     }
 
-    private function delete_post(string $post_type, int $id, bool $force_delete): void
+    private function delete_post(int $id, bool $force_delete): void
     {
-        if ( ! $this->user_can_delete($id)) {
+        if (! $this->user_can_delete($id)) {
             throw new RuntimeException(__('You have no permission to delete this item.', 'codepress-admin-columns'));
         }
 
         $this->validate_post_lock($id);
 
-        switch ($post_type) {
+        switch ($this->post_type->name) {
             case 'post':
             case 'page':
             case 'attachment':
@@ -73,7 +75,7 @@ class Post extends RequestHandler
                     : wp_trash_post($id);
         }
 
-        if ( ! $post instanceof WP_Post) {
+        if (! $post instanceof WP_Post) {
             throw new RuntimeException(
                 sprintf(
                     __('%s has already been deleted.', 'codepress-admin-columns'),
@@ -86,17 +88,12 @@ class Post extends RequestHandler
     private function user_can_delete(int $post_id): bool
     {
         return current_user_can($this->post_type->cap->delete_posts) && current_user_can(
-                $this->post_type->cap->delete_post,
-                $post_id
-            );
+            $this->post_type->cap->delete_post,
+            $post_id
+        );
     }
 
-    /**
-     * @param int $id
-     *
-     * @return void
-     */
-    protected function validate_post_lock($id)
+    private function validate_post_lock(int $id): void
     {
         $user_locked_post = wp_check_post_lock($id);
 
@@ -106,8 +103,10 @@ class Post extends RequestHandler
             throw new RuntimeException(
                 sprintf(
                     __('%s is currently being edited by %s.', 'codepress-admin-columns'),
-                    sprintf('"%s"', ac_helper()->string->trim_characters(get_the_title($id), 20, '...')),
-                    sprintf('%s (%s)', $user->display_name ?: $user->user_login, $user->ID)
+                    sprintf('"%s"', Helper\Strings::create()->trim_characters(get_the_title($id), 20, '...')),
+                    $user
+                        ? sprintf('%s (%s)', $user->display_name ?: $user->user_login, $user->ID)
+                        : sprintf('#%d', $user_locked_post)
                 )
             );
         }

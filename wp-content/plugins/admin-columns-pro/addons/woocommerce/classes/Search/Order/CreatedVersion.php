@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order;
 
 use ACA\WC\Scheme\OrderOperationalData;
-use ACA\WC\Search;
 use ACP\Search\Operators;
 
 class CreatedVersion extends OperationalDataField
 {
-
     public function __construct()
     {
         parent::__construct(

@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Service\Taxonomy;
 
 use ACP\Editing;
 use ACP\Editing\Service\BasicStorage;
 
-abstract class Field extends BasicStorage {
-
-	public function __construct( $taxonomy, $field ) {
-		parent::__construct( new Editing\Storage\Taxonomy\Field( $taxonomy, $field ) );
-	}
+abstract class Field extends BasicStorage
+{
+    public function __construct(string $taxonomy, string $field)
+    {
+        parent::__construct(new Editing\Storage\Taxonomy\Field($taxonomy, $field));
+    }
 
 }

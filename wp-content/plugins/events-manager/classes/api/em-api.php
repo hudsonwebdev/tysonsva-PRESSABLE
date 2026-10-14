@@ -48,6 +48,12 @@ class API {
 		$server::register_scope( static::SCOPE, array(
 			'label'       => __( 'Events Manager', 'events-manager' ),
 			'description' => $description,
+			// REST route prefixes a credential approved for this scope may call; the library rejects everything else with 403. Pro's namespace is listed here rather than left to the filter so a site running an older Pro keeps a working connection once core enforces scopes.
+			'routes'      => apply_filters( 'em_api_oauth_scope_routes', array(
+				'/' . \EM\API\REST::NAMESPACE,
+				'/events-manager-pro/v1',
+				'/' . \EM\API\MCP_Server::server_path(),
+			) ),
 		) );
 	}
 

@@ -9,7 +9,6 @@ use ACP\Sorting\Type\DataType;
 
 class PaidDate extends OperationalData
 {
-
     public function __construct()
     {
         parent::__construct('date_paid_gmt', new DataType(DataType::DATE));

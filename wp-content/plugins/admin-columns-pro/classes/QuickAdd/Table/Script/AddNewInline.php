@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\QuickAdd\Table\Script;
 
 use AC\Asset\Location;
@@ -7,13 +9,12 @@ use AC\Asset\Script;
 
 class AddNewInline extends Script
 {
-
     /**
      * @var string
      */
-    private $label;
+    private string $label;
 
-    public function __construct(string $label, string $handle, Location $location = null, array $dependencies = [])
+    public function __construct(string $label, string $handle, ?Location $location = null, array $dependencies = [])
     {
         parent::__construct($handle, $location, $dependencies);
 

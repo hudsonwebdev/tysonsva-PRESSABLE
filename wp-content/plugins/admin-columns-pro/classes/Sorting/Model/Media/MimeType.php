@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Sorting\Model\Media;
 
 use ACP\Sorting\Model\Post;
 
-class MimeType extends Post\PostField {
-
-	public function __construct() {
-		parent::__construct( 'post_mime_type' );
-	}
+class MimeType extends Post\PostField
+{
+    public function __construct()
+    {
+        parent::__construct('post_mime_type');
+    }
 
 }

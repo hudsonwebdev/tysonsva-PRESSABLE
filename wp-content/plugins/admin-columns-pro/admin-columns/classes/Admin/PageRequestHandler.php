@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AC\Admin;
 
 use AC\Request;
 
 class PageRequestHandler implements RequestHandlerInterface
 {
-
     /**
      * @var PageFactoryInterface[]
      */
-    private $factories;
+    private array $factories = [];
 
     public function add(string $slug, PageFactoryInterface $factory): self
     {

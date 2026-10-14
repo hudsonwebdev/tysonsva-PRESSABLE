@@ -36,6 +36,31 @@ class Init {
 	}
 
 	public function __construct() {
+		/*
+		 * The decision waits for `after_setup_theme` because it cannot be made
+		 * yet: this runs on `plugins_loaded`, one step before WordPress reads the
+		 * theme's functions.php, so et_builder_d5_enabled() does not exist here.
+		 * `after_setup_theme` is the first hook where it does, and it still comes
+		 * well before `init`, where Divi bootstraps either builder.
+		 */
+		add_action( 'after_setup_theme', array( $this, 'register' ) );
+	}
+
+	/**
+	 * Registers the Divi 4 module, unless the site runs Divi 5.
+	 *
+	 * Divi 5 has its own module, registered from ../Divi5, and nothing here
+	 * should run beside it. `et_builder_ready` in particular is one of the hooks
+	 * Divi's "D5 Readiness" screen scans for: a plugin still on it is reported as
+	 * using the legacy Divi 4 framework, and on a Divi 5 site that report would
+	 * be accurate — this module is an \ET_Builder_Module, so registering it is
+	 * what pulls the Divi 4 shortcode framework in.
+	 */
+	public function register() {
+		if ( \FileBird\PageBuilders\Divi5\Init::isActive() ) {
+			return;
+		}
+
 		// Divi fires this once ET_Builder_Element and the field definitions are available.
 		add_action( 'et_builder_ready', array( $this, 'registerModules' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueBuilderBundle' ) );

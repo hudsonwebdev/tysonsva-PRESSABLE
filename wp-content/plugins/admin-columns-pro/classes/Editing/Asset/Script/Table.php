@@ -1,46 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Editing\Asset\Script;
 
 use AC;
 use AC\Asset\Location;
 use AC\Asset\Script;
+use AC\Helper;
 use ACA;
-use ACP;
 use ACP\Editing\ApplyFilter;
-use ACP\Editing\EditableDataFactory;
+use ACP\Editing\Encoder\TableDataEncoder;
 use ACP\Editing\Preference;
-use WP_List_Table;
 use WP_User;
 
 final class Table extends Script
 {
+    private AC\ListScreen $list_screen;
 
-    /**
-     * @var AC\ListScreen
-     */
-    private $list_screen;
+    private array $active_states;
 
-    /**
-     * @var array
-     */
-    private $active_states;
+    private TableDataEncoder $table_encoder;
 
-    /**
-     * @var EditableDataFactory
-     */
-    private $editable_data_factory;
-
-    /**
-     * @var Preference\EditState
-     */
-    private $edit_state;
+    private Preference\EditState $edit_state;
 
     public function __construct(
         string $handle,
         Location $location,
         AC\ListScreen $list_screen,
-        EditableDataFactory $editable_data_factory,
+        TableDataEncoder $table_encoder,
         Preference\EditState $edit_state,
         array $active_states
     ) {
@@ -51,7 +39,7 @@ final class Table extends Script
         );
 
         $this->list_screen = $list_screen;
-        $this->editable_data_factory = $editable_data_factory;
+        $this->table_encoder = $table_encoder;
         $this->edit_state = $edit_state;
         $this->active_states = $active_states;
     }
@@ -61,20 +49,22 @@ final class Table extends Script
         parent::register();
 
         // Allow JS to access the column data for this list screen on the edit page
-        wp_localize_script($this->get_handle(), 'acp_editing_columns', $this->editable_data_factory->create());
+        wp_localize_script(
+            $this->get_handle(),
+            'acp_editing_columns',
+            $this->table_encoder->encode($this->list_screen)
+        );
 
         wp_localize_script($this->get_handle(), 'acp_editing', [
             'inline_edit' => [
                 'active'       => $this->active_states['inline_edit'],
-                'toggle_state' => $this->edit_state->is_active($this->list_screen->get_key()),
+                'toggle_state' => $this->edit_state->is_active($this->list_screen->get_table_id()),
                 'persistent'   => $this->is_persistent_editing(),
-                'version'      => apply_filters('acp/editing/inline/deprecated_style', false) ? 'v1' : 'v2',
+                'version'      => 'v2',
             ],
-            'bulk_edit'   => [
+            'bulk_edit' => [
                 'active'                     => $this->active_states['bulk_edit'],
                 'updated_rows_per_iteration' => $this->get_updated_rows_per_iteration(),
-                'total_items'                => $this->get_total_items() ?: 0,
-                'total_items_formatted'      => number_format_i18n($this->get_total_items() ?: 0),
                 'show_confirmation'          => $this->show_bulk_edit_confirmation(),
             ],
             'bulk_delete' => [
@@ -88,18 +78,19 @@ final class Table extends Script
         $this->localize(
             'acp_editing_i18n',
             new Script\Localize\Translation([
-                'select_author'  => __('Select author', 'codepress-admin-columns'),
-                'edit'           => __('Edit'),
-                'redo'           => __('Redo', 'codepress-admin-columns'),
-                'undo'           => __('Undo', 'codepress-admin-columns'),
-                'date'           => __('Date'),
-                'delete'         => __('Delete', 'codepress-admin-columns'),
-                'generate'       => __('Generate', 'codepress-admin-columns'),
-                'restore'        => __('Restore', 'codepress-admin-columns'),
-                'show'           => __('Show', 'codepress-admin-columns'),
-                'hide'           => __('Hide', 'codepress-admin-columns'),
-                'download'       => __('Download', 'codepress-admin-columns'),
-                'errors'         => [
+                'select_author' => __('Select author', 'codepress-admin-columns'),
+                'edit'          => __('Edit'),
+                'redo'          => __('Redo', 'codepress-admin-columns'),
+                'undo'          => __('Undo', 'codepress-admin-columns'),
+                'date'          => __('Date'),
+                'delete'        => __('Delete', 'codepress-admin-columns'),
+                'generate'      => __('Generate', 'codepress-admin-columns'),
+                'restore'       => __('Restore', 'codepress-admin-columns'),
+                'show'          => __('Show', 'codepress-admin-columns'),
+                'hide'          => __('Hide', 'codepress-admin-columns'),
+                'download'      => __('Download', 'codepress-admin-columns'),
+                'loading'       => __('Loading', 'codepress-admin-columns'),
+                'errors'        => [
                     'field_required' => __('This field is required.', 'codepress-admin-columns'),
                     'invalid_float'  => __('Please enter a valid float value.', 'codepress-admin-columns'),
                     'invalid_floats' => __('Please enter valid float values.', 'codepress-admin-columns'),
@@ -117,6 +108,7 @@ final class Table extends Script
                 'replace_with'   => __('Replace with', 'codepress-admin-columns'),
                 'add'            => __('Add', 'codepress-admin-columns'),
                 'remove'         => __('Remove', 'codepress-admin-columns'),
+                'add_to_gallery' => __('Add to gallery', 'codepress-admin-columns'),
                 'operators'      => [
                     'subtract' => __('Subtract', 'codepress-admin-columns'),
                     'add'      => __('Add', 'codepress-admin-columns'),
@@ -134,32 +126,32 @@ final class Table extends Script
                     'select_all'         => __('Select all {0} items', 'codepress-admin-columns'),
                     'selected'           => sprintf(
                         __('{0} selected for %s.', 'codepress-admin-columns'),
-                        ac_helper()->string->enumeration_list($this->get_bulk_selection_labels())
+                        Helper\Strings::create()->enumeration_list($this->get_bulk_selection_labels())
                     ),
                 ],
-                'bulk_delete'    => [
-                    'assignment_to'                     => _x(
+                'bulk_delete' => [
+                    'assignment_to' => _x(
                         'Assign all content to:',
                         'bulk-delete',
                         'codepress-admin-columns'
                     ),
-                    'bulk_delete'                       => __('Bulk Delete', 'codepress-admin-columns'),
-                    'bulk_restore'                      => __('Bulk Restore', 'codepress-admin-columns'),
-                    'confirmation'                      => __(
+                    'bulk_delete'  => __('Bulk Delete', 'codepress-admin-columns'),
+                    'bulk_restore' => __('Bulk Restore', 'codepress-admin-columns'),
+                    'confirmation' => __(
                         'Do you want to bulk delete all selected items?',
                         'codepress-admin-columns'
                     ),
-                    'confirmation_restore'              => __(
+                    'confirmation_restore' => __(
                         'Do you want to bulk restore all selected items?',
                         'codepress-admin-columns'
                     ),
-                    'current_user'                      => _x('current user', 'bulk-delete', 'codepress-admin-columns'),
-                    'delete_all_content'                => _x(
+                    'current_user'       => _x('current user', 'bulk-delete', 'codepress-admin-columns'),
+                    'delete_all_content' => _x(
                         'Delete all content',
                         'bulk-delete',
                         'codepress-admin-columns'
                     ),
-                    'delete_items_permanently'          => _x(
+                    'delete_items_permanently' => _x(
                         'Delete the items permanently',
                         'bulk-delete',
                         'codepress-admin-columns'
@@ -169,27 +161,27 @@ final class Table extends Script
                         'bulk-delete',
                         'codepress-admin-columns'
                     ),
-                    'restore'                           => _x('Restore', 'bulk-delete', 'codepress-admin-columns'),
-                    'restore_items'                     => _x(
+                    'restore'       => _x('Restore', 'bulk-delete', 'codepress-admin-columns'),
+                    'restore_items' => _x(
                         'Restore the items',
                         'bulk-delete',
                         'codepress-admin-columns'
                     ),
-                    'finished'                          => __('Processed {0} items', 'codepress-admin-columns'),
-                    'move_to_trash'                     => _x(
+                    'finished'      => __('Processed {0} items', 'codepress-admin-columns'),
+                    'move_to_trash' => _x(
                         'Move the items to trash',
                         'bulk-delete',
                         'codepress-admin-columns'
                     ),
-                    'user_assignment_description'       => _x(
+                    'user_assignment_description' => _x(
                         'What should be done with content owned by these users?',
                         'bulk-delete',
                         'codepress-admin-columns'
                     ),
-                    'yes_delete'                        => __('Yes, Delete', 'codepress-admin-columns'),
-                    'yes_restore'                       => __('Yes, Restore', 'codepress-admin-columns'),
+                    'yes_delete'  => __('Yes, Delete', 'codepress-admin-columns'),
+                    'yes_restore' => __('Yes, Restore', 'codepress-admin-columns'),
                 ],
-                'bulk_edit'      => [
+                'bulk_edit' => [
                     'bulk_edit'     => __('Bulk Edit', 'codepress-admin-columns'),
                     'done_deselect' => __('Done & Deselect All', 'codepress-admin-columns'),
                     'form'          => [
@@ -199,14 +191,14 @@ final class Table extends Script
                         'are_you_sure'  => __('Are you sure?', 'codepress-admin-columns'),
                         'yes_update'    => __('Yes, Update', 'codepress-admin-columns'),
                     ],
-                    'feedback'      => [
-                        'show_items'         => __('Show items', 'codepress-admin-columns'),
-                        'hide_items'         => __('Hide items', 'codepress-admin-columns'),
-                        'finished'           => __('Processed {0} items', 'codepress-admin-columns'),
-                        'updating'           => __('Updating items.', 'codepress-admin-columns'),
-                        'processed'          => __('Processed {0} of {1} items.', 'codepress-admin-columns'),
-                        'failure'            => __('Updating failed. Please try again.', 'codepress-admin-columns'),
-                        'error'              => _x(
+                    'feedback' => [
+                        'show_items' => __('Show items', 'codepress-admin-columns'),
+                        'hide_items' => __('Hide items', 'codepress-admin-columns'),
+                        'finished'   => __('Processed {0} items', 'codepress-admin-columns'),
+                        'updating'   => __('Updating items.', 'codepress-admin-columns'),
+                        'processed'  => __('Processed {0} of {1} items.', 'codepress-admin-columns'),
+                        'failure'    => __('Updating failed. Please try again.', 'codepress-admin-columns'),
+                        'error'      => _x(
                             'We have found {0} while processing.',
                             'bulk edit errors',
                             'codepress-admin-columns'
@@ -226,7 +218,7 @@ final class Table extends Script
         $selection = [];
 
         $labels = [
-            'bulk_edit'   => [
+            'bulk_edit' => [
                 'label' => __('bulk edit', 'codepress-admin-columns'),
                 'tip'   => __(
                     'Bulk edit items by clicking the Bulk Edit button below the column labels.',
@@ -240,7 +232,7 @@ final class Table extends Script
                     'codepress-admin-columns'
                 ),
             ],
-            'export'      => [
+            'export' => [
                 'label' => __('export', 'codepress-admin-columns'),
                 'tip'   => __('Export items by clicking the Export button.', 'codepress-admin-columns'),
             ],
@@ -262,7 +254,7 @@ final class Table extends Script
     private function get_reassign_user_name(): string
     {
         $user = $this->get_reassign_user();
-        $name = ac_helper()->user->get_display_name($user);
+        $name = Helper\User::create()->get_formatted_name($user);
 
         if (get_current_user_id() === $user->ID) {
             $name = sprintf('%s (%s)', $name, __('current user', 'codepress-admin-columns'));
@@ -275,52 +267,42 @@ final class Table extends Script
     {
         $user_id = (new ApplyFilter\ReassignUser())->apply_filters(get_current_user_id());
 
-        $user = get_userdata($user_id);
+        $user = get_userdata((int)$user_id);
 
-        if ( ! $user) {
+        if (! $user) {
             return wp_get_current_user();
         }
 
         return $user;
     }
 
-    /**
-     * @return false|int
-     */
-    private function get_total_items()
-    {
-        global $wp_list_table;
-
-        return $wp_list_table instanceof WP_List_Table
-            ? $wp_list_table->get_pagination_arg('total_items')
-            : false;
-    }
-
     private function show_bulk_edit_confirmation(): bool
     {
-        return (bool)apply_filters('acp/editing/bulk/show_confirmation', true);
+        return (bool)apply_filters('ac/editing/bulk/show_confirmation', true);
     }
 
     private function get_bulk_delete_component(): string
     {
+        $table_screen = $this->list_screen->get_table_screen();
+
         switch (true) {
-            case $this->list_screen instanceof ACP\ListScreen\Post:
+            case $table_screen instanceof AC\PostType:
                 if ('trash' === get_query_var('post_status', null)) {
                     return 'trash';
                 }
 
                 return 'post';
-            case $this->list_screen instanceof ACA\WC\ListScreen\Order:
-                return 'post';
-            case $this->list_screen instanceof ACP\ListScreen\User:
+            case $table_screen instanceof AC\TableScreen\User:
                 return 'user';
-            case $this->list_screen instanceof ACP\ListScreen\Comment:
+            case $table_screen instanceof AC\TableScreen\Comment:
                 $comment_status = isset($_REQUEST['comment_status']) ? wp_unslash($_REQUEST['comment_status']) : '';
                 if ('trash' === $comment_status) {
                     return 'trash';
                 }
 
                 return 'comment';
+            case $table_screen instanceof ACA\WC\TableScreen\Order:
+                return 'post';
             default:
                 return '';
         }
@@ -328,17 +310,25 @@ final class Table extends Script
 
     private function is_persistent_editing(): bool
     {
-        return (bool)apply_filters('acp/editing/persistent', false, $this->list_screen);
+        return (bool)apply_filters('ac/editing/persistent', false, $this->list_screen);
     }
 
     private function get_updated_rows_per_iteration(): int
     {
-        return (int)apply_filters('acp/editing/bulk/updated_rows_per_iteration', 250, $this->list_screen);
+        return (int)apply_filters(
+            'ac/editing/bulk/updated_rows_per_iteration',
+            250,
+            $this->list_screen
+        );
     }
 
     private function get_deleted_rows_per_iteration(): int
     {
-        return (int)apply_filters('acp/delete/bulk/deleted_rows_per_iteration', 250, $this->list_screen);
+        return (int)apply_filters(
+            'ac/delete/bulk/deleted_rows_per_iteration',
+            250,
+            $this->list_screen
+        );
     }
 
 }

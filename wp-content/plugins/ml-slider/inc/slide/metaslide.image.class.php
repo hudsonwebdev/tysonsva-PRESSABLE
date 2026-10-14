@@ -597,29 +597,7 @@ class MetaImageSlide extends MetaSlide
             );
         }
 
-        // Adds schedule tab
-        ob_start();
-        include METASLIDER_PATH . 'admin/views/slides/tabs/schedule.php';
-        $schedule_tab = ob_get_contents();
-        ob_end_clean();
-
-        $tabs['schedule'] = array(
-            'title' => __('Schedule', 'ml-slider'),
-            'content' => $schedule_tab,
-            'pro' => __('Schedule is available in MetaSlider Slideshow Pro', 'ml-slider')
-        );
-
-        // Adds Advanced tab
-        ob_start();
-        include METASLIDER_PATH . 'admin/views/slides/tabs/advanced.php';
-        $advanced_tab = ob_get_contents();
-        ob_end_clean();
-
-        $tabs['advanced'] = array(
-            'title' => __('Advanced', 'ml-slider'),
-            'content' => $advanced_tab,
-            'pro' => __('Advanced settings are available in MetaSlider Slideshow Pro', 'ml-slider')
-        );
+        $tabs = $this->add_pro_upsell_tabs($tabs);
 
         return apply_filters("metaslider_image_slide_tabs", $tabs, $this->slide, $this->slider, $this->settings);
     }
@@ -1169,6 +1147,8 @@ class MetaImageSlide extends MetaSlide
      * Add lazy load placeholder through src attribute and move actual image URL to data-ms-src
      * 
      * @since 3.101
+     * @since 3.113.1 Placeholder generation moved to lazy_load_placeholder(), which
+     *                falls back to a 1x1 GIF instead of fataling on an unusable size
      */
     public function image_attributes( $attributes, $slide, $slider_id )
     {
@@ -1185,40 +1165,7 @@ class MetaImageSlide extends MetaSlide
                 return $attributes;
             }
 
-            try {
-                $width  = $attributes['width'];
-                $height = $attributes['height'];
-
-                // Create a blank image with lowest ratio
-                for ( $i = $height; $i > 1; $i-- ) {
-                    if ( ( $width % $i ) == 0 && ( $height % $i ) == 0 ) {
-                        $width = $width / $i;
-                        $height = $height / $i;
-                    }
-                }
-                $image = imagecreatetruecolor( $width, $height );
-
-                // Make it transparent
-                imagesavealpha( $image, true );
-                imagealphablending( $image, false );
-                $white = imagecolorallocatealpha( $image, 255, 255, 255, 127 );
-                imagefill( $image, 0, 0, $white );
-
-                // Capture the image output
-                ob_start();
-                    imagepng( $image );
-                    $contents = base64_encode( ob_get_contents() );
-                ob_end_clean();
-
-                // Free up the memory
-                imagedestroy( $image );
-            } catch ( Exception $e ) {
-                // 1x1 pixel backup - Note: might need some creative CSS to make this work given the dimensions
-                $contents = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
-            }
-
-            // Convert to base64
-            $data_uri = "data:image/jpeg;base64," . $contents;
+            $data_uri = $this->lazy_load_placeholder( $attributes['width'], $attributes['height'] );
 
             $attributes['data-ms-src'] = $attributes['src'];
             $attributes['src'] = $data_uri;
@@ -1241,5 +1188,98 @@ class MetaImageSlide extends MetaSlide
         }
 
         return $attributes;
+    }
+
+    /**
+     * Transparent placeholder image for lazy loading, as a data URI
+     *
+     * Falls back to a 1x1 transparent GIF when the slideshow has no usable width
+     * or height setting, when the ratio is too large to draw, or when GD is missing -
+     * PHP 8 raises an Error, not an Exception, for a non-numeric or zero size, so it
+     * can't be caught below (#2488)
+     *
+     * @since 3.113.1
+     *
+     * @param mixed $width  Width setting, may be empty or non-numeric
+     * @param mixed $height Height setting, may be empty or non-numeric
+     *
+     * @return string
+     */
+    public function lazy_load_placeholder( $width, $height )
+    {
+        // 1x1 pixel backup - Note: might need some creative CSS to make this work given the dimensions
+        $fallback = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+
+        // A placeholder only carries the aspect ratio, so a larger one is a runaway
+        // setting - and allocating it exhausts memory, which PHP cannot catch
+        $max_pixels = 1000000;
+
+        $width  = is_numeric( $width ) ? absint( $width ) : 0;
+        $height = is_numeric( $height ) ? absint( $height ) : 0;
+
+        if ( $width < 1 || $height < 1 || ! function_exists( 'imagecreatetruecolor' ) ) {
+            return $fallback;
+        }
+
+        // Draw at the lowest ratio the size reduces to
+        $divisor = $this->greatest_common_divisor( $width, $height );
+        $width   = intdiv( $width, $divisor );
+        $height  = intdiv( $height, $divisor );
+
+        if ( ( $width * $height ) > $max_pixels ) {
+            return $fallback;
+        }
+
+        // Discard a half-filled output buffer if capturing the image throws
+        $ob_level = ob_get_level();
+
+        try {
+            $image = imagecreatetruecolor( $width, $height );
+
+            // Make it transparent
+            imagesavealpha( $image, true );
+            imagealphablending( $image, false );
+            $white = imagecolorallocatealpha( $image, 255, 255, 255, 127 );
+            imagefill( $image, 0, 0, $white );
+
+            // Capture the image output
+            ob_start();
+                imagepng( $image );
+                $contents = base64_encode( ob_get_contents() );
+            ob_end_clean();
+
+            // Free up the memory
+            imagedestroy( $image );
+        } catch ( Throwable $e ) {
+            while ( ob_get_level() > $ob_level ) {
+                ob_end_clean();
+            }
+
+            return $fallback;
+        }
+
+        return 'data:image/png;base64,' . $contents;
+    }
+
+    /**
+     * Greatest common divisor of two positive integers, used to reduce a
+     * placeholder to the lowest ratio it can be drawn at
+     *
+     * @since 3.113.1
+     *
+     * @param int $a First integer
+     * @param int $b Second integer
+     *
+     * @return int
+     */
+    private function greatest_common_divisor( $a, $b )
+    {
+        while ( $b ) {
+            $remainder = $a % $b;
+            $a = $b;
+            $b = $remainder;
+        }
+
+        return $a;
     }
 }

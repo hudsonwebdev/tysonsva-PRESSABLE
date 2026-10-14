@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\ACF\Search\Comparison\FieldGroup;
 
 use AC\Helper\Select\Options;
@@ -10,7 +12,6 @@ use ACP\Search\Value;
 
 class Location extends Comparison implements Comparison\Values
 {
-
     public function __construct()
     {
         $operators = new Operators([

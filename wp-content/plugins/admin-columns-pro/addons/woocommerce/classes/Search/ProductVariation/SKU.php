@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ProductVariation;
 
 use ACP\Query\Bindings;
@@ -7,10 +9,10 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class SKU extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -29,9 +31,9 @@ class SKU extends Comparison
 
         $bindings = new Bindings();
 
-        $alias_products = $bindings->get_unique_alias('sku');
-        $alias_product_meta = $bindings->get_unique_alias('sku');
-        $alias_variation_meta = $bindings->get_unique_alias('sku');
+        $alias_products = AliasGenerator::generate_from_class(static::class);
+        $alias_product_meta = AliasGenerator::generate('sku');
+        $alias_variation_meta = AliasGenerator::generate('sku');
 
         $join = "
 			INNER JOIN {$wpdb->postmeta} AS {$alias_variation_meta} ON {$alias_variation_meta}.post_id = {$wpdb->posts}.ID

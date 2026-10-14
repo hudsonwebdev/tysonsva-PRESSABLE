@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\User\ShopOrder;
 
 use ACA\WC;
@@ -8,10 +10,8 @@ use ACP\Search\Comparison;
 use ACP\Search\Operators;
 use ACP\Search\Value;
 
-class Products extends Comparison
-    implements Comparison\SearchableValues
+class Products extends Comparison implements Comparison\SearchableValues
 {
-
     use WC\Helper\Select\ProductValuesTrait;
 
     public function __construct()
@@ -23,31 +23,23 @@ class Products extends Comparison
         parent::__construct($operators);
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function create_query_bindings($operator, Value $value): Bindings
     {
         global $wpdb;
 
         $bindings = new Bindings();
 
-        $user_ids = $this->get_user_ids_by_product($value->get_value());
+        $user_ids = $this->get_user_ids_by_product((int)$value->get_value());
 
         // Force no results
-        if ( ! $user_ids) {
+        if (! $user_ids) {
             $user_ids = [0];
         }
 
         return $bindings->where($wpdb->users . '.ID IN( ' . implode(',', $user_ids) . ')');
     }
 
-    /**
-     * @param integer $product_id
-     *
-     * @return array
-     */
-    protected function get_user_ids_by_product($product_id)
+    protected function get_user_ids_by_product(int $product_id): array
     {
         global $wpdb;
 

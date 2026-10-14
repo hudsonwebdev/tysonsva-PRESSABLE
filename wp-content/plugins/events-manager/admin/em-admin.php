@@ -12,7 +12,7 @@ function em_admin_menu(){
 			$bookings_num = '';
 			$bookings_pending_count = apply_filters('em_bookings_pending_count',0);
 			if( em_get_option('dbem_bookings_approval') == 1){
-				$bookings_pending_count += EM_Bookings::count(array('status'=>'0', 'blog'=>get_current_blog_id()));
+				$bookings_pending_count += EM_Bookings::count(array('status'=>'0', 'blog'=>get_current_blog_id(), 'event_archetype'=>EM_Bookings_Table::get_archetype_search()));
 			}
 			if($bookings_pending_count > 0){
 				$bookings_num = '<span class="update-plugins count-'.$bookings_pending_count.'"><span class="plugin-count">'.$bookings_pending_count.'</span></span>';

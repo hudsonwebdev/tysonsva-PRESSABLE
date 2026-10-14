@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\Order;
 
 use AC\Helper\Select\Options;
-use ACA\WC\Search;
 use ACP;
 use ACP\Search\Operators;
 use WC_Payment_Gateway;
 
 class PaymentMethod extends OrderField implements ACP\Search\Comparison\Values
 {
-
     public function __construct()
     {
         parent::__construct(
@@ -28,7 +28,7 @@ class PaymentMethod extends OrderField implements ACP\Search\Comparison\Values
         $disabled = [];
 
         foreach (WC()->payment_gateways()->payment_gateways() as $gateway) {
-            if ( ! $gateway instanceof WC_Payment_Gateway) {
+            if (! $gateway instanceof WC_Payment_Gateway) {
                 continue;
             }
 

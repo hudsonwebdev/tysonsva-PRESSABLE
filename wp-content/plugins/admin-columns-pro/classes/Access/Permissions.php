@@ -1,42 +1,41 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Access;
 
 final class Permissions
 {
-
     public const UPDATE = 'update';
     public const USAGE = 'usage';
 
-    private $permissions = [];
+    private array $permissions = [];
 
     public function __construct(array $permissions = [])
     {
-        array_map([$this, 'add'], $permissions);
+        foreach ($permissions as $permission) {
+            $this->add($permission);
+        }
+    }
+
+    public function with_usage_permission(): self
+    {
+        return new self([...$this->permissions, self::USAGE]);
     }
 
     private function add(string $permission): void
     {
-        if ( ! in_array($permission, [self::USAGE, self::UPDATE], true)) {
-            return;
+        if (in_array($permission, [self::USAGE, self::UPDATE], true) && ! $this->has_permission($permission)) {
+            $this->permissions[] = $permission;
         }
-
-        if (in_array($permission, $this->permissions, true)) {
-            return;
-        }
-
-        $this->permissions[] = $permission;
     }
 
-    public function with_permission(string $permission): self
+    public function to_array(): array
     {
-        $permissions = new self($this->permissions);
-        $permissions->add($permission);
-
-        return $permissions;
+        return $this->permissions;
     }
 
-    public function has_permission(string $permission): bool
+    private function has_permission(string $permission): bool
     {
         return in_array($permission, $this->permissions, true);
     }
@@ -46,14 +45,9 @@ final class Permissions
         return $this->has_permission(self::USAGE);
     }
 
-    public function has_updates_permission(): bool
+    public function has_update_permission(): bool
     {
         return $this->has_permission(self::UPDATE);
-    }
-
-    public function to_array(): array
-    {
-        return $this->permissions;
     }
 
 }

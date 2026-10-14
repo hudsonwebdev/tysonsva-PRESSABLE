@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-06-09T19:41:17+00:00\n"
-"PO-Revision-Date: 2026-08-28 16:46+0000\n"
+"PO-Revision-Date: 2026-09-16 16:45+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ml-slider\n"
 "Language: yor\n"
@@ -142,29 +142,42 @@ msgstr "Ka siwaju"
 #: inc/slide/metaslide.image.class.php:232
 #: inc/slide/metaslide.image.class.php:286
 #: inc/slide/metaslide.image.class.php:404
-#: ml-slider.php:944
-#: ml-slider.php:1026
-#: ml-slider.php:1138
-#: ml-slider.php:2853
-#: ml-slider.php:2898
-#: ml-slider.php:2973
+#: inc/slide/metaslide.livid.class.php:334
+#: inc/slide/metaslide.livid.class.php:401
+#: inc/slide/metaslide.livid.class.php:448
+#: inc/slide/metaslide.livid.class.php:776
+#: ml-slider.php:994
+#: ml-slider.php:1076
+#: ml-slider.php:1188
+#: ml-slider.php:2860
+#: ml-slider.php:2905
+#: ml-slider.php:2980
+#: modules/local_video/slide.php:870
+#: modules/local_video/slide.php:928
+#: modules/local_video/slide.php:1036
+#: modules/local_video/slide.php:1201
+#: modules/local_video/slide.php:1274
+#: modules/local_video/slide.php:1388
 msgid "The security check failed. Please refresh the page and try again."
 msgstr "Iṣayẹwo aabo kuna. Jọwọ tun ṣe oju-iwe naa ki o si gbiyanju lẹẹkansi."
 
 #: admin/Notices.php:394
 #: admin/Notices.php:642
-#: admin/routes/api.php:141
+#: admin/routes/api.php:145
 #: inc/slide/metaslide.class.php:152
 #: inc/slide/metaslide.image.class.php:135
 #: inc/slide/metaslide.image.class.php:154
 #: inc/slide/metaslide.image.class.php:240
 #: inc/slide/metaslide.image.class.php:294
-#: ml-slider.php:952
-#: ml-slider.php:1034
-#: ml-slider.php:1146
-#: ml-slider.php:2861
-#: ml-slider.php:2906
-#: ml-slider.php:2981
+#: inc/slide/metaslide.livid.class.php:342
+#: inc/slide/metaslide.livid.class.php:409
+#: inc/slide/metaslide.livid.class.php:456
+#: ml-slider.php:1002
+#: ml-slider.php:1084
+#: ml-slider.php:1196
+#: ml-slider.php:2868
+#: ml-slider.php:2913
+#: ml-slider.php:2988
 msgid "Access denied. Sorry, you do not have permission to complete this task."
 msgstr "Iwọle ti dina. Ẹ ṣọra, o ko ni ẹtọ lati pari iṣẹ yii."
 
@@ -175,12 +188,25 @@ msgstr "Iwọle ti dina. Ẹ ṣọra, o ko ni ẹtọ lati pari iṣẹ yii."
 #: inc/slide/metaslide.image.class.php:249
 #: inc/slide/metaslide.image.class.php:303
 #: inc/slide/metaslide.image.class.php:422
-#: ml-slider.php:961
-#: ml-slider.php:1043
-#: ml-slider.php:1155
-#: ml-slider.php:2870
-#: ml-slider.php:2914
-#: ml-slider.php:2990
+#: inc/slide/metaslide.livid.class.php:351
+#: inc/slide/metaslide.livid.class.php:416
+#: inc/slide/metaslide.livid.class.php:463
+#: inc/slide/metaslide.livid.class.php:470
+#: inc/slide/metaslide.livid.class.php:793
+#: ml-slider.php:1011
+#: ml-slider.php:1093
+#: ml-slider.php:1205
+#: ml-slider.php:2877
+#: ml-slider.php:2921
+#: ml-slider.php:2997
+#: modules/local_video/slide.php:209
+#: modules/local_video/slide.php:887
+#: modules/local_video/slide.php:945
+#: modules/local_video/slide.php:1057
+#: modules/local_video/slide.php:1221
+#: modules/local_video/slide.php:1291
+#: modules/local_video/slide.php:1405
+#: modules/local_video/slide.php:2091
 msgid "Bad request"
 msgstr "Beere ti ko dara"
 
@@ -227,6 +253,7 @@ msgid "URL"
 msgstr "URL"
 
 #: admin/Pages.php:157
+#: modules/local_video/slide.php:423
 #: themes/architekt/customize.php:511
 #: themes/bitono/customize.php:625
 #: themes/blend/customize.php:655
@@ -304,7 +331,7 @@ msgid "Tone"
 msgstr "Iru"
 
 #: admin/Pages.php:186
-#: admin/views/pages/parts/slider-settings.php:1431
+#: admin/views/pages/parts/slider-settings.php:1427
 #: admin/views/slides/tabs/background.php:73
 #: inc/metaslider.imagestyles.class.php:463
 #: themes/architekt/customize.php:602
@@ -408,46 +435,46 @@ msgstr "Awọ Ọrọ"
 msgid "Link Text"
 msgstr "Ọrọ Asopọ"
 
-#: admin/routes/api.php:462
+#: admin/routes/api.php:466
 msgid "The request format was not valid."
 msgstr "Fọọmu ìbéèrè naa kò jẹ́ òtọ́."
 
-#: admin/routes/api.php:470
-#: admin/routes/api.php:602
+#: admin/routes/api.php:474
+#: admin/routes/api.php:606
 msgid "This slideshow is no longer available."
 msgstr "Slideshow yìí kò sí níbẹ̀ mọ́."
 
-#: admin/routes/api.php:557
+#: admin/routes/api.php:561
 msgid "Nothing to import."
 msgstr "Kò sí ohun tó jẹ́ kó wà láti wọlé."
 
-#: admin/routes/api.php:609
+#: admin/routes/api.php:613
 msgid "This was not a slideshow, so we cannot delete it."
 msgstr "Eyi kì í ṣe slideshow, nítorí náà a kò lè pa a run."
 
-#: admin/routes/api.php:822
+#: admin/routes/api.php:826
 msgid "This was not a slideshow, so we cannot update the setting."
 msgstr "Eyi kì í ṣe slideshow, nítorí náà a kò lè ṣe imudojuiwọn ìtọ́sọ́nà náà."
 
-#: admin/routes/api.php:930
+#: admin/routes/api.php:934
 msgid "The title cannot be empty."
 msgstr "Àkọlé náà kò lè jẹ́ ofo."
 
-#: admin/routes/api.php:934
-#: admin/routes/api.php:1208
+#: admin/routes/api.php:938
+#: admin/routes/api.php:1212
 #, php-format
 msgid "The field (%s) cannot be empty"
 msgstr "Àwọn ààyè (%s) kò lè jẹ́ ofo"
 
-#: admin/routes/api.php:1198
+#: admin/routes/api.php:1202
 msgid "Maximum Number of Custom Field in Post Feed Sliders"
 msgstr "Iye to pọ jùlọ ti Custom Field ninu Post Feed Sliders"
 
-#: admin/routes/api.php:1242
+#: admin/routes/api.php:1246
 msgid "No video file was received by the server."
 msgstr "Ko si faili fidio ti a gba nipasẹ olupin."
 
-#: admin/routes/api.php:1258
+#: admin/routes/api.php:1262
 #. translators: 1: uploaded filename, 2: mime type WordPress detected, or "none"
 #, php-format
 msgid ""
@@ -458,19 +485,19 @@ msgstr ""
 "%2$s). O le jẹ irufẹ ti a ko ṣe atilẹyin tabi o kọja aala gbigba lati ọdọ "
 "olupin yii."
 
-#: admin/routes/api.php:1260
+#: admin/routes/api.php:1264
 msgid "none"
 msgstr "ko si"
 
-#: admin/routes/api.php:1268
+#: admin/routes/api.php:1272
 msgid "The video could not be imported."
 msgstr "Fidio ko le jẹ wọle."
 
-#: admin/routes/api.php:1386
+#: admin/routes/api.php:1409
 msgid "Import slug not found"
 msgstr "Import slug kò rí"
 
-#: admin/routes/api.php:1402
+#: admin/routes/api.php:1425
 msgid "Import data could not be processed"
 msgstr "A kò lè ṣe ilana data wọlé"
 
@@ -479,18 +506,18 @@ msgid "We could not find any images to import."
 msgstr "A kò rí àwọn àwòrán kankan láti wọlé."
 
 #: admin/slideshows/Settings.php:59
-#: inc/slider/metaslider.class.php:161
+#: inc/slider/metaslider.class.php:165
 msgid "New Slideshow"
 msgstr "Slideshow Tuntun"
 
 #: admin/slideshows/Settings.php:86
-#: inc/slider/metaslider.class.php:188
+#: inc/slider/metaslider.class.php:192
 #: inc/slider/metaslider.flex.class.php:819
 msgid "Previous"
 msgstr "Tẹ́lẹ̀"
 
 #: admin/slideshows/Settings.php:87
-#: inc/slider/metaslider.class.php:189
+#: inc/slider/metaslider.class.php:193
 #: inc/slider/metaslider.flex.class.php:820
 msgid "Next"
 msgstr "Tẹ̀síwájú"
@@ -515,23 +542,23 @@ msgstr "A kò lè wọlé ọ̀rọ̀ àkọsílẹ̀ láti URL: %s."
 msgid "Failed to import image from URL: %s."
 msgstr "Kò ṣaṣeyọri lati gbe aworan wọle lati URL: %s."
 
-#: admin/slideshows/Slideshows.php:1204
+#: admin/slideshows/Slideshows.php:1208
 msgid "Only http/https URLs are allowed."
 msgstr "Awọn URL http/https nikan ni a gba laaye."
 
-#: admin/slideshows/Slideshows.php:1214
+#: admin/slideshows/Slideshows.php:1218
 msgid "URL does not point to an allowed file type."
 msgstr "URL ko tọka si iru faili ti a gba laaye."
 
-#: admin/slideshows/Slideshows.php:1224
+#: admin/slideshows/Slideshows.php:1228
 msgid "URL resolves to a disallowed address."
 msgstr "URL n tọka si adirẹsi ti a ko gba laaye."
 
-#: admin/slideshows/Themes.php:60
+#: admin/slideshows/Themes.php:203
 msgid "No themes found."
 msgstr "Ko si awọn akori ti a ri."
 
-#: admin/slideshows/Themes.php:449
+#: admin/slideshows/Themes.php:595
 msgid ""
 "We removed your selected theme as it could not be found. Was the folder "
 "deleted?"
@@ -546,100 +573,100 @@ msgstr "O ko ni awọn slideshows ti a pa."
 msgid "You don't have any slideshows yet. Click %shere%s to create a new slideshow."
 msgstr "O ko ni awọn slideshows sibẹsibẹ. Tẹ %shere%s lati ṣẹda slideshow tuntun."
 
-#: admin/Table.php:184
-#: admin/Table.php:347
+#: admin/Table.php:193
+#: admin/Table.php:356
 #: inc/slide/metaslide.class.php:420
 msgid "Restore"
 msgstr "Tun pada"
 
-#: admin/Table.php:185
-#: admin/Table.php:348
+#: admin/Table.php:194
+#: admin/Table.php:357
 #: inc/slide/metaslide.class.php:430
 msgid "Delete Permanently"
 msgstr "Pa Pẹlú"
 
-#: admin/Table.php:189
-#: admin/Table.php:362
+#: admin/Table.php:198
+#: admin/Table.php:371
 msgid "Trash"
 msgstr "Ibi idalẹnu"
 
-#: admin/Table.php:200
+#: admin/Table.php:209
 #: admin/views/pages/parts/toolbar.php:75
 #: admin/assets/dist/js/app.js:2
 msgid "Preview"
 msgstr "Iṣafihan"
 
-#: admin/Table.php:201
+#: admin/Table.php:210
 #: admin/assets/dist/js/app.js:2
 msgid "Title"
 msgstr "Ak título"
 
-#: admin/Table.php:202
+#: admin/Table.php:211
 msgid "Type of Slides"
 msgstr "Iru Awọn Slides"
 
-#: admin/Table.php:203
+#: admin/Table.php:212
 msgid "Number of Slides"
 msgstr "Iye Awọn Slides"
 
-#: admin/Table.php:204
+#: admin/Table.php:213
 msgid "Theme"
 msgstr "Akori"
 
-#: admin/Table.php:205
+#: admin/Table.php:214
 msgid "Created"
 msgstr "Ti ṣẹda"
 
-#: admin/Table.php:206
-#: admin/views/pages/parts/slider-settings.php:1694
+#: admin/Table.php:215
+#: admin/views/pages/parts/slider-settings.php:1690
 msgid "Shortcode"
 msgstr "shortcode"
 
-#: admin/Table.php:212
+#: admin/Table.php:221
 msgid "Usage"
 msgstr "Ilo"
 
-#: admin/Table.php:361
+#: admin/Table.php:370
 msgid "Edit"
 msgstr "Ṣatunkọ"
 
-#: admin/Table.php:398
+#: admin/Table.php:407
 #: admin/views/pages/parts/shortcode.php:11
 msgid "Click to copy shortcode."
 msgstr "Tẹ lati daakọ shortcode."
 
-#: admin/Table.php:406
-#: admin/Table.php:419
-#: admin/Table.php:479
+#: admin/Table.php:415
+#: admin/Table.php:428
+#: admin/Table.php:488
 msgid "Not found."
 msgstr "Ko ri."
 
-#: admin/Table.php:408
+#: admin/Table.php:417
 msgid "View Usage"
 msgstr "Wo Iṣe"
 
-#: admin/Table.php:414
+#: admin/Table.php:423
 msgid "Content Using This Slideshow"
 msgstr "Akoonu Tí ń Lo Slideshow Yìí"
 
-#: admin/Table.php:456
+#: admin/Table.php:465
 msgid "Theme Setting"
 msgstr "Iṣeto Akori"
 
-#: admin/Table.php:470
+#: admin/Table.php:479
 msgid "Option"
 msgstr "Aṣayan"
 
-#: admin/Table.php:527
-#: admin/views/pages/start.php:191
+#: admin/Table.php:536
+#: admin/views/pages/start.php:192
 msgid "All Themes"
 msgstr "Gbogbo Awọn Akori"
 
-#: admin/Table.php:540
+#: admin/Table.php:549
 msgid "(No Theme)"
 msgstr "(Ko si Akori)"
 
-#: admin/Table.php:544
+#: admin/Table.php:553
 #: admin/views/slides/tabs/background.php:32
 #: inc/metaslider.imagestyles.class.php:388
 msgid "Filter"
@@ -656,7 +683,7 @@ msgid "(%s Weeks)"
 msgstr "( %s Ọsẹ)"
 
 #: admin/views/pages/dashboard.php:8
-#: ml-slider.php:574
+#: ml-slider.php:578
 #: admin/assets/dist/js/app.js:2, fuzzy
 msgid "Slideshows"
 msgstr "Slideshows"
@@ -782,7 +809,7 @@ msgstr "Ìwọn Slideshow"
 
 #: admin/views/pages/parts/slider-settings.php:90
 #: admin/views/pages/parts/slider-settings.php:103
-#: admin/views/pages/parts/slider-settings.php:926
+#: admin/views/pages/parts/slider-settings.php:922
 #: admin/views/slides/tabs/background.php:51
 #: inc/metaslider.imagestyles.class.php:407
 #: inc/metaslider.imagestyles.class.php:419, fuzzy
@@ -1111,30 +1138,30 @@ msgid "This animation is used when changing slides."
 msgstr "Àmúlò yii ni a lo nigba ti a ba n yipada awọn slide."
 
 #: admin/views/pages/parts/slider-settings.php:550
-#: admin/views/pages/start.php:174
+#: admin/views/pages/start.php:175
 #: inc/metaslider.imagestyles.class.php:537
 msgid "Fade"
 msgstr "Fọ́"
 
 #: admin/views/pages/parts/slider-settings.php:554
-#: admin/views/pages/start.php:173, fuzzy
+#: admin/views/pages/start.php:174, fuzzy
 msgid "Slide"
 msgstr "Slide"
 
 #: admin/views/pages/parts/slider-settings.php:558
-#: admin/views/pages/start.php:175
+#: admin/views/pages/start.php:176
 msgid "Zooming"
 msgstr "Zúmù"
 
 #: admin/views/pages/parts/slider-settings.php:562
-#: admin/views/pages/start.php:176
+#: admin/views/pages/start.php:177
 #: admin/views/slides/tabs/background.php:87
 #: inc/metaslider.imagestyles.class.php:488, fuzzy
 msgid "Flip"
 msgstr "Flip"
 
 #: admin/views/pages/parts/slider-settings.php:566
-#: admin/views/pages/parts/slider-settings.php:1344
+#: admin/views/pages/parts/slider-settings.php:1340
 msgid "Random"
 msgstr "Aiyé"
 
@@ -1257,7 +1284,7 @@ msgid "Horizontal"
 msgstr "Ihuwasi pẹlẹbẹ"
 
 #: admin/views/pages/parts/slider-settings.php:757
-#: admin/views/pages/start.php:178
+#: admin/views/pages/start.php:179
 #: admin/views/slides/tabs/background.php:89
 #: inc/metaslider.imagestyles.class.php:494
 msgid "Vertical"
@@ -1339,11 +1366,11 @@ msgstr ""
 "Fi ọpọlọpọ awọn aṣayan han ni ẹẹkan. Iṣẹ́ àwòrán yoo jẹ aiyipada ti o lo "
 "100% iwọn ati 'Ìhuwasi' Àfihàn Iṣipopada."
 
-#: admin/views/pages/parts/slider-settings.php:903
+#: admin/views/pages/parts/slider-settings.php:899
 msgid "Loop Carousel Continuously"
 msgstr "Tẹ́ ẹ̀yà Carousel ni ilọsiwaju"
 
-#: admin/views/pages/parts/slider-settings.php:908
+#: admin/views/pages/parts/slider-settings.php:904
 msgid ""
 "Infinite loop of slides when Carousel Mode is enabled. This option disables "
 "arrows and navigation. The slideshow width must be less than or equal to "
@@ -1353,27 +1380,27 @@ msgstr ""
 "Ẹ̀yà yìí mu awọn akọ́kọ́ ati ìtọ́sọ́nà pọ̀. Iwọn àwòrán gbọdọ̀ jẹ kere ju "
 "tabi dogba si iwọn ti apoti ti a ti fi sii."
 
-#: admin/views/pages/parts/slider-settings.php:919
+#: admin/views/pages/parts/slider-settings.php:915
 msgid "Carousel Margin"
 msgstr "Ààlà Carousel"
 
-#: admin/views/pages/parts/slider-settings.php:922
+#: admin/views/pages/parts/slider-settings.php:918
 msgid "Pixel margin between slides in carousel."
 msgstr "Iwọn pixel laarin awọn slides ni carousel."
 
-#: admin/views/pages/parts/slider-settings.php:936
+#: admin/views/pages/parts/slider-settings.php:932
 msgid "Display Minimum"
 msgstr "Fihan Iwọn Kekere"
 
-#: admin/views/pages/parts/slider-settings.php:938
+#: admin/views/pages/parts/slider-settings.php:934
 msgid "Minimum number of slides to be displayed at the same time in the carousel."
 msgstr "Iye awọn slides ti o yẹ ki o han ni akoko kan ni carousel."
 
-#: admin/views/pages/parts/slider-settings.php:952
+#: admin/views/pages/parts/slider-settings.php:948
 msgid "Display Maximum"
 msgstr "Fihan Iwọn Max"
 
-#: admin/views/pages/parts/slider-settings.php:954
+#: admin/views/pages/parts/slider-settings.php:950
 msgid ""
 "Maximum number of slides to be displayed at the same time in the carousel. "
 "Set to 0 to adjust automatically."
@@ -1381,11 +1408,11 @@ msgstr ""
 "Iye awọn slides ti o yẹ ki o han ni akoko kan ni carousel. Ṣeto si 0 lati "
 "ṣe atunṣe laifọwọyi."
 
-#: admin/views/pages/parts/slider-settings.php:963
+#: admin/views/pages/parts/slider-settings.php:959
 msgid "Slides to Show per Device"
 msgstr "Awọn Slide lati Fi Han fun Ẹrọ Kọọkan"
 
-#: admin/views/pages/parts/slider-settings.php:964
+#: admin/views/pages/parts/slider-settings.php:960
 msgid ""
 "Set an exact number of slides to show for each device width. Leave a device "
 "at 0 to use the Display Minimum/Maximum settings instead."
@@ -1393,7 +1420,7 @@ msgstr ""
 "Ṣeto nọmba gangan ti awọn slide lati fi han fun ọkọọkan iwọn ẹrọ. Fi ẹrọ "
 "silẹ ni 0 lati lo awọn eto Ifihan Kekere/Max."
 
-#: admin/views/pages/parts/slider-settings.php:972
+#: admin/views/pages/parts/slider-settings.php:968
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths less than %spx. Set to 0 to "
@@ -1402,8 +1429,8 @@ msgstr ""
 "Nọmba gangan ti awọn slide lati fi han lori awọn iwọn iboju ti o din ju "
 "%spx. Ṣeto si 0 lati lo Ifihan Kekere/Max dipo."
 
-#: admin/views/pages/parts/slider-settings.php:982
-#: admin/views/pages/parts/slider-settings.php:993
+#: admin/views/pages/parts/slider-settings.php:978
+#: admin/views/pages/parts/slider-settings.php:989
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths of %1$spx to %2$spx. Set to "
@@ -1412,7 +1439,7 @@ msgstr ""
 "Nọmba gangan ti awọn slide lati fi han lori awọn iwọn iboju ti %1$spx si "
 "%2$spx. Ṣeto si 0 lati lo Ifihan Kekere/Max dipo."
 
-#: admin/views/pages/parts/slider-settings.php:1004
+#: admin/views/pages/parts/slider-settings.php:1000
 #, php-format
 msgid ""
 "Exact number of slides to show on screen widths equal to or greater than "
@@ -1421,19 +1448,19 @@ msgstr ""
 "Nọmba gangan ti awọn slide lati fi han lori awọn iwọn iboju ti o dogba tabi "
 "tobi ju %spx. Ṣeto si 0 lati lo Ifihan Kekere/Max dipo."
 
-#: admin/views/pages/parts/slider-settings.php:1021
+#: admin/views/pages/parts/slider-settings.php:1017
 msgid "Slides per Navigation Click"
 msgstr "Awọn Slides fun Igbẹkẹle Iṣakoso"
 
-#: admin/views/pages/parts/slider-settings.php:1023
+#: admin/views/pages/parts/slider-settings.php:1019
 msgid "Number of slides to move when clicking next or previous."
 msgstr "Iye awọn slides lati gbe nigbati o ba tẹ “tẹle” tabi “ọdọ.”"
 
-#: admin/views/pages/parts/slider-settings.php:1032
+#: admin/views/pages/parts/slider-settings.php:1028
 msgid "Force Height"
 msgstr "Gbe Giga"
 
-#: admin/views/pages/parts/slider-settings.php:1037
+#: admin/views/pages/parts/slider-settings.php:1033
 msgid ""
 "If the slideshow looks small, force slideshow height when using Carousel "
 "mode. Please note when is enabled slides may look cropped."
@@ -1442,31 +1469,31 @@ msgstr ""
 "Carousel. Jọwọ ṣe akiyesi pe nigbati o ba mu ṣiṣẹ, awọn slides le dabi pe a "
 "ge."
 
-#: admin/views/pages/parts/slider-settings.php:1062
+#: admin/views/pages/parts/slider-settings.php:1058
 msgid "Image Options"
 msgstr "Awọn aṣayan Aworan"
 
-#: admin/views/pages/parts/slider-settings.php:1074
+#: admin/views/pages/parts/slider-settings.php:1070
 msgid "Image Crop"
 msgstr "Ge Aworan"
 
-#: admin/views/pages/parts/slider-settings.php:1079
+#: admin/views/pages/parts/slider-settings.php:1075
 msgid "Smart Crop"
 msgstr "Ge Ọmọde"
 
-#: admin/views/pages/parts/slider-settings.php:1086
+#: admin/views/pages/parts/slider-settings.php:1082
 msgid "Standard"
 msgstr "Iwọn Didara"
 
-#: admin/views/pages/parts/slider-settings.php:1093
+#: admin/views/pages/parts/slider-settings.php:1089
 msgid "Disabled"
 msgstr "Ti a Dena"
 
-#: admin/views/pages/parts/slider-settings.php:1100
+#: admin/views/pages/parts/slider-settings.php:1096
 msgid "Disabled (Smart Pad)"
 msgstr "Ti a Dena (Smart Pad)"
 
-#: admin/views/pages/parts/slider-settings.php:1107
+#: admin/views/pages/parts/slider-settings.php:1103
 msgid ""
 "Smart Crop ensures your responsive slides are cropped to a ratio that "
 "results in a consistent slideshow size."
@@ -1474,19 +1501,19 @@ msgstr ""
 "Ge Ọmọde n jẹ ki awọn slides ti o ni idahun rẹ ge si ipin ti o fa ki iwọn "
 "slideshow naa jẹ deede."
 
-#: admin/views/pages/parts/slider-settings.php:1115
+#: admin/views/pages/parts/slider-settings.php:1111
 msgid "Image Crop Source"
 msgstr "Orisun Ge Aworan"
 
-#: admin/views/pages/parts/slider-settings.php:1120
+#: admin/views/pages/parts/slider-settings.php:1116
 msgid "Slideshow width/height"
 msgstr "Iwọn/ giga Slideshow"
 
-#: admin/views/pages/parts/slider-settings.php:1123
+#: admin/views/pages/parts/slider-settings.php:1119
 msgid "Custom width/height (Pro)"
 msgstr "Iwọn/ giga Adani (Pro)"
 
-#: admin/views/pages/parts/slider-settings.php:1127
+#: admin/views/pages/parts/slider-settings.php:1123
 msgid ""
 "By default, MetaSlider Slideshow will crop images using the main width and "
 "height of the slideshow. If you want smaller images, select Custom "
@@ -1497,11 +1524,11 @@ msgstr ""
 "ati giga ti slideshow. Ti o ba fẹ awọn aworan kekere, yan Iwọn/ giga Adani "
 "ki o rii daju pe awọn iye naa kere ju iwọn akọkọ ati giga lọ."
 
-#: admin/views/pages/parts/slider-settings.php:1136
+#: admin/views/pages/parts/slider-settings.php:1132
 msgid "Image Crop Size"
 msgstr "Iwọn Gige Aworan"
 
-#: admin/views/pages/parts/slider-settings.php:1145
+#: admin/views/pages/parts/slider-settings.php:1141
 msgid ""
 "This will increase the size of the images in your slideshow. Larger images "
 "are higher quality. Smaller images load more quickly."
@@ -1509,11 +1536,11 @@ msgstr ""
 "Eyi yoo mu iwọn awọn aworan ni ninu slideshow rẹ pọ si. Awọn aworan tobi ni "
 "didara to ga. Awọn aworan kekere jẹ ki o gba akoko diẹ sii lati gbe."
 
-#: admin/views/pages/parts/slider-settings.php:1156
+#: admin/views/pages/parts/slider-settings.php:1152
 msgid "Lazy Load Images"
 msgstr "Gbigbe Aworan Laifọwọyi"
 
-#: admin/views/pages/parts/slider-settings.php:1161
+#: admin/views/pages/parts/slider-settings.php:1157
 msgid ""
 "This feature can speed up your site. MetaSlider Slideshow will only load "
 "slides when they are required by your slideshow."
@@ -1521,25 +1548,25 @@ msgstr ""
 "Iṣẹ yii le mu ki aaye rẹ yara. MetaSlider Slideshow yoo gba awọn slidẹ "
 "nikan nigbati wọn ba nilo nipasẹ slideshow rẹ."
 
-#: admin/views/pages/parts/slider-settings.php:1177
+#: admin/views/pages/parts/slider-settings.php:1173
 #: inc/metaslider.imagestyles.class.php:96
 msgid "Image Styles"
 msgstr "Awọn Ara Aworan"
 
-#: admin/views/pages/parts/slider-settings.php:1195
+#: admin/views/pages/parts/slider-settings.php:1191
 msgid "Layout Features"
 msgstr "Àwọn ànfààní àtẹ̀jáde"
 
-#: admin/views/pages/parts/slider-settings.php:1207
+#: admin/views/pages/parts/slider-settings.php:1203
 #: admin/assets/dist/js/app.js:2
 msgid "Auto Play"
 msgstr "Ìjáde Aifọwọyi"
 
-#: admin/views/pages/parts/slider-settings.php:1212
+#: admin/views/pages/parts/slider-settings.php:1208
 msgid "Transition between slides automatically."
 msgstr "Yipada laarin awọn slidẹ laifọwọyi."
 
-#: admin/views/pages/parts/slider-settings.php:1220
+#: admin/views/pages/parts/slider-settings.php:1216
 #: themes/architekt/customize.php:615
 #: themes/bitono/customize.php:798
 #: themes/blend/customize.php:828
@@ -1561,47 +1588,47 @@ msgstr "Yipada laarin awọn slidẹ laifọwọyi."
 msgid "Play / Pause Button"
 msgstr "Bọtini Ṣe/Da Aifọwọyi"
 
-#: admin/views/pages/parts/slider-settings.php:1225
+#: admin/views/pages/parts/slider-settings.php:1221
 msgid "This allows user to pause or resume Auto Play on the slideshow."
 msgstr "Eyi gba olumulo laaye lati da aifọwọyi duro tabi tun bẹrẹ lori slideshow."
 
-#: admin/views/pages/parts/slider-settings.php:1233
+#: admin/views/pages/parts/slider-settings.php:1229
 msgid "Show Play / Pause Button Text"
 msgstr "Fihan Ọrọ Bọtini Ṣe/Da Aifọwọyi"
 
-#: admin/views/pages/parts/slider-settings.php:1238
+#: admin/views/pages/parts/slider-settings.php:1234
 msgid "Show text options for Play / Pause Button"
 msgstr "Fihan awọn aṣayan ọrọ fun Bọtini Ṣe/Da Aifọwọyi"
 
-#: admin/views/pages/parts/slider-settings.php:1246
+#: admin/views/pages/parts/slider-settings.php:1242
 msgid "Play Text"
 msgstr "Ọrọ Ṣe"
 
-#: admin/views/pages/parts/slider-settings.php:1248
-#: admin/views/pages/parts/slider-settings.php:1261
+#: admin/views/pages/parts/slider-settings.php:1244
+#: admin/views/pages/parts/slider-settings.php:1257
 msgid ""
 "Enter text for the Play/Pause Button. Leave the field empty to use the icon "
 "only."
 msgstr "Tẹ ọrọ fun Bọtini Ṣe/Da Aifọwọyi. Fi aaye silẹ lati lo aami nikan."
 
-#: admin/views/pages/parts/slider-settings.php:1259
+#: admin/views/pages/parts/slider-settings.php:1255
 msgid "Pause Text"
 msgstr "Ọrọ Da"
 
-#: admin/views/pages/parts/slider-settings.php:1272
+#: admin/views/pages/parts/slider-settings.php:1268
 #: themes/customize.php:34
 msgid "Progress Bar"
 msgstr "Iwọn Ilọsiwaju"
 
-#: admin/views/pages/parts/slider-settings.php:1277
+#: admin/views/pages/parts/slider-settings.php:1273
 msgid "Displays a visual indicator showing the time left before the next slide."
 msgstr "N ṣe afihan ami iworan ti n fihan akoko to ku ṣaaju slidẹ ti n bọ."
 
-#: admin/views/pages/parts/slider-settings.php:1285
+#: admin/views/pages/parts/slider-settings.php:1281
 msgid "Hover Pause"
 msgstr "Duro Ni Ipa"
 
-#: admin/views/pages/parts/slider-settings.php:1290
+#: admin/views/pages/parts/slider-settings.php:1286
 msgid ""
 "Pause the slideshow when hovering over slider, then resume when no longer "
 "hovering."
@@ -1609,11 +1636,11 @@ msgstr ""
 "Da slideshow duro nigbati o ba n foju kọja slider, lẹhinna tun bẹrẹ nigbati "
 "o ko ba n foju kọja mọ."
 
-#: admin/views/pages/parts/slider-settings.php:1298
+#: admin/views/pages/parts/slider-settings.php:1294
 msgid "Loop"
 msgstr "Iṣipopada"
 
-#: admin/views/pages/parts/slider-settings.php:1300
+#: admin/views/pages/parts/slider-settings.php:1296
 msgid ""
 "If you choose \"Loop endlessly\", the slides will loop infinitely. If you "
 "choose \"Stop on first slide after looping\", the slideshow will stop on "
@@ -1625,51 +1652,51 @@ msgstr ""
 "slidẹ akọkọ lẹhin ti o ti fihan gbogbo awọn nkan. Ti o ba yan \"Duro lori "
 "slidẹ ikẹhin\", awọn slidẹ yoo da duro lori slidẹ ikẹhin."
 
-#: admin/views/pages/parts/slider-settings.php:1303
+#: admin/views/pages/parts/slider-settings.php:1299
 msgid "Loop Endlessly"
 msgstr "Tẹsiwaju Laisi Ipari"
 
-#: admin/views/pages/parts/slider-settings.php:1304
+#: admin/views/pages/parts/slider-settings.php:1300
 msgid "Stop On Last Slide"
 msgstr "Dena Ni Ipari Ikọsẹ"
 
-#: admin/views/pages/parts/slider-settings.php:1305
+#: admin/views/pages/parts/slider-settings.php:1301
 msgid "Stop On First Slide After Looping"
 msgstr "Dena Ni Ikọsẹ Kẹta Lẹhin Tẹsiwaju"
 
-#: admin/views/pages/parts/slider-settings.php:1311
+#: admin/views/pages/parts/slider-settings.php:1307
 msgid "Smooth Height"
 msgstr "Giga Didara"
 
-#: admin/views/pages/parts/slider-settings.php:1316
+#: admin/views/pages/parts/slider-settings.php:1312
 msgid "Allow navigation to follow the slide's height smoothly."
 msgstr "Gba irọrun lati tọpa giga ikọsẹ ni rọọrun."
 
-#: admin/views/pages/parts/slider-settings.php:1324
+#: admin/views/pages/parts/slider-settings.php:1320
 msgid "Slide Order"
 msgstr "Àtòjọ Ikọsẹ"
 
-#: admin/views/pages/parts/slider-settings.php:1329
+#: admin/views/pages/parts/slider-settings.php:1325
 msgid "Newest First"
 msgstr "Tuntun Kẹta"
 
-#: admin/views/pages/parts/slider-settings.php:1332
+#: admin/views/pages/parts/slider-settings.php:1328
 msgid "Oldest First"
 msgstr "Atijọ Kẹta"
 
-#: admin/views/pages/parts/slider-settings.php:1335
+#: admin/views/pages/parts/slider-settings.php:1331
 msgid "A to Z (by filename)"
 msgstr "A si Z (nipasẹ orukọ faili)"
 
-#: admin/views/pages/parts/slider-settings.php:1338
+#: admin/views/pages/parts/slider-settings.php:1334
 msgid "Z to A (by filename)"
 msgstr "Z si A (nipasẹ orukọ faili)"
 
-#: admin/views/pages/parts/slider-settings.php:1341
+#: admin/views/pages/parts/slider-settings.php:1337
 msgid "Drag-and-drop"
 msgstr "Fa ki o ju silẹ"
 
-#: admin/views/pages/parts/slider-settings.php:1347
+#: admin/views/pages/parts/slider-settings.php:1343
 msgid ""
 "Select the order in which slides appear in the slideshow. This impacts the "
 "frontend view."
@@ -1677,113 +1704,113 @@ msgstr ""
 "Yan àtòjọ ti awọn ikọsẹ ṣe afihan ninu àpapọ ikọsẹ. Eyi ni ipa lori iwo "
 "iwaju."
 
-#: admin/views/pages/parts/slider-settings.php:1355
+#: admin/views/pages/parts/slider-settings.php:1351
 msgid "Touch Swipe"
 msgstr "Fọwọkan Fagilee"
 
-#: admin/views/pages/parts/slider-settings.php:1360
+#: admin/views/pages/parts/slider-settings.php:1356
 msgid "Allow touch swipe navigation of the slider on touch-enabled devices."
 msgstr "Gba irọrun fọwọkan fagilee lati tọpa ikọsẹ lori awọn ẹrọ ti o ni ifọwọkan."
 
-#: admin/views/pages/parts/slider-settings.php:1368
+#: admin/views/pages/parts/slider-settings.php:1364
 msgid "Loading Indicator"
 msgstr "Aami Ikilọ Nṣiṣẹ"
 
-#: admin/views/pages/parts/slider-settings.php:1373
+#: admin/views/pages/parts/slider-settings.php:1369
 msgid "Displays a visual indicator while the slideshow is loading."
 msgstr "Nfi aami iworan han nigba ti àpapọ ikọsẹ n ṣiṣẹ."
 
-#: admin/views/pages/parts/slider-settings.php:1381
+#: admin/views/pages/parts/slider-settings.php:1377
 msgid "Previous Text"
 msgstr "Ọrọ Tẹlẹ"
 
-#: admin/views/pages/parts/slider-settings.php:1383
+#: admin/views/pages/parts/slider-settings.php:1379
 msgid "Set the text for the \"previous\" direction item."
 msgstr "Ṣeto ọrọ fun ohun itọsọna \" tẹlẹ\"."
 
-#: admin/views/pages/parts/slider-settings.php:1395
+#: admin/views/pages/parts/slider-settings.php:1391
 msgid "Next Text"
 msgstr "Ọrọ Tẹle"
 
-#: admin/views/pages/parts/slider-settings.php:1397
+#: admin/views/pages/parts/slider-settings.php:1393
 msgid "Set the text for the \"next\" direction item."
 msgstr "Ṣeto ọrọ fun ohun itọsọna \"tẹle\"."
 
-#: admin/views/pages/parts/slider-settings.php:1414, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1410, fuzzy
 msgid "Square Delay"
 msgstr "Square Delay"
 
-#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1412
 msgid "Delay between squares in ms."
 msgstr "Iduro laarin awọn onigun mẹrin ni ms."
 
-#: admin/views/pages/parts/slider-settings.php:1433
+#: admin/views/pages/parts/slider-settings.php:1429
 msgid "Opacity of title and navigation, between 0 and 1."
 msgstr "Iwọn didan ti akọle ati lilọ kiri, laarin 0 ati 1."
 
-#: admin/views/pages/parts/slider-settings.php:1448
+#: admin/views/pages/parts/slider-settings.php:1444
 msgid "Caption Speed"
 msgstr "Iwọn iyara akọle"
 
-#: admin/views/pages/parts/slider-settings.php:1450
+#: admin/views/pages/parts/slider-settings.php:1446
 msgid "Set the fade in speed of the caption."
 msgstr "Ṣeto iyara didan ti akọle."
 
-#: admin/views/pages/parts/slider-settings.php:1472
+#: admin/views/pages/parts/slider-settings.php:1468
 msgid "Container Options"
 msgstr "Awọn aṣayan apoti"
 
-#: admin/views/pages/parts/slider-settings.php:1484
+#: admin/views/pages/parts/slider-settings.php:1480
 msgid "Container Box"
 msgstr "Apoti Ibi"
 
-#: admin/views/pages/parts/slider-settings.php:1489
+#: admin/views/pages/parts/slider-settings.php:1485
 msgid "Customize the slideshow's container box."
 msgstr "Ṣe akanṣe apoti ibi ti slideshow."
 
-#: admin/views/pages/parts/slider-settings.php:1495
-#: admin/views/pages/parts/slider-settings.php:1535
+#: admin/views/pages/parts/slider-settings.php:1491
+#: admin/views/pages/parts/slider-settings.php:1531
 #: admin/assets/dist/js/app.js:2
 msgid "This feature is available in MetaSlider Slideshow Pro"
 msgstr "Iṣẹ yii wa ni MetaSlider Slideshow Pro"
 
-#: admin/views/pages/parts/slider-settings.php:1510
+#: admin/views/pages/parts/slider-settings.php:1506
 msgid "Watermark Options"
 msgstr "Awọn aṣayan Watermark"
 
-#: admin/views/pages/parts/slider-settings.php:1524, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1520, fuzzy
 msgid "Watermark"
 msgstr "Watermark"
 
-#: admin/views/pages/parts/slider-settings.php:1529
+#: admin/views/pages/parts/slider-settings.php:1525
 msgid "Overlay an image (e.g. a logo) on top of the slideshow."
 msgstr "Fi aworan kan (e.g. aami) si oke slideshow."
 
-#: admin/views/pages/parts/slider-settings.php:1550
+#: admin/views/pages/parts/slider-settings.php:1546
 msgid "Accessibility Options"
 msgstr "Awọn aṣayan iraye si"
 
-#: admin/views/pages/parts/slider-settings.php:1562
+#: admin/views/pages/parts/slider-settings.php:1558
 msgid "Keyboard Controls"
 msgstr "Iṣakoso Keyboard"
 
-#: admin/views/pages/parts/slider-settings.php:1567
+#: admin/views/pages/parts/slider-settings.php:1563
 msgid "Use arrow keys to get to the next slide."
 msgstr "Lo awọn bọtini itọka lati de si iṣafihan ti n tẹle."
 
-#: admin/views/pages/parts/slider-settings.php:1575
+#: admin/views/pages/parts/slider-settings.php:1571
 msgid "Tabindex For Navigation"
 msgstr "Tabindex Fun Lilọ kiri"
 
-#: admin/views/pages/parts/slider-settings.php:1580
+#: admin/views/pages/parts/slider-settings.php:1576
 msgid "This helps make the slideshow navigation more accessible."
 msgstr "Eyi ṣe iranlọwọ lati jẹ ki lilọ kiri slideshow rọrun lati wọle si."
 
-#: admin/views/pages/parts/slider-settings.php:1588, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1584, fuzzy
 msgid "ARIA Live"
 msgstr "ARIA Live"
 
-#: admin/views/pages/parts/slider-settings.php:1593
+#: admin/views/pages/parts/slider-settings.php:1589
 msgid ""
 "If Autoplay is enabled, this causes screen readers to announce that the "
 "slides are changing."
@@ -1791,11 +1818,11 @@ msgstr ""
 "Ti Autoplay ba wa ni mu, eyi fa ki awọn oluka iboju kede pe awọn iṣafihan n "
 "yipada."
 
-#: admin/views/pages/parts/slider-settings.php:1601, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1597, fuzzy
 msgid "ARIA Current"
 msgstr "ARIA Current"
 
-#: admin/views/pages/parts/slider-settings.php:1606
+#: admin/views/pages/parts/slider-settings.php:1602
 msgid ""
 "This is used on the navigation button for the active slide. It helps screen "
 "readers understand which slide is active."
@@ -1803,15 +1830,15 @@ msgstr ""
 "Eyi ni a lo lori bọtini lilọ kiri fun iṣafihan ti n ṣiṣẹ. O ṣe iranlọwọ fun "
 "awọn oluka iboju lati loye eyi ti iṣafihan ti n ṣiṣẹ."
 
-#: admin/views/pages/parts/slider-settings.php:1622
+#: admin/views/pages/parts/slider-settings.php:1618
 msgid "Developer Options"
 msgstr "Awọn aṣayan Olùgbéejáde"
 
-#: admin/views/pages/parts/slider-settings.php:1634, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1630, fuzzy
 msgid "CSS Classes"
 msgstr "CSS Classes"
 
-#: admin/views/pages/parts/slider-settings.php:1636
+#: admin/views/pages/parts/slider-settings.php:1632
 msgid ""
 "Enter custom CSS classes to apply to the slider wrapper. Separate multiple "
 "classes with a space."
@@ -1819,36 +1846,36 @@ msgstr ""
 "Tẹ CSS aṣa ti a ṣe adani lati lo si wrapper slider. Ya awọn kilasi pupọ "
 "pẹlu aaye kan."
 
-#: admin/views/pages/parts/slider-settings.php:1647
+#: admin/views/pages/parts/slider-settings.php:1643
 msgid "Print CSS"
 msgstr "Tẹjade CSS"
 
-#: admin/views/pages/parts/slider-settings.php:1652
+#: admin/views/pages/parts/slider-settings.php:1648
 msgid "Uncheck this if you would like to include your own CSS."
 msgstr "Yọ asọye yii ti o ba fẹ lati fi CSS tirẹ kun."
 
-#: admin/views/pages/parts/slider-settings.php:1660
+#: admin/views/pages/parts/slider-settings.php:1656
 msgid "Print JS"
 msgstr "Tẹjade JS"
 
-#: admin/views/pages/parts/slider-settings.php:1665
+#: admin/views/pages/parts/slider-settings.php:1661
 msgid "Uncheck this if you would like to include your own Javascript."
 msgstr "Yọ asọye yii ti o ba fẹ lati fi Javascript tirẹ kun."
 
-#: admin/views/pages/parts/slider-settings.php:1673
+#: admin/views/pages/parts/slider-settings.php:1669
 msgid "No Conflict Mode"
 msgstr "Ipo Ko si Ijakadi"
 
-#: admin/views/pages/parts/slider-settings.php:1678
+#: admin/views/pages/parts/slider-settings.php:1674
 msgid "Delay adding the flexslider class to the slideshow."
 msgstr "Daku fifi kilasi flexslider kun si slideshow."
 
-#: admin/views/pages/parts/slider-settings.php:1716
-#: ml-slider.php:1880
+#: admin/views/pages/parts/slider-settings.php:1712
+#: ml-slider.php:1930
 msgid "Trashed Slides"
 msgstr "Awọn Slide ti a ti pa"
 
-#: admin/views/pages/parts/slider-settings.php:1726
+#: admin/views/pages/parts/slider-settings.php:1722
 msgid "View trashed slides"
 msgstr "Wo awọn slide ti a ti pa"
 
@@ -1866,7 +1893,7 @@ msgid "Add a new slide"
 msgstr "Fi slide tuntun kun"
 
 #: admin/views/pages/parts/toolbar.php:60
-#: inc/slider/metaslider.class.php:1055
+#: inc/slider/metaslider.class.php:1065
 msgid "Add Slide"
 msgstr "Fi Slide Kun"
 
@@ -1910,7 +1937,7 @@ msgid "Save"
 msgstr "Fipamọ"
 
 #: admin/views/pages/parts/toolbar.php:155
-#: ml-slider.php:1945
+#: ml-slider.php:1995
 msgid "Return to Published Slides"
 msgstr "Pada si Awọn Slide ti a tẹjade"
 
@@ -1946,7 +1973,7 @@ msgid "Redirecting..."
 msgstr "N tọka si..."
 
 #: admin/views/pages/start.php:106
-#: ml-slider.php:575
+#: ml-slider.php:579
 msgid "Quick Start"
 msgstr "Ibẹrẹ Rọrun"
 
@@ -1975,162 +2002,163 @@ msgid "Slide Type"
 msgstr "Iru Slide"
 
 #: admin/views/pages/start.php:145
-#: inc/metaslider.quickstart.class.php:760
-#: ml-slider.php:798
+#: inc/metaslider.quickstart.class.php:773
+#: ml-slider.php:849
 msgid "Image"
 msgstr "Aworan"
 
-#: admin/views/pages/start.php:149
-#: inc/metaslider.quickstart.class.php:611
-#: inc/metaslider.quickstart.class.php:772
-#: ml-slider.php:842
+#: admin/views/pages/start.php:150
+#: inc/metaslider.quickstart.class.php:623
+#: inc/metaslider.quickstart.class.php:785
+#: ml-slider.php:893
 msgid "External Image"
 msgstr "Aworan Ita"
 
-#: admin/views/pages/start.php:150
-#: inc/metaslider.quickstart.class.php:623
-#: inc/metaslider.quickstart.class.php:775
-#: ml-slider.php:843
+#: admin/views/pages/start.php:151
+#: inc/metaslider.quickstart.class.php:635
+#: inc/metaslider.quickstart.class.php:788
+#: ml-slider.php:894
 msgid "External Video"
 msgstr " fidio ti ita "
 
-#: admin/views/pages/start.php:151
-#: inc/metaslider.quickstart.class.php:635
-#: inc/metaslider.quickstart.class.php:781
-#: ml-slider.php:844
+#: admin/views/pages/start.php:152
+#: inc/metaslider.quickstart.class.php:647
+#: inc/metaslider.quickstart.class.php:797
+#: ml-slider.php:895
 msgid "Custom HTML"
 msgstr " HTML adani "
 
-#: admin/views/pages/start.php:152
-#: inc/metaslider.quickstart.class.php:683
-#: inc/metaslider.quickstart.class.php:790
-#: ml-slider.php:845
+#: admin/views/pages/start.php:153
+#: inc/metaslider.quickstart.class.php:695
+#: inc/metaslider.quickstart.class.php:806
+#: ml-slider.php:896
 msgid "Background Color"
 msgstr "Awọ Abẹlẹ"
 
-#: admin/views/pages/start.php:153
-#: admin/views/pages/start.php:184
-#: ml-slider.php:848
+#: admin/views/pages/start.php:154
+#: admin/views/pages/start.php:185
+#: ml-slider.php:899
 msgid "WooCommerce"
 msgstr " WooCommerce "
 
-#: admin/views/pages/start.php:154
-#: inc/metaslider.quickstart.class.php:599
-#: inc/metaslider.quickstart.class.php:787
-#: ml-slider.php:849
+#: admin/views/pages/start.php:155
+#: inc/metaslider.quickstart.class.php:611
+#: inc/metaslider.quickstart.class.php:803
+#: ml-slider.php:900
 msgid "Post Feed"
 msgstr " Ife ifiweranṣẹ "
 
-#: admin/views/pages/start.php:155
-#: inc/metaslider.quickstart.class.php:784
-#: ml-slider.php:850
+#: admin/views/pages/start.php:156
+#: inc/metaslider.quickstart.class.php:800
+#: ml-slider.php:901
 msgid "Layer Slide"
 msgstr " Ipele iyipo "
 
-#: admin/views/pages/start.php:156
-#: inc/metaslider.quickstart.class.php:575
-#: inc/metaslider.quickstart.class.php:769
-#: ml-slider.php:851
+#: admin/views/pages/start.php:157
+#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:782
+#: modules/local_video/slide.php:43
+#: modules/local_video/slide.php:82
 msgid "Local Video"
 msgstr " fidio agbegbe "
 
-#: admin/views/pages/start.php:161
+#: admin/views/pages/start.php:162
 msgid "Features"
 msgstr " Awọn ẹya "
 
-#: admin/views/pages/start.php:162
+#: admin/views/pages/start.php:163
 msgid "Boxed"
 msgstr " Apoti "
 
-#: admin/views/pages/start.php:163
+#: admin/views/pages/start.php:164
 msgid "Full-width"
 msgstr " Gbooro-pẹlu "
 
-#: admin/views/pages/start.php:164
+#: admin/views/pages/start.php:165
 msgid "Carousel"
 msgstr " Karosẹl "
 
-#: admin/views/pages/start.php:165
+#: admin/views/pages/start.php:166
 msgid "Thumbnail Navigation"
 msgstr " Itọsọna Thumbnail "
 
-#: admin/views/pages/start.php:166
+#: admin/views/pages/start.php:167
 msgid "Video Caption"
 msgstr " akọle fidio "
 
-#: admin/views/pages/start.php:167
-#: admin/views/pages/start.php:302
+#: admin/views/pages/start.php:168
+#: admin/views/pages/start.php:303
 msgid "Hero Image"
 msgstr " Aworan Hero "
 
-#: admin/views/pages/start.php:172
+#: admin/views/pages/start.php:173
 msgid "Animation Type"
 msgstr " Iru animasiko "
 
-#: admin/views/pages/start.php:177
+#: admin/views/pages/start.php:178
 msgid "Ken Burns"
 msgstr " Ken Burns "
 
-#: admin/views/pages/start.php:183
+#: admin/views/pages/start.php:184
 msgid "Integration"
 msgstr " Isopọ "
 
-#: admin/views/pages/start.php:185
+#: admin/views/pages/start.php:186
 msgid "The Events Calendar"
 msgstr " Kalẹnda Awọn iṣẹlẹ "
 
-#: admin/views/pages/start.php:186
-#: admin/views/pages/start.php:298
+#: admin/views/pages/start.php:187
+#: admin/views/pages/start.php:299
 msgid "WordPress Posts"
 msgstr " Awọn ifiweranṣẹ WordPress "
 
-#: admin/views/pages/start.php:227, fuzzy
+#: admin/views/pages/start.php:228, fuzzy
 msgid "Free and Pro"
 msgstr "Free and Pro"
 
-#: admin/views/pages/start.php:228
+#: admin/views/pages/start.php:229
 msgid "Free only"
 msgstr "Free nikan"
 
-#: admin/views/pages/start.php:229
+#: admin/views/pages/start.php:230
 msgid "Pro only"
 msgstr "Pro nikan"
 
-#: admin/views/pages/start.php:233
+#: admin/views/pages/start.php:234
 msgid "Reset Filters"
 msgstr "Tun Ṣeto Awọn àlẹmọ"
 
-#: admin/views/pages/start.php:239
+#: admin/views/pages/start.php:240
 msgid "No demos match your filters."
 msgstr "Ko si awọn demos ti o ba awọn àlẹmọ rẹ mu."
 
-#: admin/views/pages/start.php:322
+#: admin/views/pages/start.php:323
 #, php-format
 msgid "Create %s slideshow?"
 msgstr "Ṣẹda %s slideshow?"
 
-#: admin/views/pages/start.php:328
+#: admin/views/pages/start.php:329
 msgid "Cancel"
 msgstr "Fagilee"
 
-#: admin/views/pages/start.php:331
+#: admin/views/pages/start.php:332
 msgid "Yes, please!"
 msgstr "Bẹẹni, jọwọ!"
 
-#: admin/views/pages/start.php:337, fuzzy
+#: admin/views/pages/start.php:338, fuzzy
 msgid "Demo"
 msgstr "Demo"
 
-#: admin/views/pages/start.php:343
+#: admin/views/pages/start.php:344
 #: admin/assets/dist/js/app.js:2
 msgid "Get MetaSlider Slideshow Pro!"
 msgstr "Gba MetaSlider Slideshow Pro!"
 
-#: admin/views/pages/start.php:346
+#: admin/views/pages/start.php:347
 msgid "Upgrade now to unlock this demo slideshow!"
 msgstr "Ṣe imudojuiwọn bayi lati ṣii slideshow demo yii!"
 
-#: admin/views/pages/start.php:349
+#: admin/views/pages/start.php:350
 #: admin/views/pages/theme-editor.php:36
 #: admin/views/pages/upgrade.php:26
 #: admin/views/pages/upgrade.php:201
@@ -2138,19 +2166,19 @@ msgstr "Ṣe imudojuiwọn bayi lati ṣii slideshow demo yii!"
 msgid "Upgrade now"
 msgstr "Ṣe imudojuiwọn bayi"
 
-#: admin/views/pages/start.php:367
+#: admin/views/pages/start.php:368
 msgid "Create a slideshow with your images"
 msgstr "Ṣẹda slideshow pẹlu awọn aworan rẹ"
 
-#: admin/views/pages/start.php:368
+#: admin/views/pages/start.php:369
 msgid "Choose your own images to start a new slideshow."
 msgstr "Yan awọn aworan tirẹ lati bẹrẹ slideshow tuntun kan."
 
-#: admin/views/pages/start.php:374
+#: admin/views/pages/start.php:375
 msgid "Uploading images..."
 msgstr "Nṣiṣẹ awọn aworan..."
 
-#: admin/views/pages/start.php:385
+#: admin/views/pages/start.php:386
 msgid "Open Media Library"
 msgstr "Ṣii Ile-ikawe Media"
 
@@ -2159,7 +2187,7 @@ msgid "Introducing the Theme Editor in MetaSlider Slideshow Pro"
 msgstr "Ifihan Ẹrọ Akori ni MetaSlider Slideshow Pro"
 
 #: admin/views/pages/theme-editor.php:18
-#: ml-slider.php:579
+#: ml-slider.php:583
 msgid "Theme Editor"
 msgstr "Ẹrọ Akori"
 
@@ -2884,10 +2912,12 @@ msgstr ""
 "miiran, ti akori rẹ ba ni bọtini, ọna asopọ naa yoo lo si bọtini naa."
 
 #: admin/views/slides/tabs/link.php:20
+#: modules/local_video/tabs/link.php:28
 msgid "New window"
 msgstr "Iwọle tuntun"
 
 #: admin/views/slides/tabs/link.php:22
+#: modules/local_video/tabs/link.php:30
 msgid "Open link in a new window"
 msgstr "Ṣii ọna asopọ ni iwọle tuntun"
 
@@ -2907,11 +2937,64 @@ msgstr ""
 msgid "Enter text here"
 msgstr "Tẹ ọrọ nibi"
 
-#: admin/views/slides/tabs/mobile.php:33
+#: admin/views/slides/tabs/livid.php:18
+msgid "Livid Video URL"
+msgstr "URL Fidio Livid"
+
+#: admin/views/slides/tabs/livid.php:19
+msgid ""
+"Paste the link to a video hosted on livid.com. We will create the embed for "
+"you."
+msgstr "Fi ọna asopọ ti fidio ti o wa lori livid.com. A yoo ṣẹda ifọwọsi fun ọ."
+
+#: admin/views/slides/tabs/livid.php:33
+#: modules/local_video/tabs/general.php:70
+msgid "Mute video"
+msgstr "Pa fidio mọ́"
+
+#: admin/views/slides/tabs/livid.php:47
+#: modules/local_video/tabs/general.php:82
+msgid "Show controls"
+msgstr "Fihan awọn iṣakoso"
+
+#: admin/views/slides/tabs/livid.php:49
+msgid ""
+"Hiding the controls only works if the video is on a Livid Pro or Premium "
+"account"
+msgstr ""
+"Fifipamọ awọn iṣakoso n ṣiṣẹ nikan ti fidio wa lori iroyin Livid Pro tabi "
+"Premium"
+
+#: admin/views/slides/tabs/livid.php:65
+#: modules/local_video/tabs/general.php:95
+msgid "Auto play"
+msgstr "Ṣiṣe laifọwọyi"
+
+#: admin/views/slides/tabs/livid.php:67
+msgid "May require the video to be muted"
+msgstr "O le nilo ki fidio naa jẹ pa mọ́"
+
+#: admin/views/slides/tabs/livid.php:83
+#: modules/local_video/tabs/general.php:113
+msgid "Lazy load video"
+msgstr "Fidio ikojọpọ laisiyonu"
+
+#: admin/views/slides/tabs/livid.php:85
+msgid "The video only loads once a visitor clicks play"
+msgstr "Fidio naa n ṣẹlẹ nikan nigbati alejo ba tẹ play"
+
+#: admin/views/slides/tabs/livid.php:99
+#: modules/local_video/tabs/general.php:125
+msgid "Loop video"
+msgstr "Fidio dojukọ"
+
+#: admin/views/slides/tabs/mobile.php:35
+#: modules/local_video/tabs/mobile.php:22
 msgid "Hide slide on:"
 msgstr "Tọju slide lori:"
 
-#: admin/views/slides/tabs/mobile.php:46
+#: admin/views/slides/tabs/mobile.php:48
+#: modules/local_video/tabs/mobile.php:35
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths equal to or "
@@ -2920,7 +3003,8 @@ msgstr ""
 "Nigbati a ba mu ṣiṣẹ, eto yii yoo tọju slide lori awọn iwọn iboju ti o "
 "dọgba tabi ti o tobi ju %spx"
 
-#: admin/views/slides/tabs/mobile.php:56
+#: admin/views/slides/tabs/mobile.php:58
+#: modules/local_video/tabs/mobile.php:45
 #, php-format
 msgid ""
 "When enabled this setting will hide the slide on screen widths of %1$spx to "
@@ -2929,11 +3013,11 @@ msgstr ""
 "Nigbati a ba mu ṣiṣẹ, eto yii yoo tọju slide lori awọn iwọn iboju ti %1$spx "
 "si %2$spx"
 
-#: admin/views/slides/tabs/mobile.php:72
+#: admin/views/slides/tabs/mobile.php:75
 msgid "Hide caption on:"
 msgstr "Tọju akọle lori:"
 
-#: admin/views/slides/tabs/mobile.php:85
+#: admin/views/slides/tabs/mobile.php:88
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths equal to "
@@ -2942,7 +3026,7 @@ msgstr ""
 "Nigbati a ba mu ṣiṣẹ, eto yii yoo tọju akọle lori awọn iwọn iboju ti o "
 "dọgba tabi ti o tobi ju %spx"
 
-#: admin/views/slides/tabs/mobile.php:95
+#: admin/views/slides/tabs/mobile.php:98
 #, php-format
 msgid ""
 "When enabled this setting will hide the caption on screen widths of %1$spx "
@@ -3179,136 +3263,136 @@ msgstr "Ibi Awoṣe Tuntun"
 msgid "Sporting Spirit"
 msgstr "Ẹmi Idaraya"
 
-#: inc/metaslider.quickstart.class.php:215
+#: inc/metaslider.quickstart.class.php:227
 msgid "Marathon Journey"
 msgstr "Irìn Ajo Marathon"
 
-#: inc/metaslider.quickstart.class.php:227
-msgid "Cars Display"
-msgstr "Ifihan Awọn ọkọ ayọkẹlẹ"
-
 #: inc/metaslider.quickstart.class.php:239
-msgid "Watch Shop Hero"
-msgstr "Awoṣe Iyaafin Wo"
-
-#: inc/metaslider.quickstart.class.php:251
-msgid "Creative Agency Hero"
-msgstr "Awoṣe Ile-iṣẹ Ẹda"
-
-#: inc/metaslider.quickstart.class.php:263
-msgid "Fashion Trends"
-msgstr "Awọn aṣa Fashọn"
-
-#: inc/metaslider.quickstart.class.php:275
-msgid "Entertainment YouTube Shorts Feed"
-msgstr "Ibi Ifihan Ẹgbẹ YouTube"
-
-#: inc/metaslider.quickstart.class.php:287
-msgid "Album Cover Showcase"
-msgstr "Ifihan Abo Album"
-
-#: inc/metaslider.quickstart.class.php:299
-msgid "Business Presentation"
-msgstr "Iṣafihan Iṣowo"
-
-#: inc/metaslider.quickstart.class.php:311
-msgid "Books by Genre"
-msgstr "Awọn iwe nipasẹ Ẹka"
-
-#: inc/metaslider.quickstart.class.php:323
-msgid "Testimonials"
-msgstr "Awọn Ẹri"
-
-#: inc/metaslider.quickstart.class.php:335
-msgid "Skincare Routine Guide"
-msgstr "Itọsọna Iṣe Itọju Iru awọ"
-
-#: inc/metaslider.quickstart.class.php:347
-msgid "Indoor Plant Selection Guide"
-msgstr "Itọsọna Yiyan Ewéko Inú Ilé"
-
-#: inc/metaslider.quickstart.class.php:359
-msgid "TikTok Vertical Videos"
-msgstr "Awọn fidio TikTok Pẹpẹ"
-
-#: inc/metaslider.quickstart.class.php:371
 msgid "Daily Routine Videos"
 msgstr "Awọn fidio Iṣe Ojoojumọ"
 
+#: inc/metaslider.quickstart.class.php:263
+msgid "Cars Display"
+msgstr "Ifihan Awọn ọkọ ayọkẹlẹ"
+
+#: inc/metaslider.quickstart.class.php:275
+msgid "Watch Shop Hero"
+msgstr "Awoṣe Iyaafin Wo"
+
+#: inc/metaslider.quickstart.class.php:287
+msgid "Creative Agency Hero"
+msgstr "Awoṣe Ile-iṣẹ Ẹda"
+
+#: inc/metaslider.quickstart.class.php:299
+msgid "Fashion Trends"
+msgstr "Awọn aṣa Fashọn"
+
+#: inc/metaslider.quickstart.class.php:311
+msgid "Entertainment YouTube Shorts Feed"
+msgstr "Ibi Ifihan Ẹgbẹ YouTube"
+
+#: inc/metaslider.quickstart.class.php:323
+msgid "Album Cover Showcase"
+msgstr "Ifihan Abo Album"
+
+#: inc/metaslider.quickstart.class.php:335
+msgid "Business Presentation"
+msgstr "Iṣafihan Iṣowo"
+
+#: inc/metaslider.quickstart.class.php:347
+msgid "Books by Genre"
+msgstr "Awọn iwe nipasẹ Ẹka"
+
+#: inc/metaslider.quickstart.class.php:359
+msgid "Testimonials"
+msgstr "Awọn Ẹri"
+
+#: inc/metaslider.quickstart.class.php:371
+msgid "Skincare Routine Guide"
+msgstr "Itọsọna Iṣe Itọju Iru awọ"
+
 #: inc/metaslider.quickstart.class.php:383
+msgid "Indoor Plant Selection Guide"
+msgstr "Itọsọna Yiyan Ewéko Inú Ilé"
+
+#: inc/metaslider.quickstart.class.php:395
+msgid "TikTok Vertical Videos"
+msgstr "Awọn fidio TikTok Pẹpẹ"
+
+#: inc/metaslider.quickstart.class.php:407
 msgid "Coffee Brewing Guide"
 msgstr "Itọsọna Iṣelọpọ Kofi"
 
-#: inc/metaslider.quickstart.class.php:395
+#: inc/metaslider.quickstart.class.php:419
 msgid "Upcoming City Events"
 msgstr "Awọn Ise Ajo Ilu Ti n Bọ"
 
-#: inc/metaslider.quickstart.class.php:407
+#: inc/metaslider.quickstart.class.php:431
 msgid "Product Categories"
 msgstr "Awọn Ẹka Ọja"
 
-#: inc/metaslider.quickstart.class.php:419
+#: inc/metaslider.quickstart.class.php:443
 msgid "Recent WooCommerce Products"
 msgstr "Awọn Ọja WooCommerce Tuntun"
 
-#: inc/metaslider.quickstart.class.php:431
+#: inc/metaslider.quickstart.class.php:455
 msgid "Latest News Posts"
 msgstr "Ìròyìn Tuntun"
 
-#: inc/metaslider.quickstart.class.php:443
+#: inc/metaslider.quickstart.class.php:467
 msgid "Product Demo"
 msgstr "Àdájọ Ọjà"
 
-#: inc/metaslider.quickstart.class.php:455
+#: inc/metaslider.quickstart.class.php:479
 msgid "Trending Videos"
 msgstr "Fídíò Tó Ń Kó Lẹ́nu"
 
-#: inc/metaslider.quickstart.class.php:467
+#: inc/metaslider.quickstart.class.php:491
 msgid "Hotel Rooms"
 msgstr "Yàrá Hotele"
 
-#: inc/metaslider.quickstart.class.php:479
+#: inc/metaslider.quickstart.class.php:503
 msgid "Client Testimonials"
 msgstr "Àwọn Ẹ̀rí Oníbàárà"
 
-#: inc/metaslider.quickstart.class.php:491
+#: inc/metaslider.quickstart.class.php:515
 msgid "Meet the Team"
 msgstr "Pàdé Ẹ̀gbẹ́"
 
-#: inc/metaslider.quickstart.class.php:503
+#: inc/metaslider.quickstart.class.php:527
 msgid "Curated Videos"
 msgstr "Fídíò Tó Yàn"
 
-#: inc/metaslider.quickstart.class.php:515
+#: inc/metaslider.quickstart.class.php:539
 msgid "Natural Skincare Presentation"
 msgstr "Àfihàn Iṣọ́ra Tí Ẹ̀dá Ń Dà"
 
-#: inc/metaslider.quickstart.class.php:539, fuzzy
+#: inc/metaslider.quickstart.class.php:563, fuzzy
 msgid "YouTube Shorts Carousel"
 msgstr "YouTube Shorts Carousel"
 
-#: inc/metaslider.quickstart.class.php:551, fuzzy
+#: inc/metaslider.quickstart.class.php:575, fuzzy
 msgid "TikTok Carousel"
 msgstr "TikTok Carousel"
 
-#: inc/metaslider.quickstart.class.php:563
-#: ml-slider.php:839, fuzzy
+#: inc/metaslider.quickstart.class.php:587
+#: ml-slider.php:890, fuzzy
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: inc/metaslider.quickstart.class.php:587
+#: inc/metaslider.quickstart.class.php:599
 msgid "Layer Slides"
 msgstr "Àwọn Ìkànsí"
 
-#: inc/metaslider.quickstart.class.php:647, fuzzy
+#: inc/metaslider.quickstart.class.php:659, fuzzy
 msgid "WooCommerce Carousel"
 msgstr "WooCommerce Carousel"
 
-#: inc/metaslider.quickstart.class.php:659
+#: inc/metaslider.quickstart.class.php:671
 msgid "Bold Motion"
 msgstr "Ìmọ̀lára Tó Lágbára"
 
-#: inc/metaslider.quickstart.class.php:671
+#: inc/metaslider.quickstart.class.php:683
 msgid "Playful Pets"
 msgstr "Àwọn Ẹranko Tó Ń Ṣe Ẹ̀lẹ́rọ"
 
@@ -3341,7 +3425,7 @@ msgid "Select Slider:"
 msgstr "Yan Slayida:"
 
 #: inc/metaslider.widget.class.php:126
-#: ml-slider.php:2074
+#: ml-slider.php:2124
 #: admin/assets/dist/js/app.js:2
 msgid "No slideshows found"
 msgstr "Kò sí àfihàn slayida tí a rí"
@@ -3385,6 +3469,15 @@ msgid "This isn't a valid image format. Please try again."
 msgstr "Eyi kii ṣe ọna kika aworan to wulo. Jọwọ gbiyanju lẹẹkansi."
 
 #: inc/slide/metaslide.image.class.php:412
+#: inc/slide/metaslide.livid.class.php:784
+#: modules/local_video/slide.php:203
+#: modules/local_video/slide.php:878
+#: modules/local_video/slide.php:936
+#: modules/local_video/slide.php:1044
+#: modules/local_video/slide.php:1209
+#: modules/local_video/slide.php:1282
+#: modules/local_video/slide.php:1396
+#: modules/local_video/slide.php:2082
 msgid "Access denied"
 msgstr "Iwọle ti kọ"
 
@@ -3397,10 +3490,13 @@ msgid "Warning: The image data does not exist. Please re-upload the image."
 msgstr "Ikilọ: Awọn data aworan ko si. Jọwọ tun gbe aworan naa silẹ."
 
 #: inc/slide/metaslide.image.class.php:555
+#: inc/slide/metaslide.livid.class.php:875
+#: modules/local_video/slide.php:407
 msgid "General"
 msgstr "Gbogbogbo"
 
 #: inc/slide/metaslide.image.class.php:559
+#: modules/local_video/slide.php:411
 msgid "Link"
 msgstr "Asopọ"
 
@@ -3409,6 +3505,8 @@ msgid "SEO"
 msgstr "SEO"
 
 #: inc/slide/metaslide.image.class.php:578
+#: inc/slide/metaslide.livid.class.php:893
+#: modules/local_video/slide.php:438
 msgid "Device"
 msgstr "Ẹrọ"
 
@@ -3432,7 +3530,67 @@ msgstr "Àwọn àtúnṣe to ti ni ilọsiwaju wa ninu MetaSlider Slideshow Pro
 msgid "View Slide Details"
 msgstr "Wo Alaye Slaid"
 
-#: inc/slider/metaslider.class.php:457
+#: inc/slide/metaslide.livid.class.php:217
+msgid "Livid Video"
+msgstr "Fidio Livid"
+
+#: inc/slide/metaslide.livid.class.php:272
+#: inc/slide/metaslide.livid.class.php:320
+#: inc/slide/metaslide.livid.class.php:364
+#: inc/slide/metaslide.livid.class.php:425
+#: inc/slide/metaslide.livid.class.php:477
+msgid "Please enter a valid link to a video hosted on livid.com."
+msgstr "Jọwọ tẹ ọna asopọ to wulo si fidio ti o wa lori livid.com."
+
+#: inc/slide/metaslide.livid.class.php:278
+msgid "Create slideshows with your Livid videos"
+msgstr "Ṣẹda awọn ifaworanhan pẹlu awọn fidio Livid rẹ"
+
+#: inc/slide/metaslide.livid.class.php:281
+msgid "Enter the URL of a Livid video:"
+msgstr "Tẹ URL ti fidio Livid kan:"
+
+#: inc/slide/metaslide.livid.class.php:292
+#: ml-slider.php:850
+#: modules/local_video/slide.php:112
+#: admin/assets/dist/js/admin.js:1
+#: admin/assets/js/admin.js:218
+msgid "Add to slideshow"
+msgstr "Fi kun si slideshow"
+
+#: inc/slide/metaslide.livid.class.php:318
+msgid "Updating the Livid video..."
+msgstr "Nṣiṣẹ imudojuiwọn fidio Livid..."
+
+#: inc/slide/metaslide.livid.class.php:319
+msgid "Livid video updated."
+msgstr "Fidio Livid ti ni imudojuiwọn."
+
+#: inc/slide/metaslide.livid.class.php:321
+msgid "We could not update the Livid video. Please check the link and try again."
+msgstr ""
+"A ko le ṣe imudojuiwọn fidio Livid. Jọwọ ṣayẹwo ọna asopọ naa ki o tun "
+"gbiyanju."
+
+#: inc/slide/metaslide.livid.class.php:561
+msgid "Livid video player"
+msgstr "Ẹrọ orin fidio Livid"
+
+#: inc/slide/metaslide.livid.class.php:681
+#. translators: %s: Livid video URL
+#, php-format
+msgid "Livid video thumbnail - %s"
+msgstr "Iboju fidio Livid - %s"
+
+#: inc/slide/metaslide.livid.class.php:818
+msgid "Livid Video Slide"
+msgstr "Fidio Livid Slide"
+
+#: inc/slide/metaslide.livid.class.php:1011
+msgid "Play video"
+msgstr "Ṣe ere fidio"
+
+#: inc/slider/metaslider.class.php:461
 msgid "Edit Slideshow"
 msgstr "Ṣatunkọ Slideshow"
 
@@ -3444,7 +3602,7 @@ msgstr "Ṣe ṣiṣan"
 msgid "Pause"
 msgstr "Duro"
 
-#: ml-slider.php:267
+#: ml-slider.php:270
 #, php-format
 msgid ""
 "MetaSlider Slideshow Pro is installed but is out of date. You may update it "
@@ -3453,70 +3611,64 @@ msgstr ""
 "MetaSlider Slideshow Pro ti fi sori ẹrọ ṣugbọn ko ni imudojuiwọn. O le ṣe "
 "imudojuiwọn rẹ %shere%s. Kọ ẹkọ diẹ sii nipa ikilọ yii %shere%s"
 
-#: ml-slider.php:576
+#: ml-slider.php:580
 msgid "Settings & Help"
 msgstr "Awọn Eto & Iranlọwọ"
 
-#: ml-slider.php:580
+#: ml-slider.php:584
 msgid "Upgrade to Pro"
 msgstr "Gbadun si Pro"
 
-#: ml-slider.php:610
-#: ml-slider.php:613
+#: ml-slider.php:614
+#: ml-slider.php:617
 #: themes/customize.php:20, fuzzy
 msgid "Slideshow"
 msgstr "Slideshow"
 
-#: ml-slider.php:619
-#: ml-slider.php:622
+#: ml-slider.php:623
+#: ml-slider.php:626
 msgid "All Slideshows"
 msgstr "Gbogbo Awọn Slideshow"
 
-#: ml-slider.php:630
-#: ml-slider.php:633
+#: ml-slider.php:634
+#: ml-slider.php:637
 msgid "Create Slideshow"
 msgstr "Ṣẹda Slideshow"
 
-#: ml-slider.php:799
-#: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:218
-msgid "Add to slideshow"
-msgstr "Fi kun si slideshow"
-
-#: ml-slider.php:840, fuzzy
+#: ml-slider.php:891, fuzzy
 msgid "YouTube"
 msgstr "YouTube"
 
-#: ml-slider.php:841, fuzzy
+#: ml-slider.php:892, fuzzy
 msgid "TikTok"
 msgstr "TikTok"
 
-#: ml-slider.php:846
+#: ml-slider.php:897
 msgid "Image Folder"
 msgstr "Folda Aworan"
 
-#: ml-slider.php:847
+#: ml-slider.php:898
 #: admin/assets/dist/js/app.js:2
 msgid "Post Images"
 msgstr "Awọn Aworan Ifiweranṣẹ"
 
-#: ml-slider.php:976
+#: ml-slider.php:1026
 msgid "The slide was successfully restored"
 msgstr "A ti bọsipọ slide naa ni aṣeyọri"
 
-#: ml-slider.php:999
+#: ml-slider.php:1049
 msgid "The attempt to restore the slide failed."
 msgstr "Igbiyanju lati bọsipọ slide naa kuna."
 
-#: ml-slider.php:1058
+#: ml-slider.php:1108
 msgid "The slide was successfully trashed"
 msgstr "A ti sọ slide naa di asan ni aṣeyọri"
 
-#: ml-slider.php:1170
+#: ml-slider.php:1220
 msgid "The slide was permanently deleted"
 msgstr "A ti paarẹ slide naa patapata"
 
-#: ml-slider.php:1461
+#: ml-slider.php:1511
 #, php-format
 msgid ""
 "Please consider moving your slides to <b>FlexSlider</b>. We're adding all "
@@ -3527,52 +3679,52 @@ msgstr ""
 "awọn ẹya tuntun ti MetaSlider Slideshow si aṣayan yii. <a href=\"%s\">Kọ "
 "ẹkọ diẹ sii</a>."
 
-#: ml-slider.php:1863
+#: ml-slider.php:1913
 msgid "Slide permanently deleted."
 msgstr "Slide ti paarẹ patapata."
 
-#: ml-slider.php:1866
+#: ml-slider.php:1916
 msgid "Slide restored."
 msgstr "Slide ti bọsipọ."
 
-#: ml-slider.php:1898
+#: ml-slider.php:1948
 msgid "Toggle slide reorder panel"
 msgstr "Yipada panẹli atunṣe slide"
 
-#: ml-slider.php:1935
+#: ml-slider.php:1985
 #, php-format
 msgid ""
 "You are viewing slides that have been trashed, which will be automatically "
 "deleted in %s days."
 msgstr "O n wo awọn slides ti a ti pa, eyiti yoo paarẹ laifọwọyi ni %s ọjọ."
 
-#: ml-slider.php:1968
+#: ml-slider.php:2018
 msgid "Move slideshow to trash"
 msgstr "Gbe slideshow si ikoko"
 
-#: ml-slider.php:2023
+#: ml-slider.php:2073
 msgid "Add slideshow"
 msgstr "Fikun slideshow"
 
-#: ml-slider.php:2059
+#: ml-slider.php:2109
 msgid "Choose slideshow"
 msgstr "Yan slideshow"
 
-#: ml-slider.php:2069
+#: ml-slider.php:2119
 msgid "Insert slideshow"
 msgstr "Fi slideshow kun"
 
-#: ml-slider.php:2104
+#: ml-slider.php:2154
 msgid "Create slides by adding text, videos and more to your images"
 msgstr "Ṣẹda awọn slides nipa fifi ọrọ, awọn fidio ati diẹ sii si awọn aworan rẹ"
 
-#: ml-slider.php:2108
+#: ml-slider.php:2158
 msgid ""
 "With Layer slides, you can create beautiful, stylish layers of different "
 "elements."
 msgstr "Pẹlu Layer slides, o le ṣẹda awọn ipele ẹwa, aṣa ti awọn eroja oriṣiriṣi."
 
-#: ml-slider.php:2112
+#: ml-slider.php:2162
 msgid ""
 "You start with an image and then can add text, video, colors, animations, "
 "more images, and even shortcodes."
@@ -3580,34 +3732,33 @@ msgstr ""
 "O bẹrẹ pẹlu aworan kan ati lẹhinna o le fi ọrọ, fidio, awọn awọ, awọn "
 "ifamọra, awọn aworan diẹ sii, ati paapaa awọn koodu kukuru kun."
 
-#: ml-slider.php:2118
-#: ml-slider.php:2159
-#: ml-slider.php:2200
-#: ml-slider.php:2243
-#: ml-slider.php:2286
-#: ml-slider.php:2329
-#: ml-slider.php:2372
-#: ml-slider.php:2411
-#: ml-slider.php:2454
-#: ml-slider.php:2493
-#: ml-slider.php:2564
-#: ml-slider.php:2599
-#: ml-slider.php:2634
+#: ml-slider.php:2168
+#: ml-slider.php:2209
+#: ml-slider.php:2250
+#: ml-slider.php:2293
+#: ml-slider.php:2336
+#: ml-slider.php:2379
+#: ml-slider.php:2418
+#: ml-slider.php:2461
+#: ml-slider.php:2500
+#: ml-slider.php:2571
+#: ml-slider.php:2606
+#: ml-slider.php:2641
 #: admin/assets/dist/js/app.js:2
 msgid "Find out more about MetaSlider Slideshow Pro"
 msgstr "Mọ diẹ sii nipa MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2147
+#: ml-slider.php:2197
 msgid "Create slideshows with your Vimeo videos"
 msgstr "Ṣẹda awọn slideshows pẹlu awọn fidio Vimeo rẹ"
 
-#: ml-slider.php:2151
+#: ml-slider.php:2201
 msgid ""
 "With Vimeo slides, you can build beautiful slideshows with your Vimeo "
 "videos."
 msgstr "Pẹlu Vimeo slides, o le kọ awọn slideshows ẹwa pẹlu awọn fidio Vimeo rẹ."
 
-#: ml-slider.php:2155
+#: ml-slider.php:2205
 msgid ""
 "Vimeo slides will display your videos with auto play, mute, the ability to "
 "hide controls, and much more."
@@ -3615,17 +3766,17 @@ msgstr ""
 "Vimeo slides yoo han awọn fidio rẹ pẹlu ṣiṣere laifọwọyi, idakọ, agbara "
 "lati pa awọn iṣakoso, ati pupọ diẹ sii."
 
-#: ml-slider.php:2188
+#: ml-slider.php:2238
 msgid "Create slideshows with your YouTube videos"
 msgstr "Ṣẹda awọn slideshows pẹlu awọn fidio YouTube rẹ"
 
-#: ml-slider.php:2192
+#: ml-slider.php:2242
 msgid ""
 "With YouTube slides, you can build beautiful slideshows with your YouTube "
 "videos."
 msgstr "Pẹlu YouTube slides, o le kọ awọn slideshows ẹwa pẹlu awọn fidio YouTube rẹ."
 
-#: ml-slider.php:2196
+#: ml-slider.php:2246
 msgid ""
 "YouTube slides will display your videos with auto play, mute, lazy load, "
 "the ability to hide controls, and much more."
@@ -3633,11 +3784,11 @@ msgstr ""
 "YouTube slides yoo han awọn fidio rẹ pẹlu ṣiṣere laifọwọyi, idakọ, ikojọpọ "
 "laisiyonu, agbara lati pa awọn iṣakoso, ati pupọ diẹ sii."
 
-#: ml-slider.php:2229
+#: ml-slider.php:2279
 msgid "Create slideshows with your posts"
 msgstr "Ṣẹda awọn slideshows pẹlu awọn ifiweranṣẹ rẹ"
 
-#: ml-slider.php:2233
+#: ml-slider.php:2283
 msgid ""
 "With Post Feed slides, you can build slideshows with your latest posts, "
 "events, or WooCommerce products."
@@ -3645,7 +3796,7 @@ msgstr ""
 "Pẹlu Post Feed slides, o le kọ awọn slideshows pẹlu awọn ifiweranṣẹ tuntun "
 "rẹ, awọn iṣẹlẹ, tabi awọn ọja WooCommerce."
 
-#: ml-slider.php:2237
+#: ml-slider.php:2287
 msgid ""
 "Post Feed slides will automatically display your posts with images, text, "
 "custom fields, and much more."
@@ -3653,11 +3804,11 @@ msgstr ""
 "Post Feed slides yoo han laifọwọyi awọn ifiweranṣẹ rẹ pẹlu awọn aworan, "
 "ọrọ, awọn aaye aṣa, ati pupọ diẹ sii."
 
-#: ml-slider.php:2272
+#: ml-slider.php:2322
 msgid "Create slideshows with images stored outside of WordPress"
 msgstr "Ṣẹda awọn slideshows pẹlu awọn aworan ti a fipamọ ni ita WordPress"
 
-#: ml-slider.php:2276
+#: ml-slider.php:2326
 msgid ""
 "With External URL slides, you can load images directly from non-WordPress "
 "sources such as CDNs or image hosts."
@@ -3665,7 +3816,7 @@ msgstr ""
 "Pẹlu awọn slidẹs URL ita, o le gba awọn aworan taara lati awọn orisun ti "
 "kii ṣe WordPress gẹgẹbi CDNs tabi awọn alejo aworan."
 
-#: ml-slider.php:2280
+#: ml-slider.php:2330
 msgid ""
 "External URL slides give you all the power of MetaSlider Slideshow, using "
 "images stored anywhere you want."
@@ -3673,33 +3824,11 @@ msgstr ""
 "Awọn slidẹs URL ita fun ọ ni gbogbo agbara ti MetaSlider Slideshow, nipa "
 "lilo awọn aworan ti a fipamọ nibikibi ti o fẹ."
 
-#: ml-slider.php:2315
-msgid "Create slideshows with videos in your media library"
-msgstr "Ṣẹda awọn slidẹs pẹlu awọn fidio ninu ile-ikawe media rẹ"
-
-#: ml-slider.php:2319
-msgid ""
-"With Local Video slides, you can build beautiful slideshows with videos in "
-"your WordPress media library or searched directly from Pixabay."
-msgstr ""
-"Pẹ̀lú àwọn fídíò àtẹ̀jáde agbegbe, o lè kọ́ àwọn àtẹ̀jáde ẹlẹ́wà pẹ̀lú àwọn "
-"fídíò ninu ìkàwé média WordPress rẹ tàbí wá wọn taara láti Pixabay."
-
-#: ml-slider.php:2323
-msgid ""
-"Local Video slides will display your MP4, WebM, and MOV videos with cover "
-"images, auto play, mute, lazy load, the ability to hide controls, and much "
-"more."
-msgstr ""
-"Awọn slidẹs fidio agbegbe yoo ṣafihan awọn fidio MP4, WebM, ati MOV rẹ pẹlu "
-"awọn aworan bo, ṣiṣan laifọwọyi, pa, gbigbe laiyara, agbara lati pa awọn "
-"iṣakoso, ati pupọ diẹ sii."
-
-#: ml-slider.php:2358
+#: ml-slider.php:2365
 msgid "Create slideshows with videos stored outside of WordPress"
 msgstr "Ṣẹda awọn slidẹs pẹlu awọn fidio ti a fipamọ ni ita WordPress"
 
-#: ml-slider.php:2362
+#: ml-slider.php:2369
 msgid ""
 "With External Video slides, you can add videos directly from non-WordPress "
 "sources."
@@ -3707,7 +3836,7 @@ msgstr ""
 "Pẹlu awọn slidẹs fidio ita, o le ṣafikun awọn fidio taara lati awọn orisun "
 "ti kii ṣe WordPress."
 
-#: ml-slider.php:2366
+#: ml-slider.php:2373
 msgid ""
 "External Video Slides will display your MP4, WebM, and MOV videos. Features "
 "include text captions, cover images, auto play, mute, lazy load, the "
@@ -3717,11 +3846,11 @@ msgstr ""
 "ẹya ara ẹrọ pẹlu awọn akọsilẹ ọrọ, awọn aworan bo, ṣiṣan laifọwọyi, pa, "
 "gbigbe laiyara, agbara lati pa awọn iṣakoso, ati pupọ diẹ sii."
 
-#: ml-slider.php:2401
+#: ml-slider.php:2408
 msgid "Create slideshows with custom HTML"
 msgstr "Ṣẹda awọn slidẹs pẹlu HTML aṣa"
 
-#: ml-slider.php:2405
+#: ml-slider.php:2412
 msgid ""
 "With Custom HTML slides, you can design slides using images, HTML and CSS. "
 "This gives you complete control over the layout and styling."
@@ -3729,11 +3858,11 @@ msgstr ""
 "Pẹlu awọn slidẹs HTML aṣa, o le ṣe apẹrẹ awọn slidẹs nipa lilo awọn aworan, "
 "HTML ati CSS. Eyi fun ọ ni iṣakoso pipe lori apẹrẹ ati aṣa."
 
-#: ml-slider.php:2444
+#: ml-slider.php:2451
 msgid "Create slides with background colors and text"
 msgstr "Ṣẹda awọn slide pẹlu awọn awọ abẹlẹ ati ọrọ"
 
-#: ml-slider.php:2448
+#: ml-slider.php:2455
 msgid ""
 "With Background Color slides, you can create slides using a solid or "
 "gradient background color. Perfect for text-only slides, calls to action or "
@@ -3743,21 +3872,21 @@ msgstr ""
 "tabi awọ abẹlẹ irọrun. O tọ fun awọn slide ti ọrọ nikan, awọn ipe si iṣe "
 "tabi awọn ifaworanhan yarayara."
 
-#: ml-slider.php:2483
+#: ml-slider.php:2490
 msgid "Create slideshows with Tiktok Videos"
 msgstr "Ṣẹda awọn slidẹs pẹlu awọn fidio Tiktok"
 
-#: ml-slider.php:2487
+#: ml-slider.php:2494
 msgid ""
 "A TikTok Slide will display a video in your slideshow directly from "
 "TikTok.com."
 msgstr "A TikTok Slide yoo ṣafihan fidio kan ninu slidẹ rẹ taara lati TikTok.com."
 
-#: ml-slider.php:2550
+#: ml-slider.php:2557
 msgid "Create slideshows with images from a folder"
 msgstr "Ṣẹda awọn slidẹs pẹlu awọn aworan lati folda kan"
 
-#: ml-slider.php:2554
+#: ml-slider.php:2561
 msgid ""
 "The Image Folder slide type extracts images from a specified folder and "
 "displays them as slides."
@@ -3765,7 +3894,7 @@ msgstr ""
 "Iru slidẹ Aworan Folda n fa awọn aworan lati folda ti a sọtọ ki o si "
 "ṣafihan wọn gẹgẹbi awọn slidẹs."
 
-#: ml-slider.php:2558
+#: ml-slider.php:2565
 msgid ""
 "This slide type displays images from folders in your WordPress Media "
 "Library."
@@ -3773,11 +3902,11 @@ msgstr ""
 "Iru slidẹ yii n ṣafihan awọn aworan lati awọn folda ninu Ile-ikawe Media "
 "WordPress rẹ."
 
-#: ml-slider.php:2585
+#: ml-slider.php:2592
 msgid "Create slideshows with Post Images"
 msgstr "Ṣẹda awọn slidẹs pẹlu Awọn Aworan Ifiweranṣẹ"
 
-#: ml-slider.php:2589
+#: ml-slider.php:2596
 msgid ""
 "The Post Images slide type extracts images from the current post and "
 "displays them as slides."
@@ -3785,7 +3914,7 @@ msgstr ""
 "Iru slidẹ Awọn Aworan Ifiweranṣẹ n fa awọn aworan lati ifiweranṣẹ lọwọlọwọ "
 "ki o si ṣafihan wọn gẹgẹ bi awọn slidẹs."
 
-#: ml-slider.php:2593
+#: ml-slider.php:2600
 msgid ""
 "This slide type supports featured images, post content images, WooCommerce "
 "galleries, Advanced Custom Fields images and galleries."
@@ -3794,11 +3923,11 @@ msgstr ""
 "ifiweranṣẹ, awọn ile-iṣẹ WooCommerce, awọn aworan aaye Atilẹba, ati awọn "
 "ile-iṣẹ."
 
-#: ml-slider.php:2620
+#: ml-slider.php:2627
 msgid "Create slideshows with your WooCommerce products"
 msgstr "Ṣẹda awọn slidẹs pẹlu awọn ọja WooCommerce rẹ"
 
-#: ml-slider.php:2624
+#: ml-slider.php:2631
 msgid ""
 "With WooCommerce slides, you can build slideshows with your WooCommerce "
 "products."
@@ -3806,7 +3935,7 @@ msgstr ""
 "Pẹlu awọn slidẹs WooCommerce, o le kọ awọn slidẹs pẹlu awọn ọja WooCommerce "
 "rẹ."
 
-#: ml-slider.php:2628
+#: ml-slider.php:2635
 msgid ""
 "WooCommerce slides will automatically display your products with images, "
 "text, custom fields, and much more."
@@ -3814,43 +3943,286 @@ msgstr ""
 "WooCommerce slides yoo ṣe afihan awọn ọja rẹ laifọwọyi pẹlu awọn aworan, "
 "ọrọ, awọn aaye aṣa, ati pupọ diẹ sii."
 
-#: ml-slider.php:2672
+#: ml-slider.php:2679
 msgid "Premium Support"
 msgstr "Atilẹyin Premium"
 
-#: ml-slider.php:2678
+#: ml-slider.php:2685
 msgid "MetaSlider Slideshow Pro"
 msgstr "MetaSlider Slideshow Pro"
 
-#: ml-slider.php:2682
+#: ml-slider.php:2689
 msgid "Support"
 msgstr "Atilẹyin"
 
-#: ml-slider.php:2687
+#: ml-slider.php:2694
+#: modules/local_video/slide.php:533
 msgid "Documentation"
 msgstr "Iwe aṣẹ"
 
-#: ml-slider.php:2691
+#: ml-slider.php:2698
 msgid "Leave a review"
 msgstr "Fi atunyẹwo silẹ"
 
-#: ml-slider.php:2810
+#: ml-slider.php:2817
 msgid "Uploading..."
 msgstr "N uploading..."
 
-#: ml-slider.php:2817
+#: ml-slider.php:2824
 msgid "Upload Complete"
 msgstr "Ikọwe ti pari"
 
-#: ml-slider.php:2944
+#: ml-slider.php:2951
 msgid "Import file is missing"
 msgstr "Faili ìkọ import ti sọnu"
 
-#: ml-slider.php:3095
+#: ml-slider.php:3102
 msgid ""
 "You attempted to edit a slideshow that does not exist. Perhaps it was moved "
 "to trash?"
 msgstr "O gbiyanju lati ṣe atunṣe slideshow ti ko si. Boya o ti gbe si ibi idalẹnu?"
+
+#: modules/local_video/helper.php:95
+#: modules/local_video/helper.php:101
+msgid "Update cover image"
+msgstr "Ṣe imudojuiwọn aworan boṣeyin"
+
+#: modules/local_video/helper.php:108
+msgid "Set cover image"
+msgstr "Ṣe eto aworan boṣeyin"
+
+#: modules/local_video/helper.php:159
+#: modules/local_video/slide.php:1163
+msgid "Update slide video"
+msgstr "Ṣe imudojuiwọn fidio slide"
+
+#: modules/local_video/helper.php:163
+#: modules/local_video/slide.php:585
+#: modules/local_video/slide.php:1167
+msgid "Browse"
+msgstr "Ṣawari"
+
+#: modules/local_video/helper.php:168
+#: modules/local_video/slide.php:1172
+msgid "Video File"
+msgstr "Fidio Faili"
+
+#: modules/local_video/slide.php:109
+msgid "Select replacement video"
+msgstr "Yan fidio rirọpo"
+
+#: modules/local_video/slide.php:110
+msgid "Select replacement cover"
+msgstr "Yan boṣeyin rirọpo"
+
+#: modules/local_video/slide.php:111
+msgid "Select replacement text track"
+msgstr "Yan atẹle ọrọ rirọpo"
+
+#: modules/local_video/slide.php:197
+#: modules/local_video/slide.php:2075
+msgid "Invalid nonce"
+msgstr "Nonce ti ko tọ"
+
+#: modules/local_video/slide.php:218
+#: modules/local_video/slide.php:897
+#: modules/local_video/slide.php:1107
+msgid "Not supported video format"
+msgstr "Fidio ọna kika ti ko ni atilẹyin"
+
+#: modules/local_video/slide.php:349, fuzzy
+msgid "Local Video Slide"
+msgstr "Local Video Slide"
+
+#: modules/local_video/slide.php:370
+msgid "Please update to MetaSlider Slideshow to version 3.2 or above."
+msgstr "Jọwọ ṣe imudojuiwọn si MetaSlider Slideshow si version 3.2 tabi loke."
+
+#: modules/local_video/slide.php:415
+msgid "Cover"
+msgstr "Boṣeyin"
+
+#: modules/local_video/slide.php:419
+msgid "Text track"
+msgstr "Atẹle ọrọ"
+
+#: modules/local_video/slide.php:476
+msgid "Which language is the source file?"
+msgstr "Iru ede wo ni faili orisun?"
+
+#: modules/local_video/slide.php:477
+msgid "Language label"
+msgstr "Aami ede"
+
+#: modules/local_video/slide.php:482
+msgid "For example: English"
+msgstr "Fun apẹẹrẹ: Gẹẹsi"
+
+#: modules/local_video/slide.php:490
+msgid "Choose the type of text track"
+msgstr "Yan iru atẹle ọrọ"
+
+#: modules/local_video/slide.php:491
+msgid "Language kind"
+msgstr "Iru ede"
+
+#: modules/local_video/slide.php:497
+msgid "Captions"
+msgstr "Ìkọ̀wé"
+
+#: modules/local_video/slide.php:500
+msgid "Chapters"
+msgstr "Àwọn ẹ̀ka"
+
+#: modules/local_video/slide.php:503
+msgid "Descriptions"
+msgstr "Àpejuwe"
+
+#: modules/local_video/slide.php:509
+msgid "Subtitles"
+msgstr "Ìtúmọ̀"
+
+#: modules/local_video/slide.php:517
+msgid "If the language is English, the code must be en"
+msgstr "Tí èdè bá jẹ́ Gẹ̀ẹ́sì, kóòdù náà gbọ́dọ̀ jẹ́ en"
+
+#: modules/local_video/slide.php:518
+msgid "Language code"
+msgstr "Kóòdù èdè"
+
+#: modules/local_video/slide.php:523
+msgid "For example: en"
+msgstr "Fún àpẹẹrẹ: en"
+
+#: modules/local_video/slide.php:576
+msgid "File must be TXT or VTT format"
+msgstr "Fáìlì gbọ́dọ̀ jẹ́ TXT tàbí VTT fọ́ọ̀màtì"
+
+#: modules/local_video/slide.php:577
+msgid "Source"
+msgstr "Orísun"
+
+#: modules/local_video/slide.php:582
+msgid "Update slide text track"
+msgstr "Ṣàtúnṣe ìkọ̀wé àfihàn"
+
+#: modules/local_video/slide.php:956
+msgid "The cover was successfully removed."
+msgstr "Àpótí náà ti yọ́ ní ìsuccess."
+
+#: modules/local_video/slide.php:986
+msgid "The requested video does not exist. Please try again."
+msgstr "Fídíò tí a béèrè kò ṣàṣeyọrí. Jọwọ tún ṣe àdúrà."
+
+#: modules/local_video/slide.php:995
+msgid "There was an error updating the video. No previous video saved."
+msgstr ""
+"Ó ṣẹlẹ̀ aṣiṣe nígbà tí a ń ṣàtúnṣe fídíò. Kò sí fídíò kankan tí a fipamọ́ "
+"tẹ́lẹ̀."
+
+#: modules/local_video/slide.php:1011
+msgid "The video was successfully updated."
+msgstr "Fídíò náà ti ṣàtúnṣe ní ìsuccess."
+
+#: modules/local_video/slide.php:1020
+msgid "There was an error updating the video. Please try again"
+msgstr "Ó ṣẹlẹ̀ aṣiṣe nígbà tí a ń ṣàtúnṣe fídíò. Jọwọ tún ṣe àdúrà"
+
+#: modules/local_video/slide.php:1078
+msgid "You can't add more sources to this video slide."
+msgstr "O kò le fi orísun míì kún fídíò ìkànnì yìí."
+
+#: modules/local_video/slide.php:1094
+msgid "This slide already has a video in that format."
+msgstr "Ìkànnì yìí ti ní fídíò kan ní fọ́ọ̀màtì yẹn."
+
+#: modules/local_video/slide.php:1126
+msgid "The video source was successfully added."
+msgstr "Orísun fídíò náà ti fi kún ní ìsuccess."
+
+#: modules/local_video/slide.php:1237
+msgid "This slide requires at least one video source."
+msgstr "Ìkànnì yìí nilo o kere ju orísun fídíò kan."
+
+#: modules/local_video/slide.php:1250
+msgid "The video source was successfully removed."
+msgstr "Orísun fídíò náà ti yọ́ ní ìsuccess."
+
+#: modules/local_video/slide.php:1301
+msgid "Not supported text track format"
+msgstr "Iru ọna kika akọsilẹ ko ni atilẹyin"
+
+#: modules/local_video/slide.php:1343
+msgid "The requested text track does not exist. Please try again."
+msgstr "Iru akọsilẹ ti a beere ko si. Jowo tun gbiyanju."
+
+#: modules/local_video/slide.php:1364
+msgid "The text track was successfully updated."
+msgstr "A ti ṣe imudojuiwọn akọsilẹ naa ni aṣeyọri."
+
+#: modules/local_video/slide.php:1373
+msgid "There was an error updating the text track. Please try again"
+msgstr "Aṣiṣe kan waye nigba ti a n ṣe imudojuiwọn akọsilẹ. Jowo tun gbiyanju"
+
+#: modules/local_video/slide.php:1420
+msgid "The text track was successfully removed."
+msgstr "A ti yọ akọsilẹ naa ni aṣeyọri."
+
+#: modules/local_video/tabs/caption.php:7
+msgid ""
+"Please note that captions on videos can interfere with player controls. We "
+"recommend adding captions when \"Auto play\" is enabled, and \"Show "
+"controls\" and \"Lazy load video\" are both disabled."
+msgstr ""
+"Jowo ṣe akiyesi pe awọn akọsilẹ lori awọn fidio le ni ipa lori awọn iṣakoso "
+"ẹrọ orin. A ṣ aconseja lati fi awọn akọsilẹ kun nigbati \"Ṣiṣe laifọwọyi\" "
+"ba wa ni mu, ati \"Fihan awọn iṣakoso\" ati \"Gbigba fidio laisiyin\" "
+"mejeeji ti wa ni pipa."
+
+#: modules/local_video/tabs/general.php:50
+#: modules/local_video/tabs/general.php:52
+msgid "Add a new video source"
+msgstr "Fi orisun fidio tuntun kun"
+
+#: modules/local_video/tabs/general.php:55
+msgid ""
+"Adding more formats for the same video can help improve support for "
+"different platforms."
+msgstr ""
+"Fifikun awọn ọna kika diẹ sii fun fidio kanna le ṣe iranlọwọ lati mu "
+"atilẹyin fun awọn iru ẹrọ oriṣiriṣi dara."
+
+#: modules/local_video/tabs/general.php:97
+msgid "May require video to be muted"
+msgstr "O le nilo ki fidio naa wa ni pa"
+
+#: modules/local_video/tabs/general.php:137
+msgid "Fit video in container"
+msgstr "Ba fidio mu ni apoti"
+
+#: modules/local_video/tabs/general.php:150
+msgid "Fade in transition"
+msgstr "Iṣipopada faade"
+
+#: modules/local_video/tabs/general.php:152
+msgid ""
+"Fade in before video loads. Recommended when slide and slideshow Auto play "
+"are enabled, and slideshow Transition effect is fade."
+msgstr ""
+"Faade ṣaaju ki fidio to gbe. A ṣ aconseja nigbati iṣipopada ati iṣipopada "
+"fidio laifọwọyi ba wa ni mu, ati ipa iyipada iṣipopada ni faade."
+
+#: modules/local_video/tabs/link.php:8
+msgid "Video Link URL"
+msgstr "URL Asopọ Fidio"
+
+#: modules/local_video/tabs/link.php:11
+msgid ""
+"When visitors click on your video slide, they will be taken to this URL. "
+"This may affect how user interacts with the video controls."
+msgstr ""
+"Nigbati awọn alejo ba tẹ lori iṣipopada fidio rẹ, wọn yoo lọ si URL yii. "
+"Eyi le ni ipa lori bi olumulo ṣe n ṣe ajọṣepọ pẹlu awọn iṣakoso fidio."
 
 #: themes/architekt/customize.php:16
 #: themes/architekt/customize.php:356
@@ -6720,8 +7092,8 @@ msgstr "Ń ṣètò 1 sáílò..."
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/dist/js/app.js:2
 #: admin/assets/js/admin.js:168
-#: admin/assets/js/admin.js:1519
-#: admin/assets/js/admin.js:1562
+#: admin/assets/js/admin.js:1554
+#: admin/assets/js/admin.js:1597
 msgid "1 slide added successfully"
 msgstr "1 sáílò ti a fi kun ní aṣeyọrí"
 
@@ -6742,6 +7114,8 @@ msgstr "Ń pa UI fífi sáílò kun..."
 
 #: admin/assets/dist/js/admin.js:1
 #: admin/assets/js/admin.js:314
+#: modules/local_video/assets/local_video.js:208
+#: modules/local_video/assets/local_video.js:632
 msgid "Updating slide..."
 msgstr "Ń ṣe imudojuiwọn sáílò..."
 
@@ -6761,22 +7135,23 @@ msgid "Unsplash Library"
 msgstr "Ibi ìkànsí Unsplash"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:809, fuzzy
+#: admin/assets/js/admin.js:809
+#: admin/assets/js/admin.js:959, fuzzy
 msgid "Pixabay Library"
 msgstr "Pixabay Library"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1347
+#: admin/assets/js/admin.js:1382
 msgid "Crop position saved and image cropped"
 msgstr "Ipo gige ti fipamọ́ ati aworan ti gige"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1364
+#: admin/assets/js/admin.js:1399
 msgid "There was an error when saving crop position or cropping the image"
 msgstr "Aṣiṣe kan ṣẹlẹ̀ nigba ti a ń fipamọ́ ipo gige tàbí gige aworan"
 
 #: admin/assets/dist/js/admin.js:1
-#: admin/assets/js/admin.js:1577
+#: admin/assets/js/admin.js:1612
 msgid "Device options are enabled for this slide. Adjust using the Device tab."
 msgstr "Àṣàyàn ẹrọ ti wa ni ṣiṣi fun sáílò yìí. Ṣatunṣe nipa lilo taabu Ẹrọ."
 
@@ -7196,6 +7571,40 @@ msgstr "Ko si fọtọ ti a ri."
 #: admin/assets/dist/js/app.js:2
 msgid "All images published on Pixabay can be used for free."
 msgstr "Gbogbo awọn aworan ti a tẹjade lori Pixabay le ṣee lo fun ọfẹ."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Search pixabay.com videos..."
+msgstr "Wa awọn fidio pixabay.com..."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s on Pixabay"
+msgstr "Fidio nipasẹ %s lori Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Video on Pixabay"
+msgstr "Fidio lori Pixabay"
+
+#: admin/assets/dist/js/app.js:2
+msgid "Opening Pixabay Video tab..."
+msgstr "Tẹsiwaju taabu Fidio Pixabay..."
+
+#: admin/assets/dist/js/app.js:2
+msgid "Pixabay Video tab closed"
+msgstr "Taabu Fidio Pixabay ti wa ni pipade"
+
+#: admin/assets/dist/js/app.js:2
+msgid "No videos found."
+msgstr "Ko si awọn fidio ti a ri."
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Video by %s"
+msgstr "Fídíò nipasẹ %s"
+
+#: admin/assets/dist/js/app.js:2
+msgid "All videos published on Pixabay can be used for free."
+msgstr "Gbogbo fídíò ti a tẹjade lori Pixabay le ṣee lo fun ọfẹ."
 
 #: admin/assets/dist/js/app.js:2
 msgid "Complete!"
@@ -8129,6 +8538,11 @@ msgid "Importing %s slideshows... This may take a minute"
 msgstr "Gbigbe wọle %s slideshows... Eyi le gba iṣẹju kan"
 
 #: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Failed to import: %s"
+msgstr "Kò ṣaṣeyọri lati gbe wọle: %s"
+
+#: admin/assets/dist/js/app.js:2
 msgid "Import successful"
 msgstr "Gbigbe wọle ti ṣaṣeyọri"
 
@@ -8165,6 +8579,11 @@ msgstr "Iṣẹ ṣiṣe..."
 #: admin/assets/dist/js/app.js:2
 msgid "Upload file"
 msgstr "Gbe faili silẹ"
+
+#: admin/assets/dist/js/app.js:2
+#, js-format
+msgid "Importing slideshow %1$s of %2$s (%3$s slides). This may take a minute."
+msgstr "Ń gbe wọle fídíò àtẹjáde %1$s ti %2$s (%3$s fídíò). Ìyẹn lè gba iṣẹju kan."
 
 #: admin/assets/dist/js/app.js:2
 msgid ""
@@ -8349,6 +8768,43 @@ msgstr "Nṣiṣe oju-iwe eto..."
 msgid "Page not found: %s"
 msgstr "Oju-iwe ko ri: %s"
 
+#: admin/assets/js/app/slides/external/videoQuality.js:29, fuzzy
+msgid "4K"
+msgstr "4K"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:30, fuzzy
+msgid "Quad HD"
+msgstr "Quad HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:31, fuzzy
+msgid "Full HD"
+msgstr "Full HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:32, fuzzy
+msgid "HD"
+msgstr "HD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:33, fuzzy
+msgid "SD"
+msgstr "SD"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:45
+msgid "SD (if available)"
+msgstr "SD (ti o ba wa)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:46
+msgid "HD (if available)"
+msgstr "HD (ti o ba wa)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:47
+msgid "Full HD (if available)"
+msgstr "Full HD (ti o ba wa)"
+
+#: admin/assets/js/app/slides/external/videoQuality.js:48
+#: admin/assets/js/app/slides/external/videoQuality.js:64
+msgid "Original"
+msgstr "Ọmọde"
+
 #: admin/assets/js/app/tour/main.js:12
 msgid "Add a slide"
 msgstr "Fi slide kun"
@@ -8477,6 +8933,109 @@ msgstr "slideshow"
 msgid "gallery"
 msgstr "galari"
 
+#: admin/assets/js/livid-iframe.js:132
+#: modules/local_video/assets/local_video.js:46
+#: modules/local_video/assets/local_video.js:166
+#, js-format
+msgid "Preparing %s slide..."
+msgstr "Ń ṣètò %s fídíò..."
+
+#: modules/local_video/assets/local_video.js:61
+#: modules/local_video/assets/local_video.js:181
+msgid "This isn't a supported video format. Please use MP4, WebM, or MOV videos."
+msgstr ""
+"Eyi kii ṣe fídíò fọ́ọ́mátì ti a ṣe atilẹyin. Jọwọ lo awọn fídíò MP4, WebM, "
+"tabi MOV."
+
+#: modules/local_video/assets/local_video.js:241
+#: modules/local_video/assets/local_video.js:690
+msgid "There is an error"
+msgstr "Iṣoro kan wa"
+
+#: modules/local_video/assets/local_video.js:265
+#: modules/local_video/assets/local_video.js:741
+msgid "Video source added successfully"
+msgstr "Orisun fídíò ti fi kun ni aṣeyọri"
+
+#: modules/local_video/assets/local_video.js:282
+#: modules/local_video/assets/local_video.js:762
+msgid "Video updated successfully"
+msgstr "Fídíò ti ni imudojuiwọn ni aṣeyọri"
+
+#: modules/local_video/assets/local_video.js:324
+msgid "Create slideshows with videos hosted in your media library"
+msgstr "Ṣẹda awọn fídíò àtẹjáde pẹlu awọn fídíò ti a gbalejo ni ile-ikawe media rẹ"
+
+#: modules/local_video/assets/local_video.js:326
+msgid "Create slideshows with images in your media library"
+msgstr "Ṣẹda awọn fídíò àtẹjáde pẹlu awọn aworan ni ile-ikawe media rẹ"
+
+#: modules/local_video/assets/local_video.js:328
+msgid ""
+"Layer Slides allow you to add text, colors, shortcodes and media on top of "
+"an image or video."
+msgstr ""
+"Awọn ipele Layer gba ọ laaye lati ṣafikun ọrọ, awọn awọ, awọn koodu kukuru "
+"ati awọn media lori aworan tabi fidio kan."
+
+#: modules/local_video/assets/local_video.js:398
+msgid "Cover removed successfully."
+msgstr "Iboju ti yọkuro ni aṣeyọri."
+
+#: modules/local_video/assets/local_video.js:431
+msgid "You can't delete this video. This slide requires at least one video source."
+msgstr "O ko le pa fidio yii. Ipele yii nilo o kere ju orisun fidio kan."
+
+#: modules/local_video/assets/local_video.js:462
+msgid "Video source removed successfully"
+msgstr "Orisun fidio ti yọkuro ni aṣeyọri"
+
+#: modules/local_video/assets/local_video.js:481
+msgid "No text track has beed selected for this slide."
+msgstr "Ko si itọsọna ọrọ ti a ti yan fun ipele yii."
+
+#: modules/local_video/assets/local_video.js:503
+msgid "There was an error removing the text track"
+msgstr "Aṣiṣe kan wa nigba ti yọkuro itọsọna ọrọ"
+
+#: modules/local_video/assets/local_video.js:520
+msgid "Text track removed successfully"
+msgstr "Itọsọna ọrọ ti yọkuro ni aṣeyọri"
+
+#: modules/local_video/assets/local_video.js:546
+#, js-format
+msgid "Select Replacement %s Video"
+msgstr "Yan Igbasilẹ %s Fidio"
+
+#: modules/local_video/assets/local_video.js:608
+#, js-format
+msgid "Please select a %s video for this source!"
+msgstr "Jọwọ yan fidio %s kan fun orisun yii!"
+
+#: modules/local_video/assets/local_video.js:702
+msgid "This isn't a supported image format. Please use JPG, PNG, or GIF images."
+msgstr ""
+"Eyi kii ṣe fọọmu aworan ti a ṣe atilẹyin. Jọwọ lo awọn aworan JPG, PNG, "
+"tabi GIF."
+
+#: modules/local_video/assets/local_video.js:708
+msgid "This isn't a supported text track format. Please use TXT or VTT files."
+msgstr ""
+"Eyi kii ṣe fọọmu itọsọna ọrọ ti a ṣe atilẹyin. Jọwọ lo awọn faili TXT tabi "
+"VTT."
+
+#: modules/local_video/assets/local_video.js:788
+msgid "Text track updated successfully"
+msgstr "Itọsọna ọrọ ti ṣe imudojuiwọn ni aṣeyọri"
+
+#: modules/local_video/assets/local_video.js:861
+msgid "Cover image updated successfully"
+msgstr "Aworan iboju ti ṣe imudojuiwọn ni aṣeyọri"
+
+#: modules/local_video/assets/local_video.js:906
+msgid "Duplicating the slide failed."
+msgstr "Igbiyanju lati ṣe ẹda ipele naa kuna."
+
 #: admin/Notices.php:101
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid ""
@@ -8491,15 +9050,15 @@ msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Review MetaSlider Slideshow &rarr;"
 msgstr "Atunwo MetaSlider Slideshow &rarr;"
 
-#: ml-slider.php:2053
+#: ml-slider.php:2103
 msgctxt "Keep the plugin name \"MetaSlider Slideshow\" when possible"
 msgid "Select slideshow to insert into post"
 msgstr "Yan slideshow lati fi sii ninu ifiweranṣẹ"
 
 #: admin/views/pages/parts/slider-settings.php:665
 #: admin/views/pages/parts/slider-settings.php:685
-#: admin/views/pages/parts/slider-settings.php:1420
-#: admin/views/pages/parts/slider-settings.php:1454, fuzzy
+#: admin/views/pages/parts/slider-settings.php:1416
+#: admin/views/pages/parts/slider-settings.php:1450, fuzzy
 msgctxt "Short for milliseconds"
 msgid "ms"
 msgstr "ms"
@@ -8509,7 +9068,7 @@ msgctxt "This is a keyboard shortcut."
 msgid " (Use Alt or ⌥ (Option) + P keys)"
 msgstr " (Lo Alt tabi ⌥ (Aṣayan) + P bọtini)"
 
-#: admin/views/pages/start.php:382
+#: admin/views/pages/start.php:383
 msgctxt "Uploader: Drop files to upload - or - Select Files"
 msgid "or"
 msgstr "tabi"

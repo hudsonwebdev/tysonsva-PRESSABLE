@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Query\Bindings;
 
 use ACP;
 
 class QueryArguments extends ACP\Query\Bindings
 {
-
-    protected $query_arguments = [];
+    protected array $query_arguments = [];
 
     public function query_arguments(array $args): self
     {

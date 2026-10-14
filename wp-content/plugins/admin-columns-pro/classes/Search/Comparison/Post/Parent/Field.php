@@ -1,0 +1,44 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ACP\Search\Comparison\Post\Parent;
+
+use ACP\Query\Bindings;
+use ACP\Search\Comparison;
+use ACP\Search\Helper\Sql\ComparisonFactory;
+use ACP\Search\Operators;
+use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
+
+class Field extends Comparison
+{
+    private string $field;
+
+    public function __construct(string $field, Operators $operators, ?string $value_type = null)
+    {
+        parent::__construct($operators, $value_type);
+
+        $this->field = $field;
+    }
+
+    protected function create_query_bindings(string $operator, Value $value): Bindings
+    {
+        global $wpdb;
+
+        $bindings = new Bindings();
+
+        $post_alias = AliasGenerator::generate_from_class(static::class);
+
+        $bindings->join("JOIN $wpdb->posts AS $post_alias on $wpdb->posts.post_parent = $post_alias.ID");
+
+        $where = ComparisonFactory::create(
+            $post_alias . '.' . $this->field,
+            $operator,
+            $value
+        )->prepare();
+
+        return $bindings->where($where);
+    }
+
+}

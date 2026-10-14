@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\GravityForms\Search\Comparison\Entry;
 
 use ACA\GravityForms\Search;
@@ -8,7 +10,6 @@ use ACP\Search\Value;
 
 class Consent extends Search\Comparison\Entry
 {
-
     public function __construct($field)
     {
         $operators = new Operators([

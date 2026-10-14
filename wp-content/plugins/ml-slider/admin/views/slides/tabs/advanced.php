@@ -1,6 +1,11 @@
 <?php if (!defined('ABSPATH')) {
 die('No direct access.');
-} ?>
+}
+
+// Set by MetaSlide::add_pro_upsell_tabs() - rows Pro can't apply to this slide type
+$unsupported_advanced_rows = isset($unsupported_advanced_rows) ? (array) $unsupported_advanced_rows : array();
+?>
+<?php if (!in_array('delay', $unsupported_advanced_rows, true)) : ?>
 <div class="row delay advanced-setting">
     <div class="ms-switch-button">
         <label>
@@ -20,6 +25,8 @@ die('No direct access.');
         ?> 
     </label>
 </div>
+<?php endif; ?>
+<?php if (!in_array('repeat', $unsupported_advanced_rows, true)) : ?>
 <div class="row repeat advanced-setting">
     <div class="ms-switch-button">
         <label>
@@ -39,6 +46,8 @@ die('No direct access.');
         ?> 
     </label>
 </div>
+<?php endif; ?>
+<?php if (!in_array('first_loop', $unsupported_advanced_rows, true)) : ?>
 <div class="row first_loop advanced-setting">
     <div class="ms-switch-button">
         <label>
@@ -58,6 +67,8 @@ die('No direct access.');
         ?>
     </label>
 </div>
+<?php endif; ?>
+<?php if (!in_array('thumbnail', $unsupported_advanced_rows, true)) : ?>
 <div class="row thumbnail advanced-setting">
     <div class="ms-switch-button">
         <label>
@@ -77,6 +88,8 @@ die('No direct access.');
         ?> 
     </label>
 </div>
+<?php endif; ?>
+<?php if (!in_array('classes', $unsupported_advanced_rows, true)) : ?>
 <div class="row classes advanced-setting">
     <div class="ms-switch-button">
         <label>
@@ -95,4 +108,4 @@ die('No direct access.');
         );
         ?> 
     </label>
-</div>
+</div><?php endif; ?>

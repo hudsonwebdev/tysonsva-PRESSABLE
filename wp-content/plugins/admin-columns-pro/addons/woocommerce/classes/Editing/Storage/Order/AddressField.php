@@ -10,10 +10,9 @@ use LogicException;
 
 class AddressField implements Storage
 {
+    private AddressType $address_type;
 
-    private $address_type;
-
-    private $address_property;
+    private string $address_property;
 
     public function __construct(AddressType $address_type, string $address_property)
     {
@@ -36,7 +35,7 @@ class AddressField implements Storage
         $order = wc_get_order($id);
         $method = $this->get_retrieve_method();
 
-        if ( ! method_exists($order, $method)) {
+        if (! method_exists($order, $method)) {
             throw new LogicException('Method ' . $method . ' does not exist on Order');
         }
 
@@ -48,7 +47,7 @@ class AddressField implements Storage
         $order = wc_get_order($id);
         $method = $this->get_update_method();
 
-        if ( ! method_exists($order, $method)) {
+        if (! method_exists($order, $method)) {
             throw new LogicException('Method ' . $method . ' does not exist on Order');
         }
 

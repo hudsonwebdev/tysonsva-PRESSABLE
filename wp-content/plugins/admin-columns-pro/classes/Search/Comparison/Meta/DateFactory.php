@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Meta;
 
 use AC\Meta\Query;
@@ -7,7 +9,6 @@ use ACP\Search\Comparison;
 
 class DateFactory
 {
-
     public const FORMAT_UNIX_TIMESTAMP = 'U';
     public const FORMAT_DATETIME = 'Y-m-d H:i:s';
     public const FORMAT_DATE = 'Y-m-d';

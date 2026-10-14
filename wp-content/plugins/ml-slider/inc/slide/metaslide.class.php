@@ -891,4 +891,47 @@ class MetaSlide
     {
         return metaslider_image_cropped_size(  $side, $this->settings );
     }
+
+    /**
+     * Append the Schedule and Advanced tabs, which every slide type offers as an
+     * upgrade prompt while Pro is inactive. Pro replaces both through the
+     * metaslider_slide_tabs filter, so these are only ever the free view.
+     *
+     * @since 3.113.0
+     *
+     * @param array $tabs                Tabs built so far
+     * @param array $unsupported_advanced Advanced rows Pro cannot apply to this
+     *                                    slide type ('delay', 'repeat', 'first_loop',
+     *                                    'thumbnail', 'classes'), left out rather than
+     *                                    advertised
+     *
+     * @return array
+     */
+    protected function add_pro_upsell_tabs($tabs, $unsupported_advanced = array())
+    {
+        ob_start();
+        include METASLIDER_PATH . 'admin/views/slides/tabs/schedule.php';
+        $schedule_tab = ob_get_clean();
+
+        $tabs['schedule'] = array(
+            'title' => __('Schedule', 'ml-slider'),
+            'content' => $schedule_tab,
+            'pro' => __('Schedule is available in MetaSlider Slideshow Pro', 'ml-slider')
+        );
+
+        // Read by advanced.php to skip the rows this slide type can't use
+        $unsupported_advanced_rows = $unsupported_advanced;
+
+        ob_start();
+        include METASLIDER_PATH . 'admin/views/slides/tabs/advanced.php';
+        $advanced_tab = ob_get_clean();
+
+        $tabs['advanced'] = array(
+            'title' => __('Advanced', 'ml-slider'),
+            'content' => $advanced_tab,
+            'pro' => __('Advanced settings are available in MetaSlider Slideshow Pro', 'ml-slider')
+        );
+
+        return $tabs;
+    }
 }

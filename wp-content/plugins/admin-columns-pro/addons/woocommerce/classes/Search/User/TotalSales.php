@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\User;
 
 use ACP\Query\Bindings;
@@ -7,10 +9,10 @@ use ACP\Search\Comparison;
 use ACP\Search\Helper\Sql\ComparisonFactory;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class TotalSales extends Comparison
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -38,7 +40,7 @@ class TotalSales extends Comparison
             WHERE wco.customer_id IS NOT NULL {$statuses_sql}
             GROUP BY wco.customer_id
             HAVING {$having->prepare()}";
-        $sq_alias = $bindings->get_unique_alias('sq');
+        $sq_alias = AliasGenerator::generate_from_class(static::class);
 
         $bindings->join("JOIN ( {$sql} ) as $sq_alias on $sq_alias.customer_id = {$wpdb->users}.ID");
 

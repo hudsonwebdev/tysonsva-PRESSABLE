@@ -5,26 +5,23 @@ declare(strict_types=1);
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Query\Bindings;
-use ACP\Sorting\Model\QueryBindings;
+use ACP\Sorting\Model\Base;
 use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Join;
 
-class Taxonomy implements QueryBindings
+class Taxonomy extends Base
 {
-
-    private $taxonomy;
+    private string $taxonomy;
 
     public function __construct(string $taxonomy)
     {
         $this->taxonomy = $taxonomy;
     }
 
-    public function create_query_bindings(Order $order): Bindings
+    protected function configure_query_bindings(Bindings $bindings, string $alias, Order $order): void
     {
         global $wpdb;
-
-        $bindings = new Bindings();
-        $alias = $bindings->get_unique_alias('tax');
 
         $sub_query = $wpdb->prepare(
             "
@@ -45,13 +42,13 @@ class Taxonomy implements QueryBindings
         );
 
         $bindings->join(
-            "LEFT JOIN ($sub_query) as $alias ON $wpdb->posts.ID = $alias.object_id"
+            Join::left_subquery($sub_query, $alias)
+                ->on("$wpdb->posts.ID", '=', "$alias.object_id")
+                ->get_sql()
         );
         $bindings->order_by(
             SqlOrderByFactory::create("$alias.slug", (string)$order)
         );
-
-        return $bindings;
     }
 
 }

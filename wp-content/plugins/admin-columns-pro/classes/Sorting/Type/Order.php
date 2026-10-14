@@ -6,10 +6,12 @@ namespace ACP\Sorting\Type;
 
 use InvalidArgumentException;
 
-class Order
+final class Order
 {
+    private const ASC = 'ASC';
+    private const DESC = 'DESC';
 
-    private $order;
+    private string $order;
 
     public function __construct(string $order)
     {
@@ -18,22 +20,34 @@ class Order
         $this->validate();
     }
 
-    private function validate(): void
+    public static function ascending(): self
     {
-        if ( ! in_array($this->order, ['ASC', 'DESC'], true)) {
-            throw new InvalidArgumentException('Invalid order');
-        }
+        return new self(self::ASC);
+    }
+
+    public static function descending(): self
+    {
+        return new self(self::DESC);
     }
 
     public static function create_by_string(string $order): self
     {
         $order = strtoupper($order);
 
-        if ('ASC' !== $order) {
-            $order = 'DESC';
+        if (self::ASC !== $order) {
+            $order = self::DESC;
         }
 
         return new self($order);
+    }
+
+    private function validate(): void
+    {
+        $valid = [self::ASC, self::DESC];
+
+        if (! in_array($this->order, $valid, true)) {
+            throw new InvalidArgumentException(vsprintf('Expected %s or %s.', $valid));
+        }
     }
 
     public function __toString(): string

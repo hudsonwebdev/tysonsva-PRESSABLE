@@ -8,7 +8,6 @@ use AC\Registerable;
 
 final class TemplateFiles implements Registerable
 {
-
     private array $files = [];
 
     public function __construct(array $files)
@@ -25,7 +24,9 @@ final class TemplateFiles implements Registerable
     {
         $path = rtrim($path, '/');
 
-        return new self(glob($path . '/*.json') ?: []);
+        $files = glob($path . '/*.json');
+
+        return new self($files ?: []);
     }
 
     public function register(): void

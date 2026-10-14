@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\OrderMeta;
 
 use ACP\Search\Comparison\Meta;
@@ -9,7 +11,6 @@ use ACP\Search\Value;
 
 class Timestamp extends Meta
 {
-
     public function __construct(string $meta_key)
     {
         $operators = new Operators([

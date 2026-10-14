@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Comment;
 
 use AC;
@@ -7,10 +9,8 @@ use AC\Helper\Select\Options;
 use ACP\Search\Comparison\Values;
 use ACP\Search\Operators;
 
-class Type extends Field
-    implements Values
+class Type extends Field implements Values
 {
-
     public function __construct()
     {
         $operators = new Operators([
@@ -37,7 +37,7 @@ class Type extends Field
                 continue;
             }
 
-            $options[] = new AC\Helper\Select\Option($type, $type);
+            $options[] = new AC\Helper\Select\Option((string)$type, (string)$type);
         }
 
         return new AC\Helper\Select\Options($options);

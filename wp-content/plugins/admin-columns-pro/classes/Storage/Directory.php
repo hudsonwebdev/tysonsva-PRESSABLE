@@ -9,8 +9,7 @@ use SplFileInfo;
 
 final class Directory
 {
-
-    private $info;
+    private SplFileInfo $info;
 
     public function __construct(string $path)
     {
@@ -44,7 +43,7 @@ final class Directory
         // Recursively try to set permissions to 0755 unless the system has wider permissions
         $result = @mkdir($this->info->getPathname(), (fileperms(ABSPATH) & 0777 | 0755), true);
 
-        if ( ! $result) {
+        if (! $result) {
             throw new FailedToCreateDirectoryException($this->info->getPathname());
         }
     }

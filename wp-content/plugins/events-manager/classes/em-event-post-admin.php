@@ -246,7 +246,8 @@ class EM_Event_Post_Admin{
 			$post = get_post($EM_Event->post_id);
 			$EM_Event->load_postdata($post);
 			unset($EM_Event->refresh_cache);
-			wp_cache_set($EM_Event->event_id, $EM_Event, 'em_events');
+			// a clone, so a persistent cache cannot store an emptied bookings child
+			wp_cache_set($EM_Event->event_id, clone $EM_Event, 'em_events');
 			wp_cache_set($EM_Event->post_id, $EM_Event->event_id, 'em_events_ids');
 		}
 	}

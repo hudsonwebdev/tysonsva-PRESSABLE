@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Meta;
 
 use AC\Helper\Select\Options\Paginated;
 use AC\Meta\Query;
-use ACP\Helper\Select;
 use ACP\Helper\Select\Post\LabelFormatter\PostTitle;
 use ACP\Helper\Select\Post\PaginatedFactory;
 use ACP\Search\Comparison;
@@ -12,13 +13,11 @@ use ACP\Search\Comparison\Meta;
 use ACP\Search\Operators;
 use WP_Post;
 
-class Media extends Meta
-    implements Comparison\SearchableValues
+class Media extends Meta implements Comparison\SearchableValues
 {
+    private ?Query $query;
 
-    private $query;
-
-    public function __construct(string $meta_key, Query $query)
+    public function __construct(string $meta_key, ?Query $query = null)
     {
         $operators = new Operators([
             Operators::EQ,
@@ -51,7 +50,7 @@ class Media extends Meta
             [
                 's'        => $search,
                 'paged'    => $page,
-                'post__in' => $this->query->get(),
+                'post__in' => $this->query ? $this->query->get() : [],
             ],
             $this->formatter()
         );

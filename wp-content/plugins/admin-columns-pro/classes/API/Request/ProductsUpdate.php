@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\API\Request;
 
 use ACP\API\Request;
@@ -8,8 +10,7 @@ use ACP\Type\SiteUrl;
 
 class ProductsUpdate extends Request
 {
-
-    public function __construct(SiteUrl $site_url, ActivationToken $activation_token = null)
+    public function __construct(SiteUrl $site_url, ?ActivationToken $activation_token = null)
     {
         $args = [
             'command'        => 'products_update',

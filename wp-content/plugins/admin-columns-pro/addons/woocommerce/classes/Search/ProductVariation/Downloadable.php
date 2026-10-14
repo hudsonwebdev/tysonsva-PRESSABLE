@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Search\ProductVariation;
 
 use AC\Helper\Select\Options;
@@ -8,7 +10,6 @@ use ACP\Search\Operators;
 
 class Downloadable extends ACP\Search\Comparison\Meta implements ACP\Search\Comparison\Values
 {
-
     public function __construct()
     {
         parent::__construct(new Operators([Operators::EQ]), '_downloadable');

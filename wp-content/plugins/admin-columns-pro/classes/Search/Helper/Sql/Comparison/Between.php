@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Helper\Sql\Comparison;
 
 use ACP\Search\Helper\Sql\Comparison;
@@ -9,8 +11,7 @@ use LogicException;
 
 class Between extends Comparison
 {
-
-    public function __construct($column, Value $value)
+    public function __construct(string $column, Value $value)
     {
         parent::__construct($column, Operators::BETWEEN, $value);
     }
@@ -20,12 +21,12 @@ class Between extends Comparison
         return sprintf('%s BETWEEN ? AND ?', $this->column);
     }
 
-    public function bind_value(Value $value)
+    public function bind_value(Value $value): self
     {
         $type = $value->get_type();
         $values = $value->get_value();
 
-        if ( ! is_array($values) && count($values) !== 2) {
+        if (! is_array($values) || count($values) !== 2) {
             throw new LogicException('This statement requires an array with two values.');
         }
 

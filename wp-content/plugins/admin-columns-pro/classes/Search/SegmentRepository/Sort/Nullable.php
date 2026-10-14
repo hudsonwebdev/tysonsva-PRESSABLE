@@ -9,7 +9,6 @@ use ACP\Search\SegmentRepository\Sort;
 
 final class Nullable extends Sort
 {
-
     public function sort(SegmentCollection $segment_collection): SegmentCollection
     {
         return $segment_collection;

@@ -683,6 +683,24 @@ class EM_Location extends EM_Object {
 	}
 	
 	/**
+	 * Whether this location's post is password-protected and the current visitor hasn't unlocked it. Anyone who can manage the location sees it regardless, matching how map balloons already behave.
+	 * @return boolean
+	 */
+	public function password_required(){
+		$required = false;
+		if ( !empty($this->post_id) ) {
+			// post_password lives in wp_posts, so in MS Global mode the lookup has to happen on the blog that owns the location.
+			if ( EM_MS_GLOBAL && !empty($this->blog_id) && get_current_blog_id() != $this->blog_id ) {
+				switch_to_blog($this->blog_id);
+				$switch_back = true;
+			}
+			$required = post_password_required( $this->post_id ) && !$this->can_manage('edit_locations','edit_others_locations');
+			if ( !empty($switch_back) ) restore_current_blog();
+		}
+		return apply_filters('em_location_password_required', $required, $this);
+	}
+	
+	/**
 	 * Change the status of the location. This will save to the Database too. 
 	 * @param int $status 				A number to change the status to, which may be -1 for trash, 1 for publish, 0 for pending or null if draft.
 	 * @param boolean $set_post_status 	If set to true the wp_posts table status will also be changed to the new corresponding status.

@@ -11,7 +11,6 @@ use ACP\Sorting\Type\Order;
 
 abstract class Featured implements QueryBindings
 {
-
     public function create_query_bindings(Order $order): Bindings
     {
         global $wpdb;

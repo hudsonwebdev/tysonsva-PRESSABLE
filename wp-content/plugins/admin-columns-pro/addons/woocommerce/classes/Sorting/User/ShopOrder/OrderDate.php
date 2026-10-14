@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Sorting\User\ShopOrder;
 
 use ACP\Query\Bindings;
 use ACP\Sorting\Model\QueryBindings;
-use ACP\Sorting\Model\SqlTrait;
 use ACP\Sorting\Type\Order;
+use ACP\Sql\Expression\Comparison;
 
 abstract class OrderDate implements QueryBindings
 {
-
-    use SqlTrait;
-
-    private $status;
+    private array $status;
 
     public function __construct(array $status = ['wc-completed'])
     {
@@ -26,7 +25,7 @@ abstract class OrderDate implements QueryBindings
         $bindings = new Bindings();
 
         $where_status = $this->status
-            ? sprintf(" AND acsort_orders.post_status IN ( %s )", $this->esc_sql_array($this->status))
+            ? " AND " . Comparison::in('acsort_orders.post_status', $this->status)
             : '';
         $bindings->join(
             " 

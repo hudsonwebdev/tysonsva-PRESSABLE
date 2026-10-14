@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\JetEngine\Field\Type;
 
 use ACA\JetEngine\Field\DefaultValue;
@@ -8,10 +10,10 @@ use ACA\JetEngine\Field\Field;
 use ACA\JetEngine\Field\MaxLength;
 use ACA\JetEngine\Field\MaxLengthTrait;
 
-class Text extends Field implements MaxLength, DefaultValue {
+final class Text extends Field implements MaxLength, DefaultValue
+{
+    use DefaultValueTrait;
+    use MaxLengthTrait;
 
-	const TYPE = 'text';
-
-	use MaxLengthTrait,
-		DefaultValueTrait;
+    public const TYPE = 'text';
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\GravityForms\Search\Comparison\Entry;
 
 use ACP;
@@ -8,7 +10,6 @@ use ACP\Search\Value;
 
 class Choices extends Choice
 {
-
     protected function create_query_bindings(string $operator, Value $value): Bindings
     {
         $_value = new Value(
@@ -16,7 +17,7 @@ class Choices extends Choice
             $value->get_type()
         );
 
-        $_operator = ACP\Search\Operators::EQ
+        $_operator = $operator === ACP\Search\Operators::EQ
             ? ACP\Search\Operators::CONTAINS
             : ACP\Search\Operators::NOT_CONTAINS;
 

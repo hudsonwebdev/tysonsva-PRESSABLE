@@ -8,32 +8,37 @@ use AC\Asset\Location\Absolute;
 use AC\Asset\Script;
 use AC\Asset\Script\Localize\Translation;
 use AC\Capabilities;
+use AC\ColumnIterator;
+use AC\ColumnNamesTrait;
 use AC\ColumnSize;
 use AC\ListScreen;
 use AC\ListScreenCollection;
 use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\Storage;
+use AC\Settings\GeneralOption;
+use AC\TableScreen;
 use AC\Type\ColumnWidth;
+use AC\Type\ListScreenStatus;
 use AC\Type\Uri;
 use ACP\Search\DefaultSegmentTrait;
-use ACP\Settings\General\LayoutStyle;
-use ACP\Settings\ListScreen\HideOnScreen;
+use ACP\Settings\ListScreen\TableElement;
+use ACP\Settings\Option\LayoutStyle;
 use WP_User;
 
 class Table extends Script
 {
-
     use DefaultSegmentTrait;
+    use ColumnNamesTrait;
 
-    private $list_screen;
+    private ListScreen $list_screen;
 
-    private $user_storage;
+    private ColumnSize\UserStorage $user_storage;
 
-    private $list_storage;
+    private ColumnSize\ListStorage $list_storage;
 
-    private $storage;
+    private Storage $storage;
 
-    private $layout_style;
+    private GeneralOption $option_storage;
 
     public function __construct(
         Absolute $location,
@@ -41,7 +46,7 @@ class Table extends Script
         ColumnSize\UserStorage $user_storage,
         ColumnSize\ListStorage $list_storage,
         Storage $storage,
-        LayoutStyle $layout_style
+        GeneralOption $option_storage
     ) {
         parent::__construct('acp-table', $location, [Script\GlobalTranslationFactory::HANDLE, 'jquery-ui-sortable']);
 
@@ -49,7 +54,7 @@ class Table extends Script
         $this->user_storage = $user_storage;
         $this->list_storage = $list_storage;
         $this->storage = $storage;
-        $this->layout_style = $layout_style;
+        $this->option_storage = $option_storage;
     }
 
     public function register(): void
@@ -58,20 +63,21 @@ class Table extends Script
 
         $user = wp_get_current_user();
 
-        if ( ! $user) {
+        if (! $user) {
             return;
         }
 
         $translation = Translation::create([
-            'column_sets'          => [
+            'column_sets' => [
+                'not_shown'   => __('Not shown in menu', 'codepress-admin-columns'),
                 'more'        => _x('%s more', 'number of items', 'codepress-admin-columns'),
                 'switch_view' => __('Switch View', 'codepress-admin-columns'),
             ],
             'column_screen_option' => [
-                'button_reset'              => _x('Reset', 'column-resize-button', 'codepress-admin-columns'),
-                'label'                     => __('Columns', 'codepress-admin-columns'),
-                'resize_columns_tool'       => __('Resize Columns', 'codepress-admin-columns'),
-                'reset_confirmation'        => sprintf(
+                'button_reset'        => _x('Reset', 'column-resize-button', 'codepress-admin-columns'),
+                'label'               => __('Columns', 'codepress-admin-columns'),
+                'resize_columns_tool' => __('Resize Columns', 'codepress-admin-columns'),
+                'reset_confirmation'  => sprintf(
                     '%s %s',
                     __('Restore the current column widths and order to their defaults.', 'codepress-admin-columns'),
                     __('Are you sure?', 'codepress-admin-columns')
@@ -85,16 +91,18 @@ class Table extends Script
                     ),
                     __('Are you sure?', 'codepress-admin-columns')
                 ),
-                'tip_reset'                 => __(
+                'tip_reset' => __(
                     'Reset columns to their default widths and order.',
                     'codepress-admin-columns'
                 ),
-                'tip_save_changes'          => __(
+                'tip_save_changes' => __(
                     'Save the current column widths and order changes.',
                     'codepress-admin-columns'
                 ),
             ],
         ]);
+
+        $columns = $this->list_screen->get_columns();
 
         $this
             ->add_inline_variable('acp_table', [
@@ -103,16 +111,16 @@ class Table extends Script
                 'column_screen_option' => [
                     'has_manage_admin_cap' => current_user_can(Capabilities::MANAGE),
                 ],
-                'column_order'         => [
+                'column_order' => [
                     'active'        => $this->is_column_order_active(),
-                    'current_order' => array_keys($this->list_screen->get_columns()),
+                    'current_order' => $this->get_column_names_from_collection($columns),
                 ],
-                'column_width'         => [
+                'column_width' => [
                     'active'                    => $this->is_column_resize_active(),
                     'can_reset'                 => $this->user_storage->exists($this->list_screen->get_id()),
                     'minimal_pixel_width'       => 50,
                     'column_sizes_current_user' => $this->get_column_sizes_by_user($this->list_screen),
-                    'column_sizes'              => $this->get_column_sizes($this->list_screen),
+                    'column_sizes'              => $this->get_column_sizes($columns),
                 ],
             ])->localize('acp_table_i18n', $translation);
     }
@@ -124,7 +132,7 @@ class Table extends Script
 
     private function get_table_views(WP_User $user): array
     {
-        if ( ! $this->is_table_views_active()) {
+        if (! $this->is_table_views_active()) {
             return [];
         }
 
@@ -138,10 +146,13 @@ class Table extends Script
 
     private function get_list_screens(WP_User $user): ListScreenCollection
     {
+        $table_id = $this->list_screen->get_table_id();
+
         $list_screens = $this->storage->find_all_by_assigned_user(
-            $this->list_screen->get_key(),
+            $table_id,
             $user,
-            new Sort\UserOrder($user, $this->list_screen->get_key())
+            new Sort\UserOrder($user, $table_id),
+            ListScreenStatus::create_active()
         );
 
         // An administrator should always be able to view the requested list screen
@@ -154,27 +165,31 @@ class Table extends Script
 
     private function get_column_set_style(): string
     {
-        return $this->layout_style->get_style();
+        return (new LayoutStyle($this->option_storage))->get_style();
     }
 
     private function is_column_order_active(): bool
     {
-        $hide_on_screen = new HideOnScreen\ColumnOrder();
+        $table_element = new TableElement\ColumnOrder();
 
         return (bool)apply_filters(
             'acp/column_order/active',
-            ! $hide_on_screen->is_hidden($this->list_screen),
+            $table_element->is_enabled($this->list_screen),
             $this->list_screen
         );
     }
 
     private function is_column_resize_active(): bool
     {
-        $hide_on_screen = new HideOnScreen\ColumnResize();
+        if ('auto' === $this->list_screen->get_preference('wrapping')) {
+            return false;
+        }
+
+        $table_element = new TableElement\ColumnResize();
 
         return (bool)apply_filters(
-            'acp/resize_columns/active',
-            ! $hide_on_screen->is_hidden($this->list_screen),
+            'ac/resize_columns/active',
+            $table_element->is_enabled($this->list_screen),
             $this->list_screen
         );
     }
@@ -183,10 +198,8 @@ class Table extends Script
     {
         $result = [];
 
-        if ($list_screen->get_settings()) {
-            foreach ($this->user_storage->get_all($list_screen->get_id()) as $column_name => $width) {
-                $result[$column_name] = $this->create_vars($width);
-            }
+        foreach ($this->user_storage->get_all($list_screen->get_id()) as $column_name => $width) {
+            $result[$column_name] = $this->create_vars($width);
         }
 
         return $result;
@@ -200,14 +213,12 @@ class Table extends Script
         ];
     }
 
-    private function get_column_sizes(ListScreen $list_screen): array
+    private function get_column_sizes(ColumnIterator $columns): array
     {
         $result = [];
 
-        if ($list_screen->get_settings()) {
-            foreach ($this->list_storage->get_all($list_screen) as $column_name => $width) {
-                $result[$column_name] = $this->create_vars($width);
-            }
+        foreach ($this->list_storage->get_all($columns) as $column_name => $width) {
+            $result[$column_name] = $this->create_vars($width);
         }
 
         return $result;
@@ -216,8 +227,8 @@ class Table extends Script
     private function create_column_set_vars(ListScreen $list_screen): array
     {
         $column_set = [
-            'id'                 => $list_screen->has_id() ? (string)$list_screen->get_id() : null,
-            'label'              => $list_screen->get_title()
+            'id'    => (string)$list_screen->get_id(),
+            'label' => $list_screen->get_title()
                 ? htmlspecialchars_decode($list_screen->get_title())
                 : $list_screen->get_label(),
             'url'                => (string)$this->add_filter_args_to_url($list_screen->get_table_url(), $list_screen),
@@ -244,17 +255,19 @@ class Table extends Script
             'author',
         ];
 
+        $table_screen = $list_screen->get_table_screen();
+
         switch (true) {
-            case $list_screen instanceof ListScreen\User :
+            case $table_screen instanceof TableScreen\User:
                 $args[] = 'role';
                 break;
-            case $list_screen instanceof ListScreen\Comment :
+            case $table_screen instanceof TableScreen\Comment:
                 $args[] = 'comment_status';
                 break;
         }
 
         $args = (array)apply_filters(
-            'acp/table/query_args_whitelist',
+            'ac/table/query_args_whitelist',
             $args,
             $list_screen
         );

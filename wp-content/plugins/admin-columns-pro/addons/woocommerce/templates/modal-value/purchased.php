@@ -1,49 +1,52 @@
 <?php
 
 /**
- * @global WC_Order_Item[] $items
+ * @global array $items
  */
 $items = $this->items;
 ?>
 <table class="ac-table-items -clean -purchased">
 	<thead>
 	<tr>
+		<th class="col-image"><span class="dashicons dashicons-format-image"></span></th>
 		<th class="col-product"><?= __('Product', 'codepress-admin-columns') ?></th>
 		<th class="col-qty"><?= __('Quantity', 'codepress-admin-columns') ?></th>
-		<th class="col-total"><?= __('Tax', 'codepress-admin-columns') ?></th>
+		<th class="col-tax"><?= __('Tax', 'codepress-admin-columns') ?></th>
 		<th class="col-total"><?= __('Total', 'codepress-admin-columns') ?></th>
 	</tr>
 	</thead>
 	<tbody>
-    <?php
+	<?php
     foreach ($this->items as $item) : ?>
 		<tr>
+			<td class="col-image">
+				<?= $item['image'] ?>
+			</td>
 			<td class="col-product">
 				<div class="col-product__name">
-                    <?= $item['name'] ?>
+					<?= $item['name'] ?>
 
-                    <?php
+					<?php
                     if ($item['sku']) : ?>
 						<span class="ac-badge"><?= $item['sku'] ?></span>
-                    <?php
+					<?php
                     endif; ?>
 				</div>
 				<div class="col-product__meta">
-                    <?= $item['meta'] ?>
+					<?= $item['meta'] ?>
 				</div>
-
 			</td>
 			<td class="col-qty">
-                <?= $item['qty'] ?>
+				<?= $item['qty'] ?>
 			</td>
 			<td class="col-tax">
-                <?= $item['tax'] ?>
+				<?= $item['tax'] ?>
 			</td>
 			<td class="col-total">
-                <?= $item['total'] ?>
+				<?= $item['total'] ?>
 			</td>
 		</tr>
-    <?php
+	<?php
     endforeach; ?>
 	</tbody>
 </table>

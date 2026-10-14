@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AC\Admin\Colors\Type;
@@ -7,10 +8,9 @@ use InvalidArgumentException;
 
 final class Color
 {
+    private string $color;
 
-    private $color;
-
-    private $name;
+    private string $name;
 
     public function __construct(string $color, string $name)
     {
@@ -22,7 +22,7 @@ final class Color
 
     private function validate(): void
     {
-        if ( ! preg_match('/^#([a-f0-9]{3}){1,2}\b$/i', $this->color)) {
+        if (! preg_match('/^#([a-f0-9]{3}){1,2}\b$/i', $this->color)) {
             throw new InvalidArgumentException(sprintf('%s is not a valid decimal number.', $this->color));
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use ACP\Query\Bindings;
@@ -7,10 +9,10 @@ use ACP\Search\Comparison;
 use ACP\Search\Labels;
 use ACP\Search\Operators;
 use ACP\Search\Value;
+use ACP\Sql\AliasGenerator;
 
 class Attachment extends Comparison
 {
-
     public function __construct()
     {
         parent::__construct(
@@ -32,21 +34,24 @@ class Attachment extends Comparison
 
         $bindings = new Bindings();
 
-        $alias = $bindings->get_unique_alias('attachment');
+        $alias = AliasGenerator::generate_from_class(static::class);
 
         switch ($operator) {
-            case  Operators::NOT_IS_EMPTY :
+            case Operators::NOT_IS_EMPTY:
                 $bindings->join(
                     "JOIN $wpdb->posts AS $alias ON $alias.post_parent = $wpdb->posts.ID AND $alias.post_type = 'attachment'"
                 );
                 break;
-            case Operators::IS_EMPTY :
-                $bindings->join(
-                    "LEFT JOIN $wpdb->posts AS $alias ON $alias.post_parent = $wpdb->posts.ID AND $alias.post_type = 'attachment'"
-                )
-                         ->where("$alias.ID is NULL");
+            case Operators::IS_EMPTY:
+                $bindings
+                    ->join(
+                        "LEFT JOIN $wpdb->posts AS $alias ON $alias.post_parent = $wpdb->posts.ID AND $alias.post_type = 'attachment'"
+                    )
+                    ->where("$alias.ID is NULL");
                 break;
         }
+
+        $bindings->group_by("$wpdb->posts.ID");
 
         return $bindings;
     }

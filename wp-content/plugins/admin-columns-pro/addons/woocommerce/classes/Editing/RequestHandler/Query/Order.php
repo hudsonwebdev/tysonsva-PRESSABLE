@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACA\WC\Editing\RequestHandler\Query;
 
 use AC\Request;
@@ -8,11 +10,7 @@ use ACP\Editing\ApplyFilter;
 
 class Order implements ACP\Editing\RequestHandler
 {
-
-    /**
-     * @var Request
-     */
-    private $request;
+    private Request $request;
 
     public function handle(Request $request)
     {

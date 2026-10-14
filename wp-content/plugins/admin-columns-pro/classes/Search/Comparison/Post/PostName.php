@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ACP\Search\Comparison\Post;
 
 use ACP\Search\Operators;
 
 class PostName extends PostField
 {
-
     public function __construct()
     {
         $operators = new Operators([
