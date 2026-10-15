@@ -220,10 +220,17 @@ $tca_events_locations_append_location = static function ( $EM_Location, $loc_eve
 		if ( ! is_object( $EM_Event ) ) {
 			continue;
 		}
+		$link = function_exists( 'tca_evloc_event_link_data' )
+			? tca_evloc_event_link_data( $EM_Event )
+			: array(
+				'url'      => $EM_Event->get_permalink(),
+				'external' => false,
+			);
 		$events_payload[] = array(
-			'title' => $EM_Event->event_name,
-			'url'   => $EM_Event->get_permalink(),
-			'date'  => $tca_format_event_date( $EM_Event ),
+			'title'    => $EM_Event->event_name,
+			'url'      => $link['url'],
+			'external' => ! empty( $link['external'] ),
+			'date'     => $tca_format_event_date( $EM_Event ),
 		);
 	}
 

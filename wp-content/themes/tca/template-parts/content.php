@@ -9,6 +9,13 @@
 
 ?>
 
+<?php
+if ( in_array( get_post_type(), array( 'event', 'event-recurring', 'location' ), true ) ) {
+	the_content();
+	return;
+}
+?>
+
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<div class="single-header-background">
 		<div class="inner">

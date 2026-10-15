@@ -5,6 +5,22 @@
 @import "events_filters";
 @import "single_event";
 
+.tca-em-calendar-map{
+  margin: 8px 0 24px;
+
+  .tca-em-calendar-map-empty{
+    margin: 1rem 0;
+    color: $gray;
+  }
+
+  .tca-events-locations-map-shell{
+    --tca-events-map-height: 520px;
+    @media (max-width: $breakpoint-medium){
+      --tca-events-map-height: 420px;
+    }
+  }
+}
+
 .event-list{
 
 padding:80px 0;

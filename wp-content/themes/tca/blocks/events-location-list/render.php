@@ -180,7 +180,7 @@ if ( function_exists( 'tca_enqueue_events_location_list_map_assets' ) ) {
 															<?php foreach ( $loc_events as $ev ) : ?>
 																<li>
 																	<?php if ( ! empty( $ev['url'] ) ) : ?>
-																		<a href="<?php echo esc_url( $ev['url'] ); ?>"><?php echo esc_html( $ev['title'] ); ?></a>
+																		<a href="<?php echo esc_url( $ev['url'] ); ?>"<?php echo ! empty( $ev['external'] ) ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $ev['title'] ); ?></a>
 																	<?php else : ?>
 																		<span><?php echo esc_html( $ev['title'] ); ?></span>
 																	<?php endif; ?>

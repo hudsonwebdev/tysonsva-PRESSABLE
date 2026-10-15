@@ -1,9 +1,3 @@
-
-	<main id="primary" class="site-main event-page">
-	<div class="backing-svg"><svg xmlns="http://www.w3.org/2000/svg" width="699" height="1126" viewBox="0 0 699 1126" fill="none">
-		<path d="M-23 516.388V1126L699 405.612V-204L-23 516.388Z" fill="#9ADCF7" fill-opacity="0.35"/>
-		</svg>
-	</div>
 	<div class="uk-container">
 		<a href="/events" class="back-to-events"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="18" viewBox="0 0 12 18" fill="none">
 		<path d="M10 16L3 8.99577L10 2"  stroke-width="3" stroke-miterlimit="10"/></svg> Back to Events</a>
@@ -14,10 +8,9 @@
 					<div class="card-header">
 						<div class="card-type">Event</div>
 						<div class="card-date">
-							#_EVENTDATES 
+							#_EVENTDATES
 						</div>
 					</div>
-					<br>      
 					#_EVENTDATESTYSONS
 					<div class="card-title">
 						<h1>#_EVENTNAME</h1>
@@ -34,57 +27,52 @@
 							#_LOCATION
 
 							{has_event_location}
-					
+
 								#_EVENTLOCATION<br><br>
 								#_LOCATIONFULLLINE
-						
+
 							{/has_event_location}
-						
+
 						</div>
 					</div>
-					{/has_location_venue}	
-					
-				
-				
+					{/has_location_venue}
+
 					{has_att_Card_Info}
 					<div class="additional-card-info">
                            #_ATT{Card Info}
 					</div>
                      {/has_att_Card_Info}
-					
-					
-					#_TICKETLINKTYSONS   
-					
+
+					#_TICKETLINKTYSONS
+
 					{has_att_External_URL}
-                                
-                        
+
 						<a href="#_ATT{External URL}" class="learn-more" target="_blank"> <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                             <path d="M6.63356 4.13525H1.93701V17.0632H14.8588V12.3605" stroke="white" stroke-width="3" stroke-miterlimit="10"/>
                             <path d="M8.51318 1.93677H17.0631V10.4867" stroke="white" stroke-width="3" stroke-miterlimit="10"/>
                             <path d="M16.6509 2.35522L6.5708 12.4353" stroke="white" stroke-width="3" stroke-miterlimit="10"/>
                             </svg> <span>Learn More</span></a>
-                             
+
                     {/has_att_External_URL}
 
-					
-					
-					#_EVENTADDTOCALENDARTYSONS 
-				</div>
-			</div>	
-			<div class="featured-image">
-				<div class="aspect-ratio-container">
-						{has_image}
-			
-				#_EVENTIMAGE
-			
-			{/has_image}
+					#_EVENTADDTOCALENDARTYSONS
 				</div>
 			</div>
+			{has_image}
+			<div class="featured-image">
+				<div class="aspect-ratio-container">
+					#_EVENTIMAGE
+				</div>
+			</div>
+			{/has_image}
 		</div>
-	</div>
 
+		{has_location_venue}
+		<div class="event-map">
+			#_LOCATIONMAP
+		</div>
+		{/has_location_venue}
 
-	<div class="uk-container uk-container-small">    
 		<div class="event-content">
 			#_EVENTNOTES
 			<hr>
@@ -127,8 +115,3 @@
   }
 }
 </script>
-
-
-
-
-</main>

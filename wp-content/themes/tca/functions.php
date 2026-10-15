@@ -10,7 +10,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.6.501' );
+	define( '_S_VERSION', '1.6.511' );
 }
 
 /**
@@ -305,27 +305,8 @@ function tca_scripts() {
 			);
 		}
 		
-		if ( $needs_events_locations_map ) {
-			
-			if ( wp_style_is( 'block-events-locations', 'registered' ) ) {
-				wp_enqueue_style( 'block-events-locations' );
-			}
-			wp_enqueue_script(
-				'tca-events-locations-map',
-				get_template_directory_uri() . '/blocks/events-locations/events-map.js',
-				array( 'mapbox-js' ),
-				_S_VERSION,
-				true
-			);
-
-			wp_localize_script(
-				'tca-events-locations-map',
-				'TCA_MAP',
-				array(
-					'mapboxToken' => tca_env( 'MAPBOX_ACCESS_TOKEN' ),
-				)
-			);
-			
+		if ( $needs_events_locations_map && function_exists( 'tca_enqueue_events_locations_map_assets' ) ) {
+			tca_enqueue_events_locations_map_assets();
 		}
 
 		if ( $needs_events_location_list_map ) {
@@ -663,18 +644,6 @@ add_action( 'template_redirect', function () {
         }
     }
 });
-
-
-
-add_action( 'template_redirect', 'my_custom_post_type_redirect' );
-
-function my_custom_post_type_redirect() {
-    if ( is_singular( 'location' ) ) { // Check if it's a single post of the old CPT
-   
-        wp_redirect( site_url(), 301 ); // Perform a 301 permanent redirect
-        exit;
-    }
-}
 
 
 

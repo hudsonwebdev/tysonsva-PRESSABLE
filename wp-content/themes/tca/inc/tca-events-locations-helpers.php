@@ -32,6 +32,78 @@ function tca_evloc_format_event_date( $EM_Event ) {
 }
 
 /**
+ * Public URL for an event in a map drawer/list.
+ *
+ * Uses the Events Manager "External URL" attribute when it is filled.
+ *
+ * @param object $EM_Event Event instance.
+ * @return array{url: string, external: bool}
+ */
+function tca_evloc_event_link_data( $EM_Event ) {
+	$permalink = '';
+	if ( is_object( $EM_Event ) && method_exists( $EM_Event, 'get_permalink' ) ) {
+		$permalink = (string) $EM_Event->get_permalink();
+	}
+
+	$post_id = 0;
+	if ( is_object( $EM_Event ) ) {
+		if ( ! empty( $EM_Event->post_id ) ) {
+			$post_id = (int) $EM_Event->post_id;
+		} elseif ( ! empty( $EM_Event->ID ) ) {
+			$post_id = (int) $EM_Event->ID;
+		}
+	}
+
+	$raw = '';
+	if ( is_object( $EM_Event ) && ! empty( $EM_Event->event_attributes ) && is_array( $EM_Event->event_attributes ) ) {
+		foreach ( array( 'External URL', 'external_url', 'external-url' ) as $key ) {
+			if ( ! empty( $EM_Event->event_attributes[ $key ] ) ) {
+				$raw = (string) $EM_Event->event_attributes[ $key ];
+				break;
+			}
+		}
+	}
+	if ( '' === $raw && $post_id ) {
+		foreach ( array( 'External URL', 'external_url' ) as $meta_key ) {
+			$meta = get_post_meta( $post_id, $meta_key, true );
+			if ( is_string( $meta ) && '' !== trim( $meta ) ) {
+				$raw = $meta;
+				break;
+			}
+		}
+	}
+
+	$raw = trim( wp_strip_all_tags( $raw ) );
+	if ( '' !== $raw ) {
+		if ( ! preg_match( '#^https?://#i', $raw ) ) {
+			$raw = 'https://' . ltrim( $raw, '/' );
+		}
+		$url = function_exists( 'esc_url_raw' ) ? esc_url_raw( $raw ) : $raw;
+		if ( $url ) {
+			return array(
+				'url'      => $url,
+				'external' => true,
+			);
+		}
+	}
+
+	if ( $post_id && function_exists( 'tca_get_event_link' ) ) {
+		$linked = tca_get_event_link( $post_id );
+		if ( is_string( $linked ) && '' !== $linked ) {
+			return array(
+				'url'      => $linked,
+				'external' => ( '' !== $permalink && $linked !== $permalink ),
+			);
+		}
+	}
+
+	return array(
+		'url'      => $permalink,
+		'external' => false,
+	);
+}
+
+/**
  * Keep only the next occurrence per recurrence series.
  *
  * @param array $events EM_Event instances.
@@ -143,10 +215,12 @@ function tca_evloc_build_marker( $EM_Location, $loc_events, $show_upcoming_event
 		if ( ! is_object( $EM_Event ) ) {
 			continue;
 		}
+		$link = tca_evloc_event_link_data( $EM_Event );
 		$events_payload[] = array(
-			'title' => $EM_Event->event_name,
-			'url'   => $EM_Event->get_permalink(),
-			'date'  => tca_evloc_format_event_date( $EM_Event ),
+			'title'    => $EM_Event->event_name,
+			'url'      => $link['url'],
+			'external' => $link['external'],
+			'date'     => tca_evloc_format_event_date( $EM_Event ),
 		);
 	}
 
@@ -296,14 +370,182 @@ function tca_evloc_markers_from_upcoming_events( $show_upcoming = true, array $c
 }
 
 /**
+ * Build Mapbox markers from Events Manager search/view args (calendar Map view).
+ *
+ * Respects the current listing filters. Drops map-view-only keys that would
+ * confuse EM_Events::get (especially `id`, which is the view HTML id).
+ *
+ * @param array $args EM view/search args.
+ * @return array[]
+ */
+function tca_evloc_markers_from_em_search_args( $args ) {
+	$markers = array();
+	if ( ! class_exists( 'EM_Events' ) || ! function_exists( 'em_get_location' ) ) {
+		return $markers;
+	}
+
+	$query_args = is_array( $args ) ? $args : array();
+	unset(
+		$query_args['id'],
+		$query_args['query'],
+		$query_args['em_ajax'],
+		$query_args['width'],
+		$query_args['height'],
+		$query_args['map_style'],
+		$query_args['has_search'],
+		$query_args['has_view'],
+		$query_args['views'],
+		$query_args['view'],
+		$query_args['ajax'],
+		$query_args['format'],
+		$query_args['format_header'],
+		$query_args['format_footer']
+	);
+
+	$query_args['has_location'] = true;
+	$query_args['limit']        = 0;
+	$query_args['recurring']    = false;
+	if ( empty( $query_args['scope'] ) ) {
+		$query_args['scope'] = function_exists( 'em_get_option' ) ? em_get_option( 'dbem_events_page_scope' ) : 'future';
+	}
+	if ( empty( $query_args['status'] ) ) {
+		$query_args['status'] = 'published';
+	}
+
+	$all_events     = tca_evloc_one_per_series( (array) EM_Events::get( $query_args ) );
+	$by_location_id = array();
+
+	foreach ( $all_events as $EM_Event ) {
+		if ( ! is_object( $EM_Event ) || empty( $EM_Event->location_id ) ) {
+			continue;
+		}
+		$lid = (int) $EM_Event->location_id;
+		if ( ! isset( $by_location_id[ $lid ] ) ) {
+			$by_location_id[ $lid ] = array();
+		}
+		$by_location_id[ $lid ][] = $EM_Event;
+	}
+
+	foreach ( $by_location_id as $location_id => $loc_events ) {
+		$EM_Location = em_get_location( (int) $location_id, 'location_id' );
+		$marker      = tca_evloc_build_marker( $EM_Location, $loc_events, true, false );
+		if ( $marker ) {
+			$markers[] = $marker;
+		}
+	}
+
+	return $markers;
+}
+
+/**
+ * Output the shared Events Locations Mapbox shell (pins + drawer).
+ *
+ * @param array[] $markers Marker payloads for events-map.js.
+ * @param array   $opts    style, height, pin_shape, pin_size, pin_fill, pin_light, map_id, extra_class.
+ * @return void
+ */
+function tca_evloc_render_map_markup( $markers, $opts = array() ) {
+	$markers = is_array( $markers ) ? $markers : array();
+	$opts    = is_array( $opts ) ? $opts : array();
+
+	$style     = ! empty( $opts['style'] ) ? (string) $opts['style'] : 'mapbox://styles/mapbox/streets-v12';
+	$height    = isset( $opts['height'] ) && is_numeric( $opts['height'] ) ? (int) $opts['height'] : 520;
+	$height    = max( 240, min( 1600, $height ) );
+	$pin_shape = ! empty( $opts['pin_shape'] ) ? (string) $opts['pin_shape'] : 'teardrop';
+	if ( ! in_array( $pin_shape, array( 'teardrop', 'circle', 'square', 'diamond' ), true ) ) {
+		$pin_shape = 'teardrop';
+	}
+	$pin_size  = isset( $opts['pin_size'] ) && is_numeric( $opts['pin_size'] ) ? (int) $opts['pin_size'] : 15;
+	$pin_fill  = ! empty( $opts['pin_fill'] ) ? (string) $opts['pin_fill'] : '#385DFF';
+	$pin_light = ! empty( $opts['pin_light'] );
+	$map_id    = ! empty( $opts['map_id'] ) ? sanitize_html_class( (string) $opts['map_id'] ) : 'tca-evloc-map-' . wp_unique_id();
+	$extra     = ! empty( $opts['extra_class'] ) ? (string) $opts['extra_class'] : '';
+
+	if ( function_exists( 'sanitize_hex_color' ) ) {
+		$sanitized = sanitize_hex_color( $pin_fill );
+		if ( $sanitized ) {
+			$pin_fill = $sanitized;
+		}
+	}
+
+	$markers_json = wp_json_encode(
+		$markers,
+		JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+	);
+	$wrap_class = trim( 'tca-events-locations-map-wrap ' . $extra );
+	?>
+	<div
+		class="<?php echo esc_attr( $wrap_class ); ?>"
+		data-tca-events-locations-map
+		data-map-style="<?php echo esc_attr( $style ); ?>"
+		data-pin-shape="<?php echo esc_attr( $pin_shape ); ?>"
+		data-pin-light="<?php echo $pin_light ? '1' : '0'; ?>"
+		data-pin-size="<?php echo (int) $pin_size; ?>"
+		data-show-upcoming-events="1"
+		data-no-events-behavior="hide"
+		data-no-events-message=""
+		data-markers="<?php echo esc_attr( $markers_json ); ?>"
+		data-label-upcoming="<?php echo esc_attr__( 'Upcoming events', 'tca' ); ?>"
+		style="<?php echo esc_attr( '--tca-pin-fill:' . $pin_fill . ';' ); ?>"
+	>
+		<div
+			class="tca-events-locations-map-shell"
+			style="<?php echo esc_attr( sprintf( '--tca-events-map-height:%dpx;height:%1$dpx;min-height:%1$dpx;', $height ) ); ?>"
+		>
+			<aside
+				class="tca-events-locations-drawer"
+				id="<?php echo esc_attr( $map_id ); ?>-drawer"
+				hidden
+				aria-hidden="true"
+			>
+				<button type="button" class="tca-events-locations-drawer__close" aria-label="<?php echo esc_attr__( 'Close panel', 'tca' ); ?>">&times;</button>
+				<div class="tca-events-locations-drawer__cols">
+					<div class="tca-events-locations-drawer__detail">
+						<div class="tca-events-locations-drawer__image-wrap">
+							<img src="" alt="" width="640" height="480" decoding="async" />
+						</div>
+						<h3 class="tca-events-locations-drawer__title" id="<?php echo esc_attr( $map_id ); ?>-drawer-title"></h3>
+						<p class="tca-events-locations-drawer__address"></p>
+						<p class="tca-events-locations-drawer__website" hidden></p>
+					</div>
+					<div class="tca-events-locations-drawer__events-col">
+						<h4 class="tca-events-locations-drawer__events-heading"></h4>
+						<ul class="tca-events-locations-drawer__events"></ul>
+						<p class="tca-events-locations-drawer__empty" hidden><?php echo esc_html__( 'No upcoming events at this location.', 'tca' ); ?></p>
+					</div>
+				</div>
+			</aside>
+			<div class="tca-events-locations-map-stage">
+				<button
+					type="button"
+					class="tca-events-locations-map-scrim"
+					hidden
+					tabindex="-1"
+					aria-label="<?php echo esc_attr__( 'Close location panel', 'tca' ); ?>"
+				></button>
+				<div
+					id="<?php echo esc_attr( $map_id ); ?>"
+					class="tca-events-locations-map-canvas"
+					role="presentation"
+				></div>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+
+/**
  * Resolve Mapbox style URL from ACF fields.
  *
- * @param string $style_choice Selected style or "custom".
- * @param string $custom_raw   Custom style URL.
+ * @param string      $style_choice  Selected style or "custom".
+ * @param string      $custom_raw    Custom style URL.
+ * @param string|null $default_style Fallback style URL.
  * @return string
  */
-function tca_evloc_resolve_mapbox_style( $style_choice, $custom_raw = '' ) {
+function tca_evloc_resolve_mapbox_style( $style_choice, $custom_raw = '', $default_style = null ) {
+	$tca_style      = 'mapbox://styles/tcasoftware/cm7unqmeq01px01qo3jv83ql2';
 	$allowed_styles = array(
+		$tca_style,
 		'mapbox://styles/mapbox/streets-v12',
 		'mapbox://styles/mapbox/outdoors-v12',
 		'mapbox://styles/mapbox/light-v11',
@@ -313,7 +555,9 @@ function tca_evloc_resolve_mapbox_style( $style_choice, $custom_raw = '' ) {
 		'mapbox://styles/mapbox/navigation-day-v1',
 		'mapbox://styles/mapbox/navigation-night-v1',
 	);
-	$default_style = 'mapbox://styles/mapbox/streets-v12';
+	if ( null === $default_style || '' === $default_style ) {
+		$default_style = 'mapbox://styles/mapbox/streets-v12';
+	}
 
 	if ( 'custom' === $style_choice ) {
 		$custom_raw = is_string( $custom_raw ) ? trim( $custom_raw ) : '';

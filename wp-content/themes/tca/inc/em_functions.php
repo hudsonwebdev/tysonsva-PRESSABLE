@@ -212,4 +212,15 @@ switch($result){
 
 }
 
+add_filter( 'template_include', 'tca_use_event_single_template', 99 );
+function tca_use_event_single_template( $template ) {
+	if ( is_singular( 'event' ) ) {
+		$event_template = locate_template( 'single-event.php' );
+		if ( $event_template ) {
+			return $event_template;
+		}
+	}
+	return $template;
+}
+
 

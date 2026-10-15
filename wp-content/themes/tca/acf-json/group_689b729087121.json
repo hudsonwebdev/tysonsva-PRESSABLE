@@ -44,6 +44,13 @@
                 "operator": "==",
                 "value": "3806"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-events.php"
+            }
         ]
     ],
     "menu_order": 0,
@@ -62,5 +69,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1755020507
+    "modified": 1760545200
 }

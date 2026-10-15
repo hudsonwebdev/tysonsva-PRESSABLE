@@ -193,6 +193,10 @@
 					var a = document.createElement('a');
 					a.href = ev.url || '#';
 					a.textContent = ev.title || '';
+					if (ev.external) {
+						a.target = '_blank';
+						a.rel = 'noopener noreferrer';
+					}
 					li.appendChild(a);
 					if (ev.date) {
 						var span = document.createElement('span');
