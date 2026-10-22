@@ -220,7 +220,40 @@ function tca_use_event_single_template( $template ) {
 			return $event_template;
 		}
 	}
+	if ( is_singular( 'location' ) ) {
+		$location_template = locate_template( 'single-location.php' );
+		if ( $location_template ) {
+			return $location_template;
+		}
+	}
 	return $template;
 }
+
+/**
+ * Support {has_att_…} / {no_att_…} conditionals on location formats.
+ *
+ * @param bool        $show        Whether to output the block.
+ * @param string      $condition   Conditional name.
+ * @param string      $full        Full matched string.
+ * @param EM_Location $EM_Location Location object.
+ * @return bool
+ */
+function tca_em_location_att_condition( $show, $condition, $full, $EM_Location ) {
+	unset( $full );
+	$attrs = ( is_object( $EM_Location ) && ! empty( $EM_Location->location_attributes ) && is_array( $EM_Location->location_attributes ) )
+		? $EM_Location->location_attributes
+		: array();
+
+	if ( preg_match( '/^has_att_([a-zA-Z0-9_\-,]+)$/', $condition, $match ) ) {
+		$key = $match[1];
+		return ! empty( $attrs[ $key ] ) || ! empty( $attrs[ str_replace( '_', ' ', $key ) ] );
+	}
+	if ( preg_match( '/^no_att_([a-zA-Z0-9_\-,]+)$/', $condition, $match ) ) {
+		$key = $match[1];
+		return empty( $attrs[ $key ] ) && empty( $attrs[ str_replace( '_', ' ', $key ) ] );
+	}
+	return $show;
+}
+add_filter( 'em_location_output_show_condition', 'tca_em_location_att_condition', 10, 4 );
 
 

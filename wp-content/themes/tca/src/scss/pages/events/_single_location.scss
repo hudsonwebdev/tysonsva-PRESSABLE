@@ -1,0 +1,193 @@
+.location-page,
+.single-location #primary{
+  background: linear-gradient(180deg, #FFF 0%, #C5EAFA 18%, #FFF 55%);
+  padding: 24px 0 2rem;
+
+  @media (min-width: $breakpoint-large){
+    padding-top: 32px;
+  }
+
+  .back-to-events{
+    color:$purple;
+    font-size:16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 20px;
+    font-family: 'silkamedium';
+    z-index:30;
+    text-decoration:none;
+    path{
+      stroke:$purple
+    }
+    &:hover{
+      path{
+        stroke:$steel-blue
+      }
+      color:$steel-blue;
+    }
+    @media (min-width: $breakpoint-medium){
+      margin-bottom: 28px;
+    }
+  }
+
+  .location-header{
+    margin-top: 1.5rem;
+    position: relative;
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $breakpoint-medium){
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .location-info{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      @media (min-width: $breakpoint-medium){
+        width: 35%;
+      }
+
+      .inner{
+        position: relative;
+        z-index: 2;
+        background-color: $steel-blue;
+        color: $white;
+        padding: 24px;
+        width: 100%;
+        box-sizing: border-box;
+        @media (min-width: $breakpoint-medium){
+          width: 125%;
+          padding: 60px;
+        }
+
+        .card-header{
+          display: flex;
+          color:$white;
+          border-bottom:1px solid $white;
+          margin:0 0 8px;
+          @include cardHeaderInfo();
+
+          .card-type{
+            border-left:1px solid $white;
+            text-transform: uppercase;
+            padding:0 15px 10px 15px;
+          }
+        }
+
+        h1{
+          color:$white;
+          margin: 16px 0 20px;
+          @include eventTitle();
+        }
+
+        .location-address{
+          margin-bottom: 20px;
+          padding-bottom: 8px;
+          .pin{
+            padding:0 10px 10px 0;
+            width:40px;
+            flex-shrink: 0;
+            svg{
+              fill:$white;
+            }
+          }
+          .address{
+            font-size: clamp(16px, 2.5vw, 22px);
+            font-weight:600;
+            line-height: 1.35;
+          }
+        }
+
+        .location-website a{
+          color:$white;
+          font-family: $fontMedium;
+          text-decoration:none;
+          font-size: 16px;
+          border-bottom:2px solid transparent;
+          &:hover{
+            border-bottom-color: $light-blue;
+          }
+        }
+      }
+    }
+
+    .featured-image{
+      order: -1;
+      @media (min-width: $breakpoint-medium){
+        width: 75%;
+        order: 1;
+      }
+
+      .aspect-ratio-container {
+        position: relative;
+        width: 100%;
+        padding-top: calc(593 / 910 * 100%);
+        img{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    &:not(:has(.featured-image)){
+      .location-info{
+        @media (min-width: $breakpoint-medium){
+          width: 100%;
+          .inner{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .location-map{
+    margin-top: 1.5rem;
+
+    .em-location-map-container,
+    .em-location-map,
+    iframe.em-location-map{
+      width: 100% !important;
+      height: 240px !important;
+      min-height: 240px;
+      max-width: 100%;
+      @media (min-width: $breakpoint-medium){
+        height: 320px !important;
+        min-height: 320px;
+      }
+    }
+
+    .em-location-map-container{
+      background: $tint;
+    }
+  }
+
+  .location-content,
+  .location-upcoming{
+    padding: 32px 0 0;
+
+    h2,h3{
+      color:$steel-blue;
+    }
+
+    @media (min-width: $breakpoint-medium){
+      padding-top: 48px;
+    }
+  }
+
+  .location-upcoming{
+    padding-bottom: 48px;
+    @media (min-width: $breakpoint-medium){
+      padding-bottom: 64px;
+    }
+  }
+}
