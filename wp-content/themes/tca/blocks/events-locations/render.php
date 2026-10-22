@@ -280,10 +280,13 @@ $tca_events_locations_append_location = static function ( $EM_Location, $loc_eve
 		return;
 	}
 
+	$location_url = method_exists( $EM_Location, 'get_permalink' ) ? (string) $EM_Location->get_permalink() : '';
+
 	$markers[] = array(
 		'lat'           => $lat,
 		'lng'           => $lng,
 		'locationName'  => $EM_Location->location_name,
+		'locationUrl'   => $location_url,
 		'imageUrl'      => $image_url,
 		'address'       => $address,
 		'websiteUrl'    => $website_url,

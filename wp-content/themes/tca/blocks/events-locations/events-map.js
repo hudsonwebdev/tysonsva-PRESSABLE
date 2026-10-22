@@ -52,7 +52,19 @@
 		var colsEl = drawer.querySelector('.tca-events-locations-drawer__cols');
 
 		if (titleEl) {
-			titleEl.textContent = data.locationName || '';
+			while (titleEl.firstChild) {
+				titleEl.removeChild(titleEl.firstChild);
+			}
+			var locName = data.locationName || '';
+			var locUrl = typeof data.locationUrl === 'string' ? data.locationUrl.trim() : '';
+			if (locName && locUrl) {
+				var titleLink = document.createElement('a');
+				titleLink.href = locUrl;
+				titleLink.textContent = locName;
+				titleEl.appendChild(titleLink);
+			} else {
+				titleEl.textContent = locName;
+			}
 		}
 
 		if (addrEl) {

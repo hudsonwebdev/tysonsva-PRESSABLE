@@ -255,10 +255,16 @@ function tca_evloc_build_marker( $EM_Location, $loc_events, $show_upcoming_event
 		}
 	}
 
+	$location_url = '';
+	if ( method_exists( $EM_Location, 'get_permalink' ) ) {
+		$location_url = (string) $EM_Location->get_permalink();
+	}
+
 	return array(
 		'lat'          => $lat,
 		'lng'          => $lng,
 		'locationName' => $EM_Location->location_name,
+		'locationUrl'  => $location_url,
 		'imageUrl'     => $image_url,
 		'address'      => $address,
 		'websiteUrl'   => $website_url,

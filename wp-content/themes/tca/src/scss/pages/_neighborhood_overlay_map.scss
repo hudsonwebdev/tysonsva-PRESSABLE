@@ -1,0 +1,107 @@
+.neighborhood-overlay-map-page{
+  padding: 24px 0 3rem;
+
+  @media (min-width: $breakpoint-large){
+    padding-top: 32px;
+  }
+
+  .tca-ng-overlay-map-title{
+    color: $steel-blue;
+    margin: 0 0 1rem;
+  }
+
+  .tca-ng-overlay-map-intro{
+    margin: 0 0 1.5rem;
+    max-width: 48rem;
+  }
+}
+
+.tca-ng-overlay-map{
+  position: relative;
+  width: 100%;
+  min-height: 70vh;
+  background: $tint;
+
+  &__canvas{
+    width: 100%;
+    height: 70vh;
+    min-height: 480px;
+  }
+
+  &__scrim{
+    position: absolute;
+    inset: 0;
+    border: 0;
+    padding: 0;
+    background: rgba(12, 0, 66, 0.45);
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  &__panel{
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(640px, calc(100% - 32px));
+    max-height: calc(70vh - 32px);
+    overflow: auto;
+    background: $white;
+    color: $gray;
+    box-shadow: 0 18px 50px rgba(12, 0, 66, 0.28);
+    padding: 0 0 24px;
+    box-sizing: border-box;
+  }
+
+  &__close{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: rgba(255, 255, 255, 0.9);
+    color: $purple;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  &__image-wrap{
+    margin: 0 0 16px;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background: $steel-blue;
+
+    img{
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &--empty{
+      background: $steel-blue;
+
+      img{
+        display: none;
+      }
+    }
+  }
+
+  &__heading{
+    color: $steel-blue;
+    margin: 0 48px 12px 24px;
+    font-size: 1.75rem;
+    line-height: 1.25;
+  }
+
+  &__description{
+    margin: 0 24px;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+}

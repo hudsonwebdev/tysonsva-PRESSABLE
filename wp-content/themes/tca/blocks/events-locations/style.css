@@ -211,6 +211,16 @@
 	color: #fff;
 }
 
+.tca-events-locations-drawer__title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.tca-events-locations-drawer__title a:hover,
+.tca-events-locations-drawer__title a:focus {
+	text-decoration: underline;
+}
+
 .tca-events-locations-drawer__address {
 	margin: 0 0 0.75rem;
 	font-size: 0.875rem;

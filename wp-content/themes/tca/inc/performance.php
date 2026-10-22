@@ -21,7 +21,11 @@ function tca_performance_resource_hints() {
 	echo '<link rel="preload" href="' . esc_url( $main_css ) . '?ver=' . esc_attr( $version ) . '" as="style">' . "\n";
 	echo '<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>' . "\n";
 
-	if ( is_singular( 'neighborhood' ) || ( function_exists( 'tca_post_has_neighborhood_map_block' ) && tca_post_has_neighborhood_map_block() ) ) {
+	if (
+		is_singular( 'neighborhood' )
+		|| ( function_exists( 'tca_post_has_neighborhood_map_block' ) && tca_post_has_neighborhood_map_block() )
+		|| ( function_exists( 'tca_is_neighborhood_overlay_map_page' ) && tca_is_neighborhood_overlay_map_page() )
+	) {
 		echo '<link rel="preconnect" href="https://api.mapbox.com" crossorigin>' . "\n";
 	}
 }
@@ -44,6 +48,7 @@ function tca_defer_scripts( $tag, $handle, $src ) {
 	$defer_handles = array(
 		'tca-navigation',
 		'tca-neighborhood',
+		'tca-neighborhood-overlay-map',
 		'mapbox-js',
 		// Must defer with mapbox-js: otherwise these run before Mapbox and never init.
 		'tca-events-locations-map',

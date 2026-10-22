@@ -21,6 +21,7 @@ module.exports = {
     entry: {
       "js/main": path.resolve(process.cwd(), "src/js", "main.js"),
       "js/neighborhood": path.resolve(process.cwd(), "src/js", "neighborhood.js"),
+      "js/neighborhood-overlay-map": path.resolve(process.cwd(), "src/js", "neighborhood-overlay-map.js"),
       //"js/editor": path.resolve(process.cwd(), "src/js", "editor.js"),
       "css/main": path.resolve(process.cwd(), "src/scss", "main.scss"),
       "css/editor": path.resolve(process.cwd(), "src/scss", "editor.scss"),
